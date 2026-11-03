@@ -1,0 +1,48 @@
+name: twilio-subaccount-yaml
+description: Provision a Twilio subaccount tenant with a restricted API key and a Verify service (YAML)
+runtime: yaml
+
+# Credentials come from config (`pulumi config set twilio:accountSid ...` and `pulumi config set --secret twilio:authToken ...`) or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.
+config:
+  tenantName:
+    type: string
+    default: pulumi-tenant
+
+resources:
+  # Destroying the stack CLOSES the subaccount (permanent after 30 days); set status: suspended to pause it instead.
+  tenant:
+    type: twilio:index:Subaccount
+    properties:
+      friendlyName: ${tenantName}
+
+  # A restricted API key scoped to the tenant that may only manage Verify services.
+  ci:
+    type: twilio:index:ApiKey
+    properties:
+      friendlyName: pulumi-ci
+      accountSid: ${tenant.sid}
+      keyType: restricted
+      policy:
+        fn::toJSON:
+          allow:
+            - /v2/Services/**
+
+  verify:
+    type: twilio:index:VerifyService
+    properties:
+      friendlyName: Pulumi Demo
+      codeLength: 6
+
+variables:
+  account:
+    fn::invoke:
+      function: twilio:index:getAccount
+      arguments:
+        accountSid: ${tenant.sid}
+
+outputs:
+  tenantSid: ${tenant.sid}
+  keySid: ${ci.sid}
+  keySecret: ${ci.secret}
+  verifyServiceSid: ${verify.sid}
+  tenantStatus: ${account.status}

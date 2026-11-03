@@ -1,0 +1,27 @@
+# Twilio Provider Skills
+
+Guidance for agents using the `twilio` Pulumi provider.
+
+## When to use it
+Declare Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as code. Do not use it for sending messages, placing calls or running verifications at runtime.
+
+## Rules of thumb
+1. Configure `twilio:accountSid` and secret `twilio:authToken` (or `twilio:apiKey` with secret `twilio:apiSecret`); never hardcode them. Environment fallbacks are `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_API_KEY`, `TWILIO_API_SECRET`, `TWILIO_REGION`, `TWILIO_EDGE`. Do not create an explicit provider resource; the default provider reads the stack config.
+2. `IncomingPhoneNumber` adopts an owned number (`phoneNumber` in E.164 or `phoneNumberSid`, exactly one). It never buys one and destroy never releases it. If the number is not owned the create fails by design.
+3. A number can have `voiceUrl` or `voiceApplicationSid`, and `smsUrl` or `smsApplicationSid`, not both for the same channel. Inside a Messaging Service the service's `inboundRequestUrl` handles inbound SMS unless `useInboundWebhookOnNumber` is true.
+4. `Subaccount` destroy CLOSES the subaccount (irreversible after 30 days). Use `status: suspended` to pause. Creating subaccounts and keys needs the account auth token, not an API key.
+5. `ApiKey.secret` is a one-time secret output; export it as a secret. Restricted keys need `keyType: restricted` and a JSON `policy` (for example `{"allow":["/v2/Services/**"]}`); standard keys must not set `policy`. `friendlyName` and `policy` update in place, `keyType` and `accountSid` replace.
+6. `accountSid` on `ApiKey`, `Application` and `IncomingPhoneNumber` targets a subaccount using the parent credentials. `MessagingService` and `VerifyService` belong to the credential's own account.
+7. Build the sender pool with one `MessagingServicePhoneNumber` per number (`serviceSid`, `phoneNumberSid`); both inputs replace on change. A number can only be in one service.
+8. Use `getAccount` and `getIncomingPhoneNumber` to reference things managed elsewhere.
+
+## Resource and function tokens
+`twilio:index:Subaccount`, `twilio:index:ApiKey`, `twilio:index:IncomingPhoneNumber`, `twilio:index:Application`, `twilio:index:MessagingService`, `twilio:index:MessagingServicePhoneNumber`, `twilio:index:VerifyService`, `twilio:index:getAccount`, `twilio:index:getIncomingPhoneNumber`.
+
+## Pitfalls
+* Resource ids are the Twilio SIDs (`AC...`, `SK...`, `PN...`, `AP...`, `MG...`, `VA...`); a `MessagingServicePhoneNumber` id is `<serviceSid>/<phoneNumberSid>`.
+* Removing a webhook field from the program clears it on Twilio on the next update; leaving it unset on a freshly adopted number leaves Twilio's current value alone.
+* The provider has not been validated against a live account; try it on a trial account first.
+
+## Roadmap
+Buying numbers, Studio, Flex, TaskRouter, Conversations, SIP trunking, A2P 10DLC. See README.

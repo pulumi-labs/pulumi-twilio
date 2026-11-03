@@ -1,0 +1,12 @@
+name: ${PROJECT}
+runtime: nodejs
+description: ${DESCRIPTION}
+
+template:
+  description: A TypeScript program that provisions a Twilio TwiML application and a messaging service.
+  config:
+    twilio:accountSid:
+      description: Twilio account SID (starts with AC), from the Twilio Console. Or set TWILIO_ACCOUNT_SID.
+    twilio:authToken:
+      description: Twilio account auth token. Or set TWILIO_AUTH_TOKEN.
+      secret: true

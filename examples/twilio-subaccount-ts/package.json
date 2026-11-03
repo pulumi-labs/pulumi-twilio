@@ -1,0 +1,12 @@
+{
+  "name": "twilio-subaccount-ts",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/node": "^18",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3",
+    "@pulumi/twilio": "^0.1.0"
+  }
+}

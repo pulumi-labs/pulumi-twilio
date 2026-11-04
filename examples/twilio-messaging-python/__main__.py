@@ -1,6 +1,6 @@
 # Credentials come from config (`pulumi config set twilio:accountSid ...` and `pulumi config set --secret twilio:authToken ...`) or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.
 import pulumi
-import pulumi_twilio as twilio
+import pulumi_labs_twilio as twilio
 
 config = pulumi.Config()
 sms_url = config.get("smsUrl") or "https://example.com/webhooks/sms"

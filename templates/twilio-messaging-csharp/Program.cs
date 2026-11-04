@@ -1,5 +1,5 @@
 using Pulumi;
-using Pulumi.Twilio;
+using Pulumi.Labs.Twilio;
 
 return await Deployment.RunAsync(() =>
 {
@@ -9,7 +9,7 @@ return await Deployment.RunAsync(() =>
     var voiceUrl = config.Get("voiceUrl") ?? "https://example.com/webhooks/voice";
     var smsUrl = config.Get("smsUrl") ?? "https://example.com/webhooks/sms";
 
-    var app = new Pulumi.Twilio.Application("app", new ApplicationArgs
+    var app = new Pulumi.Labs.Twilio.Application("app", new ApplicationArgs
     {
         FriendlyName = "pulumi-messaging",
         VoiceUrl = voiceUrl,

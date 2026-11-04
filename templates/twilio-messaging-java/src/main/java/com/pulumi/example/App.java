@@ -2,10 +2,10 @@ package com.pulumi.example;
 
 import com.pulumi.Context;
 import com.pulumi.Pulumi;
-import com.pulumi.twilio.Application;
-import com.pulumi.twilio.ApplicationArgs;
-import com.pulumi.twilio.MessagingService;
-import com.pulumi.twilio.MessagingServiceArgs;
+import com.pulumi.labs.twilio.Application;
+import com.pulumi.labs.twilio.ApplicationArgs;
+import com.pulumi.labs.twilio.MessagingService;
+import com.pulumi.labs.twilio.MessagingServiceArgs;
 
 public class App {
     public static void main(String[] args) {

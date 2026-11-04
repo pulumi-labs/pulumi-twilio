@@ -2,7 +2,7 @@
 import json
 
 import pulumi
-import pulumi_twilio as twilio
+import pulumi_labs_twilio as twilio
 
 config = pulumi.Config()
 tenant_name = config.get("tenantName") or "pulumi-tenant"

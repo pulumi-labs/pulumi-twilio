@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as twilio from "@pulumi/twilio";
+import * as twilio from "@pulumi-labs/twilio";
 
 // Credentials come from `pulumi config set twilio:accountSid ...` / `twilio:authToken --secret`
 // or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.

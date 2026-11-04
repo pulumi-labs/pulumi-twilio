@@ -1,7 +1,7 @@
 // Credentials come from config (`pulumi config set twilio:accountSid ...` and `pulumi config set --secret twilio:authToken ...`) or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.
 using System.Text.Json;
 using Pulumi;
-using Pulumi.Twilio;
+using Pulumi.Labs.Twilio;
 
 return await Deployment.RunAsync(() =>
 {

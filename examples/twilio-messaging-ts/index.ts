@@ -1,6 +1,6 @@
 // Credentials come from config (`pulumi config set twilio:accountSid ...` and `pulumi config set --secret twilio:authToken ...`) or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.
 import * as pulumi from "@pulumi/pulumi";
-import * as twilio from "@pulumi/twilio";
+import * as twilio from "@pulumi-labs/twilio";
 
 const config = new pulumi.Config();
 const smsUrl = config.get("smsUrl") ?? "https://example.com/webhooks/sms";

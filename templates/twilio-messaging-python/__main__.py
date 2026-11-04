@@ -1,5 +1,5 @@
 import pulumi
-import pulumi_twilio as twilio
+import pulumi_labs_twilio as twilio
 
 # Credentials come from `pulumi config set twilio:accountSid ...` / `twilio:authToken --secret`
 # or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.

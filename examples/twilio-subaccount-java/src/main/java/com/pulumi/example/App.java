@@ -3,14 +3,14 @@ package com.pulumi.example;
 // Credentials come from config (`pulumi config set twilio:accountSid ...` and `pulumi config set --secret twilio:authToken ...`) or the TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN environment variables.
 import com.pulumi.Context;
 import com.pulumi.Pulumi;
-import com.pulumi.twilio.ApiKey;
-import com.pulumi.twilio.ApiKeyArgs;
-import com.pulumi.twilio.Subaccount;
-import com.pulumi.twilio.SubaccountArgs;
-import com.pulumi.twilio.TwilioFunctions;
-import com.pulumi.twilio.VerifyService;
-import com.pulumi.twilio.VerifyServiceArgs;
-import com.pulumi.twilio.inputs.GetAccountArgs;
+import com.pulumi.labs.twilio.ApiKey;
+import com.pulumi.labs.twilio.ApiKeyArgs;
+import com.pulumi.labs.twilio.Subaccount;
+import com.pulumi.labs.twilio.SubaccountArgs;
+import com.pulumi.labs.twilio.TwilioFunctions;
+import com.pulumi.labs.twilio.VerifyService;
+import com.pulumi.labs.twilio.VerifyServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetAccountArgs;
 
 public class App {
     public static void main(String[] args) {

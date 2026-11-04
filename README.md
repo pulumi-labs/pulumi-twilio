@@ -1,6 +1,27 @@
 # Twilio Pulumi Provider
 
+> [!NOTE]
+> **Experimental.** This provider is experimental, versions are `0.x`, and its API may change without notice.
+
 A native Pulumi provider for [Twilio](https://www.twilio.com). There is no maintained Terraform provider for Twilio (the official `twilio/twilio` provider is labelled pilot and has not been released since June 2024), so this provider calls the Twilio REST API directly and manages the account-level building blocks of a Twilio estate as infrastructure: subaccounts, API keys, phone-number routing, TwiML applications, messaging services and Verify services.
+
+## Installation
+
+```bash
+# TypeScript / JavaScript
+npm install @pulumi-labs/twilio
+
+# Python
+pip install pulumi-labs-twilio
+
+# Go
+go get github.com/pulumi-labs/pulumi-twilio/sdk/go/twilio
+
+# .NET
+dotnet add package Pulumi.Labs.Twilio
+```
+
+Java: `com.pulumi.labs:twilio` on Maven Central.
 
 ## Resources
 

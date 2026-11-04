@@ -3,6 +3,6 @@ module twilio-subaccount-go
 go 1.22
 
 require (
-	github.com/pulumi/pulumi-twilio/sdk/go/twilio v0.1.0
+	github.com/pulumi-labs/pulumi-twilio/sdk/go/twilio v0.1.0
 	github.com/pulumi/pulumi/sdk/v3 v3.229.0
 )

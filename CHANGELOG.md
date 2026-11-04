@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added
+
+- Lookup functions for every resource: `getSubaccount` (arg `subaccountSid`), `getApiKey` (`keySid`, optional `accountSid`; never returns the secret), `getApplication` (`applicationSid`, optional `accountSid`), `getMessagingService` and `getVerifyService` (`serviceSid`; results carry the configuration Twilio reports) and `getMessagingServicePhoneNumber` (`serviceSid`, `phoneNumberSid`). A missing object fails with "<object> was not found".
+- `getBalance` reads the prepaid balance and currency of the provider account or a subaccount.
+- Coverage inventory of Twilio's SDKs and OpenAPI definitions in `research/coverage/twilio.md`.
+
 ### Fixed
 
 - `Subaccount` destroy of the provider's own top-level account is refused with a hint to run `pulumi state delete` to drop it from state.

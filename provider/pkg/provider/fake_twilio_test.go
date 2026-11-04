@@ -288,6 +288,14 @@ func (f *fakeTwilio) handleAPI(w http.ResponseWriter, r *http.Request, form url.
 func (f *fakeTwilio) handleScoped(w http.ResponseWriter, r *http.Request, form url.Values, parts []string) {
 	acct := parts[1]
 	coll := trimJSON(parts[2])
+	if coll == "Balance" && len(parts) == 3 && r.Method == "GET" {
+		if !f.accountKnown(acct) {
+			ferr(w, 404, "not found")
+			return
+		}
+		fwrite(w, 200, map[string]any{"account_sid": acct, "balance": "12.3400", "currency": "USD"})
+		return
+	}
 	kinds := map[string]struct {
 		kind   string
 		prefix string

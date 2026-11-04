@@ -16,6 +16,8 @@ A native Pulumi provider for [Twilio](https://www.twilio.com). There is no maint
 
 Data sources: `twilio:index:getAccount` (the provider account or any subaccount by `accountSid`; the auth token is deliberately not returned) and `twilio:index:getIncomingPhoneNumber` (by `phoneNumber` or `sid`).
 
+Lookup functions, one per resource: `getSubaccount` (`subaccountSid`), `getApiKey` (`keySid`, optional `accountSid`; the secret is never returned), `getApplication` (`applicationSid`, optional `accountSid`), `getMessagingService` and `getVerifyService` (`serviceSid`), `getMessagingServicePhoneNumber` (`serviceSid`, `phoneNumberSid`) and `getBalance` (optional `accountSid`). Each fails with "... was not found" for an object that does not exist. The full list of what Twilio's SDKs offer and what is deferred is in `research/coverage/twilio.md`.
+
 `IncomingPhoneNumber`, `Application` and `ApiKey` accept an optional `accountSid` to act inside a subaccount with the parent's credentials. Changing it replaces an `Application` or `ApiKey`; for an `IncomingPhoneNumber` it transfers the number to the other account in place (Twilio's `AccountSid` update parameter, posted to the account that currently owns the number).
 
 ## Configuration

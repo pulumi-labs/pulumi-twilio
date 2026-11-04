@@ -36,6 +36,13 @@ func New() (provider.Provider, error) {
 		WithFunctions(
 			infer.Function[*GetAccount, GetAccountArgs, GetAccountResult](&GetAccount{}),
 			infer.Function[*GetIncomingPhoneNumber, GetIncomingPhoneNumberArgs, GetIncomingPhoneNumberResult](&GetIncomingPhoneNumber{}),
+			infer.Function[*GetSubaccount, GetSubaccountArgs, GetSubaccountResult](&GetSubaccount{}),
+			infer.Function[*GetApiKey, GetApiKeyArgs, GetApiKeyResult](&GetApiKey{}),
+			infer.Function[*GetApplication, GetApplicationArgs, GetApplicationResult](&GetApplication{}),
+			infer.Function[*GetMessagingService, GetMessagingServiceArgs, GetMessagingServiceResult](&GetMessagingService{}),
+			infer.Function[*GetMessagingServicePhoneNumber, GetMessagingServicePhoneNumberArgs, GetMessagingServicePhoneNumberResult](&GetMessagingServicePhoneNumber{}),
+			infer.Function[*GetVerifyService, GetVerifyServiceArgs, GetVerifyServiceResult](&GetVerifyService{}),
+			infer.Function[*GetBalance, GetBalanceArgs, GetBalanceResult](&GetBalance{}),
 		).
 		Build()
 }

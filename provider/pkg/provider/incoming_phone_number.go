@@ -17,7 +17,7 @@ type IncomingPhoneNumber struct{}
 type IncomingPhoneNumberArgs struct {
 	PhoneNumber          *string `pulumi:"phoneNumber,optional" provider:"replaceOnChanges"`
 	PhoneNumberSid       *string `pulumi:"phoneNumberSid,optional" provider:"replaceOnChanges"`
-	AccountSid           *string `pulumi:"accountSid,optional" provider:"replaceOnChanges"`
+	AccountSid           *string `pulumi:"accountSid,optional"`
 	FriendlyName         *string `pulumi:"friendlyName,optional"`
 	VoiceUrl             *string `pulumi:"voiceUrl,optional"`
 	VoiceMethod          *string `pulumi:"voiceMethod,optional"`
@@ -59,7 +59,10 @@ func (a *IncomingPhoneNumberArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.PhoneNumberSid, "SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. "+
 		"Changing it replaces the resource.")
 	an.Describe(&a.AccountSid, "SID of the account or subaccount that owns the number. Defaults to the provider account. "+
-		"Changing it replaces the resource.")
+		"Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the "+
+		"provider's credentials must own the number or its parent account. To import a number owned by a subaccount "+
+		"use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, "+
+		"so protect the resource (the protect resource option) to stop an edit from moving a live number.")
 	an.Describe(&a.FriendlyName, "Human-readable label for the number.")
 	an.Describe(&a.VoiceUrl, "URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.")
 	an.Describe(&a.VoiceMethod, "HTTP method for voiceUrl: GET or POST.")
@@ -86,12 +89,16 @@ type IncomingPhoneNumberState struct {
 	Number string `pulumi:"number"`
 	// OwnerAccountSid is the account that owns the number.
 	OwnerAccountSid string `pulumi:"ownerAccountSid"`
+	// Effective is the configuration Twilio reports, including fields the program did not set.
+	Effective *IncomingPhoneNumberEffective `pulumi:"effective,optional"`
 }
 
 func (s *IncomingPhoneNumberState) Annotate(a infer.Annotator) {
 	a.Describe(&s.Sid, "The phone number SID (PN...).")
 	a.Describe(&s.Number, "The phone number in E.164 format.")
 	a.Describe(&s.OwnerAccountSid, "SID of the account that owns the number.")
+	a.Describe(&s.Effective, "The configuration Twilio currently reports for the number, including webhooks changed "+
+		"outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.")
 }
 
 func (r *IncomingPhoneNumber) Annotate(a infer.Annotator) {
@@ -111,11 +118,14 @@ func (r *IncomingPhoneNumber) Check(ctx context.Context, req infer.CheckRequest)
 	if err != nil || len(failures) > 0 {
 		return infer.CheckResponse[IncomingPhoneNumberArgs]{Inputs: args, Failures: failures}, err
 	}
-	hasNum, hasSid := args.PhoneNumber != nil && *args.PhoneNumber != "", args.PhoneNumberSid != nil && *args.PhoneNumberSid != ""
+	unk := unknowns(req.NewInputs)
+	// A computed identity counts as set: its value is only known at apply time.
+	hasNum := unk("phoneNumber") || (args.PhoneNumber != nil && *args.PhoneNumber != "")
+	hasSid := unk("phoneNumberSid") || (args.PhoneNumberSid != nil && *args.PhoneNumberSid != "")
 	if hasNum == hasSid {
 		failures = append(failures, p.CheckFailure{Property: "phoneNumber", Reason: "set exactly one of phoneNumber or phoneNumberSid"})
 	}
-	failures = checkMethods(failures, map[string]*string{
+	failures = checkMethods(failures, unk, map[string]*string{
 		"voiceMethod": args.VoiceMethod, "voiceFallbackMethod": args.VoiceFallbackMethod,
 		"statusCallbackMethod": args.StatusCallbackMethod, "smsMethod": args.SmsMethod,
 		"smsFallbackMethod": args.SmsFallbackMethod,
@@ -159,6 +169,22 @@ func findNumberByE164(ctx context.Context, c *Client, acct, e164 string) (obj, e
 	return nil, fmt.Errorf("account %s does not own the phone number %s (this resource adopts numbers, it does not purchase them)", acct, e164)
 }
 
+// IncomingPhoneNumberEffective is the configuration Twilio reports for an IncomingPhoneNumber: every field of the inputs,
+// filled from the API response.
+type IncomingPhoneNumberEffective IncomingPhoneNumberArgs
+
+// Annotate reuses the input descriptions.
+func (e *IncomingPhoneNumberEffective) Annotate(a infer.Annotator) {
+	(*IncomingPhoneNumberArgs)(e).Annotate(a)
+}
+
+func numberEffective(o obj) *IncomingPhoneNumberEffective {
+	e := IncomingPhoneNumberArgs{}
+	e.props().fillAll(o)
+	v := IncomingPhoneNumberEffective(e)
+	return &v
+}
+
 func (r *IncomingPhoneNumber) Create(ctx context.Context, req infer.CreateRequest[IncomingPhoneNumberArgs]) (infer.CreateResponse[IncomingPhoneNumberState], error) {
 	a := req.Inputs
 	if req.DryRun {
@@ -174,15 +200,20 @@ func (r *IncomingPhoneNumber) Create(ctx context.Context, req infer.CreateReques
 		return infer.CreateResponse[IncomingPhoneNumberState]{}, fmt.Errorf("adopt phone number: %w", err)
 	}
 	sid := cur.str("sid")
+	st := IncomingPhoneNumberState{IncomingPhoneNumberArgs: a, Sid: sid, Number: cur.str("phone_number"),
+		OwnerAccountSid: acct, Effective: numberEffective(cur)}
 	form := url.Values{}
 	a.props().encode(form, nil)
 	if len(form) > 0 {
-		if _, err := c.do(ctx, "POST", "api", numberPath(acct, sid), nil, form); err != nil {
-			return infer.CreateResponse[IncomingPhoneNumberState]{}, fmt.Errorf("configure phone number %s: %w", sid, err)
+		o, err := c.do(ctx, "POST", "api", numberPath(acct, sid), nil, form)
+		if err != nil {
+			// The number is adopted but not configured: save it so the next update retries.
+			return infer.CreateResponse[IncomingPhoneNumberState]{ID: scopedID(c, acct, sid), Output: st},
+				infer.ResourceInitFailedError{Reasons: []string{fmt.Sprintf("configure phone number %s: %v", sid, err)}}
 		}
+		st.Effective = numberEffective(o)
 	}
-	return infer.CreateResponse[IncomingPhoneNumberState]{ID: sid, Output: IncomingPhoneNumberState{
-		IncomingPhoneNumberArgs: a, Sid: sid, Number: cur.str("phone_number"), OwnerAccountSid: acct}}, nil
+	return infer.CreateResponse[IncomingPhoneNumberState]{ID: scopedID(c, acct, sid), Output: st}, nil
 }
 
 func (r *IncomingPhoneNumber) Read(ctx context.Context, req infer.ReadRequest[IncomingPhoneNumberArgs, IncomingPhoneNumberState]) (infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState], error) {
@@ -190,8 +221,8 @@ func (r *IncomingPhoneNumber) Read(ctx context.Context, req infer.ReadRequest[In
 	if err != nil {
 		return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{}, err
 	}
-	acct := derefOr(&req.State.OwnerAccountSid, c.acct(req.Inputs.AccountSid))
-	o, err := c.do(ctx, "GET", "api", numberPath(acct, req.ID), nil, nil)
+	acct, sid := resolveScope(c, req.ID, req.State.OwnerAccountSid)
+	o, err := c.do(ctx, "GET", "api", numberPath(acct, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
 			return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{}, nil
@@ -201,14 +232,17 @@ func (r *IncomingPhoneNumber) Read(ctx context.Context, req infer.ReadRequest[In
 	in := req.Inputs
 	imported := in.PhoneNumber == nil && in.PhoneNumberSid == nil
 	if imported {
-		sid := req.ID
-		in.PhoneNumberSid = &sid
+		s := sid
+		in.PhoneNumberSid = &s
 		if acct != c.accountSid {
 			in.AccountSid = &acct
 		}
+		in.props().adopt(o)
+	} else {
+		in.props().refreshSet(o)
 	}
-	in.props().refresh(o, imported)
-	st := IncomingPhoneNumberState{IncomingPhoneNumberArgs: in, Sid: req.ID, Number: o.str("phone_number"), OwnerAccountSid: acct}
+	st := IncomingPhoneNumberState{IncomingPhoneNumberArgs: in, Sid: sid, Number: o.str("phone_number"),
+		OwnerAccountSid: derefOr(nonEmpty(o.optStr("account_sid")), acct), Effective: numberEffective(o)}
 	return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{ID: req.ID, Inputs: in, State: st}, nil
 }
 
@@ -216,20 +250,33 @@ func (r *IncomingPhoneNumber) Update(ctx context.Context, req infer.UpdateReques
 	a := req.Inputs
 	st := req.State
 	st.IncomingPhoneNumberArgs = a
-	if req.DryRun {
+	if req.DryRun { // a preview needs no credentials
+		if a.AccountSid != nil && *a.AccountSid != "" {
+			st.OwnerAccountSid = *a.AccountSid
+		}
 		return infer.UpdateResponse[IncomingPhoneNumberState]{Output: st}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {
 		return infer.UpdateResponse[IncomingPhoneNumberState]{}, err
 	}
+	acct, sid := resolveScope(c, req.ID, req.State.OwnerAccountSid)
+	target := c.acct(a.AccountSid)
 	form := url.Values{}
 	prev := req.State.IncomingPhoneNumberArgs.props()
 	a.props().encode(form, &prev)
+	if target != acct {
+		// Twilio moves a number between accounts with the AccountSid update parameter,
+		// posted to the account that currently owns it.
+		form.Set("AccountSid", target)
+	}
 	if len(form) > 0 {
-		if _, err := c.do(ctx, "POST", "api", numberPath(req.State.OwnerAccountSid, req.ID), nil, form); err != nil {
+		o, err := c.do(ctx, "POST", "api", numberPath(acct, sid), nil, form)
+		if err != nil {
 			return infer.UpdateResponse[IncomingPhoneNumberState]{}, fmt.Errorf("update phone number %s: %w", req.ID, err)
 		}
+		st.Effective = numberEffective(o)
+		st.OwnerAccountSid = derefOr(nonEmpty(o.optStr("account_sid")), target)
 	}
 	return infer.UpdateResponse[IncomingPhoneNumberState]{Output: st}, nil
 }

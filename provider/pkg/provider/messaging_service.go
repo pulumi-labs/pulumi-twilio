@@ -76,10 +76,14 @@ type MessagingServiceState struct {
 
 	// Sid is the service SID (MG...) and the resource ID.
 	Sid string `pulumi:"sid"`
+	// Effective is the configuration Twilio reports, including fields the program did not set.
+	Effective *MessagingServiceEffective `pulumi:"effective,optional"`
 }
 
 func (s *MessagingServiceState) Annotate(a infer.Annotator) {
 	a.Describe(&s.Sid, "The Messaging Service SID (MG...).")
+	a.Describe(&s.Effective, "The configuration Twilio currently reports for the service, including fields the program "+
+		"does not set. Inputs the program leaves unset are not overwritten by these values.")
 }
 
 func (r *MessagingService) Annotate(a infer.Annotator) {
@@ -98,14 +102,15 @@ func (r *MessagingService) Check(ctx context.Context, req infer.CheckRequest) (i
 	if err != nil || len(failures) > 0 {
 		return infer.CheckResponse[MessagingServiceArgs]{Inputs: args, Failures: failures}, err
 	}
-	if args.FriendlyName == "" || len(args.FriendlyName) > 64 {
+	unk := unknowns(req.NewInputs)
+	if !unk("friendlyName") && (args.FriendlyName == "" || len(args.FriendlyName) > 64) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-64 characters"})
 	}
-	failures = checkMethods(failures, map[string]*string{"inboundMethod": args.InboundMethod, "fallbackMethod": args.FallbackMethod})
-	if s := deref(args.ScanMessageContent); args.ScanMessageContent != nil && s != "inherit" && s != "enable" && s != "disable" {
+	failures = checkMethods(failures, unk, map[string]*string{"inboundMethod": args.InboundMethod, "fallbackMethod": args.FallbackMethod})
+	if s := deref(args.ScanMessageContent); !unk("scanMessageContent") && args.ScanMessageContent != nil && s != "inherit" && s != "enable" && s != "disable" {
 		failures = append(failures, p.CheckFailure{Property: "scanMessageContent", Reason: "scanMessageContent must be inherit, enable or disable"})
 	}
-	if v := args.ValidityPeriod; v != nil && (*v < 1 || *v > 36000) {
+	if v := args.ValidityPeriod; !unk("validityPeriod") && v != nil && (*v < 1 || *v > 36000) {
 		failures = append(failures, p.CheckFailure{Property: "validityPeriod", Reason: "validityPeriod must be between 1 and 36000 seconds"})
 	}
 	return infer.CheckResponse[MessagingServiceArgs]{Inputs: args, Failures: failures}, nil
@@ -116,6 +121,22 @@ func serviceBase(sid string) string {
 		return "/v1/Services"
 	}
 	return "/v1/Services/" + url.PathEscape(sid)
+}
+
+// MessagingServiceEffective is the configuration Twilio reports for a MessagingService: every field of the inputs,
+// filled from the API response.
+type MessagingServiceEffective MessagingServiceArgs
+
+// Annotate reuses the input descriptions.
+func (e *MessagingServiceEffective) Annotate(a infer.Annotator) {
+	(*MessagingServiceArgs)(e).Annotate(a)
+}
+
+func messagingEffective(o obj) *MessagingServiceEffective {
+	e := MessagingServiceArgs{FriendlyName: o.str("friendly_name")}
+	e.props().fillAll(o)
+	v := MessagingServiceEffective(e)
+	return &v
 }
 
 func (r *MessagingService) Create(ctx context.Context, req infer.CreateRequest[MessagingServiceArgs]) (infer.CreateResponse[MessagingServiceState], error) {
@@ -133,7 +154,8 @@ func (r *MessagingService) Create(ctx context.Context, req infer.CreateRequest[M
 	if err != nil {
 		return infer.CreateResponse[MessagingServiceState]{}, fmt.Errorf("create messaging service: %w", err)
 	}
-	return infer.CreateResponse[MessagingServiceState]{ID: o.str("sid"), Output: MessagingServiceState{MessagingServiceArgs: a, Sid: o.str("sid")}}, nil
+	return infer.CreateResponse[MessagingServiceState]{ID: o.str("sid"),
+		Output: MessagingServiceState{MessagingServiceArgs: a, Sid: o.str("sid"), Effective: messagingEffective(o)}}, nil
 }
 
 func (r *MessagingService) Read(ctx context.Context, req infer.ReadRequest[MessagingServiceArgs, MessagingServiceState]) (infer.ReadResponse[MessagingServiceArgs, MessagingServiceState], error) {
@@ -151,9 +173,13 @@ func (r *MessagingService) Read(ctx context.Context, req infer.ReadRequest[Messa
 	in := req.Inputs
 	imported := in.FriendlyName == ""
 	in.FriendlyName = o.str("friendly_name")
-	in.props().refresh(o, imported)
+	if imported {
+		in.props().adopt(o)
+	} else {
+		in.props().refreshSet(o)
+	}
 	return infer.ReadResponse[MessagingServiceArgs, MessagingServiceState]{ID: req.ID, Inputs: in,
-		State: MessagingServiceState{MessagingServiceArgs: in, Sid: req.ID}}, nil
+		State: MessagingServiceState{MessagingServiceArgs: in, Sid: req.ID, Effective: messagingEffective(o)}}, nil
 }
 
 func (r *MessagingService) Update(ctx context.Context, req infer.UpdateRequest[MessagingServiceArgs, MessagingServiceState]) (infer.UpdateResponse[MessagingServiceState], error) {
@@ -170,9 +196,11 @@ func (r *MessagingService) Update(ctx context.Context, req infer.UpdateRequest[M
 	form := url.Values{"FriendlyName": {a.FriendlyName}}
 	prev := req.State.MessagingServiceArgs.props()
 	a.props().encode(form, &prev)
-	if _, err := c.do(ctx, "POST", "messaging", serviceBase(req.ID), nil, form); err != nil {
+	o, err := c.do(ctx, "POST", "messaging", serviceBase(req.ID), nil, form)
+	if err != nil {
 		return infer.UpdateResponse[MessagingServiceState]{}, fmt.Errorf("update messaging service %s: %w", req.ID, err)
 	}
+	st.Effective = messagingEffective(o)
 	return infer.UpdateResponse[MessagingServiceState]{Output: st}, nil
 }
 

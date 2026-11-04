@@ -66,10 +66,11 @@ func (r *Subaccount) Check(ctx context.Context, req infer.CheckRequest) (infer.C
 	if err != nil || len(failures) > 0 {
 		return infer.CheckResponse[SubaccountArgs]{Inputs: args, Failures: failures}, err
 	}
-	if n := utf8.RuneCountInString(strings.TrimSpace(args.FriendlyName)); n < 1 || utf8.RuneCountInString(args.FriendlyName) > 64 {
+	unk := unknowns(req.NewInputs)
+	if n := utf8.RuneCountInString(strings.TrimSpace(args.FriendlyName)); !unk("friendlyName") && (n < 1 || utf8.RuneCountInString(args.FriendlyName) > 64) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-64 characters"})
 	}
-	if s := deref(args.Status); s != "active" && s != "suspended" {
+	if s := deref(args.Status); !unk("status") && s != "active" && s != "suspended" {
 		failures = append(failures, p.CheckFailure{Property: "status", Reason: "status must be active or suspended"})
 	}
 	return infer.CheckResponse[SubaccountArgs]{Inputs: args, Failures: failures}, nil
@@ -78,10 +79,6 @@ func (r *Subaccount) Check(ctx context.Context, req infer.CheckRequest) (infer.C
 func accountPath(sid string) string { return "/2010-04-01/Accounts/" + url.PathEscape(sid) + ".json" }
 
 func subaccountState(args SubaccountArgs, o obj) SubaccountState {
-	st := o.str("status")
-	if st != "" {
-		args.Status = &st
-	}
 	return SubaccountState{SubaccountArgs: args, Sid: o.str("sid"), AuthToken: o.str("auth_token"),
 		OwnerAccountSid: o.str("owner_account_sid"), DateCreated: o.str("date_created")}
 }
@@ -101,11 +98,18 @@ func (r *Subaccount) Create(ctx context.Context, req infer.CreateRequest[Subacco
 	}
 	sid := o.str("sid")
 	if deref(a.Status) == "suspended" {
-		o, err = c.do(ctx, "POST", "api", accountPath(sid), nil, url.Values{"Status": {"suspended"}})
+		var susp obj
+		susp, err = c.do(ctx, "POST", "api", accountPath(sid), nil, url.Values{"Status": {"suspended"}})
 		if err != nil {
-			return infer.CreateResponse[SubaccountState]{ID: sid, Output: subaccountState(a, obj{"sid": sid})},
-				fmt.Errorf("suspend new subaccount %s: %w", sid, err)
+			// The subaccount exists (and is active) but is not suspended: keep it in state.
+			actual := a
+			if st := o.str("status"); st != "" {
+				actual.Status = &st
+			}
+			return infer.CreateResponse[SubaccountState]{ID: sid, Output: subaccountState(actual, o)},
+				infer.ResourceInitFailedError{Reasons: []string{fmt.Sprintf("suspend new subaccount %s: %v", sid, err)}}
 		}
+		o = susp
 	}
 	return infer.CreateResponse[SubaccountState]{ID: sid, Output: subaccountState(a, o)}, nil
 }
@@ -124,6 +128,10 @@ func (r *Subaccount) Read(ctx context.Context, req infer.ReadRequest[SubaccountA
 	}
 	if o.str("status") == "closed" {
 		return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, nil
+	}
+	if req.ID == c.accountSid || (o.str("owner_account_sid") != "" && o.str("owner_account_sid") == o.str("sid")) {
+		return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, fmt.Errorf(
+			"%s is a top-level account, not a subaccount: it cannot be managed (or imported) as a Subaccount, because destroying the resource would close it", req.ID)
 	}
 	in := req.Inputs
 	in.FriendlyName = o.str("friendly_name")
@@ -156,6 +164,9 @@ func (r *Subaccount) Delete(ctx context.Context, req infer.DeleteRequest[Subacco
 	c, err := clientFor(ctx)
 	if err != nil {
 		return infer.DeleteResponse{}, err
+	}
+	if req.ID == c.accountSid {
+		return infer.DeleteResponse{}, fmt.Errorf("refusing to close %s: it is the provider's own account, not a subaccount; run `pulumi state delete` to drop it from state without closing the account", req.ID)
 	}
 	_, err = c.do(ctx, "POST", "api", accountPath(req.ID), nil, url.Values{"Status": {"closed"}})
 	if err != nil && !isNotFound(err) {

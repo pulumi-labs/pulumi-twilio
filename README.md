@@ -16,7 +16,7 @@ A native Pulumi provider for [Twilio](https://www.twilio.com). There is no maint
 
 Data sources: `twilio:index:getAccount` (the provider account or any subaccount by `accountSid`; the auth token is deliberately not returned) and `twilio:index:getIncomingPhoneNumber` (by `phoneNumber` or `sid`).
 
-`IncomingPhoneNumber`, `Application` and `ApiKey` accept an optional `accountSid` to act inside a subaccount with the parent's credentials; changing it replaces the resource.
+`IncomingPhoneNumber`, `Application` and `ApiKey` accept an optional `accountSid` to act inside a subaccount with the parent's credentials. Changing it replaces an `Application` or `ApiKey`; for an `IncomingPhoneNumber` it transfers the number to the other account in place (Twilio's `AccountSid` update parameter, posted to the account that currently owns the number).
 
 ## Configuration
 
@@ -49,14 +49,34 @@ export TWILIO_AUTH_TOKEN=<token>
 
 ## Validation status
 
-This provider has not been validated against a live Twilio account. Endpoints, form fields and response shapes come from the Twilio OpenAPI definitions (twilio-oai v2.10.0) and the official `twilio-go` SDK (v1.32.0), and are exercised only against an in-process mock server in the unit tests. Try it on a trial or test account before relying on it.
+This provider has not been validated against a live Twilio account. Endpoints, form fields and response shapes come from the Twilio OpenAPI definitions (twilio-oai v2.10.0) and the official `twilio-go` SDK (v1.32.0), and are exercised only against an in-process fake of the API in the unit tests. The fake follows the documented response shapes, enum rules and account scoping, but behaviour it cannot know is unverified: whether the IAM key route sees keys of a subaccount (the provider falls back to the account-explicit route when it does not), whether Twilio accepts every `AccountSid` number transfer. Try it on a trial or test account before relying on it.
+
+## Outputs, refresh and import
+
+Inputs hold only what the program wrote. `Application`, `IncomingPhoneNumber`, `MessagingService` and `VerifyService` also expose an `effective` output with the configuration Twilio currently reports, including fields the program does not set and changes made in the console, so server defaults never turn into a permanent diff. A field the program does set is refreshed into the input, so a change made outside Pulumi is detected.
+
+Every resource can be imported. Objects in the provider's own account use the bare SID. Objects in a subaccount (`Application`, `IncomingPhoneNumber`, `ApiKey`) use `<accountSid>/<sid>`, which also sets `accountSid` on import:
+
+```bash
+pulumi import twilio:index:Subaccount tenant ACxxxxxxxx
+pulumi import twilio:index:ApiKey ci SKxxxxxxxx
+pulumi import twilio:index:IncomingPhoneNumber main PNxxxxxxxx
+pulumi import twilio:index:Application ivr ACsubxxxxxxxx/APxxxxxxxx   # an application in a subaccount
+pulumi import twilio:index:MessagingService svc MGxxxxxxxx
+pulumi import twilio:index:MessagingServicePhoneNumber sender MGxxxxxxxx/PNxxxxxxxx
+pulumi import twilio:index:VerifyService verify VAxxxxxxxx
+```
+
+Import adopts every setting that differs from Twilio's default, so a program that leaves the defaults out plans no change. Resources created by earlier versions with a bare SID keep working.
 
 ## Destructive and billing semantics
 
 * `Subaccount` destroy **closes** the subaccount. Twilio releases its phone numbers when it closes, and a closed subaccount cannot be reopened after 30 days. Use `status: suspended` to pause instead.
 * `IncomingPhoneNumber` adopts a number the account already owns and fails if it is not owned. It does not purchase numbers (that is billed and out of scope for this release). Destroy only stops managing the number: it is not released and its current webhooks stay in place. Webhook fields you remove from the program are cleared on Twilio at the next update.
 * A phone number belongs to at most one Messaging Service. `MessagingServicePhoneNumber` destroy removes the number from the pool without releasing it.
-* `ApiKey.secret` is returned only by the create call, so it cannot be recovered or imported. Rotate by creating a new key, rolling consumers, then removing the old one. `keyType` and `accountSid` replace the key; `friendlyName` and `policy` update in place. The stored policy is not read back, so out-of-band policy edits are not detected.
+* `ApiKey.secret` is returned only by the create call, so it cannot be recovered or imported. Rotate by creating a new key, rolling consumers, then removing the old one. `keyType` and `accountSid` replace the key; `friendlyName` and `policy` update in place. The policy is read back on every refresh, so a restricted key widened in the console shows up as a diff and the next `pulumi up` restores it. A standard key is created without a `KeyType` parameter; `restricted` is sent only for restricted keys.
+* Removing an optional input from the program resets that field on Twilio at the next update: URLs are cleared, HTTP methods go back to `POST`, and a boolean or number goes back to Twilio's default only where the Twilio OpenAPI definitions state one: `validityPeriod` (`36000`) and `doNotShareWarningEnabled` (`false`). Every other removed boolean or number (`stickySender`, `mmsConverter`, `smartEncoding`, `areaCodeGeomatch`, `useInboundWebhookOnNumber`, `voiceCallerIdLookup`, `codeLength`, `lookupEnabled`, `psd2Enabled` and so on) is left untouched on Twilio, because the API gives no documented value to reset it to; set it explicitly to change it. The friendly name of an `IncomingPhoneNumber` has no default and is left as it is. Import adopts every returned boolean and number without a documented default as an input.
+* Destroying a `Subaccount` that is the provider's own account is refused, and the top-level account cannot be imported as a `Subaccount`.
 * `Subaccount.authToken` is the primary auth token at the time of the last refresh and is stored as a secret.
 * Webhook URLs are stored in state in plain text; if one embeds a token, treat it as sensitive and prefer request signature validation on the receiving side.
 * Requests that Twilio throttles (HTTP 429) are retried with backoff; transient 5xx responses are retried for reads only. Creates are never retried after a transport error or 5xx because the first attempt may have been applied.

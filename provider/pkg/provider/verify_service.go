@@ -58,10 +58,14 @@ type VerifyServiceState struct {
 
 	// Sid is the service SID (VA...) and the resource ID.
 	Sid string `pulumi:"sid"`
+	// Effective is the configuration Twilio reports, including fields the program did not set.
+	Effective *VerifyServiceEffective `pulumi:"effective,optional"`
 }
 
 func (s *VerifyServiceState) Annotate(a infer.Annotator) {
 	a.Describe(&s.Sid, "The Verify service SID (VA...).")
+	a.Describe(&s.Effective, "The configuration Twilio currently reports for the service, including fields the program "+
+		"does not set. Inputs the program leaves unset are not overwritten by these values.")
 }
 
 func (r *VerifyService) Annotate(a infer.Annotator) {
@@ -79,10 +83,11 @@ func (r *VerifyService) Check(ctx context.Context, req infer.CheckRequest) (infe
 	if err != nil || len(failures) > 0 {
 		return infer.CheckResponse[VerifyServiceArgs]{Inputs: args, Failures: failures}, err
 	}
-	if args.FriendlyName == "" || len(args.FriendlyName) > 30 {
+	unk := unknowns(req.NewInputs)
+	if !unk("friendlyName") && (args.FriendlyName == "" || len(args.FriendlyName) > 30) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-30 characters"})
 	}
-	if v := args.CodeLength; v != nil && (*v < 4 || *v > 10) {
+	if v := args.CodeLength; !unk("codeLength") && v != nil && (*v < 4 || *v > 10) {
 		failures = append(failures, p.CheckFailure{Property: "codeLength", Reason: "codeLength must be between 4 and 10"})
 	}
 	return infer.CheckResponse[VerifyServiceArgs]{Inputs: args, Failures: failures}, nil
@@ -93,6 +98,20 @@ func verifyPath(sid string) string {
 		return "/v2/Services"
 	}
 	return "/v2/Services/" + url.PathEscape(sid)
+}
+
+// VerifyServiceEffective is the configuration Twilio reports for a VerifyService: every field of the inputs,
+// filled from the API response.
+type VerifyServiceEffective VerifyServiceArgs
+
+// Annotate reuses the input descriptions.
+func (e *VerifyServiceEffective) Annotate(a infer.Annotator) { (*VerifyServiceArgs)(e).Annotate(a) }
+
+func verifyEffective(o obj) *VerifyServiceEffective {
+	e := VerifyServiceArgs{FriendlyName: o.str("friendly_name")}
+	e.props().fillAll(o)
+	v := VerifyServiceEffective(e)
+	return &v
 }
 
 func (r *VerifyService) Create(ctx context.Context, req infer.CreateRequest[VerifyServiceArgs]) (infer.CreateResponse[VerifyServiceState], error) {
@@ -110,7 +129,8 @@ func (r *VerifyService) Create(ctx context.Context, req infer.CreateRequest[Veri
 	if err != nil {
 		return infer.CreateResponse[VerifyServiceState]{}, fmt.Errorf("create verify service: %w", err)
 	}
-	return infer.CreateResponse[VerifyServiceState]{ID: o.str("sid"), Output: VerifyServiceState{VerifyServiceArgs: a, Sid: o.str("sid")}}, nil
+	return infer.CreateResponse[VerifyServiceState]{ID: o.str("sid"),
+		Output: VerifyServiceState{VerifyServiceArgs: a, Sid: o.str("sid"), Effective: verifyEffective(o)}}, nil
 }
 
 func (r *VerifyService) Read(ctx context.Context, req infer.ReadRequest[VerifyServiceArgs, VerifyServiceState]) (infer.ReadResponse[VerifyServiceArgs, VerifyServiceState], error) {
@@ -128,9 +148,13 @@ func (r *VerifyService) Read(ctx context.Context, req infer.ReadRequest[VerifySe
 	in := req.Inputs
 	imported := in.FriendlyName == ""
 	in.FriendlyName = o.str("friendly_name")
-	in.props().refresh(o, imported)
+	if imported {
+		in.props().adopt(o)
+	} else {
+		in.props().refreshSet(o)
+	}
 	return infer.ReadResponse[VerifyServiceArgs, VerifyServiceState]{ID: req.ID, Inputs: in,
-		State: VerifyServiceState{VerifyServiceArgs: in, Sid: req.ID}}, nil
+		State: VerifyServiceState{VerifyServiceArgs: in, Sid: req.ID, Effective: verifyEffective(o)}}, nil
 }
 
 func (r *VerifyService) Update(ctx context.Context, req infer.UpdateRequest[VerifyServiceArgs, VerifyServiceState]) (infer.UpdateResponse[VerifyServiceState], error) {
@@ -147,9 +171,11 @@ func (r *VerifyService) Update(ctx context.Context, req infer.UpdateRequest[Veri
 	form := url.Values{"FriendlyName": {a.FriendlyName}}
 	prev := req.State.VerifyServiceArgs.props()
 	a.props().encode(form, &prev)
-	if _, err := c.do(ctx, "POST", "verify", verifyPath(req.ID), nil, form); err != nil {
+	o, err := c.do(ctx, "POST", "verify", verifyPath(req.ID), nil, form)
+	if err != nil {
 		return infer.UpdateResponse[VerifyServiceState]{}, fmt.Errorf("update verify service %s: %w", req.ID, err)
 	}
+	st.Effective = verifyEffective(o)
 	return infer.UpdateResponse[VerifyServiceState]{Output: st}, nil
 }
 

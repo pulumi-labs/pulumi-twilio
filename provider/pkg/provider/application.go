@@ -77,11 +77,16 @@ type ApplicationState struct {
 	Sid string `pulumi:"sid"`
 	// OwnerAccountSid is the account that owns the application.
 	OwnerAccountSid string `pulumi:"ownerAccountSid"`
+	// Effective is the configuration Twilio reports, including fields the program did not set.
+	Effective *ApplicationEffective `pulumi:"effective,optional"`
 }
 
 func (s *ApplicationState) Annotate(a infer.Annotator) {
 	a.Describe(&s.Sid, "The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.")
 	a.Describe(&s.OwnerAccountSid, "SID of the account that owns the application.")
+	a.Describe(&s.Effective, "The configuration Twilio currently reports for the application, including webhooks "+
+		"changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not "+
+		"overwritten by these values.")
 }
 
 func (r *Application) Annotate(a infer.Annotator) {
@@ -96,9 +101,9 @@ var _ infer.CustomDelete[ApplicationState] = (*Application)(nil)
 
 var httpMethods = map[string]bool{"GET": true, "POST": true}
 
-func checkMethods(failures []p.CheckFailure, m map[string]*string) []p.CheckFailure {
+func checkMethods(failures []p.CheckFailure, unk func(...string) bool, m map[string]*string) []p.CheckFailure {
 	for prop, v := range m {
-		if v != nil && !httpMethods[*v] {
+		if v != nil && !unk(prop) && !httpMethods[*v] {
 			failures = append(failures, p.CheckFailure{Property: prop, Reason: prop + " must be GET or POST"})
 		}
 	}
@@ -110,10 +115,11 @@ func (r *Application) Check(ctx context.Context, req infer.CheckRequest) (infer.
 	if err != nil || len(failures) > 0 {
 		return infer.CheckResponse[ApplicationArgs]{Inputs: args, Failures: failures}, err
 	}
-	if args.FriendlyName == "" || len(args.FriendlyName) > 64 {
+	unk := unknowns(req.NewInputs)
+	if !unk("friendlyName") && (args.FriendlyName == "" || len(args.FriendlyName) > 64) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-64 characters"})
 	}
-	failures = checkMethods(failures, map[string]*string{
+	failures = checkMethods(failures, unk, map[string]*string{
 		"voiceMethod": args.VoiceMethod, "voiceFallbackMethod": args.VoiceFallbackMethod,
 		"statusCallbackMethod": args.StatusCallbackMethod, "smsMethod": args.SmsMethod,
 		"smsFallbackMethod": args.SmsFallbackMethod,
@@ -126,6 +132,20 @@ func appPath(account, sid string) string {
 		return api2010(account) + "/Applications.json"
 	}
 	return api2010(account) + "/Applications/" + url.PathEscape(sid) + ".json"
+}
+
+// ApplicationEffective is the configuration Twilio reports for an Application: every field of the inputs,
+// filled from the API response.
+type ApplicationEffective ApplicationArgs
+
+// Annotate reuses the input descriptions.
+func (e *ApplicationEffective) Annotate(a infer.Annotator) { (*ApplicationArgs)(e).Annotate(a) }
+
+func applicationEffective(o obj) *ApplicationEffective {
+	e := ApplicationArgs{FriendlyName: o.str("friendly_name")}
+	e.props().fillAll(o)
+	v := ApplicationEffective(e)
+	return &v
 }
 
 func (r *Application) Create(ctx context.Context, req infer.CreateRequest[ApplicationArgs]) (infer.CreateResponse[ApplicationState], error) {
@@ -144,8 +164,9 @@ func (r *Application) Create(ctx context.Context, req infer.CreateRequest[Applic
 	if err != nil {
 		return infer.CreateResponse[ApplicationState]{}, fmt.Errorf("create application: %w", err)
 	}
-	return infer.CreateResponse[ApplicationState]{ID: o.str("sid"),
-		Output: ApplicationState{ApplicationArgs: a, Sid: o.str("sid"), OwnerAccountSid: acct}}, nil
+	sid := o.str("sid")
+	return infer.CreateResponse[ApplicationState]{ID: scopedID(c, acct, sid),
+		Output: ApplicationState{ApplicationArgs: a, Sid: sid, OwnerAccountSid: acct, Effective: applicationEffective(o)}}, nil
 }
 
 func (r *Application) Read(ctx context.Context, req infer.ReadRequest[ApplicationArgs, ApplicationState]) (infer.ReadResponse[ApplicationArgs, ApplicationState], error) {
@@ -153,8 +174,8 @@ func (r *Application) Read(ctx context.Context, req infer.ReadRequest[Applicatio
 	if err != nil {
 		return infer.ReadResponse[ApplicationArgs, ApplicationState]{}, err
 	}
-	acct := derefOr(&req.State.OwnerAccountSid, c.acct(req.Inputs.AccountSid))
-	o, err := c.do(ctx, "GET", "api", appPath(acct, req.ID), nil, nil)
+	acct, sid := resolveScope(c, req.ID, req.State.OwnerAccountSid)
+	o, err := c.do(ctx, "GET", "api", appPath(acct, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
 			return infer.ReadResponse[ApplicationArgs, ApplicationState]{}, nil
@@ -164,11 +185,15 @@ func (r *Application) Read(ctx context.Context, req infer.ReadRequest[Applicatio
 	in := req.Inputs
 	imported := in.FriendlyName == ""
 	in.FriendlyName = o.str("friendly_name")
-	if imported && acct != c.accountSid {
-		in.AccountSid = &acct
+	if imported {
+		if acct != c.accountSid {
+			in.AccountSid = &acct
+		}
+		in.props().adopt(o)
+	} else {
+		in.props().refreshSet(o)
 	}
-	in.props().refresh(o, imported)
-	st := ApplicationState{ApplicationArgs: in, Sid: req.ID, OwnerAccountSid: acct}
+	st := ApplicationState{ApplicationArgs: in, Sid: sid, OwnerAccountSid: acct, Effective: applicationEffective(o)}
 	return infer.ReadResponse[ApplicationArgs, ApplicationState]{ID: req.ID, Inputs: in, State: st}, nil
 }
 
@@ -183,12 +208,15 @@ func (r *Application) Update(ctx context.Context, req infer.UpdateRequest[Applic
 	if err != nil {
 		return infer.UpdateResponse[ApplicationState]{}, err
 	}
+	acct, sid := resolveScope(c, req.ID, req.State.OwnerAccountSid)
 	form := url.Values{"FriendlyName": {a.FriendlyName}}
 	prev := req.State.ApplicationArgs.props()
 	a.props().encode(form, &prev)
-	if _, err := c.do(ctx, "POST", "api", appPath(req.State.OwnerAccountSid, req.ID), nil, form); err != nil {
+	o, err := c.do(ctx, "POST", "api", appPath(acct, sid), nil, form)
+	if err != nil {
 		return infer.UpdateResponse[ApplicationState]{}, fmt.Errorf("update application %s: %w", req.ID, err)
 	}
+	st.Effective = applicationEffective(o)
 	return infer.UpdateResponse[ApplicationState]{Output: st}, nil
 }
 
@@ -197,7 +225,8 @@ func (r *Application) Delete(ctx context.Context, req infer.DeleteRequest[Applic
 	if err != nil {
 		return infer.DeleteResponse{}, err
 	}
-	if _, err := c.do(ctx, "DELETE", "api", appPath(req.State.OwnerAccountSid, req.ID), nil, nil); err != nil && !isNotFound(err) {
+	acct, sid := resolveScope(c, req.ID, req.State.OwnerAccountSid)
+	if _, err := c.do(ctx, "DELETE", "api", appPath(acct, sid), nil, nil); err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, fmt.Errorf("delete application %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil

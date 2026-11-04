@@ -39,7 +39,7 @@ func TestSchema_ReplaceOnChangesForIdentityInputs(t *testing.T) {
 	spec := mustSchema(t)
 	want := map[string][]string{
 		"twilio:index:ApiKey":                      {"keyType", "accountSid"},
-		"twilio:index:IncomingPhoneNumber":         {"phoneNumber", "phoneNumberSid", "accountSid"},
+		"twilio:index:IncomingPhoneNumber":         {"phoneNumber", "phoneNumberSid"},
 		"twilio:index:Application":                 {"accountSid"},
 		"twilio:index:MessagingServicePhoneNumber": {"serviceSid", "phoneNumberSid"},
 	}
@@ -54,6 +54,8 @@ func TestSchema_ReplaceOnChangesForIdentityInputs(t *testing.T) {
 		"twilio:index:Application":      {"friendlyName", "voiceUrl"},
 		"twilio:index:MessagingService": {"friendlyName", "inboundRequestUrl"},
 		"twilio:index:ApiKey":           {"friendlyName", "policy"},
+		// B5: Twilio moves a number between accounts in place (AccountSid update parameter).
+		"twilio:index:IncomingPhoneNumber": {"accountSid", "friendlyName", "voiceUrl"},
 	} {
 		for _, p := range props {
 			require.False(t, spec.Resources[tok].InputProperties[p].ReplaceOnChanges, "%s.%s must not be replaceOnChanges", tok, p)
@@ -221,5 +223,36 @@ func TestSchema_ConfigEnvironmentDefaults(t *testing.T) {
 		v, ok := spec.Config.Variables[c.key]
 		require.True(t, ok, "config.variables.%s missing from schema", c.key)
 		require.Equal(t, c.envVars, v.DefaultInfo.Environment, "config.variables.%s.defaultInfo.environment", c.key)
+	}
+}
+
+// pulumi-go-provider drops an input named "version", and a function argument or
+// result named "id" collides with the resource ID convention.
+func TestSchema_NoReservedPropertyNames(t *testing.T) {
+	spec := mustSchema(t)
+	for tok, r := range spec.Resources {
+		require.NotContains(t, r.InputProperties, "version", "%s", tok)
+		require.NotContains(t, r.InputProperties, "id", "%s", tok)
+	}
+	for tok, f := range spec.Functions {
+		if f.Inputs != nil {
+			require.NotContains(t, f.Inputs.Properties, "id", "%s args", tok)
+			require.NotContains(t, f.Inputs.Properties, "version", "%s args", tok)
+		}
+		if f.Outputs != nil {
+			require.NotContains(t, f.Outputs.Properties, "id", "%s result", tok)
+		}
+	}
+}
+
+// The server's view of a resource is an output next to the inputs, so defaults
+// never overwrite what the program wrote.
+func TestSchema_EffectiveOutputsAreOutputsOnly(t *testing.T) {
+	spec := mustSchema(t)
+	for _, tok := range []string{"Application", "IncomingPhoneNumber", "MessagingService", "VerifyService"} {
+		r := spec.Resources["twilio:index:"+tok]
+		require.Contains(t, r.Properties, "effective", tok)
+		require.NotContains(t, r.InputProperties, "effective", tok)
+		require.NotContains(t, r.RequiredInputs, "effective", tok)
 	}
 }

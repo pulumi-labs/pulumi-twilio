@@ -148,12 +148,13 @@ func TestIncomingPhoneNumber_AdoptConfigureAndKeepOnDestroy(t *testing.T) {
 	require.Equal(t, "https://example.com/voice", m.get(path)["voice_url"])
 	require.Equal(t, "POST", m.get(path)["sms_method"])
 
-	// Dropping smsUrl from the program clears it on Twilio.
+	// Dropping smsUrl from the program clears it on Twilio; the dropped method goes back to
+	// Twilio's default POST (the real API rejects an empty method).
 	in2 := map[string]any{"phoneNumber": "+14155550100", "voiceUrl": "https://example.com/voice"}
 	ur, err := s.Update(pgp.UpdateRequest{ID: cr.ID, Urn: urn, State: cr.Properties, Inputs: pm(in2), OldInputs: pm(in)})
 	require.NoError(t, err)
 	require.Equal(t, "", m.get(path)["sms_url"])
-	require.Equal(t, "", m.get(path)["sms_method"])
+	require.Equal(t, "POST", m.get(path)["sms_method"])
 
 	// Drift on a managed field is surfaced; unmanaged fields are not adopted.
 	m.get(path)["voice_url"] = "https://drift.example.com"
@@ -236,7 +237,9 @@ func TestApplication_LifecycleAndSubaccountPath(t *testing.T) {
 	cr, err = s.Create(pgp.CreateRequest{Urn: twilioURN("Application", "sub"), Properties: pm(in3)})
 	require.NoError(t, err)
 	require.Equal(t, "ACsub", str(cr.Properties, "ownerAccountSid"))
-	require.NotNil(t, m.get("/api/2010-04-01/Accounts/ACsub/Applications/"+cr.ID))
+	_, subSid := splitScoped(cr.ID)
+	require.Equal(t, "ACsub/"+subSid, cr.ID, "an object in a subaccount gets a scoped, importable ID")
+	require.NotNil(t, m.get("/api/2010-04-01/Accounts/ACsub/Applications/"+subSid))
 }
 
 func TestMessagingServiceAndSenderPool(t *testing.T) {

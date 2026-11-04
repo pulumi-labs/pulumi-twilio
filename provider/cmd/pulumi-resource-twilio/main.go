@@ -20,8 +20,8 @@ import (
 	"context"
 	"os"
 
-	"github.com/pulumi/autoregistry/lib/providers/twilio/provider/pkg/provider"
-	"github.com/pulumi/autoregistry/lib/providers/twilio/provider/pkg/version"
+	"github.com/pulumi-labs/pulumi-twilio/provider/pkg/provider"
+	"github.com/pulumi-labs/pulumi-twilio/provider/pkg/version"
 	pgp "github.com/pulumi/pulumi-go-provider"
 )
 

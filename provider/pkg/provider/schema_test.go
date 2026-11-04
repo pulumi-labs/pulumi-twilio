@@ -27,7 +27,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/property"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pulumi/autoregistry/lib/providers/twilio/provider/pkg/provider"
+	"github.com/pulumi-labs/pulumi-twilio/provider/pkg/provider"
 )
 
 func mustSchema(t *testing.T) schema.PackageSpec {

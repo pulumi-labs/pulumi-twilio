@@ -1,4 +1,4 @@
-module github.com/pulumi/autoregistry/lib/providers/twilio
+module github.com/pulumi-labs/pulumi-twilio
 
 go 1.26.0
 

@@ -1,0 +1,1795 @@
+{
+  "name": "twilio",
+  "displayName": "Twilio",
+  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as infrastructure with Pulumi.",
+  "keywords": [
+    "pulumi",
+    "twilio",
+    "communications",
+    "sms",
+    "voice",
+    "category/network"
+  ],
+  "homepage": "https://www.twilio.com",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/pulumi-labs/pulumi-twilio",
+  "pluginDownloadURL": "github://api.github.com/pulumi-labs/pulumi-twilio",
+  "publisher": "Pulumi Labs",
+  "language": {
+    "csharp": {
+      "respectSchemaVersion": true,
+      "rootNamespace": "Pulumi.Labs"
+    },
+    "go": {
+      "generateResourceContainerTypes": true,
+      "importBasePath": "github.com/pulumi-labs/pulumi-twilio/sdk/go/twilio",
+      "respectSchemaVersion": true
+    },
+    "java": {
+      "basePackage": "com.pulumi.labs",
+      "respectSchemaVersion": true
+    },
+    "nodejs": {
+      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as infrastructure with Pulumi.",
+      "packageName": "@pulumi-labs/twilio",
+      "respectSchemaVersion": true
+    },
+    "python": {
+      "packageName": "pulumi_labs_twilio",
+      "pyproject": {
+        "enabled": true
+      },
+      "respectSchemaVersion": true
+    }
+  },
+  "config": {
+    "variables": {
+      "accountSid": {
+        "type": "string",
+        "description": "The SID (AC...) of the Twilio account that owns the resources. Required. Falls back to the TWILIO_ACCOUNT_SID environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_ACCOUNT_SID"
+          ]
+        }
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "An API key SID (SK...) to authenticate with instead of the auth token; requires apiSecret. Falls back to the TWILIO_API_KEY environment variable. A restricted key cannot manage Subaccount or ApiKey resources.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_KEY"
+          ]
+        }
+      },
+      "apiSecret": {
+        "type": "string",
+        "description": "The secret of apiKey. Falls back to the TWILIO_API_SECRET environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_SECRET"
+          ]
+        },
+        "secret": true
+      },
+      "authToken": {
+        "type": "string",
+        "description": "The account auth token. Use either authToken or apiKey with apiSecret. Falls back to the TWILIO_AUTH_TOKEN environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_AUTH_TOKEN"
+          ]
+        },
+        "secret": true
+      },
+      "baseUrl": {
+        "type": "string",
+        "description": "Override for every Twilio host (requests go to <baseUrl>/<product>/<path>). Intended for testing against a mock server. Falls back to TWILIO_BASE_URL.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_BASE_URL"
+          ]
+        }
+      },
+      "edge": {
+        "type": "string",
+        "description": "Twilio edge location, for example sydney or dublin. Falls back to TWILIO_EDGE.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_EDGE"
+          ]
+        }
+      },
+      "region": {
+        "type": "string",
+        "description": "Twilio region for data residency, for example au1 or ie1. Falls back to TWILIO_REGION.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_REGION"
+          ]
+        }
+      }
+    }
+  },
+  "types": {
+    "twilio:index:ApplicationEffective": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the application (up to 64 characters)."
+        },
+        "messageStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent by this application."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for outbound SMS sent with this application."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST (Twilio default POST)."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls."
+        }
+      },
+      "type": "object",
+      "required": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:IncomingPhoneNumberEffective": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable label for the number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).",
+          "replaceOnChanges": true
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "smsApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming SMS instead of smsUrl."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:MessagingServiceEffective": {
+      "properties": {
+        "areaCodeGeomatch": {
+          "type": "boolean",
+          "description": "Whether to prefer a sender with the recipient's area code."
+        },
+        "fallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for fallbackUrl: GET or POST."
+        },
+        "fallbackToLongCode": {
+          "type": "boolean",
+          "description": "Whether a long code may be used when no short code or alphanumeric sender fits."
+        },
+        "fallbackUrl": {
+          "type": "string",
+          "description": "URL requested if inboundRequestUrl fails."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service (up to 64 characters)."
+        },
+        "inboundMethod": {
+          "type": "string",
+          "description": "HTTP method for inboundRequestUrl: GET or POST."
+        },
+        "inboundRequestUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming messages to any sender in the pool."
+        },
+        "mmsConverter": {
+          "type": "boolean",
+          "description": "Whether to convert unsupported MMS media for carriers."
+        },
+        "scanMessageContent": {
+          "type": "string",
+          "description": "Content inspection: inherit, enable or disable."
+        },
+        "smartEncoding": {
+          "type": "boolean",
+          "description": "Whether to replace non-GSM characters to keep messages in cheaper GSM-7 encoding."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent through the service."
+        },
+        "stickySender": {
+          "type": "boolean",
+          "description": "Whether to keep using the same sender for a given recipient."
+        },
+        "synchronousValidation": {
+          "type": "boolean",
+          "description": "Whether to validate sender and recipient before accepting a send request."
+        },
+        "useInboundWebhookOnNumber": {
+          "type": "boolean",
+          "description": "Whether a sender's own inbound webhook takes precedence over inboundRequestUrl."
+        },
+        "validityPeriod": {
+          "type": "integer",
+          "description": "Seconds a message may wait for delivery before expiring (1-36000)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:VerifyServiceEffective": {
+      "properties": {
+        "codeLength": {
+          "type": "integer",
+          "description": "Length of the verification code, 4 to 10 digits (Twilio default 6)."
+        },
+        "customCodeEnabled": {
+          "type": "boolean",
+          "description": "Whether you may supply your own verification code (requires Twilio approval)."
+        },
+        "doNotShareWarningEnabled": {
+          "type": "boolean",
+          "description": "Whether to add a do-not-share warning to the message."
+        },
+        "dtmfInputRequired": {
+          "type": "boolean",
+          "description": "Whether the recipient must press a key to hear a voice code."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the service, shown in verification messages (up to 30 characters)."
+        },
+        "lookupEnabled": {
+          "type": "boolean",
+          "description": "Whether to look up the destination phone number before sending."
+        },
+        "psd2Enabled": {
+          "type": "boolean",
+          "description": "Whether PSD2 dynamic-linking (payee and amount) is required."
+        },
+        "skipSmsToLandlines": {
+          "type": "boolean",
+          "description": "Whether to skip SMS to landline numbers."
+        },
+        "ttsName": {
+          "type": "string",
+          "description": "Name spoken in voice verifications instead of friendlyName."
+        }
+      },
+      "type": "object",
+      "required": [
+        "friendlyName"
+      ]
+    }
+  },
+  "provider": {
+    "properties": {
+      "accountSid": {
+        "type": "string",
+        "description": "The SID (AC...) of the Twilio account that owns the resources. Required. Falls back to the TWILIO_ACCOUNT_SID environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_ACCOUNT_SID"
+          ]
+        }
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "An API key SID (SK...) to authenticate with instead of the auth token; requires apiSecret. Falls back to the TWILIO_API_KEY environment variable. A restricted key cannot manage Subaccount or ApiKey resources.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_KEY"
+          ]
+        }
+      },
+      "apiSecret": {
+        "type": "string",
+        "description": "The secret of apiKey. Falls back to the TWILIO_API_SECRET environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_SECRET"
+          ]
+        },
+        "secret": true
+      },
+      "authToken": {
+        "type": "string",
+        "description": "The account auth token. Use either authToken or apiKey with apiSecret. Falls back to the TWILIO_AUTH_TOKEN environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_AUTH_TOKEN"
+          ]
+        },
+        "secret": true
+      },
+      "baseUrl": {
+        "type": "string",
+        "description": "Override for every Twilio host (requests go to <baseUrl>/<product>/<path>). Intended for testing against a mock server. Falls back to TWILIO_BASE_URL.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_BASE_URL"
+          ]
+        }
+      },
+      "edge": {
+        "type": "string",
+        "description": "Twilio edge location, for example sydney or dublin. Falls back to TWILIO_EDGE.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_EDGE"
+          ]
+        }
+      },
+      "region": {
+        "type": "string",
+        "description": "Twilio region for data residency, for example au1 or ie1. Falls back to TWILIO_REGION.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_REGION"
+          ]
+        }
+      }
+    },
+    "inputProperties": {
+      "accountSid": {
+        "type": "string",
+        "description": "The SID (AC...) of the Twilio account that owns the resources. Required. Falls back to the TWILIO_ACCOUNT_SID environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_ACCOUNT_SID"
+          ]
+        }
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "An API key SID (SK...) to authenticate with instead of the auth token; requires apiSecret. Falls back to the TWILIO_API_KEY environment variable. A restricted key cannot manage Subaccount or ApiKey resources.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_KEY"
+          ]
+        }
+      },
+      "apiSecret": {
+        "type": "string",
+        "description": "The secret of apiKey. Falls back to the TWILIO_API_SECRET environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_API_SECRET"
+          ]
+        },
+        "secret": true
+      },
+      "authToken": {
+        "type": "string",
+        "description": "The account auth token. Use either authToken or apiKey with apiSecret. Falls back to the TWILIO_AUTH_TOKEN environment variable.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_AUTH_TOKEN"
+          ]
+        },
+        "secret": true
+      },
+      "baseUrl": {
+        "type": "string",
+        "description": "Override for every Twilio host (requests go to <baseUrl>/<product>/<path>). Intended for testing against a mock server. Falls back to TWILIO_BASE_URL.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_BASE_URL"
+          ]
+        }
+      },
+      "edge": {
+        "type": "string",
+        "description": "Twilio edge location, for example sydney or dublin. Falls back to TWILIO_EDGE.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_EDGE"
+          ]
+        }
+      },
+      "region": {
+        "type": "string",
+        "description": "Twilio region for data residency, for example au1 or ie1. Falls back to TWILIO_REGION.",
+        "defaultInfo": {
+          "environment": [
+            "TWILIO_REGION"
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "twilio:index:ApiKey": {
+      "description": "A Twilio API key. The secret is available only in the creation response and is stored as a Pulumi secret. Creating and deleting keys requires the account auth token (an API key cannot manage keys).",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount the key belongs to. Defaults to the provider account. Changing it replaces the resource. To import a key owned by a subaccount use the ID <accountSid>/<keySid>.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the key was created (RFC 2822)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the key (up to 64 characters)."
+        },
+        "keyType": {
+          "type": "string",
+          "description": "standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.",
+          "default": "standard",
+          "replaceOnChanges": true
+        },
+        "policy": {
+          "type": "string",
+          "description": "JSON policy document for a restricted key, for example {\"allow\":[\"/v1/Services/**\"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted."
+        },
+        "secret": {
+          "type": "string",
+          "description": "The API key secret. Twilio returns it only once, at creation, so it cannot be recovered later or after import.",
+          "secret": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The API key SID (SK...); use it as the username with the secret."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "secret",
+        "dateCreated"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount the key belongs to. Defaults to the provider account. Changing it replaces the resource. To import a key owned by a subaccount use the ID <accountSid>/<keySid>.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the key (up to 64 characters)."
+        },
+        "keyType": {
+          "type": "string",
+          "description": "standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.",
+          "default": "standard",
+          "replaceOnChanges": true
+        },
+        "policy": {
+          "type": "string",
+          "description": "JSON policy document for a restricted key, for example {\"allow\":[\"/v1/Services/**\"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:Application": {
+      "description": "A Twilio TwiML application: voice and SMS webhooks shared by phone numbers.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "effective": {
+          "$ref": "#/types/twilio:index:ApplicationEffective",
+          "description": "The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the application (up to 64 characters)."
+        },
+        "messageStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent by this application."
+        },
+        "ownerAccountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the application."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for outbound SMS sent with this application."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST (Twilio default POST)."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "ownerAccountSid"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the application (up to 64 characters)."
+        },
+        "messageStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent by this application."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsStatusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for outbound SMS sent with this application."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST (Twilio default POST)."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:IncomingPhoneNumber": {
+      "description": "Routing configuration for a Twilio phone number the account already owns. The resource adopts the number; it never buys one, and destroying it does NOT release the number (it only stops managing it, leaving the current webhooks in place).",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number."
+        },
+        "effective": {
+          "$ref": "#/types/twilio:index:IncomingPhoneNumberEffective",
+          "description": "The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable label for the number."
+        },
+        "number": {
+          "type": "string",
+          "description": "The phone number in E.164 format."
+        },
+        "ownerAccountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).",
+          "replaceOnChanges": true
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The phone number SID (PN...)."
+        },
+        "smsApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming SMS instead of smsUrl."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side."
+        }
+      },
+      "required": [
+        "sid",
+        "number",
+        "ownerAccountSid"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable label for the number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).",
+          "replaceOnChanges": true
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "smsApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming SMS instead of smsUrl."
+        },
+        "smsFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for smsFallbackUrl: GET or POST."
+        },
+        "smsFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if smsUrl fails."
+        },
+        "smsMethod": {
+          "type": "string",
+          "description": "HTTP method for smsUrl: GET or POST."
+        },
+        "smsUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives call status events."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for statusCallback: GET or POST."
+        },
+        "voiceApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl."
+        },
+        "voiceCallerIdLookup": {
+          "type": "boolean",
+          "description": "Whether to look up the caller's name on incoming calls."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceFallbackUrl: GET or POST."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL requested if voiceUrl fails."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method for voiceUrl: GET or POST."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side."
+        }
+      }
+    },
+    "twilio:index:MessagingService": {
+      "description": "A Twilio Messaging Service: a pool of senders with shared inbound and status webhooks. Add senders with MessagingServicePhoneNumber.",
+      "properties": {
+        "areaCodeGeomatch": {
+          "type": "boolean",
+          "description": "Whether to prefer a sender with the recipient's area code."
+        },
+        "effective": {
+          "$ref": "#/types/twilio:index:MessagingServiceEffective",
+          "description": "The configuration Twilio currently reports for the service, including fields the program does not set. Inputs the program leaves unset are not overwritten by these values."
+        },
+        "fallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for fallbackUrl: GET or POST."
+        },
+        "fallbackToLongCode": {
+          "type": "boolean",
+          "description": "Whether a long code may be used when no short code or alphanumeric sender fits."
+        },
+        "fallbackUrl": {
+          "type": "string",
+          "description": "URL requested if inboundRequestUrl fails."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service (up to 64 characters)."
+        },
+        "inboundMethod": {
+          "type": "string",
+          "description": "HTTP method for inboundRequestUrl: GET or POST."
+        },
+        "inboundRequestUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming messages to any sender in the pool."
+        },
+        "mmsConverter": {
+          "type": "boolean",
+          "description": "Whether to convert unsupported MMS media for carriers."
+        },
+        "scanMessageContent": {
+          "type": "string",
+          "description": "Content inspection: inherit, enable or disable."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The Messaging Service SID (MG...)."
+        },
+        "smartEncoding": {
+          "type": "boolean",
+          "description": "Whether to replace non-GSM characters to keep messages in cheaper GSM-7 encoding."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent through the service."
+        },
+        "stickySender": {
+          "type": "boolean",
+          "description": "Whether to keep using the same sender for a given recipient."
+        },
+        "synchronousValidation": {
+          "type": "boolean",
+          "description": "Whether to validate sender and recipient before accepting a send request."
+        },
+        "useInboundWebhookOnNumber": {
+          "type": "boolean",
+          "description": "Whether a sender's own inbound webhook takes precedence over inboundRequestUrl."
+        },
+        "validityPeriod": {
+          "type": "integer",
+          "description": "Seconds a message may wait for delivery before expiring (1-36000)."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid"
+      ],
+      "inputProperties": {
+        "areaCodeGeomatch": {
+          "type": "boolean",
+          "description": "Whether to prefer a sender with the recipient's area code."
+        },
+        "fallbackMethod": {
+          "type": "string",
+          "description": "HTTP method for fallbackUrl: GET or POST."
+        },
+        "fallbackToLongCode": {
+          "type": "boolean",
+          "description": "Whether a long code may be used when no short code or alphanumeric sender fits."
+        },
+        "fallbackUrl": {
+          "type": "string",
+          "description": "URL requested if inboundRequestUrl fails."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service (up to 64 characters)."
+        },
+        "inboundMethod": {
+          "type": "string",
+          "description": "HTTP method for inboundRequestUrl: GET or POST."
+        },
+        "inboundRequestUrl": {
+          "type": "string",
+          "description": "URL Twilio requests for incoming messages to any sender in the pool."
+        },
+        "mmsConverter": {
+          "type": "boolean",
+          "description": "Whether to convert unsupported MMS media for carriers."
+        },
+        "scanMessageContent": {
+          "type": "string",
+          "description": "Content inspection: inherit, enable or disable."
+        },
+        "smartEncoding": {
+          "type": "boolean",
+          "description": "Whether to replace non-GSM characters to keep messages in cheaper GSM-7 encoding."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "URL that receives status events for messages sent through the service."
+        },
+        "stickySender": {
+          "type": "boolean",
+          "description": "Whether to keep using the same sender for a given recipient."
+        },
+        "synchronousValidation": {
+          "type": "boolean",
+          "description": "Whether to validate sender and recipient before accepting a send request."
+        },
+        "useInboundWebhookOnNumber": {
+          "type": "boolean",
+          "description": "Whether a sender's own inbound webhook takes precedence over inboundRequestUrl."
+        },
+        "validityPeriod": {
+          "type": "integer",
+          "description": "Seconds a message may wait for delivery before expiring (1-36000)."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:MessagingServicePhoneNumber": {
+      "description": "Membership of a phone number in a Messaging Service sender pool. The resource ID is <serviceSid>/<phoneNumberSid>.",
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Capabilities of the sender, for example SMS, MMS and Voice."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The sender phone number in E.164 format."
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the owned phone number to add as a sender. A number can belong to only one Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "phoneNumberSid",
+        "phoneNumber",
+        "capabilities"
+      ],
+      "inputProperties": {
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the owned phone number to add as a sender. A number can belong to only one Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "phoneNumberSid"
+      ]
+    },
+    "twilio:index:Subaccount": {
+      "description": "A Twilio subaccount. Destroying the resource CLOSES the subaccount, which releases its phone numbers and cannot be undone after 30 days; set status to suspended to pause one reversibly.",
+      "properties": {
+        "authToken": {
+          "type": "string",
+          "description": "The subaccount's primary auth token. Treat it as a secret.",
+          "secret": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the subaccount was created (RFC 2822)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the subaccount (up to 64 characters)."
+        },
+        "ownerAccountSid": {
+          "type": "string",
+          "description": "SID of the parent account that owns this subaccount."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The subaccount SID (AC...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "Desired status: active (default) or suspended. A suspended subaccount stops all activity but can be reactivated. Closing is only done by destroying the resource.",
+          "default": "active"
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "authToken",
+        "ownerAccountSid",
+        "dateCreated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the subaccount (up to 64 characters)."
+        },
+        "status": {
+          "type": "string",
+          "description": "Desired status: active (default) or suspended. A suspended subaccount stops all activity but can be reactivated. Closing is only done by destroying the resource.",
+          "default": "active"
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:VerifyService": {
+      "description": "A Twilio Verify service: configuration for sending and checking one-time passcodes.",
+      "properties": {
+        "codeLength": {
+          "type": "integer",
+          "description": "Length of the verification code, 4 to 10 digits (Twilio default 6)."
+        },
+        "customCodeEnabled": {
+          "type": "boolean",
+          "description": "Whether you may supply your own verification code (requires Twilio approval)."
+        },
+        "doNotShareWarningEnabled": {
+          "type": "boolean",
+          "description": "Whether to add a do-not-share warning to the message."
+        },
+        "dtmfInputRequired": {
+          "type": "boolean",
+          "description": "Whether the recipient must press a key to hear a voice code."
+        },
+        "effective": {
+          "$ref": "#/types/twilio:index:VerifyServiceEffective",
+          "description": "The configuration Twilio currently reports for the service, including fields the program does not set. Inputs the program leaves unset are not overwritten by these values."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the service, shown in verification messages (up to 30 characters)."
+        },
+        "lookupEnabled": {
+          "type": "boolean",
+          "description": "Whether to look up the destination phone number before sending."
+        },
+        "psd2Enabled": {
+          "type": "boolean",
+          "description": "Whether PSD2 dynamic-linking (payee and amount) is required."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The Verify service SID (VA...)."
+        },
+        "skipSmsToLandlines": {
+          "type": "boolean",
+          "description": "Whether to skip SMS to landline numbers."
+        },
+        "ttsName": {
+          "type": "string",
+          "description": "Name spoken in voice verifications instead of friendlyName."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid"
+      ],
+      "inputProperties": {
+        "codeLength": {
+          "type": "integer",
+          "description": "Length of the verification code, 4 to 10 digits (Twilio default 6)."
+        },
+        "customCodeEnabled": {
+          "type": "boolean",
+          "description": "Whether you may supply your own verification code (requires Twilio approval)."
+        },
+        "doNotShareWarningEnabled": {
+          "type": "boolean",
+          "description": "Whether to add a do-not-share warning to the message."
+        },
+        "dtmfInputRequired": {
+          "type": "boolean",
+          "description": "Whether the recipient must press a key to hear a voice code."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the service, shown in verification messages (up to 30 characters)."
+        },
+        "lookupEnabled": {
+          "type": "boolean",
+          "description": "Whether to look up the destination phone number before sending."
+        },
+        "psd2Enabled": {
+          "type": "boolean",
+          "description": "Whether PSD2 dynamic-linking (payee and amount) is required."
+        },
+        "skipSmsToLandlines": {
+          "type": "boolean",
+          "description": "Whether to skip SMS to landline numbers."
+        },
+        "ttsName": {
+          "type": "string",
+          "description": "Name spoken in voice verifications instead of friendlyName."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    }
+  },
+  "functions": {
+    "twilio:index:getAccount": {
+      "description": "Look up a Twilio account or subaccount by SID. The auth token is deliberately not returned.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account or subaccount to look up. Defaults to the provider account."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the account was created (RFC 2822).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Account name.",
+            "type": "string"
+          },
+          "ownerAccountSid": {
+            "description": "SID of the parent account (the account itself for a top-level account).",
+            "type": "string"
+          },
+          "sid": {
+            "description": "Account SID (AC...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "active, suspended or closed.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Trial or Full.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "status",
+          "type",
+          "ownerAccountSid",
+          "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getApiKey": {
+      "description": "Look up a Twilio API key by SID. The secret is never returned.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account that owns the key. Defaults to the provider account."
+          },
+          "keySid": {
+            "type": "string",
+            "description": "SID (SK...) of the API key."
+          }
+        },
+        "type": "object",
+        "required": [
+          "keySid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the key was created (RFC 2822).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Name of the key.",
+            "type": "string"
+          },
+          "keyType": {
+            "description": "restricted when the key has a policy, otherwise standard.",
+            "type": "string"
+          },
+          "policy": {
+            "description": "The policy of a restricted key as JSON (empty for a standard key, or when only the account-explicit route could read the key).",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The key SID (SK...).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "keyType",
+          "policy",
+          "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getApplication": {
+      "description": "Look up a TwiML application by SID.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account that owns the application. Defaults to the provider account."
+          },
+          "applicationSid": {
+            "type": "string",
+            "description": "SID (AP...) of the application."
+          }
+        },
+        "type": "object",
+        "required": [
+          "applicationSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.",
+            "replaceOnChanges": true,
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the application (up to 64 characters).",
+            "type": "string"
+          },
+          "messageStatusCallback": {
+            "description": "URL that receives status events for messages sent by this application.",
+            "type": "string"
+          },
+          "ownerAccountSid": {
+            "description": "SID of the account that owns the application.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The application SID (AP...).",
+            "type": "string"
+          },
+          "smsFallbackMethod": {
+            "description": "HTTP method for smsFallbackUrl: GET or POST.",
+            "type": "string"
+          },
+          "smsFallbackUrl": {
+            "description": "URL requested if smsUrl fails.",
+            "type": "string"
+          },
+          "smsMethod": {
+            "description": "HTTP method for smsUrl: GET or POST.",
+            "type": "string"
+          },
+          "smsStatusCallback": {
+            "description": "URL that receives status events for outbound SMS sent with this application.",
+            "type": "string"
+          },
+          "smsUrl": {
+            "description": "URL Twilio requests for incoming SMS.",
+            "type": "string"
+          },
+          "statusCallback": {
+            "description": "URL that receives call status events.",
+            "type": "string"
+          },
+          "statusCallbackMethod": {
+            "description": "HTTP method for statusCallback: GET or POST.",
+            "type": "string"
+          },
+          "voiceCallerIdLookup": {
+            "description": "Whether to look up the caller's name on incoming calls.",
+            "type": "boolean"
+          },
+          "voiceFallbackMethod": {
+            "description": "HTTP method for voiceFallbackUrl: GET or POST.",
+            "type": "string"
+          },
+          "voiceFallbackUrl": {
+            "description": "URL requested if voiceUrl fails.",
+            "type": "string"
+          },
+          "voiceMethod": {
+            "description": "HTTP method for voiceUrl: GET or POST (Twilio default POST).",
+            "type": "string"
+          },
+          "voiceUrl": {
+            "description": "URL Twilio requests for incoming voice calls.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "friendlyName",
+          "sid",
+          "ownerAccountSid"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getBalance": {
+      "description": "Read the account balance (GET /2010-04-01/Accounts/{AccountSid}/Balance.json).",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account. Defaults to the provider account."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account.",
+            "type": "string"
+          },
+          "balance": {
+            "description": "The balance as a decimal string, for example 12.3400.",
+            "type": "string"
+          },
+          "currency": {
+            "description": "ISO 4217 currency code of the balance.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "accountSid",
+          "balance",
+          "currency"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getIncomingPhoneNumber": {
+      "description": "Look up a phone number owned by the account by E.164 number or SID.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account that owns the number. Defaults to the provider account."
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The owned number in E.164 format. Exactly one of phoneNumber or sid must be set."
+          },
+          "sid": {
+            "type": "string",
+            "description": "The number SID (PN...). Exactly one of phoneNumber or sid must be set."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "friendlyName": {
+            "description": "Label of the number.",
+            "type": "string"
+          },
+          "mms": {
+            "description": "Whether the number can send and receive MMS.",
+            "type": "boolean"
+          },
+          "phoneNumber": {
+            "description": "The number in E.164 format.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The number SID (PN...).",
+            "type": "string"
+          },
+          "sms": {
+            "description": "Whether the number can send and receive SMS.",
+            "type": "boolean"
+          },
+          "smsApplicationSid": {
+            "description": "Application handling SMS, if any.",
+            "type": "string"
+          },
+          "smsUrl": {
+            "description": "Current SMS webhook URL (empty when none).",
+            "type": "string"
+          },
+          "voice": {
+            "description": "Whether the number can handle voice calls.",
+            "type": "boolean"
+          },
+          "voiceApplicationSid": {
+            "description": "Application handling voice, if any.",
+            "type": "string"
+          },
+          "voiceUrl": {
+            "description": "Current voice webhook URL (empty when none).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "phoneNumber",
+          "friendlyName",
+          "voiceUrl",
+          "smsUrl",
+          "voiceApplicationSid",
+          "smsApplicationSid",
+          "voice",
+          "sms",
+          "mms"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingService": {
+      "description": "Look up a Messaging Service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service. The Messaging API is scoped to the credentials' account."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "areaCodeGeomatch": {
+            "description": "Whether to prefer a sender with the recipient's area code.",
+            "type": "boolean"
+          },
+          "fallbackMethod": {
+            "description": "HTTP method for fallbackUrl: GET or POST.",
+            "type": "string"
+          },
+          "fallbackToLongCode": {
+            "description": "Whether a long code may be used when no short code or alphanumeric sender fits.",
+            "type": "boolean"
+          },
+          "fallbackUrl": {
+            "description": "URL requested if inboundRequestUrl fails.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the service (up to 64 characters).",
+            "type": "string"
+          },
+          "inboundMethod": {
+            "description": "HTTP method for inboundRequestUrl: GET or POST.",
+            "type": "string"
+          },
+          "inboundRequestUrl": {
+            "description": "URL Twilio requests for incoming messages to any sender in the pool.",
+            "type": "string"
+          },
+          "mmsConverter": {
+            "description": "Whether to convert unsupported MMS media for carriers.",
+            "type": "boolean"
+          },
+          "scanMessageContent": {
+            "description": "Content inspection: inherit, enable or disable.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The service SID (MG...).",
+            "type": "string"
+          },
+          "smartEncoding": {
+            "description": "Whether to replace non-GSM characters to keep messages in cheaper GSM-7 encoding.",
+            "type": "boolean"
+          },
+          "statusCallback": {
+            "description": "URL that receives status events for messages sent through the service.",
+            "type": "string"
+          },
+          "stickySender": {
+            "description": "Whether to keep using the same sender for a given recipient.",
+            "type": "boolean"
+          },
+          "synchronousValidation": {
+            "description": "Whether to validate sender and recipient before accepting a send request.",
+            "type": "boolean"
+          },
+          "useInboundWebhookOnNumber": {
+            "description": "Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.",
+            "type": "boolean"
+          },
+          "validityPeriod": {
+            "description": "Seconds a message may wait for delivery before expiring (1-36000).",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "friendlyName",
+          "sid"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingServicePhoneNumber": {
+      "description": "Look up a phone number in a Messaging Service sender pool.",
+      "inputs": {
+        "properties": {
+          "phoneNumberSid": {
+            "type": "string",
+            "description": "SID (PN...) of the phone number in the sender pool."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "phoneNumberSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "capabilities": {
+            "description": "Capabilities of the sender, for example SMS, MMS and Voice.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "phoneNumber": {
+            "description": "The sender in E.164 format.",
+            "type": "string"
+          },
+          "phoneNumberSid": {
+            "description": "SID of the phone number.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Messaging Service.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "phoneNumberSid",
+          "phoneNumber",
+          "capabilities"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getSubaccount": {
+      "description": "Look up a Twilio subaccount by SID. The auth token is deliberately not returned.",
+      "inputs": {
+        "properties": {
+          "subaccountSid": {
+            "type": "string",
+            "description": "SID (AC...) of the subaccount to look up."
+          }
+        },
+        "type": "object",
+        "required": [
+          "subaccountSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the account was created (RFC 2822).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Account name.",
+            "type": "string"
+          },
+          "ownerAccountSid": {
+            "description": "SID of the parent account.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "Account SID (AC...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "active, suspended or closed.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Trial or Full.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "status",
+          "type",
+          "ownerAccountSid",
+          "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyService": {
+      "description": "Look up a Verify service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (VA...) of the Verify service. The Verify API is scoped to the credentials' account."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "codeLength": {
+            "description": "Length of the verification code, 4 to 10 digits (Twilio default 6).",
+            "type": "integer"
+          },
+          "customCodeEnabled": {
+            "description": "Whether you may supply your own verification code (requires Twilio approval).",
+            "type": "boolean"
+          },
+          "doNotShareWarningEnabled": {
+            "description": "Whether to add a do-not-share warning to the message.",
+            "type": "boolean"
+          },
+          "dtmfInputRequired": {
+            "description": "Whether the recipient must press a key to hear a voice code.",
+            "type": "boolean"
+          },
+          "friendlyName": {
+            "description": "Name of the service, shown in verification messages (up to 30 characters).",
+            "type": "string"
+          },
+          "lookupEnabled": {
+            "description": "Whether to look up the destination phone number before sending.",
+            "type": "boolean"
+          },
+          "psd2Enabled": {
+            "description": "Whether PSD2 dynamic-linking (payee and amount) is required.",
+            "type": "boolean"
+          },
+          "sid": {
+            "description": "The Verify service SID (VA...).",
+            "type": "string"
+          },
+          "skipSmsToLandlines": {
+            "description": "Whether to skip SMS to landline numbers.",
+            "type": "boolean"
+          },
+          "ttsName": {
+            "description": "Name spoken in voice verifications instead of friendlyName.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "friendlyName",
+          "sid"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

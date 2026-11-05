@@ -1,0 +1,78 @@
+credentials:
+  - name: TWILIO_ACCOUNT_SID
+    required: true
+  - name: TWILIO_AUTH_TOKEN
+    required: false
+  - name: TWILIO_API_KEY
+    required: false
+  - name: TWILIO_API_SECRET
+    required: false
+  - name: TWILIO_BASE_URL
+    required: false
+  - name: TWILIO_EDGE
+    required: false
+  - name: TWILIO_REGION
+    required: false
+account: >-
+  A Twilio account (a trial or paid project is fine; a dedicated test project is preferred) with either TWILIO_AUTH_TOKEN or the TWILIO_API_KEY plus TWILIO_API_SECRET pair, whichever the provider config accepts (the exact precedence was not verified here). IncomingPhoneNumber and MessagingServicePhoneNumber need one phone number the account ALREADY owns, because the provider only adopts numbers and never buys them; that number must be bought by hand beforehand. Subaccount creation needs a paid (non-trial) project, which was not verified. Nothing was run against a live Twilio account.
+resources:
+  - type: twilio:index:ApiKey
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:Application
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:IncomingPhoneNumber
+    test: true
+    update: friendlyName
+    cost: "none from this resource (it adopts an already-owned number and never purchases or releases it); the pre-owned number itself bills monthly"
+  - type: twilio:index:MessagingService
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:MessagingServicePhoneNumber
+    test: true
+    update: null
+    cost: none
+  - type: twilio:index:Subaccount
+    test: true
+    update: friendlyName
+    cost: "none, but Twilio cannot delete subaccounts: destroy only closes them, and closed accounts linger for about 30 days"
+  - type: twilio:index:VerifyService
+    test: true
+    update: friendlyName
+    cost: none
+functions:
+  - name: getAccount
+    test: true
+  - name: getApiKey
+    test: true
+  - name: getApplication
+    test: true
+  - name: getBalance
+    test: true
+  - name: getIncomingPhoneNumber
+    test: true
+  - name: getMessagingService
+    test: true
+  - name: getMessagingServicePhoneNumber
+    test: true
+  - name: getSubaccount
+    test: true
+  - name: getVerifyService
+    test: true
+regressions:
+  - "Subaccount destroy of the provider's own top-level account must be refused, and import of it must fail."
+  - "Preview must not fail when a validated input (friendlyName, ApiKey policy) is computed from another resource in the same stack."
+  - "Removing a boolean or number input must only reset inputs with a documented default (validityPeriod to 36000, doNotShareWarningEnabled to false); every other removed flag stays untouched on Twilio."
+  - "Removing an HTTP method input (voiceMethod, smsMethod, inboundMethod and the other *Method inputs) must send POST, not an empty string."
+  - "Refresh must not echo inputs: the effective output shows what Twilio reports, and inputs the program leaves unset are never overwritten by server defaults."
+  - "Application, IncomingPhoneNumber and ApiKey in a subaccount must get the ID <accountSid>/<sid> and import must work for them."
+  - "ApiKey in a subaccount must survive refresh and be deleted on destroy via the account-explicit route."
+  - "IncomingPhoneNumber.accountSid change must update in place, not replace."
+  - "ApiKey policy drift made in the console must show as a diff on refresh and be restored by the next update."
+  - "ApiKey must be created without KeyType for standard keys."
+notes: >-
+  Never create a resource that sends an SMS or places a call; none of the shipped surface does, so no test is skipped. ApiKey returns its secret only on create. Subaccounts cannot be deleted, only closed, so use a unique friendlyName per run and expect leftovers. Cleanup order: MessagingServicePhoneNumber before MessagingService, and release nothing: IncomingPhoneNumber destroy never releases the number, it only drops it from state. Twilio is eventually consistent for new services and subaccounts, so retry reads briefly. MessagingServicePhoneNumber has no update (serviceSid and phoneNumberSid replace). The update properties are verified in the Go source as non-replace inputs; the API behaviour itself is unverified. Many products are deferred (SIP, Queue, A2P, Verify rate limits and others).

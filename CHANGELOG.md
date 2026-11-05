@@ -2,8 +2,11 @@
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-04
+
 ### Added
 
+- Add `qa.yaml`, the runtime test manifest QA reads: credentials, every resource and function with its test plan and cost, and the regressions to re-check. It is copied to the mirror root and changes no provider behavior.
 - Lookup functions for every resource: `getSubaccount` (arg `subaccountSid`), `getApiKey` (`keySid`, optional `accountSid`; never returns the secret), `getApplication` (`applicationSid`, optional `accountSid`), `getMessagingService` and `getVerifyService` (`serviceSid`; results carry the configuration Twilio reports) and `getMessagingServicePhoneNumber` (`serviceSid`, `phoneNumberSid`). A missing object fails with "<object> was not found".
 - `getBalance` reads the prepaid balance and currency of the provider account or a subaccount.
 - Coverage inventory of Twilio's SDKs and OpenAPI definitions in `research/coverage/twilio.md`.

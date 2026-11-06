@@ -23,6 +23,10 @@ namespace Pulumi.Labs.Twilio.Outputs
         /// </summary>
         public readonly bool? CustomCodeEnabled;
         /// <summary>
+        /// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        /// </summary>
+        public readonly string? DefaultTemplateSid;
+        /// <summary>
         /// Whether to add a do-not-share warning to the message.
         /// </summary>
         public readonly bool? DoNotShareWarningEnabled;
@@ -39,23 +43,89 @@ namespace Pulumi.Labs.Twilio.Outputs
         /// </summary>
         public readonly bool? LookupEnabled;
         /// <summary>
+        /// Authenticator attachment for passkeys: platform, cross-platform or any.
+        /// </summary>
+        public readonly string? PasskeysAuthenticatorAttachment;
+        /// <summary>
+        /// Whether passkey credentials are discoverable: required, preferred or discouraged.
+        /// </summary>
+        public readonly string? PasskeysDiscoverableCredentials;
+        /// <summary>
+        /// Passkeys relying party ID (the domain). Removing it clears the value.
+        /// </summary>
+        public readonly string? PasskeysRelyingPartyId;
+        /// <summary>
+        /// Passkeys relying party display name. Removing it clears the value.
+        /// </summary>
+        public readonly string? PasskeysRelyingPartyName;
+        /// <summary>
+        /// Origins allowed to use the passkeys relying party. Removing the list clears it.
+        /// </summary>
+        public readonly ImmutableArray<string> PasskeysRelyingPartyOrigins;
+        /// <summary>
+        /// User verification for passkeys: required, preferred or discouraged.
+        /// </summary>
+        public readonly string? PasskeysUserVerification;
+        /// <summary>
         /// Whether PSD2 dynamic-linking (payee and amount) is required.
         /// </summary>
         public readonly bool? Psd2Enabled;
+        /// <summary>
+        /// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        public readonly string? PushApnCredentialSid;
+        /// <summary>
+        /// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        public readonly string? PushFcmCredentialSid;
+        /// <summary>
+        /// Whether push challenges include the date they were created.
+        /// </summary>
+        public readonly bool? PushIncludeDate;
         /// <summary>
         /// Whether to skip SMS to landline numbers.
         /// </summary>
         public readonly bool? SkipSmsToLandlines;
         /// <summary>
+        /// Number of digits of a TOTP code (3 to 8).
+        /// </summary>
+        public readonly int? TotpCodeLength;
+        /// <summary>
+        /// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        /// </summary>
+        public readonly string? TotpIssuer;
+        /// <summary>
+        /// Number of time steps before and after the current one in which a TOTP code is accepted.
+        /// </summary>
+        public readonly int? TotpSkew;
+        /// <summary>
+        /// Seconds a TOTP code is valid (Twilio's totp.time_step).
+        /// </summary>
+        public readonly int? TotpTimeStep;
+        /// <summary>
         /// Name spoken in voice verifications instead of friendlyName.
         /// </summary>
         public readonly string? TtsName;
+        /// <summary>
+        /// Whether Verify events are sent to the service's event subscriptions.
+        /// </summary>
+        public readonly bool? VerifyEventSubscriptionEnabled;
+        /// <summary>
+        /// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        /// </summary>
+        public readonly string? WhatsappFrom;
+        /// <summary>
+        /// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        /// </summary>
+        public readonly string? WhatsappMsgServiceSid;
 
         [OutputConstructor]
         private VerifyServiceEffective(
             int? codeLength,
 
             bool? customCodeEnabled,
+
+            string? defaultTemplateSid,
 
             bool? doNotShareWarningEnabled,
 
@@ -65,21 +135,70 @@ namespace Pulumi.Labs.Twilio.Outputs
 
             bool? lookupEnabled,
 
+            string? passkeysAuthenticatorAttachment,
+
+            string? passkeysDiscoverableCredentials,
+
+            string? passkeysRelyingPartyId,
+
+            string? passkeysRelyingPartyName,
+
+            ImmutableArray<string> passkeysRelyingPartyOrigins,
+
+            string? passkeysUserVerification,
+
             bool? psd2Enabled,
+
+            string? pushApnCredentialSid,
+
+            string? pushFcmCredentialSid,
+
+            bool? pushIncludeDate,
 
             bool? skipSmsToLandlines,
 
-            string? ttsName)
+            int? totpCodeLength,
+
+            string? totpIssuer,
+
+            int? totpSkew,
+
+            int? totpTimeStep,
+
+            string? ttsName,
+
+            bool? verifyEventSubscriptionEnabled,
+
+            string? whatsappFrom,
+
+            string? whatsappMsgServiceSid)
         {
             CodeLength = codeLength;
             CustomCodeEnabled = customCodeEnabled;
+            DefaultTemplateSid = defaultTemplateSid;
             DoNotShareWarningEnabled = doNotShareWarningEnabled;
             DtmfInputRequired = dtmfInputRequired;
             FriendlyName = friendlyName;
             LookupEnabled = lookupEnabled;
+            PasskeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+            PasskeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+            PasskeysRelyingPartyId = passkeysRelyingPartyId;
+            PasskeysRelyingPartyName = passkeysRelyingPartyName;
+            PasskeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
+            PasskeysUserVerification = passkeysUserVerification;
             Psd2Enabled = psd2Enabled;
+            PushApnCredentialSid = pushApnCredentialSid;
+            PushFcmCredentialSid = pushFcmCredentialSid;
+            PushIncludeDate = pushIncludeDate;
             SkipSmsToLandlines = skipSmsToLandlines;
+            TotpCodeLength = totpCodeLength;
+            TotpIssuer = totpIssuer;
+            TotpSkew = totpSkew;
+            TotpTimeStep = totpTimeStep;
             TtsName = ttsName;
+            VerifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+            WhatsappFrom = whatsappFrom;
+            WhatsappMsgServiceSid = whatsappMsgServiceSid;
         }
     }
 }

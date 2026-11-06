@@ -19,6 +19,11 @@ public final class ApplicationEffective {
      */
     private @Nullable String accountSid;
     /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    private @Nullable String apiVersion;
+    /**
      * @return Human-readable name of the application (up to 64 characters).
      * 
      */
@@ -28,6 +33,11 @@ public final class ApplicationEffective {
      * 
      */
     private @Nullable String messageStatusCallback;
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    private @Nullable Boolean publicApplicationConnectEnabled;
     /**
      * @return HTTP method for smsFallbackUrl: GET or POST.
      * 
@@ -98,6 +108,13 @@ public final class ApplicationEffective {
         return Optional.ofNullable(this.accountSid);
     }
     /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Optional<String> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
+    }
+    /**
      * @return Human-readable name of the application (up to 64 characters).
      * 
      */
@@ -110,6 +127,13 @@ public final class ApplicationEffective {
      */
     public Optional<String> messageStatusCallback() {
         return Optional.ofNullable(this.messageStatusCallback);
+    }
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    public Optional<Boolean> publicApplicationConnectEnabled() {
+        return Optional.ofNullable(this.publicApplicationConnectEnabled);
     }
     /**
      * @return HTTP method for smsFallbackUrl: GET or POST.
@@ -206,8 +230,10 @@ public final class ApplicationEffective {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String accountSid;
+        private @Nullable String apiVersion;
         private String friendlyName;
         private @Nullable String messageStatusCallback;
+        private @Nullable Boolean publicApplicationConnectEnabled;
         private @Nullable String smsFallbackMethod;
         private @Nullable String smsFallbackUrl;
         private @Nullable String smsMethod;
@@ -224,8 +250,10 @@ public final class ApplicationEffective {
         public Builder(ApplicationEffective defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.accountSid = defaults.accountSid;
+    	      this.apiVersion = defaults.apiVersion;
     	      this.friendlyName = defaults.friendlyName;
     	      this.messageStatusCallback = defaults.messageStatusCallback;
+    	      this.publicApplicationConnectEnabled = defaults.publicApplicationConnectEnabled;
     	      this.smsFallbackMethod = defaults.smsFallbackMethod;
     	      this.smsFallbackUrl = defaults.smsFallbackUrl;
     	      this.smsMethod = defaults.smsMethod;
@@ -247,6 +275,12 @@ public final class ApplicationEffective {
             return this;
         }
         @CustomType.Setter
+        public Builder apiVersion(@Nullable String apiVersion) {
+
+            this.apiVersion = apiVersion;
+            return this;
+        }
+        @CustomType.Setter
         public Builder friendlyName(String friendlyName) {
             if (friendlyName == null) {
               throw new MissingRequiredPropertyException("ApplicationEffective", "friendlyName");
@@ -258,6 +292,12 @@ public final class ApplicationEffective {
         public Builder messageStatusCallback(@Nullable String messageStatusCallback) {
 
             this.messageStatusCallback = messageStatusCallback;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder publicApplicationConnectEnabled(@Nullable Boolean publicApplicationConnectEnabled) {
+
+            this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
             return this;
         }
         @CustomType.Setter
@@ -335,8 +375,10 @@ public final class ApplicationEffective {
         public ApplicationEffective build() {
             final var _resultValue = new ApplicationEffective();
             _resultValue.accountSid = accountSid;
+            _resultValue.apiVersion = apiVersion;
             _resultValue.friendlyName = friendlyName;
             _resultValue.messageStatusCallback = messageStatusCallback;
+            _resultValue.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
             _resultValue.smsFallbackMethod = smsFallbackMethod;
             _resultValue.smsFallbackUrl = smsFallbackUrl;
             _resultValue.smsMethod = smsMethod;

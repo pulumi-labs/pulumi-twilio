@@ -45,6 +45,10 @@ export class VerifyService extends pulumi.CustomResource {
      */
     declare public readonly customCodeEnabled: pulumi.Output<boolean | undefined>;
     /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     */
+    declare public readonly defaultTemplateSid: pulumi.Output<string | undefined>;
+    /**
      * Whether to add a do-not-share warning to the message.
      */
     declare public readonly doNotShareWarningEnabled: pulumi.Output<boolean | undefined>;
@@ -65,9 +69,45 @@ export class VerifyService extends pulumi.CustomResource {
      */
     declare public readonly lookupEnabled: pulumi.Output<boolean | undefined>;
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     */
+    declare public readonly passkeysAuthenticatorAttachment: pulumi.Output<string | undefined>;
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     */
+    declare public readonly passkeysDiscoverableCredentials: pulumi.Output<string | undefined>;
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     */
+    declare public readonly passkeysRelyingPartyId: pulumi.Output<string | undefined>;
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     */
+    declare public readonly passkeysRelyingPartyName: pulumi.Output<string | undefined>;
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     */
+    declare public readonly passkeysRelyingPartyOrigins: pulumi.Output<string[] | undefined>;
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     */
+    declare public readonly passkeysUserVerification: pulumi.Output<string | undefined>;
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      */
     declare public readonly psd2Enabled: pulumi.Output<boolean | undefined>;
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     */
+    declare public readonly pushApnCredentialSid: pulumi.Output<string | undefined>;
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     */
+    declare public readonly pushFcmCredentialSid: pulumi.Output<string | undefined>;
+    /**
+     * Whether push challenges include the date they were created.
+     */
+    declare public readonly pushIncludeDate: pulumi.Output<boolean | undefined>;
     /**
      * The Verify service SID (VA...).
      */
@@ -77,9 +117,37 @@ export class VerifyService extends pulumi.CustomResource {
      */
     declare public readonly skipSmsToLandlines: pulumi.Output<boolean | undefined>;
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     */
+    declare public readonly totpCodeLength: pulumi.Output<number | undefined>;
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     */
+    declare public readonly totpIssuer: pulumi.Output<string | undefined>;
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     */
+    declare public readonly totpSkew: pulumi.Output<number | undefined>;
+    /**
+     * Seconds a TOTP code is valid (Twilio's totp.time_step).
+     */
+    declare public readonly totpTimeStep: pulumi.Output<number | undefined>;
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      */
     declare public readonly ttsName: pulumi.Output<string | undefined>;
+    /**
+     * Whether Verify events are sent to the service's event subscriptions.
+     */
+    declare public readonly verifyEventSubscriptionEnabled: pulumi.Output<boolean | undefined>;
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     */
+    declare public readonly whatsappFrom: pulumi.Output<string | undefined>;
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     */
+    declare public readonly whatsappMsgServiceSid: pulumi.Output<string | undefined>;
 
     /**
      * Create a VerifyService resource with the given unique name, arguments, and options.
@@ -97,27 +165,61 @@ export class VerifyService extends pulumi.CustomResource {
             }
             resourceInputs["codeLength"] = args?.codeLength;
             resourceInputs["customCodeEnabled"] = args?.customCodeEnabled;
+            resourceInputs["defaultTemplateSid"] = args?.defaultTemplateSid;
             resourceInputs["doNotShareWarningEnabled"] = args?.doNotShareWarningEnabled;
             resourceInputs["dtmfInputRequired"] = args?.dtmfInputRequired;
             resourceInputs["friendlyName"] = args?.friendlyName;
             resourceInputs["lookupEnabled"] = args?.lookupEnabled;
+            resourceInputs["passkeysAuthenticatorAttachment"] = args?.passkeysAuthenticatorAttachment;
+            resourceInputs["passkeysDiscoverableCredentials"] = args?.passkeysDiscoverableCredentials;
+            resourceInputs["passkeysRelyingPartyId"] = args?.passkeysRelyingPartyId;
+            resourceInputs["passkeysRelyingPartyName"] = args?.passkeysRelyingPartyName;
+            resourceInputs["passkeysRelyingPartyOrigins"] = args?.passkeysRelyingPartyOrigins;
+            resourceInputs["passkeysUserVerification"] = args?.passkeysUserVerification;
             resourceInputs["psd2Enabled"] = args?.psd2Enabled;
+            resourceInputs["pushApnCredentialSid"] = args?.pushApnCredentialSid;
+            resourceInputs["pushFcmCredentialSid"] = args?.pushFcmCredentialSid;
+            resourceInputs["pushIncludeDate"] = args?.pushIncludeDate;
             resourceInputs["skipSmsToLandlines"] = args?.skipSmsToLandlines;
+            resourceInputs["totpCodeLength"] = args?.totpCodeLength;
+            resourceInputs["totpIssuer"] = args?.totpIssuer;
+            resourceInputs["totpSkew"] = args?.totpSkew;
+            resourceInputs["totpTimeStep"] = args?.totpTimeStep;
             resourceInputs["ttsName"] = args?.ttsName;
+            resourceInputs["verifyEventSubscriptionEnabled"] = args?.verifyEventSubscriptionEnabled;
+            resourceInputs["whatsappFrom"] = args?.whatsappFrom;
+            resourceInputs["whatsappMsgServiceSid"] = args?.whatsappMsgServiceSid;
             resourceInputs["effective"] = undefined /*out*/;
             resourceInputs["sid"] = undefined /*out*/;
         } else {
             resourceInputs["codeLength"] = undefined /*out*/;
             resourceInputs["customCodeEnabled"] = undefined /*out*/;
+            resourceInputs["defaultTemplateSid"] = undefined /*out*/;
             resourceInputs["doNotShareWarningEnabled"] = undefined /*out*/;
             resourceInputs["dtmfInputRequired"] = undefined /*out*/;
             resourceInputs["effective"] = undefined /*out*/;
             resourceInputs["friendlyName"] = undefined /*out*/;
             resourceInputs["lookupEnabled"] = undefined /*out*/;
+            resourceInputs["passkeysAuthenticatorAttachment"] = undefined /*out*/;
+            resourceInputs["passkeysDiscoverableCredentials"] = undefined /*out*/;
+            resourceInputs["passkeysRelyingPartyId"] = undefined /*out*/;
+            resourceInputs["passkeysRelyingPartyName"] = undefined /*out*/;
+            resourceInputs["passkeysRelyingPartyOrigins"] = undefined /*out*/;
+            resourceInputs["passkeysUserVerification"] = undefined /*out*/;
             resourceInputs["psd2Enabled"] = undefined /*out*/;
+            resourceInputs["pushApnCredentialSid"] = undefined /*out*/;
+            resourceInputs["pushFcmCredentialSid"] = undefined /*out*/;
+            resourceInputs["pushIncludeDate"] = undefined /*out*/;
             resourceInputs["sid"] = undefined /*out*/;
             resourceInputs["skipSmsToLandlines"] = undefined /*out*/;
+            resourceInputs["totpCodeLength"] = undefined /*out*/;
+            resourceInputs["totpIssuer"] = undefined /*out*/;
+            resourceInputs["totpSkew"] = undefined /*out*/;
+            resourceInputs["totpTimeStep"] = undefined /*out*/;
             resourceInputs["ttsName"] = undefined /*out*/;
+            resourceInputs["verifyEventSubscriptionEnabled"] = undefined /*out*/;
+            resourceInputs["whatsappFrom"] = undefined /*out*/;
+            resourceInputs["whatsappMsgServiceSid"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(VerifyService.__pulumiType, name, resourceInputs, opts);
@@ -137,6 +239,10 @@ export interface VerifyServiceArgs {
      */
     customCodeEnabled?: pulumi.Input<boolean | undefined>;
     /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     */
+    defaultTemplateSid?: pulumi.Input<string | undefined>;
+    /**
      * Whether to add a do-not-share warning to the message.
      */
     doNotShareWarningEnabled?: pulumi.Input<boolean | undefined>;
@@ -153,15 +259,79 @@ export interface VerifyServiceArgs {
      */
     lookupEnabled?: pulumi.Input<boolean | undefined>;
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     */
+    passkeysAuthenticatorAttachment?: pulumi.Input<string | undefined>;
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     */
+    passkeysDiscoverableCredentials?: pulumi.Input<string | undefined>;
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     */
+    passkeysRelyingPartyId?: pulumi.Input<string | undefined>;
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     */
+    passkeysRelyingPartyName?: pulumi.Input<string | undefined>;
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     */
+    passkeysRelyingPartyOrigins?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     */
+    passkeysUserVerification?: pulumi.Input<string | undefined>;
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      */
     psd2Enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     */
+    pushApnCredentialSid?: pulumi.Input<string | undefined>;
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     */
+    pushFcmCredentialSid?: pulumi.Input<string | undefined>;
+    /**
+     * Whether push challenges include the date they were created.
+     */
+    pushIncludeDate?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to skip SMS to landline numbers.
      */
     skipSmsToLandlines?: pulumi.Input<boolean | undefined>;
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     */
+    totpCodeLength?: pulumi.Input<number | undefined>;
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     */
+    totpIssuer?: pulumi.Input<string | undefined>;
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     */
+    totpSkew?: pulumi.Input<number | undefined>;
+    /**
+     * Seconds a TOTP code is valid (Twilio's totp.time_step).
+     */
+    totpTimeStep?: pulumi.Input<number | undefined>;
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      */
     ttsName?: pulumi.Input<string | undefined>;
+    /**
+     * Whether Verify events are sent to the service's event subscriptions.
+     */
+    verifyEventSubscriptionEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     */
+    whatsappFrom?: pulumi.Input<string | undefined>;
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     */
+    whatsappMsgServiceSid?: pulumi.Input<string | undefined>;
 }

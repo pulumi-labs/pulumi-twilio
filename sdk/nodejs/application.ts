@@ -41,6 +41,10 @@ export class Application extends pulumi.CustomResource {
      */
     declare public readonly accountSid: pulumi.Output<string | undefined>;
     /**
+     * Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    declare public readonly apiVersion: pulumi.Output<string | undefined>;
+    /**
      * The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
      */
     declare public /*out*/ readonly effective: pulumi.Output<outputs.ApplicationEffective | undefined>;
@@ -56,6 +60,10 @@ export class Application extends pulumi.CustomResource {
      * SID of the account that owns the application.
      */
     declare public /*out*/ readonly ownerAccountSid: pulumi.Output<string>;
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     */
+    declare public readonly publicApplicationConnectEnabled: pulumi.Output<boolean | undefined>;
     /**
      * The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.
      */
@@ -124,8 +132,10 @@ export class Application extends pulumi.CustomResource {
                 throw new Error("Missing required property 'friendlyName'");
             }
             resourceInputs["accountSid"] = args?.accountSid;
+            resourceInputs["apiVersion"] = args?.apiVersion;
             resourceInputs["friendlyName"] = args?.friendlyName;
             resourceInputs["messageStatusCallback"] = args?.messageStatusCallback;
+            resourceInputs["publicApplicationConnectEnabled"] = args?.publicApplicationConnectEnabled;
             resourceInputs["smsFallbackMethod"] = args?.smsFallbackMethod;
             resourceInputs["smsFallbackUrl"] = args?.smsFallbackUrl;
             resourceInputs["smsMethod"] = args?.smsMethod;
@@ -143,10 +153,12 @@ export class Application extends pulumi.CustomResource {
             resourceInputs["sid"] = undefined /*out*/;
         } else {
             resourceInputs["accountSid"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["effective"] = undefined /*out*/;
             resourceInputs["friendlyName"] = undefined /*out*/;
             resourceInputs["messageStatusCallback"] = undefined /*out*/;
             resourceInputs["ownerAccountSid"] = undefined /*out*/;
+            resourceInputs["publicApplicationConnectEnabled"] = undefined /*out*/;
             resourceInputs["sid"] = undefined /*out*/;
             resourceInputs["smsFallbackMethod"] = undefined /*out*/;
             resourceInputs["smsFallbackUrl"] = undefined /*out*/;
@@ -177,6 +189,10 @@ export interface ApplicationArgs {
      */
     accountSid?: pulumi.Input<string | undefined>;
     /**
+     * Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    apiVersion?: pulumi.Input<string | undefined>;
+    /**
      * Human-readable name of the application (up to 64 characters).
      */
     friendlyName: pulumi.Input<string>;
@@ -184,6 +200,10 @@ export interface ApplicationArgs {
      * URL that receives status events for messages sent by this application.
      */
     messageStatusCallback?: pulumi.Input<string | undefined>;
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     */
+    publicApplicationConnectEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * HTTP method for smsFallbackUrl: GET or POST.
      */

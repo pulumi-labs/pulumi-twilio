@@ -24,7 +24,7 @@ type ApiKey struct {
 	FriendlyName pulumi.StringOutput `pulumi:"friendlyName"`
 	// standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.
 	KeyType pulumi.StringPtrOutput `pulumi:"keyType"`
-	// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+	// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
 	Policy pulumi.StringPtrOutput `pulumi:"policy"`
 	// The API key secret. Twilio returns it only once, at creation, so it cannot be recovered later or after import.
 	Secret pulumi.StringOutput `pulumi:"secret"`
@@ -93,7 +93,7 @@ type apiKeyArgs struct {
 	FriendlyName string `pulumi:"friendlyName"`
 	// standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.
 	KeyType *string `pulumi:"keyType"`
-	// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+	// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
 	Policy *string `pulumi:"policy"`
 }
 
@@ -105,7 +105,7 @@ type ApiKeyArgs struct {
 	FriendlyName pulumi.StringInput
 	// standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.
 	KeyType pulumi.StringPtrInput
-	// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+	// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
 	Policy pulumi.StringPtrInput
 }
 
@@ -216,7 +216,7 @@ func (o ApiKeyOutput) KeyType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ApiKey) pulumi.StringPtrOutput { return v.KeyType }).(pulumi.StringPtrOutput)
 }
 
-// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
 func (o ApiKeyOutput) Policy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ApiKey) pulumi.StringPtrOutput { return v.Policy }).(pulumi.StringPtrOutput)
 }

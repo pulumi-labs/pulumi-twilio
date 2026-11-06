@@ -63,14 +63,14 @@ public final class ApiKeyArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/v1/Services/**&#34;]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+     * JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/twilio/iam/api-keys/create&#34;]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account&#39;s keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
      * 
      */
     @Import(name="policy")
     private @Nullable Output<String> policy;
 
     /**
-     * @return JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/v1/Services/**&#34;]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+     * @return JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/twilio/iam/api-keys/create&#34;]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account&#39;s keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
      * 
      */
     public Optional<Output<String>> policy() {
@@ -168,7 +168,7 @@ public final class ApiKeyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param policy JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/v1/Services/**&#34;]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+         * @param policy JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/twilio/iam/api-keys/create&#34;]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account&#39;s keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
          * 
          * @return builder
          * 
@@ -179,7 +179,7 @@ public final class ApiKeyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param policy JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/v1/Services/**&#34;]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+         * @param policy JSON policy document for a restricted key, for example {&#34;allow&#34;:[&#34;/twilio/iam/api-keys/create&#34;]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account&#39;s keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
          * 
          * @return builder
          * 

@@ -16,10 +16,14 @@ var _ = internal.GetEnvOrDefault
 type ApplicationEffective struct {
 	// SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
 	AccountSid *string `pulumi:"accountSid"`
+	// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Human-readable name of the application (up to 64 characters).
 	FriendlyName string `pulumi:"friendlyName"`
 	// URL that receives status events for messages sent by this application.
 	MessageStatusCallback *string `pulumi:"messageStatusCallback"`
+	// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+	PublicApplicationConnectEnabled *bool `pulumi:"publicApplicationConnectEnabled"`
 	// HTTP method for smsFallbackUrl: GET or POST.
 	SmsFallbackMethod *string `pulumi:"smsFallbackMethod"`
 	// URL requested if smsUrl fails.
@@ -65,6 +69,11 @@ func (o ApplicationEffectiveOutput) AccountSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ApplicationEffective) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
 }
 
+// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o ApplicationEffectiveOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ApplicationEffective) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
 // Human-readable name of the application (up to 64 characters).
 func (o ApplicationEffectiveOutput) FriendlyName() pulumi.StringOutput {
 	return o.ApplyT(func(v ApplicationEffective) string { return v.FriendlyName }).(pulumi.StringOutput)
@@ -73,6 +82,11 @@ func (o ApplicationEffectiveOutput) FriendlyName() pulumi.StringOutput {
 // URL that receives status events for messages sent by this application.
 func (o ApplicationEffectiveOutput) MessageStatusCallback() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ApplicationEffective) *string { return v.MessageStatusCallback }).(pulumi.StringPtrOutput)
+}
+
+// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+func (o ApplicationEffectiveOutput) PublicApplicationConnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ApplicationEffective) *bool { return v.PublicApplicationConnectEnabled }).(pulumi.BoolPtrOutput)
 }
 
 // HTTP method for smsFallbackUrl: GET or POST.
@@ -169,6 +183,16 @@ func (o ApplicationEffectivePtrOutput) AccountSid() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o ApplicationEffectivePtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ApplicationEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
 // Human-readable name of the application (up to 64 characters).
 func (o ApplicationEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ApplicationEffective) *string {
@@ -187,6 +211,16 @@ func (o ApplicationEffectivePtrOutput) MessageStatusCallback() pulumi.StringPtrO
 		}
 		return v.MessageStatusCallback
 	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+func (o ApplicationEffectivePtrOutput) PublicApplicationConnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ApplicationEffective) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PublicApplicationConnectEnabled
+	}).(pulumi.BoolPtrOutput)
 }
 
 // HTTP method for smsFallbackUrl: GET or POST.
@@ -309,11 +343,340 @@ func (o ApplicationEffectivePtrOutput) VoiceUrl() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ConnectAppEffective struct {
+	// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+	AccountSid *string `pulumi:"accountSid"`
+	// URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+	AuthorizeRedirectUrl *string `pulumi:"authorizeRedirectUrl"`
+	// Company name shown on the authorization page. Removing it leaves the name unchanged.
+	CompanyName *string `pulumi:"companyName"`
+	// SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+	ConnectAppSid string `pulumi:"connectAppSid"`
+	// HTTP method for deauthorizeCallbackUrl: GET or POST.
+	DeauthorizeCallbackMethod *string `pulumi:"deauthorizeCallbackMethod"`
+	// URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+	DeauthorizeCallbackUrl *string `pulumi:"deauthorizeCallbackUrl"`
+	// Description shown on the authorization page. Removing it leaves the text unchanged.
+	Description *string `pulumi:"description"`
+	// Human-readable name of the Connect app. Removing it leaves the name unchanged.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+	HomepageUrl *string `pulumi:"homepageUrl"`
+	// Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+	Permissions []string `pulumi:"permissions"`
+}
+
+type ConnectAppEffectiveOutput struct{ *pulumi.OutputState }
+
+func (ConnectAppEffectiveOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConnectAppEffective)(nil)).Elem()
+}
+
+func (o ConnectAppEffectiveOutput) ToConnectAppEffectiveOutput() ConnectAppEffectiveOutput {
+	return o
+}
+
+func (o ConnectAppEffectiveOutput) ToConnectAppEffectiveOutputWithContext(ctx context.Context) ConnectAppEffectiveOutput {
+	return o
+}
+
+// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+func (o ConnectAppEffectiveOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+func (o ConnectAppEffectiveOutput) AuthorizeRedirectUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.AuthorizeRedirectUrl }).(pulumi.StringPtrOutput)
+}
+
+// Company name shown on the authorization page. Removing it leaves the name unchanged.
+func (o ConnectAppEffectiveOutput) CompanyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.CompanyName }).(pulumi.StringPtrOutput)
+}
+
+// SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+func (o ConnectAppEffectiveOutput) ConnectAppSid() pulumi.StringOutput {
+	return o.ApplyT(func(v ConnectAppEffective) string { return v.ConnectAppSid }).(pulumi.StringOutput)
+}
+
+// HTTP method for deauthorizeCallbackUrl: GET or POST.
+func (o ConnectAppEffectiveOutput) DeauthorizeCallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.DeauthorizeCallbackMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+func (o ConnectAppEffectiveOutput) DeauthorizeCallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.DeauthorizeCallbackUrl }).(pulumi.StringPtrOutput)
+}
+
+// Description shown on the authorization page. Removing it leaves the text unchanged.
+func (o ConnectAppEffectiveOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Human-readable name of the Connect app. Removing it leaves the name unchanged.
+func (o ConnectAppEffectiveOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+func (o ConnectAppEffectiveOutput) HomepageUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectAppEffective) *string { return v.HomepageUrl }).(pulumi.StringPtrOutput)
+}
+
+// Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+func (o ConnectAppEffectiveOutput) Permissions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ConnectAppEffective) []string { return v.Permissions }).(pulumi.StringArrayOutput)
+}
+
+type ConnectAppEffectivePtrOutput struct{ *pulumi.OutputState }
+
+func (ConnectAppEffectivePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConnectAppEffective)(nil)).Elem()
+}
+
+func (o ConnectAppEffectivePtrOutput) ToConnectAppEffectivePtrOutput() ConnectAppEffectivePtrOutput {
+	return o
+}
+
+func (o ConnectAppEffectivePtrOutput) ToConnectAppEffectivePtrOutputWithContext(ctx context.Context) ConnectAppEffectivePtrOutput {
+	return o
+}
+
+func (o ConnectAppEffectivePtrOutput) Elem() ConnectAppEffectiveOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) ConnectAppEffective {
+		if v != nil {
+			return *v
+		}
+		var ret ConnectAppEffective
+		return ret
+	}).(ConnectAppEffectiveOutput)
+}
+
+// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+func (o ConnectAppEffectivePtrOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccountSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+func (o ConnectAppEffectivePtrOutput) AuthorizeRedirectUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AuthorizeRedirectUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// Company name shown on the authorization page. Removing it leaves the name unchanged.
+func (o ConnectAppEffectivePtrOutput) CompanyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CompanyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+func (o ConnectAppEffectivePtrOutput) ConnectAppSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ConnectAppSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// HTTP method for deauthorizeCallbackUrl: GET or POST.
+func (o ConnectAppEffectivePtrOutput) DeauthorizeCallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeauthorizeCallbackMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+func (o ConnectAppEffectivePtrOutput) DeauthorizeCallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeauthorizeCallbackUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// Description shown on the authorization page. Removing it leaves the text unchanged.
+func (o ConnectAppEffectivePtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// Human-readable name of the Connect app. Removing it leaves the name unchanged.
+func (o ConnectAppEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FriendlyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+func (o ConnectAppEffectivePtrOutput) HomepageUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HomepageUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+func (o ConnectAppEffectivePtrOutput) Permissions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ConnectAppEffective) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Permissions
+	}).(pulumi.StringArrayOutput)
+}
+
+type EventSubscriptionType struct {
+	// Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+	SchemaVersion *int `pulumi:"schemaVersion"`
+	// Event type ID, for example com.twilio.messaging.message.delivered.
+	Type string `pulumi:"type"`
+}
+
+// EventSubscriptionTypeInput is an input type that accepts EventSubscriptionTypeArgs and EventSubscriptionTypeOutput values.
+// You can construct a concrete instance of `EventSubscriptionTypeInput` via:
+//
+//	EventSubscriptionTypeArgs{...}
+type EventSubscriptionTypeInput interface {
+	pulumi.Input
+
+	ToEventSubscriptionTypeOutput() EventSubscriptionTypeOutput
+	ToEventSubscriptionTypeOutputWithContext(context.Context) EventSubscriptionTypeOutput
+}
+
+type EventSubscriptionTypeArgs struct {
+	// Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+	SchemaVersion pulumi.IntPtrInput `pulumi:"schemaVersion"`
+	// Event type ID, for example com.twilio.messaging.message.delivered.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (EventSubscriptionTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventSubscriptionType)(nil)).Elem()
+}
+
+func (i EventSubscriptionTypeArgs) ToEventSubscriptionTypeOutput() EventSubscriptionTypeOutput {
+	return i.ToEventSubscriptionTypeOutputWithContext(context.Background())
+}
+
+func (i EventSubscriptionTypeArgs) ToEventSubscriptionTypeOutputWithContext(ctx context.Context) EventSubscriptionTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventSubscriptionTypeOutput)
+}
+
+// EventSubscriptionTypeArrayInput is an input type that accepts EventSubscriptionTypeArray and EventSubscriptionTypeArrayOutput values.
+// You can construct a concrete instance of `EventSubscriptionTypeArrayInput` via:
+//
+//	EventSubscriptionTypeArray{ EventSubscriptionTypeArgs{...} }
+type EventSubscriptionTypeArrayInput interface {
+	pulumi.Input
+
+	ToEventSubscriptionTypeArrayOutput() EventSubscriptionTypeArrayOutput
+	ToEventSubscriptionTypeArrayOutputWithContext(context.Context) EventSubscriptionTypeArrayOutput
+}
+
+type EventSubscriptionTypeArray []EventSubscriptionTypeInput
+
+func (EventSubscriptionTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventSubscriptionType)(nil)).Elem()
+}
+
+func (i EventSubscriptionTypeArray) ToEventSubscriptionTypeArrayOutput() EventSubscriptionTypeArrayOutput {
+	return i.ToEventSubscriptionTypeArrayOutputWithContext(context.Background())
+}
+
+func (i EventSubscriptionTypeArray) ToEventSubscriptionTypeArrayOutputWithContext(ctx context.Context) EventSubscriptionTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventSubscriptionTypeArrayOutput)
+}
+
+type EventSubscriptionTypeOutput struct{ *pulumi.OutputState }
+
+func (EventSubscriptionTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventSubscriptionType)(nil)).Elem()
+}
+
+func (o EventSubscriptionTypeOutput) ToEventSubscriptionTypeOutput() EventSubscriptionTypeOutput {
+	return o
+}
+
+func (o EventSubscriptionTypeOutput) ToEventSubscriptionTypeOutputWithContext(ctx context.Context) EventSubscriptionTypeOutput {
+	return o
+}
+
+// Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+func (o EventSubscriptionTypeOutput) SchemaVersion() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EventSubscriptionType) *int { return v.SchemaVersion }).(pulumi.IntPtrOutput)
+}
+
+// Event type ID, for example com.twilio.messaging.message.delivered.
+func (o EventSubscriptionTypeOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v EventSubscriptionType) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type EventSubscriptionTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (EventSubscriptionTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventSubscriptionType)(nil)).Elem()
+}
+
+func (o EventSubscriptionTypeArrayOutput) ToEventSubscriptionTypeArrayOutput() EventSubscriptionTypeArrayOutput {
+	return o
+}
+
+func (o EventSubscriptionTypeArrayOutput) ToEventSubscriptionTypeArrayOutputWithContext(ctx context.Context) EventSubscriptionTypeArrayOutput {
+	return o
+}
+
+func (o EventSubscriptionTypeArrayOutput) Index(i pulumi.IntInput) EventSubscriptionTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventSubscriptionType {
+		return vs[0].([]EventSubscriptionType)[vs[1].(int)]
+	}).(EventSubscriptionTypeOutput)
+}
+
 type IncomingPhoneNumberEffective struct {
 	// SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
 	AccountSid *string `pulumi:"accountSid"`
+	// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+	AddressSid *string `pulumi:"addressSid"`
+	// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
+	// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+	BundleSid *string `pulumi:"bundleSid"`
+	// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+	EmergencyAddressSid *string `pulumi:"emergencyAddressSid"`
+	// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+	EmergencyStatus *string `pulumi:"emergencyStatus"`
 	// Human-readable label for the number.
 	FriendlyName *string `pulumi:"friendlyName"`
+	// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+	IdentitySid *string `pulumi:"identitySid"`
 	// The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
 	PhoneNumber *string `pulumi:"phoneNumber"`
 	// SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
@@ -332,6 +695,8 @@ type IncomingPhoneNumberEffective struct {
 	StatusCallback *string `pulumi:"statusCallback"`
 	// HTTP method for statusCallback: GET or POST.
 	StatusCallbackMethod *string `pulumi:"statusCallbackMethod"`
+	// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+	TrunkSid *string `pulumi:"trunkSid"`
 	// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 	VoiceApplicationSid *string `pulumi:"voiceApplicationSid"`
 	// Whether to look up the caller's name on incoming calls.
@@ -342,6 +707,8 @@ type IncomingPhoneNumberEffective struct {
 	VoiceFallbackUrl *string `pulumi:"voiceFallbackUrl"`
 	// HTTP method for voiceUrl: GET or POST.
 	VoiceMethod *string `pulumi:"voiceMethod"`
+	// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+	VoiceReceiveMode *string `pulumi:"voiceReceiveMode"`
 	// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
 	VoiceUrl *string `pulumi:"voiceUrl"`
 }
@@ -365,9 +732,39 @@ func (o IncomingPhoneNumberEffectiveOutput) AccountSid() pulumi.StringPtrOutput 
 	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
 }
 
+// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+func (o IncomingPhoneNumberEffectiveOutput) AddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.AddressSid }).(pulumi.StringPtrOutput)
+}
+
+// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o IncomingPhoneNumberEffectiveOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+func (o IncomingPhoneNumberEffectiveOutput) BundleSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.BundleSid }).(pulumi.StringPtrOutput)
+}
+
+// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+func (o IncomingPhoneNumberEffectiveOutput) EmergencyAddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.EmergencyAddressSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+func (o IncomingPhoneNumberEffectiveOutput) EmergencyStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.EmergencyStatus }).(pulumi.StringPtrOutput)
+}
+
 // Human-readable label for the number.
 func (o IncomingPhoneNumberEffectiveOutput) FriendlyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+func (o IncomingPhoneNumberEffectiveOutput) IdentitySid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.IdentitySid }).(pulumi.StringPtrOutput)
 }
 
 // The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
@@ -415,6 +812,11 @@ func (o IncomingPhoneNumberEffectiveOutput) StatusCallbackMethod() pulumi.String
 	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.StatusCallbackMethod }).(pulumi.StringPtrOutput)
 }
 
+// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+func (o IncomingPhoneNumberEffectiveOutput) TrunkSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.TrunkSid }).(pulumi.StringPtrOutput)
+}
+
 // SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 func (o IncomingPhoneNumberEffectiveOutput) VoiceApplicationSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.VoiceApplicationSid }).(pulumi.StringPtrOutput)
@@ -438,6 +840,11 @@ func (o IncomingPhoneNumberEffectiveOutput) VoiceFallbackUrl() pulumi.StringPtrO
 // HTTP method for voiceUrl: GET or POST.
 func (o IncomingPhoneNumberEffectiveOutput) VoiceMethod() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.VoiceMethod }).(pulumi.StringPtrOutput)
+}
+
+// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+func (o IncomingPhoneNumberEffectiveOutput) VoiceReceiveMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IncomingPhoneNumberEffective) *string { return v.VoiceReceiveMode }).(pulumi.StringPtrOutput)
 }
 
 // URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
@@ -479,6 +886,56 @@ func (o IncomingPhoneNumberEffectivePtrOutput) AccountSid() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
+// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+func (o IncomingPhoneNumberEffectivePtrOutput) AddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AddressSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o IncomingPhoneNumberEffectivePtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+func (o IncomingPhoneNumberEffectivePtrOutput) BundleSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BundleSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+func (o IncomingPhoneNumberEffectivePtrOutput) EmergencyAddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EmergencyAddressSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+func (o IncomingPhoneNumberEffectivePtrOutput) EmergencyStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EmergencyStatus
+	}).(pulumi.StringPtrOutput)
+}
+
 // Human-readable label for the number.
 func (o IncomingPhoneNumberEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
@@ -486,6 +943,16 @@ func (o IncomingPhoneNumberEffectivePtrOutput) FriendlyName() pulumi.StringPtrOu
 			return nil
 		}
 		return v.FriendlyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+func (o IncomingPhoneNumberEffectivePtrOutput) IdentitySid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IdentitySid
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -579,6 +1046,16 @@ func (o IncomingPhoneNumberEffectivePtrOutput) StatusCallbackMethod() pulumi.Str
 	}).(pulumi.StringPtrOutput)
 }
 
+// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+func (o IncomingPhoneNumberEffectivePtrOutput) TrunkSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TrunkSid
+	}).(pulumi.StringPtrOutput)
+}
+
 // SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 func (o IncomingPhoneNumberEffectivePtrOutput) VoiceApplicationSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
@@ -629,6 +1106,16 @@ func (o IncomingPhoneNumberEffectivePtrOutput) VoiceMethod() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
+// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+func (o IncomingPhoneNumberEffectivePtrOutput) VoiceReceiveMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VoiceReceiveMode
+	}).(pulumi.StringPtrOutput)
+}
+
 // URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
 func (o IncomingPhoneNumberEffectivePtrOutput) VoiceUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumberEffective) *string {
@@ -668,6 +1155,8 @@ type MessagingServiceEffective struct {
 	SynchronousValidation *bool `pulumi:"synchronousValidation"`
 	// Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 	UseInboundWebhookOnNumber *bool `pulumi:"useInboundWebhookOnNumber"`
+	// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+	Usecase *string `pulumi:"usecase"`
 	// Seconds a message may wait for delivery before expiring (1-36000).
 	ValidityPeriod *int `pulumi:"validityPeriod"`
 }
@@ -754,6 +1243,11 @@ func (o MessagingServiceEffectiveOutput) SynchronousValidation() pulumi.BoolPtrO
 // Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 func (o MessagingServiceEffectiveOutput) UseInboundWebhookOnNumber() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MessagingServiceEffective) *bool { return v.UseInboundWebhookOnNumber }).(pulumi.BoolPtrOutput)
+}
+
+// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+func (o MessagingServiceEffectiveOutput) Usecase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingServiceEffective) *string { return v.Usecase }).(pulumi.StringPtrOutput)
 }
 
 // Seconds a message may wait for delivery before expiring (1-36000).
@@ -925,6 +1419,16 @@ func (o MessagingServiceEffectivePtrOutput) UseInboundWebhookOnNumber() pulumi.B
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+func (o MessagingServiceEffectivePtrOutput) Usecase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MessagingServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Usecase
+	}).(pulumi.StringPtrOutput)
+}
+
 // Seconds a message may wait for delivery before expiring (1-36000).
 func (o MessagingServiceEffectivePtrOutput) ValidityPeriod() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MessagingServiceEffective) *int {
@@ -935,11 +1439,316 @@ func (o MessagingServiceEffectivePtrOutput) ValidityPeriod() pulumi.IntPtrOutput
 	}).(pulumi.IntPtrOutput)
 }
 
+type OutgoingCallerIdEffective struct {
+	// SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+	AccountSid *string `pulumi:"accountSid"`
+	// Human-readable label for the caller ID. Removing it leaves the label unchanged.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+	OutgoingCallerIdSid *string `pulumi:"outgoingCallerIdSid"`
+	// The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+	PhoneNumber *string `pulumi:"phoneNumber"`
+}
+
+type OutgoingCallerIdEffectiveOutput struct{ *pulumi.OutputState }
+
+func (OutgoingCallerIdEffectiveOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OutgoingCallerIdEffective)(nil)).Elem()
+}
+
+func (o OutgoingCallerIdEffectiveOutput) ToOutgoingCallerIdEffectiveOutput() OutgoingCallerIdEffectiveOutput {
+	return o
+}
+
+func (o OutgoingCallerIdEffectiveOutput) ToOutgoingCallerIdEffectiveOutputWithContext(ctx context.Context) OutgoingCallerIdEffectiveOutput {
+	return o
+}
+
+// SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+func (o OutgoingCallerIdEffectiveOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OutgoingCallerIdEffective) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
+}
+
+// Human-readable label for the caller ID. Removing it leaves the label unchanged.
+func (o OutgoingCallerIdEffectiveOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OutgoingCallerIdEffective) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+func (o OutgoingCallerIdEffectiveOutput) OutgoingCallerIdSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OutgoingCallerIdEffective) *string { return v.OutgoingCallerIdSid }).(pulumi.StringPtrOutput)
+}
+
+// The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+func (o OutgoingCallerIdEffectiveOutput) PhoneNumber() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OutgoingCallerIdEffective) *string { return v.PhoneNumber }).(pulumi.StringPtrOutput)
+}
+
+type OutgoingCallerIdEffectivePtrOutput struct{ *pulumi.OutputState }
+
+func (OutgoingCallerIdEffectivePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**OutgoingCallerIdEffective)(nil)).Elem()
+}
+
+func (o OutgoingCallerIdEffectivePtrOutput) ToOutgoingCallerIdEffectivePtrOutput() OutgoingCallerIdEffectivePtrOutput {
+	return o
+}
+
+func (o OutgoingCallerIdEffectivePtrOutput) ToOutgoingCallerIdEffectivePtrOutputWithContext(ctx context.Context) OutgoingCallerIdEffectivePtrOutput {
+	return o
+}
+
+func (o OutgoingCallerIdEffectivePtrOutput) Elem() OutgoingCallerIdEffectiveOutput {
+	return o.ApplyT(func(v *OutgoingCallerIdEffective) OutgoingCallerIdEffective {
+		if v != nil {
+			return *v
+		}
+		var ret OutgoingCallerIdEffective
+		return ret
+	}).(OutgoingCallerIdEffectiveOutput)
+}
+
+// SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+func (o OutgoingCallerIdEffectivePtrOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OutgoingCallerIdEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccountSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Human-readable label for the caller ID. Removing it leaves the label unchanged.
+func (o OutgoingCallerIdEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OutgoingCallerIdEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FriendlyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+func (o OutgoingCallerIdEffectivePtrOutput) OutgoingCallerIdSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OutgoingCallerIdEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.OutgoingCallerIdSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+func (o OutgoingCallerIdEffectivePtrOutput) PhoneNumber() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OutgoingCallerIdEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PhoneNumber
+	}).(pulumi.StringPtrOutput)
+}
+
+type ShortCodeEffective struct {
+	// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+	AccountSid *string `pulumi:"accountSid"`
+	// Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
+	// The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+	Code *string `pulumi:"code"`
+	// Human-readable label for the short code. Removing it leaves the label unchanged.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+	ShortCodeSid *string `pulumi:"shortCodeSid"`
+	// HTTP method for smsFallbackUrl: GET or POST.
+	SmsFallbackMethod *string `pulumi:"smsFallbackMethod"`
+	// URL requested if smsUrl fails. Removing it clears the URL.
+	SmsFallbackUrl *string `pulumi:"smsFallbackUrl"`
+	// HTTP method for smsUrl: GET or POST.
+	SmsMethod *string `pulumi:"smsMethod"`
+	// URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+	SmsUrl *string `pulumi:"smsUrl"`
+}
+
+type ShortCodeEffectiveOutput struct{ *pulumi.OutputState }
+
+func (ShortCodeEffectiveOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShortCodeEffective)(nil)).Elem()
+}
+
+func (o ShortCodeEffectiveOutput) ToShortCodeEffectiveOutput() ShortCodeEffectiveOutput {
+	return o
+}
+
+func (o ShortCodeEffectiveOutput) ToShortCodeEffectiveOutputWithContext(ctx context.Context) ShortCodeEffectiveOutput {
+	return o
+}
+
+// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+func (o ShortCodeEffectiveOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
+}
+
+// Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o ShortCodeEffectiveOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+func (o ShortCodeEffectiveOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.Code }).(pulumi.StringPtrOutput)
+}
+
+// Human-readable label for the short code. Removing it leaves the label unchanged.
+func (o ShortCodeEffectiveOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+func (o ShortCodeEffectiveOutput) ShortCodeSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.ShortCodeSid }).(pulumi.StringPtrOutput)
+}
+
+// HTTP method for smsFallbackUrl: GET or POST.
+func (o ShortCodeEffectiveOutput) SmsFallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.SmsFallbackMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL requested if smsUrl fails. Removing it clears the URL.
+func (o ShortCodeEffectiveOutput) SmsFallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.SmsFallbackUrl }).(pulumi.StringPtrOutput)
+}
+
+// HTTP method for smsUrl: GET or POST.
+func (o ShortCodeEffectiveOutput) SmsMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.SmsMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+func (o ShortCodeEffectiveOutput) SmsUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShortCodeEffective) *string { return v.SmsUrl }).(pulumi.StringPtrOutput)
+}
+
+type ShortCodeEffectivePtrOutput struct{ *pulumi.OutputState }
+
+func (ShortCodeEffectivePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShortCodeEffective)(nil)).Elem()
+}
+
+func (o ShortCodeEffectivePtrOutput) ToShortCodeEffectivePtrOutput() ShortCodeEffectivePtrOutput {
+	return o
+}
+
+func (o ShortCodeEffectivePtrOutput) ToShortCodeEffectivePtrOutputWithContext(ctx context.Context) ShortCodeEffectivePtrOutput {
+	return o
+}
+
+func (o ShortCodeEffectivePtrOutput) Elem() ShortCodeEffectiveOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) ShortCodeEffective {
+		if v != nil {
+			return *v
+		}
+		var ret ShortCodeEffective
+		return ret
+	}).(ShortCodeEffectiveOutput)
+}
+
+// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+func (o ShortCodeEffectivePtrOutput) AccountSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccountSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o ShortCodeEffectivePtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
+// The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+func (o ShortCodeEffectivePtrOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Code
+	}).(pulumi.StringPtrOutput)
+}
+
+// Human-readable label for the short code. Removing it leaves the label unchanged.
+func (o ShortCodeEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FriendlyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+func (o ShortCodeEffectivePtrOutput) ShortCodeSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ShortCodeSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// HTTP method for smsFallbackUrl: GET or POST.
+func (o ShortCodeEffectivePtrOutput) SmsFallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SmsFallbackMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL requested if smsUrl fails. Removing it clears the URL.
+func (o ShortCodeEffectivePtrOutput) SmsFallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SmsFallbackUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// HTTP method for smsUrl: GET or POST.
+func (o ShortCodeEffectivePtrOutput) SmsMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SmsMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+func (o ShortCodeEffectivePtrOutput) SmsUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShortCodeEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SmsUrl
+	}).(pulumi.StringPtrOutput)
+}
+
 type VerifyServiceEffective struct {
 	// Length of the verification code, 4 to 10 digits (Twilio default 6).
 	CodeLength *int `pulumi:"codeLength"`
 	// Whether you may supply your own verification code (requires Twilio approval).
 	CustomCodeEnabled *bool `pulumi:"customCodeEnabled"`
+	// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+	DefaultTemplateSid *string `pulumi:"defaultTemplateSid"`
 	// Whether to add a do-not-share warning to the message.
 	DoNotShareWarningEnabled *bool `pulumi:"doNotShareWarningEnabled"`
 	// Whether the recipient must press a key to hear a voice code.
@@ -948,12 +1757,44 @@ type VerifyServiceEffective struct {
 	FriendlyName string `pulumi:"friendlyName"`
 	// Whether to look up the destination phone number before sending.
 	LookupEnabled *bool `pulumi:"lookupEnabled"`
+	// Authenticator attachment for passkeys: platform, cross-platform or any.
+	PasskeysAuthenticatorAttachment *string `pulumi:"passkeysAuthenticatorAttachment"`
+	// Whether passkey credentials are discoverable: required, preferred or discouraged.
+	PasskeysDiscoverableCredentials *string `pulumi:"passkeysDiscoverableCredentials"`
+	// Passkeys relying party ID (the domain). Removing it clears the value.
+	PasskeysRelyingPartyId *string `pulumi:"passkeysRelyingPartyId"`
+	// Passkeys relying party display name. Removing it clears the value.
+	PasskeysRelyingPartyName *string `pulumi:"passkeysRelyingPartyName"`
+	// Origins allowed to use the passkeys relying party. Removing the list clears it.
+	PasskeysRelyingPartyOrigins []string `pulumi:"passkeysRelyingPartyOrigins"`
+	// User verification for passkeys: required, preferred or discouraged.
+	PasskeysUserVerification *string `pulumi:"passkeysUserVerification"`
 	// Whether PSD2 dynamic-linking (payee and amount) is required.
 	Psd2Enabled *bool `pulumi:"psd2Enabled"`
+	// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+	PushApnCredentialSid *string `pulumi:"pushApnCredentialSid"`
+	// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+	PushFcmCredentialSid *string `pulumi:"pushFcmCredentialSid"`
+	// Whether push challenges include the date they were created.
+	PushIncludeDate *bool `pulumi:"pushIncludeDate"`
 	// Whether to skip SMS to landline numbers.
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
+	// Number of digits of a TOTP code (3 to 8).
+	TotpCodeLength *int `pulumi:"totpCodeLength"`
+	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	TotpIssuer *string `pulumi:"totpIssuer"`
+	// Number of time steps before and after the current one in which a TOTP code is accepted.
+	TotpSkew *int `pulumi:"totpSkew"`
+	// Seconds a TOTP code is valid (Twilio's totp.time_step).
+	TotpTimeStep *int `pulumi:"totpTimeStep"`
 	// Name spoken in voice verifications instead of friendlyName.
 	TtsName *string `pulumi:"ttsName"`
+	// Whether Verify events are sent to the service's event subscriptions.
+	VerifyEventSubscriptionEnabled *bool `pulumi:"verifyEventSubscriptionEnabled"`
+	// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+	WhatsappFrom *string `pulumi:"whatsappFrom"`
+	// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+	WhatsappMsgServiceSid *string `pulumi:"whatsappMsgServiceSid"`
 }
 
 type VerifyServiceEffectiveOutput struct{ *pulumi.OutputState }
@@ -980,6 +1821,11 @@ func (o VerifyServiceEffectiveOutput) CustomCodeEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.CustomCodeEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+func (o VerifyServiceEffectiveOutput) DefaultTemplateSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.DefaultTemplateSid }).(pulumi.StringPtrOutput)
+}
+
 // Whether to add a do-not-share warning to the message.
 func (o VerifyServiceEffectiveOutput) DoNotShareWarningEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.DoNotShareWarningEnabled }).(pulumi.BoolPtrOutput)
@@ -1000,9 +1846,54 @@ func (o VerifyServiceEffectiveOutput) LookupEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.LookupEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// Authenticator attachment for passkeys: platform, cross-platform or any.
+func (o VerifyServiceEffectiveOutput) PasskeysAuthenticatorAttachment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PasskeysAuthenticatorAttachment }).(pulumi.StringPtrOutput)
+}
+
+// Whether passkey credentials are discoverable: required, preferred or discouraged.
+func (o VerifyServiceEffectiveOutput) PasskeysDiscoverableCredentials() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PasskeysDiscoverableCredentials }).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party ID (the domain). Removing it clears the value.
+func (o VerifyServiceEffectiveOutput) PasskeysRelyingPartyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PasskeysRelyingPartyId }).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party display name. Removing it clears the value.
+func (o VerifyServiceEffectiveOutput) PasskeysRelyingPartyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PasskeysRelyingPartyName }).(pulumi.StringPtrOutput)
+}
+
+// Origins allowed to use the passkeys relying party. Removing the list clears it.
+func (o VerifyServiceEffectiveOutput) PasskeysRelyingPartyOrigins() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) []string { return v.PasskeysRelyingPartyOrigins }).(pulumi.StringArrayOutput)
+}
+
+// User verification for passkeys: required, preferred or discouraged.
+func (o VerifyServiceEffectiveOutput) PasskeysUserVerification() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PasskeysUserVerification }).(pulumi.StringPtrOutput)
+}
+
 // Whether PSD2 dynamic-linking (payee and amount) is required.
 func (o VerifyServiceEffectiveOutput) Psd2Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.Psd2Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceEffectiveOutput) PushApnCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PushApnCredentialSid }).(pulumi.StringPtrOutput)
+}
+
+// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceEffectiveOutput) PushFcmCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.PushFcmCredentialSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether push challenges include the date they were created.
+func (o VerifyServiceEffectiveOutput) PushIncludeDate() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.PushIncludeDate }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to skip SMS to landline numbers.
@@ -1010,9 +1901,44 @@ func (o VerifyServiceEffectiveOutput) SkipSmsToLandlines() pulumi.BoolPtrOutput 
 	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.SkipSmsToLandlines }).(pulumi.BoolPtrOutput)
 }
 
+// Number of digits of a TOTP code (3 to 8).
+func (o VerifyServiceEffectiveOutput) TotpCodeLength() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *int { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
+}
+
+// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+func (o VerifyServiceEffectiveOutput) TotpIssuer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.TotpIssuer }).(pulumi.StringPtrOutput)
+}
+
+// Number of time steps before and after the current one in which a TOTP code is accepted.
+func (o VerifyServiceEffectiveOutput) TotpSkew() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *int { return v.TotpSkew }).(pulumi.IntPtrOutput)
+}
+
+// Seconds a TOTP code is valid (Twilio's totp.time_step).
+func (o VerifyServiceEffectiveOutput) TotpTimeStep() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *int { return v.TotpTimeStep }).(pulumi.IntPtrOutput)
+}
+
 // Name spoken in voice verifications instead of friendlyName.
 func (o VerifyServiceEffectiveOutput) TtsName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.TtsName }).(pulumi.StringPtrOutput)
+}
+
+// Whether Verify events are sent to the service's event subscriptions.
+func (o VerifyServiceEffectiveOutput) VerifyEventSubscriptionEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *bool { return v.VerifyEventSubscriptionEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+func (o VerifyServiceEffectiveOutput) WhatsappFrom() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.WhatsappFrom }).(pulumi.StringPtrOutput)
+}
+
+// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+func (o VerifyServiceEffectiveOutput) WhatsappMsgServiceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.WhatsappMsgServiceSid }).(pulumi.StringPtrOutput)
 }
 
 type VerifyServiceEffectivePtrOutput struct{ *pulumi.OutputState }
@@ -1059,6 +1985,16 @@ func (o VerifyServiceEffectivePtrOutput) CustomCodeEnabled() pulumi.BoolPtrOutpu
 	}).(pulumi.BoolPtrOutput)
 }
 
+// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+func (o VerifyServiceEffectivePtrOutput) DefaultTemplateSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultTemplateSid
+	}).(pulumi.StringPtrOutput)
+}
+
 // Whether to add a do-not-share warning to the message.
 func (o VerifyServiceEffectivePtrOutput) DoNotShareWarningEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyServiceEffective) *bool {
@@ -1099,6 +2035,66 @@ func (o VerifyServiceEffectivePtrOutput) LookupEnabled() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Authenticator attachment for passkeys: platform, cross-platform or any.
+func (o VerifyServiceEffectivePtrOutput) PasskeysAuthenticatorAttachment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysAuthenticatorAttachment
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether passkey credentials are discoverable: required, preferred or discouraged.
+func (o VerifyServiceEffectivePtrOutput) PasskeysDiscoverableCredentials() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysDiscoverableCredentials
+	}).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party ID (the domain). Removing it clears the value.
+func (o VerifyServiceEffectivePtrOutput) PasskeysRelyingPartyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysRelyingPartyId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party display name. Removing it clears the value.
+func (o VerifyServiceEffectivePtrOutput) PasskeysRelyingPartyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysRelyingPartyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Origins allowed to use the passkeys relying party. Removing the list clears it.
+func (o VerifyServiceEffectivePtrOutput) PasskeysRelyingPartyOrigins() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysRelyingPartyOrigins
+	}).(pulumi.StringArrayOutput)
+}
+
+// User verification for passkeys: required, preferred or discouraged.
+func (o VerifyServiceEffectivePtrOutput) PasskeysUserVerification() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PasskeysUserVerification
+	}).(pulumi.StringPtrOutput)
+}
+
 // Whether PSD2 dynamic-linking (payee and amount) is required.
 func (o VerifyServiceEffectivePtrOutput) Psd2Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyServiceEffective) *bool {
@@ -1106,6 +2102,36 @@ func (o VerifyServiceEffectivePtrOutput) Psd2Enabled() pulumi.BoolPtrOutput {
 			return nil
 		}
 		return v.Psd2Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceEffectivePtrOutput) PushApnCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PushApnCredentialSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceEffectivePtrOutput) PushFcmCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PushFcmCredentialSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether push challenges include the date they were created.
+func (o VerifyServiceEffectivePtrOutput) PushIncludeDate() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PushIncludeDate
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -1119,6 +2145,46 @@ func (o VerifyServiceEffectivePtrOutput) SkipSmsToLandlines() pulumi.BoolPtrOutp
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Number of digits of a TOTP code (3 to 8).
+func (o VerifyServiceEffectivePtrOutput) TotpCodeLength() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TotpCodeLength
+	}).(pulumi.IntPtrOutput)
+}
+
+// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+func (o VerifyServiceEffectivePtrOutput) TotpIssuer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TotpIssuer
+	}).(pulumi.StringPtrOutput)
+}
+
+// Number of time steps before and after the current one in which a TOTP code is accepted.
+func (o VerifyServiceEffectivePtrOutput) TotpSkew() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TotpSkew
+	}).(pulumi.IntPtrOutput)
+}
+
+// Seconds a TOTP code is valid (Twilio's totp.time_step).
+func (o VerifyServiceEffectivePtrOutput) TotpTimeStep() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TotpTimeStep
+	}).(pulumi.IntPtrOutput)
+}
+
 // Name spoken in voice verifications instead of friendlyName.
 func (o VerifyServiceEffectivePtrOutput) TtsName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VerifyServiceEffective) *string {
@@ -1129,13 +2195,53 @@ func (o VerifyServiceEffectivePtrOutput) TtsName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Whether Verify events are sent to the service's event subscriptions.
+func (o VerifyServiceEffectivePtrOutput) VerifyEventSubscriptionEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.VerifyEventSubscriptionEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+func (o VerifyServiceEffectivePtrOutput) WhatsappFrom() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WhatsappFrom
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+func (o VerifyServiceEffectivePtrOutput) WhatsappMsgServiceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyServiceEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WhatsappMsgServiceSid
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
 	pulumi.RegisterOutputType(ApplicationEffectiveOutput{})
 	pulumi.RegisterOutputType(ApplicationEffectivePtrOutput{})
+	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
+	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
+	pulumi.RegisterOutputType(EventSubscriptionTypeOutput{})
+	pulumi.RegisterOutputType(EventSubscriptionTypeArrayOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectiveOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectivePtrOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectivePtrOutput{})
+	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})
+	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
+	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
+	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectivePtrOutput{})
 }

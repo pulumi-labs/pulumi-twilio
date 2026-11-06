@@ -33,6 +33,21 @@ public final class ApplicationArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    @Import(name="apiVersion")
+    private @Nullable Output<String> apiVersion;
+
+    /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Optional<Output<String>> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
+    }
+
+    /**
      * Human-readable name of the application (up to 64 characters).
      * 
      */
@@ -60,6 +75,21 @@ public final class ApplicationArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> messageStatusCallback() {
         return Optional.ofNullable(this.messageStatusCallback);
+    }
+
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    @Import(name="publicApplicationConnectEnabled")
+    private @Nullable Output<Boolean> publicApplicationConnectEnabled;
+
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    public Optional<Output<Boolean>> publicApplicationConnectEnabled() {
+        return Optional.ofNullable(this.publicApplicationConnectEnabled);
     }
 
     /**
@@ -246,8 +276,10 @@ public final class ApplicationArgs extends com.pulumi.resources.ResourceArgs {
 
     private ApplicationArgs(ApplicationArgs $) {
         this.accountSid = $.accountSid;
+        this.apiVersion = $.apiVersion;
         this.friendlyName = $.friendlyName;
         this.messageStatusCallback = $.messageStatusCallback;
+        this.publicApplicationConnectEnabled = $.publicApplicationConnectEnabled;
         this.smsFallbackMethod = $.smsFallbackMethod;
         this.smsFallbackUrl = $.smsFallbackUrl;
         this.smsMethod = $.smsMethod;
@@ -302,6 +334,27 @@ public final class ApplicationArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param apiVersion Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersion(@Nullable Output<String> apiVersion) {
+            $.apiVersion = apiVersion;
+            return this;
+        }
+
+        /**
+         * @param apiVersion Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersion(String apiVersion) {
+            return apiVersion(Output.of(apiVersion));
+        }
+
+        /**
          * @param friendlyName Human-readable name of the application (up to 64 characters).
          * 
          * @return builder
@@ -341,6 +394,27 @@ public final class ApplicationArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder messageStatusCallback(String messageStatusCallback) {
             return messageStatusCallback(Output.of(messageStatusCallback));
+        }
+
+        /**
+         * @param publicApplicationConnectEnabled Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder publicApplicationConnectEnabled(@Nullable Output<Boolean> publicApplicationConnectEnabled) {
+            $.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
+            return this;
+        }
+
+        /**
+         * @param publicApplicationConnectEnabled Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder publicApplicationConnectEnabled(Boolean publicApplicationConnectEnabled) {
+            return publicApplicationConnectEnabled(Output.of(publicApplicationConnectEnabled));
         }
 
         /**

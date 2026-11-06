@@ -247,6 +247,20 @@ public class MessagingService extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.useInboundWebhookOnNumber);
     }
     /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    @Export(name="usecase", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> usecase;
+
+    /**
+     * @return Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    public Output<Optional<String>> usecase() {
+        return Codegen.optional(this.usecase);
+    }
+    /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      * 
      */

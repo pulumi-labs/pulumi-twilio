@@ -83,6 +83,10 @@ export interface GetMessagingServiceResult {
      */
     readonly useInboundWebhookOnNumber?: boolean;
     /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     */
+    readonly usecase?: string;
+    /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      */
     readonly validityPeriod?: number;

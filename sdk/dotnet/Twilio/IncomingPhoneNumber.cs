@@ -23,16 +23,52 @@ namespace Pulumi.Labs.Twilio
         public Output<string?> AccountSid { get; private set; } = null!;
 
         /// <summary>
+        /// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        /// </summary>
+        [Output("addressSid")]
+        public Output<string?> AddressSid { get; private set; } = null!;
+
+        /// <summary>
+        /// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        [Output("apiVersion")]
+        public Output<string?> ApiVersion { get; private set; } = null!;
+
+        /// <summary>
+        /// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        /// </summary>
+        [Output("bundleSid")]
+        public Output<string?> BundleSid { get; private set; } = null!;
+
+        /// <summary>
         /// The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
         /// </summary>
         [Output("effective")]
         public Output<Outputs.IncomingPhoneNumberEffective?> Effective { get; private set; } = null!;
 
         /// <summary>
+        /// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        /// </summary>
+        [Output("emergencyAddressSid")]
+        public Output<string?> EmergencyAddressSid { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        /// </summary>
+        [Output("emergencyStatus")]
+        public Output<string?> EmergencyStatus { get; private set; } = null!;
+
+        /// <summary>
         /// Human-readable label for the number.
         /// </summary>
         [Output("friendlyName")]
         public Output<string?> FriendlyName { get; private set; } = null!;
+
+        /// <summary>
+        /// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        /// </summary>
+        [Output("identitySid")]
+        public Output<string?> IdentitySid { get; private set; } = null!;
 
         /// <summary>
         /// The phone number in E.164 format.
@@ -107,6 +143,12 @@ namespace Pulumi.Labs.Twilio
         public Output<string?> StatusCallbackMethod { get; private set; } = null!;
 
         /// <summary>
+        /// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        /// </summary>
+        [Output("trunkSid")]
+        public Output<string?> TrunkSid { get; private set; } = null!;
+
+        /// <summary>
         /// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         /// </summary>
         [Output("voiceApplicationSid")]
@@ -135,6 +177,12 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         [Output("voiceMethod")]
         public Output<string?> VoiceMethod { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        /// </summary>
+        [Output("voiceReceiveMode")]
+        public Output<string?> VoiceReceiveMode { get; private set; } = null!;
 
         /// <summary>
         /// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
@@ -202,10 +250,46 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? AccountSid { get; set; }
 
         /// <summary>
+        /// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        /// </summary>
+        [Input("addressSid")]
+        public Input<string>? AddressSid { get; set; }
+
+        /// <summary>
+        /// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        /// </summary>
+        [Input("bundleSid")]
+        public Input<string>? BundleSid { get; set; }
+
+        /// <summary>
+        /// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        /// </summary>
+        [Input("emergencyAddressSid")]
+        public Input<string>? EmergencyAddressSid { get; set; }
+
+        /// <summary>
+        /// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        /// </summary>
+        [Input("emergencyStatus")]
+        public Input<string>? EmergencyStatus { get; set; }
+
+        /// <summary>
         /// Human-readable label for the number.
         /// </summary>
         [Input("friendlyName")]
         public Input<string>? FriendlyName { get; set; }
+
+        /// <summary>
+        /// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        /// </summary>
+        [Input("identitySid")]
+        public Input<string>? IdentitySid { get; set; }
 
         /// <summary>
         /// The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
@@ -262,6 +346,12 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? StatusCallbackMethod { get; set; }
 
         /// <summary>
+        /// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        /// </summary>
+        [Input("trunkSid")]
+        public Input<string>? TrunkSid { get; set; }
+
+        /// <summary>
         /// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         /// </summary>
         [Input("voiceApplicationSid")]
@@ -290,6 +380,12 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         [Input("voiceMethod")]
         public Input<string>? VoiceMethod { get; set; }
+
+        /// <summary>
+        /// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        /// </summary>
+        [Input("voiceReceiveMode")]
+        public Input<string>? VoiceReceiveMode { get; set; }
 
         /// <summary>
         /// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.

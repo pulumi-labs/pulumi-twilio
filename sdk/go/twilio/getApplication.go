@@ -32,12 +32,16 @@ type LookupApplicationArgs struct {
 type LookupApplicationResult struct {
 	// SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
 	AccountSid *string `pulumi:"accountSid"`
+	// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Human-readable name of the application (up to 64 characters).
 	FriendlyName string `pulumi:"friendlyName"`
 	// URL that receives status events for messages sent by this application.
 	MessageStatusCallback *string `pulumi:"messageStatusCallback"`
 	// SID of the account that owns the application.
 	OwnerAccountSid string `pulumi:"ownerAccountSid"`
+	// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+	PublicApplicationConnectEnabled *bool `pulumi:"publicApplicationConnectEnabled"`
 	// The application SID (AP...).
 	Sid string `pulumi:"sid"`
 	// HTTP method for smsFallbackUrl: GET or POST.
@@ -105,6 +109,11 @@ func (o LookupApplicationResultOutput) AccountSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupApplicationResult) *string { return v.AccountSid }).(pulumi.StringPtrOutput)
 }
 
+// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o LookupApplicationResultOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupApplicationResult) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
 // Human-readable name of the application (up to 64 characters).
 func (o LookupApplicationResultOutput) FriendlyName() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupApplicationResult) string { return v.FriendlyName }).(pulumi.StringOutput)
@@ -118,6 +127,11 @@ func (o LookupApplicationResultOutput) MessageStatusCallback() pulumi.StringPtrO
 // SID of the account that owns the application.
 func (o LookupApplicationResultOutput) OwnerAccountSid() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupApplicationResult) string { return v.OwnerAccountSid }).(pulumi.StringOutput)
+}
+
+// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+func (o LookupApplicationResultOutput) PublicApplicationConnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v LookupApplicationResult) *bool { return v.PublicApplicationConnectEnabled }).(pulumi.BoolPtrOutput)
 }
 
 // The application SID (AP...).

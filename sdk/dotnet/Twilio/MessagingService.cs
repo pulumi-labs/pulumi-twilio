@@ -113,6 +113,12 @@ namespace Pulumi.Labs.Twilio
         public Output<bool?> UseInboundWebhookOnNumber { get; private set; } = null!;
 
         /// <summary>
+        /// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        /// </summary>
+        [Output("usecase")]
+        public Output<string?> Usecase { get; private set; } = null!;
+
+        /// <summary>
         /// Seconds a message may wait for delivery before expiring (1-36000).
         /// </summary>
         [Output("validityPeriod")]
@@ -247,6 +253,12 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         [Input("useInboundWebhookOnNumber")]
         public Input<bool>? UseInboundWebhookOnNumber { get; set; }
+
+        /// <summary>
+        /// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        /// </summary>
+        [Input("usecase")]
+        public Input<string>? Usecase { get; set; }
 
         /// <summary>
         /// Seconds a message may wait for delivery before expiring (1-36000).

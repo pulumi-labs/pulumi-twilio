@@ -46,6 +46,15 @@ type IncomingPhoneNumberArgs struct {
 	VoiceApplicationSid  *string `pulumi:"voiceApplicationSid,optional"`
 	SmsApplicationSid    *string `pulumi:"smsApplicationSid,optional"`
 	VoiceCallerIdLookup  *bool   `pulumi:"voiceCallerIdLookup,optional"`
+
+	TrunkSid            *string `pulumi:"trunkSid,optional"`
+	VoiceReceiveMode    *string `pulumi:"voiceReceiveMode,optional"`
+	AddressSid          *string `pulumi:"addressSid,optional"`
+	IdentitySid         *string `pulumi:"identitySid,optional"`
+	BundleSid           *string `pulumi:"bundleSid,optional"`
+	EmergencyStatus     *string `pulumi:"emergencyStatus,optional"`
+	EmergencyAddressSid *string `pulumi:"emergencyAddressSid,optional"`
+	ApiVersion          *string `pulumi:"apiVersion,optional"`
 }
 
 func (a *IncomingPhoneNumberArgs) props() props {
@@ -62,6 +71,11 @@ func (a *IncomingPhoneNumberArgs) props() props {
 			{"SmsFallbackMethod", "sms_fallback_method", &a.SmsFallbackMethod},
 			{"VoiceApplicationSid", "voice_application_sid", &a.VoiceApplicationSid},
 			{"SmsApplicationSid", "sms_application_sid", &a.SmsApplicationSid},
+			{"TrunkSid", "trunk_sid", &a.TrunkSid}, {"VoiceReceiveMode", "voice_receive_mode", &a.VoiceReceiveMode},
+			{"AddressSid", "address_sid", &a.AddressSid}, {"IdentitySid", "identity_sid", &a.IdentitySid},
+			{"BundleSid", "bundle_sid", &a.BundleSid}, {"EmergencyStatus", "emergency_status", &a.EmergencyStatus},
+			{"EmergencyAddressSid", "emergency_address_sid", &a.EmergencyAddressSid},
+			{"ApiVersion", "api_version", &a.ApiVersion},
 		},
 		bools: []boolProp{{"VoiceCallerIdLookup", "voice_caller_id_lookup", &a.VoiceCallerIdLookup}},
 	}
@@ -91,6 +105,15 @@ func (a *IncomingPhoneNumberArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.VoiceApplicationSid, "SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.")
 	an.Describe(&a.SmsApplicationSid, "SID (AP...) of an Application that handles incoming SMS instead of smsUrl.")
 	an.Describe(&a.VoiceCallerIdLookup, "Whether to look up the caller's name on incoming calls.")
+	an.Describe(&a.TrunkSid, "SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.")
+	an.Describe(&a.VoiceReceiveMode, "Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.")
+	an.Describe(&a.AddressSid, "SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.")
+	an.Describe(&a.IdentitySid, "SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.")
+	an.Describe(&a.BundleSid, "SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.")
+	an.Describe(&a.EmergencyStatus, "Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.")
+	an.Describe(&a.EmergencyAddressSid, "SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.")
+	an.Describe(&a.ApiVersion, "Twilio API version used for requests to the number's webhooks, for example 2010-04-01. "+
+		"Removing it leaves the version on Twilio unchanged.")
 }
 
 // IncomingPhoneNumberState is the persisted state of an IncomingPhoneNumber.
@@ -138,6 +161,12 @@ func (r *IncomingPhoneNumber) Check(ctx context.Context, req infer.CheckRequest)
 	hasSid := unk("phoneNumberSid") || (args.PhoneNumberSid != nil && *args.PhoneNumberSid != "")
 	if hasNum == hasSid {
 		failures = append(failures, p.CheckFailure{Property: "phoneNumber", Reason: "set exactly one of phoneNumber or phoneNumberSid"})
+	}
+	if v := args.VoiceReceiveMode; v != nil && !unk("voiceReceiveMode") && *v != "voice" && *v != "fax" {
+		failures = append(failures, p.CheckFailure{Property: "voiceReceiveMode", Reason: "voiceReceiveMode must be voice or fax"})
+	}
+	if v := args.EmergencyStatus; v != nil && !unk("emergencyStatus") && *v != "Active" && *v != "Inactive" {
+		failures = append(failures, p.CheckFailure{Property: "emergencyStatus", Reason: "emergencyStatus must be Active or Inactive"})
 	}
 	failures = checkMethods(failures, unk, map[string]*string{
 		"voiceMethod": args.VoiceMethod, "voiceFallbackMethod": args.VoiceFallbackMethod,
@@ -202,7 +231,7 @@ func numberEffective(o obj) *IncomingPhoneNumberEffective {
 func (r *IncomingPhoneNumber) Create(ctx context.Context, req infer.CreateRequest[IncomingPhoneNumberArgs]) (infer.CreateResponse[IncomingPhoneNumberState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[IncomingPhoneNumberState]{ID: req.Name, Output: IncomingPhoneNumberState{IncomingPhoneNumberArgs: a}}, nil
+		return infer.CreateResponse[IncomingPhoneNumberState]{ID: "", Output: IncomingPhoneNumberState{IncomingPhoneNumberArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

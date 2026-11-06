@@ -21,6 +21,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -48,12 +49,13 @@ type fakeTwilio struct {
 	t      *testing.T
 	server *httptest.Server
 
-	mu      sync.Mutex
-	objs    map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
-	order   []string
-	next    int
-	calls   []fakeCall
-	failure map[string]int // "METHOD substring" -> status to return once
+	mu              sync.Mutex
+	endlessKeyPages bool                      // the account-explicit key list never ends (a truncation probe)
+	objs            map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
+	order           []string
+	next            int
+	calls           []fakeCall
+	failure         map[string]int // "METHOD substring" -> status to return once
 }
 
 type fakeCall struct {
@@ -79,8 +81,21 @@ var (
 		{"SmsFallbackUrl", "sms_fallback_url", "u"}, {"SmsFallbackMethod", "sms_fallback_method", "m"},
 		{"SmsStatusCallback", "sms_status_callback", "u"}, {"MessageStatusCallback", "message_status_callback", "u"},
 		{"VoiceCallerIdLookup", "voice_caller_id_lookup", "b"},
+		{"ApiVersion", "api_version", "s"}, {"PublicApplicationConnectEnabled", "public_application_connect_enabled", "b"},
 	}
-	numberFields = []fakeField{
+	addressFields = []fakeField{
+		{"CustomerName", "customer_name", "s"}, {"Street", "street", "s"}, {"StreetSecondary", "street_secondary", "u"},
+		{"City", "city", "s"}, {"Region", "region", "s"}, {"PostalCode", "postal_code", "s"},
+		{"IsoCountry", "iso_country", "s"}, {"FriendlyName", "friendly_name", "u"}, {"EmergencyEnabled", "emergency_enabled", "b"},
+	}
+	addressUpdateFields = []fakeField{addressFields[0], addressFields[1], addressFields[2], addressFields[3], addressFields[4], addressFields[5], addressFields[7], addressFields[8]} // no IsoCountry on update
+	queueFields         = []fakeField{{"FriendlyName", "friendly_name", "s"}, {"MaxSize", "max_size", "i"}}
+	triggerFields       = []fakeField{
+		{"CallbackUrl", "callback_url", "u"}, {"CallbackMethod", "callback_method", "m"}, {"FriendlyName", "friendly_name", "s"},
+		{"Recurring", "recurring", "u"}, {"TriggerBy", "trigger_by", "u"}, {"UsageCategory", "usage_category", "s"},
+	}
+	triggerUpdateFields = triggerFields[:3:3] // callback and name only
+	numberFields        = []fakeField{
 		{"FriendlyName", "friendly_name", "s"},
 		{"VoiceUrl", "voice_url", "u"}, {"VoiceMethod", "voice_method", "m"},
 		{"VoiceFallbackUrl", "voice_fallback_url", "u"}, {"VoiceFallbackMethod", "voice_fallback_method", "m"},
@@ -89,6 +104,21 @@ var (
 		{"SmsFallbackUrl", "sms_fallback_url", "u"}, {"SmsFallbackMethod", "sms_fallback_method", "m"},
 		{"VoiceApplicationSid", "voice_application_sid", "u"}, {"SmsApplicationSid", "sms_application_sid", "u"},
 		{"VoiceCallerIdLookup", "voice_caller_id_lookup", "b"},
+		{"TrunkSid", "trunk_sid", "u"}, {"VoiceReceiveMode", "voice_receive_mode", "s"},
+		{"AddressSid", "address_sid", "u"}, {"IdentitySid", "identity_sid", "u"}, {"BundleSid", "bundle_sid", "u"},
+		{"EmergencyStatus", "emergency_status", "s"}, {"EmergencyAddressSid", "emergency_address_sid", "u"},
+		{"ApiVersion", "api_version", "s"},
+	}
+	shortCodeFields = []fakeField{
+		{"FriendlyName", "friendly_name", "s"}, {"ApiVersion", "api_version", "s"},
+		{"SmsUrl", "sms_url", "u"}, {"SmsMethod", "sms_method", "m"},
+		{"SmsFallbackUrl", "sms_fallback_url", "u"}, {"SmsFallbackMethod", "sms_fallback_method", "m"},
+	}
+	connectAppFields = []fakeField{
+		{"FriendlyName", "friendly_name", "s"}, {"AuthorizeRedirectUrl", "authorize_redirect_url", "u"},
+		{"CompanyName", "company_name", "s"}, {"DeauthorizeCallbackUrl", "deauthorize_callback_url", "u"},
+		{"DeauthorizeCallbackMethod", "deauthorize_callback_method", "m"}, {"Description", "description", "s"},
+		{"HomepageUrl", "homepage_url", "u"}, {"Permissions", "permissions", "l"},
 	}
 	msgFields = []fakeField{
 		{"FriendlyName", "friendly_name", "s"},
@@ -99,6 +129,7 @@ var (
 		{"SmartEncoding", "smart_encoding", "b"}, {"FallbackToLongCode", "fallback_to_long_code", "b"},
 		{"AreaCodeGeomatch", "area_code_geomatch", "b"}, {"SynchronousValidation", "synchronous_validation", "b"},
 		{"UseInboundWebhookOnNumber", "use_inbound_webhook_on_number", "b"}, {"ValidityPeriod", "validity_period", "i"},
+		{"Usecase", "usecase", "s"},
 	}
 	verifyFields = []fakeField{
 		{"FriendlyName", "friendly_name", "s"}, {"CodeLength", "code_length", "i"},
@@ -106,6 +137,16 @@ var (
 		{"DtmfInputRequired", "dtmf_input_required", "b"}, {"TtsName", "tts_name", "s"},
 		{"Psd2Enabled", "psd2_enabled", "b"}, {"DoNotShareWarningEnabled", "do_not_share_warning_enabled", "b"},
 		{"CustomCodeEnabled", "custom_code_enabled", "b"},
+		{"DefaultTemplateSid", "default_template_sid", "u"}, {"VerifyEventSubscriptionEnabled", "verify_event_subscription_enabled", "b"},
+		{"Push.ApnCredentialSid", "push.apn_credential_sid", "u"}, {"Push.FcmCredentialSid", "push.fcm_credential_sid", "u"},
+		{"Push.IncludeDate", "push.include_date", "b"}, {"Totp.Issuer", "totp.issuer", "s"},
+		{"Totp.CodeLength", "totp.code_length", "i"}, {"Totp.TimeStep", "totp.time_step", "i"}, {"Totp.Skew", "totp.skew", "i"},
+		{"Whatsapp.MsgServiceSid", "whatsapp.msg_service_sid", "u"}, {"Whatsapp.From", "whatsapp.from", "s"},
+		{"Passkeys.RelyingParty.Id", "passkeys.relying_party.id", "s"}, {"Passkeys.RelyingParty.Name", "passkeys.relying_party.name", "s"},
+		{"Passkeys.RelyingParty.Origins", "passkeys.relying_party.origins", "l"},
+		{"Passkeys.AuthenticatorAttachment", "passkeys.authenticator_attachment", "s"},
+		{"Passkeys.DiscoverableCredentials", "passkeys.discoverable_credentials", "s"},
+		{"Passkeys.UserVerification", "passkeys.user_verification", "s"},
 	}
 )
 
@@ -154,6 +195,21 @@ func (f *fakeTwilio) accountKnown(acct string) bool {
 
 // applyForm applies the posted fields; it returns an API error message on a
 // value the real API rejects.
+// setPath stores v at key; a dotted key writes into nested objects, as the
+// real API returns push.*, totp.*, whatsapp.* and passkeys.* settings.
+func setPath(o map[string]any, key string, v any) {
+	parts := strings.Split(key, ".")
+	for _, p := range parts[:len(parts)-1] {
+		next, ok := o[p].(map[string]any)
+		if !ok {
+			next = map[string]any{}
+			o[p] = next
+		}
+		o = next
+	}
+	o[parts[len(parts)-1]] = v
+}
+
 func applyForm(o map[string]any, form url.Values, fields []fakeField) string {
 	for _, fl := range fields {
 		vals, ok := form[fl.param]
@@ -164,27 +220,35 @@ func applyForm(o map[string]any, form url.Values, fields []fakeField) string {
 		switch fl.typ {
 		case "s", "u":
 			if v == "" && fl.typ == "u" {
-				o[fl.key] = nil
+				setPath(o, fl.key, nil)
 			} else {
-				o[fl.key] = v
+				setPath(o, fl.key, v)
 			}
 		case "m":
 			if v != "GET" && v != "POST" {
 				return fmt.Sprintf("Invalid value for %s: %q (must be GET or POST)", fl.param, v)
 			}
-			o[fl.key] = v
+			setPath(o, fl.key, v)
 		case "b":
 			b, err := strconv.ParseBool(v)
 			if err != nil {
 				return "Invalid boolean for " + fl.param
 			}
-			o[fl.key] = b
+			setPath(o, fl.key, b)
+		case "l":
+			list := []any{}
+			for _, e := range strings.Split(v, ",") {
+				if e != "" {
+					list = append(list, e)
+				}
+			}
+			setPath(o, fl.key, list)
 		case "i":
 			n, err := strconv.Atoi(v)
 			if err != nil {
 				return "Invalid integer for " + fl.param
 			}
-			o[fl.key] = float64(n)
+			setPath(o, fl.key, float64(n))
 		}
 	}
 	return ""
@@ -218,6 +282,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleMessaging(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/Services"), "/"), "/"))
 	case strings.HasPrefix(path, "/verify/v2/Services"):
 		f.handleVerify(w, r, form, strings.Trim(strings.TrimPrefix(path, "/verify/v2/Services"), "/"))
+	case strings.HasPrefix(path, "/events/v1/"):
+		f.handleEvents(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/events/v1/"), "/"), "/"))
 	default:
 		ferr(w, 404, "no route "+path)
 	}
@@ -236,6 +302,16 @@ func trimJSON(s string) string { return strings.TrimSuffix(s, ".json") }
 func (f *fakeTwilio) handleAPI(w http.ResponseWriter, r *http.Request, form url.Values, parts []string) {
 	if parts[0] != "Accounts.json" && parts[0] != "Accounts" {
 		ferr(w, 404, "not found")
+		return
+	}
+	if len(parts) >= 4 && parts[2] == "Usage" && trimJSON(parts[3]) == "Triggers" { // fold Usage/Triggers into one segment
+		parts = append([]string{parts[0], parts[1], "Usage/Triggers"}, parts[4:]...)
+	}
+	if len(parts) >= 4 && parts[2] == "SMS" && trimJSON(parts[3]) == "ShortCodes" { // fold SMS/ShortCodes into one segment
+		parts = append([]string{parts[0], parts[1], "SMS/ShortCodes"}, parts[4:]...)
+	}
+	if len(parts) >= 4 && parts[2] == "SIP" {
+		f.handleSIP(w, r, form, parts)
 		return
 	}
 	switch len(parts) {
@@ -314,10 +390,18 @@ func (f *fakeTwilio) handleScoped(w http.ResponseWriter, r *http.Request, form u
 		kind   string
 		prefix string
 		fields []fakeField
+		update []fakeField // fields an update accepts; nil means all of fields
 	}{
-		"Applications":         {"app", "AP", appFields},
-		"IncomingPhoneNumbers": {"number", "PN", numberFields},
-		"Keys":                 {"key", "SK", []fakeField{{"FriendlyName", "friendly_name", "s"}}},
+		"Addresses":            {"address", "AD", addressFields, addressUpdateFields},
+		"SigningKeys":          {"signingkey", "SK", []fakeField{{"FriendlyName", "friendly_name", "s"}}, nil},
+		"Queues":               {"queue", "QU", queueFields, nil},
+		"Usage/Triggers":       {"trigger", "UT", triggerFields, triggerUpdateFields},
+		"Applications":         {"app", "AP", appFields, nil},
+		"IncomingPhoneNumbers": {"number", "PN", numberFields, nil},
+		"Keys":                 {"key", "SK", []fakeField{{"FriendlyName", "friendly_name", "s"}}, nil},
+		"SMS/ShortCodes":       {"shortcode", "SC", shortCodeFields, nil},
+		"ConnectApps":          {"connectapp", "CN", connectAppFields, nil},
+		"OutgoingCallerIds":    {"callerid", "PN", []fakeField{{"FriendlyName", "friendly_name", "s"}}, nil},
 	}
 	k, ok := kinds[coll]
 	if !ok || !f.accountKnown(acct) {
@@ -338,6 +422,43 @@ func (f *fakeTwilio) handleScoped(w http.ResponseWriter, r *http.Request, form u
 			}
 			f.put("app", acct, o["sid"].(string), o)
 			fwrite(w, 201, o)
+		case r.Method == "POST" && (coll == "Addresses" || coll == "SigningKeys" || coll == "Queues" || coll == "Usage/Triggers"):
+			f.createAccountResource(w, coll, acct, form, k.kind, k.prefix, k.fields)
+		case r.Method == "GET" && coll == "Keys": // the account-explicit key list; no secrets
+			list := []any{}
+			for _, ok := range f.order {
+				o, live := f.objs[ok]
+				if live && strings.HasPrefix(ok, "key/"+acct+"/") {
+					c := clone(o)
+					delete(c, "secret")
+					list = append(list, c)
+				}
+			}
+			resp := map[string]any{"keys": list}
+			if f.endlessKeyPages { // an account whose key list never ends
+				resp["next_page_uri"] = strings.TrimPrefix(r.URL.Path, "/api") + "?Page=next" // as Twilio: no host prefix
+			}
+			fwrite(w, 200, resp)
+		case r.Method == "GET" && (coll == "SMS/ShortCodes" || coll == "ConnectApps" || coll == "OutgoingCallerIds"):
+			listKey := map[string]string{"SMS/ShortCodes": "short_codes", "ConnectApps": "connect_apps", "OutgoingCallerIds": "outgoing_caller_ids"}[coll]
+			filters := map[string]string{"ShortCode": "short_code", "PhoneNumber": "phone_number"}
+			list := []any{}
+			for _, ok := range f.order {
+				o, live := f.objs[ok]
+				if !live || !strings.HasPrefix(ok, k.kind+"/"+acct+"/") {
+					continue
+				}
+				match := true
+				for param, field := range filters {
+					if want := r.URL.Query().Get(param); want != "" && o[field] != want {
+						match = false
+					}
+				}
+				if match {
+					list = append(list, o)
+				}
+			}
+			fwrite(w, 200, map[string]any{listKey: list})
 		case r.Method == "GET" && coll == "IncomingPhoneNumbers":
 			want := r.URL.Query().Get("PhoneNumber")
 			list := []any{}
@@ -363,15 +484,27 @@ func (f *fakeTwilio) handleScoped(w http.ResponseWriter, r *http.Request, form u
 	case "GET":
 		fwrite(w, 200, o)
 	case "DELETE":
-		if k.kind == "number" {
+		if o["in_use"] == true {
+			ferr(w, 400, "Address is in use and cannot be deleted")
+			return
+		}
+		if k.kind == "number" || k.kind == "shortcode" {
 			ferr(w, 405, "numbers are released through a separate flow")
 			return
 		}
 		f.del(k.kind, acct, sid)
 		w.WriteHeader(204)
 	case "POST":
-		if msg := applyForm(o, form, k.fields); msg != "" {
+		upd := k.fields
+		if k.update != nil {
+			upd = k.update
+		}
+		if msg := applyForm(o, form, upd); msg != "" {
 			ferr(w, 400, msg)
+			return
+		}
+		if n, ok := o["max_size"].(float64); ok && k.kind == "queue" && (n < 1 || n > 5000) {
+			ferr(w, 400, "MaxSize must be between 1 and 5000")
 			return
 		}
 		if k.kind == "number" {
@@ -426,6 +559,12 @@ func (f *fakeTwilio) handleIAMKeys(w http.ResponseWriter, r *http.Request, form 
 		o := map[string]any{"sid": sid, "account_sid": acct, "friendly_name": form.Get("FriendlyName"), "policy": pol,
 			"secret": "secret-" + sid, "date_created": "Mon, 02 Nov 2026 00:00:00 +0000"}
 		f.put("key", acct, sid, o)
+		// Like the live API (#1574): an assertion outside /twilio/<product>/<resource>/<action>
+		// fails the call with error 70002 AFTER the key was created, and the error has no SID.
+		if bad := badAssertion(pol); bad != "" {
+			fwrite(w, 400, map[string]any{"code": 70002, "message": "assertion '" + bad + "' is invalid", "status": 400})
+			return
+		}
 		fwrite(w, 201, o)
 		return
 	}
@@ -665,6 +804,33 @@ func (f *fakeTwilio) addNumber(acct, sid, e164 string) {
 		"capabilities": map[string]any{"voice": true, "sms": true, "mms": false}})
 }
 
+// addShortCode seeds a leased short code with no webhooks.
+func (f *fakeTwilio) addShortCode(acct, sid, code string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.put("shortcode", acct, sid, map[string]any{"sid": sid, "account_sid": acct, "short_code": code,
+		"friendly_name": "Short code " + code, "api_version": "2010-04-01", "sms_url": nil, "sms_method": "POST",
+		"sms_fallback_url": nil, "sms_fallback_method": "POST"})
+}
+
+// addConnectApp seeds a Connect app as the Console creates it.
+func (f *fakeTwilio) addConnectApp(acct, sid string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.put("connectapp", acct, sid, map[string]any{"sid": sid, "account_sid": acct, "friendly_name": "console app",
+		"authorize_redirect_url": "https://example.com/authorize", "company_name": "Acme", "description": "An app",
+		"homepage_url": "https://example.com", "deauthorize_callback_url": nil, "deauthorize_callback_method": "POST",
+		"permissions": []any{"get-all"}})
+}
+
+// addCallerID seeds a verified outgoing caller ID.
+func (f *fakeTwilio) addCallerID(acct, sid, e164 string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.put("callerid", acct, sid, map[string]any{"sid": sid, "account_sid": acct, "phone_number": e164,
+		"friendly_name": e164, "date_created": "Mon, 02 Nov 2026 00:00:00 +0000"})
+}
+
 // addSubaccount seeds a subaccount of the main account.
 func (f *fakeTwilio) addSubaccount(sid string) {
 	f.mu.Lock()
@@ -715,4 +881,81 @@ func (f *fakeTwilio) callCount() int {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return len(f.calls)
+}
+
+// createAccountResource creates an address, signing key, queue or usage trigger with the
+// defaults and quirks of the real API: addresses are auto-corrected unless AutoCorrectAddress
+// is false, the signing key secret is returned only on create, queues default to 1000 slots and
+// trigger values come back as normalized decimals (an offset becomes the absolute value).
+func (f *fakeTwilio) createAccountResource(w http.ResponseWriter, coll, acct string, form url.Values, kind, prefix string, fields []fakeField) {
+	now := "Mon, 02 Nov 2026 00:00:00 +0000"
+	o := map[string]any{"sid": f.sid(prefix), "account_sid": acct, "date_created": now, "date_updated": now}
+	var required []string
+	switch coll {
+	case "Addresses":
+		required = []string{"CustomerName", "Street", "City", "Region", "PostalCode", "IsoCountry"}
+		o["validated"], o["verified"], o["emergency_enabled"] = true, false, false
+		o["friendly_name"], o["street_secondary"] = nil, nil
+	case "SigningKeys":
+		o["friendly_name"] = nil
+	case "Queues":
+		required = []string{"FriendlyName"}
+		o["max_size"], o["current_size"], o["average_wait_time"] = float64(1000), float64(0), float64(0)
+	case "Usage/Triggers":
+		required = []string{"CallbackUrl", "TriggerValue", "UsageCategory"}
+		o["callback_method"], o["recurring"], o["trigger_by"] = "POST", nil, "usage"
+		o["current_value"], o["date_fired"], o["api_version"] = "0", nil, "2010-04-01"
+		o["usage_record_uri"] = "/2010-04-01/Accounts/" + acct + "/Usage/Records.json"
+	}
+	for _, r := range required {
+		if form.Get(r) == "" {
+			ferr(w, 400, "Missing required parameter "+r)
+			return
+		}
+	}
+	if msg := applyForm(o, form, fields); msg != "" {
+		ferr(w, 400, msg)
+		return
+	}
+	switch coll {
+	case "Addresses":
+		if form.Get("AutoCorrectAddress") != "false" {
+			o["street"] = strings.ToUpper(o["street"].(string)) // Twilio normalizes the stored address
+		}
+	case "Queues":
+		if n := o["max_size"].(float64); n < 1 || n > 5000 {
+			ferr(w, 400, "MaxSize must be between 1 and 5000")
+			return
+		}
+	case "Usage/Triggers":
+		v := strings.TrimPrefix(form.Get("TriggerValue"), "+")
+		n, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			ferr(w, 400, "Invalid TriggerValue")
+			return
+		}
+		o["trigger_value"] = strconv.FormatFloat(n, 'f', 1, 64)
+	}
+	f.put(kind, acct, o["sid"].(string), o)
+	out := clone(o)
+	if coll == "SigningKeys" {
+		out["secret"] = "secret-" + o["sid"].(string)
+	}
+	fwrite(w, 201, out)
+}
+
+var keyAssertion = regexp.MustCompile(`^/twilio/[^/]+/[^/]+/[^/]+$`)
+
+// badAssertion returns the first allow or deny entry of a key policy that Twilio would reject.
+func badAssertion(pol any) string {
+	m, _ := pol.(map[string]any)
+	for _, k := range []string{"allow", "deny"} {
+		items, _ := m[k].([]any)
+		for _, it := range items {
+			if a, ok := it.(string); ok && !keyAssertion.MatchString(a) {
+				return a
+			}
+		}
+	}
+	return ""
 }

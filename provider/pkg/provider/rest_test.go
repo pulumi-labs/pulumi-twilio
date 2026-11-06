@@ -87,7 +87,7 @@ func TestApiKey_RestrictedLifecycle(t *testing.T) {
 	m, srv := newMock(t)
 	s := newServerFor(t, srv.URL)
 	urn := twilioURN("ApiKey", "k")
-	in := map[string]any{"friendlyName": "ci", "keyType": "restricted", "policy": `{"allow":["/v1/Services/**"]}`}
+	in := map[string]any{"friendlyName": "ci", "keyType": "restricted", "policy": `{"allow":["/twilio/iam/api-keys/create"]}`}
 	cr, err := s.Create(pgp.CreateRequest{Urn: urn, Properties: pm(in)})
 	require.NoError(t, err)
 	require.Equal(t, "SK1", cr.ID)
@@ -99,7 +99,7 @@ func TestApiKey_RestrictedLifecycle(t *testing.T) {
 	require.JSONEq(t, in["policy"].(string), f.Get("Policy"))
 
 	// Rename and change policy in place; the secret survives.
-	in2 := map[string]any{"friendlyName": "ci2", "keyType": "restricted", "policy": `{"allow":["/v1/Services/MG1"]}`}
+	in2 := map[string]any{"friendlyName": "ci2", "keyType": "restricted", "policy": `{"allow":["/twilio/iam/api-keys/update"]}`}
 	ur, err := s.Update(pgp.UpdateRequest{ID: cr.ID, Urn: urn, State: cr.Properties, Inputs: pm(in2), OldInputs: pm(in)})
 	require.NoError(t, err)
 	sec, _ = ur.Properties.GetOk("secret")

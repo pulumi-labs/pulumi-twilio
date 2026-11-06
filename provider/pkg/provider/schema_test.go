@@ -270,3 +270,98 @@ func TestSchema_EffectiveOutputsAreOutputsOnly(t *testing.T) {
 		require.NotContains(t, r.RequiredInputs, "effective", tok)
 	}
 }
+
+func TestSchema_AccountResources(t *testing.T) {
+	spec := mustSchema(t)
+	for _, r := range []string{"Address", "SigningKey", "Queue", "UsageTrigger"} {
+		require.Contains(t, spec.Resources, "twilio:index:"+r)
+	}
+	for _, f := range []string{"getAddress", "getSigningKey", "getQueue", "getUsageTrigger"} {
+		require.Contains(t, spec.Functions, "twilio:index:"+f)
+	}
+	require.True(t, spec.Resources["twilio:index:SigningKey"].Properties["secret"].Secret)
+	for tok, props := range map[string][]string{
+		"twilio:index:Address":      {"isoCountry", "accountSid"},
+		"twilio:index:SigningKey":   {"accountSid"},
+		"twilio:index:Queue":        {"accountSid"},
+		"twilio:index:UsageTrigger": {"triggerValue", "usageCategory", "recurring", "triggerBy", "accountSid"},
+	} {
+		for _, p := range props {
+			require.True(t, spec.Resources[tok].InputProperties[p].ReplaceOnChanges, "%s.%s", tok, p)
+		}
+	}
+	for tok, props := range map[string][]string{
+		"twilio:index:Address":      {"street", "friendlyName", "emergencyEnabled"},
+		"twilio:index:SigningKey":   {"friendlyName"},
+		"twilio:index:Queue":        {"friendlyName", "maxSize"},
+		"twilio:index:UsageTrigger": {"callbackUrl", "callbackMethod", "friendlyName"},
+	} {
+		for _, p := range props {
+			require.False(t, spec.Resources[tok].InputProperties[p].ReplaceOnChanges, "%s.%s", tok, p)
+		}
+	}
+}
+
+func TestSchema_SipResources(t *testing.T) {
+	spec := mustSchema(t)
+	for _, r := range []string{"SipCredentialList", "SipCredential", "SipIpAccessControlList", "SipIpAddress", "SipDomain"} {
+		require.Contains(t, spec.Resources, "twilio:index:"+r)
+	}
+	for _, f := range []string{"getSipCredentialList", "getSipCredential", "getSipIpAccessControlList", "getSipIpAddress", "getSipDomain"} {
+		require.Contains(t, spec.Functions, "twilio:index:"+f)
+	}
+	cred := spec.Resources["twilio:index:SipCredential"]
+	require.True(t, cred.InputProperties["password"].Secret, "password input is secret")
+	require.True(t, cred.Properties["password"].Secret, "password output is secret")
+	require.Contains(t, cred.RequiredInputs, "password")
+	for tok, props := range map[string][]string{
+		"twilio:index:SipCredentialList":      {"accountSid"},
+		"twilio:index:SipCredential":          {"credentialListSid", "username", "accountSid"},
+		"twilio:index:SipIpAccessControlList": {"accountSid"},
+		"twilio:index:SipIpAddress":           {"ipAccessControlListSid", "accountSid"},
+		"twilio:index:SipDomain":              {"accountSid"},
+	} {
+		for _, p := range props {
+			require.True(t, spec.Resources[tok].InputProperties[p].ReplaceOnChanges, "%s.%s", tok, p)
+		}
+	}
+	for tok, props := range map[string][]string{
+		"twilio:index:SipCredentialList":      {"friendlyName"},
+		"twilio:index:SipCredential":          {"password"},
+		"twilio:index:SipIpAccessControlList": {"friendlyName"},
+		"twilio:index:SipIpAddress":           {"friendlyName", "ipAddress", "cidrPrefixLength"},
+		"twilio:index:SipDomain":              {"domainName", "friendlyName", "voiceUrl", "secure"},
+	} {
+		for _, p := range props {
+			require.False(t, spec.Resources[tok].InputProperties[p].ReplaceOnChanges, "%s.%s", tok, p)
+		}
+	}
+	for _, tok := range []string{"twilio:index:SipCredential", "twilio:index:SipIpAddress"} {
+		require.NotContains(t, spec.Resources[tok].RequiredInputs, "accountSid")
+	}
+}
+
+func TestSchema_EventStreams(t *testing.T) {
+	spec := mustSchema(t)
+	for _, r := range []string{"EventSink", "EventSubscription"} {
+		require.Contains(t, spec.Resources, "twilio:index:"+r)
+	}
+	for _, f := range []string{"getEventSink", "getEventSubscription"} {
+		require.Contains(t, spec.Functions, "twilio:index:"+f)
+	}
+	sink := spec.Resources["twilio:index:EventSink"]
+	for _, p := range []string{"sinkType", "webhookDestination", "webhookMethod", "webhookBatchEvents", "kinesisArn", "kinesisRoleArn", "kinesisExternalId", "segmentWriteKey"} {
+		require.True(t, sink.InputProperties[p].ReplaceOnChanges, "EventSink.%s", p)
+	}
+	require.False(t, sink.InputProperties["description"].ReplaceOnChanges)
+	for _, p := range []string{"segmentWriteKey", "kinesisExternalId"} {
+		require.True(t, sink.InputProperties[p].Secret, "input %s is secret", p)
+		require.True(t, sink.Properties[p].Secret, "output %s is secret", p)
+	}
+	sub := spec.Resources["twilio:index:EventSubscription"]
+	require.True(t, sub.InputProperties["sinkSid"].ReplaceOnChanges)
+	for _, p := range []string{"description", "types"} {
+		require.False(t, sub.InputProperties[p].ReplaceOnChanges, "EventSubscription.%s", p)
+	}
+	require.ElementsMatch(t, []string{"description", "sinkSid", "types"}, sub.RequiredInputs)
+}

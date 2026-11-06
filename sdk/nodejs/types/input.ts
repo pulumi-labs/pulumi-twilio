@@ -5,3 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface EventSubscriptionTypeArgs {
+    /**
+     * Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+     */
+    schemaVersion?: pulumi.Input<number | undefined>;
+    /**
+     * Event type ID, for example com.twilio.messaging.message.delivered.
+     */
+    type: pulumi.Input<string>;
+}
+

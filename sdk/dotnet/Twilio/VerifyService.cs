@@ -29,6 +29,12 @@ namespace Pulumi.Labs.Twilio
         public Output<bool?> CustomCodeEnabled { get; private set; } = null!;
 
         /// <summary>
+        /// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        /// </summary>
+        [Output("defaultTemplateSid")]
+        public Output<string?> DefaultTemplateSid { get; private set; } = null!;
+
+        /// <summary>
         /// Whether to add a do-not-share warning to the message.
         /// </summary>
         [Output("doNotShareWarningEnabled")]
@@ -59,10 +65,64 @@ namespace Pulumi.Labs.Twilio
         public Output<bool?> LookupEnabled { get; private set; } = null!;
 
         /// <summary>
+        /// Authenticator attachment for passkeys: platform, cross-platform or any.
+        /// </summary>
+        [Output("passkeysAuthenticatorAttachment")]
+        public Output<string?> PasskeysAuthenticatorAttachment { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether passkey credentials are discoverable: required, preferred or discouraged.
+        /// </summary>
+        [Output("passkeysDiscoverableCredentials")]
+        public Output<string?> PasskeysDiscoverableCredentials { get; private set; } = null!;
+
+        /// <summary>
+        /// Passkeys relying party ID (the domain). Removing it clears the value.
+        /// </summary>
+        [Output("passkeysRelyingPartyId")]
+        public Output<string?> PasskeysRelyingPartyId { get; private set; } = null!;
+
+        /// <summary>
+        /// Passkeys relying party display name. Removing it clears the value.
+        /// </summary>
+        [Output("passkeysRelyingPartyName")]
+        public Output<string?> PasskeysRelyingPartyName { get; private set; } = null!;
+
+        /// <summary>
+        /// Origins allowed to use the passkeys relying party. Removing the list clears it.
+        /// </summary>
+        [Output("passkeysRelyingPartyOrigins")]
+        public Output<ImmutableArray<string>> PasskeysRelyingPartyOrigins { get; private set; } = null!;
+
+        /// <summary>
+        /// User verification for passkeys: required, preferred or discouraged.
+        /// </summary>
+        [Output("passkeysUserVerification")]
+        public Output<string?> PasskeysUserVerification { get; private set; } = null!;
+
+        /// <summary>
         /// Whether PSD2 dynamic-linking (payee and amount) is required.
         /// </summary>
         [Output("psd2Enabled")]
         public Output<bool?> Psd2Enabled { get; private set; } = null!;
+
+        /// <summary>
+        /// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        [Output("pushApnCredentialSid")]
+        public Output<string?> PushApnCredentialSid { get; private set; } = null!;
+
+        /// <summary>
+        /// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        [Output("pushFcmCredentialSid")]
+        public Output<string?> PushFcmCredentialSid { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether push challenges include the date they were created.
+        /// </summary>
+        [Output("pushIncludeDate")]
+        public Output<bool?> PushIncludeDate { get; private set; } = null!;
 
         /// <summary>
         /// The Verify service SID (VA...).
@@ -77,10 +137,52 @@ namespace Pulumi.Labs.Twilio
         public Output<bool?> SkipSmsToLandlines { get; private set; } = null!;
 
         /// <summary>
+        /// Number of digits of a TOTP code (3 to 8).
+        /// </summary>
+        [Output("totpCodeLength")]
+        public Output<int?> TotpCodeLength { get; private set; } = null!;
+
+        /// <summary>
+        /// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        /// </summary>
+        [Output("totpIssuer")]
+        public Output<string?> TotpIssuer { get; private set; } = null!;
+
+        /// <summary>
+        /// Number of time steps before and after the current one in which a TOTP code is accepted.
+        /// </summary>
+        [Output("totpSkew")]
+        public Output<int?> TotpSkew { get; private set; } = null!;
+
+        /// <summary>
+        /// Seconds a TOTP code is valid (Twilio's totp.time_step).
+        /// </summary>
+        [Output("totpTimeStep")]
+        public Output<int?> TotpTimeStep { get; private set; } = null!;
+
+        /// <summary>
         /// Name spoken in voice verifications instead of friendlyName.
         /// </summary>
         [Output("ttsName")]
         public Output<string?> TtsName { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether Verify events are sent to the service's event subscriptions.
+        /// </summary>
+        [Output("verifyEventSubscriptionEnabled")]
+        public Output<bool?> VerifyEventSubscriptionEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        /// </summary>
+        [Output("whatsappFrom")]
+        public Output<string?> WhatsappFrom { get; private set; } = null!;
+
+        /// <summary>
+        /// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        /// </summary>
+        [Output("whatsappMsgServiceSid")]
+        public Output<string?> WhatsappMsgServiceSid { get; private set; } = null!;
 
 
         /// <summary>
@@ -141,6 +243,12 @@ namespace Pulumi.Labs.Twilio
         public Input<bool>? CustomCodeEnabled { get; set; }
 
         /// <summary>
+        /// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        /// </summary>
+        [Input("defaultTemplateSid")]
+        public Input<string>? DefaultTemplateSid { get; set; }
+
+        /// <summary>
         /// Whether to add a do-not-share warning to the message.
         /// </summary>
         [Input("doNotShareWarningEnabled")]
@@ -165,10 +273,70 @@ namespace Pulumi.Labs.Twilio
         public Input<bool>? LookupEnabled { get; set; }
 
         /// <summary>
+        /// Authenticator attachment for passkeys: platform, cross-platform or any.
+        /// </summary>
+        [Input("passkeysAuthenticatorAttachment")]
+        public Input<string>? PasskeysAuthenticatorAttachment { get; set; }
+
+        /// <summary>
+        /// Whether passkey credentials are discoverable: required, preferred or discouraged.
+        /// </summary>
+        [Input("passkeysDiscoverableCredentials")]
+        public Input<string>? PasskeysDiscoverableCredentials { get; set; }
+
+        /// <summary>
+        /// Passkeys relying party ID (the domain). Removing it clears the value.
+        /// </summary>
+        [Input("passkeysRelyingPartyId")]
+        public Input<string>? PasskeysRelyingPartyId { get; set; }
+
+        /// <summary>
+        /// Passkeys relying party display name. Removing it clears the value.
+        /// </summary>
+        [Input("passkeysRelyingPartyName")]
+        public Input<string>? PasskeysRelyingPartyName { get; set; }
+
+        [Input("passkeysRelyingPartyOrigins")]
+        private InputList<string>? _passkeysRelyingPartyOrigins;
+
+        /// <summary>
+        /// Origins allowed to use the passkeys relying party. Removing the list clears it.
+        /// </summary>
+        public InputList<string> PasskeysRelyingPartyOrigins
+        {
+            get => _passkeysRelyingPartyOrigins ?? (_passkeysRelyingPartyOrigins = new InputList<string>());
+            set => _passkeysRelyingPartyOrigins = value;
+        }
+
+        /// <summary>
+        /// User verification for passkeys: required, preferred or discouraged.
+        /// </summary>
+        [Input("passkeysUserVerification")]
+        public Input<string>? PasskeysUserVerification { get; set; }
+
+        /// <summary>
         /// Whether PSD2 dynamic-linking (payee and amount) is required.
         /// </summary>
         [Input("psd2Enabled")]
         public Input<bool>? Psd2Enabled { get; set; }
+
+        /// <summary>
+        /// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        [Input("pushApnCredentialSid")]
+        public Input<string>? PushApnCredentialSid { get; set; }
+
+        /// <summary>
+        /// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        /// </summary>
+        [Input("pushFcmCredentialSid")]
+        public Input<string>? PushFcmCredentialSid { get; set; }
+
+        /// <summary>
+        /// Whether push challenges include the date they were created.
+        /// </summary>
+        [Input("pushIncludeDate")]
+        public Input<bool>? PushIncludeDate { get; set; }
 
         /// <summary>
         /// Whether to skip SMS to landline numbers.
@@ -177,10 +345,52 @@ namespace Pulumi.Labs.Twilio
         public Input<bool>? SkipSmsToLandlines { get; set; }
 
         /// <summary>
+        /// Number of digits of a TOTP code (3 to 8).
+        /// </summary>
+        [Input("totpCodeLength")]
+        public Input<int>? TotpCodeLength { get; set; }
+
+        /// <summary>
+        /// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        /// </summary>
+        [Input("totpIssuer")]
+        public Input<string>? TotpIssuer { get; set; }
+
+        /// <summary>
+        /// Number of time steps before and after the current one in which a TOTP code is accepted.
+        /// </summary>
+        [Input("totpSkew")]
+        public Input<int>? TotpSkew { get; set; }
+
+        /// <summary>
+        /// Seconds a TOTP code is valid (Twilio's totp.time_step).
+        /// </summary>
+        [Input("totpTimeStep")]
+        public Input<int>? TotpTimeStep { get; set; }
+
+        /// <summary>
         /// Name spoken in voice verifications instead of friendlyName.
         /// </summary>
         [Input("ttsName")]
         public Input<string>? TtsName { get; set; }
+
+        /// <summary>
+        /// Whether Verify events are sent to the service's event subscriptions.
+        /// </summary>
+        [Input("verifyEventSubscriptionEnabled")]
+        public Input<bool>? VerifyEventSubscriptionEnabled { get; set; }
+
+        /// <summary>
+        /// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        /// </summary>
+        [Input("whatsappFrom")]
+        public Input<string>? WhatsappFrom { get; set; }
+
+        /// <summary>
+        /// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        /// </summary>
+        [Input("whatsappMsgServiceSid")]
+        public Input<string>? WhatsappMsgServiceSid { get; set; }
 
         public VerifyServiceArgs()
         {

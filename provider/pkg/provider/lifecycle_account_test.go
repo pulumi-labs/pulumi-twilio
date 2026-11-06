@@ -122,7 +122,7 @@ func TestSubaccountLC_PreviewAndUnknowns(t *testing.T) {
 	c, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(pv(map[string]property.Value{"friendlyName": sv("x")})), DryRun: true})
 	require.NoError(t, err)
 	require.Empty(t, l.f.callCount(), "preview must not call the API")
-	require.NotEmpty(t, c.ID)
+	require.Empty(t, c.ID, "a preview has no real ID, so the id output stays unknown (#1590)")
 
 	// B1: friendlyName and status computed at preview.
 	chk := l.check(pv(map[string]property.Value{"friendlyName": computed(), "status": computed()}))
@@ -254,6 +254,9 @@ func TestApplicationLC_RefreshDriftAndImport(t *testing.T) {
 	require.Equal(t, testAccount, getS(t, imp.Properties, "ownerAccountSid"))
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 	prog := with(in, map[string]property.Value{"statusCallback": sv("https://console.example.com/status")})
+	// voiceCallerIdLookup differs from the import-only default (#1595), so the import adopted it
+	// and the program that declares it plans nothing.
+	require.True(t, imp.Inputs.Get("voiceCallerIdLookup").AsBool())
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, prog, imp.Inputs))
 }
 
@@ -288,6 +291,7 @@ func TestApplicationLC_SubaccountIDAndImport(t *testing.T) {
 	require.Equal(t, c.ID, imp.ID)
 	require.Equal(t, fakeSub, getS(t, imp.Inputs, "accountSid"), "a program with accountSid plans nothing after import")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
+	require.True(t, imp.Inputs.Get("voiceCallerIdLookup").AsBool(), "a non-default flag is adopted (#1595)")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, in, imp.Inputs))
 
 	// A bare SID cannot name a subaccount's object (it is looked up in the provider's account).

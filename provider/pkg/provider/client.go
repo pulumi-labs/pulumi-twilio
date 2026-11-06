@@ -51,8 +51,25 @@ func newClient(accountSid, user, pass, edge, region, baseURL string) *Client {
 // obj is a decoded JSON response object.
 type obj map[string]any
 
+// get returns the value at key k. A dotted key (push.apn_credential_sid) walks
+// nested objects; a key that exists literally wins over a dotted reading.
+func (o obj) get(k string) any {
+	if v, ok := o[k]; ok || !strings.Contains(k, ".") {
+		return v
+	}
+	var cur any = map[string]any(o)
+	for _, part := range strings.Split(k, ".") {
+		m, ok := cur.(map[string]any)
+		if !ok {
+			return nil
+		}
+		cur = m[part]
+	}
+	return cur
+}
+
 func (o obj) str(k string) string {
-	switch v := o[k].(type) {
+	switch v := o.get(k).(type) {
 	case string:
 		return v
 	case float64:
@@ -62,7 +79,7 @@ func (o obj) str(k string) string {
 }
 
 func (o obj) optStr(k string) *string {
-	if v, ok := o[k]; ok && v != nil {
+	if v := o.get(k); v != nil {
 		s := o.str(k)
 		return &s
 	}
@@ -70,7 +87,7 @@ func (o obj) optStr(k string) *string {
 }
 
 func (o obj) optBool(k string) *bool {
-	switch v := o[k].(type) {
+	switch v := o.get(k).(type) {
 	case bool:
 		return &v
 	case string:
@@ -82,7 +99,7 @@ func (o obj) optBool(k string) *bool {
 }
 
 func (o obj) optInt(k string) *int {
-	switch v := o[k].(type) {
+	switch v := o.get(k).(type) {
 	case float64:
 		i := int(v)
 		return &i
@@ -90,6 +107,30 @@ func (o obj) optInt(k string) *int {
 		if i, err := strconv.Atoi(v); err == nil {
 			return &i
 		}
+	}
+	return nil
+}
+
+// optList reads a list of strings, given either as a JSON array or as a
+// comma-separated string.
+func (o obj) optList(k string) *[]string {
+	switch v := o.get(k).(type) {
+	case []any:
+		out := []string{}
+		for _, it := range v {
+			if s, ok := it.(string); ok {
+				out = append(out, s)
+			}
+		}
+		return &out
+	case string:
+		out := []string{}
+		for _, s := range strings.Split(v, ",") {
+			if s = strings.TrimSpace(s); s != "" {
+				out = append(out, s)
+			}
+		}
+		return &out
 	}
 	return nil
 }

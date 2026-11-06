@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"regexp"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -37,11 +38,48 @@ type VerifyServiceArgs struct {
 	Psd2Enabled              *bool   `pulumi:"psd2Enabled,optional"`
 	DoNotShareWarningEnabled *bool   `pulumi:"doNotShareWarningEnabled,optional"`
 	CustomCodeEnabled        *bool   `pulumi:"customCodeEnabled,optional"`
+
+	DefaultTemplateSid             *string `pulumi:"defaultTemplateSid,optional"`
+	VerifyEventSubscriptionEnabled *bool   `pulumi:"verifyEventSubscriptionEnabled,optional"`
+
+	// The push, totp, whatsapp and passkeys settings are flat, prefixed fields
+	// that map to Twilio's dotted form parameters (Push.ApnCredentialSid) and
+	// nested response objects.
+	PushApnCredentialSid  *string `pulumi:"pushApnCredentialSid,optional"`
+	PushFcmCredentialSid  *string `pulumi:"pushFcmCredentialSid,optional"`
+	PushIncludeDate       *bool   `pulumi:"pushIncludeDate,optional"`
+	TotpIssuer            *string `pulumi:"totpIssuer,optional"`
+	TotpCodeLength        *int    `pulumi:"totpCodeLength,optional"`
+	TotpTimeStep          *int    `pulumi:"totpTimeStep,optional"`
+	TotpSkew              *int    `pulumi:"totpSkew,optional"`
+	WhatsappMsgServiceSid *string `pulumi:"whatsappMsgServiceSid,optional"`
+	WhatsappFrom          *string `pulumi:"whatsappFrom,optional"`
+
+	PasskeysRelyingPartyId          *string   `pulumi:"passkeysRelyingPartyId,optional"`
+	PasskeysRelyingPartyName        *string   `pulumi:"passkeysRelyingPartyName,optional"`
+	PasskeysRelyingPartyOrigins     *[]string `pulumi:"passkeysRelyingPartyOrigins,optional"`
+	PasskeysAuthenticatorAttachment *string   `pulumi:"passkeysAuthenticatorAttachment,optional"`
+	PasskeysDiscoverableCredentials *string   `pulumi:"passkeysDiscoverableCredentials,optional"`
+	PasskeysUserVerification        *string   `pulumi:"passkeysUserVerification,optional"`
 }
 
 func (a *VerifyServiceArgs) props() props {
 	return props{
-		strs: []strProp{{"TtsName", "tts_name", &a.TtsName}},
+		strs: []strProp{
+			{"TtsName", "tts_name", &a.TtsName},
+			{"DefaultTemplateSid", "default_template_sid", &a.DefaultTemplateSid},
+			{"Push.ApnCredentialSid", "push.apn_credential_sid", &a.PushApnCredentialSid},
+			{"Push.FcmCredentialSid", "push.fcm_credential_sid", &a.PushFcmCredentialSid},
+			{"Totp.Issuer", "totp.issuer", &a.TotpIssuer},
+			{"Whatsapp.MsgServiceSid", "whatsapp.msg_service_sid", &a.WhatsappMsgServiceSid},
+			{"Whatsapp.From", "whatsapp.from", &a.WhatsappFrom},
+			{"Passkeys.RelyingParty.Id", "passkeys.relying_party.id", &a.PasskeysRelyingPartyId},
+			{"Passkeys.RelyingParty.Name", "passkeys.relying_party.name", &a.PasskeysRelyingPartyName},
+			{"Passkeys.AuthenticatorAttachment", "passkeys.authenticator_attachment", &a.PasskeysAuthenticatorAttachment},
+			{"Passkeys.DiscoverableCredentials", "passkeys.discoverable_credentials", &a.PasskeysDiscoverableCredentials},
+			{"Passkeys.UserVerification", "passkeys.user_verification", &a.PasskeysUserVerification},
+		},
+		lists: []listProp{{"Passkeys.RelyingParty.Origins", "passkeys.relying_party.origins", &a.PasskeysRelyingPartyOrigins}},
 		bools: []boolProp{
 			{"LookupEnabled", "lookup_enabled", &a.LookupEnabled},
 			{"SkipSmsToLandlines", "skip_sms_to_landlines", &a.SkipSmsToLandlines},
@@ -49,8 +87,15 @@ func (a *VerifyServiceArgs) props() props {
 			{"Psd2Enabled", "psd2_enabled", &a.Psd2Enabled},
 			{"DoNotShareWarningEnabled", "do_not_share_warning_enabled", &a.DoNotShareWarningEnabled},
 			{"CustomCodeEnabled", "custom_code_enabled", &a.CustomCodeEnabled},
+			{"VerifyEventSubscriptionEnabled", "verify_event_subscription_enabled", &a.VerifyEventSubscriptionEnabled},
+			{"Push.IncludeDate", "push.include_date", &a.PushIncludeDate},
 		},
-		ints: []intProp{{"CodeLength", "code_length", &a.CodeLength}},
+		ints: []intProp{
+			{"CodeLength", "code_length", &a.CodeLength},
+			{"Totp.CodeLength", "totp.code_length", &a.TotpCodeLength},
+			{"Totp.TimeStep", "totp.time_step", &a.TotpTimeStep},
+			{"Totp.Skew", "totp.skew", &a.TotpSkew},
+		},
 	}
 }
 
@@ -64,6 +109,23 @@ func (a *VerifyServiceArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.Psd2Enabled, "Whether PSD2 dynamic-linking (payee and amount) is required.")
 	an.Describe(&a.DoNotShareWarningEnabled, "Whether to add a do-not-share warning to the message.")
 	an.Describe(&a.CustomCodeEnabled, "Whether you may supply your own verification code (requires Twilio approval).")
+	an.Describe(&a.DefaultTemplateSid, "SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.")
+	an.Describe(&a.VerifyEventSubscriptionEnabled, "Whether Verify events are sent to the service's event subscriptions.")
+	an.Describe(&a.PushApnCredentialSid, "SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.")
+	an.Describe(&a.PushFcmCredentialSid, "SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.")
+	an.Describe(&a.PushIncludeDate, "Whether push challenges include the date they were created.")
+	an.Describe(&a.TotpIssuer, "Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.")
+	an.Describe(&a.TotpCodeLength, "Number of digits of a TOTP code (3 to 8).")
+	an.Describe(&a.TotpTimeStep, "Seconds a TOTP code is valid (Twilio's totp.time_step).")
+	an.Describe(&a.TotpSkew, "Number of time steps before and after the current one in which a TOTP code is accepted.")
+	an.Describe(&a.WhatsappMsgServiceSid, "SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.")
+	an.Describe(&a.WhatsappFrom, "WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.")
+	an.Describe(&a.PasskeysRelyingPartyId, "Passkeys relying party ID (the domain). Removing it clears the value.")
+	an.Describe(&a.PasskeysRelyingPartyName, "Passkeys relying party display name. Removing it clears the value.")
+	an.Describe(&a.PasskeysRelyingPartyOrigins, "Origins allowed to use the passkeys relying party. Removing the list clears it.")
+	an.Describe(&a.PasskeysAuthenticatorAttachment, "Authenticator attachment for passkeys: platform, cross-platform or any.")
+	an.Describe(&a.PasskeysDiscoverableCredentials, "Whether passkey credentials are discoverable: required, preferred or discouraged.")
+	an.Describe(&a.PasskeysUserVerification, "User verification for passkeys: required, preferred or discouraged.")
 }
 
 // VerifyServiceState is the persisted state of a VerifyService.
@@ -104,8 +166,16 @@ func (r *VerifyService) Check(ctx context.Context, req infer.CheckRequest) (infe
 	if v := args.CodeLength; !unk("codeLength") && v != nil && (*v < 4 || *v > 10) {
 		failures = append(failures, p.CheckFailure{Property: "codeLength", Reason: "codeLength must be between 4 and 10"})
 	}
+	if v := args.DefaultTemplateSid; v != nil && !unk("defaultTemplateSid") && !verifyTemplateSid.MatchString(*v) {
+		failures = append(failures, p.CheckFailure{Property: "defaultTemplateSid", Reason: "defaultTemplateSid must be a template SID (HJ followed by 32 hex characters)"})
+	}
+	if v := args.TotpCodeLength; !unk("totpCodeLength") && v != nil && (*v < 3 || *v > 8) {
+		failures = append(failures, p.CheckFailure{Property: "totpCodeLength", Reason: "totpCodeLength must be between 3 and 8"})
+	}
 	return infer.CheckResponse[VerifyServiceArgs]{Inputs: args, Failures: failures}, nil
 }
+
+var verifyTemplateSid = regexp.MustCompile(`^HJ[0-9a-fA-F]{32}$`)
 
 func verifyPath(sid string) string {
 	if sid == "" {
@@ -131,7 +201,7 @@ func verifyEffective(o obj) *VerifyServiceEffective {
 func (r *VerifyService) Create(ctx context.Context, req infer.CreateRequest[VerifyServiceArgs]) (infer.CreateResponse[VerifyServiceState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[VerifyServiceState]{ID: req.Name, Output: VerifyServiceState{VerifyServiceArgs: a}}, nil
+		return infer.CreateResponse[VerifyServiceState]{ID: "", Output: VerifyServiceState{VerifyServiceArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

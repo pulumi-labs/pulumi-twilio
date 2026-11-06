@@ -25,7 +25,7 @@ resources:
       policy:
         fn::toJSON:
           allow:
-            - /v2/Services/**
+            - /twilio/iam/api-keys/create
 
   verify:
     type: twilio:index:VerifyService

@@ -23,13 +23,16 @@ __all__ = [
 
 @pulumi.output_type
 class GetVerifyServiceResult:
-    def __init__(__self__, code_length=None, custom_code_enabled=None, do_not_share_warning_enabled=None, dtmf_input_required=None, friendly_name=None, lookup_enabled=None, psd2_enabled=None, sid=None, skip_sms_to_landlines=None, tts_name=None):
+    def __init__(__self__, code_length=None, custom_code_enabled=None, default_template_sid=None, do_not_share_warning_enabled=None, dtmf_input_required=None, friendly_name=None, lookup_enabled=None, passkeys_authenticator_attachment=None, passkeys_discoverable_credentials=None, passkeys_relying_party_id=None, passkeys_relying_party_name=None, passkeys_relying_party_origins=None, passkeys_user_verification=None, psd2_enabled=None, push_apn_credential_sid=None, push_fcm_credential_sid=None, push_include_date=None, sid=None, skip_sms_to_landlines=None, totp_code_length=None, totp_issuer=None, totp_skew=None, totp_time_step=None, tts_name=None, verify_event_subscription_enabled=None, whatsapp_from=None, whatsapp_msg_service_sid=None):
         if code_length and not isinstance(code_length, int):
             raise TypeError("Expected argument 'code_length' to be a int")
         pulumi.set(__self__, "code_length", code_length)
         if custom_code_enabled and not isinstance(custom_code_enabled, bool):
             raise TypeError("Expected argument 'custom_code_enabled' to be a bool")
         pulumi.set(__self__, "custom_code_enabled", custom_code_enabled)
+        if default_template_sid and not isinstance(default_template_sid, str):
+            raise TypeError("Expected argument 'default_template_sid' to be a str")
+        pulumi.set(__self__, "default_template_sid", default_template_sid)
         if do_not_share_warning_enabled and not isinstance(do_not_share_warning_enabled, bool):
             raise TypeError("Expected argument 'do_not_share_warning_enabled' to be a bool")
         pulumi.set(__self__, "do_not_share_warning_enabled", do_not_share_warning_enabled)
@@ -42,18 +45,66 @@ class GetVerifyServiceResult:
         if lookup_enabled and not isinstance(lookup_enabled, bool):
             raise TypeError("Expected argument 'lookup_enabled' to be a bool")
         pulumi.set(__self__, "lookup_enabled", lookup_enabled)
+        if passkeys_authenticator_attachment and not isinstance(passkeys_authenticator_attachment, str):
+            raise TypeError("Expected argument 'passkeys_authenticator_attachment' to be a str")
+        pulumi.set(__self__, "passkeys_authenticator_attachment", passkeys_authenticator_attachment)
+        if passkeys_discoverable_credentials and not isinstance(passkeys_discoverable_credentials, str):
+            raise TypeError("Expected argument 'passkeys_discoverable_credentials' to be a str")
+        pulumi.set(__self__, "passkeys_discoverable_credentials", passkeys_discoverable_credentials)
+        if passkeys_relying_party_id and not isinstance(passkeys_relying_party_id, str):
+            raise TypeError("Expected argument 'passkeys_relying_party_id' to be a str")
+        pulumi.set(__self__, "passkeys_relying_party_id", passkeys_relying_party_id)
+        if passkeys_relying_party_name and not isinstance(passkeys_relying_party_name, str):
+            raise TypeError("Expected argument 'passkeys_relying_party_name' to be a str")
+        pulumi.set(__self__, "passkeys_relying_party_name", passkeys_relying_party_name)
+        if passkeys_relying_party_origins and not isinstance(passkeys_relying_party_origins, list):
+            raise TypeError("Expected argument 'passkeys_relying_party_origins' to be a list")
+        pulumi.set(__self__, "passkeys_relying_party_origins", passkeys_relying_party_origins)
+        if passkeys_user_verification and not isinstance(passkeys_user_verification, str):
+            raise TypeError("Expected argument 'passkeys_user_verification' to be a str")
+        pulumi.set(__self__, "passkeys_user_verification", passkeys_user_verification)
         if psd2_enabled and not isinstance(psd2_enabled, bool):
             raise TypeError("Expected argument 'psd2_enabled' to be a bool")
         pulumi.set(__self__, "psd2_enabled", psd2_enabled)
+        if push_apn_credential_sid and not isinstance(push_apn_credential_sid, str):
+            raise TypeError("Expected argument 'push_apn_credential_sid' to be a str")
+        pulumi.set(__self__, "push_apn_credential_sid", push_apn_credential_sid)
+        if push_fcm_credential_sid and not isinstance(push_fcm_credential_sid, str):
+            raise TypeError("Expected argument 'push_fcm_credential_sid' to be a str")
+        pulumi.set(__self__, "push_fcm_credential_sid", push_fcm_credential_sid)
+        if push_include_date and not isinstance(push_include_date, bool):
+            raise TypeError("Expected argument 'push_include_date' to be a bool")
+        pulumi.set(__self__, "push_include_date", push_include_date)
         if sid and not isinstance(sid, str):
             raise TypeError("Expected argument 'sid' to be a str")
         pulumi.set(__self__, "sid", sid)
         if skip_sms_to_landlines and not isinstance(skip_sms_to_landlines, bool):
             raise TypeError("Expected argument 'skip_sms_to_landlines' to be a bool")
         pulumi.set(__self__, "skip_sms_to_landlines", skip_sms_to_landlines)
+        if totp_code_length and not isinstance(totp_code_length, int):
+            raise TypeError("Expected argument 'totp_code_length' to be a int")
+        pulumi.set(__self__, "totp_code_length", totp_code_length)
+        if totp_issuer and not isinstance(totp_issuer, str):
+            raise TypeError("Expected argument 'totp_issuer' to be a str")
+        pulumi.set(__self__, "totp_issuer", totp_issuer)
+        if totp_skew and not isinstance(totp_skew, int):
+            raise TypeError("Expected argument 'totp_skew' to be a int")
+        pulumi.set(__self__, "totp_skew", totp_skew)
+        if totp_time_step and not isinstance(totp_time_step, int):
+            raise TypeError("Expected argument 'totp_time_step' to be a int")
+        pulumi.set(__self__, "totp_time_step", totp_time_step)
         if tts_name and not isinstance(tts_name, str):
             raise TypeError("Expected argument 'tts_name' to be a str")
         pulumi.set(__self__, "tts_name", tts_name)
+        if verify_event_subscription_enabled and not isinstance(verify_event_subscription_enabled, bool):
+            raise TypeError("Expected argument 'verify_event_subscription_enabled' to be a bool")
+        pulumi.set(__self__, "verify_event_subscription_enabled", verify_event_subscription_enabled)
+        if whatsapp_from and not isinstance(whatsapp_from, str):
+            raise TypeError("Expected argument 'whatsapp_from' to be a str")
+        pulumi.set(__self__, "whatsapp_from", whatsapp_from)
+        if whatsapp_msg_service_sid and not isinstance(whatsapp_msg_service_sid, str):
+            raise TypeError("Expected argument 'whatsapp_msg_service_sid' to be a str")
+        pulumi.set(__self__, "whatsapp_msg_service_sid", whatsapp_msg_service_sid)
 
     @_builtins.property
     @pulumi.getter(name="codeLength")
@@ -70,6 +121,14 @@ class GetVerifyServiceResult:
         Whether you may supply your own verification code (requires Twilio approval).
         """
         return pulumi.get(self, "custom_code_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultTemplateSid")
+    def default_template_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        """
+        return pulumi.get(self, "default_template_sid")
 
     @_builtins.property
     @pulumi.getter(name="doNotShareWarningEnabled")
@@ -104,12 +163,84 @@ class GetVerifyServiceResult:
         return pulumi.get(self, "lookup_enabled")
 
     @_builtins.property
+    @pulumi.getter(name="passkeysAuthenticatorAttachment")
+    def passkeys_authenticator_attachment(self) -> Optional[_builtins.str]:
+        """
+        Authenticator attachment for passkeys: platform, cross-platform or any.
+        """
+        return pulumi.get(self, "passkeys_authenticator_attachment")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysDiscoverableCredentials")
+    def passkeys_discoverable_credentials(self) -> Optional[_builtins.str]:
+        """
+        Whether passkey credentials are discoverable: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_discoverable_credentials")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyId")
+    def passkeys_relying_party_id(self) -> Optional[_builtins.str]:
+        """
+        Passkeys relying party ID (the domain). Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_id")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyName")
+    def passkeys_relying_party_name(self) -> Optional[_builtins.str]:
+        """
+        Passkeys relying party display name. Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_name")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyOrigins")
+    def passkeys_relying_party_origins(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Origins allowed to use the passkeys relying party. Removing the list clears it.
+        """
+        return pulumi.get(self, "passkeys_relying_party_origins")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysUserVerification")
+    def passkeys_user_verification(self) -> Optional[_builtins.str]:
+        """
+        User verification for passkeys: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_user_verification")
+
+    @_builtins.property
     @pulumi.getter(name="psd2Enabled")
     def psd2_enabled(self) -> Optional[_builtins.bool]:
         """
         Whether PSD2 dynamic-linking (payee and amount) is required.
         """
         return pulumi.get(self, "psd2_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="pushApnCredentialSid")
+    def push_apn_credential_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_apn_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushFcmCredentialSid")
+    def push_fcm_credential_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_fcm_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushIncludeDate")
+    def push_include_date(self) -> Optional[_builtins.bool]:
+        """
+        Whether push challenges include the date they were created.
+        """
+        return pulumi.get(self, "push_include_date")
 
     @_builtins.property
     @pulumi.getter
@@ -128,12 +259,68 @@ class GetVerifyServiceResult:
         return pulumi.get(self, "skip_sms_to_landlines")
 
     @_builtins.property
+    @pulumi.getter(name="totpCodeLength")
+    def totp_code_length(self) -> Optional[_builtins.int]:
+        """
+        Number of digits of a TOTP code (3 to 8).
+        """
+        return pulumi.get(self, "totp_code_length")
+
+    @_builtins.property
+    @pulumi.getter(name="totpIssuer")
+    def totp_issuer(self) -> Optional[_builtins.str]:
+        """
+        Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        """
+        return pulumi.get(self, "totp_issuer")
+
+    @_builtins.property
+    @pulumi.getter(name="totpSkew")
+    def totp_skew(self) -> Optional[_builtins.int]:
+        """
+        Number of time steps before and after the current one in which a TOTP code is accepted.
+        """
+        return pulumi.get(self, "totp_skew")
+
+    @_builtins.property
+    @pulumi.getter(name="totpTimeStep")
+    def totp_time_step(self) -> Optional[_builtins.int]:
+        """
+        Seconds a TOTP code is valid (Twilio's totp.time_step).
+        """
+        return pulumi.get(self, "totp_time_step")
+
+    @_builtins.property
     @pulumi.getter(name="ttsName")
     def tts_name(self) -> Optional[_builtins.str]:
         """
         Name spoken in voice verifications instead of friendlyName.
         """
         return pulumi.get(self, "tts_name")
+
+    @_builtins.property
+    @pulumi.getter(name="verifyEventSubscriptionEnabled")
+    def verify_event_subscription_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether Verify events are sent to the service's event subscriptions.
+        """
+        return pulumi.get(self, "verify_event_subscription_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappFrom")
+    def whatsapp_from(self) -> Optional[_builtins.str]:
+        """
+        WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        """
+        return pulumi.get(self, "whatsapp_from")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappMsgServiceSid")
+    def whatsapp_msg_service_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        """
+        return pulumi.get(self, "whatsapp_msg_service_sid")
 
 
 class AwaitableGetVerifyServiceResult(GetVerifyServiceResult):
@@ -144,14 +331,31 @@ class AwaitableGetVerifyServiceResult(GetVerifyServiceResult):
         return GetVerifyServiceResult(
             code_length=self.code_length,
             custom_code_enabled=self.custom_code_enabled,
+            default_template_sid=self.default_template_sid,
             do_not_share_warning_enabled=self.do_not_share_warning_enabled,
             dtmf_input_required=self.dtmf_input_required,
             friendly_name=self.friendly_name,
             lookup_enabled=self.lookup_enabled,
+            passkeys_authenticator_attachment=self.passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=self.passkeys_discoverable_credentials,
+            passkeys_relying_party_id=self.passkeys_relying_party_id,
+            passkeys_relying_party_name=self.passkeys_relying_party_name,
+            passkeys_relying_party_origins=self.passkeys_relying_party_origins,
+            passkeys_user_verification=self.passkeys_user_verification,
             psd2_enabled=self.psd2_enabled,
+            push_apn_credential_sid=self.push_apn_credential_sid,
+            push_fcm_credential_sid=self.push_fcm_credential_sid,
+            push_include_date=self.push_include_date,
             sid=self.sid,
             skip_sms_to_landlines=self.skip_sms_to_landlines,
-            tts_name=self.tts_name)
+            totp_code_length=self.totp_code_length,
+            totp_issuer=self.totp_issuer,
+            totp_skew=self.totp_skew,
+            totp_time_step=self.totp_time_step,
+            tts_name=self.tts_name,
+            verify_event_subscription_enabled=self.verify_event_subscription_enabled,
+            whatsapp_from=self.whatsapp_from,
+            whatsapp_msg_service_sid=self.whatsapp_msg_service_sid)
 
 
 def get_verify_service(service_sid: Optional[_builtins.str] = None,
@@ -170,14 +374,31 @@ def get_verify_service(service_sid: Optional[_builtins.str] = None,
     return AwaitableGetVerifyServiceResult(
         code_length=pulumi.get(__ret__, 'code_length'),
         custom_code_enabled=pulumi.get(__ret__, 'custom_code_enabled'),
+        default_template_sid=pulumi.get(__ret__, 'default_template_sid'),
         do_not_share_warning_enabled=pulumi.get(__ret__, 'do_not_share_warning_enabled'),
         dtmf_input_required=pulumi.get(__ret__, 'dtmf_input_required'),
         friendly_name=pulumi.get(__ret__, 'friendly_name'),
         lookup_enabled=pulumi.get(__ret__, 'lookup_enabled'),
+        passkeys_authenticator_attachment=pulumi.get(__ret__, 'passkeys_authenticator_attachment'),
+        passkeys_discoverable_credentials=pulumi.get(__ret__, 'passkeys_discoverable_credentials'),
+        passkeys_relying_party_id=pulumi.get(__ret__, 'passkeys_relying_party_id'),
+        passkeys_relying_party_name=pulumi.get(__ret__, 'passkeys_relying_party_name'),
+        passkeys_relying_party_origins=pulumi.get(__ret__, 'passkeys_relying_party_origins'),
+        passkeys_user_verification=pulumi.get(__ret__, 'passkeys_user_verification'),
         psd2_enabled=pulumi.get(__ret__, 'psd2_enabled'),
+        push_apn_credential_sid=pulumi.get(__ret__, 'push_apn_credential_sid'),
+        push_fcm_credential_sid=pulumi.get(__ret__, 'push_fcm_credential_sid'),
+        push_include_date=pulumi.get(__ret__, 'push_include_date'),
         sid=pulumi.get(__ret__, 'sid'),
         skip_sms_to_landlines=pulumi.get(__ret__, 'skip_sms_to_landlines'),
-        tts_name=pulumi.get(__ret__, 'tts_name'))
+        totp_code_length=pulumi.get(__ret__, 'totp_code_length'),
+        totp_issuer=pulumi.get(__ret__, 'totp_issuer'),
+        totp_skew=pulumi.get(__ret__, 'totp_skew'),
+        totp_time_step=pulumi.get(__ret__, 'totp_time_step'),
+        tts_name=pulumi.get(__ret__, 'tts_name'),
+        verify_event_subscription_enabled=pulumi.get(__ret__, 'verify_event_subscription_enabled'),
+        whatsapp_from=pulumi.get(__ret__, 'whatsapp_from'),
+        whatsapp_msg_service_sid=pulumi.get(__ret__, 'whatsapp_msg_service_sid'))
 def get_verify_service_output(service_sid: Optional[pulumi.Input[_builtins.str]] = None,
                               opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetVerifyServiceResult]:
     """
@@ -193,11 +414,28 @@ def get_verify_service_output(service_sid: Optional[pulumi.Input[_builtins.str]]
     return __ret__.apply(lambda __response__: GetVerifyServiceResult(
         code_length=pulumi.get(__response__, 'code_length'),
         custom_code_enabled=pulumi.get(__response__, 'custom_code_enabled'),
+        default_template_sid=pulumi.get(__response__, 'default_template_sid'),
         do_not_share_warning_enabled=pulumi.get(__response__, 'do_not_share_warning_enabled'),
         dtmf_input_required=pulumi.get(__response__, 'dtmf_input_required'),
         friendly_name=pulumi.get(__response__, 'friendly_name'),
         lookup_enabled=pulumi.get(__response__, 'lookup_enabled'),
+        passkeys_authenticator_attachment=pulumi.get(__response__, 'passkeys_authenticator_attachment'),
+        passkeys_discoverable_credentials=pulumi.get(__response__, 'passkeys_discoverable_credentials'),
+        passkeys_relying_party_id=pulumi.get(__response__, 'passkeys_relying_party_id'),
+        passkeys_relying_party_name=pulumi.get(__response__, 'passkeys_relying_party_name'),
+        passkeys_relying_party_origins=pulumi.get(__response__, 'passkeys_relying_party_origins'),
+        passkeys_user_verification=pulumi.get(__response__, 'passkeys_user_verification'),
         psd2_enabled=pulumi.get(__response__, 'psd2_enabled'),
+        push_apn_credential_sid=pulumi.get(__response__, 'push_apn_credential_sid'),
+        push_fcm_credential_sid=pulumi.get(__response__, 'push_fcm_credential_sid'),
+        push_include_date=pulumi.get(__response__, 'push_include_date'),
         sid=pulumi.get(__response__, 'sid'),
         skip_sms_to_landlines=pulumi.get(__response__, 'skip_sms_to_landlines'),
-        tts_name=pulumi.get(__response__, 'tts_name')))
+        totp_code_length=pulumi.get(__response__, 'totp_code_length'),
+        totp_issuer=pulumi.get(__response__, 'totp_issuer'),
+        totp_skew=pulumi.get(__response__, 'totp_skew'),
+        totp_time_step=pulumi.get(__response__, 'totp_time_step'),
+        tts_name=pulumi.get(__response__, 'tts_name'),
+        verify_event_subscription_enabled=pulumi.get(__response__, 'verify_event_subscription_enabled'),
+        whatsapp_from=pulumi.get(__response__, 'whatsapp_from'),
+        whatsapp_msg_service_sid=pulumi.get(__response__, 'whatsapp_msg_service_sid')))

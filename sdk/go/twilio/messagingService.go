@@ -48,6 +48,8 @@ type MessagingService struct {
 	SynchronousValidation pulumi.BoolPtrOutput `pulumi:"synchronousValidation"`
 	// Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 	UseInboundWebhookOnNumber pulumi.BoolPtrOutput `pulumi:"useInboundWebhookOnNumber"`
+	// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+	Usecase pulumi.StringPtrOutput `pulumi:"usecase"`
 	// Seconds a message may wait for delivery before expiring (1-36000).
 	ValidityPeriod pulumi.IntPtrOutput `pulumi:"validityPeriod"`
 }
@@ -123,6 +125,8 @@ type messagingServiceArgs struct {
 	SynchronousValidation *bool `pulumi:"synchronousValidation"`
 	// Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 	UseInboundWebhookOnNumber *bool `pulumi:"useInboundWebhookOnNumber"`
+	// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+	Usecase *string `pulumi:"usecase"`
 	// Seconds a message may wait for delivery before expiring (1-36000).
 	ValidityPeriod *int `pulumi:"validityPeriod"`
 }
@@ -157,6 +161,8 @@ type MessagingServiceArgs struct {
 	SynchronousValidation pulumi.BoolPtrInput
 	// Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 	UseInboundWebhookOnNumber pulumi.BoolPtrInput
+	// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+	Usecase pulumi.StringPtrInput
 	// Seconds a message may wait for delivery before expiring (1-36000).
 	ValidityPeriod pulumi.IntPtrInput
 }
@@ -326,6 +332,11 @@ func (o MessagingServiceOutput) SynchronousValidation() pulumi.BoolPtrOutput {
 // Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 func (o MessagingServiceOutput) UseInboundWebhookOnNumber() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MessagingService) pulumi.BoolPtrOutput { return v.UseInboundWebhookOnNumber }).(pulumi.BoolPtrOutput)
+}
+
+// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+func (o MessagingServiceOutput) Usecase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MessagingService) pulumi.StringPtrOutput { return v.Usecase }).(pulumi.StringPtrOutput)
 }
 
 // Seconds a message may wait for delivery before expiring (1-36000).

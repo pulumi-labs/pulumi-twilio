@@ -101,6 +101,10 @@ export class MessagingService extends pulumi.CustomResource {
      */
     declare public readonly useInboundWebhookOnNumber: pulumi.Output<boolean | undefined>;
     /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     */
+    declare public readonly usecase: pulumi.Output<string | undefined>;
+    /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      */
     declare public readonly validityPeriod: pulumi.Output<number | undefined>;
@@ -133,6 +137,7 @@ export class MessagingService extends pulumi.CustomResource {
             resourceInputs["stickySender"] = args?.stickySender;
             resourceInputs["synchronousValidation"] = args?.synchronousValidation;
             resourceInputs["useInboundWebhookOnNumber"] = args?.useInboundWebhookOnNumber;
+            resourceInputs["usecase"] = args?.usecase;
             resourceInputs["validityPeriod"] = args?.validityPeriod;
             resourceInputs["effective"] = undefined /*out*/;
             resourceInputs["sid"] = undefined /*out*/;
@@ -153,6 +158,7 @@ export class MessagingService extends pulumi.CustomResource {
             resourceInputs["stickySender"] = undefined /*out*/;
             resourceInputs["synchronousValidation"] = undefined /*out*/;
             resourceInputs["useInboundWebhookOnNumber"] = undefined /*out*/;
+            resourceInputs["usecase"] = undefined /*out*/;
             resourceInputs["validityPeriod"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -220,6 +226,10 @@ export interface MessagingServiceArgs {
      * Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
      */
     useInboundWebhookOnNumber?: pulumi.Input<boolean | undefined>;
+    /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     */
+    usecase?: pulumi.Input<string | undefined>;
     /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      */

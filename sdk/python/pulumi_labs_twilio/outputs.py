@@ -16,8 +16,12 @@ from . import _utilities
 
 __all__ = [
     'ApplicationEffective',
+    'ConnectAppEffective',
+    'EventSubscriptionType',
     'IncomingPhoneNumberEffective',
     'MessagingServiceEffective',
+    'OutgoingCallerIdEffective',
+    'ShortCodeEffective',
     'VerifyServiceEffective',
 ]
 
@@ -30,8 +34,12 @@ class ApplicationEffective(dict):
             suggest = "friendly_name"
         elif key == "accountSid":
             suggest = "account_sid"
+        elif key == "apiVersion":
+            suggest = "api_version"
         elif key == "messageStatusCallback":
             suggest = "message_status_callback"
+        elif key == "publicApplicationConnectEnabled":
+            suggest = "public_application_connect_enabled"
         elif key == "smsFallbackMethod":
             suggest = "sms_fallback_method"
         elif key == "smsFallbackUrl":
@@ -71,7 +79,9 @@ class ApplicationEffective(dict):
     def __init__(__self__, *,
                  friendly_name: _builtins.str,
                  account_sid: Optional[_builtins.str] = None,
+                 api_version: Optional[_builtins.str] = None,
                  message_status_callback: Optional[_builtins.str] = None,
+                 public_application_connect_enabled: Optional[_builtins.bool] = None,
                  sms_fallback_method: Optional[_builtins.str] = None,
                  sms_fallback_url: Optional[_builtins.str] = None,
                  sms_method: Optional[_builtins.str] = None,
@@ -87,7 +97,9 @@ class ApplicationEffective(dict):
         """
         :param _builtins.str friendly_name: Human-readable name of the application (up to 64 characters).
         :param _builtins.str account_sid: SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
+        :param _builtins.str api_version: Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
         :param _builtins.str message_status_callback: URL that receives status events for messages sent by this application.
+        :param _builtins.bool public_application_connect_enabled: Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
         :param _builtins.str sms_fallback_method: HTTP method for smsFallbackUrl: GET or POST.
         :param _builtins.str sms_fallback_url: URL requested if smsUrl fails.
         :param _builtins.str sms_method: HTTP method for smsUrl: GET or POST.
@@ -104,8 +116,12 @@ class ApplicationEffective(dict):
         pulumi.set(__self__, "friendly_name", friendly_name)
         if account_sid is not None:
             pulumi.set(__self__, "account_sid", account_sid)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
         if message_status_callback is not None:
             pulumi.set(__self__, "message_status_callback", message_status_callback)
+        if public_application_connect_enabled is not None:
+            pulumi.set(__self__, "public_application_connect_enabled", public_application_connect_enabled)
         if sms_fallback_method is not None:
             pulumi.set(__self__, "sms_fallback_method", sms_fallback_method)
         if sms_fallback_url is not None:
@@ -148,12 +164,28 @@ class ApplicationEffective(dict):
         return pulumi.get(self, "account_sid")
 
     @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
     @pulumi.getter(name="messageStatusCallback")
     def message_status_callback(self) -> Optional[_builtins.str]:
         """
         URL that receives status events for messages sent by this application.
         """
         return pulumi.get(self, "message_status_callback")
+
+    @_builtins.property
+    @pulumi.getter(name="publicApplicationConnectEnabled")
+    def public_application_connect_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        """
+        return pulumi.get(self, "public_application_connect_enabled")
 
     @_builtins.property
     @pulumi.getter(name="smsFallbackMethod")
@@ -253,14 +285,230 @@ class ApplicationEffective(dict):
 
 
 @pulumi.output_type
+class ConnectAppEffective(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "connectAppSid":
+            suggest = "connect_app_sid"
+        elif key == "accountSid":
+            suggest = "account_sid"
+        elif key == "authorizeRedirectUrl":
+            suggest = "authorize_redirect_url"
+        elif key == "companyName":
+            suggest = "company_name"
+        elif key == "deauthorizeCallbackMethod":
+            suggest = "deauthorize_callback_method"
+        elif key == "deauthorizeCallbackUrl":
+            suggest = "deauthorize_callback_url"
+        elif key == "friendlyName":
+            suggest = "friendly_name"
+        elif key == "homepageUrl":
+            suggest = "homepage_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConnectAppEffective. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConnectAppEffective.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConnectAppEffective.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 connect_app_sid: _builtins.str,
+                 account_sid: Optional[_builtins.str] = None,
+                 authorize_redirect_url: Optional[_builtins.str] = None,
+                 company_name: Optional[_builtins.str] = None,
+                 deauthorize_callback_method: Optional[_builtins.str] = None,
+                 deauthorize_callback_url: Optional[_builtins.str] = None,
+                 description: Optional[_builtins.str] = None,
+                 friendly_name: Optional[_builtins.str] = None,
+                 homepage_url: Optional[_builtins.str] = None,
+                 permissions: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str connect_app_sid: SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+        :param _builtins.str account_sid: SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+        :param _builtins.str authorize_redirect_url: URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+        :param _builtins.str company_name: Company name shown on the authorization page. Removing it leaves the name unchanged.
+        :param _builtins.str deauthorize_callback_method: HTTP method for deauthorizeCallbackUrl: GET or POST.
+        :param _builtins.str deauthorize_callback_url: URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+        :param _builtins.str description: Description shown on the authorization page. Removing it leaves the text unchanged.
+        :param _builtins.str friendly_name: Human-readable name of the Connect app. Removing it leaves the name unchanged.
+        :param _builtins.str homepage_url: Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+        :param Sequence[_builtins.str] permissions: Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+        """
+        pulumi.set(__self__, "connect_app_sid", connect_app_sid)
+        if account_sid is not None:
+            pulumi.set(__self__, "account_sid", account_sid)
+        if authorize_redirect_url is not None:
+            pulumi.set(__self__, "authorize_redirect_url", authorize_redirect_url)
+        if company_name is not None:
+            pulumi.set(__self__, "company_name", company_name)
+        if deauthorize_callback_method is not None:
+            pulumi.set(__self__, "deauthorize_callback_method", deauthorize_callback_method)
+        if deauthorize_callback_url is not None:
+            pulumi.set(__self__, "deauthorize_callback_url", deauthorize_callback_url)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if homepage_url is not None:
+            pulumi.set(__self__, "homepage_url", homepage_url)
+        if permissions is not None:
+            pulumi.set(__self__, "permissions", permissions)
+
+    @_builtins.property
+    @pulumi.getter(name="connectAppSid")
+    def connect_app_sid(self) -> _builtins.str:
+        """
+        SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+        """
+        return pulumi.get(self, "connect_app_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> Optional[_builtins.str]:
+        """
+        SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="authorizeRedirectUrl")
+    def authorize_redirect_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+        """
+        return pulumi.get(self, "authorize_redirect_url")
+
+    @_builtins.property
+    @pulumi.getter(name="companyName")
+    def company_name(self) -> Optional[_builtins.str]:
+        """
+        Company name shown on the authorization page. Removing it leaves the name unchanged.
+        """
+        return pulumi.get(self, "company_name")
+
+    @_builtins.property
+    @pulumi.getter(name="deauthorizeCallbackMethod")
+    def deauthorize_callback_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method for deauthorizeCallbackUrl: GET or POST.
+        """
+        return pulumi.get(self, "deauthorize_callback_method")
+
+    @_builtins.property
+    @pulumi.getter(name="deauthorizeCallbackUrl")
+    def deauthorize_callback_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+        """
+        return pulumi.get(self, "deauthorize_callback_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        Description shown on the authorization page. Removing it leaves the text unchanged.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        Human-readable name of the Connect app. Removing it leaves the name unchanged.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="homepageUrl")
+    def homepage_url(self) -> Optional[_builtins.str]:
+        """
+        Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+        """
+        return pulumi.get(self, "homepage_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def permissions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+        """
+        return pulumi.get(self, "permissions")
+
+
+@pulumi.output_type
+class EventSubscriptionType(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "schemaVersion":
+            suggest = "schema_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EventSubscriptionType. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EventSubscriptionType.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EventSubscriptionType.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 schema_version: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str type: Event type ID, for example com.twilio.messaging.message.delivered.
+        :param _builtins.int schema_version: Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+        """
+        pulumi.set(__self__, "type", type)
+        if schema_version is not None:
+            pulumi.set(__self__, "schema_version", schema_version)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Event type ID, for example com.twilio.messaging.message.delivered.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="schemaVersion")
+    def schema_version(self) -> Optional[_builtins.int]:
+        """
+        Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+        """
+        return pulumi.get(self, "schema_version")
+
+
+@pulumi.output_type
 class IncomingPhoneNumberEffective(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
         if key == "accountSid":
             suggest = "account_sid"
+        elif key == "addressSid":
+            suggest = "address_sid"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "bundleSid":
+            suggest = "bundle_sid"
+        elif key == "emergencyAddressSid":
+            suggest = "emergency_address_sid"
+        elif key == "emergencyStatus":
+            suggest = "emergency_status"
         elif key == "friendlyName":
             suggest = "friendly_name"
+        elif key == "identitySid":
+            suggest = "identity_sid"
         elif key == "phoneNumber":
             suggest = "phone_number"
         elif key == "phoneNumberSid":
@@ -279,6 +527,8 @@ class IncomingPhoneNumberEffective(dict):
             suggest = "status_callback"
         elif key == "statusCallbackMethod":
             suggest = "status_callback_method"
+        elif key == "trunkSid":
+            suggest = "trunk_sid"
         elif key == "voiceApplicationSid":
             suggest = "voice_application_sid"
         elif key == "voiceCallerIdLookup":
@@ -289,6 +539,8 @@ class IncomingPhoneNumberEffective(dict):
             suggest = "voice_fallback_url"
         elif key == "voiceMethod":
             suggest = "voice_method"
+        elif key == "voiceReceiveMode":
+            suggest = "voice_receive_mode"
         elif key == "voiceUrl":
             suggest = "voice_url"
 
@@ -305,7 +557,13 @@ class IncomingPhoneNumberEffective(dict):
 
     def __init__(__self__, *,
                  account_sid: Optional[_builtins.str] = None,
+                 address_sid: Optional[_builtins.str] = None,
+                 api_version: Optional[_builtins.str] = None,
+                 bundle_sid: Optional[_builtins.str] = None,
+                 emergency_address_sid: Optional[_builtins.str] = None,
+                 emergency_status: Optional[_builtins.str] = None,
                  friendly_name: Optional[_builtins.str] = None,
+                 identity_sid: Optional[_builtins.str] = None,
                  phone_number: Optional[_builtins.str] = None,
                  phone_number_sid: Optional[_builtins.str] = None,
                  sms_application_sid: Optional[_builtins.str] = None,
@@ -315,15 +573,23 @@ class IncomingPhoneNumberEffective(dict):
                  sms_url: Optional[_builtins.str] = None,
                  status_callback: Optional[_builtins.str] = None,
                  status_callback_method: Optional[_builtins.str] = None,
+                 trunk_sid: Optional[_builtins.str] = None,
                  voice_application_sid: Optional[_builtins.str] = None,
                  voice_caller_id_lookup: Optional[_builtins.bool] = None,
                  voice_fallback_method: Optional[_builtins.str] = None,
                  voice_fallback_url: Optional[_builtins.str] = None,
                  voice_method: Optional[_builtins.str] = None,
+                 voice_receive_mode: Optional[_builtins.str] = None,
                  voice_url: Optional[_builtins.str] = None):
         """
         :param _builtins.str account_sid: SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
+        :param _builtins.str address_sid: SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        :param _builtins.str api_version: Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        :param _builtins.str bundle_sid: SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        :param _builtins.str emergency_address_sid: SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        :param _builtins.str emergency_status: Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
         :param _builtins.str friendly_name: Human-readable label for the number.
+        :param _builtins.str identity_sid: SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
         :param _builtins.str phone_number: The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
         :param _builtins.str phone_number_sid: SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
         :param _builtins.str sms_application_sid: SID (AP...) of an Application that handles incoming SMS instead of smsUrl.
@@ -333,17 +599,31 @@ class IncomingPhoneNumberEffective(dict):
         :param _builtins.str sms_url: URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side.
         :param _builtins.str status_callback: URL that receives call status events.
         :param _builtins.str status_callback_method: HTTP method for statusCallback: GET or POST.
+        :param _builtins.str trunk_sid: SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
         :param _builtins.str voice_application_sid: SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         :param _builtins.bool voice_caller_id_lookup: Whether to look up the caller's name on incoming calls.
         :param _builtins.str voice_fallback_method: HTTP method for voiceFallbackUrl: GET or POST.
         :param _builtins.str voice_fallback_url: URL requested if voiceUrl fails.
         :param _builtins.str voice_method: HTTP method for voiceUrl: GET or POST.
+        :param _builtins.str voice_receive_mode: Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
         :param _builtins.str voice_url: URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         """
         if account_sid is not None:
             pulumi.set(__self__, "account_sid", account_sid)
+        if address_sid is not None:
+            pulumi.set(__self__, "address_sid", address_sid)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if bundle_sid is not None:
+            pulumi.set(__self__, "bundle_sid", bundle_sid)
+        if emergency_address_sid is not None:
+            pulumi.set(__self__, "emergency_address_sid", emergency_address_sid)
+        if emergency_status is not None:
+            pulumi.set(__self__, "emergency_status", emergency_status)
         if friendly_name is not None:
             pulumi.set(__self__, "friendly_name", friendly_name)
+        if identity_sid is not None:
+            pulumi.set(__self__, "identity_sid", identity_sid)
         if phone_number is not None:
             pulumi.set(__self__, "phone_number", phone_number)
         if phone_number_sid is not None:
@@ -362,6 +642,8 @@ class IncomingPhoneNumberEffective(dict):
             pulumi.set(__self__, "status_callback", status_callback)
         if status_callback_method is not None:
             pulumi.set(__self__, "status_callback_method", status_callback_method)
+        if trunk_sid is not None:
+            pulumi.set(__self__, "trunk_sid", trunk_sid)
         if voice_application_sid is not None:
             pulumi.set(__self__, "voice_application_sid", voice_application_sid)
         if voice_caller_id_lookup is not None:
@@ -372,6 +654,8 @@ class IncomingPhoneNumberEffective(dict):
             pulumi.set(__self__, "voice_fallback_url", voice_fallback_url)
         if voice_method is not None:
             pulumi.set(__self__, "voice_method", voice_method)
+        if voice_receive_mode is not None:
+            pulumi.set(__self__, "voice_receive_mode", voice_receive_mode)
         if voice_url is not None:
             pulumi.set(__self__, "voice_url", voice_url)
 
@@ -384,12 +668,60 @@ class IncomingPhoneNumberEffective(dict):
         return pulumi.get(self, "account_sid")
 
     @_builtins.property
+    @pulumi.getter(name="addressSid")
+    def address_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "address_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter(name="bundleSid")
+    def bundle_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        """
+        return pulumi.get(self, "bundle_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="emergencyAddressSid")
+    def emergency_address_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "emergency_address_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="emergencyStatus")
+    def emergency_status(self) -> Optional[_builtins.str]:
+        """
+        Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        """
+        return pulumi.get(self, "emergency_status")
+
+    @_builtins.property
     @pulumi.getter(name="friendlyName")
     def friendly_name(self) -> Optional[_builtins.str]:
         """
         Human-readable label for the number.
         """
         return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="identitySid")
+    def identity_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        """
+        return pulumi.get(self, "identity_sid")
 
     @_builtins.property
     @pulumi.getter(name="phoneNumber")
@@ -464,6 +796,14 @@ class IncomingPhoneNumberEffective(dict):
         return pulumi.get(self, "status_callback_method")
 
     @_builtins.property
+    @pulumi.getter(name="trunkSid")
+    def trunk_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        """
+        return pulumi.get(self, "trunk_sid")
+
+    @_builtins.property
     @pulumi.getter(name="voiceApplicationSid")
     def voice_application_sid(self) -> Optional[_builtins.str]:
         """
@@ -502,6 +842,14 @@ class IncomingPhoneNumberEffective(dict):
         HTTP method for voiceUrl: GET or POST.
         """
         return pulumi.get(self, "voice_method")
+
+    @_builtins.property
+    @pulumi.getter(name="voiceReceiveMode")
+    def voice_receive_mode(self) -> Optional[_builtins.str]:
+        """
+        Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        """
+        return pulumi.get(self, "voice_receive_mode")
 
     @_builtins.property
     @pulumi.getter(name="voiceUrl")
@@ -574,6 +922,7 @@ class MessagingServiceEffective(dict):
                  sticky_sender: Optional[_builtins.bool] = None,
                  synchronous_validation: Optional[_builtins.bool] = None,
                  use_inbound_webhook_on_number: Optional[_builtins.bool] = None,
+                 usecase: Optional[_builtins.str] = None,
                  validity_period: Optional[_builtins.int] = None):
         """
         :param _builtins.str friendly_name: Human-readable name of the service (up to 64 characters).
@@ -590,6 +939,7 @@ class MessagingServiceEffective(dict):
         :param _builtins.bool sticky_sender: Whether to keep using the same sender for a given recipient.
         :param _builtins.bool synchronous_validation: Whether to validate sender and recipient before accepting a send request.
         :param _builtins.bool use_inbound_webhook_on_number: Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
+        :param _builtins.str usecase: Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
         :param _builtins.int validity_period: Seconds a message may wait for delivery before expiring (1-36000).
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
@@ -619,6 +969,8 @@ class MessagingServiceEffective(dict):
             pulumi.set(__self__, "synchronous_validation", synchronous_validation)
         if use_inbound_webhook_on_number is not None:
             pulumi.set(__self__, "use_inbound_webhook_on_number", use_inbound_webhook_on_number)
+        if usecase is not None:
+            pulumi.set(__self__, "usecase", usecase)
         if validity_period is not None:
             pulumi.set(__self__, "validity_period", validity_period)
 
@@ -735,12 +1087,244 @@ class MessagingServiceEffective(dict):
         return pulumi.get(self, "use_inbound_webhook_on_number")
 
     @_builtins.property
+    @pulumi.getter
+    def usecase(self) -> Optional[_builtins.str]:
+        """
+        Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        """
+        return pulumi.get(self, "usecase")
+
+    @_builtins.property
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> Optional[_builtins.int]:
         """
         Seconds a message may wait for delivery before expiring (1-36000).
         """
         return pulumi.get(self, "validity_period")
+
+
+@pulumi.output_type
+class OutgoingCallerIdEffective(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accountSid":
+            suggest = "account_sid"
+        elif key == "friendlyName":
+            suggest = "friendly_name"
+        elif key == "outgoingCallerIdSid":
+            suggest = "outgoing_caller_id_sid"
+        elif key == "phoneNumber":
+            suggest = "phone_number"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OutgoingCallerIdEffective. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OutgoingCallerIdEffective.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OutgoingCallerIdEffective.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 account_sid: Optional[_builtins.str] = None,
+                 friendly_name: Optional[_builtins.str] = None,
+                 outgoing_caller_id_sid: Optional[_builtins.str] = None,
+                 phone_number: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str account_sid: SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+        :param _builtins.str friendly_name: Human-readable label for the caller ID. Removing it leaves the label unchanged.
+        :param _builtins.str outgoing_caller_id_sid: SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+        :param _builtins.str phone_number: The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+        """
+        if account_sid is not None:
+            pulumi.set(__self__, "account_sid", account_sid)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if outgoing_caller_id_sid is not None:
+            pulumi.set(__self__, "outgoing_caller_id_sid", outgoing_caller_id_sid)
+        if phone_number is not None:
+            pulumi.set(__self__, "phone_number", phone_number)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> Optional[_builtins.str]:
+        """
+        SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        Human-readable label for the caller ID. Removing it leaves the label unchanged.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="outgoingCallerIdSid")
+    def outgoing_caller_id_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+        """
+        return pulumi.get(self, "outgoing_caller_id_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumber")
+    def phone_number(self) -> Optional[_builtins.str]:
+        """
+        The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+        """
+        return pulumi.get(self, "phone_number")
+
+
+@pulumi.output_type
+class ShortCodeEffective(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accountSid":
+            suggest = "account_sid"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "friendlyName":
+            suggest = "friendly_name"
+        elif key == "shortCodeSid":
+            suggest = "short_code_sid"
+        elif key == "smsFallbackMethod":
+            suggest = "sms_fallback_method"
+        elif key == "smsFallbackUrl":
+            suggest = "sms_fallback_url"
+        elif key == "smsMethod":
+            suggest = "sms_method"
+        elif key == "smsUrl":
+            suggest = "sms_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ShortCodeEffective. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ShortCodeEffective.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ShortCodeEffective.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 account_sid: Optional[_builtins.str] = None,
+                 api_version: Optional[_builtins.str] = None,
+                 code: Optional[_builtins.str] = None,
+                 friendly_name: Optional[_builtins.str] = None,
+                 short_code_sid: Optional[_builtins.str] = None,
+                 sms_fallback_method: Optional[_builtins.str] = None,
+                 sms_fallback_url: Optional[_builtins.str] = None,
+                 sms_method: Optional[_builtins.str] = None,
+                 sms_url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str account_sid: SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+        :param _builtins.str api_version: Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        :param _builtins.str code: The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+        :param _builtins.str friendly_name: Human-readable label for the short code. Removing it leaves the label unchanged.
+        :param _builtins.str short_code_sid: SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+        :param _builtins.str sms_fallback_method: HTTP method for smsFallbackUrl: GET or POST.
+        :param _builtins.str sms_fallback_url: URL requested if smsUrl fails. Removing it clears the URL.
+        :param _builtins.str sms_method: HTTP method for smsUrl: GET or POST.
+        :param _builtins.str sms_url: URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+        """
+        if account_sid is not None:
+            pulumi.set(__self__, "account_sid", account_sid)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if short_code_sid is not None:
+            pulumi.set(__self__, "short_code_sid", short_code_sid)
+        if sms_fallback_method is not None:
+            pulumi.set(__self__, "sms_fallback_method", sms_fallback_method)
+        if sms_fallback_url is not None:
+            pulumi.set(__self__, "sms_fallback_url", sms_fallback_url)
+        if sms_method is not None:
+            pulumi.set(__self__, "sms_method", sms_method)
+        if sms_url is not None:
+            pulumi.set(__self__, "sms_url", sms_url)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> Optional[_builtins.str]:
+        """
+        SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def code(self) -> Optional[_builtins.str]:
+        """
+        The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+        """
+        return pulumi.get(self, "code")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        Human-readable label for the short code. Removing it leaves the label unchanged.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="shortCodeSid")
+    def short_code_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+        """
+        return pulumi.get(self, "short_code_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="smsFallbackMethod")
+    def sms_fallback_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method for smsFallbackUrl: GET or POST.
+        """
+        return pulumi.get(self, "sms_fallback_method")
+
+    @_builtins.property
+    @pulumi.getter(name="smsFallbackUrl")
+    def sms_fallback_url(self) -> Optional[_builtins.str]:
+        """
+        URL requested if smsUrl fails. Removing it clears the URL.
+        """
+        return pulumi.get(self, "sms_fallback_url")
+
+    @_builtins.property
+    @pulumi.getter(name="smsMethod")
+    def sms_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method for smsUrl: GET or POST.
+        """
+        return pulumi.get(self, "sms_method")
+
+    @_builtins.property
+    @pulumi.getter(name="smsUrl")
+    def sms_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+        """
+        return pulumi.get(self, "sms_url")
 
 
 @pulumi.output_type
@@ -754,18 +1338,52 @@ class VerifyServiceEffective(dict):
             suggest = "code_length"
         elif key == "customCodeEnabled":
             suggest = "custom_code_enabled"
+        elif key == "defaultTemplateSid":
+            suggest = "default_template_sid"
         elif key == "doNotShareWarningEnabled":
             suggest = "do_not_share_warning_enabled"
         elif key == "dtmfInputRequired":
             suggest = "dtmf_input_required"
         elif key == "lookupEnabled":
             suggest = "lookup_enabled"
+        elif key == "passkeysAuthenticatorAttachment":
+            suggest = "passkeys_authenticator_attachment"
+        elif key == "passkeysDiscoverableCredentials":
+            suggest = "passkeys_discoverable_credentials"
+        elif key == "passkeysRelyingPartyId":
+            suggest = "passkeys_relying_party_id"
+        elif key == "passkeysRelyingPartyName":
+            suggest = "passkeys_relying_party_name"
+        elif key == "passkeysRelyingPartyOrigins":
+            suggest = "passkeys_relying_party_origins"
+        elif key == "passkeysUserVerification":
+            suggest = "passkeys_user_verification"
         elif key == "psd2Enabled":
             suggest = "psd2_enabled"
+        elif key == "pushApnCredentialSid":
+            suggest = "push_apn_credential_sid"
+        elif key == "pushFcmCredentialSid":
+            suggest = "push_fcm_credential_sid"
+        elif key == "pushIncludeDate":
+            suggest = "push_include_date"
         elif key == "skipSmsToLandlines":
             suggest = "skip_sms_to_landlines"
+        elif key == "totpCodeLength":
+            suggest = "totp_code_length"
+        elif key == "totpIssuer":
+            suggest = "totp_issuer"
+        elif key == "totpSkew":
+            suggest = "totp_skew"
+        elif key == "totpTimeStep":
+            suggest = "totp_time_step"
         elif key == "ttsName":
             suggest = "tts_name"
+        elif key == "verifyEventSubscriptionEnabled":
+            suggest = "verify_event_subscription_enabled"
+        elif key == "whatsappFrom":
+            suggest = "whatsapp_from"
+        elif key == "whatsappMsgServiceSid":
+            suggest = "whatsapp_msg_service_sid"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in VerifyServiceEffective. Access the value via the '{suggest}' property getter instead.")
@@ -782,40 +1400,108 @@ class VerifyServiceEffective(dict):
                  friendly_name: _builtins.str,
                  code_length: Optional[_builtins.int] = None,
                  custom_code_enabled: Optional[_builtins.bool] = None,
+                 default_template_sid: Optional[_builtins.str] = None,
                  do_not_share_warning_enabled: Optional[_builtins.bool] = None,
                  dtmf_input_required: Optional[_builtins.bool] = None,
                  lookup_enabled: Optional[_builtins.bool] = None,
+                 passkeys_authenticator_attachment: Optional[_builtins.str] = None,
+                 passkeys_discoverable_credentials: Optional[_builtins.str] = None,
+                 passkeys_relying_party_id: Optional[_builtins.str] = None,
+                 passkeys_relying_party_name: Optional[_builtins.str] = None,
+                 passkeys_relying_party_origins: Optional[Sequence[_builtins.str]] = None,
+                 passkeys_user_verification: Optional[_builtins.str] = None,
                  psd2_enabled: Optional[_builtins.bool] = None,
+                 push_apn_credential_sid: Optional[_builtins.str] = None,
+                 push_fcm_credential_sid: Optional[_builtins.str] = None,
+                 push_include_date: Optional[_builtins.bool] = None,
                  skip_sms_to_landlines: Optional[_builtins.bool] = None,
-                 tts_name: Optional[_builtins.str] = None):
+                 totp_code_length: Optional[_builtins.int] = None,
+                 totp_issuer: Optional[_builtins.str] = None,
+                 totp_skew: Optional[_builtins.int] = None,
+                 totp_time_step: Optional[_builtins.int] = None,
+                 tts_name: Optional[_builtins.str] = None,
+                 verify_event_subscription_enabled: Optional[_builtins.bool] = None,
+                 whatsapp_from: Optional[_builtins.str] = None,
+                 whatsapp_msg_service_sid: Optional[_builtins.str] = None):
         """
         :param _builtins.str friendly_name: Name of the service, shown in verification messages (up to 30 characters).
         :param _builtins.int code_length: Length of the verification code, 4 to 10 digits (Twilio default 6).
         :param _builtins.bool custom_code_enabled: Whether you may supply your own verification code (requires Twilio approval).
+        :param _builtins.str default_template_sid: SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
         :param _builtins.bool do_not_share_warning_enabled: Whether to add a do-not-share warning to the message.
         :param _builtins.bool dtmf_input_required: Whether the recipient must press a key to hear a voice code.
         :param _builtins.bool lookup_enabled: Whether to look up the destination phone number before sending.
+        :param _builtins.str passkeys_authenticator_attachment: Authenticator attachment for passkeys: platform, cross-platform or any.
+        :param _builtins.str passkeys_discoverable_credentials: Whether passkey credentials are discoverable: required, preferred or discouraged.
+        :param _builtins.str passkeys_relying_party_id: Passkeys relying party ID (the domain). Removing it clears the value.
+        :param _builtins.str passkeys_relying_party_name: Passkeys relying party display name. Removing it clears the value.
+        :param Sequence[_builtins.str] passkeys_relying_party_origins: Origins allowed to use the passkeys relying party. Removing the list clears it.
+        :param _builtins.str passkeys_user_verification: User verification for passkeys: required, preferred or discouraged.
         :param _builtins.bool psd2_enabled: Whether PSD2 dynamic-linking (payee and amount) is required.
+        :param _builtins.str push_apn_credential_sid: SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        :param _builtins.str push_fcm_credential_sid: SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        :param _builtins.bool push_include_date: Whether push challenges include the date they were created.
         :param _builtins.bool skip_sms_to_landlines: Whether to skip SMS to landline numbers.
+        :param _builtins.int totp_code_length: Number of digits of a TOTP code (3 to 8).
+        :param _builtins.str totp_issuer: Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        :param _builtins.int totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
+        :param _builtins.int totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param _builtins.str tts_name: Name spoken in voice verifications instead of friendlyName.
+        :param _builtins.bool verify_event_subscription_enabled: Whether Verify events are sent to the service's event subscriptions.
+        :param _builtins.str whatsapp_from: WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        :param _builtins.str whatsapp_msg_service_sid: SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
         if code_length is not None:
             pulumi.set(__self__, "code_length", code_length)
         if custom_code_enabled is not None:
             pulumi.set(__self__, "custom_code_enabled", custom_code_enabled)
+        if default_template_sid is not None:
+            pulumi.set(__self__, "default_template_sid", default_template_sid)
         if do_not_share_warning_enabled is not None:
             pulumi.set(__self__, "do_not_share_warning_enabled", do_not_share_warning_enabled)
         if dtmf_input_required is not None:
             pulumi.set(__self__, "dtmf_input_required", dtmf_input_required)
         if lookup_enabled is not None:
             pulumi.set(__self__, "lookup_enabled", lookup_enabled)
+        if passkeys_authenticator_attachment is not None:
+            pulumi.set(__self__, "passkeys_authenticator_attachment", passkeys_authenticator_attachment)
+        if passkeys_discoverable_credentials is not None:
+            pulumi.set(__self__, "passkeys_discoverable_credentials", passkeys_discoverable_credentials)
+        if passkeys_relying_party_id is not None:
+            pulumi.set(__self__, "passkeys_relying_party_id", passkeys_relying_party_id)
+        if passkeys_relying_party_name is not None:
+            pulumi.set(__self__, "passkeys_relying_party_name", passkeys_relying_party_name)
+        if passkeys_relying_party_origins is not None:
+            pulumi.set(__self__, "passkeys_relying_party_origins", passkeys_relying_party_origins)
+        if passkeys_user_verification is not None:
+            pulumi.set(__self__, "passkeys_user_verification", passkeys_user_verification)
         if psd2_enabled is not None:
             pulumi.set(__self__, "psd2_enabled", psd2_enabled)
+        if push_apn_credential_sid is not None:
+            pulumi.set(__self__, "push_apn_credential_sid", push_apn_credential_sid)
+        if push_fcm_credential_sid is not None:
+            pulumi.set(__self__, "push_fcm_credential_sid", push_fcm_credential_sid)
+        if push_include_date is not None:
+            pulumi.set(__self__, "push_include_date", push_include_date)
         if skip_sms_to_landlines is not None:
             pulumi.set(__self__, "skip_sms_to_landlines", skip_sms_to_landlines)
+        if totp_code_length is not None:
+            pulumi.set(__self__, "totp_code_length", totp_code_length)
+        if totp_issuer is not None:
+            pulumi.set(__self__, "totp_issuer", totp_issuer)
+        if totp_skew is not None:
+            pulumi.set(__self__, "totp_skew", totp_skew)
+        if totp_time_step is not None:
+            pulumi.set(__self__, "totp_time_step", totp_time_step)
         if tts_name is not None:
             pulumi.set(__self__, "tts_name", tts_name)
+        if verify_event_subscription_enabled is not None:
+            pulumi.set(__self__, "verify_event_subscription_enabled", verify_event_subscription_enabled)
+        if whatsapp_from is not None:
+            pulumi.set(__self__, "whatsapp_from", whatsapp_from)
+        if whatsapp_msg_service_sid is not None:
+            pulumi.set(__self__, "whatsapp_msg_service_sid", whatsapp_msg_service_sid)
 
     @_builtins.property
     @pulumi.getter(name="friendlyName")
@@ -842,6 +1528,14 @@ class VerifyServiceEffective(dict):
         return pulumi.get(self, "custom_code_enabled")
 
     @_builtins.property
+    @pulumi.getter(name="defaultTemplateSid")
+    def default_template_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        """
+        return pulumi.get(self, "default_template_sid")
+
+    @_builtins.property
     @pulumi.getter(name="doNotShareWarningEnabled")
     def do_not_share_warning_enabled(self) -> Optional[_builtins.bool]:
         """
@@ -866,12 +1560,84 @@ class VerifyServiceEffective(dict):
         return pulumi.get(self, "lookup_enabled")
 
     @_builtins.property
+    @pulumi.getter(name="passkeysAuthenticatorAttachment")
+    def passkeys_authenticator_attachment(self) -> Optional[_builtins.str]:
+        """
+        Authenticator attachment for passkeys: platform, cross-platform or any.
+        """
+        return pulumi.get(self, "passkeys_authenticator_attachment")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysDiscoverableCredentials")
+    def passkeys_discoverable_credentials(self) -> Optional[_builtins.str]:
+        """
+        Whether passkey credentials are discoverable: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_discoverable_credentials")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyId")
+    def passkeys_relying_party_id(self) -> Optional[_builtins.str]:
+        """
+        Passkeys relying party ID (the domain). Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_id")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyName")
+    def passkeys_relying_party_name(self) -> Optional[_builtins.str]:
+        """
+        Passkeys relying party display name. Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_name")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyOrigins")
+    def passkeys_relying_party_origins(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Origins allowed to use the passkeys relying party. Removing the list clears it.
+        """
+        return pulumi.get(self, "passkeys_relying_party_origins")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysUserVerification")
+    def passkeys_user_verification(self) -> Optional[_builtins.str]:
+        """
+        User verification for passkeys: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_user_verification")
+
+    @_builtins.property
     @pulumi.getter(name="psd2Enabled")
     def psd2_enabled(self) -> Optional[_builtins.bool]:
         """
         Whether PSD2 dynamic-linking (payee and amount) is required.
         """
         return pulumi.get(self, "psd2_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="pushApnCredentialSid")
+    def push_apn_credential_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_apn_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushFcmCredentialSid")
+    def push_fcm_credential_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_fcm_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushIncludeDate")
+    def push_include_date(self) -> Optional[_builtins.bool]:
+        """
+        Whether push challenges include the date they were created.
+        """
+        return pulumi.get(self, "push_include_date")
 
     @_builtins.property
     @pulumi.getter(name="skipSmsToLandlines")
@@ -882,11 +1648,67 @@ class VerifyServiceEffective(dict):
         return pulumi.get(self, "skip_sms_to_landlines")
 
     @_builtins.property
+    @pulumi.getter(name="totpCodeLength")
+    def totp_code_length(self) -> Optional[_builtins.int]:
+        """
+        Number of digits of a TOTP code (3 to 8).
+        """
+        return pulumi.get(self, "totp_code_length")
+
+    @_builtins.property
+    @pulumi.getter(name="totpIssuer")
+    def totp_issuer(self) -> Optional[_builtins.str]:
+        """
+        Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        """
+        return pulumi.get(self, "totp_issuer")
+
+    @_builtins.property
+    @pulumi.getter(name="totpSkew")
+    def totp_skew(self) -> Optional[_builtins.int]:
+        """
+        Number of time steps before and after the current one in which a TOTP code is accepted.
+        """
+        return pulumi.get(self, "totp_skew")
+
+    @_builtins.property
+    @pulumi.getter(name="totpTimeStep")
+    def totp_time_step(self) -> Optional[_builtins.int]:
+        """
+        Seconds a TOTP code is valid (Twilio's totp.time_step).
+        """
+        return pulumi.get(self, "totp_time_step")
+
+    @_builtins.property
     @pulumi.getter(name="ttsName")
     def tts_name(self) -> Optional[_builtins.str]:
         """
         Name spoken in voice verifications instead of friendlyName.
         """
         return pulumi.get(self, "tts_name")
+
+    @_builtins.property
+    @pulumi.getter(name="verifyEventSubscriptionEnabled")
+    def verify_event_subscription_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether Verify events are sent to the service's event subscriptions.
+        """
+        return pulumi.get(self, "verify_event_subscription_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappFrom")
+    def whatsapp_from(self) -> Optional[_builtins.str]:
+        """
+        WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        """
+        return pulumi.get(self, "whatsapp_from")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappMsgServiceSid")
+    def whatsapp_msg_service_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        """
+        return pulumi.get(self, "whatsapp_msg_service_sid")
 
 

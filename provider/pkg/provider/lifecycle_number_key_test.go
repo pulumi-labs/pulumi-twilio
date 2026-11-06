@@ -273,8 +273,8 @@ func TestApiKeyLC_StandardLifecycle(t *testing.T) {
 }
 
 const (
-	pol1 = `{"allow":["/v1/Services/**"]}`
-	pol2 = `{"allow":["/v1/Services/**","/v1/Keys/**"]}`
+	pol1 = `{"allow":["/twilio/iam/api-keys/create"]}`
+	pol2 = `{"allow":["/twilio/iam/api-keys/create","/twilio/iam/api-keys/delete"]}`
 )
 
 func TestApiKeyLC_RestrictedPolicyLifecycleAndDrift(t *testing.T) {
@@ -282,20 +282,20 @@ func TestApiKeyLC_RestrictedPolicyLifecycleAndDrift(t *testing.T) {
 	in := pv(map[string]property.Value{"friendlyName": sv("svc"), "keyType": sv("restricted"), "policy": sv(pol1)})
 	c := l.create(in)
 	require.Equal(t, "restricted", l.f.callsMatching("POST", "/iam/v1/Keys")[0].Form.Get("KeyType"))
-	require.Equal(t, map[string]any{"allow": []any{"/v1/Services/**"}}, l.f.get("key", testAccount, c.ID)["policy"])
+	require.Equal(t, map[string]any{"allow": []any{"/twilio/iam/api-keys/create"}}, l.f.get("key", testAccount, c.ID)["policy"])
 	requireNoChanges(t, l.diff(c.ID, c.Properties, in, in))
 
 	// The same policy rendered differently by the API is not drift.
 	rd := l.read(c.ID, c.Properties, in)
 	require.Equal(t, pol1, getS(t, rd.Inputs, "policy"))
 	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
-	spaced := with(in, map[string]property.Value{"policy": sv(`{ "allow": [ "/v1/Services/**" ] }`)})
+	spaced := with(in, map[string]property.Value{"policy": sv(`{ "allow": [ "/twilio/iam/api-keys/create" ] }`)})
 	rd = l.read(c.ID, c.Properties, spaced)
-	require.Equal(t, `{ "allow": [ "/v1/Services/**" ] }`, getS(t, rd.Inputs, "policy"))
+	require.Equal(t, `{ "allow": [ "/twilio/iam/api-keys/create" ] }`, getS(t, rd.Inputs, "policy"))
 
 	// B6: a policy widened in the console is detected and reverted by the next update.
 	l.f.mutate("key", testAccount, c.ID, func(o map[string]any) {
-		o["policy"] = map[string]any{"allow": []any{"/v1/Services/**", "/v1/Keys/**"}}
+		o["policy"] = map[string]any{"allow": []any{"/twilio/iam/api-keys/create", "/twilio/iam/api-keys/delete"}}
 	})
 	rd = l.read(c.ID, c.Properties, in)
 	require.JSONEq(t, pol2, getS(t, rd.Inputs, "policy"))
@@ -303,12 +303,12 @@ func TestApiKeyLC_RestrictedPolicyLifecycleAndDrift(t *testing.T) {
 	d := l.diff(c.ID, rd.Properties, in, rd.Inputs)
 	require.Equal(t, pgp.Update, d.DetailedDiff["policy"].Kind)
 	u := l.update(c.ID, rd.Properties, in, rd.Inputs)
-	require.Equal(t, map[string]any{"allow": []any{"/v1/Services/**"}}, l.f.get("key", testAccount, c.ID)["policy"])
+	require.Equal(t, map[string]any{"allow": []any{"/twilio/iam/api-keys/create"}}, l.f.get("key", testAccount, c.ID)["policy"])
 
 	// An intended policy change reaches the API.
 	wide := with(in, map[string]property.Value{"policy": sv(pol2)})
 	u = l.update(c.ID, u.Properties, wide, in)
-	require.Equal(t, map[string]any{"allow": []any{"/v1/Services/**", "/v1/Keys/**"}}, l.f.get("key", testAccount, c.ID)["policy"])
+	require.Equal(t, map[string]any{"allow": []any{"/twilio/iam/api-keys/create", "/twilio/iam/api-keys/delete"}}, l.f.get("key", testAccount, c.ID)["policy"])
 	requireNoChanges(t, l.diff(c.ID, u.Properties, wide, wide))
 
 	// Import infers the key type and policy.
@@ -409,7 +409,7 @@ func TestApiKeyLC_PolicyEchoWithExtraFieldIsNotDrift(t *testing.T) {
 	in := pv(map[string]property.Value{"friendlyName": sv("svc"), "keyType": sv("restricted"), "policy": sv(pol1)})
 	c := l.create(in)
 	l.f.mutate("key", testAccount, c.ID, func(o map[string]any) {
-		o["policy"] = map[string]any{"allow": []any{"/v1/Services/**"}, "version": "2"}
+		o["policy"] = map[string]any{"allow": []any{"/twilio/iam/api-keys/create"}, "version": "2"}
 	})
 	rd := l.read(c.ID, c.Properties, in)
 	require.Equal(t, pol1, getS(t, rd.Inputs, "policy"), "an extra echoed field is not drift")
@@ -417,10 +417,10 @@ func TestApiKeyLC_PolicyEchoWithExtraFieldIsNotDrift(t *testing.T) {
 
 	// A supplied key that changed is still drift.
 	l.f.mutate("key", testAccount, c.ID, func(o map[string]any) {
-		o["policy"] = map[string]any{"allow": []any{"/v1/Services/**", "/v1/Keys/**"}, "version": "2"}
+		o["policy"] = map[string]any{"allow": []any{"/twilio/iam/api-keys/create", "/twilio/iam/api-keys/delete"}, "version": "2"}
 	})
 	rd = l.read(c.ID, c.Properties, in)
-	require.JSONEq(t, `{"allow":["/v1/Services/**","/v1/Keys/**"],"version":"2"}`, getS(t, rd.Inputs, "policy"))
+	require.JSONEq(t, `{"allow":["/twilio/iam/api-keys/create","/twilio/iam/api-keys/delete"],"version":"2"}`, getS(t, rd.Inputs, "policy"))
 	require.Equal(t, pgp.Update, l.diff(c.ID, rd.Properties, in, rd.Inputs).DetailedDiff["policy"].Kind)
 }
 
@@ -429,16 +429,16 @@ func TestApiKeyLC_PolicyEchoWithExtraFieldIsNotDrift(t *testing.T) {
 func TestApiKeyLC_SubaccountPolicyKeyOrderIsNotAChange(t *testing.T) {
 	l := newTL(t, "ApiKey", "k")
 	l.f.addSubaccount(fakeSub)
-	l.f.addKey(fakeSub, "SK777", "sub-restricted", map[string]any{"allow": []any{"/v1/Services/**"}, "deny": []any{}})
+	l.f.addKey(fakeSub, "SK777", "sub-restricted", map[string]any{"allow": []any{"/twilio/iam/api-keys/create"}, "deny": []any{}})
 	id := fakeSub + "/SK777"
 	imp := l.read(id, empty(), empty())
 	require.Equal(t, id, imp.ID)
 	reordered := pv(map[string]property.Value{"friendlyName": sv("renamed"), "accountSid": sv(fakeSub), "keyType": sv("restricted"),
-		"policy": sv(`{ "deny": [], "allow": ["/v1/Services/**"] }`)})
+		"policy": sv(`{ "deny": [], "allow": ["/twilio/iam/api-keys/create"] }`)})
 	l.update(id, imp.Properties, reordered, imp.Inputs)
 	require.Equal(t, "renamed", l.f.get("key", fakeSub, "SK777")["friendly_name"])
 
-	changed := with(reordered, map[string]property.Value{"policy": sv(`{"allow":["/v1/Keys/**"],"deny":[]}`)})
+	changed := with(reordered, map[string]property.Value{"policy": sv(`{"allow":["/twilio/iam/api-keys/delete"],"deny":[]}`)})
 	_, err := l.s.Update(pgp.UpdateRequest{ID: id, Urn: l.urn, State: imp.Properties, Inputs: l.checked(changed), OldInputs: imp.Inputs})
 	require.ErrorContains(t, err, "policy of a subaccount key")
 }

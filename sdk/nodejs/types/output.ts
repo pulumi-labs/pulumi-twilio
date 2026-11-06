@@ -11,6 +11,10 @@ export interface ApplicationEffective {
      */
     accountSid?: string;
     /**
+     * Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    apiVersion?: string;
+    /**
      * Human-readable name of the application (up to 64 characters).
      */
     friendlyName: string;
@@ -18,6 +22,10 @@ export interface ApplicationEffective {
      * URL that receives status events for messages sent by this application.
      */
     messageStatusCallback?: string;
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     */
+    publicApplicationConnectEnabled?: boolean;
     /**
      * HTTP method for smsFallbackUrl: GET or POST.
      */
@@ -68,15 +76,93 @@ export interface ApplicationEffective {
     voiceUrl?: string;
 }
 
+export interface ConnectAppEffective {
+    /**
+     * SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
+     */
+    accountSid?: string;
+    /**
+     * URL Twilio redirects a user to after they authorize the app. Removing it leaves the URL unchanged.
+     */
+    authorizeRedirectUrl?: string;
+    /**
+     * Company name shown on the authorization page. Removing it leaves the name unchanged.
+     */
+    companyName?: string;
+    /**
+     * SID (CN...) of the Connect app. Twilio creates Connect apps only in the Console, so this resource adopts an existing one. Changing it replaces the resource (another app is adopted).
+     */
+    connectAppSid: string;
+    /**
+     * HTTP method for deauthorizeCallbackUrl: GET or POST.
+     */
+    deauthorizeCallbackMethod?: string;
+    /**
+     * URL Twilio requests when a user deauthorizes the app. Removing it clears the URL.
+     */
+    deauthorizeCallbackUrl?: string;
+    /**
+     * Description shown on the authorization page. Removing it leaves the text unchanged.
+     */
+    description?: string;
+    /**
+     * Human-readable name of the Connect app. Removing it leaves the name unchanged.
+     */
+    friendlyName?: string;
+    /**
+     * Public URL of the company or app homepage. Removing it leaves the URL unchanged.
+     */
+    homepageUrl?: string;
+    /**
+     * Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
+     */
+    permissions?: string[];
+}
+
+export interface EventSubscriptionType {
+    /**
+     * Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
+     */
+    schemaVersion?: number;
+    /**
+     * Event type ID, for example com.twilio.messaging.message.delivered.
+     */
+    type: string;
+}
+
 export interface IncomingPhoneNumberEffective {
     /**
      * SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
      */
     accountSid?: string;
     /**
+     * SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     */
+    addressSid?: string;
+    /**
+     * Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    apiVersion?: string;
+    /**
+     * SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     */
+    bundleSid?: string;
+    /**
+     * SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     */
+    emergencyAddressSid?: string;
+    /**
+     * Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     */
+    emergencyStatus?: string;
+    /**
      * Human-readable label for the number.
      */
     friendlyName?: string;
+    /**
+     * SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     */
+    identitySid?: string;
     /**
      * The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
      */
@@ -114,6 +200,10 @@ export interface IncomingPhoneNumberEffective {
      */
     statusCallbackMethod?: string;
     /**
+     * SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     */
+    trunkSid?: string;
+    /**
      * SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      */
     voiceApplicationSid?: string;
@@ -133,6 +223,10 @@ export interface IncomingPhoneNumberEffective {
      * HTTP method for voiceUrl: GET or POST.
      */
     voiceMethod?: string;
+    /**
+     * Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     */
+    voiceReceiveMode?: string;
     /**
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
      */
@@ -197,9 +291,71 @@ export interface MessagingServiceEffective {
      */
     useInboundWebhookOnNumber?: boolean;
     /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     */
+    usecase?: string;
+    /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      */
     validityPeriod?: number;
+}
+
+export interface OutgoingCallerIdEffective {
+    /**
+     * SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
+     */
+    accountSid?: string;
+    /**
+     * Human-readable label for the caller ID. Removing it leaves the label unchanged.
+     */
+    friendlyName?: string;
+    /**
+     * SID (PN...) of the verified caller ID. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource.
+     */
+    outgoingCallerIdSid?: string;
+    /**
+     * The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).
+     */
+    phoneNumber?: string;
+}
+
+export interface ShortCodeEffective {
+    /**
+     * SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
+     */
+    accountSid?: string;
+    /**
+     * Twilio API version used for requests to the short code's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    apiVersion?: string;
+    /**
+     * The leased short code, for example 894546. Set exactly one of code or shortCodeSid. Changing it replaces the resource (a different short code is adopted).
+     */
+    code?: string;
+    /**
+     * Human-readable label for the short code. Removing it leaves the label unchanged.
+     */
+    friendlyName?: string;
+    /**
+     * SID (SC...) of the leased short code. Set exactly one of code or shortCodeSid. Changing it replaces the resource.
+     */
+    shortCodeSid?: string;
+    /**
+     * HTTP method for smsFallbackUrl: GET or POST.
+     */
+    smsFallbackMethod?: string;
+    /**
+     * URL requested if smsUrl fails. Removing it clears the URL.
+     */
+    smsFallbackUrl?: string;
+    /**
+     * HTTP method for smsUrl: GET or POST.
+     */
+    smsMethod?: string;
+    /**
+     * URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
+     */
+    smsUrl?: string;
 }
 
 export interface VerifyServiceEffective {
@@ -211,6 +367,10 @@ export interface VerifyServiceEffective {
      * Whether you may supply your own verification code (requires Twilio approval).
      */
     customCodeEnabled?: boolean;
+    /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     */
+    defaultTemplateSid?: string;
     /**
      * Whether to add a do-not-share warning to the message.
      */
@@ -228,16 +388,80 @@ export interface VerifyServiceEffective {
      */
     lookupEnabled?: boolean;
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     */
+    passkeysAuthenticatorAttachment?: string;
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     */
+    passkeysDiscoverableCredentials?: string;
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     */
+    passkeysRelyingPartyId?: string;
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     */
+    passkeysRelyingPartyName?: string;
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     */
+    passkeysRelyingPartyOrigins?: string[];
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     */
+    passkeysUserVerification?: string;
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      */
     psd2Enabled?: boolean;
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     */
+    pushApnCredentialSid?: string;
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     */
+    pushFcmCredentialSid?: string;
+    /**
+     * Whether push challenges include the date they were created.
+     */
+    pushIncludeDate?: boolean;
     /**
      * Whether to skip SMS to landline numbers.
      */
     skipSmsToLandlines?: boolean;
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     */
+    totpCodeLength?: number;
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     */
+    totpIssuer?: string;
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     */
+    totpSkew?: number;
+    /**
+     * Seconds a TOTP code is valid (Twilio's totp.time_step).
+     */
+    totpTimeStep?: number;
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      */
     ttsName?: string;
+    /**
+     * Whether Verify events are sent to the service's event subscriptions.
+     */
+    verifyEventSubscriptionEnabled?: boolean;
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     */
+    whatsappFrom?: string;
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     */
+    whatsappMsgServiceSid?: string;
 }
 

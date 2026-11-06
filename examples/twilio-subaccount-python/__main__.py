@@ -16,7 +16,7 @@ ci = twilio.ApiKey(
     friendly_name="pulumi-ci",
     account_sid=tenant.sid,
     key_type="restricted",
-    policy=json.dumps({"allow": ["/v2/Services/**"]}),
+    policy=json.dumps({"allow": ["/twilio/iam/api-keys/create"]}),
 )
 
 verify = twilio.VerifyService(

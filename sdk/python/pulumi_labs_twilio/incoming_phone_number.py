@@ -21,7 +21,13 @@ __all__ = ['IncomingPhoneNumberArgs', 'IncomingPhoneNumber']
 class IncomingPhoneNumberArgs:
     def __init__(__self__, *,
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
+                 bundle_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_status: Optional[pulumi.Input[_builtins.str]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 identity_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -31,17 +37,25 @@ class IncomingPhoneNumberArgs:
                  sms_url: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 trunk_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_caller_id_lookup: Optional[pulumi.Input[_builtins.bool]] = None,
                  voice_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_receive_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a IncomingPhoneNumber resource.
 
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
+        :param pulumi.Input[_builtins.str] address_sid: SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        :param pulumi.Input[_builtins.str] api_version: Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        :param pulumi.Input[_builtins.str] bundle_sid: SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        :param pulumi.Input[_builtins.str] emergency_address_sid: SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        :param pulumi.Input[_builtins.str] emergency_status: Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable label for the number.
+        :param pulumi.Input[_builtins.str] identity_sid: SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
         :param pulumi.Input[_builtins.str] phone_number: The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
         :param pulumi.Input[_builtins.str] phone_number_sid: SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
         :param pulumi.Input[_builtins.str] sms_application_sid: SID (AP...) of an Application that handles incoming SMS instead of smsUrl.
@@ -51,17 +65,31 @@ class IncomingPhoneNumberArgs:
         :param pulumi.Input[_builtins.str] sms_url: URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side.
         :param pulumi.Input[_builtins.str] status_callback: URL that receives call status events.
         :param pulumi.Input[_builtins.str] status_callback_method: HTTP method for statusCallback: GET or POST.
+        :param pulumi.Input[_builtins.str] trunk_sid: SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
         :param pulumi.Input[_builtins.str] voice_application_sid: SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         :param pulumi.Input[_builtins.bool] voice_caller_id_lookup: Whether to look up the caller's name on incoming calls.
         :param pulumi.Input[_builtins.str] voice_fallback_method: HTTP method for voiceFallbackUrl: GET or POST.
         :param pulumi.Input[_builtins.str] voice_fallback_url: URL requested if voiceUrl fails.
         :param pulumi.Input[_builtins.str] voice_method: HTTP method for voiceUrl: GET or POST.
+        :param pulumi.Input[_builtins.str] voice_receive_mode: Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
         :param pulumi.Input[_builtins.str] voice_url: URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         """
         if account_sid is not None:
             pulumi.set(__self__, "account_sid", account_sid)
+        if address_sid is not None:
+            pulumi.set(__self__, "address_sid", address_sid)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if bundle_sid is not None:
+            pulumi.set(__self__, "bundle_sid", bundle_sid)
+        if emergency_address_sid is not None:
+            pulumi.set(__self__, "emergency_address_sid", emergency_address_sid)
+        if emergency_status is not None:
+            pulumi.set(__self__, "emergency_status", emergency_status)
         if friendly_name is not None:
             pulumi.set(__self__, "friendly_name", friendly_name)
+        if identity_sid is not None:
+            pulumi.set(__self__, "identity_sid", identity_sid)
         if phone_number is not None:
             pulumi.set(__self__, "phone_number", phone_number)
         if phone_number_sid is not None:
@@ -80,6 +108,8 @@ class IncomingPhoneNumberArgs:
             pulumi.set(__self__, "status_callback", status_callback)
         if status_callback_method is not None:
             pulumi.set(__self__, "status_callback_method", status_callback_method)
+        if trunk_sid is not None:
+            pulumi.set(__self__, "trunk_sid", trunk_sid)
         if voice_application_sid is not None:
             pulumi.set(__self__, "voice_application_sid", voice_application_sid)
         if voice_caller_id_lookup is not None:
@@ -90,6 +120,8 @@ class IncomingPhoneNumberArgs:
             pulumi.set(__self__, "voice_fallback_url", voice_fallback_url)
         if voice_method is not None:
             pulumi.set(__self__, "voice_method", voice_method)
+        if voice_receive_mode is not None:
+            pulumi.set(__self__, "voice_receive_mode", voice_receive_mode)
         if voice_url is not None:
             pulumi.set(__self__, "voice_url", voice_url)
 
@@ -106,6 +138,66 @@ class IncomingPhoneNumberArgs:
         pulumi.set(self, "account_sid", value)
 
     @_builtins.property
+    @pulumi.getter(name="addressSid")
+    def address_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "address_sid")
+
+    @address_sid.setter
+    def address_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "address_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bundleSid")
+    def bundle_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        """
+        return pulumi.get(self, "bundle_sid")
+
+    @bundle_sid.setter
+    def bundle_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "bundle_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="emergencyAddressSid")
+    def emergency_address_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "emergency_address_sid")
+
+    @emergency_address_sid.setter
+    def emergency_address_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "emergency_address_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="emergencyStatus")
+    def emergency_status(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        """
+        return pulumi.get(self, "emergency_status")
+
+    @emergency_status.setter
+    def emergency_status(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "emergency_status", value)
+
+    @_builtins.property
     @pulumi.getter(name="friendlyName")
     def friendly_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -116,6 +208,18 @@ class IncomingPhoneNumberArgs:
     @friendly_name.setter
     def friendly_name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "friendly_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="identitySid")
+    def identity_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        """
+        return pulumi.get(self, "identity_sid")
+
+    @identity_sid.setter
+    def identity_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "identity_sid", value)
 
     @_builtins.property
     @pulumi.getter(name="phoneNumber")
@@ -226,6 +330,18 @@ class IncomingPhoneNumberArgs:
         pulumi.set(self, "status_callback_method", value)
 
     @_builtins.property
+    @pulumi.getter(name="trunkSid")
+    def trunk_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        """
+        return pulumi.get(self, "trunk_sid")
+
+    @trunk_sid.setter
+    def trunk_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "trunk_sid", value)
+
+    @_builtins.property
     @pulumi.getter(name="voiceApplicationSid")
     def voice_application_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -286,6 +402,18 @@ class IncomingPhoneNumberArgs:
         pulumi.set(self, "voice_method", value)
 
     @_builtins.property
+    @pulumi.getter(name="voiceReceiveMode")
+    def voice_receive_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        """
+        return pulumi.get(self, "voice_receive_mode")
+
+    @voice_receive_mode.setter
+    def voice_receive_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "voice_receive_mode", value)
+
+    @_builtins.property
     @pulumi.getter(name="voiceUrl")
     def voice_url(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -305,7 +433,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
+                 bundle_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_status: Optional[pulumi.Input[_builtins.str]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 identity_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -315,11 +449,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
                  sms_url: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 trunk_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_caller_id_lookup: Optional[pulumi.Input[_builtins.bool]] = None,
                  voice_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_receive_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_url: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
@@ -329,7 +465,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
+        :param pulumi.Input[_builtins.str] address_sid: SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        :param pulumi.Input[_builtins.str] api_version: Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        :param pulumi.Input[_builtins.str] bundle_sid: SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        :param pulumi.Input[_builtins.str] emergency_address_sid: SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        :param pulumi.Input[_builtins.str] emergency_status: Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable label for the number.
+        :param pulumi.Input[_builtins.str] identity_sid: SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
         :param pulumi.Input[_builtins.str] phone_number: The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
         :param pulumi.Input[_builtins.str] phone_number_sid: SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
         :param pulumi.Input[_builtins.str] sms_application_sid: SID (AP...) of an Application that handles incoming SMS instead of smsUrl.
@@ -339,11 +481,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] sms_url: URL Twilio requests for incoming SMS. Mutually exclusive with smsApplicationSid on Twilio's side.
         :param pulumi.Input[_builtins.str] status_callback: URL that receives call status events.
         :param pulumi.Input[_builtins.str] status_callback_method: HTTP method for statusCallback: GET or POST.
+        :param pulumi.Input[_builtins.str] trunk_sid: SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
         :param pulumi.Input[_builtins.str] voice_application_sid: SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         :param pulumi.Input[_builtins.bool] voice_caller_id_lookup: Whether to look up the caller's name on incoming calls.
         :param pulumi.Input[_builtins.str] voice_fallback_method: HTTP method for voiceFallbackUrl: GET or POST.
         :param pulumi.Input[_builtins.str] voice_fallback_url: URL requested if voiceUrl fails.
         :param pulumi.Input[_builtins.str] voice_method: HTTP method for voiceUrl: GET or POST.
+        :param pulumi.Input[_builtins.str] voice_receive_mode: Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
         :param pulumi.Input[_builtins.str] voice_url: URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         """
         ...
@@ -372,7 +516,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
+                 bundle_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_address_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 emergency_status: Optional[pulumi.Input[_builtins.str]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 identity_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number: Optional[pulumi.Input[_builtins.str]] = None,
                  phone_number_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -382,11 +532,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
                  sms_url: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback: Optional[pulumi.Input[_builtins.str]] = None,
                  status_callback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 trunk_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_caller_id_lookup: Optional[pulumi.Input[_builtins.bool]] = None,
                  voice_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_receive_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_url: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -398,7 +550,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
             __props__ = IncomingPhoneNumberArgs.__new__(IncomingPhoneNumberArgs)
 
             __props__.__dict__["account_sid"] = account_sid
+            __props__.__dict__["address_sid"] = address_sid
+            __props__.__dict__["api_version"] = api_version
+            __props__.__dict__["bundle_sid"] = bundle_sid
+            __props__.__dict__["emergency_address_sid"] = emergency_address_sid
+            __props__.__dict__["emergency_status"] = emergency_status
             __props__.__dict__["friendly_name"] = friendly_name
+            __props__.__dict__["identity_sid"] = identity_sid
             __props__.__dict__["phone_number"] = phone_number
             __props__.__dict__["phone_number_sid"] = phone_number_sid
             __props__.__dict__["sms_application_sid"] = sms_application_sid
@@ -408,11 +566,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
             __props__.__dict__["sms_url"] = sms_url
             __props__.__dict__["status_callback"] = status_callback
             __props__.__dict__["status_callback_method"] = status_callback_method
+            __props__.__dict__["trunk_sid"] = trunk_sid
             __props__.__dict__["voice_application_sid"] = voice_application_sid
             __props__.__dict__["voice_caller_id_lookup"] = voice_caller_id_lookup
             __props__.__dict__["voice_fallback_method"] = voice_fallback_method
             __props__.__dict__["voice_fallback_url"] = voice_fallback_url
             __props__.__dict__["voice_method"] = voice_method
+            __props__.__dict__["voice_receive_mode"] = voice_receive_mode
             __props__.__dict__["voice_url"] = voice_url
             __props__.__dict__["effective"] = None
             __props__.__dict__["number"] = None
@@ -443,8 +603,14 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         __props__ = IncomingPhoneNumberArgs.__new__(IncomingPhoneNumberArgs)
 
         __props__.__dict__["account_sid"] = None
+        __props__.__dict__["address_sid"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["bundle_sid"] = None
         __props__.__dict__["effective"] = None
+        __props__.__dict__["emergency_address_sid"] = None
+        __props__.__dict__["emergency_status"] = None
         __props__.__dict__["friendly_name"] = None
+        __props__.__dict__["identity_sid"] = None
         __props__.__dict__["number"] = None
         __props__.__dict__["owner_account_sid"] = None
         __props__.__dict__["phone_number"] = None
@@ -457,11 +623,13 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         __props__.__dict__["sms_url"] = None
         __props__.__dict__["status_callback"] = None
         __props__.__dict__["status_callback_method"] = None
+        __props__.__dict__["trunk_sid"] = None
         __props__.__dict__["voice_application_sid"] = None
         __props__.__dict__["voice_caller_id_lookup"] = None
         __props__.__dict__["voice_fallback_method"] = None
         __props__.__dict__["voice_fallback_url"] = None
         __props__.__dict__["voice_method"] = None
+        __props__.__dict__["voice_receive_mode"] = None
         __props__.__dict__["voice_url"] = None
         return IncomingPhoneNumber(resource_name, opts=opts, __props__=__props__)
 
@@ -474,6 +642,30 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         return pulumi.get(self, "account_sid")
 
     @_builtins.property
+    @pulumi.getter(name="addressSid")
+    def address_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "address_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter(name="bundleSid")
+    def bundle_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        """
+        return pulumi.get(self, "bundle_sid")
+
+    @_builtins.property
     @pulumi.getter
     def effective(self) -> pulumi.Output[Optional['outputs.IncomingPhoneNumberEffective']]:
         """
@@ -482,12 +674,36 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         return pulumi.get(self, "effective")
 
     @_builtins.property
+    @pulumi.getter(name="emergencyAddressSid")
+    def emergency_address_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        """
+        return pulumi.get(self, "emergency_address_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="emergencyStatus")
+    def emergency_status(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        """
+        return pulumi.get(self, "emergency_status")
+
+    @_builtins.property
     @pulumi.getter(name="friendlyName")
     def friendly_name(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
         Human-readable label for the number.
         """
         return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="identitySid")
+    def identity_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        """
+        return pulumi.get(self, "identity_sid")
 
     @_builtins.property
     @pulumi.getter
@@ -586,6 +802,14 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         return pulumi.get(self, "status_callback_method")
 
     @_builtins.property
+    @pulumi.getter(name="trunkSid")
+    def trunk_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        """
+        return pulumi.get(self, "trunk_sid")
+
+    @_builtins.property
     @pulumi.getter(name="voiceApplicationSid")
     def voice_application_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
@@ -624,6 +848,14 @@ class IncomingPhoneNumber(pulumi.CustomResource):
         HTTP method for voiceUrl: GET or POST.
         """
         return pulumi.get(self, "voice_method")
+
+    @_builtins.property
+    @pulumi.getter(name="voiceReceiveMode")
+    def voice_receive_mode(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        """
+        return pulumi.get(self, "voice_receive_mode")
 
     @_builtins.property
     @pulumi.getter(name="voiceUrl")

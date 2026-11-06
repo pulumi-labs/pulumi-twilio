@@ -34,6 +34,7 @@ class MessagingServiceArgs:
                  sticky_sender: Optional[pulumi.Input[_builtins.bool]] = None,
                  synchronous_validation: Optional[pulumi.Input[_builtins.bool]] = None,
                  use_inbound_webhook_on_number: Optional[pulumi.Input[_builtins.bool]] = None,
+                 usecase: Optional[pulumi.Input[_builtins.str]] = None,
                  validity_period: Optional[pulumi.Input[_builtins.int]] = None):
         """
         The set of arguments for constructing a MessagingService resource.
@@ -52,6 +53,7 @@ class MessagingServiceArgs:
         :param pulumi.Input[_builtins.bool] sticky_sender: Whether to keep using the same sender for a given recipient.
         :param pulumi.Input[_builtins.bool] synchronous_validation: Whether to validate sender and recipient before accepting a send request.
         :param pulumi.Input[_builtins.bool] use_inbound_webhook_on_number: Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
+        :param pulumi.Input[_builtins.str] usecase: Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
         :param pulumi.Input[_builtins.int] validity_period: Seconds a message may wait for delivery before expiring (1-36000).
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
@@ -81,6 +83,8 @@ class MessagingServiceArgs:
             pulumi.set(__self__, "synchronous_validation", synchronous_validation)
         if use_inbound_webhook_on_number is not None:
             pulumi.set(__self__, "use_inbound_webhook_on_number", use_inbound_webhook_on_number)
+        if usecase is not None:
+            pulumi.set(__self__, "usecase", usecase)
         if validity_period is not None:
             pulumi.set(__self__, "validity_period", validity_period)
 
@@ -253,6 +257,18 @@ class MessagingServiceArgs:
         pulumi.set(self, "use_inbound_webhook_on_number", value)
 
     @_builtins.property
+    @pulumi.getter
+    def usecase(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        """
+        return pulumi.get(self, "usecase")
+
+    @usecase.setter
+    def usecase(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "usecase", value)
+
+    @_builtins.property
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
@@ -285,6 +301,7 @@ class MessagingService(pulumi.CustomResource):
                  sticky_sender: Optional[pulumi.Input[_builtins.bool]] = None,
                  synchronous_validation: Optional[pulumi.Input[_builtins.bool]] = None,
                  use_inbound_webhook_on_number: Optional[pulumi.Input[_builtins.bool]] = None,
+                 usecase: Optional[pulumi.Input[_builtins.str]] = None,
                  validity_period: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
@@ -307,6 +324,7 @@ class MessagingService(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] sticky_sender: Whether to keep using the same sender for a given recipient.
         :param pulumi.Input[_builtins.bool] synchronous_validation: Whether to validate sender and recipient before accepting a send request.
         :param pulumi.Input[_builtins.bool] use_inbound_webhook_on_number: Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
+        :param pulumi.Input[_builtins.str] usecase: Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
         :param pulumi.Input[_builtins.int] validity_period: Seconds a message may wait for delivery before expiring (1-36000).
         """
         ...
@@ -348,6 +366,7 @@ class MessagingService(pulumi.CustomResource):
                  sticky_sender: Optional[pulumi.Input[_builtins.bool]] = None,
                  synchronous_validation: Optional[pulumi.Input[_builtins.bool]] = None,
                  use_inbound_webhook_on_number: Optional[pulumi.Input[_builtins.bool]] = None,
+                 usecase: Optional[pulumi.Input[_builtins.str]] = None,
                  validity_period: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -374,6 +393,7 @@ class MessagingService(pulumi.CustomResource):
             __props__.__dict__["sticky_sender"] = sticky_sender
             __props__.__dict__["synchronous_validation"] = synchronous_validation
             __props__.__dict__["use_inbound_webhook_on_number"] = use_inbound_webhook_on_number
+            __props__.__dict__["usecase"] = usecase
             __props__.__dict__["validity_period"] = validity_period
             __props__.__dict__["effective"] = None
             __props__.__dict__["sid"] = None
@@ -415,6 +435,7 @@ class MessagingService(pulumi.CustomResource):
         __props__.__dict__["sticky_sender"] = None
         __props__.__dict__["synchronous_validation"] = None
         __props__.__dict__["use_inbound_webhook_on_number"] = None
+        __props__.__dict__["usecase"] = None
         __props__.__dict__["validity_period"] = None
         return MessagingService(resource_name, opts=opts, __props__=__props__)
 
@@ -545,6 +566,14 @@ class MessagingService(pulumi.CustomResource):
         Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
         """
         return pulumi.get(self, "use_inbound_webhook_on_number")
+
+    @_builtins.property
+    @pulumi.getter
+    def usecase(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        """
+        return pulumi.get(self, "usecase")
 
     @_builtins.property
     @pulumi.getter(name="validityPeriod")

@@ -17,10 +17,22 @@ type IncomingPhoneNumber struct {
 
 	// SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
 	AccountSid pulumi.StringPtrOutput `pulumi:"accountSid"`
+	// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+	AddressSid pulumi.StringPtrOutput `pulumi:"addressSid"`
+	// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+	BundleSid pulumi.StringPtrOutput `pulumi:"bundleSid"`
 	// The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
 	Effective IncomingPhoneNumberEffectivePtrOutput `pulumi:"effective"`
+	// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+	EmergencyAddressSid pulumi.StringPtrOutput `pulumi:"emergencyAddressSid"`
+	// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+	EmergencyStatus pulumi.StringPtrOutput `pulumi:"emergencyStatus"`
 	// Human-readable label for the number.
 	FriendlyName pulumi.StringPtrOutput `pulumi:"friendlyName"`
+	// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+	IdentitySid pulumi.StringPtrOutput `pulumi:"identitySid"`
 	// The phone number in E.164 format.
 	Number pulumi.StringOutput `pulumi:"number"`
 	// SID of the account that owns the number.
@@ -45,6 +57,8 @@ type IncomingPhoneNumber struct {
 	StatusCallback pulumi.StringPtrOutput `pulumi:"statusCallback"`
 	// HTTP method for statusCallback: GET or POST.
 	StatusCallbackMethod pulumi.StringPtrOutput `pulumi:"statusCallbackMethod"`
+	// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+	TrunkSid pulumi.StringPtrOutput `pulumi:"trunkSid"`
 	// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 	VoiceApplicationSid pulumi.StringPtrOutput `pulumi:"voiceApplicationSid"`
 	// Whether to look up the caller's name on incoming calls.
@@ -55,6 +69,8 @@ type IncomingPhoneNumber struct {
 	VoiceFallbackUrl pulumi.StringPtrOutput `pulumi:"voiceFallbackUrl"`
 	// HTTP method for voiceUrl: GET or POST.
 	VoiceMethod pulumi.StringPtrOutput `pulumi:"voiceMethod"`
+	// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+	VoiceReceiveMode pulumi.StringPtrOutput `pulumi:"voiceReceiveMode"`
 	// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
 	VoiceUrl pulumi.StringPtrOutput `pulumi:"voiceUrl"`
 }
@@ -108,8 +124,20 @@ func (IncomingPhoneNumberState) ElementType() reflect.Type {
 type incomingPhoneNumberArgs struct {
 	// SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
 	AccountSid *string `pulumi:"accountSid"`
+	// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+	AddressSid *string `pulumi:"addressSid"`
+	// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
+	// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+	BundleSid *string `pulumi:"bundleSid"`
+	// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+	EmergencyAddressSid *string `pulumi:"emergencyAddressSid"`
+	// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+	EmergencyStatus *string `pulumi:"emergencyStatus"`
 	// Human-readable label for the number.
 	FriendlyName *string `pulumi:"friendlyName"`
+	// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+	IdentitySid *string `pulumi:"identitySid"`
 	// The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
 	PhoneNumber *string `pulumi:"phoneNumber"`
 	// SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
@@ -128,6 +156,8 @@ type incomingPhoneNumberArgs struct {
 	StatusCallback *string `pulumi:"statusCallback"`
 	// HTTP method for statusCallback: GET or POST.
 	StatusCallbackMethod *string `pulumi:"statusCallbackMethod"`
+	// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+	TrunkSid *string `pulumi:"trunkSid"`
 	// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 	VoiceApplicationSid *string `pulumi:"voiceApplicationSid"`
 	// Whether to look up the caller's name on incoming calls.
@@ -138,6 +168,8 @@ type incomingPhoneNumberArgs struct {
 	VoiceFallbackUrl *string `pulumi:"voiceFallbackUrl"`
 	// HTTP method for voiceUrl: GET or POST.
 	VoiceMethod *string `pulumi:"voiceMethod"`
+	// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+	VoiceReceiveMode *string `pulumi:"voiceReceiveMode"`
 	// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
 	VoiceUrl *string `pulumi:"voiceUrl"`
 }
@@ -146,8 +178,20 @@ type incomingPhoneNumberArgs struct {
 type IncomingPhoneNumberArgs struct {
 	// SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
 	AccountSid pulumi.StringPtrInput
+	// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+	AddressSid pulumi.StringPtrInput
+	// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion pulumi.StringPtrInput
+	// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+	BundleSid pulumi.StringPtrInput
+	// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+	EmergencyAddressSid pulumi.StringPtrInput
+	// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+	EmergencyStatus pulumi.StringPtrInput
 	// Human-readable label for the number.
 	FriendlyName pulumi.StringPtrInput
+	// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+	IdentitySid pulumi.StringPtrInput
 	// The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
 	PhoneNumber pulumi.StringPtrInput
 	// SID (PN...) of the owned number. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource.
@@ -166,6 +210,8 @@ type IncomingPhoneNumberArgs struct {
 	StatusCallback pulumi.StringPtrInput
 	// HTTP method for statusCallback: GET or POST.
 	StatusCallbackMethod pulumi.StringPtrInput
+	// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+	TrunkSid pulumi.StringPtrInput
 	// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 	VoiceApplicationSid pulumi.StringPtrInput
 	// Whether to look up the caller's name on incoming calls.
@@ -176,6 +222,8 @@ type IncomingPhoneNumberArgs struct {
 	VoiceFallbackUrl pulumi.StringPtrInput
 	// HTTP method for voiceUrl: GET or POST.
 	VoiceMethod pulumi.StringPtrInput
+	// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+	VoiceReceiveMode pulumi.StringPtrInput
 	// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
 	VoiceUrl pulumi.StringPtrInput
 }
@@ -272,14 +320,44 @@ func (o IncomingPhoneNumberOutput) AccountSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.AccountSid }).(pulumi.StringPtrOutput)
 }
 
+// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+func (o IncomingPhoneNumberOutput) AddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.AddressSid }).(pulumi.StringPtrOutput)
+}
+
+// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o IncomingPhoneNumberOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+func (o IncomingPhoneNumberOutput) BundleSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.BundleSid }).(pulumi.StringPtrOutput)
+}
+
 // The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
 func (o IncomingPhoneNumberOutput) Effective() IncomingPhoneNumberEffectivePtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumber) IncomingPhoneNumberEffectivePtrOutput { return v.Effective }).(IncomingPhoneNumberEffectivePtrOutput)
 }
 
+// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+func (o IncomingPhoneNumberOutput) EmergencyAddressSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.EmergencyAddressSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+func (o IncomingPhoneNumberOutput) EmergencyStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.EmergencyStatus }).(pulumi.StringPtrOutput)
+}
+
 // Human-readable label for the number.
 func (o IncomingPhoneNumberOutput) FriendlyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+func (o IncomingPhoneNumberOutput) IdentitySid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.IdentitySid }).(pulumi.StringPtrOutput)
 }
 
 // The phone number in E.164 format.
@@ -342,6 +420,11 @@ func (o IncomingPhoneNumberOutput) StatusCallbackMethod() pulumi.StringPtrOutput
 	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.StatusCallbackMethod }).(pulumi.StringPtrOutput)
 }
 
+// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+func (o IncomingPhoneNumberOutput) TrunkSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.TrunkSid }).(pulumi.StringPtrOutput)
+}
+
 // SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
 func (o IncomingPhoneNumberOutput) VoiceApplicationSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.VoiceApplicationSid }).(pulumi.StringPtrOutput)
@@ -365,6 +448,11 @@ func (o IncomingPhoneNumberOutput) VoiceFallbackUrl() pulumi.StringPtrOutput {
 // HTTP method for voiceUrl: GET or POST.
 func (o IncomingPhoneNumberOutput) VoiceMethod() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.VoiceMethod }).(pulumi.StringPtrOutput)
+}
+
+// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+func (o IncomingPhoneNumberOutput) VoiceReceiveMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IncomingPhoneNumber) pulumi.StringPtrOutput { return v.VoiceReceiveMode }).(pulumi.StringPtrOutput)
 }
 
 // URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.

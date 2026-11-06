@@ -32,6 +32,10 @@ export interface GetApplicationResult {
      */
     readonly accountSid?: string;
     /**
+     * Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    readonly apiVersion?: string;
+    /**
      * Human-readable name of the application (up to 64 characters).
      */
     readonly friendlyName: string;
@@ -43,6 +47,10 @@ export interface GetApplicationResult {
      * SID of the account that owns the application.
      */
     readonly ownerAccountSid: string;
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     */
+    readonly publicApplicationConnectEnabled?: boolean;
     /**
      * The application SID (AP...).
      */

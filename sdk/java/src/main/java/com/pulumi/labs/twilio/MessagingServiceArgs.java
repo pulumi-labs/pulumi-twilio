@@ -229,6 +229,21 @@ public final class MessagingServiceArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
+     * Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    @Import(name="usecase")
+    private @Nullable Output<String> usecase;
+
+    /**
+     * @return Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    public Optional<Output<String>> usecase() {
+        return Optional.ofNullable(this.usecase);
+    }
+
+    /**
      * Seconds a message may wait for delivery before expiring (1-36000).
      * 
      */
@@ -260,6 +275,7 @@ public final class MessagingServiceArgs extends com.pulumi.resources.ResourceArg
         this.stickySender = $.stickySender;
         this.synchronousValidation = $.synchronousValidation;
         this.useInboundWebhookOnNumber = $.useInboundWebhookOnNumber;
+        this.usecase = $.usecase;
         this.validityPeriod = $.validityPeriod;
     }
 
@@ -573,6 +589,27 @@ public final class MessagingServiceArgs extends com.pulumi.resources.ResourceArg
          */
         public Builder useInboundWebhookOnNumber(Boolean useInboundWebhookOnNumber) {
             return useInboundWebhookOnNumber(Output.of(useInboundWebhookOnNumber));
+        }
+
+        /**
+         * @param usecase Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder usecase(@Nullable Output<String> usecase) {
+            $.usecase = usecase;
+            return this;
+        }
+
+        /**
+         * @param usecase Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder usecase(String usecase) {
+            return usecase(Output.of(usecase));
         }
 
         /**

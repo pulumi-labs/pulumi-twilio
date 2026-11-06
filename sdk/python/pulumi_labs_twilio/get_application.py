@@ -23,10 +23,13 @@ __all__ = [
 
 @pulumi.output_type
 class GetApplicationResult:
-    def __init__(__self__, account_sid=None, friendly_name=None, message_status_callback=None, owner_account_sid=None, sid=None, sms_fallback_method=None, sms_fallback_url=None, sms_method=None, sms_status_callback=None, sms_url=None, status_callback=None, status_callback_method=None, voice_caller_id_lookup=None, voice_fallback_method=None, voice_fallback_url=None, voice_method=None, voice_url=None):
+    def __init__(__self__, account_sid=None, api_version=None, friendly_name=None, message_status_callback=None, owner_account_sid=None, public_application_connect_enabled=None, sid=None, sms_fallback_method=None, sms_fallback_url=None, sms_method=None, sms_status_callback=None, sms_url=None, status_callback=None, status_callback_method=None, voice_caller_id_lookup=None, voice_fallback_method=None, voice_fallback_url=None, voice_method=None, voice_url=None):
         if account_sid and not isinstance(account_sid, str):
             raise TypeError("Expected argument 'account_sid' to be a str")
         pulumi.set(__self__, "account_sid", account_sid)
+        if api_version and not isinstance(api_version, str):
+            raise TypeError("Expected argument 'api_version' to be a str")
+        pulumi.set(__self__, "api_version", api_version)
         if friendly_name and not isinstance(friendly_name, str):
             raise TypeError("Expected argument 'friendly_name' to be a str")
         pulumi.set(__self__, "friendly_name", friendly_name)
@@ -36,6 +39,9 @@ class GetApplicationResult:
         if owner_account_sid and not isinstance(owner_account_sid, str):
             raise TypeError("Expected argument 'owner_account_sid' to be a str")
         pulumi.set(__self__, "owner_account_sid", owner_account_sid)
+        if public_application_connect_enabled and not isinstance(public_application_connect_enabled, bool):
+            raise TypeError("Expected argument 'public_application_connect_enabled' to be a bool")
+        pulumi.set(__self__, "public_application_connect_enabled", public_application_connect_enabled)
         if sid and not isinstance(sid, str):
             raise TypeError("Expected argument 'sid' to be a str")
         pulumi.set(__self__, "sid", sid)
@@ -85,6 +91,14 @@ class GetApplicationResult:
         return pulumi.get(self, "account_sid")
 
     @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
     @pulumi.getter(name="friendlyName")
     def friendly_name(self) -> _builtins.str:
         """
@@ -107,6 +121,14 @@ class GetApplicationResult:
         SID of the account that owns the application.
         """
         return pulumi.get(self, "owner_account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="publicApplicationConnectEnabled")
+    def public_application_connect_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        """
+        return pulumi.get(self, "public_application_connect_enabled")
 
     @_builtins.property
     @pulumi.getter
@@ -220,9 +242,11 @@ class AwaitableGetApplicationResult(GetApplicationResult):
             yield self
         return GetApplicationResult(
             account_sid=self.account_sid,
+            api_version=self.api_version,
             friendly_name=self.friendly_name,
             message_status_callback=self.message_status_callback,
             owner_account_sid=self.owner_account_sid,
+            public_application_connect_enabled=self.public_application_connect_enabled,
             sid=self.sid,
             sms_fallback_method=self.sms_fallback_method,
             sms_fallback_url=self.sms_fallback_url,
@@ -256,9 +280,11 @@ def get_application(account_sid: Optional[_builtins.str] = None,
 
     return AwaitableGetApplicationResult(
         account_sid=pulumi.get(__ret__, 'account_sid'),
+        api_version=pulumi.get(__ret__, 'api_version'),
         friendly_name=pulumi.get(__ret__, 'friendly_name'),
         message_status_callback=pulumi.get(__ret__, 'message_status_callback'),
         owner_account_sid=pulumi.get(__ret__, 'owner_account_sid'),
+        public_application_connect_enabled=pulumi.get(__ret__, 'public_application_connect_enabled'),
         sid=pulumi.get(__ret__, 'sid'),
         sms_fallback_method=pulumi.get(__ret__, 'sms_fallback_method'),
         sms_fallback_url=pulumi.get(__ret__, 'sms_fallback_url'),
@@ -289,9 +315,11 @@ def get_application_output(account_sid: Optional[pulumi.Input[Optional[_builtins
     __ret__ = pulumi.runtime.invoke_output('twilio:index:getApplication', __args__, opts=opts, typ=GetApplicationResult)
     return __ret__.apply(lambda __response__: GetApplicationResult(
         account_sid=pulumi.get(__response__, 'account_sid'),
+        api_version=pulumi.get(__response__, 'api_version'),
         friendly_name=pulumi.get(__response__, 'friendly_name'),
         message_status_callback=pulumi.get(__response__, 'message_status_callback'),
         owner_account_sid=pulumi.get(__response__, 'owner_account_sid'),
+        public_application_connect_enabled=pulumi.get(__response__, 'public_application_connect_enabled'),
         sid=pulumi.get(__response__, 'sid'),
         sms_fallback_method=pulumi.get(__response__, 'sms_fallback_method'),
         sms_fallback_url=pulumi.get(__response__, 'sms_fallback_url'),

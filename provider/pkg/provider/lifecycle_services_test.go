@@ -137,9 +137,10 @@ func TestMessagingServiceLC_RefreshDriftAndImport(t *testing.T) {
 	imp := l.read(sid, empty(), empty())
 	require.Equal(t, sid, imp.ID)
 	require.Equal(t, "notify", getS(t, imp.Inputs, "friendlyName"))
-	require.False(t, imp.Inputs.Get("mmsConverter").AsBool(), "a non-default value is adopted")
+	require.False(t, imp.Inputs.Get("mmsConverter").AsBool(), "a flag that differs from the import-only default is adopted (#1595)")
 	require.False(t, hasProp(imp.Inputs, "fallbackMethod"), "default methods are not adopted")
-	require.True(t, hasProp(imp.Inputs, "areaCodeGeomatch"), "a flag without a verified default is adopted as returned")
+	require.False(t, hasProp(imp.Inputs, "areaCodeGeomatch"), "a flag without a verified default is not adopted (#1572)")
+	require.NotNil(t, effective(t, imp.Properties).Get("areaCodeGeomatch"), "the effective output still reports it")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 }
 
@@ -341,8 +342,8 @@ func TestVerifyServiceLC_RefreshDriftAndImport(t *testing.T) {
 	imp := l.read(sid, empty(), empty())
 	require.Equal(t, sid, imp.ID)
 	require.Equal(t, "login", getS(t, imp.Inputs, "friendlyName"))
-	require.Equal(t, float64(4), imp.Inputs.Get("codeLength").AsNumber())
-	require.True(t, hasProp(imp.Inputs, "psd2Enabled"), "a flag without a verified default is adopted as returned")
+	require.Equal(t, float64(4), imp.Inputs.Get("codeLength").AsNumber(), "a number that differs from the import-only default is adopted (#1595)")
+	require.False(t, hasProp(imp.Inputs, "psd2Enabled"), "a flag without a verified default is not adopted (#1572)")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 }
 

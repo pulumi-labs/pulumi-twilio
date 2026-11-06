@@ -5,23 +5,25 @@
 Guidance for agents using the `twilio` Pulumi provider.
 
 ## When to use it
-Declare Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as code. Do not use it for sending messages, placing calls or running verifications at runtime.
+Declare Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists, domains and domain auth mappings, messaging services and Verify services as code. Do not use it for sending messages, placing calls or running verifications at runtime.
 
 ## Rules of thumb
 1. Configure `twilio:accountSid` and secret `twilio:authToken` (or `twilio:apiKey` with secret `twilio:apiSecret`); never hardcode them. Environment fallbacks are `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_API_KEY`, `TWILIO_API_SECRET`, `TWILIO_REGION`, `TWILIO_EDGE`. Do not create an explicit provider resource; the default provider reads the stack config.
 2. `IncomingPhoneNumber` adopts an owned number (`phoneNumber` in E.164 or `phoneNumberSid`, exactly one). It never buys one and destroy never releases it. If the number is not owned the create fails by design.
 3. A number can have `voiceUrl` or `voiceApplicationSid`, and `smsUrl` or `smsApplicationSid`, not both for the same channel. Inside a Messaging Service the service's `inboundRequestUrl` handles inbound SMS unless `useInboundWebhookOnNumber` is true.
 4. `Subaccount` destroy CLOSES the subaccount (irreversible after 30 days). Use `status: suspended` to pause. Creating subaccounts and keys needs the account auth token, not an API key.
-5. `ApiKey.secret` is a one-time secret output; export it as a secret. Restricted keys need `keyType: restricted` and a JSON `policy` (for example `{"allow":["/v2/Services/**"]}`); standard keys must not set `policy`. `friendlyName` and `policy` update in place, `keyType` and `accountSid` replace.
-6. `accountSid` on `ApiKey`, `Application` and `IncomingPhoneNumber` targets a subaccount using the parent credentials. `MessagingService` and `VerifyService` belong to the credential's own account.
+5. `ApiKey.secret` is a one-time secret output; export it as a secret. Restricted keys need `keyType: restricted` and a JSON `policy` (for example `{"allow":["/twilio/iam/api-keys/create"]}`); standard keys must not set `policy`. `friendlyName` and `policy` update in place, `keyType` and `accountSid` replace.
+6. `accountSid` on `ApiKey`, `Application`, `Address`, `SigningKey`, `Queue`, `UsageTrigger`, `SipCredentialList`, `SipCredential`, `SipIpAccessControlList`, `SipIpAddress`, `SipDomain` and `IncomingPhoneNumber` targets a subaccount using the parent credentials. `MessagingService` and `VerifyService` belong to the credential's own account.
 7. Build the sender pool with one `MessagingServicePhoneNumber` per number (`serviceSid`, `phoneNumberSid`); both inputs replace on change. A number can only be in one service.
 8. Use `getAccount` and `getIncomingPhoneNumber` to reference things managed elsewhere.
 
 ## Resource and function tokens
-`twilio:index:Subaccount`, `twilio:index:ApiKey`, `twilio:index:IncomingPhoneNumber`, `twilio:index:Application`, `twilio:index:MessagingService`, `twilio:index:MessagingServicePhoneNumber`, `twilio:index:VerifyService`, `twilio:index:getAccount`, `twilio:index:getIncomingPhoneNumber`.
+`twilio:index:Subaccount`, `twilio:index:ApiKey`, `twilio:index:IncomingPhoneNumber`, `twilio:index:Application`, `twilio:index:Address`, `twilio:index:SigningKey`, `twilio:index:Queue`, `twilio:index:UsageTrigger`, `twilio:index:SipCredentialList`, `twilio:index:SipCredential`, `twilio:index:SipIpAccessControlList`, `twilio:index:SipIpAddress`, `twilio:index:SipDomain`, `twilio:index:ShortCode`, `twilio:index:ConnectApp`, `twilio:index:OutgoingCallerId`, `twilio:index:EventSink`, `twilio:index:EventSubscription`, `twilio:index:MessagingService`, `twilio:index:MessagingServicePhoneNumber`, `twilio:index:VerifyService`, `twilio:index:getAccount`, `twilio:index:getIncomingPhoneNumber`, `twilio:index:getAddress`, `twilio:index:getSigningKey`, `twilio:index:getQueue`, `twilio:index:getUsageTrigger` (and one lookup per other resource).
 
 ## Pitfalls
-* Resource ids are the Twilio SIDs (`AC...`, `SK...`, `PN...`, `AP...`, `MG...`, `VA...`); a `MessagingServicePhoneNumber` id is `<serviceSid>/<phoneNumberSid>`.
+* Resource ids are the Twilio SIDs (`AC...`, `SK...`, `PN...`, `AP...`, `MG...`, `VA...`); a `MessagingServicePhoneNumber` id is `<serviceSid>/<phoneNumberSid>`; a `SipCredential` id is `<credentialListSid>/<sid>` (`CR...`) and a `SipIpAddress` id is `<ipAccessControlListSid>/<sid>` (`IP...`). `SipCredential.password` is write-only (never returned by Twilio). Domain-to-list mappings are not managed yet.
+* `ShortCode`, `ConnectApp` and `OutgoingCallerId` adopt something that already exists (a leased short code, a Console-created Connect app, a number verified by phone call); they cannot create it and destroy leaves it in place. Set `code`/`shortCodeSid`, `connectAppSid` or `phoneNumber`/`outgoingCallerIdSid`.
+* `EventSink` only updates its `description` in place; its type and connection settings replace it. An `EventSubscription` can only be created for an active sink (validate a new sink with Twilio's test and validate calls first); its `types` change in place and only `sinkSid` replaces.
 * Removing a webhook field from the program clears it on Twilio on the next update; leaving it unset on a freshly adopted number leaves Twilio's current value alone.
 * The provider has not been validated against a live account; try it on a trial account first.
 

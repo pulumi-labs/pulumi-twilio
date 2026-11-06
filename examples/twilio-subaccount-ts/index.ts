@@ -15,7 +15,7 @@ const ci = new twilio.ApiKey("ci", {
     friendlyName: "pulumi-ci",
     accountSid: tenant.sid,
     keyType: "restricted",
-    policy: JSON.stringify({ allow: ["/v2/Services/**"] }),
+    policy: JSON.stringify({ allow: ["/twilio/iam/api-keys/create"] }),
 });
 
 const verify = new twilio.VerifyService("verify", {

@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { AddressArgs } from "./address";
+export type Address = import("./address").Address;
+export const Address: typeof import("./address").Address = null as any;
+utilities.lazyLoad(exports, ["Address"], () => require("./address"));
+
 export { ApiKeyArgs } from "./apiKey";
 export type ApiKey = import("./apiKey").ApiKey;
 export const ApiKey: typeof import("./apiKey").ApiKey = null as any;
@@ -15,10 +20,30 @@ export type Application = import("./application").Application;
 export const Application: typeof import("./application").Application = null as any;
 utilities.lazyLoad(exports, ["Application"], () => require("./application"));
 
+export { ConnectAppArgs } from "./connectApp";
+export type ConnectApp = import("./connectApp").ConnectApp;
+export const ConnectApp: typeof import("./connectApp").ConnectApp = null as any;
+utilities.lazyLoad(exports, ["ConnectApp"], () => require("./connectApp"));
+
+export { EventSinkArgs } from "./eventSink";
+export type EventSink = import("./eventSink").EventSink;
+export const EventSink: typeof import("./eventSink").EventSink = null as any;
+utilities.lazyLoad(exports, ["EventSink"], () => require("./eventSink"));
+
+export { EventSubscriptionArgs } from "./eventSubscription";
+export type EventSubscription = import("./eventSubscription").EventSubscription;
+export const EventSubscription: typeof import("./eventSubscription").EventSubscription = null as any;
+utilities.lazyLoad(exports, ["EventSubscription"], () => require("./eventSubscription"));
+
 export { GetAccountArgs, GetAccountResult, GetAccountOutputArgs } from "./getAccount";
 export const getAccount: typeof import("./getAccount").getAccount = null as any;
 export const getAccountOutput: typeof import("./getAccount").getAccountOutput = null as any;
 utilities.lazyLoad(exports, ["getAccount","getAccountOutput"], () => require("./getAccount"));
+
+export { GetAddressArgs, GetAddressResult, GetAddressOutputArgs } from "./getAddress";
+export const getAddress: typeof import("./getAddress").getAddress = null as any;
+export const getAddressOutput: typeof import("./getAddress").getAddressOutput = null as any;
+utilities.lazyLoad(exports, ["getAddress","getAddressOutput"], () => require("./getAddress"));
 
 export { GetApiKeyArgs, GetApiKeyResult, GetApiKeyOutputArgs } from "./getApiKey";
 export const getApiKey: typeof import("./getApiKey").getApiKey = null as any;
@@ -35,6 +60,21 @@ export const getBalance: typeof import("./getBalance").getBalance = null as any;
 export const getBalanceOutput: typeof import("./getBalance").getBalanceOutput = null as any;
 utilities.lazyLoad(exports, ["getBalance","getBalanceOutput"], () => require("./getBalance"));
 
+export { GetConnectAppArgs, GetConnectAppResult, GetConnectAppOutputArgs } from "./getConnectApp";
+export const getConnectApp: typeof import("./getConnectApp").getConnectApp = null as any;
+export const getConnectAppOutput: typeof import("./getConnectApp").getConnectAppOutput = null as any;
+utilities.lazyLoad(exports, ["getConnectApp","getConnectAppOutput"], () => require("./getConnectApp"));
+
+export { GetEventSinkArgs, GetEventSinkResult, GetEventSinkOutputArgs } from "./getEventSink";
+export const getEventSink: typeof import("./getEventSink").getEventSink = null as any;
+export const getEventSinkOutput: typeof import("./getEventSink").getEventSinkOutput = null as any;
+utilities.lazyLoad(exports, ["getEventSink","getEventSinkOutput"], () => require("./getEventSink"));
+
+export { GetEventSubscriptionArgs, GetEventSubscriptionResult, GetEventSubscriptionOutputArgs } from "./getEventSubscription";
+export const getEventSubscription: typeof import("./getEventSubscription").getEventSubscription = null as any;
+export const getEventSubscriptionOutput: typeof import("./getEventSubscription").getEventSubscriptionOutput = null as any;
+utilities.lazyLoad(exports, ["getEventSubscription","getEventSubscriptionOutput"], () => require("./getEventSubscription"));
+
 export { GetIncomingPhoneNumberArgs, GetIncomingPhoneNumberResult, GetIncomingPhoneNumberOutputArgs } from "./getIncomingPhoneNumber";
 export const getIncomingPhoneNumber: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumber = null as any;
 export const getIncomingPhoneNumberOutput: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumberOutput = null as any;
@@ -50,10 +90,70 @@ export const getMessagingServicePhoneNumber: typeof import("./getMessagingServic
 export const getMessagingServicePhoneNumberOutput: typeof import("./getMessagingServicePhoneNumber").getMessagingServicePhoneNumberOutput = null as any;
 utilities.lazyLoad(exports, ["getMessagingServicePhoneNumber","getMessagingServicePhoneNumberOutput"], () => require("./getMessagingServicePhoneNumber"));
 
+export { GetOutgoingCallerIdArgs, GetOutgoingCallerIdResult, GetOutgoingCallerIdOutputArgs } from "./getOutgoingCallerId";
+export const getOutgoingCallerId: typeof import("./getOutgoingCallerId").getOutgoingCallerId = null as any;
+export const getOutgoingCallerIdOutput: typeof import("./getOutgoingCallerId").getOutgoingCallerIdOutput = null as any;
+utilities.lazyLoad(exports, ["getOutgoingCallerId","getOutgoingCallerIdOutput"], () => require("./getOutgoingCallerId"));
+
+export { GetQueueArgs, GetQueueResult, GetQueueOutputArgs } from "./getQueue";
+export const getQueue: typeof import("./getQueue").getQueue = null as any;
+export const getQueueOutput: typeof import("./getQueue").getQueueOutput = null as any;
+utilities.lazyLoad(exports, ["getQueue","getQueueOutput"], () => require("./getQueue"));
+
+export { GetShortCodeArgs, GetShortCodeResult, GetShortCodeOutputArgs } from "./getShortCode";
+export const getShortCode: typeof import("./getShortCode").getShortCode = null as any;
+export const getShortCodeOutput: typeof import("./getShortCode").getShortCodeOutput = null as any;
+utilities.lazyLoad(exports, ["getShortCode","getShortCodeOutput"], () => require("./getShortCode"));
+
+export { GetSigningKeyArgs, GetSigningKeyResult, GetSigningKeyOutputArgs } from "./getSigningKey";
+export const getSigningKey: typeof import("./getSigningKey").getSigningKey = null as any;
+export const getSigningKeyOutput: typeof import("./getSigningKey").getSigningKeyOutput = null as any;
+utilities.lazyLoad(exports, ["getSigningKey","getSigningKeyOutput"], () => require("./getSigningKey"));
+
+export { GetSipCredentialArgs, GetSipCredentialResult, GetSipCredentialOutputArgs } from "./getSipCredential";
+export const getSipCredential: typeof import("./getSipCredential").getSipCredential = null as any;
+export const getSipCredentialOutput: typeof import("./getSipCredential").getSipCredentialOutput = null as any;
+utilities.lazyLoad(exports, ["getSipCredential","getSipCredentialOutput"], () => require("./getSipCredential"));
+
+export { GetSipCredentialListArgs, GetSipCredentialListResult, GetSipCredentialListOutputArgs } from "./getSipCredentialList";
+export const getSipCredentialList: typeof import("./getSipCredentialList").getSipCredentialList = null as any;
+export const getSipCredentialListOutput: typeof import("./getSipCredentialList").getSipCredentialListOutput = null as any;
+utilities.lazyLoad(exports, ["getSipCredentialList","getSipCredentialListOutput"], () => require("./getSipCredentialList"));
+
+export { GetSipDomainArgs, GetSipDomainResult, GetSipDomainOutputArgs } from "./getSipDomain";
+export const getSipDomain: typeof import("./getSipDomain").getSipDomain = null as any;
+export const getSipDomainOutput: typeof import("./getSipDomain").getSipDomainOutput = null as any;
+utilities.lazyLoad(exports, ["getSipDomain","getSipDomainOutput"], () => require("./getSipDomain"));
+
+export { GetSipDomainCredentialListMappingArgs, GetSipDomainCredentialListMappingResult, GetSipDomainCredentialListMappingOutputArgs } from "./getSipDomainCredentialListMapping";
+export const getSipDomainCredentialListMapping: typeof import("./getSipDomainCredentialListMapping").getSipDomainCredentialListMapping = null as any;
+export const getSipDomainCredentialListMappingOutput: typeof import("./getSipDomainCredentialListMapping").getSipDomainCredentialListMappingOutput = null as any;
+utilities.lazyLoad(exports, ["getSipDomainCredentialListMapping","getSipDomainCredentialListMappingOutput"], () => require("./getSipDomainCredentialListMapping"));
+
+export { GetSipDomainIpAccessControlListMappingArgs, GetSipDomainIpAccessControlListMappingResult, GetSipDomainIpAccessControlListMappingOutputArgs } from "./getSipDomainIpAccessControlListMapping";
+export const getSipDomainIpAccessControlListMapping: typeof import("./getSipDomainIpAccessControlListMapping").getSipDomainIpAccessControlListMapping = null as any;
+export const getSipDomainIpAccessControlListMappingOutput: typeof import("./getSipDomainIpAccessControlListMapping").getSipDomainIpAccessControlListMappingOutput = null as any;
+utilities.lazyLoad(exports, ["getSipDomainIpAccessControlListMapping","getSipDomainIpAccessControlListMappingOutput"], () => require("./getSipDomainIpAccessControlListMapping"));
+
+export { GetSipIpAccessControlListArgs, GetSipIpAccessControlListResult, GetSipIpAccessControlListOutputArgs } from "./getSipIpAccessControlList";
+export const getSipIpAccessControlList: typeof import("./getSipIpAccessControlList").getSipIpAccessControlList = null as any;
+export const getSipIpAccessControlListOutput: typeof import("./getSipIpAccessControlList").getSipIpAccessControlListOutput = null as any;
+utilities.lazyLoad(exports, ["getSipIpAccessControlList","getSipIpAccessControlListOutput"], () => require("./getSipIpAccessControlList"));
+
+export { GetSipIpAddressArgs, GetSipIpAddressResult, GetSipIpAddressOutputArgs } from "./getSipIpAddress";
+export const getSipIpAddress: typeof import("./getSipIpAddress").getSipIpAddress = null as any;
+export const getSipIpAddressOutput: typeof import("./getSipIpAddress").getSipIpAddressOutput = null as any;
+utilities.lazyLoad(exports, ["getSipIpAddress","getSipIpAddressOutput"], () => require("./getSipIpAddress"));
+
 export { GetSubaccountArgs, GetSubaccountResult, GetSubaccountOutputArgs } from "./getSubaccount";
 export const getSubaccount: typeof import("./getSubaccount").getSubaccount = null as any;
 export const getSubaccountOutput: typeof import("./getSubaccount").getSubaccountOutput = null as any;
 utilities.lazyLoad(exports, ["getSubaccount","getSubaccountOutput"], () => require("./getSubaccount"));
+
+export { GetUsageTriggerArgs, GetUsageTriggerResult, GetUsageTriggerOutputArgs } from "./getUsageTrigger";
+export const getUsageTrigger: typeof import("./getUsageTrigger").getUsageTrigger = null as any;
+export const getUsageTriggerOutput: typeof import("./getUsageTrigger").getUsageTriggerOutput = null as any;
+utilities.lazyLoad(exports, ["getUsageTrigger","getUsageTriggerOutput"], () => require("./getUsageTrigger"));
 
 export { GetVerifyServiceArgs, GetVerifyServiceResult, GetVerifyServiceOutputArgs } from "./getVerifyService";
 export const getVerifyService: typeof import("./getVerifyService").getVerifyService = null as any;
@@ -75,15 +175,75 @@ export type MessagingServicePhoneNumber = import("./messagingServicePhoneNumber"
 export const MessagingServicePhoneNumber: typeof import("./messagingServicePhoneNumber").MessagingServicePhoneNumber = null as any;
 utilities.lazyLoad(exports, ["MessagingServicePhoneNumber"], () => require("./messagingServicePhoneNumber"));
 
+export { OutgoingCallerIdArgs } from "./outgoingCallerId";
+export type OutgoingCallerId = import("./outgoingCallerId").OutgoingCallerId;
+export const OutgoingCallerId: typeof import("./outgoingCallerId").OutgoingCallerId = null as any;
+utilities.lazyLoad(exports, ["OutgoingCallerId"], () => require("./outgoingCallerId"));
+
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
+export { QueueArgs } from "./queue";
+export type Queue = import("./queue").Queue;
+export const Queue: typeof import("./queue").Queue = null as any;
+utilities.lazyLoad(exports, ["Queue"], () => require("./queue"));
+
+export { ShortCodeArgs } from "./shortCode";
+export type ShortCode = import("./shortCode").ShortCode;
+export const ShortCode: typeof import("./shortCode").ShortCode = null as any;
+utilities.lazyLoad(exports, ["ShortCode"], () => require("./shortCode"));
+
+export { SigningKeyArgs } from "./signingKey";
+export type SigningKey = import("./signingKey").SigningKey;
+export const SigningKey: typeof import("./signingKey").SigningKey = null as any;
+utilities.lazyLoad(exports, ["SigningKey"], () => require("./signingKey"));
+
+export { SipCredentialArgs } from "./sipCredential";
+export type SipCredential = import("./sipCredential").SipCredential;
+export const SipCredential: typeof import("./sipCredential").SipCredential = null as any;
+utilities.lazyLoad(exports, ["SipCredential"], () => require("./sipCredential"));
+
+export { SipCredentialListArgs } from "./sipCredentialList";
+export type SipCredentialList = import("./sipCredentialList").SipCredentialList;
+export const SipCredentialList: typeof import("./sipCredentialList").SipCredentialList = null as any;
+utilities.lazyLoad(exports, ["SipCredentialList"], () => require("./sipCredentialList"));
+
+export { SipDomainArgs } from "./sipDomain";
+export type SipDomain = import("./sipDomain").SipDomain;
+export const SipDomain: typeof import("./sipDomain").SipDomain = null as any;
+utilities.lazyLoad(exports, ["SipDomain"], () => require("./sipDomain"));
+
+export { SipDomainCredentialListMappingArgs } from "./sipDomainCredentialListMapping";
+export type SipDomainCredentialListMapping = import("./sipDomainCredentialListMapping").SipDomainCredentialListMapping;
+export const SipDomainCredentialListMapping: typeof import("./sipDomainCredentialListMapping").SipDomainCredentialListMapping = null as any;
+utilities.lazyLoad(exports, ["SipDomainCredentialListMapping"], () => require("./sipDomainCredentialListMapping"));
+
+export { SipDomainIpAccessControlListMappingArgs } from "./sipDomainIpAccessControlListMapping";
+export type SipDomainIpAccessControlListMapping = import("./sipDomainIpAccessControlListMapping").SipDomainIpAccessControlListMapping;
+export const SipDomainIpAccessControlListMapping: typeof import("./sipDomainIpAccessControlListMapping").SipDomainIpAccessControlListMapping = null as any;
+utilities.lazyLoad(exports, ["SipDomainIpAccessControlListMapping"], () => require("./sipDomainIpAccessControlListMapping"));
+
+export { SipIpAccessControlListArgs } from "./sipIpAccessControlList";
+export type SipIpAccessControlList = import("./sipIpAccessControlList").SipIpAccessControlList;
+export const SipIpAccessControlList: typeof import("./sipIpAccessControlList").SipIpAccessControlList = null as any;
+utilities.lazyLoad(exports, ["SipIpAccessControlList"], () => require("./sipIpAccessControlList"));
+
+export { SipIpAddressArgs } from "./sipIpAddress";
+export type SipIpAddress = import("./sipIpAddress").SipIpAddress;
+export const SipIpAddress: typeof import("./sipIpAddress").SipIpAddress = null as any;
+utilities.lazyLoad(exports, ["SipIpAddress"], () => require("./sipIpAddress"));
+
 export { SubaccountArgs } from "./subaccount";
 export type Subaccount = import("./subaccount").Subaccount;
 export const Subaccount: typeof import("./subaccount").Subaccount = null as any;
 utilities.lazyLoad(exports, ["Subaccount"], () => require("./subaccount"));
+
+export { UsageTriggerArgs } from "./usageTrigger";
+export type UsageTrigger = import("./usageTrigger").UsageTrigger;
+export const UsageTrigger: typeof import("./usageTrigger").UsageTrigger = null as any;
+utilities.lazyLoad(exports, ["UsageTrigger"], () => require("./usageTrigger"));
 
 export { VerifyServiceArgs } from "./verifyService";
 export type VerifyService = import("./verifyService").VerifyService;
@@ -104,18 +264,50 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "twilio:index:Address":
+                return new Address(name, <any>undefined, { urn })
             case "twilio:index:ApiKey":
                 return new ApiKey(name, <any>undefined, { urn })
             case "twilio:index:Application":
                 return new Application(name, <any>undefined, { urn })
+            case "twilio:index:ConnectApp":
+                return new ConnectApp(name, <any>undefined, { urn })
+            case "twilio:index:EventSink":
+                return new EventSink(name, <any>undefined, { urn })
+            case "twilio:index:EventSubscription":
+                return new EventSubscription(name, <any>undefined, { urn })
             case "twilio:index:IncomingPhoneNumber":
                 return new IncomingPhoneNumber(name, <any>undefined, { urn })
             case "twilio:index:MessagingService":
                 return new MessagingService(name, <any>undefined, { urn })
             case "twilio:index:MessagingServicePhoneNumber":
                 return new MessagingServicePhoneNumber(name, <any>undefined, { urn })
+            case "twilio:index:OutgoingCallerId":
+                return new OutgoingCallerId(name, <any>undefined, { urn })
+            case "twilio:index:Queue":
+                return new Queue(name, <any>undefined, { urn })
+            case "twilio:index:ShortCode":
+                return new ShortCode(name, <any>undefined, { urn })
+            case "twilio:index:SigningKey":
+                return new SigningKey(name, <any>undefined, { urn })
+            case "twilio:index:SipCredential":
+                return new SipCredential(name, <any>undefined, { urn })
+            case "twilio:index:SipCredentialList":
+                return new SipCredentialList(name, <any>undefined, { urn })
+            case "twilio:index:SipDomain":
+                return new SipDomain(name, <any>undefined, { urn })
+            case "twilio:index:SipDomainCredentialListMapping":
+                return new SipDomainCredentialListMapping(name, <any>undefined, { urn })
+            case "twilio:index:SipDomainIpAccessControlListMapping":
+                return new SipDomainIpAccessControlListMapping(name, <any>undefined, { urn })
+            case "twilio:index:SipIpAccessControlList":
+                return new SipIpAccessControlList(name, <any>undefined, { urn })
+            case "twilio:index:SipIpAddress":
+                return new SipIpAddress(name, <any>undefined, { urn })
             case "twilio:index:Subaccount":
                 return new Subaccount(name, <any>undefined, { urn })
+            case "twilio:index:UsageTrigger":
+                return new UsageTrigger(name, <any>undefined, { urn })
             case "twilio:index:VerifyService":
                 return new VerifyService(name, <any>undefined, { urn })
             default:

@@ -61,6 +61,9 @@ type props struct {
 var noStrReset = map[string]bool{
 	"VoiceReceiveMode": true, "EmergencyStatus": true, "ApiVersion": true,
 	"Usecase": true, "DefaultTemplateSid": true,
+	// The TOTP issuer: Twilio defaults it to the friendly name at creation and answers HTTP 400 to an empty
+	// value, so a removed input leaves the issuer as it is (#1633).
+	"Totp.Issuer": true,
 	// Connect app listing details: the app form requires them, so a removed input leaves them as they are.
 	"CompanyName": true, "Description": true, "HomepageUrl": true, "AuthorizeRedirectUrl": true,
 }
@@ -131,6 +134,13 @@ var importBoolDefaults = map[string]bool{
 }
 
 var importIntDefaults = map[string]int{"CodeLength": 6}
+
+// importStrDefaults are the string values a freshly created resource reports (#1634): an import leaves
+// an equal value out of the inputs, like importBoolDefaults. MessagingService usecase is "undeclared"
+// until set. Like the other import maps this is never used to reset a removed input; the observed
+// values come from the Mirror report behind #1634 (pulumi-labs/pulumi-twilio#2). VerifyService
+// totpIssuer is a default too, but it is the friendly name, so adopt compares it with that.
+var importStrDefaults = map[string]string{"Usecase": "undeclared"}
 
 // importBoolDefault returns the default an import compares a returned bool with.
 func importBoolDefault(param string) (bool, bool) {
@@ -263,9 +273,17 @@ func nonEmptyList(l *[]string) *[]string {
 // ordinary update.
 func (ps props) adopt(o obj) {
 	for _, f := range ps.strs {
-		if v := nonEmpty(o.optStr(f.key)); v != nil && *v != strDefault(f.param) && !noAdopt[f.param] {
-			*f.p = v
+		v := nonEmpty(o.optStr(f.key))
+		if v == nil || *v == strDefault(f.param) || noAdopt[f.param] {
+			continue
 		}
+		if d, ok := importStrDefaults[f.param]; ok && *v == d {
+			continue
+		}
+		if f.param == "Totp.Issuer" && *v == o.str("friendly_name") {
+			continue // Twilio sets the issuer to the friendly name at creation
+		}
+		*f.p = v
 	}
 	for _, f := range ps.lists {
 		if v := nonEmptyList(o.optList(f.key)); v != nil {

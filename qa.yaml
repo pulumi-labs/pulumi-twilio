@@ -48,7 +48,7 @@ resources:
   - type: twilio:index:SipCredential
     test: true
     update: password
-    cost: "none; needs a credential list (SipCredentialList). Twilio requires a password of 12 or more characters with a digit and mixed case"
+    cost: "none; needs a credential list (SipCredentialList). Twilio requires a password of 12 or more characters with a digit and mixed case. Twilio never returns the password: after an import the next preview plans an in-place password update, which is expected (not a defect); the import itself must not warn that inputs failed to validate"
   - type: twilio:index:ShortCode
     test: false
     update: friendlyName
@@ -69,6 +69,22 @@ resources:
     test: false
     update: description
     reason: needs an active sink, and a webhook sink only becomes active after Twilio's test event is answered with the test ID (validate call), which the provider does not do; set it up by hand or use a Segment or Kinesis sink
+  - type: twilio:index:Trunk
+    test: true
+    update: friendlyName
+    cost: "none; Elastic SIP trunks are free until calls flow. domainName must be unique across Twilio and end in .pstn.twilio.com, so use a random suffix. Recording settings only take effect on calls"
+  - type: twilio:index:TrunkOriginationUrl
+    test: true
+    update: weight
+    cost: "none; a sip: URL such as sip:pbx.example.com is enough, no SIP endpoint has to answer. Twilio may reject a host that does not resolve (not verified); use a real SIP host if it does"
+  - type: twilio:index:TrunkCredentialList
+    test: true
+    update: null
+    cost: "none; attach a SipCredentialList created in the same program. Every input replaces, so there is no update field"
+  - type: twilio:index:TrunkIpAccessControlList
+    test: true
+    update: null
+    cost: "none; attach a SipIpAccessControlList created in the same program. Every input replaces, so there is no update field"
   - type: twilio:index:SipCredentialList
     test: true
     update: friendlyName
@@ -140,6 +156,14 @@ functions:
   - name: getEventSubscription
     test: false
     reason: needs a subscription, which needs an active sink
+  - name: getTrunk
+    test: true
+  - name: getTrunkOriginationUrl
+    test: true
+  - name: getTrunkCredentialList
+    test: true
+  - name: getTrunkIpAccessControlList
+    test: true
   - name: getSipCredential
     test: true
   - name: getSipCredentialList
@@ -161,6 +185,7 @@ functions:
   - name: getVerifyService
     test: true
 regressions:
+  - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."
   - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."
   - "ShortCode, ConnectApp and OutgoingCallerId only adopt: destroy must leave the short code, the Connect app and the verified caller ID in place and make no API call; a removed friendlyName, companyName, description, homepageUrl, authorizeRedirectUrl or permissions input must leave the value on Twilio; accountSid changes replace (Twilio cannot move these between accounts)."
   - "#1595 import adopts non-default flags and numbers: for Application, IncomingPhoneNumber, MessagingService and VerifyService create from a minimal program, import, preview shows no change; then set a non-default value out of band (stickySender false, codeLength 4, voiceCallerIdLookup true), import, and the value appears in the imported inputs. Also re-probe a freshly created resource per type and confirm the import-only default map in props.go (importBoolDefaults, importIntDefaults) matches it"

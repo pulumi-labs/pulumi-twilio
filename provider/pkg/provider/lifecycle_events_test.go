@@ -114,7 +114,7 @@ func TestEventSinkLC_KinesisAndSegmentConfiguration(t *testing.T) {
 	l.f.resetCalls()
 	in := pv(map[string]property.Value{"description": sv("cdp"), "sinkType": sv("segment"), "segmentWriteKey": property.New("wk-123").WithSecret(true)})
 	s := l.create(in)
-	require.JSONEq(t, `{"key":"wk-123"}`, l.f.callsMatching("POST", "/events/v1/Sinks")[0].Form.Get("SinkConfiguration"))
+	require.JSONEq(t, `{"write_key":"wk-123"}`, l.f.callsMatching("POST", "/events/v1/Sinks")[0].Form.Get("SinkConfiguration"))
 	require.True(t, s.Properties.Get("segmentWriteKey").Secret(), "the write key is a secret in the state")
 
 	// Twilio never returns the write key: a refresh keeps the one in the inputs and plans no change.
@@ -139,6 +139,22 @@ func TestEventSinkLC_ImportPreviewAndChecks(t *testing.T) {
 	requireNoChanges(t, l.diff(c.ID, imp.Properties, without(in, "webhookMethod"), imp.Inputs))
 	// Stating the defaults is not a change either.
 	requireNoChanges(t, l.diff(c.ID, imp.Properties, in, imp.Inputs))
+
+	// Twilio stores the method in lower case ("post"): the default is still recognised on import,
+	// a refresh reports no drift, and a non-default method is adopted in upper case.
+	require.Equal(t, "post", l.f.get("evsink", testAccount, c.ID)["sink_configuration"].(map[string]any)["method"])
+	rf := l.read(c.ID, c.Properties, in)
+	require.Equal(t, "POST", getS(t, rf.Inputs, "webhookMethod"))
+	requireNoChanges(t, l.diff(c.ID, rf.Properties, in, rf.Inputs))
+	get := l.create(with(in, map[string]property.Value{"webhookMethod": sv("GET")}))
+	require.Equal(t, "get", l.f.get("evsink", testAccount, get.ID)["sink_configuration"].(map[string]any)["method"])
+	gi := l.read(get.ID, empty(), empty())
+	require.Equal(t, "GET", getS(t, gi.Inputs, "webhookMethod"))
+	gin := with(in, map[string]property.Value{"webhookMethod": sv("GET")})
+	requireNoChanges(t, l.diff(get.ID, gi.Properties, gin, gi.Inputs))
+	// The sink type's own keys are the only ones sent: the fake rejects any other (the segment key is write_key).
+	seg := l.read(l.create(pv(map[string]property.Value{"description": sv("cdp"), "sinkType": sv("segment"), "segmentWriteKey": sv("wk")})).ID, empty(), empty())
+	require.Equal(t, "segment", getS(t, seg.Inputs, "sinkType"))
 
 	// A preview creates nothing and invents no ID.
 	before := len(l.f.callsMatching("POST", "/events/v1/Sinks"))

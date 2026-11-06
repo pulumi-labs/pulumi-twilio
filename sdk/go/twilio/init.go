@@ -63,6 +63,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SipIpAddress{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
+	case "twilio:index:Trunk":
+		r = &Trunk{}
+	case "twilio:index:TrunkCredentialList":
+		r = &TrunkCredentialList{}
+	case "twilio:index:TrunkIpAccessControlList":
+		r = &TrunkIpAccessControlList{}
+	case "twilio:index:TrunkOriginationUrl":
+		r = &TrunkOriginationUrl{}
 	case "twilio:index:UsageTrigger":
 		r = &UsageTrigger{}
 	case "twilio:index:VerifyService":

@@ -16,6 +16,7 @@ package provider
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"unicode/utf8"
@@ -88,16 +89,25 @@ func (r *SipCredential) Check(ctx context.Context, req infer.CheckRequest) (infe
 	if !unk("username") && (args.Username == "" || utf8.RuneCountInString(args.Username) > 32) {
 		failures = append(failures, p.CheckFailure{Property: "username", Reason: "username must be 1-32 characters"})
 	}
-	if !unk("password") && utf8.RuneCountInString(args.Password) < 12 {
+	// An imported credential has an empty password (Twilio never returns it), and the engine runs Check on
+	// the imported inputs, so an empty password is not a failure here; Create and Update refuse it (#1635).
+	if !unk("password") && args.Password != "" && utf8.RuneCountInString(args.Password) < 12 {
 		failures = append(failures, p.CheckFailure{Property: "password", Reason: "password must be at least 12 characters"})
 	}
 	return infer.CheckResponse[SipCredentialArgs]{Inputs: args, Failures: failures}, nil
 }
 
+// errPasswordUnset is returned by Create and Update when the password is empty: only an import leaves it
+// empty, and Twilio needs one to create or change a credential.
+var errPasswordUnset = errors.New("password must be set: Twilio requires at least 12 characters, with a digit and mixed case")
+
 func (r *SipCredential) Create(ctx context.Context, req infer.CreateRequest[SipCredentialArgs]) (infer.CreateResponse[SipCredentialState], error) {
 	a := req.Inputs
-	if req.DryRun {
+	if req.DryRun { // a preview may see a computed password as empty: only a real write refuses it
 		return infer.CreateResponse[SipCredentialState]{ID: "", Output: SipCredentialState{SipCredentialArgs: a}}, nil
+	}
+	if a.Password == "" {
+		return infer.CreateResponse[SipCredentialState]{}, errPasswordUnset
 	}
 	c, err := clientFor(ctx)
 	if err != nil {
@@ -150,6 +160,9 @@ func (r *SipCredential) Update(ctx context.Context, req infer.UpdateRequest[SipC
 	st.SipCredentialArgs = req.Inputs
 	if req.DryRun {
 		return infer.UpdateResponse[SipCredentialState]{Output: st}, nil
+	}
+	if req.Inputs.Password == "" {
+		return infer.UpdateResponse[SipCredentialState]{}, errPasswordUnset
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

@@ -205,6 +205,16 @@ func TestSipCredentialLC_ImportPreviewAndChecks(t *testing.T) {
 	d := l.diff(oc.ID, imp.Properties, credInputs(own.ID), imp.Inputs)
 	require.True(t, d.HasChanges, "an imported credential has no password until the program sets one")
 	require.Equal(t, pgp.Update, d.DetailedDiff["password"].Kind)
+	// The engine runs Check on the imported inputs: the empty password is not a validation failure (#1635)...
+	require.Empty(t, l.check(imp.Inputs).Failures, "importing must not warn that the imported inputs failed to validate")
+	// ...but a program still cannot create or update with it, and a short one still fails.
+	_, err = l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: imp.Inputs})
+	require.ErrorContains(t, err, "password must be set")
+	// A preview with a computed (seen as empty) password must not fail.
+	_, err = l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: imp.Inputs, DryRun: true})
+	require.NoError(t, err)
+	_, err = l.s.Update(pgp.UpdateRequest{ID: oc.ID, Urn: l.urn, State: imp.Properties, Inputs: imp.Inputs, OldInputs: imp.Inputs})
+	require.ErrorContains(t, err, "password must be set")
 	_, err = l.s.Read(pgp.ReadRequest{ID: "bare-sid", Urn: l.urn, Properties: empty(), Inputs: empty()})
 	require.ErrorContains(t, err, "invalid ID")
 

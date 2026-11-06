@@ -1742,6 +1742,217 @@ func (o ShortCodeEffectivePtrOutput) SmsUrl() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TrunkEffective struct {
+	// Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+	CnamLookupEnabled *bool `pulumi:"cnamLookupEnabled"`
+	// HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+	DisasterRecoveryMethod *string `pulumi:"disasterRecoveryMethod"`
+	// URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+	DisasterRecoveryUrl *string `pulumi:"disasterRecoveryUrl"`
+	// The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+	DomainName *string `pulumi:"domainName"`
+	// Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+	RecordingMode *string `pulumi:"recordingMode"`
+	// Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+	RecordingTrim *string `pulumi:"recordingTrim"`
+	// Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+	Secure *bool `pulumi:"secure"`
+	// Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+	TransferCallerId *string `pulumi:"transferCallerId"`
+	// Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+	TransferMode *string `pulumi:"transferMode"`
+}
+
+type TrunkEffectiveOutput struct{ *pulumi.OutputState }
+
+func (TrunkEffectiveOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TrunkEffective)(nil)).Elem()
+}
+
+func (o TrunkEffectiveOutput) ToTrunkEffectiveOutput() TrunkEffectiveOutput {
+	return o
+}
+
+func (o TrunkEffectiveOutput) ToTrunkEffectiveOutputWithContext(ctx context.Context) TrunkEffectiveOutput {
+	return o
+}
+
+// Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) CnamLookupEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *bool { return v.CnamLookupEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+func (o TrunkEffectiveOutput) DisasterRecoveryMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.DisasterRecoveryMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+func (o TrunkEffectiveOutput) DisasterRecoveryUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.DisasterRecoveryUrl }).(pulumi.StringPtrOutput)
+}
+
+// The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+func (o TrunkEffectiveOutput) DomainName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.DomainName }).(pulumi.StringPtrOutput)
+}
+
+// Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+func (o TrunkEffectiveOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) RecordingMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.RecordingMode }).(pulumi.StringPtrOutput)
+}
+
+// Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) RecordingTrim() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.RecordingTrim }).(pulumi.StringPtrOutput)
+}
+
+// Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) Secure() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *bool { return v.Secure }).(pulumi.BoolPtrOutput)
+}
+
+// Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) TransferCallerId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.TransferCallerId }).(pulumi.StringPtrOutput)
+}
+
+// Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectiveOutput) TransferMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrunkEffective) *string { return v.TransferMode }).(pulumi.StringPtrOutput)
+}
+
+type TrunkEffectivePtrOutput struct{ *pulumi.OutputState }
+
+func (TrunkEffectivePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TrunkEffective)(nil)).Elem()
+}
+
+func (o TrunkEffectivePtrOutput) ToTrunkEffectivePtrOutput() TrunkEffectivePtrOutput {
+	return o
+}
+
+func (o TrunkEffectivePtrOutput) ToTrunkEffectivePtrOutputWithContext(ctx context.Context) TrunkEffectivePtrOutput {
+	return o
+}
+
+func (o TrunkEffectivePtrOutput) Elem() TrunkEffectiveOutput {
+	return o.ApplyT(func(v *TrunkEffective) TrunkEffective {
+		if v != nil {
+			return *v
+		}
+		var ret TrunkEffective
+		return ret
+	}).(TrunkEffectiveOutput)
+}
+
+// Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) CnamLookupEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.CnamLookupEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+func (o TrunkEffectivePtrOutput) DisasterRecoveryMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DisasterRecoveryMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+func (o TrunkEffectivePtrOutput) DisasterRecoveryUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DisasterRecoveryUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) DomainName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DomainName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FriendlyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) RecordingMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RecordingMode
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) RecordingTrim() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RecordingTrim
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) Secure() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Secure
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) TransferCallerId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TransferCallerId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+func (o TrunkEffectivePtrOutput) TransferMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrunkEffective) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TransferMode
+	}).(pulumi.StringPtrOutput)
+}
+
 type VerifyServiceEffective struct {
 	// Length of the verification code, 4 to 10 digits (Twilio default 6).
 	CodeLength *int `pulumi:"codeLength"`
@@ -1781,7 +1992,7 @@ type VerifyServiceEffective struct {
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength *int `pulumi:"totpCodeLength"`
-	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
 	TotpIssuer *string `pulumi:"totpIssuer"`
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew *int `pulumi:"totpSkew"`
@@ -1906,7 +2117,7 @@ func (o VerifyServiceEffectiveOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *int { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
 func (o VerifyServiceEffectiveOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.TotpIssuer }).(pulumi.StringPtrOutput)
 }
@@ -2155,7 +2366,7 @@ func (o VerifyServiceEffectivePtrOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
 func (o VerifyServiceEffectivePtrOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VerifyServiceEffective) *string {
 		if v == nil {
@@ -2242,6 +2453,8 @@ func init() {
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
+	pulumi.RegisterOutputType(TrunkEffectiveOutput{})
+	pulumi.RegisterOutputType(TrunkEffectivePtrOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectivePtrOutput{})
 }

@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "displayName": "Twilio",
-  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
+  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
   "keywords": [
     "pulumi",
     "twilio",
@@ -30,7 +30,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
-      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
+      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
       "packageName": "@pulumi-labs/twilio",
       "respectSchemaVersion": true
     },
@@ -505,6 +505,51 @@
       },
       "type": "object"
     },
+    "twilio:index:TrunkEffective": {
+      "properties": {
+        "cnamLookupEnabled": {
+          "type": "boolean",
+          "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "disasterRecoveryMethod": {
+          "type": "string",
+          "description": "HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST)."
+        },
+        "disasterRecoveryUrl": {
+          "type": "string",
+          "description": "URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL."
+        },
+        "domainName": {
+          "type": "string",
+          "description": "The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and \"-\" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio."
+        },
+        "recordingMode": {
+          "type": "string",
+          "description": "Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "recordingTrim": {
+          "type": "string",
+          "description": "Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "secure": {
+          "type": "boolean",
+          "description": "Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "transferCallerId": {
+          "type": "string",
+          "description": "Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "transferMode": {
+          "type": "string",
+          "description": "Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio."
+        }
+      },
+      "type": "object"
+    },
     "twilio:index:VerifyServiceEffective": {
       "properties": {
         "codeLength": {
@@ -588,7 +633,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
         },
         "totpSkew": {
           "type": "integer",
@@ -2792,6 +2837,316 @@
         "friendlyName"
       ]
     },
+    "twilio:index:Trunk": {
+      "description": "A Twilio Elastic SIP Trunk. Attach origination URLs with TrunkOriginationUrl, credential lists with TrunkCredentialList and IP access control lists with TrunkIpAccessControlList. Attach phone numbers with the trunkSid input of IncomingPhoneNumber.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the trunk."
+        },
+        "authType": {
+          "type": "string",
+          "description": "The authentication types of the trunk, IP_ACL and CREDENTIAL_LIST (comma-delimited when both). Set by TrunkIpAccessControlList and TrunkCredentialList."
+        },
+        "cnamLookupEnabled": {
+          "type": "boolean",
+          "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the trunk was created (RFC 2822)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the trunk was last updated (RFC 2822)."
+        },
+        "disasterRecoveryMethod": {
+          "type": "string",
+          "description": "HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST)."
+        },
+        "disasterRecoveryUrl": {
+          "type": "string",
+          "description": "URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL."
+        },
+        "domainName": {
+          "type": "string",
+          "description": "The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and \"-\" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio."
+        },
+        "effective": {
+          "$ref": "#/types/twilio:index:TrunkEffective",
+          "description": "The configuration Twilio currently reports for the trunk, including the domain name Twilio assigned and settings the program did not set."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio."
+        },
+        "recordingMode": {
+          "type": "string",
+          "description": "Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "recordingTrim": {
+          "type": "string",
+          "description": "Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "secure": {
+          "type": "boolean",
+          "description": "Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The trunk SID (TK...)."
+        },
+        "transferCallerId": {
+          "type": "string",
+          "description": "Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "transferMode": {
+          "type": "string",
+          "description": "Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio."
+        }
+      },
+      "required": [
+        "sid",
+        "accountSid",
+        "authType",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "cnamLookupEnabled": {
+          "type": "boolean",
+          "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "disasterRecoveryMethod": {
+          "type": "string",
+          "description": "HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST)."
+        },
+        "disasterRecoveryUrl": {
+          "type": "string",
+          "description": "URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL."
+        },
+        "domainName": {
+          "type": "string",
+          "description": "The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and \"-\" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio."
+        },
+        "recordingMode": {
+          "type": "string",
+          "description": "Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "recordingTrim": {
+          "type": "string",
+          "description": "Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "secure": {
+          "type": "boolean",
+          "description": "Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "transferCallerId": {
+          "type": "string",
+          "description": "Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio."
+        },
+        "transferMode": {
+          "type": "string",
+          "description": "Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio."
+        }
+      }
+    },
+    "twilio:index:TrunkCredentialList": {
+      "description": "Attachment of a SIP credential list to an Elastic SIP trunk, so the trunk authenticates outbound calls with the list's credentials. The resource ID is <trunkSid>/<credentialListSid>.",
+      "properties": {
+        "credentialListSid": {
+          "type": "string",
+          "description": "SID (CL...) of the SIP credential list (see SipCredentialList) to attach. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the list was attached (RFC 2822)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the list was last updated (RFC 2822)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the attached list."
+        },
+        "sid": {
+          "type": "string",
+          "description": "SID of the attached list (CL...)."
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "trunkSid",
+        "credentialListSid",
+        "sid",
+        "friendlyName",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "credentialListSid": {
+          "type": "string",
+          "description": "SID (CL...) of the SIP credential list (see SipCredentialList) to attach. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "trunkSid",
+        "credentialListSid"
+      ]
+    },
+    "twilio:index:TrunkIpAccessControlList": {
+      "description": "Attachment of an IP access control list to an Elastic SIP trunk, so the trunk accepts outbound calls from the list's addresses. The resource ID is <trunkSid>/<ipAccessControlListSid>.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the list was attached (RFC 2822)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the list was last updated (RFC 2822)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the attached list."
+        },
+        "ipAccessControlListSid": {
+          "type": "string",
+          "description": "SID (AL...) of the IP access control list (see SipIpAccessControlList) to attach. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "SID of the attached list (AL...)."
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "trunkSid",
+        "ipAccessControlListSid",
+        "sid",
+        "friendlyName",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "ipAccessControlListSid": {
+          "type": "string",
+          "description": "SID (AL...) of the IP access control list (see SipIpAccessControlList) to attach. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "trunkSid",
+        "ipAccessControlListSid"
+      ]
+    },
+    "twilio:index:TrunkOriginationUrl": {
+      "description": "An origination URL of an Elastic SIP trunk. The resource ID is <trunkSid>/<sid>. Twilio accepts only a sip: URL and rejects one whose host it cannot resolve.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the URL was created (RFC 2822)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the URL was last updated (RFC 2822)."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the URL is enabled (default true)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the origination URL (up to 64 characters)."
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Relative importance of the URL, 0 to 65535 (default 10). The lowest number is the most important."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The origination URL SID (OU...)."
+        },
+        "sipUrl": {
+          "type": "string",
+          "description": "The SIP address Twilio routes origination calls to. It must use the sip: scheme (sips: is not supported)."
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Relative share of the load a URL receives among URLs of the same priority, 1 to 65535 (default 10)."
+        }
+      },
+      "required": [
+        "trunkSid",
+        "friendlyName",
+        "sipUrl",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the URL is enabled (default true)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the origination URL (up to 64 characters)."
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Relative importance of the URL, 0 to 65535 (default 10). The lowest number is the most important."
+        },
+        "sipUrl": {
+          "type": "string",
+          "description": "The SIP address Twilio routes origination calls to. It must use the sip: scheme (sips: is not supported)."
+        },
+        "trunkSid": {
+          "type": "string",
+          "description": "SID (TK...) of the trunk. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Relative share of the load a URL receives among URLs of the same priority, 1 to 65535 (default 10)."
+        }
+      },
+      "requiredInputs": [
+        "trunkSid",
+        "friendlyName",
+        "sipUrl"
+      ]
+    },
     "twilio:index:UsageTrigger": {
       "description": "A Twilio usage trigger: calls a webhook when usage in a category reaches a value. Only the callback and name can be changed in place.",
       "properties": {
@@ -3005,7 +3360,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
         },
         "totpSkew": {
           "type": "integer",
@@ -3118,7 +3473,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
         },
         "totpSkew": {
           "type": "integer",
@@ -4691,6 +5046,269 @@
         "type": "object"
       }
     },
+    "twilio:index:getTrunk": {
+      "description": "Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.",
+      "inputs": {
+        "properties": {
+          "trunkSid": {
+            "type": "string",
+            "description": "SID (TK...) of the trunk."
+          }
+        },
+        "type": "object",
+        "required": [
+          "trunkSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the trunk.",
+            "type": "string"
+          },
+          "authType": {
+            "description": "The authentication types of the trunk, IP_ACL and CREDENTIAL_LIST (comma-delimited when both).",
+            "type": "string"
+          },
+          "cnamLookupEnabled": {
+            "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.",
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "description": "When the trunk was created (RFC 2822).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the trunk was last updated (RFC 2822).",
+            "type": "string"
+          },
+          "disasterRecoveryMethod": {
+            "description": "HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).",
+            "type": "string"
+          },
+          "disasterRecoveryUrl": {
+            "description": "URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.",
+            "type": "string"
+          },
+          "domainName": {
+            "description": "The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and \"-\" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.",
+            "type": "string"
+          },
+          "recordingMode": {
+            "description": "Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.",
+            "type": "string"
+          },
+          "recordingTrim": {
+            "description": "Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.",
+            "type": "string"
+          },
+          "secure": {
+            "description": "Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.",
+            "type": "boolean"
+          },
+          "sid": {
+            "description": "The trunk SID (TK...).",
+            "type": "string"
+          },
+          "transferCallerId": {
+            "description": "Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.",
+            "type": "string"
+          },
+          "transferMode": {
+            "description": "Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "authType",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrunkCredentialList": {
+      "description": "Look up a SIP credential list attached to an Elastic SIP trunk.",
+      "inputs": {
+        "properties": {
+          "credentialListSid": {
+            "type": "string",
+            "description": "SID (CL...) of the attached list."
+          },
+          "trunkSid": {
+            "type": "string",
+            "description": "SID (TK...) of the trunk."
+          }
+        },
+        "type": "object",
+        "required": [
+          "trunkSid",
+          "credentialListSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "credentialListSid": {
+            "description": "SID of the attached list.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the list was attached (RFC 2822).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the list was last updated (RFC 2822).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Name of the attached list.",
+            "type": "string"
+          },
+          "trunkSid": {
+            "description": "SID of the trunk.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "trunkSid",
+          "credentialListSid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrunkIpAccessControlList": {
+      "description": "Look up an IP access control list attached to an Elastic SIP trunk.",
+      "inputs": {
+        "properties": {
+          "ipAccessControlListSid": {
+            "type": "string",
+            "description": "SID (AL...) of the attached list."
+          },
+          "trunkSid": {
+            "type": "string",
+            "description": "SID (TK...) of the trunk."
+          }
+        },
+        "type": "object",
+        "required": [
+          "trunkSid",
+          "ipAccessControlListSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the list was attached (RFC 2822).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the list was last updated (RFC 2822).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Name of the attached list.",
+            "type": "string"
+          },
+          "ipAccessControlListSid": {
+            "description": "SID of the attached list.",
+            "type": "string"
+          },
+          "trunkSid": {
+            "description": "SID of the trunk.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "trunkSid",
+          "ipAccessControlListSid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrunkOriginationUrl": {
+      "description": "Look up an origination URL of an Elastic SIP trunk.",
+      "inputs": {
+        "properties": {
+          "originationUrlSid": {
+            "type": "string",
+            "description": "SID (OU...) of the origination URL."
+          },
+          "trunkSid": {
+            "type": "string",
+            "description": "SID (TK...) of the trunk."
+          }
+        },
+        "type": "object",
+        "required": [
+          "trunkSid",
+          "originationUrlSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the URL was created (RFC 2822).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the URL was last updated (RFC 2822).",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Whether the URL is enabled.",
+            "type": "boolean"
+          },
+          "friendlyName": {
+            "description": "Name of the origination URL.",
+            "type": "string"
+          },
+          "originationUrlSid": {
+            "description": "SID of the origination URL.",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Relative importance of the URL; the lowest number is the most important.",
+            "type": "integer"
+          },
+          "sipUrl": {
+            "description": "The SIP address Twilio routes origination calls to.",
+            "type": "string"
+          },
+          "trunkSid": {
+            "description": "SID of the trunk.",
+            "type": "string"
+          },
+          "weight": {
+            "description": "Relative share of the load among URLs of the same priority.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "trunkSid",
+          "originationUrlSid",
+          "friendlyName",
+          "sipUrl",
+          "weight",
+          "priority",
+          "enabled",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getUsageTrigger": {
       "description": "Look up a Twilio usage trigger by SID.",
       "inputs": {
@@ -4877,7 +5495,7 @@
             "type": "integer"
           },
           "totpIssuer": {
-            "description": "Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.",
+            "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.",
             "type": "string"
           },
           "totpSkew": {

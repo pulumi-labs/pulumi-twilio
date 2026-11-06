@@ -37,6 +37,20 @@ public class Application extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.accountSid);
     }
     /**
+     * Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> apiVersion;
+
+    /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Output<Optional<String>> apiVersion() {
+        return Codegen.optional(this.apiVersion);
+    }
+    /**
      * The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
      * 
      */
@@ -91,6 +105,20 @@ public class Application extends com.pulumi.resources.CustomResource {
      */
     public Output<String> ownerAccountSid() {
         return this.ownerAccountSid;
+    }
+    /**
+     * Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    @Export(name="publicApplicationConnectEnabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> publicApplicationConnectEnabled;
+
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    public Output<Optional<Boolean>> publicApplicationConnectEnabled() {
+        return Codegen.optional(this.publicApplicationConnectEnabled);
     }
     /**
      * The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.

@@ -1,10 +1,10 @@
 ---
 title: Twilio Provider
-meta_desc: Manage Twilio subaccounts, API keys, phone-number routing, TwiML applications, messaging services and Verify services with Pulumi.
+meta_desc: Manage Twilio subaccounts, API keys, signing keys, phone-number routing, TwiML applications, addresses, call queues, usage triggers, SIP credential lists, IP access control lists and domains, messaging services and Verify services with Pulumi.
 layout: package
 ---
 
-An experimental Pulumi provider for [Twilio](https://www.twilio.com). It manages the account-level building blocks of a Twilio estate as infrastructure: subaccounts, API keys, phone-number routing, TwiML applications, messaging services and Verify services.
+An experimental Pulumi provider for [Twilio](https://www.twilio.com). It manages the account-level building blocks of a Twilio estate as infrastructure: subaccounts, API keys, signing keys, phone-number routing, TwiML applications, addresses, call queues, usage triggers, SIP credential lists, IP access control lists and domains, messaging services and Verify services.
 
 ## Installation
 

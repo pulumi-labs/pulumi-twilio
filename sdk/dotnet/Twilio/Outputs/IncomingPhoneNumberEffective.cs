@@ -19,9 +19,33 @@ namespace Pulumi.Labs.Twilio.Outputs
         /// </summary>
         public readonly string? AccountSid;
         /// <summary>
+        /// SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+        /// </summary>
+        public readonly string? AddressSid;
+        /// <summary>
+        /// Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        public readonly string? ApiVersion;
+        /// <summary>
+        /// SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+        /// </summary>
+        public readonly string? BundleSid;
+        /// <summary>
+        /// SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+        /// </summary>
+        public readonly string? EmergencyAddressSid;
+        /// <summary>
+        /// Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+        /// </summary>
+        public readonly string? EmergencyStatus;
+        /// <summary>
         /// Human-readable label for the number.
         /// </summary>
         public readonly string? FriendlyName;
+        /// <summary>
+        /// SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+        /// </summary>
+        public readonly string? IdentitySid;
         /// <summary>
         /// The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
         /// </summary>
@@ -59,6 +83,10 @@ namespace Pulumi.Labs.Twilio.Outputs
         /// </summary>
         public readonly string? StatusCallbackMethod;
         /// <summary>
+        /// SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+        /// </summary>
+        public readonly string? TrunkSid;
+        /// <summary>
         /// SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
         /// </summary>
         public readonly string? VoiceApplicationSid;
@@ -79,6 +107,10 @@ namespace Pulumi.Labs.Twilio.Outputs
         /// </summary>
         public readonly string? VoiceMethod;
         /// <summary>
+        /// Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+        /// </summary>
+        public readonly string? VoiceReceiveMode;
+        /// <summary>
         /// URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         /// </summary>
         public readonly string? VoiceUrl;
@@ -87,7 +119,19 @@ namespace Pulumi.Labs.Twilio.Outputs
         private IncomingPhoneNumberEffective(
             string? accountSid,
 
+            string? addressSid,
+
+            string? apiVersion,
+
+            string? bundleSid,
+
+            string? emergencyAddressSid,
+
+            string? emergencyStatus,
+
             string? friendlyName,
+
+            string? identitySid,
 
             string? phoneNumber,
 
@@ -107,6 +151,8 @@ namespace Pulumi.Labs.Twilio.Outputs
 
             string? statusCallbackMethod,
 
+            string? trunkSid,
+
             string? voiceApplicationSid,
 
             bool? voiceCallerIdLookup,
@@ -117,10 +163,18 @@ namespace Pulumi.Labs.Twilio.Outputs
 
             string? voiceMethod,
 
+            string? voiceReceiveMode,
+
             string? voiceUrl)
         {
             AccountSid = accountSid;
+            AddressSid = addressSid;
+            ApiVersion = apiVersion;
+            BundleSid = bundleSid;
+            EmergencyAddressSid = emergencyAddressSid;
+            EmergencyStatus = emergencyStatus;
             FriendlyName = friendlyName;
+            IdentitySid = identitySid;
             PhoneNumber = phoneNumber;
             PhoneNumberSid = phoneNumberSid;
             SmsApplicationSid = smsApplicationSid;
@@ -130,11 +184,13 @@ namespace Pulumi.Labs.Twilio.Outputs
             SmsUrl = smsUrl;
             StatusCallback = statusCallback;
             StatusCallbackMethod = statusCallbackMethod;
+            TrunkSid = trunkSid;
             VoiceApplicationSid = voiceApplicationSid;
             VoiceCallerIdLookup = voiceCallerIdLookup;
             VoiceFallbackMethod = voiceFallbackMethod;
             VoiceFallbackUrl = voiceFallbackUrl;
             VoiceMethod = voiceMethod;
+            VoiceReceiveMode = voiceReceiveMode;
             VoiceUrl = voiceUrl;
         }
     }

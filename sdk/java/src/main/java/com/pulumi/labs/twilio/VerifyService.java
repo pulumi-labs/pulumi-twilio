@@ -13,6 +13,7 @@ import com.pulumi.labs.twilio.outputs.VerifyServiceEffective;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -49,6 +50,20 @@ public class VerifyService extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<Boolean>> customCodeEnabled() {
         return Codegen.optional(this.customCodeEnabled);
+    }
+    /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     * 
+     */
+    @Export(name="defaultTemplateSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> defaultTemplateSid;
+
+    /**
+     * @return SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     * 
+     */
+    public Output<Optional<String>> defaultTemplateSid() {
+        return Codegen.optional(this.defaultTemplateSid);
     }
     /**
      * Whether to add a do-not-share warning to the message.
@@ -121,6 +136,90 @@ public class VerifyService extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.lookupEnabled);
     }
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     * 
+     */
+    @Export(name="passkeysAuthenticatorAttachment", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> passkeysAuthenticatorAttachment;
+
+    /**
+     * @return Authenticator attachment for passkeys: platform, cross-platform or any.
+     * 
+     */
+    public Output<Optional<String>> passkeysAuthenticatorAttachment() {
+        return Codegen.optional(this.passkeysAuthenticatorAttachment);
+    }
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     * 
+     */
+    @Export(name="passkeysDiscoverableCredentials", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> passkeysDiscoverableCredentials;
+
+    /**
+     * @return Whether passkey credentials are discoverable: required, preferred or discouraged.
+     * 
+     */
+    public Output<Optional<String>> passkeysDiscoverableCredentials() {
+        return Codegen.optional(this.passkeysDiscoverableCredentials);
+    }
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     * 
+     */
+    @Export(name="passkeysRelyingPartyId", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> passkeysRelyingPartyId;
+
+    /**
+     * @return Passkeys relying party ID (the domain). Removing it clears the value.
+     * 
+     */
+    public Output<Optional<String>> passkeysRelyingPartyId() {
+        return Codegen.optional(this.passkeysRelyingPartyId);
+    }
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     * 
+     */
+    @Export(name="passkeysRelyingPartyName", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> passkeysRelyingPartyName;
+
+    /**
+     * @return Passkeys relying party display name. Removing it clears the value.
+     * 
+     */
+    public Output<Optional<String>> passkeysRelyingPartyName() {
+        return Codegen.optional(this.passkeysRelyingPartyName);
+    }
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     * 
+     */
+    @Export(name="passkeysRelyingPartyOrigins", refs={List.class,String.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<String>> passkeysRelyingPartyOrigins;
+
+    /**
+     * @return Origins allowed to use the passkeys relying party. Removing the list clears it.
+     * 
+     */
+    public Output<Optional<List<String>>> passkeysRelyingPartyOrigins() {
+        return Codegen.optional(this.passkeysRelyingPartyOrigins);
+    }
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     * 
+     */
+    @Export(name="passkeysUserVerification", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> passkeysUserVerification;
+
+    /**
+     * @return User verification for passkeys: required, preferred or discouraged.
+     * 
+     */
+    public Output<Optional<String>> passkeysUserVerification() {
+        return Codegen.optional(this.passkeysUserVerification);
+    }
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      * 
      */
@@ -133,6 +232,48 @@ public class VerifyService extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<Boolean>> psd2Enabled() {
         return Codegen.optional(this.psd2Enabled);
+    }
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    @Export(name="pushApnCredentialSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> pushApnCredentialSid;
+
+    /**
+     * @return SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    public Output<Optional<String>> pushApnCredentialSid() {
+        return Codegen.optional(this.pushApnCredentialSid);
+    }
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    @Export(name="pushFcmCredentialSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> pushFcmCredentialSid;
+
+    /**
+     * @return SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    public Output<Optional<String>> pushFcmCredentialSid() {
+        return Codegen.optional(this.pushFcmCredentialSid);
+    }
+    /**
+     * Whether push challenges include the date they were created.
+     * 
+     */
+    @Export(name="pushIncludeDate", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> pushIncludeDate;
+
+    /**
+     * @return Whether push challenges include the date they were created.
+     * 
+     */
+    public Output<Optional<Boolean>> pushIncludeDate() {
+        return Codegen.optional(this.pushIncludeDate);
     }
     /**
      * The Verify service SID (VA...).
@@ -163,6 +304,62 @@ public class VerifyService extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.skipSmsToLandlines);
     }
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     * 
+     */
+    @Export(name="totpCodeLength", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> totpCodeLength;
+
+    /**
+     * @return Number of digits of a TOTP code (3 to 8).
+     * 
+     */
+    public Output<Optional<Integer>> totpCodeLength() {
+        return Codegen.optional(this.totpCodeLength);
+    }
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * 
+     */
+    @Export(name="totpIssuer", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> totpIssuer;
+
+    /**
+     * @return Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * 
+     */
+    public Output<Optional<String>> totpIssuer() {
+        return Codegen.optional(this.totpIssuer);
+    }
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     * 
+     */
+    @Export(name="totpSkew", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> totpSkew;
+
+    /**
+     * @return Number of time steps before and after the current one in which a TOTP code is accepted.
+     * 
+     */
+    public Output<Optional<Integer>> totpSkew() {
+        return Codegen.optional(this.totpSkew);
+    }
+    /**
+     * Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+     * 
+     */
+    @Export(name="totpTimeStep", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> totpTimeStep;
+
+    /**
+     * @return Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+     * 
+     */
+    public Output<Optional<Integer>> totpTimeStep() {
+        return Codegen.optional(this.totpTimeStep);
+    }
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      * 
      */
@@ -175,6 +372,48 @@ public class VerifyService extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> ttsName() {
         return Codegen.optional(this.ttsName);
+    }
+    /**
+     * Whether Verify events are sent to the service&#39;s event subscriptions.
+     * 
+     */
+    @Export(name="verifyEventSubscriptionEnabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> verifyEventSubscriptionEnabled;
+
+    /**
+     * @return Whether Verify events are sent to the service&#39;s event subscriptions.
+     * 
+     */
+    public Output<Optional<Boolean>> verifyEventSubscriptionEnabled() {
+        return Codegen.optional(this.verifyEventSubscriptionEnabled);
+    }
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     * 
+     */
+    @Export(name="whatsappFrom", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> whatsappFrom;
+
+    /**
+     * @return WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     * 
+     */
+    public Output<Optional<String>> whatsappFrom() {
+        return Codegen.optional(this.whatsappFrom);
+    }
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     * 
+     */
+    @Export(name="whatsappMsgServiceSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> whatsappMsgServiceSid;
+
+    /**
+     * @return SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     * 
+     */
+    public Output<Optional<String>> whatsappMsgServiceSid() {
+        return Codegen.optional(this.whatsappMsgServiceSid);
     }
 
     /**

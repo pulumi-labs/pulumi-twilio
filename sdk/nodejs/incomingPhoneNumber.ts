@@ -41,13 +41,37 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
      */
     declare public readonly accountSid: pulumi.Output<string | undefined>;
     /**
+     * SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     */
+    declare public readonly addressSid: pulumi.Output<string | undefined>;
+    /**
+     * Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    declare public readonly apiVersion: pulumi.Output<string | undefined>;
+    /**
+     * SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     */
+    declare public readonly bundleSid: pulumi.Output<string | undefined>;
+    /**
      * The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
      */
     declare public /*out*/ readonly effective: pulumi.Output<outputs.IncomingPhoneNumberEffective | undefined>;
     /**
+     * SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     */
+    declare public readonly emergencyAddressSid: pulumi.Output<string | undefined>;
+    /**
+     * Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     */
+    declare public readonly emergencyStatus: pulumi.Output<string | undefined>;
+    /**
      * Human-readable label for the number.
      */
     declare public readonly friendlyName: pulumi.Output<string | undefined>;
+    /**
+     * SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     */
+    declare public readonly identitySid: pulumi.Output<string | undefined>;
     /**
      * The phone number in E.164 format.
      */
@@ -97,6 +121,10 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
      */
     declare public readonly statusCallbackMethod: pulumi.Output<string | undefined>;
     /**
+     * SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     */
+    declare public readonly trunkSid: pulumi.Output<string | undefined>;
+    /**
      * SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      */
     declare public readonly voiceApplicationSid: pulumi.Output<string | undefined>;
@@ -117,6 +145,10 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
      */
     declare public readonly voiceMethod: pulumi.Output<string | undefined>;
     /**
+     * Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     */
+    declare public readonly voiceReceiveMode: pulumi.Output<string | undefined>;
+    /**
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
      */
     declare public readonly voiceUrl: pulumi.Output<string | undefined>;
@@ -133,7 +165,13 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["accountSid"] = args?.accountSid;
+            resourceInputs["addressSid"] = args?.addressSid;
+            resourceInputs["apiVersion"] = args?.apiVersion;
+            resourceInputs["bundleSid"] = args?.bundleSid;
+            resourceInputs["emergencyAddressSid"] = args?.emergencyAddressSid;
+            resourceInputs["emergencyStatus"] = args?.emergencyStatus;
             resourceInputs["friendlyName"] = args?.friendlyName;
+            resourceInputs["identitySid"] = args?.identitySid;
             resourceInputs["phoneNumber"] = args?.phoneNumber;
             resourceInputs["phoneNumberSid"] = args?.phoneNumberSid;
             resourceInputs["smsApplicationSid"] = args?.smsApplicationSid;
@@ -143,11 +181,13 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
             resourceInputs["smsUrl"] = args?.smsUrl;
             resourceInputs["statusCallback"] = args?.statusCallback;
             resourceInputs["statusCallbackMethod"] = args?.statusCallbackMethod;
+            resourceInputs["trunkSid"] = args?.trunkSid;
             resourceInputs["voiceApplicationSid"] = args?.voiceApplicationSid;
             resourceInputs["voiceCallerIdLookup"] = args?.voiceCallerIdLookup;
             resourceInputs["voiceFallbackMethod"] = args?.voiceFallbackMethod;
             resourceInputs["voiceFallbackUrl"] = args?.voiceFallbackUrl;
             resourceInputs["voiceMethod"] = args?.voiceMethod;
+            resourceInputs["voiceReceiveMode"] = args?.voiceReceiveMode;
             resourceInputs["voiceUrl"] = args?.voiceUrl;
             resourceInputs["effective"] = undefined /*out*/;
             resourceInputs["number"] = undefined /*out*/;
@@ -155,8 +195,14 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
             resourceInputs["sid"] = undefined /*out*/;
         } else {
             resourceInputs["accountSid"] = undefined /*out*/;
+            resourceInputs["addressSid"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["bundleSid"] = undefined /*out*/;
             resourceInputs["effective"] = undefined /*out*/;
+            resourceInputs["emergencyAddressSid"] = undefined /*out*/;
+            resourceInputs["emergencyStatus"] = undefined /*out*/;
             resourceInputs["friendlyName"] = undefined /*out*/;
+            resourceInputs["identitySid"] = undefined /*out*/;
             resourceInputs["number"] = undefined /*out*/;
             resourceInputs["ownerAccountSid"] = undefined /*out*/;
             resourceInputs["phoneNumber"] = undefined /*out*/;
@@ -169,11 +215,13 @@ export class IncomingPhoneNumber extends pulumi.CustomResource {
             resourceInputs["smsUrl"] = undefined /*out*/;
             resourceInputs["statusCallback"] = undefined /*out*/;
             resourceInputs["statusCallbackMethod"] = undefined /*out*/;
+            resourceInputs["trunkSid"] = undefined /*out*/;
             resourceInputs["voiceApplicationSid"] = undefined /*out*/;
             resourceInputs["voiceCallerIdLookup"] = undefined /*out*/;
             resourceInputs["voiceFallbackMethod"] = undefined /*out*/;
             resourceInputs["voiceFallbackUrl"] = undefined /*out*/;
             resourceInputs["voiceMethod"] = undefined /*out*/;
+            resourceInputs["voiceReceiveMode"] = undefined /*out*/;
             resourceInputs["voiceUrl"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -192,9 +240,33 @@ export interface IncomingPhoneNumberArgs {
      */
     accountSid?: pulumi.Input<string | undefined>;
     /**
+     * SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     */
+    addressSid?: pulumi.Input<string | undefined>;
+    /**
+     * Twilio API version used for requests to the number's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     */
+    apiVersion?: pulumi.Input<string | undefined>;
+    /**
+     * SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     */
+    bundleSid?: pulumi.Input<string | undefined>;
+    /**
+     * SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     */
+    emergencyAddressSid?: pulumi.Input<string | undefined>;
+    /**
+     * Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     */
+    emergencyStatus?: pulumi.Input<string | undefined>;
+    /**
      * Human-readable label for the number.
      */
     friendlyName?: pulumi.Input<string | undefined>;
+    /**
+     * SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     */
+    identitySid?: pulumi.Input<string | undefined>;
     /**
      * The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
      */
@@ -232,6 +304,10 @@ export interface IncomingPhoneNumberArgs {
      */
     statusCallbackMethod?: pulumi.Input<string | undefined>;
     /**
+     * SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     */
+    trunkSid?: pulumi.Input<string | undefined>;
+    /**
      * SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      */
     voiceApplicationSid?: pulumi.Input<string | undefined>;
@@ -251,6 +327,10 @@ export interface IncomingPhoneNumberArgs {
      * HTTP method for voiceUrl: GET or POST.
      */
     voiceMethod?: pulumi.Input<string | undefined>;
+    /**
+     * Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     */
+    voiceReceiveMode?: pulumi.Input<string | undefined>;
     /**
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
      */

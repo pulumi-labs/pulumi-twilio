@@ -41,7 +41,7 @@ namespace Pulumi.Labs.Twilio
         public Output<string?> KeyType { get; private set; } = null!;
 
         /// <summary>
-        /// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        /// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         /// </summary>
         [Output("policy")]
         public Output<string?> Policy { get; private set; } = null!;
@@ -132,7 +132,7 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? KeyType { get; set; }
 
         /// <summary>
-        /// JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        /// JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/&lt;product&gt;/&lt;resource&gt;/&lt;action&gt;; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         /// </summary>
         [Input("policy")]
         public Input<string>? Policy { get; set; }

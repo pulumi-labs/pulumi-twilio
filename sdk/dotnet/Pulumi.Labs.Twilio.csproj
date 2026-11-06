@@ -4,7 +4,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Pulumi Labs</Authors>
     <Company>Pulumi Labs</Company>
-    <Description>Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as infrastructure with Pulumi.</Description>
+    <Description>Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.twilio.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pulumi-labs/pulumi-twilio</RepositoryUrl>

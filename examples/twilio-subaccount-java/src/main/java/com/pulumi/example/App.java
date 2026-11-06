@@ -31,7 +31,7 @@ public class App {
             .friendlyName("pulumi-ci")
             .accountSid(tenant.sid())
             .keyType("restricted")
-            .policy("{\"allow\":[\"/v2/Services/**\"]}")
+            .policy("{\"allow\":[\"/twilio/iam/api-keys/create\"]}")
             .build());
 
         var verify = new VerifyService("verify", VerifyServiceArgs.builder()

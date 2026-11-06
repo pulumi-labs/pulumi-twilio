@@ -81,6 +81,10 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         public readonly string? AccountSid;
         /// <summary>
+        /// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        public readonly string? ApiVersion;
+        /// <summary>
         /// Human-readable name of the application (up to 64 characters).
         /// </summary>
         public readonly string FriendlyName;
@@ -92,6 +96,10 @@ namespace Pulumi.Labs.Twilio
         /// SID of the account that owns the application.
         /// </summary>
         public readonly string OwnerAccountSid;
+        /// <summary>
+        /// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        /// </summary>
+        public readonly bool? PublicApplicationConnectEnabled;
         /// <summary>
         /// The application SID (AP...).
         /// </summary>
@@ -149,11 +157,15 @@ namespace Pulumi.Labs.Twilio
         private GetApplicationResult(
             string? accountSid,
 
+            string? apiVersion,
+
             string friendlyName,
 
             string? messageStatusCallback,
 
             string ownerAccountSid,
+
+            bool? publicApplicationConnectEnabled,
 
             string sid,
 
@@ -182,9 +194,11 @@ namespace Pulumi.Labs.Twilio
             string? voiceUrl)
         {
             AccountSid = accountSid;
+            ApiVersion = apiVersion;
             FriendlyName = friendlyName;
             MessageStatusCallback = messageStatusCallback;
             OwnerAccountSid = ownerAccountSid;
+            PublicApplicationConnectEnabled = publicApplicationConnectEnabled;
             Sid = sid;
             SmsFallbackMethod = smsFallbackMethod;
             SmsFallbackUrl = smsFallbackUrl;

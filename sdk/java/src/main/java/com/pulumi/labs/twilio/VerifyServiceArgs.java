@@ -9,6 +9,7 @@ import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -46,6 +47,21 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Boolean>> customCodeEnabled() {
         return Optional.ofNullable(this.customCodeEnabled);
+    }
+
+    /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     * 
+     */
+    @Import(name="defaultTemplateSid")
+    private @Nullable Output<String> defaultTemplateSid;
+
+    /**
+     * @return SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     * 
+     */
+    public Optional<Output<String>> defaultTemplateSid() {
+        return Optional.ofNullable(this.defaultTemplateSid);
     }
 
     /**
@@ -109,6 +125,96 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     * 
+     */
+    @Import(name="passkeysAuthenticatorAttachment")
+    private @Nullable Output<String> passkeysAuthenticatorAttachment;
+
+    /**
+     * @return Authenticator attachment for passkeys: platform, cross-platform or any.
+     * 
+     */
+    public Optional<Output<String>> passkeysAuthenticatorAttachment() {
+        return Optional.ofNullable(this.passkeysAuthenticatorAttachment);
+    }
+
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     * 
+     */
+    @Import(name="passkeysDiscoverableCredentials")
+    private @Nullable Output<String> passkeysDiscoverableCredentials;
+
+    /**
+     * @return Whether passkey credentials are discoverable: required, preferred or discouraged.
+     * 
+     */
+    public Optional<Output<String>> passkeysDiscoverableCredentials() {
+        return Optional.ofNullable(this.passkeysDiscoverableCredentials);
+    }
+
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     * 
+     */
+    @Import(name="passkeysRelyingPartyId")
+    private @Nullable Output<String> passkeysRelyingPartyId;
+
+    /**
+     * @return Passkeys relying party ID (the domain). Removing it clears the value.
+     * 
+     */
+    public Optional<Output<String>> passkeysRelyingPartyId() {
+        return Optional.ofNullable(this.passkeysRelyingPartyId);
+    }
+
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     * 
+     */
+    @Import(name="passkeysRelyingPartyName")
+    private @Nullable Output<String> passkeysRelyingPartyName;
+
+    /**
+     * @return Passkeys relying party display name. Removing it clears the value.
+     * 
+     */
+    public Optional<Output<String>> passkeysRelyingPartyName() {
+        return Optional.ofNullable(this.passkeysRelyingPartyName);
+    }
+
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     * 
+     */
+    @Import(name="passkeysRelyingPartyOrigins")
+    private @Nullable Output<List<String>> passkeysRelyingPartyOrigins;
+
+    /**
+     * @return Origins allowed to use the passkeys relying party. Removing the list clears it.
+     * 
+     */
+    public Optional<Output<List<String>>> passkeysRelyingPartyOrigins() {
+        return Optional.ofNullable(this.passkeysRelyingPartyOrigins);
+    }
+
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     * 
+     */
+    @Import(name="passkeysUserVerification")
+    private @Nullable Output<String> passkeysUserVerification;
+
+    /**
+     * @return User verification for passkeys: required, preferred or discouraged.
+     * 
+     */
+    public Optional<Output<String>> passkeysUserVerification() {
+        return Optional.ofNullable(this.passkeysUserVerification);
+    }
+
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      * 
      */
@@ -121,6 +227,51 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Boolean>> psd2Enabled() {
         return Optional.ofNullable(this.psd2Enabled);
+    }
+
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    @Import(name="pushApnCredentialSid")
+    private @Nullable Output<String> pushApnCredentialSid;
+
+    /**
+     * @return SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    public Optional<Output<String>> pushApnCredentialSid() {
+        return Optional.ofNullable(this.pushApnCredentialSid);
+    }
+
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    @Import(name="pushFcmCredentialSid")
+    private @Nullable Output<String> pushFcmCredentialSid;
+
+    /**
+     * @return SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     * 
+     */
+    public Optional<Output<String>> pushFcmCredentialSid() {
+        return Optional.ofNullable(this.pushFcmCredentialSid);
+    }
+
+    /**
+     * Whether push challenges include the date they were created.
+     * 
+     */
+    @Import(name="pushIncludeDate")
+    private @Nullable Output<Boolean> pushIncludeDate;
+
+    /**
+     * @return Whether push challenges include the date they were created.
+     * 
+     */
+    public Optional<Output<Boolean>> pushIncludeDate() {
+        return Optional.ofNullable(this.pushIncludeDate);
     }
 
     /**
@@ -139,6 +290,66 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     * 
+     */
+    @Import(name="totpCodeLength")
+    private @Nullable Output<Integer> totpCodeLength;
+
+    /**
+     * @return Number of digits of a TOTP code (3 to 8).
+     * 
+     */
+    public Optional<Output<Integer>> totpCodeLength() {
+        return Optional.ofNullable(this.totpCodeLength);
+    }
+
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * 
+     */
+    @Import(name="totpIssuer")
+    private @Nullable Output<String> totpIssuer;
+
+    /**
+     * @return Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * 
+     */
+    public Optional<Output<String>> totpIssuer() {
+        return Optional.ofNullable(this.totpIssuer);
+    }
+
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     * 
+     */
+    @Import(name="totpSkew")
+    private @Nullable Output<Integer> totpSkew;
+
+    /**
+     * @return Number of time steps before and after the current one in which a TOTP code is accepted.
+     * 
+     */
+    public Optional<Output<Integer>> totpSkew() {
+        return Optional.ofNullable(this.totpSkew);
+    }
+
+    /**
+     * Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+     * 
+     */
+    @Import(name="totpTimeStep")
+    private @Nullable Output<Integer> totpTimeStep;
+
+    /**
+     * @return Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+     * 
+     */
+    public Optional<Output<Integer>> totpTimeStep() {
+        return Optional.ofNullable(this.totpTimeStep);
+    }
+
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      * 
      */
@@ -153,18 +364,80 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.ttsName);
     }
 
+    /**
+     * Whether Verify events are sent to the service&#39;s event subscriptions.
+     * 
+     */
+    @Import(name="verifyEventSubscriptionEnabled")
+    private @Nullable Output<Boolean> verifyEventSubscriptionEnabled;
+
+    /**
+     * @return Whether Verify events are sent to the service&#39;s event subscriptions.
+     * 
+     */
+    public Optional<Output<Boolean>> verifyEventSubscriptionEnabled() {
+        return Optional.ofNullable(this.verifyEventSubscriptionEnabled);
+    }
+
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     * 
+     */
+    @Import(name="whatsappFrom")
+    private @Nullable Output<String> whatsappFrom;
+
+    /**
+     * @return WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     * 
+     */
+    public Optional<Output<String>> whatsappFrom() {
+        return Optional.ofNullable(this.whatsappFrom);
+    }
+
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     * 
+     */
+    @Import(name="whatsappMsgServiceSid")
+    private @Nullable Output<String> whatsappMsgServiceSid;
+
+    /**
+     * @return SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     * 
+     */
+    public Optional<Output<String>> whatsappMsgServiceSid() {
+        return Optional.ofNullable(this.whatsappMsgServiceSid);
+    }
+
     private VerifyServiceArgs() {}
 
     private VerifyServiceArgs(VerifyServiceArgs $) {
         this.codeLength = $.codeLength;
         this.customCodeEnabled = $.customCodeEnabled;
+        this.defaultTemplateSid = $.defaultTemplateSid;
         this.doNotShareWarningEnabled = $.doNotShareWarningEnabled;
         this.dtmfInputRequired = $.dtmfInputRequired;
         this.friendlyName = $.friendlyName;
         this.lookupEnabled = $.lookupEnabled;
+        this.passkeysAuthenticatorAttachment = $.passkeysAuthenticatorAttachment;
+        this.passkeysDiscoverableCredentials = $.passkeysDiscoverableCredentials;
+        this.passkeysRelyingPartyId = $.passkeysRelyingPartyId;
+        this.passkeysRelyingPartyName = $.passkeysRelyingPartyName;
+        this.passkeysRelyingPartyOrigins = $.passkeysRelyingPartyOrigins;
+        this.passkeysUserVerification = $.passkeysUserVerification;
         this.psd2Enabled = $.psd2Enabled;
+        this.pushApnCredentialSid = $.pushApnCredentialSid;
+        this.pushFcmCredentialSid = $.pushFcmCredentialSid;
+        this.pushIncludeDate = $.pushIncludeDate;
         this.skipSmsToLandlines = $.skipSmsToLandlines;
+        this.totpCodeLength = $.totpCodeLength;
+        this.totpIssuer = $.totpIssuer;
+        this.totpSkew = $.totpSkew;
+        this.totpTimeStep = $.totpTimeStep;
         this.ttsName = $.ttsName;
+        this.verifyEventSubscriptionEnabled = $.verifyEventSubscriptionEnabled;
+        this.whatsappFrom = $.whatsappFrom;
+        this.whatsappMsgServiceSid = $.whatsappMsgServiceSid;
     }
 
     public static Builder builder() {
@@ -225,6 +498,27 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder customCodeEnabled(Boolean customCodeEnabled) {
             return customCodeEnabled(Output.of(customCodeEnabled));
+        }
+
+        /**
+         * @param defaultTemplateSid SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultTemplateSid(@Nullable Output<String> defaultTemplateSid) {
+            $.defaultTemplateSid = defaultTemplateSid;
+            return this;
+        }
+
+        /**
+         * @param defaultTemplateSid SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultTemplateSid(String defaultTemplateSid) {
+            return defaultTemplateSid(Output.of(defaultTemplateSid));
         }
 
         /**
@@ -312,6 +606,142 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param passkeysAuthenticatorAttachment Authenticator attachment for passkeys: platform, cross-platform or any.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysAuthenticatorAttachment(@Nullable Output<String> passkeysAuthenticatorAttachment) {
+            $.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+            return this;
+        }
+
+        /**
+         * @param passkeysAuthenticatorAttachment Authenticator attachment for passkeys: platform, cross-platform or any.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysAuthenticatorAttachment(String passkeysAuthenticatorAttachment) {
+            return passkeysAuthenticatorAttachment(Output.of(passkeysAuthenticatorAttachment));
+        }
+
+        /**
+         * @param passkeysDiscoverableCredentials Whether passkey credentials are discoverable: required, preferred or discouraged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysDiscoverableCredentials(@Nullable Output<String> passkeysDiscoverableCredentials) {
+            $.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+            return this;
+        }
+
+        /**
+         * @param passkeysDiscoverableCredentials Whether passkey credentials are discoverable: required, preferred or discouraged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysDiscoverableCredentials(String passkeysDiscoverableCredentials) {
+            return passkeysDiscoverableCredentials(Output.of(passkeysDiscoverableCredentials));
+        }
+
+        /**
+         * @param passkeysRelyingPartyId Passkeys relying party ID (the domain). Removing it clears the value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyId(@Nullable Output<String> passkeysRelyingPartyId) {
+            $.passkeysRelyingPartyId = passkeysRelyingPartyId;
+            return this;
+        }
+
+        /**
+         * @param passkeysRelyingPartyId Passkeys relying party ID (the domain). Removing it clears the value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyId(String passkeysRelyingPartyId) {
+            return passkeysRelyingPartyId(Output.of(passkeysRelyingPartyId));
+        }
+
+        /**
+         * @param passkeysRelyingPartyName Passkeys relying party display name. Removing it clears the value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyName(@Nullable Output<String> passkeysRelyingPartyName) {
+            $.passkeysRelyingPartyName = passkeysRelyingPartyName;
+            return this;
+        }
+
+        /**
+         * @param passkeysRelyingPartyName Passkeys relying party display name. Removing it clears the value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyName(String passkeysRelyingPartyName) {
+            return passkeysRelyingPartyName(Output.of(passkeysRelyingPartyName));
+        }
+
+        /**
+         * @param passkeysRelyingPartyOrigins Origins allowed to use the passkeys relying party. Removing the list clears it.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyOrigins(@Nullable Output<List<String>> passkeysRelyingPartyOrigins) {
+            $.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
+            return this;
+        }
+
+        /**
+         * @param passkeysRelyingPartyOrigins Origins allowed to use the passkeys relying party. Removing the list clears it.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyOrigins(List<String> passkeysRelyingPartyOrigins) {
+            return passkeysRelyingPartyOrigins(Output.of(passkeysRelyingPartyOrigins));
+        }
+
+        /**
+         * @param passkeysRelyingPartyOrigins Origins allowed to use the passkeys relying party. Removing the list clears it.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysRelyingPartyOrigins(String... passkeysRelyingPartyOrigins) {
+            return passkeysRelyingPartyOrigins(List.of(passkeysRelyingPartyOrigins));
+        }
+
+        /**
+         * @param passkeysUserVerification User verification for passkeys: required, preferred or discouraged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysUserVerification(@Nullable Output<String> passkeysUserVerification) {
+            $.passkeysUserVerification = passkeysUserVerification;
+            return this;
+        }
+
+        /**
+         * @param passkeysUserVerification User verification for passkeys: required, preferred or discouraged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder passkeysUserVerification(String passkeysUserVerification) {
+            return passkeysUserVerification(Output.of(passkeysUserVerification));
+        }
+
+        /**
          * @param psd2Enabled Whether PSD2 dynamic-linking (payee and amount) is required.
          * 
          * @return builder
@@ -330,6 +760,69 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder psd2Enabled(Boolean psd2Enabled) {
             return psd2Enabled(Output.of(psd2Enabled));
+        }
+
+        /**
+         * @param pushApnCredentialSid SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushApnCredentialSid(@Nullable Output<String> pushApnCredentialSid) {
+            $.pushApnCredentialSid = pushApnCredentialSid;
+            return this;
+        }
+
+        /**
+         * @param pushApnCredentialSid SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushApnCredentialSid(String pushApnCredentialSid) {
+            return pushApnCredentialSid(Output.of(pushApnCredentialSid));
+        }
+
+        /**
+         * @param pushFcmCredentialSid SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushFcmCredentialSid(@Nullable Output<String> pushFcmCredentialSid) {
+            $.pushFcmCredentialSid = pushFcmCredentialSid;
+            return this;
+        }
+
+        /**
+         * @param pushFcmCredentialSid SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushFcmCredentialSid(String pushFcmCredentialSid) {
+            return pushFcmCredentialSid(Output.of(pushFcmCredentialSid));
+        }
+
+        /**
+         * @param pushIncludeDate Whether push challenges include the date they were created.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushIncludeDate(@Nullable Output<Boolean> pushIncludeDate) {
+            $.pushIncludeDate = pushIncludeDate;
+            return this;
+        }
+
+        /**
+         * @param pushIncludeDate Whether push challenges include the date they were created.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder pushIncludeDate(Boolean pushIncludeDate) {
+            return pushIncludeDate(Output.of(pushIncludeDate));
         }
 
         /**
@@ -354,6 +847,90 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param totpCodeLength Number of digits of a TOTP code (3 to 8).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpCodeLength(@Nullable Output<Integer> totpCodeLength) {
+            $.totpCodeLength = totpCodeLength;
+            return this;
+        }
+
+        /**
+         * @param totpCodeLength Number of digits of a TOTP code (3 to 8).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpCodeLength(Integer totpCodeLength) {
+            return totpCodeLength(Output.of(totpCodeLength));
+        }
+
+        /**
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpIssuer(@Nullable Output<String> totpIssuer) {
+            $.totpIssuer = totpIssuer;
+            return this;
+        }
+
+        /**
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpIssuer(String totpIssuer) {
+            return totpIssuer(Output.of(totpIssuer));
+        }
+
+        /**
+         * @param totpSkew Number of time steps before and after the current one in which a TOTP code is accepted.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpSkew(@Nullable Output<Integer> totpSkew) {
+            $.totpSkew = totpSkew;
+            return this;
+        }
+
+        /**
+         * @param totpSkew Number of time steps before and after the current one in which a TOTP code is accepted.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpSkew(Integer totpSkew) {
+            return totpSkew(Output.of(totpSkew));
+        }
+
+        /**
+         * @param totpTimeStep Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpTimeStep(@Nullable Output<Integer> totpTimeStep) {
+            $.totpTimeStep = totpTimeStep;
+            return this;
+        }
+
+        /**
+         * @param totpTimeStep Seconds a TOTP code is valid (Twilio&#39;s totp.time_step).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder totpTimeStep(Integer totpTimeStep) {
+            return totpTimeStep(Output.of(totpTimeStep));
+        }
+
+        /**
          * @param ttsName Name spoken in voice verifications instead of friendlyName.
          * 
          * @return builder
@@ -372,6 +949,69 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ttsName(String ttsName) {
             return ttsName(Output.of(ttsName));
+        }
+
+        /**
+         * @param verifyEventSubscriptionEnabled Whether Verify events are sent to the service&#39;s event subscriptions.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verifyEventSubscriptionEnabled(@Nullable Output<Boolean> verifyEventSubscriptionEnabled) {
+            $.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+            return this;
+        }
+
+        /**
+         * @param verifyEventSubscriptionEnabled Whether Verify events are sent to the service&#39;s event subscriptions.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder verifyEventSubscriptionEnabled(Boolean verifyEventSubscriptionEnabled) {
+            return verifyEventSubscriptionEnabled(Output.of(verifyEventSubscriptionEnabled));
+        }
+
+        /**
+         * @param whatsappFrom WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder whatsappFrom(@Nullable Output<String> whatsappFrom) {
+            $.whatsappFrom = whatsappFrom;
+            return this;
+        }
+
+        /**
+         * @param whatsappFrom WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder whatsappFrom(String whatsappFrom) {
+            return whatsappFrom(Output.of(whatsappFrom));
+        }
+
+        /**
+         * @param whatsappMsgServiceSid SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder whatsappMsgServiceSid(@Nullable Output<String> whatsappMsgServiceSid) {
+            $.whatsappMsgServiceSid = whatsappMsgServiceSid;
+            return this;
+        }
+
+        /**
+         * @param whatsappMsgServiceSid SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder whatsappMsgServiceSid(String whatsappMsgServiceSid) {
+            return whatsappMsgServiceSid(Output.of(whatsappMsgServiceSid));
         }
 
         public VerifyServiceArgs build() {

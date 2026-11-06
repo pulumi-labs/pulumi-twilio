@@ -21,18 +21,50 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "twilio:index:Address":
+		r = &Address{}
 	case "twilio:index:ApiKey":
 		r = &ApiKey{}
 	case "twilio:index:Application":
 		r = &Application{}
+	case "twilio:index:ConnectApp":
+		r = &ConnectApp{}
+	case "twilio:index:EventSink":
+		r = &EventSink{}
+	case "twilio:index:EventSubscription":
+		r = &EventSubscription{}
 	case "twilio:index:IncomingPhoneNumber":
 		r = &IncomingPhoneNumber{}
 	case "twilio:index:MessagingService":
 		r = &MessagingService{}
 	case "twilio:index:MessagingServicePhoneNumber":
 		r = &MessagingServicePhoneNumber{}
+	case "twilio:index:OutgoingCallerId":
+		r = &OutgoingCallerId{}
+	case "twilio:index:Queue":
+		r = &Queue{}
+	case "twilio:index:ShortCode":
+		r = &ShortCode{}
+	case "twilio:index:SigningKey":
+		r = &SigningKey{}
+	case "twilio:index:SipCredential":
+		r = &SipCredential{}
+	case "twilio:index:SipCredentialList":
+		r = &SipCredentialList{}
+	case "twilio:index:SipDomain":
+		r = &SipDomain{}
+	case "twilio:index:SipDomainCredentialListMapping":
+		r = &SipDomainCredentialListMapping{}
+	case "twilio:index:SipDomainIpAccessControlListMapping":
+		r = &SipDomainIpAccessControlListMapping{}
+	case "twilio:index:SipIpAccessControlList":
+		r = &SipIpAccessControlList{}
+	case "twilio:index:SipIpAddress":
+		r = &SipIpAddress{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
+	case "twilio:index:UsageTrigger":
+		r = &UsageTrigger{}
 	case "twilio:index:VerifyService":
 		r = &VerifyService{}
 	default:

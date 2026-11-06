@@ -22,7 +22,9 @@ class ApplicationArgs:
     def __init__(__self__, *,
                  friendly_name: pulumi.Input[_builtins.str],
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
                  message_status_callback: Optional[pulumi.Input[_builtins.str]] = None,
+                 public_application_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  sms_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_method: Optional[pulumi.Input[_builtins.str]] = None,
@@ -40,7 +42,9 @@ class ApplicationArgs:
 
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the application (up to 64 characters).
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
+        :param pulumi.Input[_builtins.str] api_version: Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
         :param pulumi.Input[_builtins.str] message_status_callback: URL that receives status events for messages sent by this application.
+        :param pulumi.Input[_builtins.bool] public_application_connect_enabled: Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
         :param pulumi.Input[_builtins.str] sms_fallback_method: HTTP method for smsFallbackUrl: GET or POST.
         :param pulumi.Input[_builtins.str] sms_fallback_url: URL requested if smsUrl fails.
         :param pulumi.Input[_builtins.str] sms_method: HTTP method for smsUrl: GET or POST.
@@ -57,8 +61,12 @@ class ApplicationArgs:
         pulumi.set(__self__, "friendly_name", friendly_name)
         if account_sid is not None:
             pulumi.set(__self__, "account_sid", account_sid)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
         if message_status_callback is not None:
             pulumi.set(__self__, "message_status_callback", message_status_callback)
+        if public_application_connect_enabled is not None:
+            pulumi.set(__self__, "public_application_connect_enabled", public_application_connect_enabled)
         if sms_fallback_method is not None:
             pulumi.set(__self__, "sms_fallback_method", sms_fallback_method)
         if sms_fallback_url is not None:
@@ -109,6 +117,18 @@ class ApplicationArgs:
         pulumi.set(self, "account_sid", value)
 
     @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
     @pulumi.getter(name="messageStatusCallback")
     def message_status_callback(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -119,6 +139,18 @@ class ApplicationArgs:
     @message_status_callback.setter
     def message_status_callback(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "message_status_callback", value)
+
+    @_builtins.property
+    @pulumi.getter(name="publicApplicationConnectEnabled")
+    def public_application_connect_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        """
+        return pulumi.get(self, "public_application_connect_enabled")
+
+    @public_application_connect_enabled.setter
+    def public_application_connect_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "public_application_connect_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="smsFallbackMethod")
@@ -272,8 +304,10 @@ class Application(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
                  message_status_callback: Optional[pulumi.Input[_builtins.str]] = None,
+                 public_application_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  sms_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_method: Optional[pulumi.Input[_builtins.str]] = None,
@@ -294,8 +328,10 @@ class Application(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
+        :param pulumi.Input[_builtins.str] api_version: Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the application (up to 64 characters).
         :param pulumi.Input[_builtins.str] message_status_callback: URL that receives status events for messages sent by this application.
+        :param pulumi.Input[_builtins.bool] public_application_connect_enabled: Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
         :param pulumi.Input[_builtins.str] sms_fallback_method: HTTP method for smsFallbackUrl: GET or POST.
         :param pulumi.Input[_builtins.str] sms_fallback_url: URL requested if smsUrl fails.
         :param pulumi.Input[_builtins.str] sms_method: HTTP method for smsUrl: GET or POST.
@@ -335,8 +371,10 @@ class Application(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  account_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
                  message_status_callback: Optional[pulumi.Input[_builtins.str]] = None,
+                 public_application_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  sms_fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
                  sms_method: Optional[pulumi.Input[_builtins.str]] = None,
@@ -359,10 +397,12 @@ class Application(pulumi.CustomResource):
             __props__ = ApplicationArgs.__new__(ApplicationArgs)
 
             __props__.__dict__["account_sid"] = account_sid
+            __props__.__dict__["api_version"] = api_version
             if friendly_name is None and not opts.urn:
                 raise TypeError("Missing required property 'friendly_name'")
             __props__.__dict__["friendly_name"] = friendly_name
             __props__.__dict__["message_status_callback"] = message_status_callback
+            __props__.__dict__["public_application_connect_enabled"] = public_application_connect_enabled
             __props__.__dict__["sms_fallback_method"] = sms_fallback_method
             __props__.__dict__["sms_fallback_url"] = sms_fallback_url
             __props__.__dict__["sms_method"] = sms_method
@@ -403,10 +443,12 @@ class Application(pulumi.CustomResource):
         __props__ = ApplicationArgs.__new__(ApplicationArgs)
 
         __props__.__dict__["account_sid"] = None
+        __props__.__dict__["api_version"] = None
         __props__.__dict__["effective"] = None
         __props__.__dict__["friendly_name"] = None
         __props__.__dict__["message_status_callback"] = None
         __props__.__dict__["owner_account_sid"] = None
+        __props__.__dict__["public_application_connect_enabled"] = None
         __props__.__dict__["sid"] = None
         __props__.__dict__["sms_fallback_method"] = None
         __props__.__dict__["sms_fallback_url"] = None
@@ -429,6 +471,14 @@ class Application(pulumi.CustomResource):
         SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
         """
         return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        """
+        return pulumi.get(self, "api_version")
 
     @_builtins.property
     @pulumi.getter
@@ -461,6 +511,14 @@ class Application(pulumi.CustomResource):
         SID of the account that owns the application.
         """
         return pulumi.get(self, "owner_account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="publicApplicationConnectEnabled")
+    def public_application_connect_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        """
+        return pulumi.get(self, "public_application_connect_enabled")
 
     @_builtins.property
     @pulumi.getter

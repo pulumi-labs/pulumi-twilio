@@ -18,10 +18,40 @@ public final class IncomingPhoneNumberEffective {
      */
     private @Nullable String accountSid;
     /**
+     * @return SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    private @Nullable String addressSid;
+    /**
+     * @return Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    private @Nullable String apiVersion;
+    /**
+     * @return SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    private @Nullable String bundleSid;
+    /**
+     * @return SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    private @Nullable String emergencyAddressSid;
+    /**
+     * @return Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    private @Nullable String emergencyStatus;
+    /**
      * @return Human-readable label for the number.
      * 
      */
     private @Nullable String friendlyName;
+    /**
+     * @return SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    private @Nullable String identitySid;
     /**
      * @return The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
      * 
@@ -68,6 +98,11 @@ public final class IncomingPhoneNumberEffective {
      */
     private @Nullable String statusCallbackMethod;
     /**
+     * @return SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    private @Nullable String trunkSid;
+    /**
      * @return SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      * 
      */
@@ -93,6 +128,11 @@ public final class IncomingPhoneNumberEffective {
      */
     private @Nullable String voiceMethod;
     /**
+     * @return Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    private @Nullable String voiceReceiveMode;
+    /**
      * @return URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio&#39;s side.
      * 
      */
@@ -107,11 +147,53 @@ public final class IncomingPhoneNumberEffective {
         return Optional.ofNullable(this.accountSid);
     }
     /**
+     * @return SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    public Optional<String> addressSid() {
+        return Optional.ofNullable(this.addressSid);
+    }
+    /**
+     * @return Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Optional<String> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
+    }
+    /**
+     * @return SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    public Optional<String> bundleSid() {
+        return Optional.ofNullable(this.bundleSid);
+    }
+    /**
+     * @return SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    public Optional<String> emergencyAddressSid() {
+        return Optional.ofNullable(this.emergencyAddressSid);
+    }
+    /**
+     * @return Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    public Optional<String> emergencyStatus() {
+        return Optional.ofNullable(this.emergencyStatus);
+    }
+    /**
      * @return Human-readable label for the number.
      * 
      */
     public Optional<String> friendlyName() {
         return Optional.ofNullable(this.friendlyName);
+    }
+    /**
+     * @return SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    public Optional<String> identitySid() {
+        return Optional.ofNullable(this.identitySid);
     }
     /**
      * @return The owned number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or phoneNumberSid. Changing it replaces the resource (a different number is adopted).
@@ -177,6 +259,13 @@ public final class IncomingPhoneNumberEffective {
         return Optional.ofNullable(this.statusCallbackMethod);
     }
     /**
+     * @return SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    public Optional<String> trunkSid() {
+        return Optional.ofNullable(this.trunkSid);
+    }
+    /**
      * @return SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      * 
      */
@@ -212,6 +301,13 @@ public final class IncomingPhoneNumberEffective {
         return Optional.ofNullable(this.voiceMethod);
     }
     /**
+     * @return Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    public Optional<String> voiceReceiveMode() {
+        return Optional.ofNullable(this.voiceReceiveMode);
+    }
+    /**
      * @return URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio&#39;s side.
      * 
      */
@@ -229,7 +325,13 @@ public final class IncomingPhoneNumberEffective {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String accountSid;
+        private @Nullable String addressSid;
+        private @Nullable String apiVersion;
+        private @Nullable String bundleSid;
+        private @Nullable String emergencyAddressSid;
+        private @Nullable String emergencyStatus;
         private @Nullable String friendlyName;
+        private @Nullable String identitySid;
         private @Nullable String phoneNumber;
         private @Nullable String phoneNumberSid;
         private @Nullable String smsApplicationSid;
@@ -239,17 +341,25 @@ public final class IncomingPhoneNumberEffective {
         private @Nullable String smsUrl;
         private @Nullable String statusCallback;
         private @Nullable String statusCallbackMethod;
+        private @Nullable String trunkSid;
         private @Nullable String voiceApplicationSid;
         private @Nullable Boolean voiceCallerIdLookup;
         private @Nullable String voiceFallbackMethod;
         private @Nullable String voiceFallbackUrl;
         private @Nullable String voiceMethod;
+        private @Nullable String voiceReceiveMode;
         private @Nullable String voiceUrl;
         public Builder() {}
         public Builder(IncomingPhoneNumberEffective defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.accountSid = defaults.accountSid;
+    	      this.addressSid = defaults.addressSid;
+    	      this.apiVersion = defaults.apiVersion;
+    	      this.bundleSid = defaults.bundleSid;
+    	      this.emergencyAddressSid = defaults.emergencyAddressSid;
+    	      this.emergencyStatus = defaults.emergencyStatus;
     	      this.friendlyName = defaults.friendlyName;
+    	      this.identitySid = defaults.identitySid;
     	      this.phoneNumber = defaults.phoneNumber;
     	      this.phoneNumberSid = defaults.phoneNumberSid;
     	      this.smsApplicationSid = defaults.smsApplicationSid;
@@ -259,11 +369,13 @@ public final class IncomingPhoneNumberEffective {
     	      this.smsUrl = defaults.smsUrl;
     	      this.statusCallback = defaults.statusCallback;
     	      this.statusCallbackMethod = defaults.statusCallbackMethod;
+    	      this.trunkSid = defaults.trunkSid;
     	      this.voiceApplicationSid = defaults.voiceApplicationSid;
     	      this.voiceCallerIdLookup = defaults.voiceCallerIdLookup;
     	      this.voiceFallbackMethod = defaults.voiceFallbackMethod;
     	      this.voiceFallbackUrl = defaults.voiceFallbackUrl;
     	      this.voiceMethod = defaults.voiceMethod;
+    	      this.voiceReceiveMode = defaults.voiceReceiveMode;
     	      this.voiceUrl = defaults.voiceUrl;
         }
 
@@ -274,9 +386,45 @@ public final class IncomingPhoneNumberEffective {
             return this;
         }
         @CustomType.Setter
+        public Builder addressSid(@Nullable String addressSid) {
+
+            this.addressSid = addressSid;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder apiVersion(@Nullable String apiVersion) {
+
+            this.apiVersion = apiVersion;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder bundleSid(@Nullable String bundleSid) {
+
+            this.bundleSid = bundleSid;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder emergencyAddressSid(@Nullable String emergencyAddressSid) {
+
+            this.emergencyAddressSid = emergencyAddressSid;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder emergencyStatus(@Nullable String emergencyStatus) {
+
+            this.emergencyStatus = emergencyStatus;
+            return this;
+        }
+        @CustomType.Setter
         public Builder friendlyName(@Nullable String friendlyName) {
 
             this.friendlyName = friendlyName;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder identitySid(@Nullable String identitySid) {
+
+            this.identitySid = identitySid;
             return this;
         }
         @CustomType.Setter
@@ -334,6 +482,12 @@ public final class IncomingPhoneNumberEffective {
             return this;
         }
         @CustomType.Setter
+        public Builder trunkSid(@Nullable String trunkSid) {
+
+            this.trunkSid = trunkSid;
+            return this;
+        }
+        @CustomType.Setter
         public Builder voiceApplicationSid(@Nullable String voiceApplicationSid) {
 
             this.voiceApplicationSid = voiceApplicationSid;
@@ -364,6 +518,12 @@ public final class IncomingPhoneNumberEffective {
             return this;
         }
         @CustomType.Setter
+        public Builder voiceReceiveMode(@Nullable String voiceReceiveMode) {
+
+            this.voiceReceiveMode = voiceReceiveMode;
+            return this;
+        }
+        @CustomType.Setter
         public Builder voiceUrl(@Nullable String voiceUrl) {
 
             this.voiceUrl = voiceUrl;
@@ -372,7 +532,13 @@ public final class IncomingPhoneNumberEffective {
         public IncomingPhoneNumberEffective build() {
             final var _resultValue = new IncomingPhoneNumberEffective();
             _resultValue.accountSid = accountSid;
+            _resultValue.addressSid = addressSid;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.bundleSid = bundleSid;
+            _resultValue.emergencyAddressSid = emergencyAddressSid;
+            _resultValue.emergencyStatus = emergencyStatus;
             _resultValue.friendlyName = friendlyName;
+            _resultValue.identitySid = identitySid;
             _resultValue.phoneNumber = phoneNumber;
             _resultValue.phoneNumberSid = phoneNumberSid;
             _resultValue.smsApplicationSid = smsApplicationSid;
@@ -382,11 +548,13 @@ public final class IncomingPhoneNumberEffective {
             _resultValue.smsUrl = smsUrl;
             _resultValue.statusCallback = statusCallback;
             _resultValue.statusCallbackMethod = statusCallbackMethod;
+            _resultValue.trunkSid = trunkSid;
             _resultValue.voiceApplicationSid = voiceApplicationSid;
             _resultValue.voiceCallerIdLookup = voiceCallerIdLookup;
             _resultValue.voiceFallbackMethod = voiceFallbackMethod;
             _resultValue.voiceFallbackUrl = voiceFallbackUrl;
             _resultValue.voiceMethod = voiceMethod;
+            _resultValue.voiceReceiveMode = voiceReceiveMode;
             _resultValue.voiceUrl = voiceUrl;
             return _resultValue;
         }

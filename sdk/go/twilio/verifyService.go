@@ -20,6 +20,8 @@ type VerifyService struct {
 	CodeLength pulumi.IntPtrOutput `pulumi:"codeLength"`
 	// Whether you may supply your own verification code (requires Twilio approval).
 	CustomCodeEnabled pulumi.BoolPtrOutput `pulumi:"customCodeEnabled"`
+	// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+	DefaultTemplateSid pulumi.StringPtrOutput `pulumi:"defaultTemplateSid"`
 	// Whether to add a do-not-share warning to the message.
 	DoNotShareWarningEnabled pulumi.BoolPtrOutput `pulumi:"doNotShareWarningEnabled"`
 	// Whether the recipient must press a key to hear a voice code.
@@ -30,14 +32,46 @@ type VerifyService struct {
 	FriendlyName pulumi.StringOutput `pulumi:"friendlyName"`
 	// Whether to look up the destination phone number before sending.
 	LookupEnabled pulumi.BoolPtrOutput `pulumi:"lookupEnabled"`
+	// Authenticator attachment for passkeys: platform, cross-platform or any.
+	PasskeysAuthenticatorAttachment pulumi.StringPtrOutput `pulumi:"passkeysAuthenticatorAttachment"`
+	// Whether passkey credentials are discoverable: required, preferred or discouraged.
+	PasskeysDiscoverableCredentials pulumi.StringPtrOutput `pulumi:"passkeysDiscoverableCredentials"`
+	// Passkeys relying party ID (the domain). Removing it clears the value.
+	PasskeysRelyingPartyId pulumi.StringPtrOutput `pulumi:"passkeysRelyingPartyId"`
+	// Passkeys relying party display name. Removing it clears the value.
+	PasskeysRelyingPartyName pulumi.StringPtrOutput `pulumi:"passkeysRelyingPartyName"`
+	// Origins allowed to use the passkeys relying party. Removing the list clears it.
+	PasskeysRelyingPartyOrigins pulumi.StringArrayOutput `pulumi:"passkeysRelyingPartyOrigins"`
+	// User verification for passkeys: required, preferred or discouraged.
+	PasskeysUserVerification pulumi.StringPtrOutput `pulumi:"passkeysUserVerification"`
 	// Whether PSD2 dynamic-linking (payee and amount) is required.
 	Psd2Enabled pulumi.BoolPtrOutput `pulumi:"psd2Enabled"`
+	// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+	PushApnCredentialSid pulumi.StringPtrOutput `pulumi:"pushApnCredentialSid"`
+	// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+	PushFcmCredentialSid pulumi.StringPtrOutput `pulumi:"pushFcmCredentialSid"`
+	// Whether push challenges include the date they were created.
+	PushIncludeDate pulumi.BoolPtrOutput `pulumi:"pushIncludeDate"`
 	// The Verify service SID (VA...).
 	Sid pulumi.StringOutput `pulumi:"sid"`
 	// Whether to skip SMS to landline numbers.
 	SkipSmsToLandlines pulumi.BoolPtrOutput `pulumi:"skipSmsToLandlines"`
+	// Number of digits of a TOTP code (3 to 8).
+	TotpCodeLength pulumi.IntPtrOutput `pulumi:"totpCodeLength"`
+	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	TotpIssuer pulumi.StringPtrOutput `pulumi:"totpIssuer"`
+	// Number of time steps before and after the current one in which a TOTP code is accepted.
+	TotpSkew pulumi.IntPtrOutput `pulumi:"totpSkew"`
+	// Seconds a TOTP code is valid (Twilio's totp.time_step).
+	TotpTimeStep pulumi.IntPtrOutput `pulumi:"totpTimeStep"`
 	// Name spoken in voice verifications instead of friendlyName.
 	TtsName pulumi.StringPtrOutput `pulumi:"ttsName"`
+	// Whether Verify events are sent to the service's event subscriptions.
+	VerifyEventSubscriptionEnabled pulumi.BoolPtrOutput `pulumi:"verifyEventSubscriptionEnabled"`
+	// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+	WhatsappFrom pulumi.StringPtrOutput `pulumi:"whatsappFrom"`
+	// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+	WhatsappMsgServiceSid pulumi.StringPtrOutput `pulumi:"whatsappMsgServiceSid"`
 }
 
 // NewVerifyService registers a new resource with the given unique name, arguments, and options.
@@ -87,6 +121,8 @@ type verifyServiceArgs struct {
 	CodeLength *int `pulumi:"codeLength"`
 	// Whether you may supply your own verification code (requires Twilio approval).
 	CustomCodeEnabled *bool `pulumi:"customCodeEnabled"`
+	// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+	DefaultTemplateSid *string `pulumi:"defaultTemplateSid"`
 	// Whether to add a do-not-share warning to the message.
 	DoNotShareWarningEnabled *bool `pulumi:"doNotShareWarningEnabled"`
 	// Whether the recipient must press a key to hear a voice code.
@@ -95,12 +131,44 @@ type verifyServiceArgs struct {
 	FriendlyName string `pulumi:"friendlyName"`
 	// Whether to look up the destination phone number before sending.
 	LookupEnabled *bool `pulumi:"lookupEnabled"`
+	// Authenticator attachment for passkeys: platform, cross-platform or any.
+	PasskeysAuthenticatorAttachment *string `pulumi:"passkeysAuthenticatorAttachment"`
+	// Whether passkey credentials are discoverable: required, preferred or discouraged.
+	PasskeysDiscoverableCredentials *string `pulumi:"passkeysDiscoverableCredentials"`
+	// Passkeys relying party ID (the domain). Removing it clears the value.
+	PasskeysRelyingPartyId *string `pulumi:"passkeysRelyingPartyId"`
+	// Passkeys relying party display name. Removing it clears the value.
+	PasskeysRelyingPartyName *string `pulumi:"passkeysRelyingPartyName"`
+	// Origins allowed to use the passkeys relying party. Removing the list clears it.
+	PasskeysRelyingPartyOrigins []string `pulumi:"passkeysRelyingPartyOrigins"`
+	// User verification for passkeys: required, preferred or discouraged.
+	PasskeysUserVerification *string `pulumi:"passkeysUserVerification"`
 	// Whether PSD2 dynamic-linking (payee and amount) is required.
 	Psd2Enabled *bool `pulumi:"psd2Enabled"`
+	// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+	PushApnCredentialSid *string `pulumi:"pushApnCredentialSid"`
+	// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+	PushFcmCredentialSid *string `pulumi:"pushFcmCredentialSid"`
+	// Whether push challenges include the date they were created.
+	PushIncludeDate *bool `pulumi:"pushIncludeDate"`
 	// Whether to skip SMS to landline numbers.
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
+	// Number of digits of a TOTP code (3 to 8).
+	TotpCodeLength *int `pulumi:"totpCodeLength"`
+	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	TotpIssuer *string `pulumi:"totpIssuer"`
+	// Number of time steps before and after the current one in which a TOTP code is accepted.
+	TotpSkew *int `pulumi:"totpSkew"`
+	// Seconds a TOTP code is valid (Twilio's totp.time_step).
+	TotpTimeStep *int `pulumi:"totpTimeStep"`
 	// Name spoken in voice verifications instead of friendlyName.
 	TtsName *string `pulumi:"ttsName"`
+	// Whether Verify events are sent to the service's event subscriptions.
+	VerifyEventSubscriptionEnabled *bool `pulumi:"verifyEventSubscriptionEnabled"`
+	// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+	WhatsappFrom *string `pulumi:"whatsappFrom"`
+	// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+	WhatsappMsgServiceSid *string `pulumi:"whatsappMsgServiceSid"`
 }
 
 // The set of arguments for constructing a VerifyService resource.
@@ -109,6 +177,8 @@ type VerifyServiceArgs struct {
 	CodeLength pulumi.IntPtrInput
 	// Whether you may supply your own verification code (requires Twilio approval).
 	CustomCodeEnabled pulumi.BoolPtrInput
+	// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+	DefaultTemplateSid pulumi.StringPtrInput
 	// Whether to add a do-not-share warning to the message.
 	DoNotShareWarningEnabled pulumi.BoolPtrInput
 	// Whether the recipient must press a key to hear a voice code.
@@ -117,12 +187,44 @@ type VerifyServiceArgs struct {
 	FriendlyName pulumi.StringInput
 	// Whether to look up the destination phone number before sending.
 	LookupEnabled pulumi.BoolPtrInput
+	// Authenticator attachment for passkeys: platform, cross-platform or any.
+	PasskeysAuthenticatorAttachment pulumi.StringPtrInput
+	// Whether passkey credentials are discoverable: required, preferred or discouraged.
+	PasskeysDiscoverableCredentials pulumi.StringPtrInput
+	// Passkeys relying party ID (the domain). Removing it clears the value.
+	PasskeysRelyingPartyId pulumi.StringPtrInput
+	// Passkeys relying party display name. Removing it clears the value.
+	PasskeysRelyingPartyName pulumi.StringPtrInput
+	// Origins allowed to use the passkeys relying party. Removing the list clears it.
+	PasskeysRelyingPartyOrigins pulumi.StringArrayInput
+	// User verification for passkeys: required, preferred or discouraged.
+	PasskeysUserVerification pulumi.StringPtrInput
 	// Whether PSD2 dynamic-linking (payee and amount) is required.
 	Psd2Enabled pulumi.BoolPtrInput
+	// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+	PushApnCredentialSid pulumi.StringPtrInput
+	// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+	PushFcmCredentialSid pulumi.StringPtrInput
+	// Whether push challenges include the date they were created.
+	PushIncludeDate pulumi.BoolPtrInput
 	// Whether to skip SMS to landline numbers.
 	SkipSmsToLandlines pulumi.BoolPtrInput
+	// Number of digits of a TOTP code (3 to 8).
+	TotpCodeLength pulumi.IntPtrInput
+	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	TotpIssuer pulumi.StringPtrInput
+	// Number of time steps before and after the current one in which a TOTP code is accepted.
+	TotpSkew pulumi.IntPtrInput
+	// Seconds a TOTP code is valid (Twilio's totp.time_step).
+	TotpTimeStep pulumi.IntPtrInput
 	// Name spoken in voice verifications instead of friendlyName.
 	TtsName pulumi.StringPtrInput
+	// Whether Verify events are sent to the service's event subscriptions.
+	VerifyEventSubscriptionEnabled pulumi.BoolPtrInput
+	// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+	WhatsappFrom pulumi.StringPtrInput
+	// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+	WhatsappMsgServiceSid pulumi.StringPtrInput
 }
 
 func (VerifyServiceArgs) ElementType() reflect.Type {
@@ -222,6 +324,11 @@ func (o VerifyServiceOutput) CustomCodeEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.CustomCodeEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+func (o VerifyServiceOutput) DefaultTemplateSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.DefaultTemplateSid }).(pulumi.StringPtrOutput)
+}
+
 // Whether to add a do-not-share warning to the message.
 func (o VerifyServiceOutput) DoNotShareWarningEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.DoNotShareWarningEnabled }).(pulumi.BoolPtrOutput)
@@ -247,9 +354,54 @@ func (o VerifyServiceOutput) LookupEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.LookupEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// Authenticator attachment for passkeys: platform, cross-platform or any.
+func (o VerifyServiceOutput) PasskeysAuthenticatorAttachment() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PasskeysAuthenticatorAttachment }).(pulumi.StringPtrOutput)
+}
+
+// Whether passkey credentials are discoverable: required, preferred or discouraged.
+func (o VerifyServiceOutput) PasskeysDiscoverableCredentials() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PasskeysDiscoverableCredentials }).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party ID (the domain). Removing it clears the value.
+func (o VerifyServiceOutput) PasskeysRelyingPartyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PasskeysRelyingPartyId }).(pulumi.StringPtrOutput)
+}
+
+// Passkeys relying party display name. Removing it clears the value.
+func (o VerifyServiceOutput) PasskeysRelyingPartyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PasskeysRelyingPartyName }).(pulumi.StringPtrOutput)
+}
+
+// Origins allowed to use the passkeys relying party. Removing the list clears it.
+func (o VerifyServiceOutput) PasskeysRelyingPartyOrigins() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringArrayOutput { return v.PasskeysRelyingPartyOrigins }).(pulumi.StringArrayOutput)
+}
+
+// User verification for passkeys: required, preferred or discouraged.
+func (o VerifyServiceOutput) PasskeysUserVerification() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PasskeysUserVerification }).(pulumi.StringPtrOutput)
+}
+
 // Whether PSD2 dynamic-linking (payee and amount) is required.
 func (o VerifyServiceOutput) Psd2Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.Psd2Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceOutput) PushApnCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PushApnCredentialSid }).(pulumi.StringPtrOutput)
+}
+
+// SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+func (o VerifyServiceOutput) PushFcmCredentialSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.PushFcmCredentialSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether push challenges include the date they were created.
+func (o VerifyServiceOutput) PushIncludeDate() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.PushIncludeDate }).(pulumi.BoolPtrOutput)
 }
 
 // The Verify service SID (VA...).
@@ -262,9 +414,44 @@ func (o VerifyServiceOutput) SkipSmsToLandlines() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.SkipSmsToLandlines }).(pulumi.BoolPtrOutput)
 }
 
+// Number of digits of a TOTP code (3 to 8).
+func (o VerifyServiceOutput) TotpCodeLength() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.IntPtrOutput { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
+}
+
+// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+func (o VerifyServiceOutput) TotpIssuer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.TotpIssuer }).(pulumi.StringPtrOutput)
+}
+
+// Number of time steps before and after the current one in which a TOTP code is accepted.
+func (o VerifyServiceOutput) TotpSkew() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.IntPtrOutput { return v.TotpSkew }).(pulumi.IntPtrOutput)
+}
+
+// Seconds a TOTP code is valid (Twilio's totp.time_step).
+func (o VerifyServiceOutput) TotpTimeStep() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.IntPtrOutput { return v.TotpTimeStep }).(pulumi.IntPtrOutput)
+}
+
 // Name spoken in voice verifications instead of friendlyName.
 func (o VerifyServiceOutput) TtsName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.TtsName }).(pulumi.StringPtrOutput)
+}
+
+// Whether Verify events are sent to the service's event subscriptions.
+func (o VerifyServiceOutput) VerifyEventSubscriptionEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.BoolPtrOutput { return v.VerifyEventSubscriptionEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+func (o VerifyServiceOutput) WhatsappFrom() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.WhatsappFrom }).(pulumi.StringPtrOutput)
+}
+
+// SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+func (o VerifyServiceOutput) WhatsappMsgServiceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.WhatsappMsgServiceSid }).(pulumi.StringPtrOutput)
 }
 
 type VerifyServiceArrayOutput struct{ *pulumi.OutputState }

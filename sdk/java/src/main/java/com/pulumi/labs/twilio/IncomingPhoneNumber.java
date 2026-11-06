@@ -37,6 +37,48 @@ public class IncomingPhoneNumber extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.accountSid);
     }
     /**
+     * SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    @Export(name="addressSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> addressSid;
+
+    /**
+     * @return SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    public Output<Optional<String>> addressSid() {
+        return Codegen.optional(this.addressSid);
+    }
+    /**
+     * Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> apiVersion;
+
+    /**
+     * @return Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Output<Optional<String>> apiVersion() {
+        return Codegen.optional(this.apiVersion);
+    }
+    /**
+     * SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    @Export(name="bundleSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> bundleSid;
+
+    /**
+     * @return SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    public Output<Optional<String>> bundleSid() {
+        return Codegen.optional(this.bundleSid);
+    }
+    /**
      * The configuration Twilio currently reports for the number, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
      * 
      */
@@ -51,6 +93,34 @@ public class IncomingPhoneNumber extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.effective);
     }
     /**
+     * SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    @Export(name="emergencyAddressSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> emergencyAddressSid;
+
+    /**
+     * @return SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    public Output<Optional<String>> emergencyAddressSid() {
+        return Codegen.optional(this.emergencyAddressSid);
+    }
+    /**
+     * Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    @Export(name="emergencyStatus", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> emergencyStatus;
+
+    /**
+     * @return Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    public Output<Optional<String>> emergencyStatus() {
+        return Codegen.optional(this.emergencyStatus);
+    }
+    /**
      * Human-readable label for the number.
      * 
      */
@@ -63,6 +133,20 @@ public class IncomingPhoneNumber extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> friendlyName() {
         return Codegen.optional(this.friendlyName);
+    }
+    /**
+     * SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    @Export(name="identitySid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> identitySid;
+
+    /**
+     * @return SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    public Output<Optional<String>> identitySid() {
+        return Codegen.optional(this.identitySid);
     }
     /**
      * The phone number in E.164 format.
@@ -233,6 +317,20 @@ public class IncomingPhoneNumber extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.statusCallbackMethod);
     }
     /**
+     * SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    @Export(name="trunkSid", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> trunkSid;
+
+    /**
+     * @return SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    public Output<Optional<String>> trunkSid() {
+        return Codegen.optional(this.trunkSid);
+    }
+    /**
      * SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      * 
      */
@@ -301,6 +399,20 @@ public class IncomingPhoneNumber extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> voiceMethod() {
         return Codegen.optional(this.voiceMethod);
+    }
+    /**
+     * Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    @Export(name="voiceReceiveMode", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> voiceReceiveMode;
+
+    /**
+     * @return Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    public Output<Optional<String>> voiceReceiveMode() {
+        return Codegen.optional(this.voiceReceiveMode);
     }
     /**
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio&#39;s side.

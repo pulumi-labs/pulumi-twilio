@@ -32,6 +32,81 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    @Import(name="addressSid")
+    private @Nullable Output<String> addressSid;
+
+    /**
+     * @return SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+     * 
+     */
+    public Optional<Output<String>> addressSid() {
+        return Optional.ofNullable(this.addressSid);
+    }
+
+    /**
+     * Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    @Import(name="apiVersion")
+    private @Nullable Output<String> apiVersion;
+
+    /**
+     * @return Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Optional<Output<String>> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
+    }
+
+    /**
+     * SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    @Import(name="bundleSid")
+    private @Nullable Output<String> bundleSid;
+
+    /**
+     * @return SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+     * 
+     */
+    public Optional<Output<String>> bundleSid() {
+        return Optional.ofNullable(this.bundleSid);
+    }
+
+    /**
+     * SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    @Import(name="emergencyAddressSid")
+    private @Nullable Output<String> emergencyAddressSid;
+
+    /**
+     * @return SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+     * 
+     */
+    public Optional<Output<String>> emergencyAddressSid() {
+        return Optional.ofNullable(this.emergencyAddressSid);
+    }
+
+    /**
+     * Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    @Import(name="emergencyStatus")
+    private @Nullable Output<String> emergencyStatus;
+
+    /**
+     * @return Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+     * 
+     */
+    public Optional<Output<String>> emergencyStatus() {
+        return Optional.ofNullable(this.emergencyStatus);
+    }
+
+    /**
      * Human-readable label for the number.
      * 
      */
@@ -44,6 +119,21 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
      */
     public Optional<Output<String>> friendlyName() {
         return Optional.ofNullable(this.friendlyName);
+    }
+
+    /**
+     * SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    @Import(name="identitySid")
+    private @Nullable Output<String> identitySid;
+
+    /**
+     * @return SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+     * 
+     */
+    public Optional<Output<String>> identitySid() {
+        return Optional.ofNullable(this.identitySid);
     }
 
     /**
@@ -182,6 +272,21 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    @Import(name="trunkSid")
+    private @Nullable Output<String> trunkSid;
+
+    /**
+     * @return SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+     * 
+     */
+    public Optional<Output<String>> trunkSid() {
+        return Optional.ofNullable(this.trunkSid);
+    }
+
+    /**
      * SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
      * 
      */
@@ -257,6 +362,21 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    @Import(name="voiceReceiveMode")
+    private @Nullable Output<String> voiceReceiveMode;
+
+    /**
+     * @return Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+     * 
+     */
+    public Optional<Output<String>> voiceReceiveMode() {
+        return Optional.ofNullable(this.voiceReceiveMode);
+    }
+
+    /**
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio&#39;s side.
      * 
      */
@@ -275,7 +395,13 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
 
     private IncomingPhoneNumberArgs(IncomingPhoneNumberArgs $) {
         this.accountSid = $.accountSid;
+        this.addressSid = $.addressSid;
+        this.apiVersion = $.apiVersion;
+        this.bundleSid = $.bundleSid;
+        this.emergencyAddressSid = $.emergencyAddressSid;
+        this.emergencyStatus = $.emergencyStatus;
         this.friendlyName = $.friendlyName;
+        this.identitySid = $.identitySid;
         this.phoneNumber = $.phoneNumber;
         this.phoneNumberSid = $.phoneNumberSid;
         this.smsApplicationSid = $.smsApplicationSid;
@@ -285,11 +411,13 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
         this.smsUrl = $.smsUrl;
         this.statusCallback = $.statusCallback;
         this.statusCallbackMethod = $.statusCallbackMethod;
+        this.trunkSid = $.trunkSid;
         this.voiceApplicationSid = $.voiceApplicationSid;
         this.voiceCallerIdLookup = $.voiceCallerIdLookup;
         this.voiceFallbackMethod = $.voiceFallbackMethod;
         this.voiceFallbackUrl = $.voiceFallbackUrl;
         this.voiceMethod = $.voiceMethod;
+        this.voiceReceiveMode = $.voiceReceiveMode;
         this.voiceUrl = $.voiceUrl;
     }
 
@@ -333,6 +461,111 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
         }
 
         /**
+         * @param addressSid SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder addressSid(@Nullable Output<String> addressSid) {
+            $.addressSid = addressSid;
+            return this;
+        }
+
+        /**
+         * @param addressSid SID (AD...) of the Address the number is registered to, for regulatory compliance. Removing it unassigns the address.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder addressSid(String addressSid) {
+            return addressSid(Output.of(addressSid));
+        }
+
+        /**
+         * @param apiVersion Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersion(@Nullable Output<String> apiVersion) {
+            $.apiVersion = apiVersion;
+            return this;
+        }
+
+        /**
+         * @param apiVersion Twilio API version used for requests to the number&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersion(String apiVersion) {
+            return apiVersion(Output.of(apiVersion));
+        }
+
+        /**
+         * @param bundleSid SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bundleSid(@Nullable Output<String> bundleSid) {
+            $.bundleSid = bundleSid;
+            return this;
+        }
+
+        /**
+         * @param bundleSid SID (BU...) of the regulatory Bundle the number is registered under. Removing it unassigns the bundle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bundleSid(String bundleSid) {
+            return bundleSid(Output.of(bundleSid));
+        }
+
+        /**
+         * @param emergencyAddressSid SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder emergencyAddressSid(@Nullable Output<String> emergencyAddressSid) {
+            $.emergencyAddressSid = emergencyAddressSid;
+            return this;
+        }
+
+        /**
+         * @param emergencyAddressSid SID (AD...) of the Address used for emergency calls from the number. Removing it unassigns the address.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder emergencyAddressSid(String emergencyAddressSid) {
+            return emergencyAddressSid(Output.of(emergencyAddressSid));
+        }
+
+        /**
+         * @param emergencyStatus Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder emergencyStatus(@Nullable Output<String> emergencyStatus) {
+            $.emergencyStatus = emergencyStatus;
+            return this;
+        }
+
+        /**
+         * @param emergencyStatus Whether emergency calling is enabled for the number: Active or Inactive. Removing it leaves the status unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder emergencyStatus(String emergencyStatus) {
+            return emergencyStatus(Output.of(emergencyStatus));
+        }
+
+        /**
          * @param friendlyName Human-readable label for the number.
          * 
          * @return builder
@@ -351,6 +584,27 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
          */
         public Builder friendlyName(String friendlyName) {
             return friendlyName(Output.of(friendlyName));
+        }
+
+        /**
+         * @param identitySid SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder identitySid(@Nullable Output<String> identitySid) {
+            $.identitySid = identitySid;
+            return this;
+        }
+
+        /**
+         * @param identitySid SID (RI...) of the regulatory Identity the number is registered to. Removing it unassigns the identity.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder identitySid(String identitySid) {
+            return identitySid(Output.of(identitySid));
         }
 
         /**
@@ -543,6 +797,27 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
         }
 
         /**
+         * @param trunkSid SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trunkSid(@Nullable Output<String> trunkSid) {
+            $.trunkSid = trunkSid;
+            return this;
+        }
+
+        /**
+         * @param trunkSid SID (TK...) of the SIP trunk that handles calls to the number instead of a webhook. Removing it unassigns the trunk.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trunkSid(String trunkSid) {
+            return trunkSid(Output.of(trunkSid));
+        }
+
+        /**
          * @param voiceApplicationSid SID (AP...) of an Application that handles incoming voice calls instead of voiceUrl.
          * 
          * @return builder
@@ -645,6 +920,27 @@ public final class IncomingPhoneNumberArgs extends com.pulumi.resources.Resource
          */
         public Builder voiceMethod(String voiceMethod) {
             return voiceMethod(Output.of(voiceMethod));
+        }
+
+        /**
+         * @param voiceReceiveMode Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder voiceReceiveMode(@Nullable Output<String> voiceReceiveMode) {
+            $.voiceReceiveMode = voiceReceiveMode;
+            return this;
+        }
+
+        /**
+         * @param voiceReceiveMode Whether the number receives voice or fax calls: voice or fax. Removing it leaves the mode unchanged.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder voiceReceiveMode(String voiceReceiveMode) {
+            return voiceReceiveMode(Output.of(voiceReceiveMode));
         }
 
         /**

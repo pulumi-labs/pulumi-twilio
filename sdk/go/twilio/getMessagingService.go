@@ -58,6 +58,8 @@ type LookupMessagingServiceResult struct {
 	SynchronousValidation *bool `pulumi:"synchronousValidation"`
 	// Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 	UseInboundWebhookOnNumber *bool `pulumi:"useInboundWebhookOnNumber"`
+	// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+	Usecase *string `pulumi:"usecase"`
 	// Seconds a message may wait for delivery before expiring (1-36000).
 	ValidityPeriod *int `pulumi:"validityPeriod"`
 }
@@ -167,6 +169,11 @@ func (o LookupMessagingServiceResultOutput) SynchronousValidation() pulumi.BoolP
 // Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.
 func (o LookupMessagingServiceResultOutput) UseInboundWebhookOnNumber() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v LookupMessagingServiceResult) *bool { return v.UseInboundWebhookOnNumber }).(pulumi.BoolPtrOutput)
+}
+
+// Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+func (o LookupMessagingServiceResultOutput) Usecase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupMessagingServiceResult) *string { return v.Usecase }).(pulumi.StringPtrOutput)
 }
 
 // Seconds a message may wait for delivery before expiring (1-36000).

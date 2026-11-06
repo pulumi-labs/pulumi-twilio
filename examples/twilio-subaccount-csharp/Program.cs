@@ -20,7 +20,7 @@ return await Deployment.RunAsync(() =>
         FriendlyName = "pulumi-ci",
         AccountSid = tenant.Sid,
         KeyType = "restricted",
-        Policy = JsonSerializer.Serialize(new { allow = new[] { "/v2/Services/**" } }),
+        Policy = JsonSerializer.Serialize(new { allow = new[] { "/twilio/iam/api-keys/create" } }),
     });
 
     var verify = new VerifyService("verify", new VerifyServiceArgs

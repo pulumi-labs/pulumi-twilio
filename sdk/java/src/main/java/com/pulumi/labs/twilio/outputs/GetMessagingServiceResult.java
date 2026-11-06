@@ -90,6 +90,11 @@ public final class GetMessagingServiceResult {
      */
     private @Nullable Boolean useInboundWebhookOnNumber;
     /**
+     * @return Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    private @Nullable String usecase;
+    /**
      * @return Seconds a message may wait for delivery before expiring (1-36000).
      * 
      */
@@ -202,6 +207,13 @@ public final class GetMessagingServiceResult {
         return Optional.ofNullable(this.useInboundWebhookOnNumber);
     }
     /**
+     * @return Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+     * 
+     */
+    public Optional<String> usecase() {
+        return Optional.ofNullable(this.usecase);
+    }
+    /**
      * @return Seconds a message may wait for delivery before expiring (1-36000).
      * 
      */
@@ -233,6 +245,7 @@ public final class GetMessagingServiceResult {
         private @Nullable Boolean stickySender;
         private @Nullable Boolean synchronousValidation;
         private @Nullable Boolean useInboundWebhookOnNumber;
+        private @Nullable String usecase;
         private @Nullable Integer validityPeriod;
         public Builder() {}
         public Builder(GetMessagingServiceResult defaults) {
@@ -252,6 +265,7 @@ public final class GetMessagingServiceResult {
     	      this.stickySender = defaults.stickySender;
     	      this.synchronousValidation = defaults.synchronousValidation;
     	      this.useInboundWebhookOnNumber = defaults.useInboundWebhookOnNumber;
+    	      this.usecase = defaults.usecase;
     	      this.validityPeriod = defaults.validityPeriod;
         }
 
@@ -350,6 +364,12 @@ public final class GetMessagingServiceResult {
             return this;
         }
         @CustomType.Setter
+        public Builder usecase(@Nullable String usecase) {
+
+            this.usecase = usecase;
+            return this;
+        }
+        @CustomType.Setter
         public Builder validityPeriod(@Nullable Integer validityPeriod) {
 
             this.validityPeriod = validityPeriod;
@@ -372,6 +392,7 @@ public final class GetMessagingServiceResult {
             _resultValue.stickySender = stickySender;
             _resultValue.synchronousValidation = synchronousValidation;
             _resultValue.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
+            _resultValue.usecase = usecase;
             _resultValue.validityPeriod = validityPeriod;
             return _resultValue;
         }

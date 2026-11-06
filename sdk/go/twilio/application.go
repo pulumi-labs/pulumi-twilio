@@ -18,6 +18,8 @@ type Application struct {
 
 	// SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
 	AccountSid pulumi.StringPtrOutput `pulumi:"accountSid"`
+	// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
 	Effective ApplicationEffectivePtrOutput `pulumi:"effective"`
 	// Human-readable name of the application (up to 64 characters).
@@ -26,6 +28,8 @@ type Application struct {
 	MessageStatusCallback pulumi.StringPtrOutput `pulumi:"messageStatusCallback"`
 	// SID of the account that owns the application.
 	OwnerAccountSid pulumi.StringOutput `pulumi:"ownerAccountSid"`
+	// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+	PublicApplicationConnectEnabled pulumi.BoolPtrOutput `pulumi:"publicApplicationConnectEnabled"`
 	// The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.
 	Sid pulumi.StringOutput `pulumi:"sid"`
 	// HTTP method for smsFallbackUrl: GET or POST.
@@ -104,10 +108,14 @@ func (ApplicationState) ElementType() reflect.Type {
 type applicationArgs struct {
 	// SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
 	AccountSid *string `pulumi:"accountSid"`
+	// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Human-readable name of the application (up to 64 characters).
 	FriendlyName string `pulumi:"friendlyName"`
 	// URL that receives status events for messages sent by this application.
 	MessageStatusCallback *string `pulumi:"messageStatusCallback"`
+	// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+	PublicApplicationConnectEnabled *bool `pulumi:"publicApplicationConnectEnabled"`
 	// HTTP method for smsFallbackUrl: GET or POST.
 	SmsFallbackMethod *string `pulumi:"smsFallbackMethod"`
 	// URL requested if smsUrl fails.
@@ -138,10 +146,14 @@ type applicationArgs struct {
 type ApplicationArgs struct {
 	// SID of the account or subaccount that owns the application. Defaults to the provider account; set it to manage an application in a subaccount with the parent's credentials. Changing it replaces the resource.
 	AccountSid pulumi.StringPtrInput
+	// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+	ApiVersion pulumi.StringPtrInput
 	// Human-readable name of the application (up to 64 characters).
 	FriendlyName pulumi.StringInput
 	// URL that receives status events for messages sent by this application.
 	MessageStatusCallback pulumi.StringPtrInput
+	// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+	PublicApplicationConnectEnabled pulumi.BoolPtrInput
 	// HTTP method for smsFallbackUrl: GET or POST.
 	SmsFallbackMethod pulumi.StringPtrInput
 	// URL requested if smsUrl fails.
@@ -260,6 +272,11 @@ func (o ApplicationOutput) AccountSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Application) pulumi.StringPtrOutput { return v.AccountSid }).(pulumi.StringPtrOutput)
 }
 
+// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+func (o ApplicationOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Application) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
 // The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
 func (o ApplicationOutput) Effective() ApplicationEffectivePtrOutput {
 	return o.ApplyT(func(v *Application) ApplicationEffectivePtrOutput { return v.Effective }).(ApplicationEffectivePtrOutput)
@@ -278,6 +295,11 @@ func (o ApplicationOutput) MessageStatusCallback() pulumi.StringPtrOutput {
 // SID of the account that owns the application.
 func (o ApplicationOutput) OwnerAccountSid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Application) pulumi.StringOutput { return v.OwnerAccountSid }).(pulumi.StringOutput)
+}
+
+// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+func (o ApplicationOutput) PublicApplicationConnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Application) pulumi.BoolPtrOutput { return v.PublicApplicationConnectEnabled }).(pulumi.BoolPtrOutput)
 }
 
 // The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.

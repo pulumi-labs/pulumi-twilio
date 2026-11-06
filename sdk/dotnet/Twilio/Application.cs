@@ -23,6 +23,12 @@ namespace Pulumi.Labs.Twilio
         public Output<string?> AccountSid { get; private set; } = null!;
 
         /// <summary>
+        /// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        [Output("apiVersion")]
+        public Output<string?> ApiVersion { get; private set; } = null!;
+
+        /// <summary>
         /// The configuration Twilio currently reports for the application, including webhooks changed outside Pulumi and fields the program does not set. Inputs the program leaves unset are not overwritten by these values.
         /// </summary>
         [Output("effective")]
@@ -45,6 +51,12 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         [Output("ownerAccountSid")]
         public Output<string> OwnerAccountSid { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        /// </summary>
+        [Output("publicApplicationConnectEnabled")]
+        public Output<bool?> PublicApplicationConnectEnabled { get; private set; } = null!;
 
         /// <summary>
         /// The application SID (AP...), usable as voiceApplicationSid or smsApplicationSid on a phone number.
@@ -182,6 +194,12 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? AccountSid { get; set; }
 
         /// <summary>
+        /// Twilio API version used for requests to the application's webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
         /// Human-readable name of the application (up to 64 characters).
         /// </summary>
         [Input("friendlyName", required: true)]
@@ -192,6 +210,12 @@ namespace Pulumi.Labs.Twilio
         /// </summary>
         [Input("messageStatusCallback")]
         public Input<string>? MessageStatusCallback { get; set; }
+
+        /// <summary>
+        /// Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+        /// </summary>
+        [Input("publicApplicationConnectEnabled")]
+        public Input<bool>? PublicApplicationConnectEnabled { get; set; }
 
         /// <summary>
         /// HTTP method for smsFallbackUrl: GET or POST.

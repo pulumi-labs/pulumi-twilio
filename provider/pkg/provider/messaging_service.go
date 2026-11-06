@@ -43,6 +43,7 @@ type MessagingServiceArgs struct {
 	SynchronousValidation     *bool   `pulumi:"synchronousValidation,optional"`
 	UseInboundWebhookOnNumber *bool   `pulumi:"useInboundWebhookOnNumber,optional"`
 	ValidityPeriod            *int    `pulumi:"validityPeriod,optional"`
+	Usecase                   *string `pulumi:"usecase,optional"`
 }
 
 func (a *MessagingServiceArgs) props() props {
@@ -53,6 +54,7 @@ func (a *MessagingServiceArgs) props() props {
 			{"FallbackUrl", "fallback_url", &a.FallbackUrl}, {"FallbackMethod", "fallback_method", &a.FallbackMethod},
 			{"StatusCallback", "status_callback", &a.StatusCallback},
 			{"ScanMessageContent", "scan_message_content", &a.ScanMessageContent},
+			{"Usecase", "usecase", &a.Usecase},
 		},
 		bools: []boolProp{
 			{"StickySender", "sticky_sender", &a.StickySender}, {"MmsConverter", "mms_converter", &a.MmsConverter},
@@ -82,6 +84,8 @@ func (a *MessagingServiceArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.SynchronousValidation, "Whether to validate sender and recipient before accepting a send request.")
 	an.Describe(&a.UseInboundWebhookOnNumber, "Whether a sender's own inbound webhook takes precedence over inboundRequestUrl.")
 	an.Describe(&a.ValidityPeriod, "Seconds a message may wait for delivery before expiring (1-36000).")
+	an.Describe(&a.Usecase, "Intended use of the service, for example notifications, marketing, verification, discussion, "+
+		"poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.")
 }
 
 // MessagingServiceState is the persisted state of a MessagingService.
@@ -156,7 +160,7 @@ func messagingEffective(o obj) *MessagingServiceEffective {
 func (r *MessagingService) Create(ctx context.Context, req infer.CreateRequest[MessagingServiceArgs]) (infer.CreateResponse[MessagingServiceState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[MessagingServiceState]{ID: req.Name, Output: MessagingServiceState{MessagingServiceArgs: a}}, nil
+		return infer.CreateResponse[MessagingServiceState]{ID: "", Output: MessagingServiceState{MessagingServiceArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

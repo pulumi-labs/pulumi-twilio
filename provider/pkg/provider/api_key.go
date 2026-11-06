@@ -20,6 +20,8 @@ import (
 	"fmt"
 	"net/url"
 	"reflect"
+	"sort"
+	"strings"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -43,8 +45,12 @@ func (a *ApiKeyArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.KeyType, "standard (default; full access to the account's REST API except account and key management) "+
 		"or restricted (limited to the permissions in policy). Changing it replaces the resource.")
 	an.Describe(&a.Policy, "JSON policy document for a restricted key, for example "+
-		"{\"allow\":[\"/v1/Services/**\"]}. Required when keyType is restricted and not allowed otherwise. "+
-		"Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.")
+		"{\"allow\":[\"/twilio/iam/api-keys/create\"]}. Twilio only accepts assertions of the form "+
+		"/twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. "+
+		"Required when keyType is restricted and not allowed otherwise. "+
+		"Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. "+
+		"Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key "+
+		"with this friendlyName is deleted, so keep friendlyNames unique among keys created together.")
 	an.SetDefault(&a.KeyType, "standard")
 }
 
@@ -104,6 +110,12 @@ func (r *ApiKey) Check(ctx context.Context, req infer.CheckRequest) (infer.Check
 		}
 	} else if args.Policy != nil && !unk("policy") && !json.Valid([]byte(*args.Policy)) {
 		failures = append(failures, p.CheckFailure{Property: "policy", Reason: "policy must be valid JSON"})
+	}
+	if !unk("policy") && args.Policy != nil {
+		for _, bad := range unsupportedAssertions(*args.Policy) {
+			p.GetLogger(ctx).Warningf("policy assertion %q is not of the form /twilio/<product>/<resource>/<action>: Twilio rejects it with error 70002, "+
+				"and the create fails", bad)
+		}
 	}
 	if !unk("friendlyName") && (args.FriendlyName == "" || len(args.FriendlyName) > 64) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-64 characters"})
@@ -187,7 +199,7 @@ func jsonCovers(want, got any) bool {
 func (r *ApiKey) Create(ctx context.Context, req infer.CreateRequest[ApiKeyArgs]) (infer.CreateResponse[ApiKeyState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[ApiKeyState]{ID: req.Name, Output: ApiKeyState{ApiKeyArgs: a}}, nil
+		return infer.CreateResponse[ApiKeyState]{ID: "", Output: ApiKeyState{ApiKeyArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {
@@ -199,9 +211,13 @@ func (r *ApiKey) Create(ctx context.Context, req infer.CreateRequest[ApiKeyArgs]
 		form.Set("KeyType", "restricted")
 	}
 	setS(form, "Policy", a.Policy)
+	// Twilio can create the key and still fail the call (error 70002 for a policy assertion it
+	// rejects), and the error carries no SID. Note the account's keys first so a failed create
+	// can find, and remove, the untracked credential it left behind (#1574).
+	before, beforeErr := listKeyNames(ctx, c, acct)
 	o, err := c.do(ctx, "POST", "iam", "/v1/Keys", nil, form)
 	if err != nil {
-		return infer.CreateResponse[ApiKeyState]{}, fmt.Errorf("create API key: %w", err)
+		return infer.CreateResponse[ApiKeyState]{}, cleanupFailedKeyCreate(ctx, c, acct, a.FriendlyName, before, beforeErr, err)
 	}
 	return infer.CreateResponse[ApiKeyState]{ID: scopedID(c, acct, o.str("sid")), Output: ApiKeyState{
 		ApiKeyArgs: a, Sid: o.str("sid"), Secret: o.str("secret"), DateCreated: o.str("date_created"),
@@ -290,14 +306,110 @@ func (r *ApiKey) Delete(ctx context.Context, req infer.DeleteRequest[ApiKeyState
 		return infer.DeleteResponse{}, err
 	}
 	acct, sid := keyScope(c, req.ID, req.State.ApiKeyArgs)
-	_, err = c.do(ctx, "DELETE", "iam", keyPath(sid), nil, nil)
-	if err != nil && isNotFound(err) && acct != c.accountSid {
-		// A 404 from the IAM route does not prove the key is gone when it belongs to a subaccount:
-		// delete it through the account-explicit route so a live credential is never left behind.
-		_, err = c.do(ctx, "DELETE", "api", classicKeyPath(acct, sid), nil, nil)
-	}
+	err = deleteKey(ctx, c, acct, sid)
 	if err != nil && !isNotFound(err) {
 		return infer.DeleteResponse{}, fmt.Errorf("delete API key %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil
+}
+
+// deleteKey removes a key through the IAM route and, for a key of another account that route
+// cannot see, through the account-explicit route, so a live credential is never left behind.
+func deleteKey(ctx context.Context, c *Client, acct, sid string) error {
+	_, err := c.do(ctx, "DELETE", "iam", keyPath(sid), nil, nil)
+	if err != nil && isNotFound(err) && acct != c.accountSid {
+		// A 404 from the IAM route does not prove the key is gone when it belongs to a subaccount.
+		_, err = c.do(ctx, "DELETE", "api", classicKeyPath(acct, sid), nil, nil)
+	}
+	return err
+}
+
+// maxKeyListPages bounds the walk over an account's keys.
+const maxKeyListPages = 10
+
+// listKeyNames returns the SID and friendly name of every key of an account, read through the
+// account-explicit route (the IAM route has no list that names the account).
+func listKeyNames(ctx context.Context, c *Client, acct string) (map[string]string, error) {
+	out := map[string]string{}
+	path, query := api2010(acct)+"/Keys.json", url.Values{"PageSize": {"1000"}}
+	for page := 0; page < maxKeyListPages && path != ""; page++ {
+		o, err := c.do(ctx, "GET", "api", path, query, nil)
+		if err != nil {
+			return nil, err
+		}
+		items, _ := o["keys"].([]any)
+		for _, it := range items {
+			if k, ok := it.(map[string]any); ok {
+				out[obj(k).str("sid")] = obj(k).str("friendly_name")
+			}
+		}
+		path, query = o.str("next_page_uri"), nil
+	}
+	if path != "" {
+		// More pages than we read: a key that existed before could look new, so refuse rather than guess.
+		return nil, fmt.Errorf("the account has more than %d pages of keys", maxKeyListPages)
+	}
+	return out, nil
+}
+
+// cleanupFailedKeyCreate turns a failed key create into an error that says what became of any key
+// Twilio created during the call. A key that is new since before and carries the friendly name of
+// this create cannot belong to anyone else, so it is deleted; if that cannot be established or
+// done, the error names what to look for, because the key is a live credential Pulumi does not track.
+func cleanupFailedKeyCreate(ctx context.Context, c *Client, acct, friendlyName string, before map[string]string, beforeErr, createErr error) error {
+	base := fmt.Errorf("create API key: %w", createErr)
+	if beforeErr != nil && isNotFound(beforeErr) {
+		return base // the account does not exist or is not visible: no key can have been created in it
+	}
+	if beforeErr != nil {
+		return fmt.Errorf("%w; Twilio may have created a key named %q before failing and the account's keys could not be listed to check (%v): look for it in the Twilio console and delete it if it is not in use", base, friendlyName, beforeErr)
+	}
+	after, err := listKeyNames(ctx, c, acct)
+	if err != nil {
+		return fmt.Errorf("%w; Twilio may have created a key named %q before failing and the account's keys could not be listed to check (%v): look for it in the Twilio console and delete it if it is not in use", base, friendlyName, err)
+	}
+	var orphans []string
+	for sid, name := range after {
+		if _, existed := before[sid]; !existed && name == friendlyName {
+			orphans = append(orphans, sid)
+		}
+	}
+	sort.Strings(orphans)
+	if len(orphans) == 0 {
+		return base
+	}
+	var removed, stuck []string
+	for _, sid := range orphans {
+		if err := deleteKey(ctx, c, acct, sid); err != nil && !isNotFound(err) {
+			stuck = append(stuck, fmt.Sprintf("%s (%v)", sid, err))
+			continue
+		}
+		removed = append(removed, sid)
+	}
+	switch {
+	case len(stuck) > 0:
+		return fmt.Errorf("%w; Twilio created the key(s) %s during the failed call and they could not be deleted: delete them in the Twilio console, they are live credentials Pulumi does not track", base, strings.Join(stuck, ", "))
+	default:
+		return fmt.Errorf("%w; the key Twilio created during the failed call (%s) was deleted so no untracked credential is left behind", base, strings.Join(removed, ", "))
+	}
+}
+
+// unsupportedAssertions returns the allow and deny entries of a restricted key's policy that do not
+// start with /twilio/. Twilio rejects those (a REST path such as /v1/Services/** answers error 70002).
+// The full grammar is not documented, so Check only warns about this one verified-invalid class.
+func unsupportedAssertions(policy string) []string {
+	var doc map[string]any
+	if json.Unmarshal([]byte(policy), &doc) != nil {
+		return nil
+	}
+	var bad []string
+	for _, k := range []string{"allow", "deny"} {
+		items, _ := doc[k].([]any)
+		for _, it := range items {
+			if a, ok := it.(string); ok && !strings.HasPrefix(a, "/twilio/") {
+				bad = append(bad, a)
+			}
+		}
+	}
+	return bad
 }

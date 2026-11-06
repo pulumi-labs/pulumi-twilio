@@ -23,42 +23,110 @@ class VerifyServiceArgs:
                  friendly_name: pulumi.Input[_builtins.str],
                  code_length: Optional[pulumi.Input[_builtins.int]] = None,
                  custom_code_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 default_template_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  do_not_share_warning_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  dtmf_input_required: Optional[pulumi.Input[_builtins.bool]] = None,
                  lookup_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 passkeys_authenticator_attachment: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_discoverable_credentials: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_origins: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 passkeys_user_verification: Optional[pulumi.Input[_builtins.str]] = None,
                  psd2_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 push_apn_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_fcm_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_include_date: Optional[pulumi.Input[_builtins.bool]] = None,
                  skip_sms_to_landlines: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tts_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 totp_code_length: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_issuer: Optional[pulumi.Input[_builtins.str]] = None,
+                 totp_skew: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_time_step: Optional[pulumi.Input[_builtins.int]] = None,
+                 tts_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 verify_event_subscription_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 whatsapp_from: Optional[pulumi.Input[_builtins.str]] = None,
+                 whatsapp_msg_service_sid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a VerifyService resource.
 
         :param pulumi.Input[_builtins.str] friendly_name: Name of the service, shown in verification messages (up to 30 characters).
         :param pulumi.Input[_builtins.int] code_length: Length of the verification code, 4 to 10 digits (Twilio default 6).
         :param pulumi.Input[_builtins.bool] custom_code_enabled: Whether you may supply your own verification code (requires Twilio approval).
+        :param pulumi.Input[_builtins.str] default_template_sid: SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
         :param pulumi.Input[_builtins.bool] do_not_share_warning_enabled: Whether to add a do-not-share warning to the message.
         :param pulumi.Input[_builtins.bool] dtmf_input_required: Whether the recipient must press a key to hear a voice code.
         :param pulumi.Input[_builtins.bool] lookup_enabled: Whether to look up the destination phone number before sending.
+        :param pulumi.Input[_builtins.str] passkeys_authenticator_attachment: Authenticator attachment for passkeys: platform, cross-platform or any.
+        :param pulumi.Input[_builtins.str] passkeys_discoverable_credentials: Whether passkey credentials are discoverable: required, preferred or discouraged.
+        :param pulumi.Input[_builtins.str] passkeys_relying_party_id: Passkeys relying party ID (the domain). Removing it clears the value.
+        :param pulumi.Input[_builtins.str] passkeys_relying_party_name: Passkeys relying party display name. Removing it clears the value.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] passkeys_relying_party_origins: Origins allowed to use the passkeys relying party. Removing the list clears it.
+        :param pulumi.Input[_builtins.str] passkeys_user_verification: User verification for passkeys: required, preferred or discouraged.
         :param pulumi.Input[_builtins.bool] psd2_enabled: Whether PSD2 dynamic-linking (payee and amount) is required.
+        :param pulumi.Input[_builtins.str] push_apn_credential_sid: SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        :param pulumi.Input[_builtins.str] push_fcm_credential_sid: SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        :param pulumi.Input[_builtins.bool] push_include_date: Whether push challenges include the date they were created.
         :param pulumi.Input[_builtins.bool] skip_sms_to_landlines: Whether to skip SMS to landline numbers.
+        :param pulumi.Input[_builtins.int] totp_code_length: Number of digits of a TOTP code (3 to 8).
+        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        :param pulumi.Input[_builtins.int] totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
+        :param pulumi.Input[_builtins.int] totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param pulumi.Input[_builtins.str] tts_name: Name spoken in voice verifications instead of friendlyName.
+        :param pulumi.Input[_builtins.bool] verify_event_subscription_enabled: Whether Verify events are sent to the service's event subscriptions.
+        :param pulumi.Input[_builtins.str] whatsapp_from: WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        :param pulumi.Input[_builtins.str] whatsapp_msg_service_sid: SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
         if code_length is not None:
             pulumi.set(__self__, "code_length", code_length)
         if custom_code_enabled is not None:
             pulumi.set(__self__, "custom_code_enabled", custom_code_enabled)
+        if default_template_sid is not None:
+            pulumi.set(__self__, "default_template_sid", default_template_sid)
         if do_not_share_warning_enabled is not None:
             pulumi.set(__self__, "do_not_share_warning_enabled", do_not_share_warning_enabled)
         if dtmf_input_required is not None:
             pulumi.set(__self__, "dtmf_input_required", dtmf_input_required)
         if lookup_enabled is not None:
             pulumi.set(__self__, "lookup_enabled", lookup_enabled)
+        if passkeys_authenticator_attachment is not None:
+            pulumi.set(__self__, "passkeys_authenticator_attachment", passkeys_authenticator_attachment)
+        if passkeys_discoverable_credentials is not None:
+            pulumi.set(__self__, "passkeys_discoverable_credentials", passkeys_discoverable_credentials)
+        if passkeys_relying_party_id is not None:
+            pulumi.set(__self__, "passkeys_relying_party_id", passkeys_relying_party_id)
+        if passkeys_relying_party_name is not None:
+            pulumi.set(__self__, "passkeys_relying_party_name", passkeys_relying_party_name)
+        if passkeys_relying_party_origins is not None:
+            pulumi.set(__self__, "passkeys_relying_party_origins", passkeys_relying_party_origins)
+        if passkeys_user_verification is not None:
+            pulumi.set(__self__, "passkeys_user_verification", passkeys_user_verification)
         if psd2_enabled is not None:
             pulumi.set(__self__, "psd2_enabled", psd2_enabled)
+        if push_apn_credential_sid is not None:
+            pulumi.set(__self__, "push_apn_credential_sid", push_apn_credential_sid)
+        if push_fcm_credential_sid is not None:
+            pulumi.set(__self__, "push_fcm_credential_sid", push_fcm_credential_sid)
+        if push_include_date is not None:
+            pulumi.set(__self__, "push_include_date", push_include_date)
         if skip_sms_to_landlines is not None:
             pulumi.set(__self__, "skip_sms_to_landlines", skip_sms_to_landlines)
+        if totp_code_length is not None:
+            pulumi.set(__self__, "totp_code_length", totp_code_length)
+        if totp_issuer is not None:
+            pulumi.set(__self__, "totp_issuer", totp_issuer)
+        if totp_skew is not None:
+            pulumi.set(__self__, "totp_skew", totp_skew)
+        if totp_time_step is not None:
+            pulumi.set(__self__, "totp_time_step", totp_time_step)
         if tts_name is not None:
             pulumi.set(__self__, "tts_name", tts_name)
+        if verify_event_subscription_enabled is not None:
+            pulumi.set(__self__, "verify_event_subscription_enabled", verify_event_subscription_enabled)
+        if whatsapp_from is not None:
+            pulumi.set(__self__, "whatsapp_from", whatsapp_from)
+        if whatsapp_msg_service_sid is not None:
+            pulumi.set(__self__, "whatsapp_msg_service_sid", whatsapp_msg_service_sid)
 
     @_builtins.property
     @pulumi.getter(name="friendlyName")
@@ -97,6 +165,18 @@ class VerifyServiceArgs:
         pulumi.set(self, "custom_code_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="defaultTemplateSid")
+    def default_template_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        """
+        return pulumi.get(self, "default_template_sid")
+
+    @default_template_sid.setter
+    def default_template_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "default_template_sid", value)
+
+    @_builtins.property
     @pulumi.getter(name="doNotShareWarningEnabled")
     def do_not_share_warning_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
@@ -133,6 +213,78 @@ class VerifyServiceArgs:
         pulumi.set(self, "lookup_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="passkeysAuthenticatorAttachment")
+    def passkeys_authenticator_attachment(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Authenticator attachment for passkeys: platform, cross-platform or any.
+        """
+        return pulumi.get(self, "passkeys_authenticator_attachment")
+
+    @passkeys_authenticator_attachment.setter
+    def passkeys_authenticator_attachment(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "passkeys_authenticator_attachment", value)
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysDiscoverableCredentials")
+    def passkeys_discoverable_credentials(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Whether passkey credentials are discoverable: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_discoverable_credentials")
+
+    @passkeys_discoverable_credentials.setter
+    def passkeys_discoverable_credentials(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "passkeys_discoverable_credentials", value)
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyId")
+    def passkeys_relying_party_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Passkeys relying party ID (the domain). Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_id")
+
+    @passkeys_relying_party_id.setter
+    def passkeys_relying_party_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "passkeys_relying_party_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyName")
+    def passkeys_relying_party_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Passkeys relying party display name. Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_name")
+
+    @passkeys_relying_party_name.setter
+    def passkeys_relying_party_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "passkeys_relying_party_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyOrigins")
+    def passkeys_relying_party_origins(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Origins allowed to use the passkeys relying party. Removing the list clears it.
+        """
+        return pulumi.get(self, "passkeys_relying_party_origins")
+
+    @passkeys_relying_party_origins.setter
+    def passkeys_relying_party_origins(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "passkeys_relying_party_origins", value)
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysUserVerification")
+    def passkeys_user_verification(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        User verification for passkeys: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_user_verification")
+
+    @passkeys_user_verification.setter
+    def passkeys_user_verification(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "passkeys_user_verification", value)
+
+    @_builtins.property
     @pulumi.getter(name="psd2Enabled")
     def psd2_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
@@ -143,6 +295,42 @@ class VerifyServiceArgs:
     @psd2_enabled.setter
     def psd2_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "psd2_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="pushApnCredentialSid")
+    def push_apn_credential_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_apn_credential_sid")
+
+    @push_apn_credential_sid.setter
+    def push_apn_credential_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "push_apn_credential_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="pushFcmCredentialSid")
+    def push_fcm_credential_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_fcm_credential_sid")
+
+    @push_fcm_credential_sid.setter
+    def push_fcm_credential_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "push_fcm_credential_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="pushIncludeDate")
+    def push_include_date(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether push challenges include the date they were created.
+        """
+        return pulumi.get(self, "push_include_date")
+
+    @push_include_date.setter
+    def push_include_date(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "push_include_date", value)
 
     @_builtins.property
     @pulumi.getter(name="skipSmsToLandlines")
@@ -157,6 +345,54 @@ class VerifyServiceArgs:
         pulumi.set(self, "skip_sms_to_landlines", value)
 
     @_builtins.property
+    @pulumi.getter(name="totpCodeLength")
+    def totp_code_length(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Number of digits of a TOTP code (3 to 8).
+        """
+        return pulumi.get(self, "totp_code_length")
+
+    @totp_code_length.setter
+    def totp_code_length(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "totp_code_length", value)
+
+    @_builtins.property
+    @pulumi.getter(name="totpIssuer")
+    def totp_issuer(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        """
+        return pulumi.get(self, "totp_issuer")
+
+    @totp_issuer.setter
+    def totp_issuer(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "totp_issuer", value)
+
+    @_builtins.property
+    @pulumi.getter(name="totpSkew")
+    def totp_skew(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Number of time steps before and after the current one in which a TOTP code is accepted.
+        """
+        return pulumi.get(self, "totp_skew")
+
+    @totp_skew.setter
+    def totp_skew(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "totp_skew", value)
+
+    @_builtins.property
+    @pulumi.getter(name="totpTimeStep")
+    def totp_time_step(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Seconds a TOTP code is valid (Twilio's totp.time_step).
+        """
+        return pulumi.get(self, "totp_time_step")
+
+    @totp_time_step.setter
+    def totp_time_step(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "totp_time_step", value)
+
+    @_builtins.property
     @pulumi.getter(name="ttsName")
     def tts_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -168,6 +404,42 @@ class VerifyServiceArgs:
     def tts_name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "tts_name", value)
 
+    @_builtins.property
+    @pulumi.getter(name="verifyEventSubscriptionEnabled")
+    def verify_event_subscription_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether Verify events are sent to the service's event subscriptions.
+        """
+        return pulumi.get(self, "verify_event_subscription_enabled")
+
+    @verify_event_subscription_enabled.setter
+    def verify_event_subscription_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "verify_event_subscription_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappFrom")
+    def whatsapp_from(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        """
+        return pulumi.get(self, "whatsapp_from")
+
+    @whatsapp_from.setter
+    def whatsapp_from(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "whatsapp_from", value)
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappMsgServiceSid")
+    def whatsapp_msg_service_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        """
+        return pulumi.get(self, "whatsapp_msg_service_sid")
+
+    @whatsapp_msg_service_sid.setter
+    def whatsapp_msg_service_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "whatsapp_msg_service_sid", value)
+
 
 @pulumi.type_token("twilio:index:VerifyService")
 class VerifyService(pulumi.CustomResource):
@@ -177,13 +449,30 @@ class VerifyService(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  code_length: Optional[pulumi.Input[_builtins.int]] = None,
                  custom_code_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 default_template_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  do_not_share_warning_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  dtmf_input_required: Optional[pulumi.Input[_builtins.bool]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
                  lookup_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 passkeys_authenticator_attachment: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_discoverable_credentials: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_origins: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 passkeys_user_verification: Optional[pulumi.Input[_builtins.str]] = None,
                  psd2_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 push_apn_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_fcm_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_include_date: Optional[pulumi.Input[_builtins.bool]] = None,
                  skip_sms_to_landlines: Optional[pulumi.Input[_builtins.bool]] = None,
+                 totp_code_length: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_issuer: Optional[pulumi.Input[_builtins.str]] = None,
+                 totp_skew: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_time_step: Optional[pulumi.Input[_builtins.int]] = None,
                  tts_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 verify_event_subscription_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 whatsapp_from: Optional[pulumi.Input[_builtins.str]] = None,
+                 whatsapp_msg_service_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
         A Twilio Verify service: configuration for sending and checking one-time passcodes.
@@ -193,13 +482,30 @@ class VerifyService(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.int] code_length: Length of the verification code, 4 to 10 digits (Twilio default 6).
         :param pulumi.Input[_builtins.bool] custom_code_enabled: Whether you may supply your own verification code (requires Twilio approval).
+        :param pulumi.Input[_builtins.str] default_template_sid: SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
         :param pulumi.Input[_builtins.bool] do_not_share_warning_enabled: Whether to add a do-not-share warning to the message.
         :param pulumi.Input[_builtins.bool] dtmf_input_required: Whether the recipient must press a key to hear a voice code.
         :param pulumi.Input[_builtins.str] friendly_name: Name of the service, shown in verification messages (up to 30 characters).
         :param pulumi.Input[_builtins.bool] lookup_enabled: Whether to look up the destination phone number before sending.
+        :param pulumi.Input[_builtins.str] passkeys_authenticator_attachment: Authenticator attachment for passkeys: platform, cross-platform or any.
+        :param pulumi.Input[_builtins.str] passkeys_discoverable_credentials: Whether passkey credentials are discoverable: required, preferred or discouraged.
+        :param pulumi.Input[_builtins.str] passkeys_relying_party_id: Passkeys relying party ID (the domain). Removing it clears the value.
+        :param pulumi.Input[_builtins.str] passkeys_relying_party_name: Passkeys relying party display name. Removing it clears the value.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] passkeys_relying_party_origins: Origins allowed to use the passkeys relying party. Removing the list clears it.
+        :param pulumi.Input[_builtins.str] passkeys_user_verification: User verification for passkeys: required, preferred or discouraged.
         :param pulumi.Input[_builtins.bool] psd2_enabled: Whether PSD2 dynamic-linking (payee and amount) is required.
+        :param pulumi.Input[_builtins.str] push_apn_credential_sid: SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        :param pulumi.Input[_builtins.str] push_fcm_credential_sid: SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        :param pulumi.Input[_builtins.bool] push_include_date: Whether push challenges include the date they were created.
         :param pulumi.Input[_builtins.bool] skip_sms_to_landlines: Whether to skip SMS to landline numbers.
+        :param pulumi.Input[_builtins.int] totp_code_length: Number of digits of a TOTP code (3 to 8).
+        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        :param pulumi.Input[_builtins.int] totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
+        :param pulumi.Input[_builtins.int] totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param pulumi.Input[_builtins.str] tts_name: Name spoken in voice verifications instead of friendlyName.
+        :param pulumi.Input[_builtins.bool] verify_event_subscription_enabled: Whether Verify events are sent to the service's event subscriptions.
+        :param pulumi.Input[_builtins.str] whatsapp_from: WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        :param pulumi.Input[_builtins.str] whatsapp_msg_service_sid: SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
         """
         ...
     @overload
@@ -228,13 +534,30 @@ class VerifyService(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  code_length: Optional[pulumi.Input[_builtins.int]] = None,
                  custom_code_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 default_template_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  do_not_share_warning_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  dtmf_input_required: Optional[pulumi.Input[_builtins.bool]] = None,
                  friendly_name: Optional[pulumi.Input[_builtins.str]] = None,
                  lookup_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 passkeys_authenticator_attachment: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_discoverable_credentials: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 passkeys_relying_party_origins: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 passkeys_user_verification: Optional[pulumi.Input[_builtins.str]] = None,
                  psd2_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 push_apn_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_fcm_credential_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 push_include_date: Optional[pulumi.Input[_builtins.bool]] = None,
                  skip_sms_to_landlines: Optional[pulumi.Input[_builtins.bool]] = None,
+                 totp_code_length: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_issuer: Optional[pulumi.Input[_builtins.str]] = None,
+                 totp_skew: Optional[pulumi.Input[_builtins.int]] = None,
+                 totp_time_step: Optional[pulumi.Input[_builtins.int]] = None,
                  tts_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 verify_event_subscription_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 whatsapp_from: Optional[pulumi.Input[_builtins.str]] = None,
+                 whatsapp_msg_service_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -246,15 +569,32 @@ class VerifyService(pulumi.CustomResource):
 
             __props__.__dict__["code_length"] = code_length
             __props__.__dict__["custom_code_enabled"] = custom_code_enabled
+            __props__.__dict__["default_template_sid"] = default_template_sid
             __props__.__dict__["do_not_share_warning_enabled"] = do_not_share_warning_enabled
             __props__.__dict__["dtmf_input_required"] = dtmf_input_required
             if friendly_name is None and not opts.urn:
                 raise TypeError("Missing required property 'friendly_name'")
             __props__.__dict__["friendly_name"] = friendly_name
             __props__.__dict__["lookup_enabled"] = lookup_enabled
+            __props__.__dict__["passkeys_authenticator_attachment"] = passkeys_authenticator_attachment
+            __props__.__dict__["passkeys_discoverable_credentials"] = passkeys_discoverable_credentials
+            __props__.__dict__["passkeys_relying_party_id"] = passkeys_relying_party_id
+            __props__.__dict__["passkeys_relying_party_name"] = passkeys_relying_party_name
+            __props__.__dict__["passkeys_relying_party_origins"] = passkeys_relying_party_origins
+            __props__.__dict__["passkeys_user_verification"] = passkeys_user_verification
             __props__.__dict__["psd2_enabled"] = psd2_enabled
+            __props__.__dict__["push_apn_credential_sid"] = push_apn_credential_sid
+            __props__.__dict__["push_fcm_credential_sid"] = push_fcm_credential_sid
+            __props__.__dict__["push_include_date"] = push_include_date
             __props__.__dict__["skip_sms_to_landlines"] = skip_sms_to_landlines
+            __props__.__dict__["totp_code_length"] = totp_code_length
+            __props__.__dict__["totp_issuer"] = totp_issuer
+            __props__.__dict__["totp_skew"] = totp_skew
+            __props__.__dict__["totp_time_step"] = totp_time_step
             __props__.__dict__["tts_name"] = tts_name
+            __props__.__dict__["verify_event_subscription_enabled"] = verify_event_subscription_enabled
+            __props__.__dict__["whatsapp_from"] = whatsapp_from
+            __props__.__dict__["whatsapp_msg_service_sid"] = whatsapp_msg_service_sid
             __props__.__dict__["effective"] = None
             __props__.__dict__["sid"] = None
         super(VerifyService, __self__).__init__(
@@ -281,15 +621,32 @@ class VerifyService(pulumi.CustomResource):
 
         __props__.__dict__["code_length"] = None
         __props__.__dict__["custom_code_enabled"] = None
+        __props__.__dict__["default_template_sid"] = None
         __props__.__dict__["do_not_share_warning_enabled"] = None
         __props__.__dict__["dtmf_input_required"] = None
         __props__.__dict__["effective"] = None
         __props__.__dict__["friendly_name"] = None
         __props__.__dict__["lookup_enabled"] = None
+        __props__.__dict__["passkeys_authenticator_attachment"] = None
+        __props__.__dict__["passkeys_discoverable_credentials"] = None
+        __props__.__dict__["passkeys_relying_party_id"] = None
+        __props__.__dict__["passkeys_relying_party_name"] = None
+        __props__.__dict__["passkeys_relying_party_origins"] = None
+        __props__.__dict__["passkeys_user_verification"] = None
         __props__.__dict__["psd2_enabled"] = None
+        __props__.__dict__["push_apn_credential_sid"] = None
+        __props__.__dict__["push_fcm_credential_sid"] = None
+        __props__.__dict__["push_include_date"] = None
         __props__.__dict__["sid"] = None
         __props__.__dict__["skip_sms_to_landlines"] = None
+        __props__.__dict__["totp_code_length"] = None
+        __props__.__dict__["totp_issuer"] = None
+        __props__.__dict__["totp_skew"] = None
+        __props__.__dict__["totp_time_step"] = None
         __props__.__dict__["tts_name"] = None
+        __props__.__dict__["verify_event_subscription_enabled"] = None
+        __props__.__dict__["whatsapp_from"] = None
+        __props__.__dict__["whatsapp_msg_service_sid"] = None
         return VerifyService(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -307,6 +664,14 @@ class VerifyService(pulumi.CustomResource):
         Whether you may supply your own verification code (requires Twilio approval).
         """
         return pulumi.get(self, "custom_code_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultTemplateSid")
+    def default_template_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+        """
+        return pulumi.get(self, "default_template_sid")
 
     @_builtins.property
     @pulumi.getter(name="doNotShareWarningEnabled")
@@ -349,12 +714,84 @@ class VerifyService(pulumi.CustomResource):
         return pulumi.get(self, "lookup_enabled")
 
     @_builtins.property
+    @pulumi.getter(name="passkeysAuthenticatorAttachment")
+    def passkeys_authenticator_attachment(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Authenticator attachment for passkeys: platform, cross-platform or any.
+        """
+        return pulumi.get(self, "passkeys_authenticator_attachment")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysDiscoverableCredentials")
+    def passkeys_discoverable_credentials(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Whether passkey credentials are discoverable: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_discoverable_credentials")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyId")
+    def passkeys_relying_party_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Passkeys relying party ID (the domain). Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_id")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyName")
+    def passkeys_relying_party_name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Passkeys relying party display name. Removing it clears the value.
+        """
+        return pulumi.get(self, "passkeys_relying_party_name")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysRelyingPartyOrigins")
+    def passkeys_relying_party_origins(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Origins allowed to use the passkeys relying party. Removing the list clears it.
+        """
+        return pulumi.get(self, "passkeys_relying_party_origins")
+
+    @_builtins.property
+    @pulumi.getter(name="passkeysUserVerification")
+    def passkeys_user_verification(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        User verification for passkeys: required, preferred or discouraged.
+        """
+        return pulumi.get(self, "passkeys_user_verification")
+
+    @_builtins.property
     @pulumi.getter(name="psd2Enabled")
     def psd2_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
         Whether PSD2 dynamic-linking (payee and amount) is required.
         """
         return pulumi.get(self, "psd2_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="pushApnCredentialSid")
+    def push_apn_credential_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_apn_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushFcmCredentialSid")
+    def push_fcm_credential_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+        """
+        return pulumi.get(self, "push_fcm_credential_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pushIncludeDate")
+    def push_include_date(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether push challenges include the date they were created.
+        """
+        return pulumi.get(self, "push_include_date")
 
     @_builtins.property
     @pulumi.getter
@@ -373,10 +810,66 @@ class VerifyService(pulumi.CustomResource):
         return pulumi.get(self, "skip_sms_to_landlines")
 
     @_builtins.property
+    @pulumi.getter(name="totpCodeLength")
+    def totp_code_length(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Number of digits of a TOTP code (3 to 8).
+        """
+        return pulumi.get(self, "totp_code_length")
+
+    @_builtins.property
+    @pulumi.getter(name="totpIssuer")
+    def totp_issuer(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        """
+        return pulumi.get(self, "totp_issuer")
+
+    @_builtins.property
+    @pulumi.getter(name="totpSkew")
+    def totp_skew(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Number of time steps before and after the current one in which a TOTP code is accepted.
+        """
+        return pulumi.get(self, "totp_skew")
+
+    @_builtins.property
+    @pulumi.getter(name="totpTimeStep")
+    def totp_time_step(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Seconds a TOTP code is valid (Twilio's totp.time_step).
+        """
+        return pulumi.get(self, "totp_time_step")
+
+    @_builtins.property
     @pulumi.getter(name="ttsName")
     def tts_name(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
         Name spoken in voice verifications instead of friendlyName.
         """
         return pulumi.get(self, "tts_name")
+
+    @_builtins.property
+    @pulumi.getter(name="verifyEventSubscriptionEnabled")
+    def verify_event_subscription_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether Verify events are sent to the service's event subscriptions.
+        """
+        return pulumi.get(self, "verify_event_subscription_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappFrom")
+    def whatsapp_from(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+        """
+        return pulumi.get(self, "whatsapp_from")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappMsgServiceSid")
+    def whatsapp_msg_service_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+        """
+        return pulumi.get(self, "whatsapp_msg_service_sid")
 

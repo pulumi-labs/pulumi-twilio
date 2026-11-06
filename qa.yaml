@@ -1,12 +1,9 @@
 credentials:
   - name: TWILIO_ACCOUNT_SID
     required: true
-  - name: TWILIO_AUTH_TOKEN
-    required: false
-  - name: TWILIO_API_KEY
-    required: false
-  - name: TWILIO_API_SECRET
-    required: false
+  - one_of:
+      - [TWILIO_AUTH_TOKEN]
+      - [TWILIO_API_KEY, TWILIO_API_SECRET]
   - name: TWILIO_BASE_URL
     required: false
   - name: TWILIO_EDGE
@@ -16,6 +13,10 @@ credentials:
 account: >-
   A Twilio account (a trial or paid project is fine; a dedicated test project is preferred) with either TWILIO_AUTH_TOKEN or the TWILIO_API_KEY plus TWILIO_API_SECRET pair, whichever the provider config accepts (the exact precedence was not verified here). IncomingPhoneNumber and MessagingServicePhoneNumber need one phone number the account ALREADY owns, because the provider only adopts numbers and never buys them; that number must be bought by hand beforehand. Subaccount creation needs a paid (non-trial) project, which was not verified. Nothing was run against a live Twilio account.
 resources:
+  - type: twilio:index:Address
+    test: true
+    update: friendlyName
+    cost: "none; needs a real, valid postal address (Twilio validates it, and emergencyEnabled only accepts true for a validated one). Delete fails while a number or bundle still uses the address"
   - type: twilio:index:ApiKey
     test: true
     update: friendlyName
@@ -36,16 +37,78 @@ resources:
     test: true
     update: null
     cost: none
+  - type: twilio:index:Queue
+    test: true
+    update: maxSize
+    cost: none
+  - type: twilio:index:SigningKey
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:SipCredential
+    test: true
+    update: password
+    cost: "none; needs a credential list (SipCredentialList). Twilio requires a password of 12 or more characters with a digit and mixed case"
+  - type: twilio:index:ShortCode
+    test: false
+    update: friendlyName
+    reason: needs a short code the account already leases, which Twilio provisions through support (weeks of carrier approval, a recurring monthly fee) and the REST API cannot create or release
+  - type: twilio:index:ConnectApp
+    test: false
+    update: friendlyName
+    reason: needs a Connect app created by hand in the Console (the REST API has no create call); the resource only adopts it
+  - type: twilio:index:OutgoingCallerId
+    test: false
+    update: friendlyName
+    reason: needs a number the account has already verified as a caller ID, which takes a verification call answered by a person; the resource only adopts it
+  - type: twilio:index:EventSink
+    test: true
+    update: description
+    cost: "none; a webhook sink to any reachable test URL. Twilio leaves it initialized until the URL answers the sink test"
+  - type: twilio:index:EventSubscription
+    test: false
+    update: description
+    reason: needs an active sink, and a webhook sink only becomes active after Twilio's test event is answered with the test ID (validate call), which the provider does not do; set it up by hand or use a Segment or Kinesis sink
+  - type: twilio:index:SipCredentialList
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:SipDomain
+    test: true
+    update: friendlyName
+    cost: "none to create; the domainName is global across Twilio, so use a unique name ending in sip.twilio.com"
+  - type: twilio:index:SipDomainCredentialListMapping
+    test: true
+    update: null
+    cost: "none; needs a SipDomain and a SipCredentialList. Every input replaces; use authScope registrations to cover the second path"
+  - type: twilio:index:SipDomainIpAccessControlListMapping
+    test: true
+    update: null
+    cost: "none; needs a SipDomain and a SipIpAccessControlList. Every input replaces"
+  - type: twilio:index:SipIpAccessControlList
+    test: true
+    update: friendlyName
+    cost: none
+  - type: twilio:index:SipIpAddress
+    test: true
+    update: friendlyName
+    cost: "none; needs an access control list (SipIpAccessControlList) and an IPv4 address"
   - type: twilio:index:Subaccount
     test: true
     update: friendlyName
     cost: "none, but Twilio cannot delete subaccounts: destroy only closes them, and closed accounts linger for about 30 days"
+  - type: twilio:index:UsageTrigger
+    test: true
+    update: friendlyName
+    cost: "none to create, but the trigger calls its callbackUrl when usage crosses triggerValue: use a url you own and a value the account will not reach. Only callbackUrl, callbackMethod and friendlyName update in place"
   - type: twilio:index:VerifyService
     test: true
     update: friendlyName
     cost: none
 functions:
   - name: getAccount
+    test: true
+  - name: getAddress
     test: true
   - name: getApiKey
     test: true
@@ -59,20 +122,65 @@ functions:
     test: true
   - name: getMessagingServicePhoneNumber
     test: true
+  - name: getQueue
+    test: true
+  - name: getSigningKey
+    test: true
+  - name: getShortCode
+    test: false
+    reason: needs a short code the account already leases
+  - name: getConnectApp
+    test: false
+    reason: needs a Connect app created by hand in the Console
+  - name: getOutgoingCallerId
+    test: false
+    reason: needs a number the account has already verified as a caller ID
+  - name: getEventSink
+    test: true
+  - name: getEventSubscription
+    test: false
+    reason: needs a subscription, which needs an active sink
+  - name: getSipCredential
+    test: true
+  - name: getSipCredentialList
+    test: true
+  - name: getSipDomain
+    test: true
+  - name: getSipDomainCredentialListMapping
+    test: true
+  - name: getSipDomainIpAccessControlListMapping
+    test: true
+  - name: getSipIpAccessControlList
+    test: true
+  - name: getSipIpAddress
+    test: true
   - name: getSubaccount
+    test: true
+  - name: getUsageTrigger
     test: true
   - name: getVerifyService
     test: true
 regressions:
+  - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."
+  - "ShortCode, ConnectApp and OutgoingCallerId only adopt: destroy must leave the short code, the Connect app and the verified caller ID in place and make no API call; a removed friendlyName, companyName, description, homepageUrl, authorizeRedirectUrl or permissions input must leave the value on Twilio; accountSid changes replace (Twilio cannot move these between accounts)."
+  - "#1595 import adopts non-default flags and numbers: for Application, IncomingPhoneNumber, MessagingService and VerifyService create from a minimal program, import, preview shows no change; then set a non-default value out of band (stickySender false, codeLength 4, voiceCallerIdLookup true), import, and the value appears in the imported inputs. Also re-probe a freshly created resource per type and confirm the import-only default map in props.go (importBoolDefaults, importIntDefaults) matches it"
+  - "#1577 import then inspect the stack state (pulumi stack export --show-secrets off): every property the schema marks secret on an imported resource is a secret, never plaintext; a refresh of a resource created by the program keeps them secret"
   - "Subaccount destroy of the provider's own top-level account must be refused, and import of it must fail."
   - "Preview must not fail when a validated input (friendlyName, ApiKey policy) is computed from another resource in the same stack."
   - "Removing a boolean or number input must only reset inputs with a documented default (validityPeriod to 36000, doNotShareWarningEnabled to false); every other removed flag stays untouched on Twilio."
   - "Removing an HTTP method input (voiceMethod, smsMethod, inboundMethod and the other *Method inputs) must send POST, not an empty string."
   - "Refresh must not echo inputs: the effective output shows what Twilio reports, and inputs the program leaves unset are never overwritten by server defaults."
-  - "Application, IncomingPhoneNumber and ApiKey in a subaccount must get the ID <accountSid>/<sid> and import must work for them."
+  - "Application, IncomingPhoneNumber, ApiKey, Address, SigningKey, Queue and UsageTrigger in a subaccount must get the ID <accountSid>/<sid> and import must work for them."
   - "ApiKey in a subaccount must survive refresh and be deleted on destroy via the account-explicit route."
+  - "A restricted ApiKey with the documented policy {\"allow\":[\"/twilio/iam/api-keys/create\"]} must create; a policy assertion Twilio rejects (error 70002, for example /v1/Services/**) must fail the create and leave no key with that friendlyName in the account's Keys list (Twilio creates the key before failing the call)."
   - "IncomingPhoneNumber.accountSid change must update in place, not replace."
+  - "VerifyService totp, push, whatsapp and passkeys settings must round-trip: set on create, read back from the nested response objects (drift shows as a diff), and import adopts them."
+  - "Removing a SID reference (IncomingPhoneNumber trunkSid or addressSid, VerifyService push credentials) must unassign it; removing apiVersion, voiceReceiveMode, emergencyStatus, usecase or defaultTemplateSid must leave the value untouched."
   - "ApiKey policy drift made in the console must show as a diff on refresh and be restored by the next update."
   - "ApiKey must be created without KeyType for standard keys."
+  - "SigningKey secret is returned only on create and must stay in state (as a secret) across refreshes; it is empty after import."
+  - "Address with autoCorrectAddress unset must not show a permanent diff when Twilio normalizes the street; with autoCorrectAddress false, drift in the address lines must show. isoCountry change must replace."
+  - "UsageTrigger: only callbackUrl, callbackMethod and friendlyName update in place; triggerValue, usageCategory, recurring and triggerBy replace. A triggerValue given as an offset (+30) must not show a diff after refresh."
+  - "Queue removing maxSize must reset it to 1000; a queue's live currentSize must not show as a diff."
 notes: >-
-  Never create a resource that sends an SMS or places a call; none of the shipped surface does, so no test is skipped. ApiKey returns its secret only on create. Subaccounts cannot be deleted, only closed, so use a unique friendlyName per run and expect leftovers. Cleanup order: MessagingServicePhoneNumber before MessagingService, and release nothing: IncomingPhoneNumber destroy never releases the number, it only drops it from state. Twilio is eventually consistent for new services and subaccounts, so retry reads briefly. MessagingServicePhoneNumber has no update (serviceSid and phoneNumberSid replace). The update properties are verified in the Go source as non-replace inputs; the API behaviour itself is unverified. Many products are deferred (SIP, Queue, A2P, Verify rate limits and others).
+  Never create a resource that sends an SMS or places a call; none of the shipped surface does, so no test is skipped. ApiKey returns its secret only on create. Subaccounts cannot be deleted, only closed, so use a unique friendlyName per run and expect leftovers. Cleanup order: MessagingServicePhoneNumber before MessagingService, and release nothing: IncomingPhoneNumber destroy never releases the number, it only drops it from state. Twilio is eventually consistent for new services and subaccounts, so retry reads briefly. MessagingServicePhoneNumber has no update (serviceSid and phoneNumberSid replace). The update properties are verified in the Go source as non-replace inputs; the API behaviour itself is unverified. Many products are deferred (A2P, Verify rate limits and others). Address delete fails while the address is in use. UsageTrigger fires a webhook, so point it at a url you control.

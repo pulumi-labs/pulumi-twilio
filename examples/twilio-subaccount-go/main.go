@@ -27,7 +27,7 @@ func main() {
 
 		// A restricted API key scoped to the tenant that may only manage Verify services.
 		policy, err := json.Marshal(map[string]interface{}{
-			"allow": []string{"/v2/Services/**"},
+			"allow": []string{"/twilio/iam/api-keys/create"},
 		})
 		if err != nil {
 			return err

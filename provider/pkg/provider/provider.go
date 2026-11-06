@@ -22,11 +22,11 @@ import (
 )
 
 // New builds the Twilio provider.
-func New() (provider.Provider, error) {
+func newProvider() (provider.Provider, error) {
 	return infer.NewProviderBuilder().
 		WithDisplayName("Twilio").
 		WithDescription(
-			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as infrastructure with Pulumi.",
+			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
 		).
 		WithHomepage("https://www.twilio.com").
 		WithRepository("https://github.com/pulumi-labs/pulumi-twilio").
@@ -35,7 +35,7 @@ func New() (provider.Provider, error) {
 			"go": map[string]any{"generateResourceContainerTypes": true, "respectSchemaVersion": true},
 			"nodejs": map[string]any{
 				"packageName":          "@pulumi-labs/twilio",
-				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, messaging services and Verify services as infrastructure with Pulumi.",
+				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -62,6 +62,22 @@ func New() (provider.Provider, error) {
 			infer.Resource[*MessagingService, MessagingServiceArgs, MessagingServiceState](&MessagingService{}),
 			infer.Resource[*MessagingServicePhoneNumber, MessagingServicePhoneNumberArgs, MessagingServicePhoneNumberState](&MessagingServicePhoneNumber{}),
 			infer.Resource[*VerifyService, VerifyServiceArgs, VerifyServiceState](&VerifyService{}),
+			infer.Resource[*Address, AddressArgs, AddressState](&Address{}),
+			infer.Resource[*SigningKey, SigningKeyArgs, SigningKeyState](&SigningKey{}),
+			infer.Resource[*Queue, QueueArgs, QueueState](&Queue{}),
+			infer.Resource[*UsageTrigger, UsageTriggerArgs, UsageTriggerState](&UsageTrigger{}),
+			infer.Resource[*SipCredentialList, SipCredentialListArgs, SipCredentialListState](&SipCredentialList{}),
+			infer.Resource[*SipCredential, SipCredentialArgs, SipCredentialState](&SipCredential{}),
+			infer.Resource[*SipIpAccessControlList, SipIpAccessControlListArgs, SipIpAccessControlListState](&SipIpAccessControlList{}),
+			infer.Resource[*SipIpAddress, SipIpAddressArgs, SipIpAddressState](&SipIpAddress{}),
+			infer.Resource[*SipDomain, SipDomainArgs, SipDomainState](&SipDomain{}),
+			infer.Resource[*SipDomainCredentialListMapping, SipDomainCredentialListMappingArgs, SipDomainCredentialListMappingState](&SipDomainCredentialListMapping{}),
+			infer.Resource[*SipDomainIpAccessControlListMapping, SipDomainIpAccessControlListMappingArgs, SipDomainIpAccessControlListMappingState](&SipDomainIpAccessControlListMapping{}),
+			infer.Resource[*ShortCode, ShortCodeArgs, ShortCodeState](&ShortCode{}),
+			infer.Resource[*ConnectApp, ConnectAppArgs, ConnectAppState](&ConnectApp{}),
+			infer.Resource[*OutgoingCallerId, OutgoingCallerIdArgs, OutgoingCallerIdState](&OutgoingCallerId{}),
+			infer.Resource[*EventSink, EventSinkArgs, EventSinkState](&EventSink{}),
+			infer.Resource[*EventSubscription, EventSubscriptionArgs, EventSubscriptionState](&EventSubscription{}),
 		).
 		WithFunctions(
 			infer.Function[*GetAccount, GetAccountArgs, GetAccountResult](&GetAccount{}),
@@ -73,6 +89,22 @@ func New() (provider.Provider, error) {
 			infer.Function[*GetMessagingServicePhoneNumber, GetMessagingServicePhoneNumberArgs, GetMessagingServicePhoneNumberResult](&GetMessagingServicePhoneNumber{}),
 			infer.Function[*GetVerifyService, GetVerifyServiceArgs, GetVerifyServiceResult](&GetVerifyService{}),
 			infer.Function[*GetBalance, GetBalanceArgs, GetBalanceResult](&GetBalance{}),
+			infer.Function[*GetAddress, GetAddressArgs, GetAddressResult](&GetAddress{}),
+			infer.Function[*GetSigningKey, GetSigningKeyArgs, GetSigningKeyResult](&GetSigningKey{}),
+			infer.Function[*GetQueue, GetQueueArgs, GetQueueResult](&GetQueue{}),
+			infer.Function[*GetUsageTrigger, GetUsageTriggerArgs, GetUsageTriggerResult](&GetUsageTrigger{}),
+			infer.Function[*GetSipCredentialList, GetSipCredentialListArgs, GetSipCredentialListResult](&GetSipCredentialList{}),
+			infer.Function[*GetSipCredential, GetSipCredentialArgs, GetSipCredentialResult](&GetSipCredential{}),
+			infer.Function[*GetSipIpAccessControlList, GetSipIpAccessControlListArgs, GetSipIpAccessControlListResult](&GetSipIpAccessControlList{}),
+			infer.Function[*GetSipIpAddress, GetSipIpAddressArgs, GetSipIpAddressResult](&GetSipIpAddress{}),
+			infer.Function[*GetSipDomain, GetSipDomainArgs, GetSipDomainResult](&GetSipDomain{}),
+			infer.Function[*GetSipDomainCredentialListMapping, GetSipDomainCredentialListMappingArgs, GetSipDomainCredentialListMappingResult](&GetSipDomainCredentialListMapping{}),
+			infer.Function[*GetSipDomainIpAccessControlListMapping, GetSipDomainIpAccessControlListMappingArgs, GetSipDomainIpAccessControlListMappingResult](&GetSipDomainIpAccessControlListMapping{}),
+			infer.Function[*GetShortCode, GetShortCodeArgs, GetShortCodeResult](&GetShortCode{}),
+			infer.Function[*GetConnectApp, GetConnectAppArgs, GetConnectAppResult](&GetConnectApp{}),
+			infer.Function[*GetOutgoingCallerId, GetOutgoingCallerIdArgs, GetOutgoingCallerIdResult](&GetOutgoingCallerId{}),
+			infer.Function[*GetEventSink, GetEventSinkArgs, GetEventSinkResult](&GetEventSink{}),
+			infer.Function[*GetEventSubscription, GetEventSubscriptionArgs, GetEventSubscriptionResult](&GetEventSubscription{}),
 		).
 		Build()
 }

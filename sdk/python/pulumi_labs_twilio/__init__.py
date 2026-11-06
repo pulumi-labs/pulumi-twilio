@@ -6,23 +6,56 @@ import builtins as _builtins
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .address import *
 from .api_key import *
 from .application import *
+from .connect_app import *
+from .event_sink import *
+from .event_subscription import *
 from .get_account import *
+from .get_address import *
 from .get_api_key import *
 from .get_application import *
 from .get_balance import *
+from .get_connect_app import *
+from .get_event_sink import *
+from .get_event_subscription import *
 from .get_incoming_phone_number import *
 from .get_messaging_service import *
 from .get_messaging_service_phone_number import *
+from .get_outgoing_caller_id import *
+from .get_queue import *
+from .get_short_code import *
+from .get_signing_key import *
+from .get_sip_credential import *
+from .get_sip_credential_list import *
+from .get_sip_domain import *
+from .get_sip_domain_credential_list_mapping import *
+from .get_sip_domain_ip_access_control_list_mapping import *
+from .get_sip_ip_access_control_list import *
+from .get_sip_ip_address import *
 from .get_subaccount import *
+from .get_usage_trigger import *
 from .get_verify_service import *
 from .incoming_phone_number import *
 from .messaging_service import *
 from .messaging_service_phone_number import *
+from .outgoing_caller_id import *
 from .provider import *
+from .queue import *
+from .short_code import *
+from .signing_key import *
+from .sip_credential import *
+from .sip_credential_list import *
+from .sip_domain import *
+from .sip_domain_credential_list_mapping import *
+from .sip_domain_ip_access_control_list_mapping import *
+from .sip_ip_access_control_list import *
+from .sip_ip_address import *
 from .subaccount import *
+from .usage_trigger import *
 from .verify_service import *
+from ._inputs import *
 from . import outputs
 
 # Make subpackages available:
@@ -40,12 +73,28 @@ _utilities.register(
   "mod": "index",
   "fqn": "pulumi_labs_twilio",
   "classes": {
+   "twilio:index:Address": "Address",
    "twilio:index:ApiKey": "ApiKey",
    "twilio:index:Application": "Application",
+   "twilio:index:ConnectApp": "ConnectApp",
+   "twilio:index:EventSink": "EventSink",
+   "twilio:index:EventSubscription": "EventSubscription",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
    "twilio:index:MessagingService": "MessagingService",
    "twilio:index:MessagingServicePhoneNumber": "MessagingServicePhoneNumber",
+   "twilio:index:OutgoingCallerId": "OutgoingCallerId",
+   "twilio:index:Queue": "Queue",
+   "twilio:index:ShortCode": "ShortCode",
+   "twilio:index:SigningKey": "SigningKey",
+   "twilio:index:SipCredential": "SipCredential",
+   "twilio:index:SipCredentialList": "SipCredentialList",
+   "twilio:index:SipDomain": "SipDomain",
+   "twilio:index:SipDomainCredentialListMapping": "SipDomainCredentialListMapping",
+   "twilio:index:SipDomainIpAccessControlListMapping": "SipDomainIpAccessControlListMapping",
+   "twilio:index:SipIpAccessControlList": "SipIpAccessControlList",
+   "twilio:index:SipIpAddress": "SipIpAddress",
    "twilio:index:Subaccount": "Subaccount",
+   "twilio:index:UsageTrigger": "UsageTrigger",
    "twilio:index:VerifyService": "VerifyService"
   }
  }

@@ -100,7 +100,7 @@ func subaccountState(args SubaccountArgs, o obj) SubaccountState {
 func (r *Subaccount) Create(ctx context.Context, req infer.CreateRequest[SubaccountArgs]) (infer.CreateResponse[SubaccountState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[SubaccountState]{ID: req.Name, Output: SubaccountState{SubaccountArgs: a}}, nil
+		return infer.CreateResponse[SubaccountState]{ID: "", Output: SubaccountState{SubaccountArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

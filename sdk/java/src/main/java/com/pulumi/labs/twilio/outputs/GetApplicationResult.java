@@ -19,6 +19,11 @@ public final class GetApplicationResult {
      */
     private @Nullable String accountSid;
     /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    private @Nullable String apiVersion;
+    /**
      * @return Human-readable name of the application (up to 64 characters).
      * 
      */
@@ -33,6 +38,11 @@ public final class GetApplicationResult {
      * 
      */
     private String ownerAccountSid;
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    private @Nullable Boolean publicApplicationConnectEnabled;
     /**
      * @return The application SID (AP...).
      * 
@@ -108,6 +118,13 @@ public final class GetApplicationResult {
         return Optional.ofNullable(this.accountSid);
     }
     /**
+     * @return Twilio API version used for requests to the application&#39;s webhooks, for example 2010-04-01. Removing it leaves the version on Twilio unchanged.
+     * 
+     */
+    public Optional<String> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
+    }
+    /**
      * @return Human-readable name of the application (up to 64 characters).
      * 
      */
@@ -127,6 +144,13 @@ public final class GetApplicationResult {
      */
     public String ownerAccountSid() {
         return this.ownerAccountSid;
+    }
+    /**
+     * @return Whether the application can be used as a public Twilio Connect application (Twilio does not document a default, so removing the input leaves the setting unchanged).
+     * 
+     */
+    public Optional<Boolean> publicApplicationConnectEnabled() {
+        return Optional.ofNullable(this.publicApplicationConnectEnabled);
     }
     /**
      * @return The application SID (AP...).
@@ -230,9 +254,11 @@ public final class GetApplicationResult {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String accountSid;
+        private @Nullable String apiVersion;
         private String friendlyName;
         private @Nullable String messageStatusCallback;
         private String ownerAccountSid;
+        private @Nullable Boolean publicApplicationConnectEnabled;
         private String sid;
         private @Nullable String smsFallbackMethod;
         private @Nullable String smsFallbackUrl;
@@ -250,9 +276,11 @@ public final class GetApplicationResult {
         public Builder(GetApplicationResult defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.accountSid = defaults.accountSid;
+    	      this.apiVersion = defaults.apiVersion;
     	      this.friendlyName = defaults.friendlyName;
     	      this.messageStatusCallback = defaults.messageStatusCallback;
     	      this.ownerAccountSid = defaults.ownerAccountSid;
+    	      this.publicApplicationConnectEnabled = defaults.publicApplicationConnectEnabled;
     	      this.sid = defaults.sid;
     	      this.smsFallbackMethod = defaults.smsFallbackMethod;
     	      this.smsFallbackUrl = defaults.smsFallbackUrl;
@@ -275,6 +303,12 @@ public final class GetApplicationResult {
             return this;
         }
         @CustomType.Setter
+        public Builder apiVersion(@Nullable String apiVersion) {
+
+            this.apiVersion = apiVersion;
+            return this;
+        }
+        @CustomType.Setter
         public Builder friendlyName(String friendlyName) {
             if (friendlyName == null) {
               throw new MissingRequiredPropertyException("GetApplicationResult", "friendlyName");
@@ -294,6 +328,12 @@ public final class GetApplicationResult {
               throw new MissingRequiredPropertyException("GetApplicationResult", "ownerAccountSid");
             }
             this.ownerAccountSid = ownerAccountSid;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder publicApplicationConnectEnabled(@Nullable Boolean publicApplicationConnectEnabled) {
+
+            this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
             return this;
         }
         @CustomType.Setter
@@ -379,9 +419,11 @@ public final class GetApplicationResult {
         public GetApplicationResult build() {
             final var _resultValue = new GetApplicationResult();
             _resultValue.accountSid = accountSid;
+            _resultValue.apiVersion = apiVersion;
             _resultValue.friendlyName = friendlyName;
             _resultValue.messageStatusCallback = messageStatusCallback;
             _resultValue.ownerAccountSid = ownerAccountSid;
+            _resultValue.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
             _resultValue.sid = sid;
             _resultValue.smsFallbackMethod = smsFallbackMethod;
             _resultValue.smsFallbackUrl = smsFallbackUrl;

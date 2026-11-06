@@ -44,6 +44,9 @@ type ApplicationArgs struct {
 	SmsStatusCallback     *string `pulumi:"smsStatusCallback,optional"`
 	MessageStatusCallback *string `pulumi:"messageStatusCallback,optional"`
 	VoiceCallerIdLookup   *bool   `pulumi:"voiceCallerIdLookup,optional"`
+
+	ApiVersion                      *string `pulumi:"apiVersion,optional"`
+	PublicApplicationConnectEnabled *bool   `pulumi:"publicApplicationConnectEnabled,optional"`
 }
 
 func (a *ApplicationArgs) props() props {
@@ -59,8 +62,12 @@ func (a *ApplicationArgs) props() props {
 			{"SmsFallbackMethod", "sms_fallback_method", &a.SmsFallbackMethod},
 			{"SmsStatusCallback", "sms_status_callback", &a.SmsStatusCallback},
 			{"MessageStatusCallback", "message_status_callback", &a.MessageStatusCallback},
+			{"ApiVersion", "api_version", &a.ApiVersion},
 		},
-		bools: []boolProp{{"VoiceCallerIdLookup", "voice_caller_id_lookup", &a.VoiceCallerIdLookup}},
+		bools: []boolProp{
+			{"VoiceCallerIdLookup", "voice_caller_id_lookup", &a.VoiceCallerIdLookup},
+			{"PublicApplicationConnectEnabled", "public_application_connect_enabled", &a.PublicApplicationConnectEnabled},
+		},
 	}
 }
 
@@ -81,6 +88,10 @@ func (a *ApplicationArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.SmsStatusCallback, "URL that receives status events for outbound SMS sent with this application.")
 	an.Describe(&a.MessageStatusCallback, "URL that receives status events for messages sent by this application.")
 	an.Describe(&a.VoiceCallerIdLookup, "Whether to look up the caller's name on incoming calls.")
+	an.Describe(&a.ApiVersion, "Twilio API version used for requests to the application's webhooks, for example 2010-04-01. "+
+		"Removing it leaves the version on Twilio unchanged.")
+	an.Describe(&a.PublicApplicationConnectEnabled, "Whether the application can be used as a public Twilio Connect application "+
+		"(Twilio does not document a default, so removing the input leaves the setting unchanged).")
 }
 
 // ApplicationState is the persisted state of an Application.
@@ -165,7 +176,7 @@ func applicationEffective(o obj) *ApplicationEffective {
 func (r *Application) Create(ctx context.Context, req infer.CreateRequest[ApplicationArgs]) (infer.CreateResponse[ApplicationState], error) {
 	a := req.Inputs
 	if req.DryRun {
-		return infer.CreateResponse[ApplicationState]{ID: req.Name, Output: ApplicationState{ApplicationArgs: a}}, nil
+		return infer.CreateResponse[ApplicationState]{ID: "", Output: ApplicationState{ApplicationArgs: a}}, nil
 	}
 	c, err := clientFor(ctx)
 	if err != nil {

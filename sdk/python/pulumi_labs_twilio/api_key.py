@@ -29,7 +29,7 @@ class ApiKeyArgs:
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the key (up to 64 characters).
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount the key belongs to. Defaults to the provider account. Changing it replaces the resource. To import a key owned by a subaccount use the ID <accountSid>/<keySid>.
         :param pulumi.Input[_builtins.str] key_type: standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.
-        :param pulumi.Input[_builtins.str] policy: JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        :param pulumi.Input[_builtins.str] policy: JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
         if account_sid is not None:
@@ -81,7 +81,7 @@ class ApiKeyArgs:
     @pulumi.getter
     def policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         """
         return pulumi.get(self, "policy")
 
@@ -110,7 +110,7 @@ class ApiKey(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] account_sid: SID of the account or subaccount the key belongs to. Defaults to the provider account. Changing it replaces the resource. To import a key owned by a subaccount use the ID <accountSid>/<keySid>.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the key (up to 64 characters).
         :param pulumi.Input[_builtins.str] key_type: standard (default; full access to the account's REST API except account and key management) or restricted (limited to the permissions in policy). Changing it replaces the resource.
-        :param pulumi.Input[_builtins.str] policy: JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        :param pulumi.Input[_builtins.str] policy: JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         """
         ...
     @overload
@@ -232,7 +232,7 @@ class ApiKey(pulumi.CustomResource):
     @pulumi.getter
     def policy(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        JSON policy document for a restricted key, for example {"allow":["/v1/Services/**"]}. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted.
+        JSON policy document for a restricted key, for example {"allow":["/twilio/iam/api-keys/create"]}. Twilio only accepts assertions of the form /twilio/<product>/<resource>/<action>; a REST path such as /v1/Services/** is rejected with error 70002. Required when keyType is restricted and not allowed otherwise. Updated in place and read back on refresh, so a policy widened outside Pulumi is detected and reverted. Creating a restricted key lists the account's keys first; if Twilio creates the key and then fails the call, the new key with this friendlyName is deleted, so keep friendlyNames unique among keys created together.
         """
         return pulumi.get(self, "policy")
 

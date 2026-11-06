@@ -31,6 +31,10 @@ export interface GetVerifyServiceResult {
      */
     readonly customCodeEnabled?: boolean;
     /**
+     * SID (HJ...) of the default message template used for verifications. Removing it leaves the template unchanged.
+     */
+    readonly defaultTemplateSid?: string;
+    /**
      * Whether to add a do-not-share warning to the message.
      */
     readonly doNotShareWarningEnabled?: boolean;
@@ -47,9 +51,45 @@ export interface GetVerifyServiceResult {
      */
     readonly lookupEnabled?: boolean;
     /**
+     * Authenticator attachment for passkeys: platform, cross-platform or any.
+     */
+    readonly passkeysAuthenticatorAttachment?: string;
+    /**
+     * Whether passkey credentials are discoverable: required, preferred or discouraged.
+     */
+    readonly passkeysDiscoverableCredentials?: string;
+    /**
+     * Passkeys relying party ID (the domain). Removing it clears the value.
+     */
+    readonly passkeysRelyingPartyId?: string;
+    /**
+     * Passkeys relying party display name. Removing it clears the value.
+     */
+    readonly passkeysRelyingPartyName?: string;
+    /**
+     * Origins allowed to use the passkeys relying party. Removing the list clears it.
+     */
+    readonly passkeysRelyingPartyOrigins?: string[];
+    /**
+     * User verification for passkeys: required, preferred or discouraged.
+     */
+    readonly passkeysUserVerification?: string;
+    /**
      * Whether PSD2 dynamic-linking (payee and amount) is required.
      */
     readonly psd2Enabled?: boolean;
+    /**
+     * SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.
+     */
+    readonly pushApnCredentialSid?: string;
+    /**
+     * SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.
+     */
+    readonly pushFcmCredentialSid?: string;
+    /**
+     * Whether push challenges include the date they were created.
+     */
+    readonly pushIncludeDate?: boolean;
     /**
      * The Verify service SID (VA...).
      */
@@ -59,9 +99,37 @@ export interface GetVerifyServiceResult {
      */
     readonly skipSmsToLandlines?: boolean;
     /**
+     * Number of digits of a TOTP code (3 to 8).
+     */
+    readonly totpCodeLength?: number;
+    /**
+     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     */
+    readonly totpIssuer?: string;
+    /**
+     * Number of time steps before and after the current one in which a TOTP code is accepted.
+     */
+    readonly totpSkew?: number;
+    /**
+     * Seconds a TOTP code is valid (Twilio's totp.time_step).
+     */
+    readonly totpTimeStep?: number;
+    /**
      * Name spoken in voice verifications instead of friendlyName.
      */
     readonly ttsName?: string;
+    /**
+     * Whether Verify events are sent to the service's event subscriptions.
+     */
+    readonly verifyEventSubscriptionEnabled?: boolean;
+    /**
+     * WhatsApp sender (E.164 number) verifications are sent from. Removing it clears the sender.
+     */
+    readonly whatsappFrom?: string;
+    /**
+     * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
+     */
+    readonly whatsappMsgServiceSid?: string;
 }
 /**
  * Look up a Verify service by SID.

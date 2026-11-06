@@ -23,7 +23,7 @@ __all__ = [
 
 @pulumi.output_type
 class GetMessagingServiceResult:
-    def __init__(__self__, area_code_geomatch=None, fallback_method=None, fallback_to_long_code=None, fallback_url=None, friendly_name=None, inbound_method=None, inbound_request_url=None, mms_converter=None, scan_message_content=None, sid=None, smart_encoding=None, status_callback=None, sticky_sender=None, synchronous_validation=None, use_inbound_webhook_on_number=None, validity_period=None):
+    def __init__(__self__, area_code_geomatch=None, fallback_method=None, fallback_to_long_code=None, fallback_url=None, friendly_name=None, inbound_method=None, inbound_request_url=None, mms_converter=None, scan_message_content=None, sid=None, smart_encoding=None, status_callback=None, sticky_sender=None, synchronous_validation=None, use_inbound_webhook_on_number=None, usecase=None, validity_period=None):
         if area_code_geomatch and not isinstance(area_code_geomatch, bool):
             raise TypeError("Expected argument 'area_code_geomatch' to be a bool")
         pulumi.set(__self__, "area_code_geomatch", area_code_geomatch)
@@ -69,6 +69,9 @@ class GetMessagingServiceResult:
         if use_inbound_webhook_on_number and not isinstance(use_inbound_webhook_on_number, bool):
             raise TypeError("Expected argument 'use_inbound_webhook_on_number' to be a bool")
         pulumi.set(__self__, "use_inbound_webhook_on_number", use_inbound_webhook_on_number)
+        if usecase and not isinstance(usecase, str):
+            raise TypeError("Expected argument 'usecase' to be a str")
+        pulumi.set(__self__, "usecase", usecase)
         if validity_period and not isinstance(validity_period, int):
             raise TypeError("Expected argument 'validity_period' to be a int")
         pulumi.set(__self__, "validity_period", validity_period)
@@ -194,6 +197,14 @@ class GetMessagingServiceResult:
         return pulumi.get(self, "use_inbound_webhook_on_number")
 
     @_builtins.property
+    @pulumi.getter
+    def usecase(self) -> Optional[_builtins.str]:
+        """
+        Intended use of the service, for example notifications, marketing, verification, discussion, poll, undeclared (a free string on Twilio). Removing it leaves the use case unchanged.
+        """
+        return pulumi.get(self, "usecase")
+
+    @_builtins.property
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> Optional[_builtins.int]:
         """
@@ -223,6 +234,7 @@ class AwaitableGetMessagingServiceResult(GetMessagingServiceResult):
             sticky_sender=self.sticky_sender,
             synchronous_validation=self.synchronous_validation,
             use_inbound_webhook_on_number=self.use_inbound_webhook_on_number,
+            usecase=self.usecase,
             validity_period=self.validity_period)
 
 
@@ -255,6 +267,7 @@ def get_messaging_service(service_sid: Optional[_builtins.str] = None,
         sticky_sender=pulumi.get(__ret__, 'sticky_sender'),
         synchronous_validation=pulumi.get(__ret__, 'synchronous_validation'),
         use_inbound_webhook_on_number=pulumi.get(__ret__, 'use_inbound_webhook_on_number'),
+        usecase=pulumi.get(__ret__, 'usecase'),
         validity_period=pulumi.get(__ret__, 'validity_period'))
 def get_messaging_service_output(service_sid: Optional[pulumi.Input[_builtins.str]] = None,
                                  opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetMessagingServiceResult]:
@@ -284,4 +297,5 @@ def get_messaging_service_output(service_sid: Optional[pulumi.Input[_builtins.st
         sticky_sender=pulumi.get(__response__, 'sticky_sender'),
         synchronous_validation=pulumi.get(__response__, 'synchronous_validation'),
         use_inbound_webhook_on_number=pulumi.get(__response__, 'use_inbound_webhook_on_number'),
+        usecase=pulumi.get(__response__, 'usecase'),
         validity_period=pulumi.get(__response__, 'validity_period')))

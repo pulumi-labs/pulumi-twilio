@@ -11,30 +11,78 @@ import com.pulumi.deployment.InvokeOutputOptions;
 import com.pulumi.labs.twilio.Utilities;
 import com.pulumi.labs.twilio.inputs.GetAccountArgs;
 import com.pulumi.labs.twilio.inputs.GetAccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAddressArgs;
+import com.pulumi.labs.twilio.inputs.GetAddressPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetApiKeyArgs;
 import com.pulumi.labs.twilio.inputs.GetApiKeyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetApplicationArgs;
 import com.pulumi.labs.twilio.inputs.GetApplicationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetBalanceArgs;
 import com.pulumi.labs.twilio.inputs.GetBalancePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectAppArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectAppPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSinkArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSinkPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSubscriptionArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSubscriptionPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdArgs;
+import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetQueueArgs;
+import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetShortCodeArgs;
+import com.pulumi.labs.twilio.inputs.GetShortCodePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSigningKeyArgs;
+import com.pulumi.labs.twilio.inputs.GetSigningKeyPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipCredentialArgs;
+import com.pulumi.labs.twilio.inputs.GetSipCredentialListArgs;
+import com.pulumi.labs.twilio.inputs.GetSipCredentialListPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipCredentialPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainCredentialListMappingArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainCredentialListMappingPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainIpAccessControlListMappingArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainIpAccessControlListMappingPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipDomainPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipIpAccessControlListArgs;
+import com.pulumi.labs.twilio.inputs.GetSipIpAccessControlListPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSipIpAddressArgs;
+import com.pulumi.labs.twilio.inputs.GetSipIpAddressPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetUsageTriggerArgs;
+import com.pulumi.labs.twilio.inputs.GetUsageTriggerPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyServicePlainArgs;
 import com.pulumi.labs.twilio.outputs.GetAccountResult;
+import com.pulumi.labs.twilio.outputs.GetAddressResult;
 import com.pulumi.labs.twilio.outputs.GetApiKeyResult;
 import com.pulumi.labs.twilio.outputs.GetApplicationResult;
 import com.pulumi.labs.twilio.outputs.GetBalanceResult;
+import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
+import com.pulumi.labs.twilio.outputs.GetEventSinkResult;
+import com.pulumi.labs.twilio.outputs.GetEventSubscriptionResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServicePhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServiceResult;
+import com.pulumi.labs.twilio.outputs.GetOutgoingCallerIdResult;
+import com.pulumi.labs.twilio.outputs.GetQueueResult;
+import com.pulumi.labs.twilio.outputs.GetShortCodeResult;
+import com.pulumi.labs.twilio.outputs.GetSigningKeyResult;
+import com.pulumi.labs.twilio.outputs.GetSipCredentialListResult;
+import com.pulumi.labs.twilio.outputs.GetSipCredentialResult;
+import com.pulumi.labs.twilio.outputs.GetSipDomainCredentialListMappingResult;
+import com.pulumi.labs.twilio.outputs.GetSipDomainIpAccessControlListMappingResult;
+import com.pulumi.labs.twilio.outputs.GetSipDomainResult;
+import com.pulumi.labs.twilio.outputs.GetSipIpAccessControlListResult;
+import com.pulumi.labs.twilio.outputs.GetSipIpAddressResult;
 import com.pulumi.labs.twilio.outputs.GetSubaccountResult;
+import com.pulumi.labs.twilio.outputs.GetUsageTriggerResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
 import java.util.concurrent.CompletableFuture;
 
@@ -87,6 +135,41 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetAccountResult> getAccountPlain(GetAccountPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getAccount", TypeShape.of(GetAccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio address by SID.
+     * 
+     */
+    public static Output<GetAddressResult> getAddress(GetAddressArgs args) {
+        return getAddress(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio address by SID.
+     * 
+     */
+    public static CompletableFuture<GetAddressResult> getAddressPlain(GetAddressPlainArgs args) {
+        return getAddressPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio address by SID.
+     * 
+     */
+    public static Output<GetAddressResult> getAddress(GetAddressArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAddress", TypeShape.of(GetAddressResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio address by SID.
+     * 
+     */
+    public static Output<GetAddressResult> getAddress(GetAddressArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAddress", TypeShape.of(GetAddressResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio address by SID.
+     * 
+     */
+    public static CompletableFuture<GetAddressResult> getAddressPlain(GetAddressPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAddress", TypeShape.of(GetAddressResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio API key by SID. The secret is never returned.
@@ -208,6 +291,111 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getBalance", TypeShape.of(GetBalanceResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a Twilio Connect app by SID.
+     * 
+     */
+    public static Output<GetConnectAppResult> getConnectApp(GetConnectAppArgs args) {
+        return getConnectApp(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Connect app by SID.
+     * 
+     */
+    public static CompletableFuture<GetConnectAppResult> getConnectAppPlain(GetConnectAppPlainArgs args) {
+        return getConnectAppPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Connect app by SID.
+     * 
+     */
+    public static Output<GetConnectAppResult> getConnectApp(GetConnectAppArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectApp", TypeShape.of(GetConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Connect app by SID.
+     * 
+     */
+    public static Output<GetConnectAppResult> getConnectApp(GetConnectAppArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectApp", TypeShape.of(GetConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Connect app by SID.
+     * 
+     */
+    public static CompletableFuture<GetConnectAppResult> getConnectAppPlain(GetConnectAppPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConnectApp", TypeShape.of(GetConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams sink by SID.
+     * 
+     */
+    public static Output<GetEventSinkResult> getEventSink(GetEventSinkArgs args) {
+        return getEventSink(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Event Streams sink by SID.
+     * 
+     */
+    public static CompletableFuture<GetEventSinkResult> getEventSinkPlain(GetEventSinkPlainArgs args) {
+        return getEventSinkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Event Streams sink by SID.
+     * 
+     */
+    public static Output<GetEventSinkResult> getEventSink(GetEventSinkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSink", TypeShape.of(GetEventSinkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams sink by SID.
+     * 
+     */
+    public static Output<GetEventSinkResult> getEventSink(GetEventSinkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSink", TypeShape.of(GetEventSinkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams sink by SID.
+     * 
+     */
+    public static CompletableFuture<GetEventSinkResult> getEventSinkPlain(GetEventSinkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getEventSink", TypeShape.of(GetEventSinkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams subscription by SID.
+     * 
+     */
+    public static Output<GetEventSubscriptionResult> getEventSubscription(GetEventSubscriptionArgs args) {
+        return getEventSubscription(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Event Streams subscription by SID.
+     * 
+     */
+    public static CompletableFuture<GetEventSubscriptionResult> getEventSubscriptionPlain(GetEventSubscriptionPlainArgs args) {
+        return getEventSubscriptionPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Event Streams subscription by SID.
+     * 
+     */
+    public static Output<GetEventSubscriptionResult> getEventSubscription(GetEventSubscriptionArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSubscription", TypeShape.of(GetEventSubscriptionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams subscription by SID.
+     * 
+     */
+    public static Output<GetEventSubscriptionResult> getEventSubscription(GetEventSubscriptionArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSubscription", TypeShape.of(GetEventSubscriptionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Event Streams subscription by SID.
+     * 
+     */
+    public static CompletableFuture<GetEventSubscriptionResult> getEventSubscriptionPlain(GetEventSubscriptionPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getEventSubscription", TypeShape.of(GetEventSubscriptionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a phone number owned by the account by E.164 number or SID.
      * 
      */
@@ -327,6 +515,419 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServicePhoneNumber", TypeShape.of(GetMessagingServicePhoneNumberResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static Output<GetOutgoingCallerIdResult> getOutgoingCallerId() {
+        return getOutgoingCallerId(GetOutgoingCallerIdArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static CompletableFuture<GetOutgoingCallerIdResult> getOutgoingCallerIdPlain() {
+        return getOutgoingCallerIdPlain(GetOutgoingCallerIdPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static Output<GetOutgoingCallerIdResult> getOutgoingCallerId(GetOutgoingCallerIdArgs args) {
+        return getOutgoingCallerId(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static CompletableFuture<GetOutgoingCallerIdResult> getOutgoingCallerIdPlain(GetOutgoingCallerIdPlainArgs args) {
+        return getOutgoingCallerIdPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static Output<GetOutgoingCallerIdResult> getOutgoingCallerId(GetOutgoingCallerIdArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getOutgoingCallerId", TypeShape.of(GetOutgoingCallerIdResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static Output<GetOutgoingCallerIdResult> getOutgoingCallerId(GetOutgoingCallerIdArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getOutgoingCallerId", TypeShape.of(GetOutgoingCallerIdResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a verified outgoing caller ID by E.164 number or SID.
+     * 
+     */
+    public static CompletableFuture<GetOutgoingCallerIdResult> getOutgoingCallerIdPlain(GetOutgoingCallerIdPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getOutgoingCallerId", TypeShape.of(GetOutgoingCallerIdResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio call queue by SID.
+     * 
+     */
+    public static Output<GetQueueResult> getQueue(GetQueueArgs args) {
+        return getQueue(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio call queue by SID.
+     * 
+     */
+    public static CompletableFuture<GetQueueResult> getQueuePlain(GetQueuePlainArgs args) {
+        return getQueuePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio call queue by SID.
+     * 
+     */
+    public static Output<GetQueueResult> getQueue(GetQueueArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio call queue by SID.
+     * 
+     */
+    public static Output<GetQueueResult> getQueue(GetQueueArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio call queue by SID.
+     * 
+     */
+    public static CompletableFuture<GetQueueResult> getQueuePlain(GetQueuePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static Output<GetShortCodeResult> getShortCode() {
+        return getShortCode(GetShortCodeArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static CompletableFuture<GetShortCodeResult> getShortCodePlain() {
+        return getShortCodePlain(GetShortCodePlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static Output<GetShortCodeResult> getShortCode(GetShortCodeArgs args) {
+        return getShortCode(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static CompletableFuture<GetShortCodeResult> getShortCodePlain(GetShortCodePlainArgs args) {
+        return getShortCodePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static Output<GetShortCodeResult> getShortCode(GetShortCodeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getShortCode", TypeShape.of(GetShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static Output<GetShortCodeResult> getShortCode(GetShortCodeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getShortCode", TypeShape.of(GetShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an SMS short code leased by the account, by code or SID.
+     * 
+     */
+    public static CompletableFuture<GetShortCodeResult> getShortCodePlain(GetShortCodePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getShortCode", TypeShape.of(GetShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio signing key by SID. The secret is never returned (Twilio shows it once, at creation).
+     * 
+     */
+    public static Output<GetSigningKeyResult> getSigningKey(GetSigningKeyArgs args) {
+        return getSigningKey(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio signing key by SID. The secret is never returned (Twilio shows it once, at creation).
+     * 
+     */
+    public static CompletableFuture<GetSigningKeyResult> getSigningKeyPlain(GetSigningKeyPlainArgs args) {
+        return getSigningKeyPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio signing key by SID. The secret is never returned (Twilio shows it once, at creation).
+     * 
+     */
+    public static Output<GetSigningKeyResult> getSigningKey(GetSigningKeyArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSigningKey", TypeShape.of(GetSigningKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio signing key by SID. The secret is never returned (Twilio shows it once, at creation).
+     * 
+     */
+    public static Output<GetSigningKeyResult> getSigningKey(GetSigningKeyArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSigningKey", TypeShape.of(GetSigningKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio signing key by SID. The secret is never returned (Twilio shows it once, at creation).
+     * 
+     */
+    public static CompletableFuture<GetSigningKeyResult> getSigningKeyPlain(GetSigningKeyPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSigningKey", TypeShape.of(GetSigningKeyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential by list SID and credential SID. The password is never returned.
+     * 
+     */
+    public static Output<GetSipCredentialResult> getSipCredential(GetSipCredentialArgs args) {
+        return getSipCredential(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP credential by list SID and credential SID. The password is never returned.
+     * 
+     */
+    public static CompletableFuture<GetSipCredentialResult> getSipCredentialPlain(GetSipCredentialPlainArgs args) {
+        return getSipCredentialPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP credential by list SID and credential SID. The password is never returned.
+     * 
+     */
+    public static Output<GetSipCredentialResult> getSipCredential(GetSipCredentialArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipCredential", TypeShape.of(GetSipCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential by list SID and credential SID. The password is never returned.
+     * 
+     */
+    public static Output<GetSipCredentialResult> getSipCredential(GetSipCredentialArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipCredential", TypeShape.of(GetSipCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential by list SID and credential SID. The password is never returned.
+     * 
+     */
+    public static CompletableFuture<GetSipCredentialResult> getSipCredentialPlain(GetSipCredentialPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipCredential", TypeShape.of(GetSipCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential list by SID.
+     * 
+     */
+    public static Output<GetSipCredentialListResult> getSipCredentialList(GetSipCredentialListArgs args) {
+        return getSipCredentialList(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP credential list by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipCredentialListResult> getSipCredentialListPlain(GetSipCredentialListPlainArgs args) {
+        return getSipCredentialListPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP credential list by SID.
+     * 
+     */
+    public static Output<GetSipCredentialListResult> getSipCredentialList(GetSipCredentialListArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipCredentialList", TypeShape.of(GetSipCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential list by SID.
+     * 
+     */
+    public static Output<GetSipCredentialListResult> getSipCredentialList(GetSipCredentialListArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipCredentialList", TypeShape.of(GetSipCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP credential list by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipCredentialListResult> getSipCredentialListPlain(GetSipCredentialListPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipCredentialList", TypeShape.of(GetSipCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP domain by SID.
+     * 
+     */
+    public static Output<GetSipDomainResult> getSipDomain(GetSipDomainArgs args) {
+        return getSipDomain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP domain by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainResult> getSipDomainPlain(GetSipDomainPlainArgs args) {
+        return getSipDomainPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP domain by SID.
+     * 
+     */
+    public static Output<GetSipDomainResult> getSipDomain(GetSipDomainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomain", TypeShape.of(GetSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP domain by SID.
+     * 
+     */
+    public static Output<GetSipDomainResult> getSipDomain(GetSipDomainArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomain", TypeShape.of(GetSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP domain by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainResult> getSipDomainPlain(GetSipDomainPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipDomain", TypeShape.of(GetSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether a credential list is mapped to a Twilio SIP domain, for calls or registrations. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainCredentialListMappingResult> getSipDomainCredentialListMapping(GetSipDomainCredentialListMappingArgs args) {
+        return getSipDomainCredentialListMapping(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up whether a credential list is mapped to a Twilio SIP domain, for calls or registrations. Fails when the mapping does not exist.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainCredentialListMappingResult> getSipDomainCredentialListMappingPlain(GetSipDomainCredentialListMappingPlainArgs args) {
+        return getSipDomainCredentialListMappingPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up whether a credential list is mapped to a Twilio SIP domain, for calls or registrations. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainCredentialListMappingResult> getSipDomainCredentialListMapping(GetSipDomainCredentialListMappingArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomainCredentialListMapping", TypeShape.of(GetSipDomainCredentialListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether a credential list is mapped to a Twilio SIP domain, for calls or registrations. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainCredentialListMappingResult> getSipDomainCredentialListMapping(GetSipDomainCredentialListMappingArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomainCredentialListMapping", TypeShape.of(GetSipDomainCredentialListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether a credential list is mapped to a Twilio SIP domain, for calls or registrations. Fails when the mapping does not exist.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainCredentialListMappingResult> getSipDomainCredentialListMappingPlain(GetSipDomainCredentialListMappingPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipDomainCredentialListMapping", TypeShape.of(GetSipDomainCredentialListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether an IP access control list is mapped to a Twilio SIP domain. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainIpAccessControlListMappingResult> getSipDomainIpAccessControlListMapping(GetSipDomainIpAccessControlListMappingArgs args) {
+        return getSipDomainIpAccessControlListMapping(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up whether an IP access control list is mapped to a Twilio SIP domain. Fails when the mapping does not exist.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainIpAccessControlListMappingResult> getSipDomainIpAccessControlListMappingPlain(GetSipDomainIpAccessControlListMappingPlainArgs args) {
+        return getSipDomainIpAccessControlListMappingPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up whether an IP access control list is mapped to a Twilio SIP domain. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainIpAccessControlListMappingResult> getSipDomainIpAccessControlListMapping(GetSipDomainIpAccessControlListMappingArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomainIpAccessControlListMapping", TypeShape.of(GetSipDomainIpAccessControlListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether an IP access control list is mapped to a Twilio SIP domain. Fails when the mapping does not exist.
+     * 
+     */
+    public static Output<GetSipDomainIpAccessControlListMappingResult> getSipDomainIpAccessControlListMapping(GetSipDomainIpAccessControlListMappingArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipDomainIpAccessControlListMapping", TypeShape.of(GetSipDomainIpAccessControlListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up whether an IP access control list is mapped to a Twilio SIP domain. Fails when the mapping does not exist.
+     * 
+     */
+    public static CompletableFuture<GetSipDomainIpAccessControlListMappingResult> getSipDomainIpAccessControlListMappingPlain(GetSipDomainIpAccessControlListMappingPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipDomainIpAccessControlListMapping", TypeShape.of(GetSipDomainIpAccessControlListMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP access control list by SID.
+     * 
+     */
+    public static Output<GetSipIpAccessControlListResult> getSipIpAccessControlList(GetSipIpAccessControlListArgs args) {
+        return getSipIpAccessControlList(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP IP access control list by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipIpAccessControlListResult> getSipIpAccessControlListPlain(GetSipIpAccessControlListPlainArgs args) {
+        return getSipIpAccessControlListPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP IP access control list by SID.
+     * 
+     */
+    public static Output<GetSipIpAccessControlListResult> getSipIpAccessControlList(GetSipIpAccessControlListArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipIpAccessControlList", TypeShape.of(GetSipIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP access control list by SID.
+     * 
+     */
+    public static Output<GetSipIpAccessControlListResult> getSipIpAccessControlList(GetSipIpAccessControlListArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipIpAccessControlList", TypeShape.of(GetSipIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP access control list by SID.
+     * 
+     */
+    public static CompletableFuture<GetSipIpAccessControlListResult> getSipIpAccessControlListPlain(GetSipIpAccessControlListPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipIpAccessControlList", TypeShape.of(GetSipIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP address by access control list SID and address SID.
+     * 
+     */
+    public static Output<GetSipIpAddressResult> getSipIpAddress(GetSipIpAddressArgs args) {
+        return getSipIpAddress(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP IP address by access control list SID and address SID.
+     * 
+     */
+    public static CompletableFuture<GetSipIpAddressResult> getSipIpAddressPlain(GetSipIpAddressPlainArgs args) {
+        return getSipIpAddressPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio SIP IP address by access control list SID and address SID.
+     * 
+     */
+    public static Output<GetSipIpAddressResult> getSipIpAddress(GetSipIpAddressArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipIpAddress", TypeShape.of(GetSipIpAddressResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP address by access control list SID and address SID.
+     * 
+     */
+    public static Output<GetSipIpAddressResult> getSipIpAddress(GetSipIpAddressArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSipIpAddress", TypeShape.of(GetSipIpAddressResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio SIP IP address by access control list SID and address SID.
+     * 
+     */
+    public static CompletableFuture<GetSipIpAddressResult> getSipIpAddressPlain(GetSipIpAddressPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSipIpAddress", TypeShape.of(GetSipIpAddressResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Twilio subaccount by SID. The auth token is deliberately not returned.
      * 
      */
@@ -360,6 +961,41 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetSubaccountResult> getSubaccountPlain(GetSubaccountPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getSubaccount", TypeShape.of(GetSubaccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio usage trigger by SID.
+     * 
+     */
+    public static Output<GetUsageTriggerResult> getUsageTrigger(GetUsageTriggerArgs args) {
+        return getUsageTrigger(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio usage trigger by SID.
+     * 
+     */
+    public static CompletableFuture<GetUsageTriggerResult> getUsageTriggerPlain(GetUsageTriggerPlainArgs args) {
+        return getUsageTriggerPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio usage trigger by SID.
+     * 
+     */
+    public static Output<GetUsageTriggerResult> getUsageTrigger(GetUsageTriggerArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getUsageTrigger", TypeShape.of(GetUsageTriggerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio usage trigger by SID.
+     * 
+     */
+    public static Output<GetUsageTriggerResult> getUsageTrigger(GetUsageTriggerArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getUsageTrigger", TypeShape.of(GetUsageTriggerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio usage trigger by SID.
+     * 
+     */
+    public static CompletableFuture<GetUsageTriggerResult> getUsageTriggerPlain(GetUsageTriggerPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getUsageTrigger", TypeShape.of(GetUsageTriggerResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Verify service by SID.

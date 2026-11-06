@@ -55,6 +55,14 @@ import com.pulumi.labs.twilio.inputs.GetSipIpAddressArgs;
 import com.pulumi.labs.twilio.inputs.GetSipIpAddressPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkCredentialListArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkCredentialListPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkIpAccessControlListArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkIpAccessControlListPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrunkPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsageTriggerArgs;
 import com.pulumi.labs.twilio.inputs.GetUsageTriggerPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyServiceArgs;
@@ -82,6 +90,10 @@ import com.pulumi.labs.twilio.outputs.GetSipDomainResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAddressResult;
 import com.pulumi.labs.twilio.outputs.GetSubaccountResult;
+import com.pulumi.labs.twilio.outputs.GetTrunkCredentialListResult;
+import com.pulumi.labs.twilio.outputs.GetTrunkIpAccessControlListResult;
+import com.pulumi.labs.twilio.outputs.GetTrunkOriginationUrlResult;
+import com.pulumi.labs.twilio.outputs.GetTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetUsageTriggerResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
 import java.util.concurrent.CompletableFuture;
@@ -961,6 +973,146 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetSubaccountResult> getSubaccountPlain(GetSubaccountPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getSubaccount", TypeShape.of(GetSubaccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.
+     * 
+     */
+    public static Output<GetTrunkResult> getTrunk(GetTrunkArgs args) {
+        return getTrunk(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.
+     * 
+     */
+    public static CompletableFuture<GetTrunkResult> getTrunkPlain(GetTrunkPlainArgs args) {
+        return getTrunkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.
+     * 
+     */
+    public static Output<GetTrunkResult> getTrunk(GetTrunkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunk", TypeShape.of(GetTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.
+     * 
+     */
+    public static Output<GetTrunkResult> getTrunk(GetTrunkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunk", TypeShape.of(GetTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.
+     * 
+     */
+    public static CompletableFuture<GetTrunkResult> getTrunkPlain(GetTrunkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrunk", TypeShape.of(GetTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a SIP credential list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkCredentialListResult> getTrunkCredentialList(GetTrunkCredentialListArgs args) {
+        return getTrunkCredentialList(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a SIP credential list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkCredentialListResult> getTrunkCredentialListPlain(GetTrunkCredentialListPlainArgs args) {
+        return getTrunkCredentialListPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a SIP credential list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkCredentialListResult> getTrunkCredentialList(GetTrunkCredentialListArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkCredentialList", TypeShape.of(GetTrunkCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a SIP credential list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkCredentialListResult> getTrunkCredentialList(GetTrunkCredentialListArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkCredentialList", TypeShape.of(GetTrunkCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a SIP credential list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkCredentialListResult> getTrunkCredentialListPlain(GetTrunkCredentialListPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrunkCredentialList", TypeShape.of(GetTrunkCredentialListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an IP access control list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkIpAccessControlListResult> getTrunkIpAccessControlList(GetTrunkIpAccessControlListArgs args) {
+        return getTrunkIpAccessControlList(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an IP access control list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkIpAccessControlListResult> getTrunkIpAccessControlListPlain(GetTrunkIpAccessControlListPlainArgs args) {
+        return getTrunkIpAccessControlListPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an IP access control list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkIpAccessControlListResult> getTrunkIpAccessControlList(GetTrunkIpAccessControlListArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkIpAccessControlList", TypeShape.of(GetTrunkIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an IP access control list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkIpAccessControlListResult> getTrunkIpAccessControlList(GetTrunkIpAccessControlListArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkIpAccessControlList", TypeShape.of(GetTrunkIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an IP access control list attached to an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkIpAccessControlListResult> getTrunkIpAccessControlListPlain(GetTrunkIpAccessControlListPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrunkIpAccessControlList", TypeShape.of(GetTrunkIpAccessControlListResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an origination URL of an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkOriginationUrlResult> getTrunkOriginationUrl(GetTrunkOriginationUrlArgs args) {
+        return getTrunkOriginationUrl(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an origination URL of an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkOriginationUrlResult> getTrunkOriginationUrlPlain(GetTrunkOriginationUrlPlainArgs args) {
+        return getTrunkOriginationUrlPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an origination URL of an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkOriginationUrlResult> getTrunkOriginationUrl(GetTrunkOriginationUrlArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkOriginationUrl", TypeShape.of(GetTrunkOriginationUrlResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an origination URL of an Elastic SIP trunk.
+     * 
+     */
+    public static Output<GetTrunkOriginationUrlResult> getTrunkOriginationUrl(GetTrunkOriginationUrlArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrunkOriginationUrl", TypeShape.of(GetTrunkOriginationUrlResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an origination URL of an Elastic SIP trunk.
+     * 
+     */
+    public static CompletableFuture<GetTrunkOriginationUrlResult> getTrunkOriginationUrlPlain(GetTrunkOriginationUrlPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrunkOriginationUrl", TypeShape.of(GetTrunkOriginationUrlResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio usage trigger by SID.

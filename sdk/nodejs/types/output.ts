@@ -358,6 +358,49 @@ export interface ShortCodeEffective {
     smsUrl?: string;
 }
 
+export interface TrunkEffective {
+    /**
+     * Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+     */
+    cnamLookupEnabled?: boolean;
+    /**
+     * HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+     */
+    disasterRecoveryMethod?: string;
+    /**
+     * URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+     */
+    disasterRecoveryUrl?: string;
+    /**
+     * The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+     */
+    domainName?: string;
+    /**
+     * Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+     */
+    friendlyName?: string;
+    /**
+     * Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+     */
+    recordingMode?: string;
+    /**
+     * Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+     */
+    recordingTrim?: string;
+    /**
+     * Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+     */
+    secure?: boolean;
+    /**
+     * Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+     */
+    transferCallerId?: string;
+    /**
+     * Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+     */
+    transferMode?: string;
+}
+
 export interface VerifyServiceEffective {
     /**
      * Length of the verification code, 4 to 10 digits (Twilio default 6).
@@ -436,7 +479,7 @@ export interface VerifyServiceEffective {
      */
     totpCodeLength?: number;
     /**
-     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
      */
     totpIssuer?: string;
     /**

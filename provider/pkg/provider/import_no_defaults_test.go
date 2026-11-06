@@ -124,8 +124,8 @@ func TestImport_NonDefaultSettingsAreAdopted(t *testing.T) {
 			program: pv(map[string]property.Value{"friendlyName": sv("arqa")}),
 			live: map[string]any{"area_code_geomatch": true, "mms_converter": true, "smart_encoding": true,
 				"sticky_sender": true, "synchronous_validation": false, "use_inbound_webhook_on_number": false},
-			server:     map[string]any{"sticky_sender": false, "mms_converter": true, "smart_encoding": false, "area_code_geomatch": true},
-			adopted:    map[string]property.Value{"stickySender": bv(false), "smartEncoding": bv(false)},
+			server:     map[string]any{"sticky_sender": false, "mms_converter": true, "smart_encoding": false, "area_code_geomatch": true, "usecase": "notifications"},
+			adopted:    map[string]property.Value{"stickySender": bv(false), "smartEncoding": bv(false), "usecase": sv("notifications")},
 			notAdopted: []string{"mmsConverter", "areaCodeGeomatch"},
 		},
 		{
@@ -183,4 +183,46 @@ func TestImport_NonDefaultSettingsAreAdopted(t *testing.T) {
 			require.False(t, l.diff(created.ID, imp.Properties, l.checked(declared), imp.Inputs).HasChanges)
 		})
 	}
+}
+
+// #1634: the issuer Twilio sets at creation (the friendlyName) stays out of the inputs, but an issuer
+// that differs from the friendlyName is a genuine setting and an import adopts it. The default is
+// compared against the friendlyName as it is now, so a rename out of band does not make the new
+// default look like a setting.
+func TestImport_TotpIssuerAdoptedOnlyWhenItDiffersFromFriendlyName(t *testing.T) {
+	l := newTL(t, "VerifyService", "r")
+	program := pv(map[string]property.Value{"friendlyName": sv("arqa")})
+	created := l.create(program)
+	// What a freshly created service reports live (as in TestImport_NonDefaultSettingsAreAdopted).
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) {
+		for k, v := range map[string]any{"code_length": float64(6), "custom_code_enabled": false,
+			"dtmf_input_required": true, "psd2_enabled": false, "skip_sms_to_landlines": false} {
+			o[k] = v
+		}
+	})
+
+	// Created issuer equals the friendlyName: not adopted.
+	imp := l.read(created.ID, empty(), empty())
+	require.False(t, hasProp(imp.Inputs, "totpIssuer"), "%v", imp.Inputs)
+
+	// A different issuer is adopted, and the program that declares it plans nothing.
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { setPath(o, "totp.issuer", "beta") })
+	imp = l.read(created.ID, empty(), empty())
+	require.Equal(t, "beta", getS(t, imp.Inputs, "totpIssuer"))
+	declared := with(program, map[string]property.Value{"totpIssuer": sv("beta")})
+	d := l.diff(created.ID, imp.Properties, l.checked(declared), imp.Inputs)
+	require.False(t, d.HasChanges, "%+v", d.DetailedDiff)
+
+	// Renamed out of band with the issuer following it: still the default, still not adopted.
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) {
+		o["friendly_name"] = "renamed"
+		setPath(o, "totp.issuer", "renamed")
+	})
+	imp = l.read(created.ID, empty(), empty())
+	require.False(t, hasProp(imp.Inputs, "totpIssuer"), "%v", imp.Inputs)
+
+	// The old friendlyName as issuer is now a real setting.
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { setPath(o, "totp.issuer", "arqa") })
+	imp = l.read(created.ID, empty(), empty())
+	require.Equal(t, "arqa", getS(t, imp.Inputs, "totpIssuer"))
 }

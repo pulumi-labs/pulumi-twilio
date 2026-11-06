@@ -35,6 +35,10 @@ from .get_sip_domain_ip_access_control_list_mapping import *
 from .get_sip_ip_access_control_list import *
 from .get_sip_ip_address import *
 from .get_subaccount import *
+from .get_trunk import *
+from .get_trunk_credential_list import *
+from .get_trunk_ip_access_control_list import *
+from .get_trunk_origination_url import *
 from .get_usage_trigger import *
 from .get_verify_service import *
 from .incoming_phone_number import *
@@ -53,6 +57,10 @@ from .sip_domain_ip_access_control_list_mapping import *
 from .sip_ip_access_control_list import *
 from .sip_ip_address import *
 from .subaccount import *
+from .trunk import *
+from .trunk_credential_list import *
+from .trunk_ip_access_control_list import *
+from .trunk_origination_url import *
 from .usage_trigger import *
 from .verify_service import *
 from ._inputs import *
@@ -94,6 +102,10 @@ _utilities.register(
    "twilio:index:SipIpAccessControlList": "SipIpAccessControlList",
    "twilio:index:SipIpAddress": "SipIpAddress",
    "twilio:index:Subaccount": "Subaccount",
+   "twilio:index:Trunk": "Trunk",
+   "twilio:index:TrunkCredentialList": "TrunkCredentialList",
+   "twilio:index:TrunkIpAccessControlList": "TrunkIpAccessControlList",
+   "twilio:index:TrunkOriginationUrl": "TrunkOriginationUrl",
    "twilio:index:UsageTrigger": "UsageTrigger",
    "twilio:index:VerifyService": "VerifyService"
   }

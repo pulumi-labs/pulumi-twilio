@@ -26,7 +26,7 @@ func newProvider() (provider.Provider, error) {
 	return infer.NewProviderBuilder().
 		WithDisplayName("Twilio").
 		WithDescription(
-			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
+			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
 		).
 		WithHomepage("https://www.twilio.com").
 		WithRepository("https://github.com/pulumi-labs/pulumi-twilio").
@@ -35,7 +35,7 @@ func newProvider() (provider.Provider, error) {
 			"go": map[string]any{"generateResourceContainerTypes": true, "respectSchemaVersion": true},
 			"nodejs": map[string]any{
 				"packageName":          "@pulumi-labs/twilio",
-				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, messaging services and Verify services as infrastructure with Pulumi.",
+				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -78,6 +78,10 @@ func newProvider() (provider.Provider, error) {
 			infer.Resource[*OutgoingCallerId, OutgoingCallerIdArgs, OutgoingCallerIdState](&OutgoingCallerId{}),
 			infer.Resource[*EventSink, EventSinkArgs, EventSinkState](&EventSink{}),
 			infer.Resource[*EventSubscription, EventSubscriptionArgs, EventSubscriptionState](&EventSubscription{}),
+			infer.Resource[*Trunk, TrunkArgs, TrunkState](&Trunk{}),
+			infer.Resource[*TrunkOriginationUrl, TrunkOriginationUrlArgs, TrunkOriginationUrlState](&TrunkOriginationUrl{}),
+			infer.Resource[*TrunkCredentialList, TrunkCredentialListArgs, TrunkCredentialListState](&TrunkCredentialList{}),
+			infer.Resource[*TrunkIpAccessControlList, TrunkIpAccessControlListArgs, TrunkIpAccessControlListState](&TrunkIpAccessControlList{}),
 		).
 		WithFunctions(
 			infer.Function[*GetAccount, GetAccountArgs, GetAccountResult](&GetAccount{}),
@@ -105,6 +109,10 @@ func newProvider() (provider.Provider, error) {
 			infer.Function[*GetOutgoingCallerId, GetOutgoingCallerIdArgs, GetOutgoingCallerIdResult](&GetOutgoingCallerId{}),
 			infer.Function[*GetEventSink, GetEventSinkArgs, GetEventSinkResult](&GetEventSink{}),
 			infer.Function[*GetEventSubscription, GetEventSubscriptionArgs, GetEventSubscriptionResult](&GetEventSubscription{}),
+			infer.Function[*GetTrunk, GetTrunkArgs, GetTrunkResult](&GetTrunk{}),
+			infer.Function[*GetTrunkOriginationUrl, GetTrunkOriginationUrlArgs, GetTrunkOriginationUrlResult](&GetTrunkOriginationUrl{}),
+			infer.Function[*GetTrunkCredentialList, GetTrunkCredentialListArgs, GetTrunkCredentialListResult](&GetTrunkCredentialList{}),
+			infer.Function[*GetTrunkIpAccessControlList, GetTrunkIpAccessControlListArgs, GetTrunkIpAccessControlListResult](&GetTrunkIpAccessControlList{}),
 		).
 		Build()
 }

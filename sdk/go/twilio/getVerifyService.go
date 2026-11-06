@@ -68,7 +68,7 @@ type LookupVerifyServiceResult struct {
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength *int `pulumi:"totpCodeLength"`
-	// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
 	TotpIssuer *string `pulumi:"totpIssuer"`
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew *int `pulumi:"totpSkew"`
@@ -216,7 +216,7 @@ func (o LookupVerifyServiceResultOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LookupVerifyServiceResult) *int { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
 func (o LookupVerifyServiceResultOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupVerifyServiceResult) *string { return v.TotpIssuer }).(pulumi.StringPtrOutput)
 }

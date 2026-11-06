@@ -121,6 +121,7 @@ func credentialLikeName(name string) bool {
 var notCredentialFunctionOutputs = map[string]string{
 	"twilio:index:getApiKey#keyType":                                "an identifier, name, timestamp or metadata, never the credential itself",
 	"twilio:index:getSipCredential#credentialListSid":               "an identifier, name, timestamp or metadata, never the credential itself",
+	"twilio:index:getTrunkCredentialList#credentialListSid":         "an identifier, name, timestamp or metadata, never the credential itself",
 	"twilio:index:getVerifyService#passkeysAuthenticatorAttachment": "an identifier, name, timestamp or metadata, never the credential itself",
 	"twilio:index:getVerifyService#passkeysDiscoverableCredentials": "an identifier, name, timestamp or metadata, never the credential itself",
 	"twilio:index:getVerifyService#passkeysRelyingPartyId":          "an identifier, name, timestamp or metadata, never the credential itself",

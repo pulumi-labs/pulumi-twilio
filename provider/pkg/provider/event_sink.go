@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -111,7 +112,7 @@ func (a *EventSinkArgs) config() map[string]any {
 			cfg["external_id"] = *a.KinesisExternalId
 		}
 	case "segment":
-		cfg["key"] = deref(a.SegmentWriteKey)
+		cfg["write_key"] = deref(a.SegmentWriteKey)
 	}
 	return cfg
 }
@@ -178,7 +179,7 @@ func (r *EventSink) Diff(_ context.Context, req infer.DiffRequest[EventSinkArgs,
 	}
 	replace("sinkType", o.SinkType != n.SinkType)
 	replace("webhookDestination", deref(o.WebhookDestination) != deref(n.WebhookDestination))
-	replace("webhookMethod", derefOr(o.WebhookMethod, "POST") != derefOr(n.WebhookMethod, "POST"))
+	replace("webhookMethod", !strings.EqualFold(derefOr(o.WebhookMethod, "POST"), derefOr(n.WebhookMethod, "POST")))
 	replace("webhookBatchEvents", derefBool(o.WebhookBatchEvents) != derefBool(n.WebhookBatchEvents))
 	replace("kinesisArn", deref(o.KinesisArn) != deref(n.KinesisArn))
 	replace("kinesisRoleArn", deref(o.KinesisRoleArn) != deref(n.KinesisRoleArn))
@@ -208,12 +209,17 @@ func (a *EventSinkArgs) refresh(o obj, imported bool) {
 	}{
 		{&a.WebhookDestination, "sink_configuration.destination"}, {&a.WebhookMethod, "sink_configuration.method"},
 		{&a.KinesisArn, "sink_configuration.arn"}, {&a.KinesisRoleArn, "sink_configuration.role_arn"},
-		{&a.KinesisExternalId, "sink_configuration.external_id"}, {&a.SegmentWriteKey, "sink_configuration.key"},
+		{&a.KinesisExternalId, "sink_configuration.external_id"}, {&a.SegmentWriteKey, "sink_configuration.write_key"},
 	}
 	for _, f := range str {
 		v := nonEmpty(o.optStr(f.key))
+		if v != nil && f.key == "sink_configuration.method" {
+			// Twilio returns the method in lower case ("post") whatever was sent.
+			up := strings.ToUpper(*v)
+			v = &up
+		}
 		switch {
-		case imported && v != nil && !(f.key == "sink_configuration.method" && *v == "POST"):
+		case imported && v != nil && !(f.key == "sink_configuration.method" && strings.EqualFold(*v, "POST")):
 			*f.dst = v
 		case !imported && *f.dst != nil && v != nil:
 			*f.dst = v

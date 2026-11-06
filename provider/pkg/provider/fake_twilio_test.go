@@ -284,6 +284,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleVerify(w, r, form, strings.Trim(strings.TrimPrefix(path, "/verify/v2/Services"), "/"))
 	case strings.HasPrefix(path, "/events/v1/"):
 		f.handleEvents(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/events/v1/"), "/"), "/"))
+	case strings.HasPrefix(path, "/trunking/v1/"):
+		f.handleTrunking(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trunking/v1/"), "/"), "/"))
 	default:
 		ferr(w, 404, "no route "+path)
 	}
@@ -617,7 +619,7 @@ func (f *fakeTwilio) handleMessaging(w http.ResponseWriter, r *http.Request, for
 			"inbound_request_url": nil, "inbound_method": "POST", "fallback_url": nil, "fallback_method": "POST",
 			"status_callback": nil, "scan_message_content": "inherit", "sticky_sender": true, "mms_converter": true,
 			"smart_encoding": false, "fallback_to_long_code": true, "area_code_geomatch": true,
-			"synchronous_validation": false, "validity_period": float64(36000), "use_inbound_webhook_on_number": true,
+			"synchronous_validation": false, "validity_period": float64(36000), "use_inbound_webhook_on_number": true, "usecase": "undeclared",
 			"date_created": "Mon, 02 Nov 2026 00:00:00 +0000"}
 		if msg := f.applyMessaging(o, form); msg != "" {
 			ferr(w, 400, msg)
@@ -729,6 +731,10 @@ func (f *fakeTwilio) handleVerify(w http.ResponseWriter, r *http.Request, form u
 			ferr(w, 400, msg)
 			return
 		}
+		// Twilio sets the TOTP issuer to the friendly name at creation.
+		if _, ok := form["Totp.Issuer"]; !ok {
+			setPath(o, "totp.issuer", o["friendly_name"])
+		}
 		f.put("verify", testAccount, o["sid"].(string), o)
 		fwrite(w, 201, o)
 		return
@@ -756,6 +762,9 @@ func (f *fakeTwilio) handleVerify(w http.ResponseWriter, r *http.Request, form u
 }
 
 func (f *fakeTwilio) applyVerify(o map[string]any, form url.Values) string {
+	if v, ok := form["Totp.Issuer"]; ok && v[0] == "" {
+		return "Invalid parameter: Totp.Issuer must not be empty"
+	}
 	if msg := applyForm(o, form, verifyFields); msg != "" {
 		return msg
 	}

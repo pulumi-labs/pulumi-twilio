@@ -150,6 +150,26 @@ export const getSubaccount: typeof import("./getSubaccount").getSubaccount = nul
 export const getSubaccountOutput: typeof import("./getSubaccount").getSubaccountOutput = null as any;
 utilities.lazyLoad(exports, ["getSubaccount","getSubaccountOutput"], () => require("./getSubaccount"));
 
+export { GetTrunkArgs, GetTrunkResult, GetTrunkOutputArgs } from "./getTrunk";
+export const getTrunk: typeof import("./getTrunk").getTrunk = null as any;
+export const getTrunkOutput: typeof import("./getTrunk").getTrunkOutput = null as any;
+utilities.lazyLoad(exports, ["getTrunk","getTrunkOutput"], () => require("./getTrunk"));
+
+export { GetTrunkCredentialListArgs, GetTrunkCredentialListResult, GetTrunkCredentialListOutputArgs } from "./getTrunkCredentialList";
+export const getTrunkCredentialList: typeof import("./getTrunkCredentialList").getTrunkCredentialList = null as any;
+export const getTrunkCredentialListOutput: typeof import("./getTrunkCredentialList").getTrunkCredentialListOutput = null as any;
+utilities.lazyLoad(exports, ["getTrunkCredentialList","getTrunkCredentialListOutput"], () => require("./getTrunkCredentialList"));
+
+export { GetTrunkIpAccessControlListArgs, GetTrunkIpAccessControlListResult, GetTrunkIpAccessControlListOutputArgs } from "./getTrunkIpAccessControlList";
+export const getTrunkIpAccessControlList: typeof import("./getTrunkIpAccessControlList").getTrunkIpAccessControlList = null as any;
+export const getTrunkIpAccessControlListOutput: typeof import("./getTrunkIpAccessControlList").getTrunkIpAccessControlListOutput = null as any;
+utilities.lazyLoad(exports, ["getTrunkIpAccessControlList","getTrunkIpAccessControlListOutput"], () => require("./getTrunkIpAccessControlList"));
+
+export { GetTrunkOriginationUrlArgs, GetTrunkOriginationUrlResult, GetTrunkOriginationUrlOutputArgs } from "./getTrunkOriginationUrl";
+export const getTrunkOriginationUrl: typeof import("./getTrunkOriginationUrl").getTrunkOriginationUrl = null as any;
+export const getTrunkOriginationUrlOutput: typeof import("./getTrunkOriginationUrl").getTrunkOriginationUrlOutput = null as any;
+utilities.lazyLoad(exports, ["getTrunkOriginationUrl","getTrunkOriginationUrlOutput"], () => require("./getTrunkOriginationUrl"));
+
 export { GetUsageTriggerArgs, GetUsageTriggerResult, GetUsageTriggerOutputArgs } from "./getUsageTrigger";
 export const getUsageTrigger: typeof import("./getUsageTrigger").getUsageTrigger = null as any;
 export const getUsageTriggerOutput: typeof import("./getUsageTrigger").getUsageTriggerOutput = null as any;
@@ -240,6 +260,26 @@ export type Subaccount = import("./subaccount").Subaccount;
 export const Subaccount: typeof import("./subaccount").Subaccount = null as any;
 utilities.lazyLoad(exports, ["Subaccount"], () => require("./subaccount"));
 
+export { TrunkArgs } from "./trunk";
+export type Trunk = import("./trunk").Trunk;
+export const Trunk: typeof import("./trunk").Trunk = null as any;
+utilities.lazyLoad(exports, ["Trunk"], () => require("./trunk"));
+
+export { TrunkCredentialListArgs } from "./trunkCredentialList";
+export type TrunkCredentialList = import("./trunkCredentialList").TrunkCredentialList;
+export const TrunkCredentialList: typeof import("./trunkCredentialList").TrunkCredentialList = null as any;
+utilities.lazyLoad(exports, ["TrunkCredentialList"], () => require("./trunkCredentialList"));
+
+export { TrunkIpAccessControlListArgs } from "./trunkIpAccessControlList";
+export type TrunkIpAccessControlList = import("./trunkIpAccessControlList").TrunkIpAccessControlList;
+export const TrunkIpAccessControlList: typeof import("./trunkIpAccessControlList").TrunkIpAccessControlList = null as any;
+utilities.lazyLoad(exports, ["TrunkIpAccessControlList"], () => require("./trunkIpAccessControlList"));
+
+export { TrunkOriginationUrlArgs } from "./trunkOriginationUrl";
+export type TrunkOriginationUrl = import("./trunkOriginationUrl").TrunkOriginationUrl;
+export const TrunkOriginationUrl: typeof import("./trunkOriginationUrl").TrunkOriginationUrl = null as any;
+utilities.lazyLoad(exports, ["TrunkOriginationUrl"], () => require("./trunkOriginationUrl"));
+
 export { UsageTriggerArgs } from "./usageTrigger";
 export type UsageTrigger = import("./usageTrigger").UsageTrigger;
 export const UsageTrigger: typeof import("./usageTrigger").UsageTrigger = null as any;
@@ -306,6 +346,14 @@ const _module = {
                 return new SipIpAddress(name, <any>undefined, { urn })
             case "twilio:index:Subaccount":
                 return new Subaccount(name, <any>undefined, { urn })
+            case "twilio:index:Trunk":
+                return new Trunk(name, <any>undefined, { urn })
+            case "twilio:index:TrunkCredentialList":
+                return new TrunkCredentialList(name, <any>undefined, { urn })
+            case "twilio:index:TrunkIpAccessControlList":
+                return new TrunkIpAccessControlList(name, <any>undefined, { urn })
+            case "twilio:index:TrunkOriginationUrl":
+                return new TrunkOriginationUrl(name, <any>undefined, { urn })
             case "twilio:index:UsageTrigger":
                 return new UsageTrigger(name, <any>undefined, { urn })
             case "twilio:index:VerifyService":

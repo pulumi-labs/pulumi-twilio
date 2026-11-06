@@ -103,7 +103,7 @@ export interface GetVerifyServiceResult {
      */
     readonly totpCodeLength?: number;
     /**
-     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
      */
     readonly totpIssuer?: string;
     /**

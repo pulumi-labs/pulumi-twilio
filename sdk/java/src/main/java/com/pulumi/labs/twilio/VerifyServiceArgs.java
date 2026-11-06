@@ -305,14 +305,14 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
      * 
      */
     @Import(name="totpIssuer")
     private @Nullable Output<String> totpIssuer;
 
     /**
-     * @return Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
      * 
      */
     public Optional<Output<String>> totpIssuer() {
@@ -868,7 +868,7 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
          * 
          * @return builder
          * 
@@ -879,7 +879,7 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
          * 
          * @return builder
          * 

@@ -18,8 +18,10 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"slices"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 // The Events v1 API (events.twilio.com), served for the Event Streams tests:
@@ -75,6 +77,18 @@ func (f *fakeTwilio) eventsCreateSink(w http.ResponseWriter, r *http.Request, fo
 		ferr(w, 400, "SinkConfiguration is not valid JSON")
 		return
 	}
+	// Twilio rejects configuration keys it does not know for the sink type, and returns
+	// the webhook method in lower case.
+	allowed := map[string][]string{"kinesis": {"arn", "role_arn", "external_id"}, "webhook": {"destination", "method", "batch_events"}, "segment": {"write_key"}, "email": {"destination"}}[typ]
+	for k := range cfg {
+		if !slices.Contains(allowed, k) {
+			ferr(w, 400, "Invalid SinkConfiguration: unknown key "+k+" for sink type "+typ)
+			return
+		}
+	}
+	if m, ok := cfg["method"].(string); ok {
+		cfg["method"] = strings.ToLower(m)
+	}
 	o := map[string]any{"sid": f.sid("DG"), "description": form.Get("Description"), "sink_type": typ, "sink_configuration": cfg,
 		"status": "initialized", "date_created": eventsStamp, "date_updated": eventsStamp}
 	f.put("evsink", testAccount, o["sid"].(string), o)
@@ -86,7 +100,7 @@ func eventsSinkOut(o map[string]any) map[string]any {
 	c := clone(o)
 	if cfg, ok := o["sink_configuration"].(map[string]any); ok {
 		cc := clone(cfg)
-		delete(cc, "key")
+		delete(cc, "write_key")
 		c["sink_configuration"] = cc
 	}
 	return c

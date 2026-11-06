@@ -22,6 +22,7 @@ __all__ = [
     'MessagingServiceEffective',
     'OutgoingCallerIdEffective',
     'ShortCodeEffective',
+    'TrunkEffective',
     'VerifyServiceEffective',
 ]
 
@@ -1328,6 +1329,166 @@ class ShortCodeEffective(dict):
 
 
 @pulumi.output_type
+class TrunkEffective(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cnamLookupEnabled":
+            suggest = "cnam_lookup_enabled"
+        elif key == "disasterRecoveryMethod":
+            suggest = "disaster_recovery_method"
+        elif key == "disasterRecoveryUrl":
+            suggest = "disaster_recovery_url"
+        elif key == "domainName":
+            suggest = "domain_name"
+        elif key == "friendlyName":
+            suggest = "friendly_name"
+        elif key == "recordingMode":
+            suggest = "recording_mode"
+        elif key == "recordingTrim":
+            suggest = "recording_trim"
+        elif key == "transferCallerId":
+            suggest = "transfer_caller_id"
+        elif key == "transferMode":
+            suggest = "transfer_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TrunkEffective. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TrunkEffective.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TrunkEffective.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cnam_lookup_enabled: Optional[_builtins.bool] = None,
+                 disaster_recovery_method: Optional[_builtins.str] = None,
+                 disaster_recovery_url: Optional[_builtins.str] = None,
+                 domain_name: Optional[_builtins.str] = None,
+                 friendly_name: Optional[_builtins.str] = None,
+                 recording_mode: Optional[_builtins.str] = None,
+                 recording_trim: Optional[_builtins.str] = None,
+                 secure: Optional[_builtins.bool] = None,
+                 transfer_caller_id: Optional[_builtins.str] = None,
+                 transfer_mode: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+        :param _builtins.str disaster_recovery_method: HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+        :param _builtins.str disaster_recovery_url: URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+        :param _builtins.str domain_name: The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+        :param _builtins.str friendly_name: Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+        :param _builtins.str recording_mode: Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+        :param _builtins.str recording_trim: Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+        :param _builtins.bool secure: Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+        :param _builtins.str transfer_caller_id: Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+        :param _builtins.str transfer_mode: Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+        """
+        if cnam_lookup_enabled is not None:
+            pulumi.set(__self__, "cnam_lookup_enabled", cnam_lookup_enabled)
+        if disaster_recovery_method is not None:
+            pulumi.set(__self__, "disaster_recovery_method", disaster_recovery_method)
+        if disaster_recovery_url is not None:
+            pulumi.set(__self__, "disaster_recovery_url", disaster_recovery_url)
+        if domain_name is not None:
+            pulumi.set(__self__, "domain_name", domain_name)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if recording_mode is not None:
+            pulumi.set(__self__, "recording_mode", recording_mode)
+        if recording_trim is not None:
+            pulumi.set(__self__, "recording_trim", recording_trim)
+        if secure is not None:
+            pulumi.set(__self__, "secure", secure)
+        if transfer_caller_id is not None:
+            pulumi.set(__self__, "transfer_caller_id", transfer_caller_id)
+        if transfer_mode is not None:
+            pulumi.set(__self__, "transfer_mode", transfer_mode)
+
+    @_builtins.property
+    @pulumi.getter(name="cnamLookupEnabled")
+    def cnam_lookup_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "cnam_lookup_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="disasterRecoveryMethod")
+    def disaster_recovery_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method used to request disasterRecoveryUrl, GET or POST (Twilio default POST).
+        """
+        return pulumi.get(self, "disaster_recovery_method")
+
+    @_builtins.property
+    @pulumi.getter(name="disasterRecoveryUrl")
+    def disaster_recovery_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio requests (with disasterRecoveryMethod) when it cannot reach your origination URLs. Removing it clears the URL.
+        """
+        return pulumi.get(self, "disaster_recovery_url")
+
+    @_builtins.property
+    @pulumi.getter(name="domainName")
+    def domain_name(self) -> Optional[_builtins.str]:
+        """
+        The termination SIP domain of the trunk, <name>.pstn.twilio.com: the address your SIP infrastructure sends calls to. Letters, digits and "-" only; it is unique across Twilio. Changing it updates the trunk in place. Removing it leaves the domain unchanged on Twilio.
+        """
+        return pulumi.get(self, "domain_name")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        Human-readable name of the trunk (up to 64 characters). Removing it leaves the name unchanged on Twilio.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="recordingMode")
+    def recording_mode(self) -> Optional[_builtins.str]:
+        """
+        Call recording mode: do-not-record (Twilio default), record-from-ringing, record-from-answer, record-from-ringing-dual or record-from-answer-dual. Twilio changes it on the trunk's Recording sub-resource; the provider sets it there. Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "recording_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="recordingTrim")
+    def recording_trim(self) -> Optional[_builtins.str]:
+        """
+        Whether silence is trimmed from recordings: do-not-trim (Twilio default) or trim-silence. Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "recording_trim")
+
+    @_builtins.property
+    @pulumi.getter
+    def secure(self) -> Optional[_builtins.bool]:
+        """
+        Whether Secure Trunking is enabled: SRTP for media and TLS for signalling on every call through the trunk (default false). Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "secure")
+
+    @_builtins.property
+    @pulumi.getter(name="transferCallerId")
+    def transfer_caller_id(self) -> Optional[_builtins.str]:
+        """
+        Caller ID of the transfer target: from-transferee (Twilio default) or from-transferor. Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "transfer_caller_id")
+
+    @_builtins.property
+    @pulumi.getter(name="transferMode")
+    def transfer_mode(self) -> Optional[_builtins.str]:
+        """
+        Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
+        """
+        return pulumi.get(self, "transfer_mode")
+
+
+@pulumi.output_type
 class VerifyServiceEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1443,7 +1604,7 @@ class VerifyServiceEffective(dict):
         :param _builtins.bool push_include_date: Whether push challenges include the date they were created.
         :param _builtins.bool skip_sms_to_landlines: Whether to skip SMS to landline numbers.
         :param _builtins.int totp_code_length: Number of digits of a TOTP code (3 to 8).
-        :param _builtins.str totp_issuer: Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        :param _builtins.str totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
         :param _builtins.int totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
         :param _builtins.int totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param _builtins.str tts_name: Name spoken in voice verifications instead of friendlyName.
@@ -1659,7 +1820,7 @@ class VerifyServiceEffective(dict):
     @pulumi.getter(name="totpIssuer")
     def totp_issuer(self) -> Optional[_builtins.str]:
         """
-        Issuer shown in authenticator apps for TOTP factors. Removing it clears the issuer.
+        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
         """
         return pulumi.get(self, "totp_issuer")
 

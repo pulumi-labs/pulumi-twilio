@@ -268,6 +268,9 @@ func (r *IncomingPhoneNumber) Read(ctx context.Context, req infer.ReadRequest[In
 	o, err := c.do(ctx, "GET", "api", numberPath(acct, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("incoming phone number", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{}, err
+			}
 			return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{}, nil
 		}
 		return infer.ReadResponse[IncomingPhoneNumberArgs, IncomingPhoneNumberState]{}, fmt.Errorf("read phone number %s: %w", req.ID, err)

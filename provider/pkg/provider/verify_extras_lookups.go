@@ -209,12 +209,11 @@ func (f *GetVerifyMessagingConfiguration) Invoke(ctx context.Context, req infer.
 	if err != nil {
 		return infer.FunctionResponse[GetVerifyMessagingConfigurationResult]{}, lookupFailure(fn, "messaging configuration for "+in.Country+" of Verify service "+in.ServiceSid, err)
 	}
-	country := o.str("country")
-	if country == "" {
-		country = in.Country
+	if !verifyMessagingConfigFound(o, in.Country) {
+		return infer.FunctionResponse[GetVerifyMessagingConfigurationResult]{}, fmt.Errorf("%s: messaging configuration for %s of Verify service %s was not found", fn, in.Country, in.ServiceSid)
 	}
 	return infer.FunctionResponse[GetVerifyMessagingConfigurationResult]{Output: GetVerifyMessagingConfigurationResult{
-		ServiceSid: in.ServiceSid, Country: country, MessagingServiceSid: o.str("messaging_service_sid"),
+		ServiceSid: in.ServiceSid, Country: o.str("country"), MessagingServiceSid: o.str("messaging_service_sid"),
 		DateCreated: o.str("date_created"), DateUpdated: o.str("date_updated"),
 	}}, nil
 }

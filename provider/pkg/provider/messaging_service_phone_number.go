@@ -118,6 +118,9 @@ func (r *MessagingServicePhoneNumber) Read(ctx context.Context, req infer.ReadRe
 	o, err := c.do(ctx, "GET", "messaging", senderPath(svc, pn), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("messaging service phone number", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[MessagingServicePhoneNumberArgs, MessagingServicePhoneNumberState]{}, err
+			}
 			return infer.ReadResponse[MessagingServicePhoneNumberArgs, MessagingServicePhoneNumberState]{}, nil
 		}
 		return infer.ReadResponse[MessagingServicePhoneNumberArgs, MessagingServicePhoneNumberState]{}, fmt.Errorf("read messaging service sender %s: %w", req.ID, err)

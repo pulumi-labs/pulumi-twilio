@@ -131,6 +131,9 @@ func (r *Queue) Read(ctx context.Context, req infer.ReadRequest[QueueArgs, Queue
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, "Queues", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("queue", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[QueueArgs, QueueState]{}, err
+			}
 			return infer.ReadResponse[QueueArgs, QueueState]{}, nil
 		}
 		return infer.ReadResponse[QueueArgs, QueueState]{}, fmt.Errorf("read queue %s: %w", req.ID, err)

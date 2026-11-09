@@ -210,6 +210,11 @@ func (f *fakeTwilio) verifyMessagingConfig(w http.ResponseWriter, r *http.Reques
 		return
 	}
 	o, ok := f.objs[key("vmc", testAccount, svc+"/"+country)]
+	if !ok && r.Method == "GET" && f.verifyMsgCfgFake200 {
+		fwrite(w, 200, map[string]any{"service_sid": svc, "account_sid": testAccount, "country": "", "messaging_service_sid": "MG" + strings.Repeat("f", 32),
+			"date_created": verifyStamp, "date_updated": verifyStamp})
+		return
+	}
 	if !ok {
 		notFound()
 		return

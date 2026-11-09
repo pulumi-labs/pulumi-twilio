@@ -493,6 +493,51 @@ export interface PhoneNumberCapabilities {
     voice: boolean;
 }
 
+export interface RecordingCompositionPolicy {
+    /**
+     * Number of channels to compose: dual or mono.
+     */
+    channels?: string;
+    /**
+     * Which audio track to record: inbound, outbound or both.
+     */
+    track?: string;
+    /**
+     * Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+     */
+    trim?: string;
+}
+
+export interface RecordingFeature {
+    /**
+     * Free-text description of the feature.
+     */
+    description?: string;
+    /**
+     * The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+     */
+    featureId: string;
+    /**
+     * The feature type. Only transcriptionConfiguration exists today.
+     */
+    type: string;
+}
+
+export interface RecordingStatusCallback {
+    /**
+     * Status events to report: in-progress, completed, absent and failed.
+     */
+    events?: string[];
+    /**
+     * HTTP method used to request the URL: GET or POST.
+     */
+    method?: string;
+    /**
+     * URL Twilio requests with the recording status.
+     */
+    url?: string;
+}
+
 export interface ShortCodeEffective {
     /**
      * SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
@@ -530,6 +575,28 @@ export interface ShortCodeEffective {
      * URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
      */
     smsUrl?: string;
+}
+
+export interface TranscriptionParticipantDefault {
+    /**
+     * One-based index of the audio channel of a multi-channel recording.
+     */
+    audioChannelIndex: number;
+    /**
+     * The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+     */
+    type: string;
+}
+
+export interface TranscriptionStatusCallback {
+    /**
+     * HTTP method used to request the URL. Only POST is accepted.
+     */
+    method?: string;
+    /**
+     * Webhook URL Twilio requests when the transcription is complete.
+     */
+    url?: string;
 }
 
 export interface TrunkEffective {

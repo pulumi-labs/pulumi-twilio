@@ -21,6 +21,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -178,6 +179,27 @@ func (c *Client) acct(override *string) string {
 // Throttled (429) requests are retried for every method; transient 5xx only
 // for GET.
 func (c *Client) do(ctx context.Context, method, product, path string, query, form url.Values) (obj, error) {
+	if form == nil {
+		return c.send(ctx, method, product, path, query, nil, "")
+	}
+	return c.send(ctx, method, product, path, query, []byte(form.Encode()), "application/x-www-form-urlencoded")
+}
+
+// doJSON is do for the Twilio APIs that take a JSON body (Voice v2 configurations). A nil
+// body sends none.
+func (c *Client) doJSON(ctx context.Context, method, product, path string, query url.Values, body any) (obj, error) {
+	if body == nil {
+		return c.send(ctx, method, product, path, query, nil, "")
+	}
+	raw, err := json.Marshal(body)
+	if err != nil {
+		return nil, fmt.Errorf("twilio: encode %s %s body: %w", method, path, err)
+	}
+	return c.send(ctx, method, product, path, query, raw, "application/json")
+}
+
+// send performs the request with an optional body of the given content type.
+func (c *Client) send(ctx context.Context, method, product, path string, query url.Values, payload []byte, contentType string) (obj, error) {
 	u := c.host(product) + path
 	if len(query) > 0 {
 		u += "?" + query.Encode()
@@ -192,8 +214,8 @@ func (c *Client) do(ctx context.Context, method, product, path string, query, fo
 			}
 		}
 		var body io.Reader
-		if form != nil {
-			body = strings.NewReader(form.Encode())
+		if contentType != "" {
+			body = strings.NewReader(string(payload))
 		}
 		req, err := http.NewRequestWithContext(ctx, method, u, body)
 		if err != nil {
@@ -201,8 +223,8 @@ func (c *Client) do(ctx context.Context, method, product, path string, query, fo
 		}
 		req.SetBasicAuth(c.user, c.pass)
 		req.Header.Set("Accept", "application/json")
-		if form != nil {
-			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		if contentType != "" {
+			req.Header.Set("Content-Type", contentType)
 		}
 		resp, err := c.http.Do(req)
 		if err != nil {
@@ -266,4 +288,18 @@ func setI(v url.Values, k string, p *int) {
 // api2010 returns the account-scoped path prefix of the 2010-04-01 API.
 func api2010(account string) string {
 	return "/2010-04-01/Accounts/" + url.PathEscape(account)
+}
+
+// notFoundOnImport reports a missing remote object during an import.
+//
+// The engine treats an empty ID from Read as "deleted" only on refresh; on import the
+// framework accepts the empty response and an empty resource lands in state with exit
+// code 0. An import is recognisable by Read arriving with neither prior inputs nor prior
+// state, so there a missing object is an error. On refresh it returns nil and the caller
+// returns the empty response that drops the resource from state.
+func notFoundOnImport[A, S any](kind, id string, inputs A, state S) error {
+	if reflect.ValueOf(inputs).IsZero() && reflect.ValueOf(state).IsZero() {
+		return fmt.Errorf("cannot import %s %q: it does not exist (or the API key cannot see it); check the import ID", kind, id)
+	}
+	return nil
 }

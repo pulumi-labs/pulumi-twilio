@@ -193,6 +193,9 @@ func (r *UsageTrigger) Read(ctx context.Context, req infer.ReadRequest[UsageTrig
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, "Usage/Triggers", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("usage trigger", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[UsageTriggerArgs, UsageTriggerState]{}, err
+			}
 			return infer.ReadResponse[UsageTriggerArgs, UsageTriggerState]{}, nil
 		}
 		return infer.ReadResponse[UsageTriggerArgs, UsageTriggerState]{}, fmt.Errorf("read usage trigger %s: %w", req.ID, err)

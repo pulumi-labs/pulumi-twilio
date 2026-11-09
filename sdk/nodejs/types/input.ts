@@ -16,3 +16,70 @@ export interface EventSubscriptionTypeArgs {
     type: pulumi.Input<string>;
 }
 
+export interface RecordingCompositionPolicyArgs {
+    /**
+     * Number of channels to compose: dual or mono.
+     */
+    channels?: pulumi.Input<string | undefined>;
+    /**
+     * Which audio track to record: inbound, outbound or both.
+     */
+    track?: pulumi.Input<string | undefined>;
+    /**
+     * Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+     */
+    trim?: pulumi.Input<string | undefined>;
+}
+
+export interface RecordingFeatureArgs {
+    /**
+     * Free-text description of the feature.
+     */
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+     */
+    featureId: pulumi.Input<string>;
+    /**
+     * The feature type. Only transcriptionConfiguration exists today.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface RecordingStatusCallbackArgs {
+    /**
+     * Status events to report: in-progress, completed, absent and failed.
+     */
+    events?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * HTTP method used to request the URL: GET or POST.
+     */
+    method?: pulumi.Input<string | undefined>;
+    /**
+     * URL Twilio requests with the recording status.
+     */
+    url?: pulumi.Input<string | undefined>;
+}
+
+export interface TranscriptionParticipantDefaultArgs {
+    /**
+     * One-based index of the audio channel of a multi-channel recording.
+     */
+    audioChannelIndex: pulumi.Input<number>;
+    /**
+     * The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface TranscriptionStatusCallbackArgs {
+    /**
+     * HTTP method used to request the URL. Only POST is accepted.
+     */
+    method?: pulumi.Input<string | undefined>;
+    /**
+     * Webhook URL Twilio requests when the transcription is complete.
+     */
+    url?: pulumi.Input<string | undefined>;
+}
+

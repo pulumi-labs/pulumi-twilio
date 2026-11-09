@@ -115,6 +115,10 @@ import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceRecordingConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceRecordingConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceTranscriptionConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceTranscriptionConfigurationPlainArgs;
 import com.pulumi.labs.twilio.outputs.GetAccountResult;
 import com.pulumi.labs.twilio.outputs.GetAddressResult;
 import com.pulumi.labs.twilio.outputs.GetApiKeyResult;
@@ -168,6 +172,8 @@ import com.pulumi.labs.twilio.outputs.GetVerifySafeListNumberResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyTemplatesResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyWebhookResult;
+import com.pulumi.labs.twilio.outputs.GetVoiceRecordingConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetVoiceTranscriptionConfigurationResult;
 import java.util.concurrent.CompletableFuture;
 
 public final class TwilioFunctions {
@@ -2151,5 +2157,75 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetVerifyWebhookResult> getVerifyWebhookPlain(GetVerifyWebhookPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 recording configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceRecordingConfigurationResult> getVoiceRecordingConfiguration(GetVoiceRecordingConfigurationArgs args) {
+        return getVoiceRecordingConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice v2 recording configuration by ID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetVoiceRecordingConfigurationResult> getVoiceRecordingConfigurationPlain(GetVoiceRecordingConfigurationPlainArgs args) {
+        return getVoiceRecordingConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice v2 recording configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceRecordingConfigurationResult> getVoiceRecordingConfiguration(GetVoiceRecordingConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceRecordingConfiguration", TypeShape.of(GetVoiceRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 recording configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceRecordingConfigurationResult> getVoiceRecordingConfiguration(GetVoiceRecordingConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceRecordingConfiguration", TypeShape.of(GetVoiceRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 recording configuration by ID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetVoiceRecordingConfigurationResult> getVoiceRecordingConfigurationPlain(GetVoiceRecordingConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVoiceRecordingConfiguration", TypeShape.of(GetVoiceRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 transcription configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceTranscriptionConfigurationResult> getVoiceTranscriptionConfiguration(GetVoiceTranscriptionConfigurationArgs args) {
+        return getVoiceTranscriptionConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice v2 transcription configuration by ID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetVoiceTranscriptionConfigurationResult> getVoiceTranscriptionConfigurationPlain(GetVoiceTranscriptionConfigurationPlainArgs args) {
+        return getVoiceTranscriptionConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice v2 transcription configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceTranscriptionConfigurationResult> getVoiceTranscriptionConfiguration(GetVoiceTranscriptionConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceTranscriptionConfiguration", TypeShape.of(GetVoiceTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 transcription configuration by ID or unique name.
+     * 
+     */
+    public static Output<GetVoiceTranscriptionConfigurationResult> getVoiceTranscriptionConfiguration(GetVoiceTranscriptionConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceTranscriptionConfiguration", TypeShape.of(GetVoiceTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice v2 transcription configuration by ID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetVoiceTranscriptionConfigurationResult> getVoiceTranscriptionConfigurationPlain(GetVoiceTranscriptionConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVoiceTranscriptionConfiguration", TypeShape.of(GetVoiceTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
     }
 }

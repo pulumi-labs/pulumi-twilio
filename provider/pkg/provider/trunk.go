@@ -324,6 +324,9 @@ func (r *Trunk) Read(ctx context.Context, req infer.ReadRequest[TrunkArgs, Trunk
 	o, err := c.do(ctx, "GET", trunkingProduct, trunkPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("trunk", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[TrunkArgs, TrunkState]{}, err
+			}
 			return infer.ReadResponse[TrunkArgs, TrunkState]{}, nil
 		}
 		return infer.ReadResponse[TrunkArgs, TrunkState]{}, fmt.Errorf("read trunk %s: %w", req.ID, err)
@@ -331,6 +334,9 @@ func (r *Trunk) Read(ctx context.Context, req infer.ReadRequest[TrunkArgs, Trunk
 	rec, err := c.do(ctx, "GET", trunkingProduct, trunkChildPath(req.ID, "Recording", ""), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("trunk", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[TrunkArgs, TrunkState]{}, err
+			}
 			return infer.ReadResponse[TrunkArgs, TrunkState]{}, nil
 		}
 		return infer.ReadResponse[TrunkArgs, TrunkState]{}, fmt.Errorf("read trunk %s recording: %w", req.ID, err)

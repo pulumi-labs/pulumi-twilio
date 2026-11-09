@@ -181,6 +181,14 @@ resources:
     test: true
     update: sipDomainSid
     cost: none; map an IpRecord made in the same program to a SipDomain made in the same program
+  - type: twilio:index:VoiceRecordingConfiguration
+    test: true
+    update: description
+    cost: none; a configuration is free until calls use it. Voice v2 is a new API (spec 0.0.1), so the account must have it enabled
+  - type: twilio:index:VoiceTranscriptionConfiguration
+    test: true
+    update: description
+    cost: none; a configuration is free until calls use it. Needs participantDefaults for channels 1 and 2 and a status callback or conversationConfigurationId
   - type: twilio:index:IncomingPhoneNumberAssignedAddOn
     test: false
     reason: needs a Marketplace add-on already installed in the account (installed from the Console or a purchase, the REST API cannot install one) and some add-ons bill per use
@@ -272,6 +280,10 @@ functions:
     test: true
   - name: getByocTrunk
     test: true
+  - name: getVoiceRecordingConfiguration
+    test: true
+  - name: getVoiceTranscriptionConfiguration
+    test: true
   - name: getConnectionPolicy
     test: true
   - name: getConnectionPolicyTarget
@@ -298,6 +310,10 @@ functions:
   - name: getEventSchema
     test: true
 regressions:
+  - "Voice v2 configurations (#1666): create a VoiceTranscriptionConfiguration (engine deepgram, model nova-3, language en-US, participantDefaults for channels 1 and 2, a status callback url) and a VoiceRecordingConfiguration whose features entry references its configurationId, with a compositionPolicy and a call status callback; refresh and preview show no change, also when the program omits the callback methods. Change the descriptions, the language and a callback url (PUT, same ID), remove a feature or the policy and check what Twilio keeps. Import each by ID and the first preview plans no change; getVoiceRecordingConfiguration and getVoiceTranscriptionConfiguration take the ID or the unique name. Not verified against a live account (the Voice v2 definition is version 0.0.1): whether PUT replaces or merges (the provider sends the whole configuration and leaves unset fields out), whether Twilio defaults a callback method to POST or adds other defaults on read, whether uniqueName can change, and the exact rules for participantDefaults (the provider leaves them to Twilio)."
+  - "#1715 pulumi import of an ID that does not exist (for example twilio:index:ShortCode s SC00000000000000000000000000000001, Address, ApiKey, Application, Queue, Subaccount) fails with 'does not exist' and leaves nothing in state; a refresh of a resource deleted outside Pulumi still drops it from state"
+  - "#1716 import a ServerlessEnvironment created with domainSuffix stg (pulumi import twilio:index:ServerlessEnvironment e <serviceSid>/ZE...), then pulumi preview --expect-no-changes against the program that created it: no replace of the environment or its variables, and the imported inputs carry domainSuffix; an environment created without a suffix imports without one; stating a different suffix still plans a replace"
+  - "#1717 on a VerifyService with no configuration for FR: getVerifyMessagingConfiguration (FR) fails with was not found and pulumi import twilio:index:VerifyMessagingConfiguration m <serviceSid>/FR fails instead of storing an empty resource; after pulumi destroy of a created DE configuration the lookup for DE fails and a refresh of a stack that still lists it drops it from state"
   - "#1680 import a SipDomain created with sipRegistration: true, then pulumi preview --expect-no-changes against the same program: no update; a SipDomain created without it imports without sipRegistration and previews clean"
   - "#1681 import a VerifyService created with totpCodeLength 7, totpSkew 2, totpTimeStep 20: the imported inputs contain all three and preview --expect-no-changes is clean; a service on the defaults (6, 1, 30) imports none of them"
   - "#1679 import a UsageTrigger (pulumi import twilio:index:UsageTrigger t UT...), then pulumi preview --expect-no-changes against the program that created it (no triggerBy, and again with callbackMethod: POST): no replace and no update; setting triggerBy to a different value still plans a replace"

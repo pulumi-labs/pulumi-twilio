@@ -68,6 +68,8 @@ from .get_verify_safe_list_number import *
 from .get_verify_service import *
 from .get_verify_templates import *
 from .get_verify_webhook import *
+from .get_voice_recording_configuration import *
+from .get_voice_transcription_configuration import *
 from .incoming_phone_number import *
 from .incoming_phone_number_assigned_add_on import *
 from .ip_record import *
@@ -103,6 +105,8 @@ from .verify_rate_limit_bucket import *
 from .verify_safe_list_number import *
 from .verify_service import *
 from .verify_webhook import *
+from .voice_recording_configuration import *
+from .voice_transcription_configuration import *
 from ._inputs import *
 from . import outputs
 
@@ -163,7 +167,9 @@ _utilities.register(
    "twilio:index:VerifyRateLimitBucket": "VerifyRateLimitBucket",
    "twilio:index:VerifySafeListNumber": "VerifySafeListNumber",
    "twilio:index:VerifyService": "VerifyService",
-   "twilio:index:VerifyWebhook": "VerifyWebhook"
+   "twilio:index:VerifyWebhook": "VerifyWebhook",
+   "twilio:index:VoiceRecordingConfiguration": "VoiceRecordingConfiguration",
+   "twilio:index:VoiceTranscriptionConfiguration": "VoiceTranscriptionConfiguration"
   }
  }
 ]

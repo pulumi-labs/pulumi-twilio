@@ -49,19 +49,21 @@ type fakeTwilio struct {
 	t      *testing.T
 	server *httptest.Server
 
-	mu               sync.Mutex
-	endlessKeyPages  bool                      // the account-explicit key list never ends (a truncation probe)
-	templatePageSize int                       // when set, /v2/Templates pages hold this many items
-	objs             map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
-	order            []string
-	next             int
-	calls            []fakeCall
-	failure          map[string]int // "METHOD substring" -> status to return once
+	mu                  sync.Mutex
+	endlessKeyPages     bool                      // the account-explicit key list never ends (a truncation probe)
+	templatePageSize    int                       // when set, /v2/Templates pages hold this many items
+	objs                map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
+	order               []string
+	next                int
+	calls               []fakeCall
+	failure             map[string]int // "METHOD substring" -> status to return once
+	verifyMsgCfgFake200 bool           // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
 }
 
 type fakeCall struct {
 	Method, Path string
 	Form         url.Values
+	Body         string // the raw request body, for the JSON APIs
 }
 
 type fakeField struct{ param, key, typ string } // typ: s string, u url, m method enum, b bool, i int
@@ -264,7 +266,7 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 	}
 	body, _ := io.ReadAll(r.Body)
 	form, _ := url.ParseQuery(string(body))
-	f.calls = append(f.calls, fakeCall{Method: r.Method, Path: r.URL.Path, Form: form})
+	f.calls = append(f.calls, fakeCall{Method: r.Method, Path: r.URL.Path, Form: form, Body: string(body)})
 	for k, status := range f.failure {
 		parts := strings.SplitN(k, " ", 2)
 		if parts[0] == r.Method && strings.Contains(r.URL.Path, parts[1]) {
@@ -303,6 +305,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleEvents(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/events/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/voice/v1/"):
 		f.handleVoice(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v1/"), "/"), "/"))
+	case strings.HasPrefix(path, "/voice/v2/"):
+		f.handleVoiceV2(w, r, body, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v2/"), "/"), "/"))
 	case strings.HasPrefix(path, "/trunking/v1/"):
 		f.handleTrunking(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trunking/v1/"), "/"), "/"))
 	default:

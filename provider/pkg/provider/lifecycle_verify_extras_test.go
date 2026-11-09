@@ -290,6 +290,35 @@ func TestVerifyMessagingConfigurationLC_Lifecycle(t *testing.T) {
 	require.Nil(t, l.f.get("vmc", testAccount, svc+"/all"))
 }
 
+// Regression for pulumi-labs/pulumi-twilio#17: Twilio answers a GET for a country without a
+// configuration with HTTP 200, country "" and a made-up Messaging Service SID.
+func TestVerifyMessagingConfigurationLC_FakeOKIsNotFound(t *testing.T) {
+	l := newTL(t, "VerifyMessagingConfiguration", "mc")
+	svc := verifySvc(l)
+	in := configInputs(svc, "DE", verifyMsgSid)
+	c := l.create(in)
+	l.f.verifyMsgCfgFake200 = true
+
+	// A refresh right after create is a no-op, and a lower-case recorded country still matches.
+	rd := l.read(c.ID, c.Properties, in)
+	require.Equal(t, c.ID, rd.ID)
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
+
+	// Deleted outside: the refresh drops it from state instead of adopting the made-up configuration.
+	l.f.remove("vmc", testAccount, svc+"/DE")
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID)
+
+	// Importing a configuration that does not exist fails.
+	_, err := l.s.Read(pgp.ReadRequest{ID: svc + "/FR", Urn: l.urn, Properties: empty(), Inputs: empty()})
+	require.ErrorContains(t, err, "does not exist")
+
+	// The lookup fails too, for a missing country and after the configuration was destroyed.
+	for _, country := range []string{"FR", "DE"} {
+		_, err = invoke(t, l, "getVerifyMessagingConfiguration", map[string]property.Value{"serviceSid": sv(svc), "country": sv(country)})
+		require.ErrorContains(t, err, "was not found", country)
+	}
+}
+
 func TestVerifyMessagingConfigurationLC_CheckAndErrors(t *testing.T) {
 	l := newTL(t, "VerifyMessagingConfiguration", "mc")
 	for name, in := range map[string]property.Map{

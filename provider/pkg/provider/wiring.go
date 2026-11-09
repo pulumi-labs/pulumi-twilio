@@ -266,3 +266,15 @@ func (r *SourceIpMapping) WireDependencies(f infer.FieldSelector, args *SourceIp
 	wireEchoes(f, args, state)
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
+
+// WireDependencies: the ID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *VoiceRecordingConfiguration) WireDependencies(f infer.FieldSelector, args *VoiceRecordingConfigurationArgs, state *VoiceRecordingConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the ID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *VoiceTranscriptionConfiguration) WireDependencies(f infer.FieldSelector, args *VoiceTranscriptionConfigurationArgs, state *VoiceTranscriptionConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}

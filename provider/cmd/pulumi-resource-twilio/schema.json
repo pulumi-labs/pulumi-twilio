@@ -694,6 +694,64 @@
         "fax"
       ]
     },
+    "twilio:index:RecordingCompositionPolicy": {
+      "properties": {
+        "channels": {
+          "type": "string",
+          "description": "Number of channels to compose: dual or mono."
+        },
+        "track": {
+          "type": "string",
+          "description": "Which audio track to record: inbound, outbound or both."
+        },
+        "trim": {
+          "type": "string",
+          "description": "Whether silence is trimmed from the recording: trim-silence or do-not-trim."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:RecordingFeature": {
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the feature."
+        },
+        "featureId": {
+          "type": "string",
+          "description": "The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration."
+        },
+        "type": {
+          "type": "string",
+          "description": "The feature type. Only transcriptionConfiguration exists today."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "featureId"
+      ]
+    },
+    "twilio:index:RecordingStatusCallback": {
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Status events to report: in-progress, completed, absent and failed."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method used to request the URL: GET or POST."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL Twilio requests with the recording status."
+        }
+      },
+      "type": "object"
+    },
     "twilio:index:ShortCodeEffective": {
       "properties": {
         "accountSid": {
@@ -734,6 +792,36 @@
         "smsUrl": {
           "type": "string",
           "description": "URL Twilio requests for incoming SMS to the short code. Removing it clears the URL."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:TranscriptionParticipantDefault": {
+      "properties": {
+        "audioChannelIndex": {
+          "type": "integer",
+          "description": "One-based index of the audio channel of a multi-channel recording."
+        },
+        "type": {
+          "type": "string",
+          "description": "The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT."
+        }
+      },
+      "type": "object",
+      "required": [
+        "audioChannelIndex",
+        "type"
+      ]
+    },
+    "twilio:index:TranscriptionStatusCallback": {
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "HTTP method used to request the URL. Only POST is accepted."
+        },
+        "url": {
+          "type": "string",
+          "description": "Webhook URL Twilio requests when the transcription is complete."
         }
       },
       "type": "object"
@@ -4909,6 +4997,196 @@
         "eventTypes",
         "webhookUrl"
       ]
+    },
+    "twilio:index:VoiceRecordingConfiguration": {
+      "description": "A Twilio Voice v2 recording configuration: how calls and conferences are recorded and where the recording status is reported. Import with the configuration ID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the configuration."
+        },
+        "callRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where call recording status events are reported."
+        },
+        "compositionPolicy": {
+          "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+          "description": "How recordings are composed: channels, silence trimming and track."
+        },
+        "conferenceRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where conference recording status events are reported."
+        },
+        "configurationId": {
+          "type": "string",
+          "description": "The configuration ID Twilio assigned."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the configuration was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the configuration was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the configuration."
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:RecordingFeature"
+          },
+          "description": "Features applied to the recording (at most 3), for example a transcription configuration."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the configuration; it can be used instead of the ID when referring to it."
+        }
+      },
+      "required": [
+        "configurationId",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "callRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where call recording status events are reported."
+        },
+        "compositionPolicy": {
+          "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+          "description": "How recordings are composed: channels, silence trimming and track."
+        },
+        "conferenceRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where conference recording status events are reported."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the configuration."
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:RecordingFeature"
+          },
+          "description": "Features applied to the recording (at most 3), for example a transcription configuration."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the configuration; it can be used instead of the ID when referring to it."
+        }
+      }
+    },
+    "twilio:index:VoiceTranscriptionConfiguration": {
+      "description": "A Twilio Voice v2 transcription configuration: the speech engine, language and participant roles of a call transcription. Reference its configurationId from a VoiceRecordingConfiguration feature. Import with the configuration ID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the configuration."
+        },
+        "configurationId": {
+          "type": "string",
+          "description": "The configuration ID Twilio assigned."
+        },
+        "conversationConfigurationId": {
+          "type": "string",
+          "description": "ID of the Conversations configuration that stores the transcription and its add-ons."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the configuration was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the configuration was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the configuration."
+        },
+        "language": {
+          "type": "string",
+          "description": "A BCP-47 language code such as en-US, or multi for multilingual code switching (Deepgram only)."
+        },
+        "participantDefaults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:TranscriptionParticipantDefault"
+          },
+          "description": "Default participant roles per audio channel, for diarization. Twilio expects exactly two entries, for channels 1 and 2."
+        },
+        "speechModel": {
+          "type": "string",
+          "description": "The speech model. google: chirp_2; deepgram: nova-3 or nova-2; twilio_managed: twilio_managed (or leave it out)."
+        },
+        "transcriptionEngine": {
+          "type": "string",
+          "description": "The transcription engine provider: google, deepgram or twilio_managed. With twilio_managed do not set speechModel."
+        },
+        "transcriptionStatusCallback": {
+          "$ref": "#/types/twilio:index:TranscriptionStatusCallback",
+          "description": "Webhook called when a transcription is complete. Twilio needs this or conversationConfigurationId (or both)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the configuration; it can be used instead of the ID when referring to it."
+        }
+      },
+      "required": [
+        "transcriptionEngine",
+        "language",
+        "participantDefaults",
+        "configurationId",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "conversationConfigurationId": {
+          "type": "string",
+          "description": "ID of the Conversations configuration that stores the transcription and its add-ons."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the configuration."
+        },
+        "language": {
+          "type": "string",
+          "description": "A BCP-47 language code such as en-US, or multi for multilingual code switching (Deepgram only)."
+        },
+        "participantDefaults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:TranscriptionParticipantDefault"
+          },
+          "description": "Default participant roles per audio channel, for diarization. Twilio expects exactly two entries, for channels 1 and 2."
+        },
+        "speechModel": {
+          "type": "string",
+          "description": "The speech model. google: chirp_2; deepgram: nova-3 or nova-2; twilio_managed: twilio_managed (or leave it out)."
+        },
+        "transcriptionEngine": {
+          "type": "string",
+          "description": "The transcription engine provider: google, deepgram or twilio_managed. With twilio_managed do not set speechModel."
+        },
+        "transcriptionStatusCallback": {
+          "$ref": "#/types/twilio:index:TranscriptionStatusCallback",
+          "description": "Webhook called when a transcription is complete. Twilio needs this or conversationConfigurationId (or both)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the configuration; it can be used instead of the ID when referring to it."
+        }
+      },
+      "requiredInputs": [
+        "transcriptionEngine",
+        "language",
+        "participantDefaults"
+      ]
     }
   },
   "functions": {
@@ -8391,6 +8669,162 @@
           "webhookMethod",
           "status",
           "webhookVersion",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVoiceRecordingConfiguration": {
+      "description": "Look up a Voice v2 recording configuration by ID or unique name.",
+      "inputs": {
+        "properties": {
+          "idOrUniqueName": {
+            "type": "string",
+            "description": "The configuration ID or its unique name."
+          }
+        },
+        "type": "object",
+        "required": [
+          "idOrUniqueName"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the configuration.",
+            "type": "string"
+          },
+          "callRecordingStatusCallback": {
+            "$ref": "#/types/twilio:index:RecordingStatusCallback",
+            "description": "Where call recording status events are reported; unset when none."
+          },
+          "compositionPolicy": {
+            "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+            "description": "How recordings are composed; unset when Twilio reports none."
+          },
+          "conferenceRecordingStatusCallback": {
+            "$ref": "#/types/twilio:index:RecordingStatusCallback",
+            "description": "Where conference recording status events are reported; unset when none."
+          },
+          "configurationId": {
+            "description": "The configuration ID.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the configuration was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the configuration was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "description": {
+            "description": "The description; empty when none is set.",
+            "type": "string"
+          },
+          "features": {
+            "description": "Features applied to the recording; empty when none.",
+            "items": {
+              "$ref": "#/types/twilio:index:RecordingFeature"
+            },
+            "type": "array"
+          },
+          "uniqueName": {
+            "description": "The unique name; empty when none is set.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "configurationId",
+          "uniqueName",
+          "description",
+          "features",
+          "accountSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVoiceTranscriptionConfiguration": {
+      "description": "Look up a Voice v2 transcription configuration by ID or unique name.",
+      "inputs": {
+        "properties": {
+          "idOrUniqueName": {
+            "type": "string",
+            "description": "The configuration ID or its unique name."
+          }
+        },
+        "type": "object",
+        "required": [
+          "idOrUniqueName"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the configuration.",
+            "type": "string"
+          },
+          "configurationId": {
+            "description": "The configuration ID.",
+            "type": "string"
+          },
+          "conversationConfigurationId": {
+            "description": "ID of the Conversations configuration; empty when none is set.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the configuration was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the configuration was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "description": {
+            "description": "The description; empty when none is set.",
+            "type": "string"
+          },
+          "language": {
+            "description": "The language code.",
+            "type": "string"
+          },
+          "participantDefaults": {
+            "description": "Default participant roles per audio channel.",
+            "items": {
+              "$ref": "#/types/twilio:index:TranscriptionParticipantDefault"
+            },
+            "type": "array"
+          },
+          "speechModel": {
+            "description": "The speech model; empty when none is set.",
+            "type": "string"
+          },
+          "transcriptionEngine": {
+            "description": "The transcription engine provider.",
+            "type": "string"
+          },
+          "transcriptionStatusCallback": {
+            "$ref": "#/types/twilio:index:TranscriptionStatusCallback",
+            "description": "Webhook called when a transcription is complete; unset when none."
+          },
+          "uniqueName": {
+            "description": "The unique name; empty when none is set.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "configurationId",
+          "uniqueName",
+          "description",
+          "transcriptionEngine",
+          "speechModel",
+          "language",
+          "conversationConfigurationId",
+          "participantDefaults",
+          "accountSid",
           "dateCreated",
           "dateUpdated"
         ],

@@ -184,6 +184,9 @@ func (r *MessagingService) Read(ctx context.Context, req infer.ReadRequest[Messa
 	o, err := c.do(ctx, "GET", "messaging", serviceBase(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("messaging service", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[MessagingServiceArgs, MessagingServiceState]{}, err
+			}
 			return infer.ReadResponse[MessagingServiceArgs, MessagingServiceState]{}, nil
 		}
 		return infer.ReadResponse[MessagingServiceArgs, MessagingServiceState]{}, fmt.Errorf("read messaging service %s: %w", req.ID, err)

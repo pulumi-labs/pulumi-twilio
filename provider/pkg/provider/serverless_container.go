@@ -134,6 +134,9 @@ func (r *ServerlessFunction) Read(ctx context.Context, req infer.ReadRequest[Ser
 	o, err := c.do(ctx, "GET", "serverless", serverlessSvcPath(ids[0], "Functions", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("serverless function", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read serverless function %s: %w", req.ID, err)
@@ -295,6 +298,9 @@ func (r *ServerlessAsset) Read(ctx context.Context, req infer.ReadRequest[Server
 	o, err := c.do(ctx, "GET", "serverless", serverlessSvcPath(ids[0], "Assets", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("serverless asset", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read serverless asset %s: %w", req.ID, err)

@@ -315,6 +315,16 @@ export const getVerifyWebhook: typeof import("./getVerifyWebhook").getVerifyWebh
 export const getVerifyWebhookOutput: typeof import("./getVerifyWebhook").getVerifyWebhookOutput = null as any;
 utilities.lazyLoad(exports, ["getVerifyWebhook","getVerifyWebhookOutput"], () => require("./getVerifyWebhook"));
 
+export { GetVoiceRecordingConfigurationArgs, GetVoiceRecordingConfigurationResult, GetVoiceRecordingConfigurationOutputArgs } from "./getVoiceRecordingConfiguration";
+export const getVoiceRecordingConfiguration: typeof import("./getVoiceRecordingConfiguration").getVoiceRecordingConfiguration = null as any;
+export const getVoiceRecordingConfigurationOutput: typeof import("./getVoiceRecordingConfiguration").getVoiceRecordingConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVoiceRecordingConfiguration","getVoiceRecordingConfigurationOutput"], () => require("./getVoiceRecordingConfiguration"));
+
+export { GetVoiceTranscriptionConfigurationArgs, GetVoiceTranscriptionConfigurationResult, GetVoiceTranscriptionConfigurationOutputArgs } from "./getVoiceTranscriptionConfiguration";
+export const getVoiceTranscriptionConfiguration: typeof import("./getVoiceTranscriptionConfiguration").getVoiceTranscriptionConfiguration = null as any;
+export const getVoiceTranscriptionConfigurationOutput: typeof import("./getVoiceTranscriptionConfiguration").getVoiceTranscriptionConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVoiceTranscriptionConfiguration","getVoiceTranscriptionConfigurationOutput"], () => require("./getVoiceTranscriptionConfiguration"));
+
 export { IncomingPhoneNumberArgs } from "./incomingPhoneNumber";
 export type IncomingPhoneNumber = import("./incomingPhoneNumber").IncomingPhoneNumber;
 export const IncomingPhoneNumber: typeof import("./incomingPhoneNumber").IncomingPhoneNumber = null as any;
@@ -490,6 +500,16 @@ export type VerifyWebhook = import("./verifyWebhook").VerifyWebhook;
 export const VerifyWebhook: typeof import("./verifyWebhook").VerifyWebhook = null as any;
 utilities.lazyLoad(exports, ["VerifyWebhook"], () => require("./verifyWebhook"));
 
+export { VoiceRecordingConfigurationArgs } from "./voiceRecordingConfiguration";
+export type VoiceRecordingConfiguration = import("./voiceRecordingConfiguration").VoiceRecordingConfiguration;
+export const VoiceRecordingConfiguration: typeof import("./voiceRecordingConfiguration").VoiceRecordingConfiguration = null as any;
+utilities.lazyLoad(exports, ["VoiceRecordingConfiguration"], () => require("./voiceRecordingConfiguration"));
+
+export { VoiceTranscriptionConfigurationArgs } from "./voiceTranscriptionConfiguration";
+export type VoiceTranscriptionConfiguration = import("./voiceTranscriptionConfiguration").VoiceTranscriptionConfiguration;
+export const VoiceTranscriptionConfiguration: typeof import("./voiceTranscriptionConfiguration").VoiceTranscriptionConfiguration = null as any;
+utilities.lazyLoad(exports, ["VoiceTranscriptionConfiguration"], () => require("./voiceTranscriptionConfiguration"));
+
 
 // Export sub-modules:
 import * as config from "./config";
@@ -590,6 +610,10 @@ const _module = {
                 return new VerifyService(name, <any>undefined, { urn })
             case "twilio:index:VerifyWebhook":
                 return new VerifyWebhook(name, <any>undefined, { urn })
+            case "twilio:index:VoiceRecordingConfiguration":
+                return new VoiceRecordingConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:VoiceTranscriptionConfiguration":
+                return new VoiceTranscriptionConfiguration(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -113,6 +113,9 @@ func (r *SipIpAccessControlList) Read(ctx context.Context, req infer.ReadRequest
 	o, err := c.do(ctx, "GET", "api", sipPath(acct, "IpAccessControlLists", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip ip access control list", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SipIpAccessControlListArgs, SipIpAccessControlListState]{}, err
+			}
 			return infer.ReadResponse[SipIpAccessControlListArgs, SipIpAccessControlListState]{}, nil
 		}
 		return infer.ReadResponse[SipIpAccessControlListArgs, SipIpAccessControlListState]{}, fmt.Errorf("read SIP IP access control list %s: %w", req.ID, err)

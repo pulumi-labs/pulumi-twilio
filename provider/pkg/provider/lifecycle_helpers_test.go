@@ -141,6 +141,14 @@ func (l *tl) read(id string, state, inputs property.Map) pgp.ReadResponse {
 	return r
 }
 
+// requireImportFails asserts that an import (Read with neither inputs nor state) of an ID
+// that does not exist is an error rather than an empty resource (#1715).
+func (l *tl) requireImportFails(id string) {
+	l.t.Helper()
+	_, err := l.s.Read(pgp.ReadRequest{ID: id, Urn: l.urn, Properties: empty(), Inputs: empty()})
+	require.ErrorContains(l.t, err, "does not exist")
+}
+
 func (l *tl) del(id string, state property.Map) {
 	l.t.Helper()
 	require.NoError(l.t, l.s.Delete(pgp.DeleteRequest{ID: id, Urn: l.urn, Properties: state}))

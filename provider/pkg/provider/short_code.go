@@ -179,6 +179,9 @@ func (r *ShortCode) Read(ctx context.Context, req infer.ReadRequest[ShortCodeArg
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, shortCodeColl.coll, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("short code", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[ShortCodeArgs, ShortCodeState]{}, err
+			}
 			return infer.ReadResponse[ShortCodeArgs, ShortCodeState]{}, nil
 		}
 		return infer.ReadResponse[ShortCodeArgs, ShortCodeState]{}, fmt.Errorf("read short code %s: %w", req.ID, err)

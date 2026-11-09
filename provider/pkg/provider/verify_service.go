@@ -225,6 +225,9 @@ func (r *VerifyService) Read(ctx context.Context, req infer.ReadRequest[VerifySe
 	o, err := c.do(ctx, "GET", "verify", verifyPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify service", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[VerifyServiceArgs, VerifyServiceState]{}, err
+			}
 			return infer.ReadResponse[VerifyServiceArgs, VerifyServiceState]{}, nil
 		}
 		return infer.ReadResponse[VerifyServiceArgs, VerifyServiceState]{}, fmt.Errorf("read verify service %s: %w", req.ID, err)

@@ -192,6 +192,9 @@ func (r *TrunkOriginationUrl) Read(ctx context.Context, req infer.ReadRequest[Tr
 	o, err := c.do(ctx, "GET", trunkingProduct, trunkChildPath(trunk, "OriginationUrls", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("trunk origination url", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read origination URL %s: %w", req.ID, err)
@@ -338,6 +341,9 @@ func (r *TrunkCredentialList) Read(ctx context.Context, req infer.ReadRequest[Tr
 	o, err := c.do(ctx, "GET", trunkingProduct, trunkChildPath(trunk, "CredentialLists", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("trunk credential list", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read trunk attachment %s: %w", req.ID, err)
@@ -442,6 +448,9 @@ func (r *TrunkIpAccessControlList) Read(ctx context.Context, req infer.ReadReque
 	o, err := c.do(ctx, "GET", trunkingProduct, trunkChildPath(trunk, "IpAccessControlLists", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("trunk ip access control list", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read trunk attachment %s: %w", req.ID, err)

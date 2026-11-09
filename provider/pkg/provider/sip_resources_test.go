@@ -555,3 +555,22 @@ func TestSipChildIDs(t *testing.T) {
 		require.Error(t, err, bad)
 	}
 }
+
+// #1680: an import adopts sipRegistration: true (Twilio reports it), and leaves the default false out so a
+// program that never sets it plans no change.
+func TestSipDomainLC_ImportAdoptsSipRegistration(t *testing.T) {
+	l := newTL(t, "SipDomain", "d")
+	in := pv(map[string]property.Value{"domainName": sv("acme.sip.twilio.com"), "sipRegistration": bv(true)})
+	c := l.create(in)
+	imp := l.read(c.ID, empty(), empty())
+	require.True(t, imp.Inputs.Get("sipRegistration").AsBool())
+	requireNoChanges(t, l.diff(c.ID, imp.Properties, l.checked(in), imp.Inputs))
+
+	plain := l.other("SipDomain", "plain")
+	pin := pv(map[string]property.Value{"domainName": sv("plain.sip.twilio.com")})
+	pc := plain.create(pin)
+	plain.f.mutate("sipdomain", testAccount, pc.ID, func(o map[string]any) { o["sip_registration"] = false })
+	pimp := plain.read(pc.ID, empty(), empty())
+	require.False(t, hasProp(pimp.Inputs, "sipRegistration"), "the default false is not adopted (#1572)")
+	requireNoChanges(t, plain.diff(pc.ID, pimp.Properties, plain.checked(pin), pimp.Inputs))
+}

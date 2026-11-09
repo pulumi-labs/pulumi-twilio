@@ -6,6 +6,6 @@
   "provider": "twilio",
   "skill_commit": "6d559827271e2f3b5722cb70fe8e091d6bb041ee",
   "source_repo": "pulumi/autoregistry",
-  "source_sha": "a517c60280d5de180228e187cda2e7a6d25e05a2",
-  "source_version": "0.1.0"
+  "source_sha": "200bbd25211f5a28fbada0fe657505e58ee4cd90",
+  "source_version": "0.2.0"
 }

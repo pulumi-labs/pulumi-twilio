@@ -108,14 +108,14 @@ public final class EventSinkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      * 
      */
     @Import(name="webhookBatchEvents")
     private @Nullable Output<Boolean> webhookBatchEvents;
 
     /**
-     * @return Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * @return Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      * 
      */
     public Optional<Output<Boolean>> webhookBatchEvents() {
@@ -311,7 +311,7 @@ public final class EventSinkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param webhookBatchEvents Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+         * @param webhookBatchEvents Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
          * 
          * @return builder
          * 
@@ -322,7 +322,7 @@ public final class EventSinkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param webhookBatchEvents Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+         * @param webhookBatchEvents Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
          * 
          * @return builder
          * 

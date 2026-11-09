@@ -305,14 +305,14 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
      * 
      */
     @Import(name="totpIssuer")
     private @Nullable Output<String> totpIssuer;
 
     /**
-     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
      * 
      */
     public Optional<Output<String>> totpIssuer() {
@@ -868,7 +868,7 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
          * 
          * @return builder
          * 
@@ -879,7 +879,7 @@ public final class VerifyServiceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+         * @param totpIssuer Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
          * 
          * @return builder
          * 

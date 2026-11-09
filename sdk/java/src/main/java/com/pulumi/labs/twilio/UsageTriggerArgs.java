@@ -92,14 +92,14 @@ public final class UsageTriggerArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      * 
      */
     @Import(name="triggerBy")
     private @Nullable Output<String> triggerBy;
 
     /**
-     * @return What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * @return What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      * 
      */
     public Optional<Output<String>> triggerBy() {
@@ -273,7 +273,7 @@ public final class UsageTriggerArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param triggerBy What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+         * @param triggerBy What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
          * 
          * @return builder
          * 
@@ -284,7 +284,7 @@ public final class UsageTriggerArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param triggerBy What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+         * @param triggerBy What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
          * 
          * @return builder
          * 

@@ -143,7 +143,7 @@ namespace Pulumi.Labs.Twilio
         public Output<int?> TotpCodeLength { get; private set; } = null!;
 
         /// <summary>
-        /// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        /// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         /// </summary>
         [Output("totpIssuer")]
         public Output<string?> TotpIssuer { get; private set; } = null!;
@@ -351,7 +351,7 @@ namespace Pulumi.Labs.Twilio
         public Input<int>? TotpCodeLength { get; set; }
 
         /// <summary>
-        /// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        /// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         /// </summary>
         [Input("totpIssuer")]
         public Input<string>? TotpIssuer { get; set; }

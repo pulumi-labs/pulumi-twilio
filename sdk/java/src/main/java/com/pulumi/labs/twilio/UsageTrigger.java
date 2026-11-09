@@ -105,6 +105,20 @@ public class UsageTrigger extends com.pulumi.resources.CustomResource {
         return this.dateFired;
     }
     /**
+     * What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+     * 
+     */
+    @Export(name="effectiveTriggerBy", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> effectiveTriggerBy;
+
+    /**
+     * @return What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+     * 
+     */
+    public Output<Optional<String>> effectiveTriggerBy() {
+        return Codegen.optional(this.effectiveTriggerBy);
+    }
+    /**
      * Human-readable name of the trigger (up to 64 characters).
      * 
      */
@@ -161,14 +175,14 @@ public class UsageTrigger extends com.pulumi.resources.CustomResource {
         return this.sid;
     }
     /**
-     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      * 
      */
     @Export(name="triggerBy", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> triggerBy;
 
     /**
-     * @return What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * @return What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      * 
      */
     public Output<Optional<String>> triggerBy() {

@@ -162,14 +162,14 @@ public class EventSink extends com.pulumi.resources.CustomResource {
         return this.status;
     }
     /**
-     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      * 
      */
     @Export(name="webhookBatchEvents", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> webhookBatchEvents;
 
     /**
-     * @return Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * @return Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      * 
      */
     public Output<Optional<Boolean>> webhookBatchEvents() {

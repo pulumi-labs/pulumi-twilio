@@ -285,7 +285,7 @@ func TestVerifyServiceLC_FieldGaps(t *testing.T) {
 	// Import adopts the nested settings.
 	imp := l.read(sid, empty(), empty())
 	require.Equal(t, verifyTemplate, getS(t, imp.Inputs, "defaultTemplateSid"))
-	require.False(t, hasProp(imp.Inputs, "totpSkew"), "an int without a verified default is not adopted (#1572)")
+	require.Equal(t, float64(2), imp.Inputs.Get("totpSkew").AsNumber(), "a TOTP skew that differs from the default 1 is adopted (#1681)")
 	origins := imp.Inputs.Get("passkeysRelyingPartyOrigins")
 	require.True(t, origins.IsNull() || origins.AsArray().Len() == 0)
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))

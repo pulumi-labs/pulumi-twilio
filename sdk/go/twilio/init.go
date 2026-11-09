@@ -27,14 +27,24 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ApiKey{}
 	case "twilio:index:Application":
 		r = &Application{}
+	case "twilio:index:ByocTrunk":
+		r = &ByocTrunk{}
 	case "twilio:index:ConnectApp":
 		r = &ConnectApp{}
+	case "twilio:index:ConnectionPolicy":
+		r = &ConnectionPolicy{}
+	case "twilio:index:ConnectionPolicyTarget":
+		r = &ConnectionPolicyTarget{}
 	case "twilio:index:EventSink":
 		r = &EventSink{}
 	case "twilio:index:EventSubscription":
 		r = &EventSubscription{}
 	case "twilio:index:IncomingPhoneNumber":
 		r = &IncomingPhoneNumber{}
+	case "twilio:index:IncomingPhoneNumberAssignedAddOn":
+		r = &IncomingPhoneNumberAssignedAddOn{}
+	case "twilio:index:IpRecord":
+		r = &IpRecord{}
 	case "twilio:index:MessagingService":
 		r = &MessagingService{}
 	case "twilio:index:MessagingServicePhoneNumber":
@@ -43,6 +53,16 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &OutgoingCallerId{}
 	case "twilio:index:Queue":
 		r = &Queue{}
+	case "twilio:index:ServerlessAsset":
+		r = &ServerlessAsset{}
+	case "twilio:index:ServerlessEnvironment":
+		r = &ServerlessEnvironment{}
+	case "twilio:index:ServerlessFunction":
+		r = &ServerlessFunction{}
+	case "twilio:index:ServerlessService":
+		r = &ServerlessService{}
+	case "twilio:index:ServerlessVariable":
+		r = &ServerlessVariable{}
 	case "twilio:index:ShortCode":
 		r = &ShortCode{}
 	case "twilio:index:SigningKey":
@@ -61,6 +81,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SipIpAccessControlList{}
 	case "twilio:index:SipIpAddress":
 		r = &SipIpAddress{}
+	case "twilio:index:SourceIpMapping":
+		r = &SourceIpMapping{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
 	case "twilio:index:Trunk":
@@ -73,8 +95,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TrunkOriginationUrl{}
 	case "twilio:index:UsageTrigger":
 		r = &UsageTrigger{}
+	case "twilio:index:VerifyMessagingConfiguration":
+		r = &VerifyMessagingConfiguration{}
+	case "twilio:index:VerifyRateLimit":
+		r = &VerifyRateLimit{}
+	case "twilio:index:VerifyRateLimitBucket":
+		r = &VerifyRateLimitBucket{}
+	case "twilio:index:VerifySafeListNumber":
+		r = &VerifySafeListNumber{}
 	case "twilio:index:VerifyService":
 		r = &VerifyService{}
+	case "twilio:index:VerifyWebhook":
+		r = &VerifyWebhook{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

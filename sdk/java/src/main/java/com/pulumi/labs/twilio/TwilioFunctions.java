@@ -17,16 +17,38 @@ import com.pulumi.labs.twilio.inputs.GetApiKeyArgs;
 import com.pulumi.labs.twilio.inputs.GetApiKeyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetApplicationArgs;
 import com.pulumi.labs.twilio.inputs.GetApplicationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppArgs;
+import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppsArgs;
+import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAvailablePhoneNumbersArgs;
+import com.pulumi.labs.twilio.inputs.GetAvailablePhoneNumbersPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetBalanceArgs;
 import com.pulumi.labs.twilio.inputs.GetBalancePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetByocTrunkArgs;
+import com.pulumi.labs.twilio.inputs.GetByocTrunkPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectAppArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectAppPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectionPolicyPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetArgs;
+import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSchemaArgs;
+import com.pulumi.labs.twilio.inputs.GetEventSchemaPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSinkArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSinkPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSubscriptionArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSubscriptionPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetEventTypeArgs;
+import com.pulumi.labs.twilio.inputs.GetEventTypePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetEventTypesArgs;
+import com.pulumi.labs.twilio.inputs.GetEventTypesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnArgs;
+import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetIpRecordArgs;
+import com.pulumi.labs.twilio.inputs.GetIpRecordPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberPlainArgs;
@@ -35,6 +57,16 @@ import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdArgs;
 import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetQueueArgs;
 import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessAssetArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessAssetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessEnvironmentArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessEnvironmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessFunctionArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessFunctionPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessVariableArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessVariablePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetShortCodeArgs;
 import com.pulumi.labs.twilio.inputs.GetShortCodePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSigningKeyArgs;
@@ -53,6 +85,8 @@ import com.pulumi.labs.twilio.inputs.GetSipIpAccessControlListArgs;
 import com.pulumi.labs.twilio.inputs.GetSipIpAccessControlListPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSipIpAddressArgs;
 import com.pulumi.labs.twilio.inputs.GetSipIpAddressPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSourceIpMappingArgs;
+import com.pulumi.labs.twilio.inputs.GetSourceIpMappingPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkArgs;
@@ -63,23 +97,53 @@ import com.pulumi.labs.twilio.inputs.GetTrunkIpAccessControlListPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetUsageRecordsArgs;
+import com.pulumi.labs.twilio.inputs.GetUsageRecordsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsageTriggerArgs;
 import com.pulumi.labs.twilio.inputs.GetUsageTriggerPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyMessagingConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyMessagingConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyRateLimitArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyRateLimitBucketArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyRateLimitBucketPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyRateLimitPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifySafeListNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifySafeListNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyWebhookArgs;
+import com.pulumi.labs.twilio.inputs.GetVerifyWebhookPlainArgs;
 import com.pulumi.labs.twilio.outputs.GetAccountResult;
 import com.pulumi.labs.twilio.outputs.GetAddressResult;
 import com.pulumi.labs.twilio.outputs.GetApiKeyResult;
 import com.pulumi.labs.twilio.outputs.GetApplicationResult;
+import com.pulumi.labs.twilio.outputs.GetAuthorizedConnectAppResult;
+import com.pulumi.labs.twilio.outputs.GetAuthorizedConnectAppsResult;
+import com.pulumi.labs.twilio.outputs.GetAvailablePhoneNumbersResult;
 import com.pulumi.labs.twilio.outputs.GetBalanceResult;
+import com.pulumi.labs.twilio.outputs.GetByocTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
+import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
+import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
+import com.pulumi.labs.twilio.outputs.GetEventSchemaResult;
 import com.pulumi.labs.twilio.outputs.GetEventSinkResult;
 import com.pulumi.labs.twilio.outputs.GetEventSubscriptionResult;
+import com.pulumi.labs.twilio.outputs.GetEventTypeResult;
+import com.pulumi.labs.twilio.outputs.GetEventTypesResult;
+import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberAssignedAddOnResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberResult;
+import com.pulumi.labs.twilio.outputs.GetIpRecordResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServicePhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServiceResult;
 import com.pulumi.labs.twilio.outputs.GetOutgoingCallerIdResult;
 import com.pulumi.labs.twilio.outputs.GetQueueResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessAssetResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessEnvironmentResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessFunctionResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessServiceResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessVariableResult;
 import com.pulumi.labs.twilio.outputs.GetShortCodeResult;
 import com.pulumi.labs.twilio.outputs.GetSigningKeyResult;
 import com.pulumi.labs.twilio.outputs.GetSipCredentialListResult;
@@ -89,13 +153,21 @@ import com.pulumi.labs.twilio.outputs.GetSipDomainIpAccessControlListMappingResu
 import com.pulumi.labs.twilio.outputs.GetSipDomainResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAddressResult;
+import com.pulumi.labs.twilio.outputs.GetSourceIpMappingResult;
 import com.pulumi.labs.twilio.outputs.GetSubaccountResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkCredentialListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkOriginationUrlResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkResult;
+import com.pulumi.labs.twilio.outputs.GetUsageRecordsResult;
 import com.pulumi.labs.twilio.outputs.GetUsageTriggerResult;
+import com.pulumi.labs.twilio.outputs.GetVerifyMessagingConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetVerifyRateLimitBucketResult;
+import com.pulumi.labs.twilio.outputs.GetVerifyRateLimitResult;
+import com.pulumi.labs.twilio.outputs.GetVerifySafeListNumberResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
+import com.pulumi.labs.twilio.outputs.GetVerifyTemplatesResult;
+import com.pulumi.labs.twilio.outputs.GetVerifyWebhookResult;
 import java.util.concurrent.CompletableFuture;
 
 public final class TwilioFunctions {
@@ -254,6 +326,125 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getApplication", TypeShape.of(GetApplicationResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppResult> getAuthorizedConnectApp(GetAuthorizedConnectAppArgs args) {
+        return getAuthorizedConnectApp(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).
+     * 
+     */
+    public static CompletableFuture<GetAuthorizedConnectAppResult> getAuthorizedConnectAppPlain(GetAuthorizedConnectAppPlainArgs args) {
+        return getAuthorizedConnectAppPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppResult> getAuthorizedConnectApp(GetAuthorizedConnectAppArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAuthorizedConnectApp", TypeShape.of(GetAuthorizedConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppResult> getAuthorizedConnectApp(GetAuthorizedConnectAppArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAuthorizedConnectApp", TypeShape.of(GetAuthorizedConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).
+     * 
+     */
+    public static CompletableFuture<GetAuthorizedConnectAppResult> getAuthorizedConnectAppPlain(GetAuthorizedConnectAppPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAuthorizedConnectApp", TypeShape.of(GetAuthorizedConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppsResult> getAuthorizedConnectApps() {
+        return getAuthorizedConnectApps(GetAuthorizedConnectAppsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static CompletableFuture<GetAuthorizedConnectAppsResult> getAuthorizedConnectAppsPlain() {
+        return getAuthorizedConnectAppsPlain(GetAuthorizedConnectAppsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppsResult> getAuthorizedConnectApps(GetAuthorizedConnectAppsArgs args) {
+        return getAuthorizedConnectApps(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static CompletableFuture<GetAuthorizedConnectAppsResult> getAuthorizedConnectAppsPlain(GetAuthorizedConnectAppsPlainArgs args) {
+        return getAuthorizedConnectAppsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppsResult> getAuthorizedConnectApps(GetAuthorizedConnectAppsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAuthorizedConnectApps", TypeShape.of(GetAuthorizedConnectAppsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static Output<GetAuthorizedConnectAppsResult> getAuthorizedConnectApps(GetAuthorizedConnectAppsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAuthorizedConnectApps", TypeShape.of(GetAuthorizedConnectAppsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).
+     * 
+     */
+    public static CompletableFuture<GetAuthorizedConnectAppsResult> getAuthorizedConnectAppsPlain(GetAuthorizedConnectAppsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAuthorizedConnectApps", TypeShape.of(GetAuthorizedConnectAppsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.
+     * 
+     */
+    public static Output<GetAvailablePhoneNumbersResult> getAvailablePhoneNumbers(GetAvailablePhoneNumbersArgs args) {
+        return getAvailablePhoneNumbers(args, InvokeOptions.Empty);
+    }
+    /**
+     * Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.
+     * 
+     */
+    public static CompletableFuture<GetAvailablePhoneNumbersResult> getAvailablePhoneNumbersPlain(GetAvailablePhoneNumbersPlainArgs args) {
+        return getAvailablePhoneNumbersPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.
+     * 
+     */
+    public static Output<GetAvailablePhoneNumbersResult> getAvailablePhoneNumbers(GetAvailablePhoneNumbersArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAvailablePhoneNumbers", TypeShape.of(GetAvailablePhoneNumbersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.
+     * 
+     */
+    public static Output<GetAvailablePhoneNumbersResult> getAvailablePhoneNumbers(GetAvailablePhoneNumbersArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAvailablePhoneNumbers", TypeShape.of(GetAvailablePhoneNumbersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.
+     * 
+     */
+    public static CompletableFuture<GetAvailablePhoneNumbersResult> getAvailablePhoneNumbersPlain(GetAvailablePhoneNumbersPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAvailablePhoneNumbers", TypeShape.of(GetAvailablePhoneNumbersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Read the account balance (GET /2010-04-01/Accounts/{AccountSid}/Balance.json).
      * 
      */
@@ -303,6 +494,41 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getBalance", TypeShape.of(GetBalanceResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a BYOC trunk by SID.
+     * 
+     */
+    public static Output<GetByocTrunkResult> getByocTrunk(GetByocTrunkArgs args) {
+        return getByocTrunk(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC trunk by SID.
+     * 
+     */
+    public static CompletableFuture<GetByocTrunkResult> getByocTrunkPlain(GetByocTrunkPlainArgs args) {
+        return getByocTrunkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC trunk by SID.
+     * 
+     */
+    public static Output<GetByocTrunkResult> getByocTrunk(GetByocTrunkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getByocTrunk", TypeShape.of(GetByocTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC trunk by SID.
+     * 
+     */
+    public static Output<GetByocTrunkResult> getByocTrunk(GetByocTrunkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getByocTrunk", TypeShape.of(GetByocTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC trunk by SID.
+     * 
+     */
+    public static CompletableFuture<GetByocTrunkResult> getByocTrunkPlain(GetByocTrunkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getByocTrunk", TypeShape.of(GetByocTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Twilio Connect app by SID.
      * 
      */
@@ -336,6 +562,111 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetConnectAppResult> getConnectAppPlain(GetConnectAppPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getConnectApp", TypeShape.of(GetConnectAppResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC connection policy by SID.
+     * 
+     */
+    public static Output<GetConnectionPolicyResult> getConnectionPolicy(GetConnectionPolicyArgs args) {
+        return getConnectionPolicy(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC connection policy by SID.
+     * 
+     */
+    public static CompletableFuture<GetConnectionPolicyResult> getConnectionPolicyPlain(GetConnectionPolicyPlainArgs args) {
+        return getConnectionPolicyPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC connection policy by SID.
+     * 
+     */
+    public static Output<GetConnectionPolicyResult> getConnectionPolicy(GetConnectionPolicyArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectionPolicy", TypeShape.of(GetConnectionPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC connection policy by SID.
+     * 
+     */
+    public static Output<GetConnectionPolicyResult> getConnectionPolicy(GetConnectionPolicyArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectionPolicy", TypeShape.of(GetConnectionPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC connection policy by SID.
+     * 
+     */
+    public static CompletableFuture<GetConnectionPolicyResult> getConnectionPolicyPlain(GetConnectionPolicyPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicy", TypeShape.of(GetConnectionPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a target of a BYOC connection policy.
+     * 
+     */
+    public static Output<GetConnectionPolicyTargetResult> getConnectionPolicyTarget(GetConnectionPolicyTargetArgs args) {
+        return getConnectionPolicyTarget(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a target of a BYOC connection policy.
+     * 
+     */
+    public static CompletableFuture<GetConnectionPolicyTargetResult> getConnectionPolicyTargetPlain(GetConnectionPolicyTargetPlainArgs args) {
+        return getConnectionPolicyTargetPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a target of a BYOC connection policy.
+     * 
+     */
+    public static Output<GetConnectionPolicyTargetResult> getConnectionPolicyTarget(GetConnectionPolicyTargetArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a target of a BYOC connection policy.
+     * 
+     */
+    public static Output<GetConnectionPolicyTargetResult> getConnectionPolicyTarget(GetConnectionPolicyTargetArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a target of a BYOC connection policy.
+     * 
+     */
+    public static CompletableFuture<GetConnectionPolicyTargetResult> getConnectionPolicyTargetPlain(GetConnectionPolicyTargetPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventSchemaResult> getEventSchema(GetEventSchemaArgs args) {
+        return getEventSchema(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventSchemaResult> getEventSchemaPlain(GetEventSchemaPlainArgs args) {
+        return getEventSchemaPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventSchemaResult> getEventSchema(GetEventSchemaArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSchema", TypeShape.of(GetEventSchemaResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventSchemaResult> getEventSchema(GetEventSchemaArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventSchema", TypeShape.of(GetEventSchemaResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventSchemaResult> getEventSchemaPlain(GetEventSchemaPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getEventSchema", TypeShape.of(GetEventSchemaResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio Event Streams sink by SID.
@@ -408,6 +739,90 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getEventSubscription", TypeShape.of(GetEventSubscriptionResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypeResult> getEventType(GetEventTypeArgs args) {
+        return getEventType(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventTypeResult> getEventTypePlain(GetEventTypePlainArgs args) {
+        return getEventTypePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypeResult> getEventType(GetEventTypeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventType", TypeShape.of(GetEventTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypeResult> getEventType(GetEventTypeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventType", TypeShape.of(GetEventTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventTypeResult> getEventTypePlain(GetEventTypePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getEventType", TypeShape.of(GetEventTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypesResult> getEventTypes() {
+        return getEventTypes(GetEventTypesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventTypesResult> getEventTypesPlain() {
+        return getEventTypesPlain(GetEventTypesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypesResult> getEventTypes(GetEventTypesArgs args) {
+        return getEventTypes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventTypesResult> getEventTypesPlain(GetEventTypesPlainArgs args) {
+        return getEventTypesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypesResult> getEventTypes(GetEventTypesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventTypes", TypeShape.of(GetEventTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static Output<GetEventTypesResult> getEventTypes(GetEventTypesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getEventTypes", TypeShape.of(GetEventTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetEventTypesResult> getEventTypesPlain(GetEventTypesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getEventTypes", TypeShape.of(GetEventTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a phone number owned by the account by E.164 number or SID.
      * 
      */
@@ -455,6 +870,76 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetIncomingPhoneNumberResult> getIncomingPhoneNumberPlain(GetIncomingPhoneNumberPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getIncomingPhoneNumber", TypeShape.of(GetIncomingPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.
+     * 
+     */
+    public static Output<GetIncomingPhoneNumberAssignedAddOnResult> getIncomingPhoneNumberAssignedAddOn(GetIncomingPhoneNumberAssignedAddOnArgs args) {
+        return getIncomingPhoneNumberAssignedAddOn(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.
+     * 
+     */
+    public static CompletableFuture<GetIncomingPhoneNumberAssignedAddOnResult> getIncomingPhoneNumberAssignedAddOnPlain(GetIncomingPhoneNumberAssignedAddOnPlainArgs args) {
+        return getIncomingPhoneNumberAssignedAddOnPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.
+     * 
+     */
+    public static Output<GetIncomingPhoneNumberAssignedAddOnResult> getIncomingPhoneNumberAssignedAddOn(GetIncomingPhoneNumberAssignedAddOnArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIncomingPhoneNumberAssignedAddOn", TypeShape.of(GetIncomingPhoneNumberAssignedAddOnResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.
+     * 
+     */
+    public static Output<GetIncomingPhoneNumberAssignedAddOnResult> getIncomingPhoneNumberAssignedAddOn(GetIncomingPhoneNumberAssignedAddOnArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIncomingPhoneNumberAssignedAddOn", TypeShape.of(GetIncomingPhoneNumberAssignedAddOnResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.
+     * 
+     */
+    public static CompletableFuture<GetIncomingPhoneNumberAssignedAddOnResult> getIncomingPhoneNumberAssignedAddOnPlain(GetIncomingPhoneNumberAssignedAddOnPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getIncomingPhoneNumberAssignedAddOn", TypeShape.of(GetIncomingPhoneNumberAssignedAddOnResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC IP record by SID.
+     * 
+     */
+    public static Output<GetIpRecordResult> getIpRecord(GetIpRecordArgs args) {
+        return getIpRecord(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC IP record by SID.
+     * 
+     */
+    public static CompletableFuture<GetIpRecordResult> getIpRecordPlain(GetIpRecordPlainArgs args) {
+        return getIpRecordPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC IP record by SID.
+     * 
+     */
+    public static Output<GetIpRecordResult> getIpRecord(GetIpRecordArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIpRecord", TypeShape.of(GetIpRecordResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC IP record by SID.
+     * 
+     */
+    public static Output<GetIpRecordResult> getIpRecord(GetIpRecordArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIpRecord", TypeShape.of(GetIpRecordResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC IP record by SID.
+     * 
+     */
+    public static CompletableFuture<GetIpRecordResult> getIpRecordPlain(GetIpRecordPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getIpRecord", TypeShape.of(GetIpRecordResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Messaging Service by SID.
@@ -609,6 +1094,181 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetQueueResult> getQueuePlain(GetQueuePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the asset container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetResult> getServerlessAsset(GetServerlessAssetArgs args) {
+        return getServerlessAsset(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the asset container of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessAssetResult> getServerlessAssetPlain(GetServerlessAssetPlainArgs args) {
+        return getServerlessAssetPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the asset container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetResult> getServerlessAsset(GetServerlessAssetArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessAsset", TypeShape.of(GetServerlessAssetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the asset container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetResult> getServerlessAsset(GetServerlessAssetArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessAsset", TypeShape.of(GetServerlessAssetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the asset container of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessAssetResult> getServerlessAssetPlain(GetServerlessAssetPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessAsset", TypeShape.of(GetServerlessAssetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessEnvironmentResult> getServerlessEnvironment(GetServerlessEnvironmentArgs args) {
+        return getServerlessEnvironment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an environment of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessEnvironmentResult> getServerlessEnvironmentPlain(GetServerlessEnvironmentPlainArgs args) {
+        return getServerlessEnvironmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an environment of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessEnvironmentResult> getServerlessEnvironment(GetServerlessEnvironmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessEnvironment", TypeShape.of(GetServerlessEnvironmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessEnvironmentResult> getServerlessEnvironment(GetServerlessEnvironmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessEnvironment", TypeShape.of(GetServerlessEnvironmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessEnvironmentResult> getServerlessEnvironmentPlain(GetServerlessEnvironmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessEnvironment", TypeShape.of(GetServerlessEnvironmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the function container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionResult> getServerlessFunction(GetServerlessFunctionArgs args) {
+        return getServerlessFunction(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the function container of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessFunctionResult> getServerlessFunctionPlain(GetServerlessFunctionPlainArgs args) {
+        return getServerlessFunctionPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the function container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionResult> getServerlessFunction(GetServerlessFunctionArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessFunction", TypeShape.of(GetServerlessFunctionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the function container of a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionResult> getServerlessFunction(GetServerlessFunctionArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessFunction", TypeShape.of(GetServerlessFunctionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the function container of a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessFunctionResult> getServerlessFunctionPlain(GetServerlessFunctionPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessFunction", TypeShape.of(GetServerlessFunctionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessServiceResult> getServerlessService(GetServerlessServiceArgs args) {
+        return getServerlessService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessServiceResult> getServerlessServicePlain(GetServerlessServicePlainArgs args) {
+        return getServerlessServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessServiceResult> getServerlessService(GetServerlessServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessService", TypeShape.of(GetServerlessServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless service by SID.
+     * 
+     */
+    public static Output<GetServerlessServiceResult> getServerlessService(GetServerlessServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessService", TypeShape.of(GetServerlessServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless service by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessServiceResult> getServerlessServicePlain(GetServerlessServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessService", TypeShape.of(GetServerlessServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.
+     * 
+     */
+    public static Output<GetServerlessVariableResult> getServerlessVariable(GetServerlessVariableArgs args) {
+        return getServerlessVariable(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.
+     * 
+     */
+    public static CompletableFuture<GetServerlessVariableResult> getServerlessVariablePlain(GetServerlessVariablePlainArgs args) {
+        return getServerlessVariablePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.
+     * 
+     */
+    public static Output<GetServerlessVariableResult> getServerlessVariable(GetServerlessVariableArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessVariable", TypeShape.of(GetServerlessVariableResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.
+     * 
+     */
+    public static Output<GetServerlessVariableResult> getServerlessVariable(GetServerlessVariableArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessVariable", TypeShape.of(GetServerlessVariableResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.
+     * 
+     */
+    public static CompletableFuture<GetServerlessVariableResult> getServerlessVariablePlain(GetServerlessVariablePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessVariable", TypeShape.of(GetServerlessVariableResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up an SMS short code leased by the account, by code or SID.
@@ -940,6 +1600,41 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getSipIpAddress", TypeShape.of(GetSipIpAddressResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a BYOC source IP mapping by SID.
+     * 
+     */
+    public static Output<GetSourceIpMappingResult> getSourceIpMapping(GetSourceIpMappingArgs args) {
+        return getSourceIpMapping(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC source IP mapping by SID.
+     * 
+     */
+    public static CompletableFuture<GetSourceIpMappingResult> getSourceIpMappingPlain(GetSourceIpMappingPlainArgs args) {
+        return getSourceIpMappingPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a BYOC source IP mapping by SID.
+     * 
+     */
+    public static Output<GetSourceIpMappingResult> getSourceIpMapping(GetSourceIpMappingArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSourceIpMapping", TypeShape.of(GetSourceIpMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC source IP mapping by SID.
+     * 
+     */
+    public static Output<GetSourceIpMappingResult> getSourceIpMapping(GetSourceIpMappingArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSourceIpMapping", TypeShape.of(GetSourceIpMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a BYOC source IP mapping by SID.
+     * 
+     */
+    public static CompletableFuture<GetSourceIpMappingResult> getSourceIpMappingPlain(GetSourceIpMappingPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSourceIpMapping", TypeShape.of(GetSourceIpMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Twilio subaccount by SID. The auth token is deliberately not returned.
      * 
      */
@@ -1115,6 +1810,55 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getTrunkOriginationUrl", TypeShape.of(GetTrunkOriginationUrlResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static Output<GetUsageRecordsResult> getUsageRecords() {
+        return getUsageRecords(GetUsageRecordsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static CompletableFuture<GetUsageRecordsResult> getUsageRecordsPlain() {
+        return getUsageRecordsPlain(GetUsageRecordsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static Output<GetUsageRecordsResult> getUsageRecords(GetUsageRecordsArgs args) {
+        return getUsageRecords(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static CompletableFuture<GetUsageRecordsResult> getUsageRecordsPlain(GetUsageRecordsPlainArgs args) {
+        return getUsageRecordsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static Output<GetUsageRecordsResult> getUsageRecords(GetUsageRecordsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getUsageRecords", TypeShape.of(GetUsageRecordsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static Output<GetUsageRecordsResult> getUsageRecords(GetUsageRecordsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getUsageRecords", TypeShape.of(GetUsageRecordsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.
+     * 
+     */
+    public static CompletableFuture<GetUsageRecordsResult> getUsageRecordsPlain(GetUsageRecordsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getUsageRecords", TypeShape.of(GetUsageRecordsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Twilio usage trigger by SID.
      * 
      */
@@ -1150,6 +1894,146 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getUsageTrigger", TypeShape.of(GetUsageTriggerResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up the Messaging Service a Verify service uses for one country.
+     * 
+     */
+    public static Output<GetVerifyMessagingConfigurationResult> getVerifyMessagingConfiguration(GetVerifyMessagingConfigurationArgs args) {
+        return getVerifyMessagingConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Messaging Service a Verify service uses for one country.
+     * 
+     */
+    public static CompletableFuture<GetVerifyMessagingConfigurationResult> getVerifyMessagingConfigurationPlain(GetVerifyMessagingConfigurationPlainArgs args) {
+        return getVerifyMessagingConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Messaging Service a Verify service uses for one country.
+     * 
+     */
+    public static Output<GetVerifyMessagingConfigurationResult> getVerifyMessagingConfiguration(GetVerifyMessagingConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyMessagingConfiguration", TypeShape.of(GetVerifyMessagingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Messaging Service a Verify service uses for one country.
+     * 
+     */
+    public static Output<GetVerifyMessagingConfigurationResult> getVerifyMessagingConfiguration(GetVerifyMessagingConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyMessagingConfiguration", TypeShape.of(GetVerifyMessagingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Messaging Service a Verify service uses for one country.
+     * 
+     */
+    public static CompletableFuture<GetVerifyMessagingConfigurationResult> getVerifyMessagingConfigurationPlain(GetVerifyMessagingConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifyMessagingConfiguration", TypeShape.of(GetVerifyMessagingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a rate limit of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitResult> getVerifyRateLimit(GetVerifyRateLimitArgs args) {
+        return getVerifyRateLimit(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a rate limit of a Verify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyRateLimitResult> getVerifyRateLimitPlain(GetVerifyRateLimitPlainArgs args) {
+        return getVerifyRateLimitPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a rate limit of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitResult> getVerifyRateLimit(GetVerifyRateLimitArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyRateLimit", TypeShape.of(GetVerifyRateLimitResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a rate limit of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitResult> getVerifyRateLimit(GetVerifyRateLimitArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyRateLimit", TypeShape.of(GetVerifyRateLimitResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a rate limit of a Verify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyRateLimitResult> getVerifyRateLimitPlain(GetVerifyRateLimitPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifyRateLimit", TypeShape.of(GetVerifyRateLimitResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a bucket of a Verify rate limit by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitBucketResult> getVerifyRateLimitBucket(GetVerifyRateLimitBucketArgs args) {
+        return getVerifyRateLimitBucket(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a bucket of a Verify rate limit by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyRateLimitBucketResult> getVerifyRateLimitBucketPlain(GetVerifyRateLimitBucketPlainArgs args) {
+        return getVerifyRateLimitBucketPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a bucket of a Verify rate limit by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitBucketResult> getVerifyRateLimitBucket(GetVerifyRateLimitBucketArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyRateLimitBucket", TypeShape.of(GetVerifyRateLimitBucketResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a bucket of a Verify rate limit by SID.
+     * 
+     */
+    public static Output<GetVerifyRateLimitBucketResult> getVerifyRateLimitBucket(GetVerifyRateLimitBucketArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyRateLimitBucket", TypeShape.of(GetVerifyRateLimitBucketResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a bucket of a Verify rate limit by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyRateLimitBucketResult> getVerifyRateLimitBucketPlain(GetVerifyRateLimitBucketPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifyRateLimitBucket", TypeShape.of(GetVerifyRateLimitBucketResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Verify SafeList. Fails when the number is not on the list.
+     * 
+     */
+    public static Output<GetVerifySafeListNumberResult> getVerifySafeListNumber(GetVerifySafeListNumberArgs args) {
+        return getVerifySafeListNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number on the account&#39;s Verify SafeList. Fails when the number is not on the list.
+     * 
+     */
+    public static CompletableFuture<GetVerifySafeListNumberResult> getVerifySafeListNumberPlain(GetVerifySafeListNumberPlainArgs args) {
+        return getVerifySafeListNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number on the account&#39;s Verify SafeList. Fails when the number is not on the list.
+     * 
+     */
+    public static Output<GetVerifySafeListNumberResult> getVerifySafeListNumber(GetVerifySafeListNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifySafeListNumber", TypeShape.of(GetVerifySafeListNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Verify SafeList. Fails when the number is not on the list.
+     * 
+     */
+    public static Output<GetVerifySafeListNumberResult> getVerifySafeListNumber(GetVerifySafeListNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifySafeListNumber", TypeShape.of(GetVerifySafeListNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Verify SafeList. Fails when the number is not on the list.
+     * 
+     */
+    public static CompletableFuture<GetVerifySafeListNumberResult> getVerifySafeListNumberPlain(GetVerifySafeListNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifySafeListNumber", TypeShape.of(GetVerifySafeListNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Verify service by SID.
      * 
      */
@@ -1183,5 +2067,89 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetVerifyServiceResult> getVerifyServicePlain(GetVerifyServicePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getVerifyService", TypeShape.of(GetVerifyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static Output<GetVerifyTemplatesResult> getVerifyTemplates() {
+        return getVerifyTemplates(GetVerifyTemplatesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static CompletableFuture<GetVerifyTemplatesResult> getVerifyTemplatesPlain() {
+        return getVerifyTemplatesPlain(GetVerifyTemplatesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static Output<GetVerifyTemplatesResult> getVerifyTemplates(GetVerifyTemplatesArgs args) {
+        return getVerifyTemplates(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static CompletableFuture<GetVerifyTemplatesResult> getVerifyTemplatesPlain(GetVerifyTemplatesPlainArgs args) {
+        return getVerifyTemplatesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static Output<GetVerifyTemplatesResult> getVerifyTemplates(GetVerifyTemplatesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyTemplates", TypeShape.of(GetVerifyTemplatesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static Output<GetVerifyTemplatesResult> getVerifyTemplates(GetVerifyTemplatesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyTemplates", TypeShape.of(GetVerifyTemplatesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Verify message templates available to the account, optionally filtered by exact friendlyName.
+     * 
+     */
+    public static CompletableFuture<GetVerifyTemplatesResult> getVerifyTemplatesPlain(GetVerifyTemplatesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifyTemplates", TypeShape.of(GetVerifyTemplatesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a webhook of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyWebhookResult> getVerifyWebhook(GetVerifyWebhookArgs args) {
+        return getVerifyWebhook(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a webhook of a Verify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyWebhookResult> getVerifyWebhookPlain(GetVerifyWebhookPlainArgs args) {
+        return getVerifyWebhookPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a webhook of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyWebhookResult> getVerifyWebhook(GetVerifyWebhookArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a webhook of a Verify service by SID.
+     * 
+     */
+    public static Output<GetVerifyWebhookResult> getVerifyWebhook(GetVerifyWebhookArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a webhook of a Verify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetVerifyWebhookResult> getVerifyWebhookPlain(GetVerifyWebhookPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
     }
 }

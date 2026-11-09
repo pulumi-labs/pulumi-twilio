@@ -49,13 +49,14 @@ type fakeTwilio struct {
 	t      *testing.T
 	server *httptest.Server
 
-	mu              sync.Mutex
-	endlessKeyPages bool                      // the account-explicit key list never ends (a truncation probe)
-	objs            map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
-	order           []string
-	next            int
-	calls           []fakeCall
-	failure         map[string]int // "METHOD substring" -> status to return once
+	mu               sync.Mutex
+	endlessKeyPages  bool                      // the account-explicit key list never ends (a truncation probe)
+	templatePageSize int                       // when set, /v2/Templates pages hold this many items
+	objs             map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
+	order            []string
+	next             int
+	calls            []fakeCall
+	failure          map[string]int // "METHOD substring" -> status to return once
 }
 
 type fakeCall struct {
@@ -281,9 +282,27 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 	case strings.HasPrefix(path, "/messaging/v1/Services"):
 		f.handleMessaging(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/Services"), "/"), "/"))
 	case strings.HasPrefix(path, "/verify/v2/Services"):
-		f.handleVerify(w, r, form, strings.Trim(strings.TrimPrefix(path, "/verify/v2/Services"), "/"))
+		rest := strings.Trim(strings.TrimPrefix(path, "/verify/v2/Services"), "/")
+		if strings.Contains(rest, "/") {
+			f.handleVerifyChild(w, r, form, strings.Split(rest, "/"))
+			return
+		}
+		f.handleVerify(w, r, form, rest)
+	case strings.HasPrefix(path, "/verify/v2/SafeList/Numbers"):
+		f.handleVerifySafeList(w, r, form, strings.Trim(strings.TrimPrefix(path, "/verify/v2/SafeList/Numbers"), "/"))
+	case path == "/verify/v2/Templates":
+		f.handleVerifyTemplates(w, r)
+	case strings.HasPrefix(path, "/serverless/v1/Services"):
+		rest := strings.Trim(strings.TrimPrefix(path, "/serverless/v1/Services"), "/")
+		if rest == "" {
+			f.handleServerless(w, r, form, nil)
+			return
+		}
+		f.handleServerless(w, r, form, strings.Split(rest, "/"))
 	case strings.HasPrefix(path, "/events/v1/"):
 		f.handleEvents(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/events/v1/"), "/"), "/"))
+	case strings.HasPrefix(path, "/voice/v1/"):
+		f.handleVoice(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/trunking/v1/"):
 		f.handleTrunking(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trunking/v1/"), "/"), "/"))
 	default:
@@ -314,6 +333,12 @@ func (f *fakeTwilio) handleAPI(w http.ResponseWriter, r *http.Request, form url.
 	}
 	if len(parts) >= 4 && parts[2] == "SIP" {
 		f.handleSIP(w, r, form, parts)
+		return
+	}
+	if f.handleAssignedAddOn(w, r, form, parts) {
+		return
+	}
+	if len(parts) >= 3 && f.handleDataAPI(w, r, parts) {
 		return
 	}
 	switch len(parts) {

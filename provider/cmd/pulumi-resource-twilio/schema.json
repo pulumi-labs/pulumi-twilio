@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "displayName": "Twilio",
-  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
+  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
   "keywords": [
     "pulumi",
     "twilio",
@@ -30,7 +30,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
-      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
+      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
       "packageName": "@pulumi-labs/twilio",
       "respectSchemaVersion": true
     },
@@ -189,6 +189,148 @@
         "friendlyName"
       ]
     },
+    "twilio:index:AssignedAddOnExtension": {
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the extension is enabled."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "The extension's friendly name."
+        },
+        "productName": {
+          "type": "string",
+          "description": "The name of the add-on product the extension belongs to."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The extension SID (XF...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "The extension's application-defined unique name."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "friendlyName",
+        "productName",
+        "uniqueName",
+        "enabled"
+      ]
+    },
+    "twilio:index:AuthorizedConnectApp": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that authorized the app."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Company name set for the Connect App."
+        },
+        "connectAppSid": {
+          "type": "string",
+          "description": "SID (CN...) of the Connect App."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the Connect App."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the Connect App."
+        },
+        "homepageUrl": {
+          "type": "string",
+          "description": "Public URL of the Connect App."
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Permissions the account granted: get-all or post-all."
+        }
+      },
+      "type": "object",
+      "required": [
+        "connectAppSid",
+        "accountSid",
+        "friendlyName",
+        "companyName",
+        "description",
+        "homepageUrl",
+        "permissions"
+      ]
+    },
+    "twilio:index:AvailablePhoneNumber": {
+      "properties": {
+        "addressRequirements": {
+          "type": "string",
+          "description": "Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported."
+        },
+        "beta": {
+          "type": "boolean",
+          "description": "Whether the number is new to the Twilio platform."
+        },
+        "capabilities": {
+          "$ref": "#/types/twilio:index:PhoneNumberCapabilities",
+          "description": "What the number can do."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "A formatted version of the number."
+        },
+        "isoCountry": {
+          "type": "string",
+          "description": "ISO country code of the number."
+        },
+        "lata": {
+          "type": "string",
+          "description": "LATA of the number, when Twilio reports one."
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Latitude of the number's location, when Twilio reports one."
+        },
+        "locality": {
+          "type": "string",
+          "description": "City or locality of the number, when Twilio reports one."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Longitude of the number's location, when Twilio reports one."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or ZIP code of the number, when Twilio reports one."
+        },
+        "rateCenter": {
+          "type": "string",
+          "description": "Rate center of the number, when Twilio reports one."
+        },
+        "region": {
+          "type": "string",
+          "description": "State or province abbreviation of the number, when Twilio reports one."
+        }
+      },
+      "type": "object",
+      "required": [
+        "phoneNumber",
+        "friendlyName",
+        "isoCountry",
+        "addressRequirements",
+        "beta",
+        "capabilities"
+      ]
+    },
     "twilio:index:ConnectAppEffective": {
       "properties": {
         "accountSid": {
@@ -242,6 +384,28 @@
         "connectAppSid"
       ]
     },
+    "twilio:index:EventSchemaVersion": {
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the version was published (ISO 8601)."
+        },
+        "raw": {
+          "type": "string",
+          "description": "URL of the raw JSON schema document for the version."
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "description": "The version number."
+        }
+      },
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "dateCreated",
+        "raw"
+      ]
+    },
     "twilio:index:EventSubscriptionType": {
       "properties": {
         "schemaVersion": {
@@ -256,6 +420,48 @@
       "type": "object",
       "required": [
         "type"
+      ]
+    },
+    "twilio:index:EventType": {
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the event type was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the event type was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the event type."
+        },
+        "documentationUrl": {
+          "type": "string",
+          "description": "Link to the documentation or changelog for the event type."
+        },
+        "schemaId": {
+          "type": "string",
+          "description": "ID of the schema the event type follows. See getEventSchema."
+        },
+        "status": {
+          "type": "string",
+          "description": "Whether the event type can be used, for example available or deprecated."
+        },
+        "type": {
+          "type": "string",
+          "description": "The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "schemaId",
+        "description",
+        "status",
+        "documentationUrl",
+        "dateCreated",
+        "dateUpdated"
       ]
     },
     "twilio:index:IncomingPhoneNumberEffective": {
@@ -461,6 +667,33 @@
       },
       "type": "object"
     },
+    "twilio:index:PhoneNumberCapabilities": {
+      "properties": {
+        "fax": {
+          "type": "boolean",
+          "description": "Whether the number supports fax."
+        },
+        "mms": {
+          "type": "boolean",
+          "description": "Whether the number supports MMS."
+        },
+        "sms": {
+          "type": "boolean",
+          "description": "Whether the number supports SMS."
+        },
+        "voice": {
+          "type": "boolean",
+          "description": "Whether the number supports voice calls."
+        }
+      },
+      "type": "object",
+      "required": [
+        "voice",
+        "sms",
+        "mms",
+        "fax"
+      ]
+    },
     "twilio:index:ShortCodeEffective": {
       "properties": {
         "accountSid": {
@@ -550,6 +783,73 @@
       },
       "type": "object"
     },
+    "twilio:index:UsageRecord": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account the usage belongs to."
+        },
+        "asOf": {
+          "type": "string",
+          "description": "Timestamp the records are up to date as of."
+        },
+        "category": {
+          "type": "string",
+          "description": "The usage category, for example calls."
+        },
+        "count": {
+          "type": "string",
+          "description": "Number of usage events, as a decimal string."
+        },
+        "countUnit": {
+          "type": "string",
+          "description": "Unit of count, for example calls."
+        },
+        "description": {
+          "type": "string",
+          "description": "Plain-language description of the category."
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Last date the record covers (YYYY-MM-DD)."
+        },
+        "price": {
+          "type": "string",
+          "description": "Total price as a decimal string, kept as Twilio sends it."
+        },
+        "priceUnit": {
+          "type": "string",
+          "description": "ISO 4217 currency of price."
+        },
+        "startDate": {
+          "type": "string",
+          "description": "First date the record covers (YYYY-MM-DD)."
+        },
+        "usage": {
+          "type": "string",
+          "description": "Amount used, as a decimal string."
+        },
+        "usageUnit": {
+          "type": "string",
+          "description": "Unit of usage, for example minutes."
+        }
+      },
+      "type": "object",
+      "required": [
+        "accountSid",
+        "category",
+        "description",
+        "startDate",
+        "endDate",
+        "count",
+        "countUnit",
+        "usage",
+        "usageUnit",
+        "price",
+        "priceUnit",
+        "asOf"
+      ]
+    },
     "twilio:index:VerifyServiceEffective": {
       "properties": {
         "codeLength": {
@@ -633,7 +933,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it."
         },
         "totpSkew": {
           "type": "integer",
@@ -663,6 +963,31 @@
       "type": "object",
       "required": [
         "friendlyName"
+      ]
+    },
+    "twilio:index:VerifyTemplate": {
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Channels that support the template (sms, voice)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the template."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The template SID (HJ...). Use it as VerifyService.defaultTemplateSid."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "friendlyName",
+        "channels"
       ]
     }
   },
@@ -1180,6 +1505,115 @@
         "friendlyName"
       ]
     },
+    "twilio:index:ByocTrunk": {
+      "description": "A Twilio BYOC (Bring Your Own Carrier) trunk. Point connectionPolicySid at a ConnectionPolicy for outbound calls and map the carrier's IP addresses to it with IpRecord and SourceIpMapping for inbound calls.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the BYOC trunk."
+        },
+        "cnamLookupEnabled": {
+          "type": "boolean",
+          "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "connectionPolicySid": {
+          "type": "string",
+          "description": "SID (NY...) of the ConnectionPolicy whose targets receive the trunk's outbound calls. Removing it detaches the policy."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the trunk was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the trunk was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the BYOC trunk. Removing it leaves the name unchanged on Twilio."
+        },
+        "fromDomainSid": {
+          "type": "string",
+          "description": "SID (SD...) of the SipDomain whose domain name is used as the From host of outbound calls. Removing it clears the setting."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The BYOC trunk SID (BY...)."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method used to request statusCallbackUrl, GET or POST (Twilio default POST)."
+        },
+        "statusCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio posts call status events to. Removing it clears the URL."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method used to request voiceFallbackUrl, GET or POST (Twilio default POST)."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio requests when voiceUrl fails or returns invalid TwiML. Removing it clears the URL."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method used to request voiceUrl, GET or POST (Twilio default POST)."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests (with voiceMethod) when a call arrives from the carrier and needs TwiML. Removing it clears the URL."
+        }
+      },
+      "required": [
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "cnamLookupEnabled": {
+          "type": "boolean",
+          "description": "Whether Caller ID Name (CNAM) lookup is enabled for inbound calls (default false). Removing the input leaves the setting unchanged on Twilio."
+        },
+        "connectionPolicySid": {
+          "type": "string",
+          "description": "SID (NY...) of the ConnectionPolicy whose targets receive the trunk's outbound calls. Removing it detaches the policy."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the BYOC trunk. Removing it leaves the name unchanged on Twilio."
+        },
+        "fromDomainSid": {
+          "type": "string",
+          "description": "SID (SD...) of the SipDomain whose domain name is used as the From host of outbound calls. Removing it clears the setting."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method used to request statusCallbackUrl, GET or POST (Twilio default POST)."
+        },
+        "statusCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio posts call status events to. Removing it clears the URL."
+        },
+        "voiceFallbackMethod": {
+          "type": "string",
+          "description": "HTTP method used to request voiceFallbackUrl, GET or POST (Twilio default POST)."
+        },
+        "voiceFallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio requests when voiceUrl fails or returns invalid TwiML. Removing it clears the URL."
+        },
+        "voiceMethod": {
+          "type": "string",
+          "description": "HTTP method used to request voiceUrl, GET or POST (Twilio default POST)."
+        },
+        "voiceUrl": {
+          "type": "string",
+          "description": "URL Twilio requests (with voiceMethod) when a call arrives from the carrier and needs TwiML. Removing it clears the URL."
+        }
+      }
+    },
     "twilio:index:ConnectApp": {
       "description": "Listing details of a Twilio Connect app that already exists. The resource adopts the app; it never creates one (Twilio offers that only in the Console), and destroying it does NOT delete the app (it only stops managing it).",
       "properties": {
@@ -1297,6 +1731,128 @@
         "connectAppSid"
       ]
     },
+    "twilio:index:ConnectionPolicy": {
+      "description": "A Twilio BYOC (Bring Your Own Carrier) connection policy: the carrier targets a ByocTrunk sends outbound calls to. Add targets with ConnectionPolicyTarget and reference the policy from ByocTrunk.connectionPolicySid.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the connection policy."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the policy was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the policy was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the connection policy. Removing it leaves the name unchanged on Twilio."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The connection policy SID (NY...)."
+        }
+      },
+      "required": [
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the connection policy. Removing it leaves the name unchanged on Twilio."
+        }
+      }
+    },
+    "twilio:index:ConnectionPolicyTarget": {
+      "description": "A carrier target of a BYOC connection policy. The resource ID is <connectionPolicySid>/<sid>. Twilio accepts only a sip: URI.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the target."
+        },
+        "connectionPolicySid": {
+          "type": "string",
+          "description": "SID (NY...) of the connection policy. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the target was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the target was last updated (ISO 8601)."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the target is enabled (default true)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the target. Removing it leaves the name unchanged on Twilio."
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Relative importance of the target, 0 to 65535 (default 10). The lowest number is the most important."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The target SID (NE...)."
+        },
+        "target": {
+          "type": "string",
+          "description": "The SIP address of the carrier, for example sip:carrier.example.com:5060. It must use the sip: scheme (sips: is not supported)."
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Relative share of the load a target receives among targets of the same priority, 1 to 65535 (default 10)."
+        }
+      },
+      "required": [
+        "connectionPolicySid",
+        "target",
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "connectionPolicySid": {
+          "type": "string",
+          "description": "SID (NY...) of the connection policy. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the target is enabled (default true)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the target. Removing it leaves the name unchanged on Twilio."
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Relative importance of the target, 0 to 65535 (default 10). The lowest number is the most important."
+        },
+        "target": {
+          "type": "string",
+          "description": "The SIP address of the carrier, for example sip:carrier.example.com:5060. It must use the sip: scheme (sips: is not supported)."
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Relative share of the load a target receives among targets of the same priority, 1 to 65535 (default 10)."
+        }
+      },
+      "requiredInputs": [
+        "connectionPolicySid",
+        "target"
+      ]
+    },
     "twilio:index:EventSink": {
       "description": "A Twilio Event Streams sink: where subscribed events are delivered. Twilio only lets the description of a sink change; any change to its type or connection settings replaces the sink. Events API (events.twilio.com) credentials are the provider's account credentials.",
       "properties": {
@@ -1349,7 +1905,7 @@
         },
         "webhookBatchEvents": {
           "type": "boolean",
-          "description": "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.",
+          "description": "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.",
           "replaceOnChanges": true
         },
         "webhookDestination": {
@@ -1405,7 +1961,7 @@
         },
         "webhookBatchEvents": {
           "type": "boolean",
-          "description": "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.",
+          "description": "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.",
           "replaceOnChanges": true
         },
         "webhookDestination": {
@@ -1724,6 +2280,152 @@
           "description": "URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side."
         }
       }
+    },
+    "twilio:index:IncomingPhoneNumberAssignedAddOn": {
+      "description": "An installed Marketplace add-on assigned to a Twilio incoming phone number. Twilio has no update call, so every input replaces the assignment. The resource ID is <phoneNumberSid>/<sid> (<accountSid>/<phoneNumberSid>/<sid> for a subaccount's number).",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the phone number. Defaults to the provider account. Changing it replaces the resource. To import an assignment on a subaccount's number use the ID <accountSid>/<phoneNumberSid>/<sid>.",
+          "replaceOnChanges": true
+        },
+        "configuration": {
+          "type": "string",
+          "description": "The current configuration of the add-on installation, as a JSON string."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the assignment was created (RFC 2822)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the assignment was last updated (RFC 2822)."
+        },
+        "description": {
+          "type": "string",
+          "description": "A short description of what the add-on provides."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "The add-on's friendly name."
+        },
+        "installedAddOnSid": {
+          "type": "string",
+          "description": "SID (XE...) of the installed add-on to assign. Twilio has no update call, so changing it replaces the resource. Twilio does not return it, so an imported assignment has none until the program sets it, which then plans an update that only records it (no Twilio call).",
+          "replaceOnChanges": true
+        },
+        "ownerAccountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the phone number."
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the incoming phone number the add-on is assigned to. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The assignment SID (XE...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "The add-on's application-defined unique name."
+        }
+      },
+      "required": [
+        "phoneNumberSid",
+        "installedAddOnSid",
+        "sid",
+        "ownerAccountSid",
+        "friendlyName",
+        "description",
+        "uniqueName",
+        "configuration",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account or subaccount that owns the phone number. Defaults to the provider account. Changing it replaces the resource. To import an assignment on a subaccount's number use the ID <accountSid>/<phoneNumberSid>/<sid>.",
+          "replaceOnChanges": true
+        },
+        "installedAddOnSid": {
+          "type": "string",
+          "description": "SID (XE...) of the installed add-on to assign. Twilio has no update call, so changing it replaces the resource. Twilio does not return it, so an imported assignment has none until the program sets it, which then plans an update that only records it (no Twilio call).",
+          "replaceOnChanges": true
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the incoming phone number the add-on is assigned to. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "phoneNumberSid",
+        "installedAddOnSid"
+      ]
+    },
+    "twilio:index:IpRecord": {
+      "description": "A BYOC IP record: an IPv4 address or CIDR block of your carrier, for use in a SourceIpMapping.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the record."
+        },
+        "cidrPrefixLength": {
+          "type": "integer",
+          "description": "CIDR prefix length of the record, 1 to 32 (default 32, a single address). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the record was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the record was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the record. Removing it leaves the name unchanged on Twilio."
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "The IPv4 address of the record (IPv6 is not supported). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The IP record SID (IL...)."
+        }
+      },
+      "required": [
+        "ipAddress",
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "cidrPrefixLength": {
+          "type": "integer",
+          "description": "CIDR prefix length of the record, 1 to 32 (default 32, a single address). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the record. Removing it leaves the name unchanged on Twilio."
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "The IPv4 address of the record (IPv6 is not supported). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "ipAddress"
+      ]
     },
     "twilio:index:MessagingService": {
       "description": "A Twilio Messaging Service: a pool of senders with shared inbound and status webhooks. Add senders with MessagingServicePhoneNumber.",
@@ -2056,6 +2758,352 @@
       },
       "requiredInputs": [
         "friendlyName"
+      ]
+    },
+    "twilio:index:ServerlessAsset": {
+      "description": "The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the asset."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the asset was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the asset was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the asset, at most 255 characters. It is the only property Twilio lets you change."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The asset SID (ZH...)."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the asset resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "friendlyName",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the asset, at most 255 characters. It is the only property Twilio lets you change."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:ServerlessEnvironment": {
+      "description": "An environment of a Twilio Serverless service. Add ServerlessVariable resources to configure it. The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the environment."
+        },
+        "buildSid": {
+          "type": "string",
+          "description": "SID (ZB...) of the build currently deployed to the environment, when there is one."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the environment was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the environment was last updated (ISO 8601)."
+        },
+        "domainName": {
+          "type": "string",
+          "description": "The domain name of the environment, for example zoo-1234-stage.twil.io."
+        },
+        "domainSuffix": {
+          "type": "string",
+          "description": "URL-friendly suffix that becomes part of the environment's domain name, at most 16 characters. Twilio cannot change it, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The environment SID (ZE...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the environment, at most 100 characters, for example stage. Twilio cannot change it, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the environment resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "uniqueName",
+        "sid",
+        "accountSid",
+        "domainName",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "domainSuffix": {
+          "type": "string",
+          "description": "URL-friendly suffix that becomes part of the environment's domain name, at most 16 characters. Twilio cannot change it, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the environment, at most 100 characters, for example stage. Twilio cannot change it, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "uniqueName"
+      ]
+    },
+    "twilio:index:ServerlessFunction": {
+      "description": "The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the function."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the function was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the function was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the function, at most 255 characters. It is the only property Twilio lets you change."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The function SID (ZH...)."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the function resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "friendlyName",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the function, at most 255 characters. It is the only property Twilio lets you change."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:ServerlessService": {
+      "description": "A Twilio Serverless service. Add ServerlessEnvironment, ServerlessFunction and ServerlessAsset resources to it. The resource ID is the service SID (ZS...). Deleting a service deletes everything inside it.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the service."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "domainBase": {
+          "type": "string",
+          "description": "The base domain name of the service's environments, for example zoo-1234."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, at most 255 characters."
+        },
+        "includeCredentials": {
+          "type": "boolean",
+          "description": "Whether Twilio injects the account credentials into the Functions of the service. Left unset, the value Twilio already has is kept."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (ZS...)."
+        },
+        "uiEditable": {
+          "type": "boolean",
+          "description": "Whether the Functions and Assets of the service may be edited in the Twilio Console. Left unset, the value Twilio already has is kept."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the service, at most 50 characters. It can be used instead of the SID to address the service. Twilio cannot change it after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the service resource."
+        }
+      },
+      "required": [
+        "uniqueName",
+        "friendlyName",
+        "sid",
+        "accountSid",
+        "domainBase",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, at most 255 characters."
+        },
+        "includeCredentials": {
+          "type": "boolean",
+          "description": "Whether Twilio injects the account credentials into the Functions of the service. Left unset, the value Twilio already has is kept."
+        },
+        "uiEditable": {
+          "type": "boolean",
+          "description": "Whether the Functions and Assets of the service may be edited in the Twilio Console. Left unset, the value Twilio already has is kept."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the service, at most 50 characters. It can be used instead of the SID to address the service. Twilio cannot change it after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "uniqueName",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:ServerlessVariable": {
+      "description": "An environment variable of a Twilio Serverless environment. The value is a Pulumi secret. The resource ID is <serviceSid>/<environmentSid>/<sid>.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the variable was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the variable was last updated (ISO 8601)."
+        },
+        "environmentSid": {
+          "type": "string",
+          "description": "SID (ZE...) of the environment. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "key": {
+          "type": "string",
+          "description": "Name of the variable, as the Function reads it from context. Changing it updates the variable in place."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The variable SID (ZV...)."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the variable. It is a Pulumi secret, because variables commonly carry credentials.",
+          "secret": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "environmentSid",
+        "key",
+        "value",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "environmentSid": {
+          "type": "string",
+          "description": "SID (ZE...) of the environment. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "key": {
+          "type": "string",
+          "description": "Name of the variable, as the Function reads it from context. Changing it updates the variable in place."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the variable. It is a Pulumi secret, because variables commonly carry credentials.",
+          "secret": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "environmentSid",
+        "key",
+        "value"
       ]
     },
     "twilio:index:ShortCode": {
@@ -2785,6 +3833,54 @@
         "ipAddress"
       ]
     },
+    "twilio:index:SourceIpMapping": {
+      "description": "A BYOC source IP mapping: routes calls arriving from an IpRecord to a SipDomain.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the mapping was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the mapping was last updated (ISO 8601)."
+        },
+        "ipRecordSid": {
+          "type": "string",
+          "description": "SID (IL...) of the IpRecord. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The source IP mapping SID (IB...)."
+        },
+        "sipDomainSid": {
+          "type": "string",
+          "description": "SID (SD...) of the SipDomain that handles calls from the record. Changing it updates the mapping in place."
+        }
+      },
+      "required": [
+        "ipRecordSid",
+        "sipDomainSid",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "ipRecordSid": {
+          "type": "string",
+          "description": "SID (IL...) of the IpRecord. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sipDomainSid": {
+          "type": "string",
+          "description": "SID (SD...) of the SipDomain that handles calls from the record. Changing it updates the mapping in place."
+        }
+      },
+      "requiredInputs": [
+        "ipRecordSid",
+        "sipDomainSid"
+      ]
+    },
     "twilio:index:Subaccount": {
       "description": "A Twilio subaccount. Destroying the resource CLOSES the subaccount, which releases its phone numbers and cannot be undone after 30 days; set status to suspended to pause one reversibly.",
       "properties": {
@@ -3175,6 +4271,10 @@
           "type": "string",
           "description": "When the trigger last fired (RFC 2822), empty if it never has."
         },
+        "effectiveTriggerBy": {
+          "type": "string",
+          "description": "What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change."
+        },
         "friendlyName": {
           "type": "string",
           "description": "Human-readable name of the trigger (up to 64 characters)."
@@ -3194,7 +4294,7 @@
         },
         "triggerBy": {
           "type": "string",
-          "description": "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.",
+          "description": "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.",
           "replaceOnChanges": true
         },
         "triggerValue": {
@@ -3248,7 +4348,7 @@
         },
         "triggerBy": {
           "type": "string",
-          "description": "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.",
+          "description": "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.",
           "replaceOnChanges": true
         },
         "triggerValue": {
@@ -3266,6 +4366,217 @@
         "callbackUrl",
         "triggerValue",
         "usageCategory"
+      ]
+    },
+    "twilio:index:VerifyMessagingConfiguration": {
+      "description": "A per-country Messaging Service override of a Verify service. The resource ID is <serviceSid>/<country>.",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code the configuration applies to, or all for a global configuration. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the configuration was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the configuration was last updated (ISO 8601)."
+        },
+        "messagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service (see MessagingService) used to send SMS to the country."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "country",
+        "messagingServiceSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code the configuration applies to, or all for a global configuration. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "messagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service (see MessagingService) used to send SMS to the country."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "country",
+        "messagingServiceSid"
+      ]
+    },
+    "twilio:index:VerifyRateLimit": {
+      "description": "A rate limit of a Verify service. Add VerifyRateLimitBucket resources to say how many requests are allowed per interval. The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the rate limit was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the rate limit was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the rate limit. Removing it clears the description."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The rate limit SID (RK...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique, developer-assigned name of the rate limit, used by verification requests to refer to it. It cannot be changed after creation, so changing it replaces the resource. It must not contain PII.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "uniqueName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the rate limit. Removing it clears the description."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique, developer-assigned name of the rate limit, used by verification requests to refer to it. It cannot be changed after creation, so changing it replaces the resource. It must not contain PII.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "uniqueName"
+      ]
+    },
+    "twilio:index:VerifyRateLimitBucket": {
+      "description": "A bucket of a Verify rate limit: at most max requests per interval seconds. The resource ID is <serviceSid>/<rateLimitSid>/<sid>.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the bucket was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the bucket was last updated (ISO 8601)."
+        },
+        "interval": {
+          "type": "integer",
+          "description": "Number of seconds the rate limit is enforced over."
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum number of requests permitted during the interval."
+        },
+        "rateLimitSid": {
+          "type": "string",
+          "description": "SID (RK...) of the rate limit (see VerifyRateLimit). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The bucket SID (BL...)."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "rateLimitSid",
+        "max",
+        "interval",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "interval": {
+          "type": "integer",
+          "description": "Number of seconds the rate limit is enforced over."
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum number of requests permitted during the interval."
+        },
+        "rateLimitSid": {
+          "type": "string",
+          "description": "SID (RK...) of the rate limit (see VerifyRateLimit). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "rateLimitSid",
+        "max",
+        "interval"
+      ]
+    },
+    "twilio:index:VerifySafeListNumber": {
+      "description": "A phone number on the account's Verify SafeList. The resource ID is the phone number in E.164 format. Twilio has no update call, so changing the number replaces the entry.",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number to add to the SafeList, in E.164 format (+14155550100). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The SafeList entry SID, as Twilio reports it."
+        }
+      },
+      "required": [
+        "phoneNumber",
+        "sid"
+      ],
+      "inputProperties": {
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number to add to the SafeList, in E.164 format (+14155550100). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "phoneNumber"
       ]
     },
     "twilio:index:VerifyService": {
@@ -3360,7 +4671,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it."
         },
         "totpSkew": {
           "type": "integer",
@@ -3473,7 +4784,7 @@
         },
         "totpIssuer": {
           "type": "string",
-          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged."
+          "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it."
         },
         "totpSkew": {
           "type": "integer",
@@ -3502,6 +4813,101 @@
       },
       "requiredInputs": [
         "friendlyName"
+      ]
+    },
+    "twilio:index:VerifyWebhook": {
+      "description": "A webhook of a Verify service that receives factor and challenge events. The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the webhook was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the webhook was last updated (ISO 8601)."
+        },
+        "eventTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Events the webhook is subscribed to: * for all, or factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied. The order does not matter."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the webhook. It must not contain PII."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The webhook SID (YW...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "Webhook status: enabled (Twilio's default) or disabled. Removing it from the program resets it to enabled."
+        },
+        "webhookMethod": {
+          "type": "string",
+          "description": "The HTTP method Twilio uses to call the webhook URL (GET or POST), as Twilio reports it."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "URL Twilio posts the events to."
+        },
+        "webhookVersion": {
+          "type": "string",
+          "description": "Webhook payload version: v2 (Twilio's default, with all the latest fields) or v1 (legacy, may be removed). Removing it from the program resets it to v2."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "friendlyName",
+        "eventTypes",
+        "webhookUrl",
+        "sid",
+        "webhookMethod",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "eventTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Events the webhook is subscribed to: * for all, or factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied. The order does not matter."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the webhook. It must not contain PII."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (VA...) of the Verify service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "status": {
+          "type": "string",
+          "description": "Webhook status: enabled (Twilio's default) or disabled. Removing it from the program resets it to enabled."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "URL Twilio posts the events to."
+        },
+        "webhookVersion": {
+          "type": "string",
+          "description": "Webhook payload version: v2 (Twilio's default, with all the latest fields) or v1 (legacy, may be removed). Removing it from the program resets it to v2."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "friendlyName",
+        "eventTypes",
+        "webhookUrl"
       ]
     }
   },
@@ -3813,6 +5219,226 @@
         "type": "object"
       }
     },
+    "twilio:index:getAuthorizedConnectApp": {
+      "description": "Look up one Connect App an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json).",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account. Defaults to the provider account."
+          },
+          "connectAppSid": {
+            "type": "string",
+            "description": "SID (CN...) of the Connect App."
+          }
+        },
+        "type": "object",
+        "required": [
+          "connectAppSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that authorized the app.",
+            "type": "string"
+          },
+          "companyName": {
+            "description": "Company name set for the Connect App.",
+            "type": "string"
+          },
+          "connectAppSid": {
+            "description": "SID (CN...) of the Connect App.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the Connect App.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Name of the Connect App.",
+            "type": "string"
+          },
+          "homepageUrl": {
+            "description": "Public URL of the Connect App.",
+            "type": "string"
+          },
+          "permissions": {
+            "description": "Permissions the account granted: get-all or post-all.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "connectAppSid",
+          "accountSid",
+          "friendlyName",
+          "companyName",
+          "description",
+          "homepageUrl",
+          "permissions"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getAuthorizedConnectApps": {
+      "description": "List the Connect Apps an account has authorized (GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json).",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account. Defaults to the provider account."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account queried.",
+            "type": "string"
+          },
+          "apps": {
+            "description": "The authorized Connect Apps, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:AuthorizedConnectApp"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "accountSid",
+          "apps"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getAvailablePhoneNumbers": {
+      "description": "Search the phone numbers available to buy (GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/{Local|TollFree|Mobile}.json). Searching buys nothing; pass a result to IncomingPhoneNumber to purchase it.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account to search as. Defaults to the provider account."
+          },
+          "areaCode": {
+            "type": "integer",
+            "description": "Only numbers in this area code (US and Canada)."
+          },
+          "beta": {
+            "type": "boolean",
+            "description": "Only numbers that are new to the Twilio platform."
+          },
+          "contains": {
+            "type": "string",
+            "description": "Only numbers matching this pattern: digits, or letters and * wildcards, for example 415***1234."
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the numbers, for example US."
+          },
+          "distance": {
+            "type": "integer",
+            "description": "Search radius in miles for nearNumber or nearLatLong (at most 500)."
+          },
+          "excludeAllAddressRequired": {
+            "type": "boolean",
+            "description": "Leave out numbers that need any address on file."
+          },
+          "excludeForeignAddressRequired": {
+            "type": "boolean",
+            "description": "Leave out numbers that need a foreign address on file."
+          },
+          "excludeLocalAddressRequired": {
+            "type": "boolean",
+            "description": "Leave out numbers that need a local address on file."
+          },
+          "faxEnabled": {
+            "type": "boolean",
+            "description": "Only numbers that can send and receive faxes."
+          },
+          "inLata": {
+            "type": "string",
+            "description": "Only numbers in this LATA (US and Canada)."
+          },
+          "inLocality": {
+            "type": "string",
+            "description": "Only numbers in this city or locality (US and Canada)."
+          },
+          "inPostalCode": {
+            "type": "string",
+            "description": "Only numbers in this postal or ZIP code (US and Canada)."
+          },
+          "inRateCenter": {
+            "type": "string",
+            "description": "Only numbers in this rate center (US and Canada; set inRegion too)."
+          },
+          "inRegion": {
+            "type": "string",
+            "description": "Only numbers in this two-letter state or province (US and Canada)."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Most numbers to return, 1 to 1000. Defaults to 50."
+          },
+          "mmsEnabled": {
+            "type": "boolean",
+            "description": "Only numbers that can send and receive MMS."
+          },
+          "nearLatLong": {
+            "type": "string",
+            "description": "Only numbers near this latitude,longitude pair, for example 37.8,-122.4."
+          },
+          "nearNumber": {
+            "type": "string",
+            "description": "Only numbers near this number (E.164)."
+          },
+          "numberType": {
+            "type": "string",
+            "description": "Kind of number: local, tollFree or mobile. Defaults to local."
+          },
+          "smsEnabled": {
+            "type": "boolean",
+            "description": "Only numbers that can send and receive SMS."
+          },
+          "voiceEnabled": {
+            "type": "boolean",
+            "description": "Only numbers that can make and receive calls."
+          }
+        },
+        "type": "object",
+        "required": [
+          "countryCode"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "countryCode": {
+            "description": "The country searched.",
+            "type": "string"
+          },
+          "numberType": {
+            "description": "The kind of number searched: local, tollFree or mobile.",
+            "type": "string"
+          },
+          "numbers": {
+            "description": "The matching numbers, in the order Twilio returns them, at most limit.",
+            "items": {
+              "$ref": "#/types/twilio:index:AvailablePhoneNumber"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countryCode",
+          "numberType",
+          "numbers"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getBalance": {
       "description": "Read the account balance (GET /2010-04-01/Accounts/{AccountSid}/Balance.json).",
       "inputs": {
@@ -3843,6 +5469,98 @@
           "accountSid",
           "balance",
           "currency"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getByocTrunk": {
+      "description": "Look up a BYOC trunk by SID.",
+      "inputs": {
+        "properties": {
+          "byocTrunkSid": {
+            "type": "string",
+            "description": "SID (BY...) of the BYOC trunk."
+          }
+        },
+        "type": "object",
+        "required": [
+          "byocTrunkSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "cnamLookupEnabled": {
+            "description": "Whether CNAM lookup is enabled for inbound calls.",
+            "type": "boolean"
+          },
+          "connectionPolicySid": {
+            "description": "SID (NY...) of the connection policy, empty when none is set.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the object was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the object was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the trunk.",
+            "type": "string"
+          },
+          "fromDomainSid": {
+            "description": "SID (SD...) of the SIP domain used as the From host, empty when none is set.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The BYOC trunk SID (BY...).",
+            "type": "string"
+          },
+          "statusCallbackMethod": {
+            "description": "HTTP method used to request statusCallbackUrl.",
+            "type": "string"
+          },
+          "statusCallbackUrl": {
+            "description": "URL Twilio posts call status events to.",
+            "type": "string"
+          },
+          "voiceFallbackMethod": {
+            "description": "HTTP method used to request voiceFallbackUrl.",
+            "type": "string"
+          },
+          "voiceFallbackUrl": {
+            "description": "URL Twilio requests when voiceUrl fails.",
+            "type": "string"
+          },
+          "voiceMethod": {
+            "description": "HTTP method used to request voiceUrl.",
+            "type": "string"
+          },
+          "voiceUrl": {
+            "description": "URL Twilio requests for TwiML on calls from the carrier.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "voiceUrl",
+          "voiceMethod",
+          "voiceFallbackUrl",
+          "voiceFallbackMethod",
+          "statusCallbackUrl",
+          "statusCallbackMethod",
+          "cnamLookupEnabled",
+          "connectionPolicySid",
+          "fromDomainSid",
+          "accountSid",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }
@@ -3922,6 +5640,175 @@
           "description",
           "homepageUrl",
           "permissions"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConnectionPolicy": {
+      "description": "Look up a BYOC connection policy by SID.",
+      "inputs": {
+        "properties": {
+          "connectionPolicySid": {
+            "type": "string",
+            "description": "SID (NY...) of the connection policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "connectionPolicySid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the object was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the object was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the policy.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The connection policy SID (NY...).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "accountSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConnectionPolicyTarget": {
+      "description": "Look up a target of a BYOC connection policy.",
+      "inputs": {
+        "properties": {
+          "connectionPolicySid": {
+            "type": "string",
+            "description": "SID (NY...) of the connection policy."
+          },
+          "targetSid": {
+            "type": "string",
+            "description": "SID (NE...) of the target."
+          }
+        },
+        "type": "object",
+        "required": [
+          "connectionPolicySid",
+          "targetSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "connectionPolicySid": {
+            "description": "SID of the connection policy.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the object was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the object was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Whether the target is enabled.",
+            "type": "boolean"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the target.",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Relative importance of the target, 0 to 65535.",
+            "type": "integer"
+          },
+          "target": {
+            "description": "The SIP address of the carrier.",
+            "type": "string"
+          },
+          "targetSid": {
+            "description": "SID of the target.",
+            "type": "string"
+          },
+          "weight": {
+            "description": "Relative share of the load, 1 to 65535.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "connectionPolicySid",
+          "targetSid",
+          "target",
+          "friendlyName",
+          "priority",
+          "weight",
+          "enabled",
+          "accountSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getEventSchema": {
+      "description": "Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).",
+      "inputs": {
+        "properties": {
+          "schemaId": {
+            "type": "string",
+            "description": "ID of the schema, as reported by an event type's schemaId."
+          }
+        },
+        "type": "object",
+        "required": [
+          "schemaId"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "latestVersion": {
+            "description": "The latest published version number.",
+            "type": "integer"
+          },
+          "latestVersionDateCreated": {
+            "description": "When the latest version was published (ISO 8601).",
+            "type": "string"
+          },
+          "schemaId": {
+            "description": "ID of the schema.",
+            "type": "string"
+          },
+          "versions": {
+            "description": "Every published version, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:EventSchemaVersion"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "schemaId",
+          "latestVersion",
+          "latestVersionDateCreated",
+          "versions"
         ],
         "type": "object"
       }
@@ -4058,6 +5945,90 @@
         "type": "object"
       }
     },
+    "twilio:index:getEventType": {
+      "description": "Look up one Event Streams event type (GET /v1/Types/{Type} on events.twilio.com).",
+      "inputs": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The event type, for example com.twilio.messaging.message.delivered."
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the event type was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the event type was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human-readable description of the event type.",
+            "type": "string"
+          },
+          "documentationUrl": {
+            "description": "Link to the documentation or changelog for the event type.",
+            "type": "string"
+          },
+          "schemaId": {
+            "description": "ID of the schema the event type follows. See getEventSchema.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Whether the event type can be used, for example available or deprecated.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "schemaId",
+          "description",
+          "status",
+          "documentationUrl",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getEventTypes": {
+      "description": "List the Event Streams event types, optionally those that follow one schema (GET /v1/Types on events.twilio.com).",
+      "inputs": {
+        "properties": {
+          "schemaId": {
+            "type": "string",
+            "description": "Only event types that follow this schema."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "types": {
+            "description": "The event types, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:EventType"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "types"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getIncomingPhoneNumber": {
       "description": "Look up a phone number owned by the account by E.164 number or SID.",
       "inputs": {
@@ -4131,6 +6102,147 @@
           "voice",
           "sms",
           "mms"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getIncomingPhoneNumberAssignedAddOn": {
+      "description": "Look up a Marketplace add-on assigned to a Twilio incoming phone number, with its extensions.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account that owns the number. Defaults to the provider account."
+          },
+          "assignedAddOnSid": {
+            "type": "string",
+            "description": "SID (XE...) of the assignment."
+          },
+          "phoneNumberSid": {
+            "type": "string",
+            "description": "SID (PN...) of the incoming phone number."
+          }
+        },
+        "type": "object",
+        "required": [
+          "phoneNumberSid",
+          "assignedAddOnSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "configuration": {
+            "description": "The current configuration of the add-on installation, as a JSON string.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the assignment was created (RFC 2822).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the assignment was last updated (RFC 2822).",
+            "type": "string"
+          },
+          "description": {
+            "description": "A short description of what the add-on provides.",
+            "type": "string"
+          },
+          "extensions": {
+            "description": "The extensions of the assigned add-on (read-only in the Twilio API).",
+            "items": {
+              "$ref": "#/types/twilio:index:AssignedAddOnExtension"
+            },
+            "type": "array"
+          },
+          "friendlyName": {
+            "description": "The add-on's friendly name.",
+            "type": "string"
+          },
+          "ownerAccountSid": {
+            "description": "SID of the account that owns the phone number.",
+            "type": "string"
+          },
+          "phoneNumberSid": {
+            "description": "SID of the phone number the add-on is assigned to.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The assignment SID (XE...).",
+            "type": "string"
+          },
+          "uniqueName": {
+            "description": "The add-on's application-defined unique name.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "ownerAccountSid",
+          "phoneNumberSid",
+          "friendlyName",
+          "description",
+          "uniqueName",
+          "configuration",
+          "dateCreated",
+          "dateUpdated",
+          "extensions"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getIpRecord": {
+      "description": "Look up a BYOC IP record by SID.",
+      "inputs": {
+        "properties": {
+          "ipRecordSid": {
+            "type": "string",
+            "description": "SID (IL...) of the IP record."
+          }
+        },
+        "type": "object",
+        "required": [
+          "ipRecordSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "cidrPrefixLength": {
+            "description": "CIDR prefix length of the record.",
+            "type": "integer"
+          },
+          "dateCreated": {
+            "description": "When the object was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the object was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the record.",
+            "type": "string"
+          },
+          "ipAddress": {
+            "description": "The IPv4 address of the record.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The IP record SID (IL...).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "ipAddress",
+          "cidrPrefixLength",
+          "friendlyName",
+          "accountSid",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }
@@ -4389,6 +6501,339 @@
           "maxSize",
           "currentSize",
           "averageWaitTime",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessAsset": {
+      "description": "Look up the asset container of a Serverless service by SID.",
+      "inputs": {
+        "properties": {
+          "assetSid": {
+            "type": "string",
+            "description": "SID (ZH...) of the asset."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "assetSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the asset.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the asset was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the asset was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the asset.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The asset SID (ZH...).",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the asset resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "accountSid",
+          "friendlyName",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessEnvironment": {
+      "description": "Look up an environment of a Serverless service by SID.",
+      "inputs": {
+        "properties": {
+          "environmentSid": {
+            "type": "string",
+            "description": "SID (ZE...) of the environment."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "environmentSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the environment.",
+            "type": "string"
+          },
+          "buildSid": {
+            "description": "SID (ZB...) of the build deployed to the environment, when there is one.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the environment was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the environment was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "domainName": {
+            "description": "The domain name of the environment.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The environment SID (ZE...).",
+            "type": "string"
+          },
+          "uniqueName": {
+            "description": "Unique name of the environment.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the environment resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "accountSid",
+          "uniqueName",
+          "domainName",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessFunction": {
+      "description": "Look up the function container of a Serverless service by SID.",
+      "inputs": {
+        "properties": {
+          "functionSid": {
+            "type": "string",
+            "description": "SID (ZH...) of the function."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "functionSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the function.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the function was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the function was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the function.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The function SID (ZH...).",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the function resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "accountSid",
+          "friendlyName",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessService": {
+      "description": "Look up a Serverless service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the service.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the service was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the service was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "domainBase": {
+            "description": "The base domain name of the service's environments.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the service.",
+            "type": "string"
+          },
+          "includeCredentials": {
+            "description": "Whether Twilio injects the account credentials into the Functions of the service.",
+            "type": "boolean"
+          },
+          "sid": {
+            "description": "The service SID (ZS...).",
+            "type": "string"
+          },
+          "uiEditable": {
+            "description": "Whether the Functions and Assets of the service may be edited in the Twilio Console.",
+            "type": "boolean"
+          },
+          "uniqueName": {
+            "description": "Unique name of the service.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the service resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "uniqueName",
+          "friendlyName",
+          "domainBase",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessVariable": {
+      "description": "Look up an environment variable of a Serverless environment by SID. The value is a Pulumi secret.",
+      "inputs": {
+        "properties": {
+          "environmentSid": {
+            "type": "string",
+            "description": "SID (ZE...) of the environment."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          },
+          "variableSid": {
+            "type": "string",
+            "description": "SID (ZV...) of the variable."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "environmentSid",
+          "variableSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the variable was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the variable was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "environmentSid": {
+            "description": "SID of the environment.",
+            "type": "string"
+          },
+          "key": {
+            "description": "Name of the variable.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The variable SID (ZV...).",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value of the variable, returned as a Pulumi secret.",
+            "secret": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "environmentSid",
+          "sid",
+          "key",
+          "value",
           "dateCreated",
           "dateUpdated"
         ],
@@ -4994,6 +7439,53 @@
         "type": "object"
       }
     },
+    "twilio:index:getSourceIpMapping": {
+      "description": "Look up a BYOC source IP mapping by SID.",
+      "inputs": {
+        "properties": {
+          "sourceIpMappingSid": {
+            "type": "string",
+            "description": "SID (IB...) of the source IP mapping."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sourceIpMappingSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the mapping was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the mapping was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "ipRecordSid": {
+            "description": "SID (IL...) of the IP record.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The source IP mapping SID (IB...).",
+            "type": "string"
+          },
+          "sipDomainSid": {
+            "description": "SID (SD...) of the SIP domain.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "ipRecordSid",
+          "sipDomainSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getSubaccount": {
       "description": "Look up a Twilio subaccount by SID. The auth token is deliberately not returned.",
       "inputs": {
@@ -5309,6 +7801,67 @@
         "type": "object"
       }
     },
+    "twilio:index:getUsageRecords": {
+      "description": "Read usage records (GET /2010-04-01/Accounts/{AccountSid}/Usage/Records[/{Period}].json), optionally for one category and date range.",
+      "inputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "description": "SID of the account. Defaults to the provider account."
+          },
+          "category": {
+            "type": "string",
+            "description": "Only this usage category, for example calls or sms."
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Last date to include, YYYY-MM-DD. Also accepts offsets such as +30days."
+          },
+          "includeSubaccounts": {
+            "type": "boolean",
+            "description": "Include usage of the account's subaccounts."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Most records to return, 1 to 10000. Defaults to 1000."
+          },
+          "period": {
+            "type": "string",
+            "description": "How usage is bucketed: allTime (the default), daily, monthly, yearly, today, yesterday, thisMonth or lastMonth."
+          },
+          "startDate": {
+            "type": "string",
+            "description": "First date to include, YYYY-MM-DD. Also accepts offsets such as -30days."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account queried.",
+            "type": "string"
+          },
+          "period": {
+            "description": "The period bucketing used.",
+            "type": "string"
+          },
+          "records": {
+            "description": "The usage records, in the order Twilio returns them, at most limit.",
+            "items": {
+              "$ref": "#/types/twilio:index:UsageRecord"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "accountSid",
+          "period",
+          "records"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getUsageTrigger": {
       "description": "Look up a Twilio usage trigger by SID.",
       "inputs": {
@@ -5391,6 +7944,213 @@
           "currentValue",
           "dateFired",
           "usageRecordUri"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyMessagingConfiguration": {
+      "description": "Look up the Messaging Service a Verify service uses for one country.",
+      "inputs": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code, or all for the global configuration."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (VA...) of the Verify service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "country"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The country the configuration applies to, as Twilio reports it.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the configuration was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the configuration was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "messagingServiceSid": {
+            "description": "SID (MG...) of the Messaging Service used to send SMS to the country.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Verify service.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "country",
+          "messagingServiceSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyRateLimit": {
+      "description": "Look up a rate limit of a Verify service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (VA...) of the Verify service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (RK...) of the rate limit."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the rate limit was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the rate limit was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the rate limit, when it has one.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Verify service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The rate limit SID (RK...).",
+            "type": "string"
+          },
+          "uniqueName": {
+            "description": "Unique name of the rate limit.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "uniqueName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyRateLimitBucket": {
+      "description": "Look up a bucket of a Verify rate limit by SID.",
+      "inputs": {
+        "properties": {
+          "rateLimitSid": {
+            "type": "string",
+            "description": "SID (RK...) of the rate limit."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (VA...) of the Verify service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (BL...) of the bucket."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "rateLimitSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the bucket was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the bucket was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "interval": {
+            "description": "Number of seconds the rate limit is enforced over.",
+            "type": "integer"
+          },
+          "max": {
+            "description": "Maximum number of requests permitted during the interval.",
+            "type": "integer"
+          },
+          "rateLimitSid": {
+            "description": "SID of the rate limit.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Verify service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The bucket SID (BL...).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "rateLimitSid",
+          "sid",
+          "max",
+          "interval",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifySafeListNumber": {
+      "description": "Look up a phone number on the account's Verify SafeList. Fails when the number is not on the list.",
+      "inputs": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number to look up, in E.164 format."
+          }
+        },
+        "type": "object",
+        "required": [
+          "phoneNumber"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "phoneNumber": {
+            "description": "The phone number on the SafeList.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The SafeList entry SID, as Twilio reports it.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "sid"
         ],
         "type": "object"
       }
@@ -5495,7 +8255,7 @@
             "type": "integer"
           },
           "totpIssuer": {
-            "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.",
+            "description": "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.",
             "type": "string"
           },
           "totpSkew": {
@@ -5526,6 +8286,113 @@
         "required": [
           "friendlyName",
           "sid"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyTemplates": {
+      "description": "List the Verify message templates available to the account, optionally filtered by exact friendlyName.",
+      "inputs": {
+        "properties": {
+          "friendlyName": {
+            "type": "string",
+            "description": "Only return templates with this exact name."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "templates": {
+            "description": "The templates, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:VerifyTemplate"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "templates"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVerifyWebhook": {
+      "description": "Look up a webhook of a Verify service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (VA...) of the Verify service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (YW...) of the webhook."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "description": "When the webhook was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the webhook was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "Events the webhook is subscribed to.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "friendlyName": {
+            "description": "Name of the webhook.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Verify service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The webhook SID (YW...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "Webhook status: enabled or disabled.",
+            "type": "string"
+          },
+          "webhookMethod": {
+            "description": "HTTP method Twilio uses to call the URL (GET or POST).",
+            "type": "string"
+          },
+          "webhookUrl": {
+            "description": "URL Twilio posts the events to.",
+            "type": "string"
+          },
+          "webhookVersion": {
+            "description": "Webhook payload version: v1 or v2.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "friendlyName",
+          "eventTypes",
+          "webhookUrl",
+          "webhookMethod",
+          "status",
+          "webhookVersion",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }

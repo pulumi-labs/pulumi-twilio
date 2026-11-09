@@ -28,6 +28,8 @@ type UsageTrigger struct {
 	CurrentValue pulumi.StringOutput `pulumi:"currentValue"`
 	// When the trigger last fired (RFC 2822), empty if it never has.
 	DateFired pulumi.StringOutput `pulumi:"dateFired"`
+	// What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+	EffectiveTriggerBy pulumi.StringPtrOutput `pulumi:"effectiveTriggerBy"`
 	// Human-readable name of the trigger (up to 64 characters).
 	FriendlyName pulumi.StringPtrOutput `pulumi:"friendlyName"`
 	// SID of the account that owns the trigger.
@@ -36,7 +38,7 @@ type UsageTrigger struct {
 	Recurring pulumi.StringPtrOutput `pulumi:"recurring"`
 	// The usage trigger SID (UT...).
 	Sid pulumi.StringOutput `pulumi:"sid"`
-	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
 	TriggerBy pulumi.StringPtrOutput `pulumi:"triggerBy"`
 	// Usage value at which the trigger fires, for example 100 (a count or amount in the category's unit), or an offset such as +30 from the current value. Twilio cannot change it, so changing it replaces the trigger.
 	TriggerValue pulumi.StringOutput `pulumi:"triggerValue"`
@@ -113,7 +115,7 @@ type usageTriggerArgs struct {
 	FriendlyName *string `pulumi:"friendlyName"`
 	// How often the trigger resets: daily, monthly, yearly or alltime. Omit for a trigger that fires once. Changing it replaces the trigger.
 	Recurring *string `pulumi:"recurring"`
-	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
 	TriggerBy *string `pulumi:"triggerBy"`
 	// Usage value at which the trigger fires, for example 100 (a count or amount in the category's unit), or an offset such as +30 from the current value. Twilio cannot change it, so changing it replaces the trigger.
 	TriggerValue string `pulumi:"triggerValue"`
@@ -133,7 +135,7 @@ type UsageTriggerArgs struct {
 	FriendlyName pulumi.StringPtrInput
 	// How often the trigger resets: daily, monthly, yearly or alltime. Omit for a trigger that fires once. Changing it replaces the trigger.
 	Recurring pulumi.StringPtrInput
-	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+	// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
 	TriggerBy pulumi.StringPtrInput
 	// Usage value at which the trigger fires, for example 100 (a count or amount in the category's unit), or an offset such as +30 from the current value. Twilio cannot change it, so changing it replaces the trigger.
 	TriggerValue pulumi.StringInput
@@ -258,6 +260,11 @@ func (o UsageTriggerOutput) DateFired() pulumi.StringOutput {
 	return o.ApplyT(func(v *UsageTrigger) pulumi.StringOutput { return v.DateFired }).(pulumi.StringOutput)
 }
 
+// What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+func (o UsageTriggerOutput) EffectiveTriggerBy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UsageTrigger) pulumi.StringPtrOutput { return v.EffectiveTriggerBy }).(pulumi.StringPtrOutput)
+}
+
 // Human-readable name of the trigger (up to 64 characters).
 func (o UsageTriggerOutput) FriendlyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *UsageTrigger) pulumi.StringPtrOutput { return v.FriendlyName }).(pulumi.StringPtrOutput)
@@ -278,7 +285,7 @@ func (o UsageTriggerOutput) Sid() pulumi.StringOutput {
 	return o.ApplyT(func(v *UsageTrigger) pulumi.StringOutput { return v.Sid }).(pulumi.StringOutput)
 }
 
-// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
 func (o UsageTriggerOutput) TriggerBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *UsageTrigger) pulumi.StringPtrOutput { return v.TriggerBy }).(pulumi.StringPtrOutput)
 }

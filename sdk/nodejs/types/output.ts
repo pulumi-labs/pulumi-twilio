@@ -76,6 +76,115 @@ export interface ApplicationEffective {
     voiceUrl?: string;
 }
 
+export interface AssignedAddOnExtension {
+    /**
+     * Whether the extension is enabled.
+     */
+    enabled: boolean;
+    /**
+     * The extension's friendly name.
+     */
+    friendlyName: string;
+    /**
+     * The name of the add-on product the extension belongs to.
+     */
+    productName: string;
+    /**
+     * The extension SID (XF...).
+     */
+    sid: string;
+    /**
+     * The extension's application-defined unique name.
+     */
+    uniqueName: string;
+}
+
+export interface AuthorizedConnectApp {
+    /**
+     * SID of the account that authorized the app.
+     */
+    accountSid: string;
+    /**
+     * Company name set for the Connect App.
+     */
+    companyName: string;
+    /**
+     * SID (CN...) of the Connect App.
+     */
+    connectAppSid: string;
+    /**
+     * Description of the Connect App.
+     */
+    description: string;
+    /**
+     * Name of the Connect App.
+     */
+    friendlyName: string;
+    /**
+     * Public URL of the Connect App.
+     */
+    homepageUrl: string;
+    /**
+     * Permissions the account granted: get-all or post-all.
+     */
+    permissions: string[];
+}
+
+export interface AvailablePhoneNumber {
+    /**
+     * Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported.
+     */
+    addressRequirements: string;
+    /**
+     * Whether the number is new to the Twilio platform.
+     */
+    beta: boolean;
+    /**
+     * What the number can do.
+     */
+    capabilities: outputs.PhoneNumberCapabilities;
+    /**
+     * A formatted version of the number.
+     */
+    friendlyName: string;
+    /**
+     * ISO country code of the number.
+     */
+    isoCountry: string;
+    /**
+     * LATA of the number, when Twilio reports one.
+     */
+    lata?: string;
+    /**
+     * Latitude of the number's location, when Twilio reports one.
+     */
+    latitude?: number;
+    /**
+     * City or locality of the number, when Twilio reports one.
+     */
+    locality?: string;
+    /**
+     * Longitude of the number's location, when Twilio reports one.
+     */
+    longitude?: number;
+    /**
+     * The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it.
+     */
+    phoneNumber: string;
+    /**
+     * Postal or ZIP code of the number, when Twilio reports one.
+     */
+    postalCode?: string;
+    /**
+     * Rate center of the number, when Twilio reports one.
+     */
+    rateCenter?: string;
+    /**
+     * State or province abbreviation of the number, when Twilio reports one.
+     */
+    region?: string;
+}
+
 export interface ConnectAppEffective {
     /**
      * SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
@@ -119,6 +228,21 @@ export interface ConnectAppEffective {
     permissions?: string[];
 }
 
+export interface EventSchemaVersion {
+    /**
+     * When the version was published (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * URL of the raw JSON schema document for the version.
+     */
+    raw: string;
+    /**
+     * The version number.
+     */
+    schemaVersion: number;
+}
+
 export interface EventSubscriptionType {
     /**
      * Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
@@ -126,6 +250,37 @@ export interface EventSubscriptionType {
     schemaVersion?: number;
     /**
      * Event type ID, for example com.twilio.messaging.message.delivered.
+     */
+    type: string;
+}
+
+export interface EventType {
+    /**
+     * When the event type was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the event type was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * Human-readable description of the event type.
+     */
+    description: string;
+    /**
+     * Link to the documentation or changelog for the event type.
+     */
+    documentationUrl: string;
+    /**
+     * ID of the schema the event type follows. See getEventSchema.
+     */
+    schemaId: string;
+    /**
+     * Whether the event type can be used, for example available or deprecated.
+     */
+    status: string;
+    /**
+     * The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.
      */
     type: string;
 }
@@ -319,6 +474,25 @@ export interface OutgoingCallerIdEffective {
     phoneNumber?: string;
 }
 
+export interface PhoneNumberCapabilities {
+    /**
+     * Whether the number supports fax.
+     */
+    fax: boolean;
+    /**
+     * Whether the number supports MMS.
+     */
+    mms: boolean;
+    /**
+     * Whether the number supports SMS.
+     */
+    sms: boolean;
+    /**
+     * Whether the number supports voice calls.
+     */
+    voice: boolean;
+}
+
 export interface ShortCodeEffective {
     /**
      * SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
@@ -401,6 +575,57 @@ export interface TrunkEffective {
     transferMode?: string;
 }
 
+export interface UsageRecord {
+    /**
+     * SID of the account the usage belongs to.
+     */
+    accountSid: string;
+    /**
+     * Timestamp the records are up to date as of.
+     */
+    asOf: string;
+    /**
+     * The usage category, for example calls.
+     */
+    category: string;
+    /**
+     * Number of usage events, as a decimal string.
+     */
+    count: string;
+    /**
+     * Unit of count, for example calls.
+     */
+    countUnit: string;
+    /**
+     * Plain-language description of the category.
+     */
+    description: string;
+    /**
+     * Last date the record covers (YYYY-MM-DD).
+     */
+    endDate: string;
+    /**
+     * Total price as a decimal string, kept as Twilio sends it.
+     */
+    price: string;
+    /**
+     * ISO 4217 currency of price.
+     */
+    priceUnit: string;
+    /**
+     * First date the record covers (YYYY-MM-DD).
+     */
+    startDate: string;
+    /**
+     * Amount used, as a decimal string.
+     */
+    usage: string;
+    /**
+     * Unit of usage, for example minutes.
+     */
+    usageUnit: string;
+}
+
 export interface VerifyServiceEffective {
     /**
      * Length of the verification code, 4 to 10 digits (Twilio default 6).
@@ -479,7 +704,7 @@ export interface VerifyServiceEffective {
      */
     totpCodeLength?: number;
     /**
-     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+     * Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
      */
     totpIssuer?: string;
     /**
@@ -506,5 +731,20 @@ export interface VerifyServiceEffective {
      * SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
      */
     whatsappMsgServiceSid?: string;
+}
+
+export interface VerifyTemplate {
+    /**
+     * Channels that support the template (sms, voice).
+     */
+    channels: string[];
+    /**
+     * Name of the template.
+     */
+    friendlyName: string;
+    /**
+     * The template SID (HJ...). Use it as VerifyService.defaultTemplateSid.
+     */
+    sid: string;
 }
 

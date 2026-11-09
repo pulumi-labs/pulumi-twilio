@@ -9,22 +9,41 @@ import typing
 from .address import *
 from .api_key import *
 from .application import *
+from .byoc_trunk import *
 from .connect_app import *
+from .connection_policy import *
+from .connection_policy_target import *
 from .event_sink import *
 from .event_subscription import *
 from .get_account import *
 from .get_address import *
 from .get_api_key import *
 from .get_application import *
+from .get_authorized_connect_app import *
+from .get_authorized_connect_apps import *
+from .get_available_phone_numbers import *
 from .get_balance import *
+from .get_byoc_trunk import *
 from .get_connect_app import *
+from .get_connection_policy import *
+from .get_connection_policy_target import *
+from .get_event_schema import *
 from .get_event_sink import *
 from .get_event_subscription import *
+from .get_event_type import *
+from .get_event_types import *
 from .get_incoming_phone_number import *
+from .get_incoming_phone_number_assigned_add_on import *
+from .get_ip_record import *
 from .get_messaging_service import *
 from .get_messaging_service_phone_number import *
 from .get_outgoing_caller_id import *
 from .get_queue import *
+from .get_serverless_asset import *
+from .get_serverless_environment import *
+from .get_serverless_function import *
+from .get_serverless_service import *
+from .get_serverless_variable import *
 from .get_short_code import *
 from .get_signing_key import *
 from .get_sip_credential import *
@@ -34,19 +53,34 @@ from .get_sip_domain_credential_list_mapping import *
 from .get_sip_domain_ip_access_control_list_mapping import *
 from .get_sip_ip_access_control_list import *
 from .get_sip_ip_address import *
+from .get_source_ip_mapping import *
 from .get_subaccount import *
 from .get_trunk import *
 from .get_trunk_credential_list import *
 from .get_trunk_ip_access_control_list import *
 from .get_trunk_origination_url import *
+from .get_usage_records import *
 from .get_usage_trigger import *
+from .get_verify_messaging_configuration import *
+from .get_verify_rate_limit import *
+from .get_verify_rate_limit_bucket import *
+from .get_verify_safe_list_number import *
 from .get_verify_service import *
+from .get_verify_templates import *
+from .get_verify_webhook import *
 from .incoming_phone_number import *
+from .incoming_phone_number_assigned_add_on import *
+from .ip_record import *
 from .messaging_service import *
 from .messaging_service_phone_number import *
 from .outgoing_caller_id import *
 from .provider import *
 from .queue import *
+from .serverless_asset import *
+from .serverless_environment import *
+from .serverless_function import *
+from .serverless_service import *
+from .serverless_variable import *
 from .short_code import *
 from .signing_key import *
 from .sip_credential import *
@@ -56,13 +90,19 @@ from .sip_domain_credential_list_mapping import *
 from .sip_domain_ip_access_control_list_mapping import *
 from .sip_ip_access_control_list import *
 from .sip_ip_address import *
+from .source_ip_mapping import *
 from .subaccount import *
 from .trunk import *
 from .trunk_credential_list import *
 from .trunk_ip_access_control_list import *
 from .trunk_origination_url import *
 from .usage_trigger import *
+from .verify_messaging_configuration import *
+from .verify_rate_limit import *
+from .verify_rate_limit_bucket import *
+from .verify_safe_list_number import *
 from .verify_service import *
+from .verify_webhook import *
 from ._inputs import *
 from . import outputs
 
@@ -84,14 +124,24 @@ _utilities.register(
    "twilio:index:Address": "Address",
    "twilio:index:ApiKey": "ApiKey",
    "twilio:index:Application": "Application",
+   "twilio:index:ByocTrunk": "ByocTrunk",
    "twilio:index:ConnectApp": "ConnectApp",
+   "twilio:index:ConnectionPolicy": "ConnectionPolicy",
+   "twilio:index:ConnectionPolicyTarget": "ConnectionPolicyTarget",
    "twilio:index:EventSink": "EventSink",
    "twilio:index:EventSubscription": "EventSubscription",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
+   "twilio:index:IncomingPhoneNumberAssignedAddOn": "IncomingPhoneNumberAssignedAddOn",
+   "twilio:index:IpRecord": "IpRecord",
    "twilio:index:MessagingService": "MessagingService",
    "twilio:index:MessagingServicePhoneNumber": "MessagingServicePhoneNumber",
    "twilio:index:OutgoingCallerId": "OutgoingCallerId",
    "twilio:index:Queue": "Queue",
+   "twilio:index:ServerlessAsset": "ServerlessAsset",
+   "twilio:index:ServerlessEnvironment": "ServerlessEnvironment",
+   "twilio:index:ServerlessFunction": "ServerlessFunction",
+   "twilio:index:ServerlessService": "ServerlessService",
+   "twilio:index:ServerlessVariable": "ServerlessVariable",
    "twilio:index:ShortCode": "ShortCode",
    "twilio:index:SigningKey": "SigningKey",
    "twilio:index:SipCredential": "SipCredential",
@@ -101,13 +151,19 @@ _utilities.register(
    "twilio:index:SipDomainIpAccessControlListMapping": "SipDomainIpAccessControlListMapping",
    "twilio:index:SipIpAccessControlList": "SipIpAccessControlList",
    "twilio:index:SipIpAddress": "SipIpAddress",
+   "twilio:index:SourceIpMapping": "SourceIpMapping",
    "twilio:index:Subaccount": "Subaccount",
    "twilio:index:Trunk": "Trunk",
    "twilio:index:TrunkCredentialList": "TrunkCredentialList",
    "twilio:index:TrunkIpAccessControlList": "TrunkIpAccessControlList",
    "twilio:index:TrunkOriginationUrl": "TrunkOriginationUrl",
    "twilio:index:UsageTrigger": "UsageTrigger",
-   "twilio:index:VerifyService": "VerifyService"
+   "twilio:index:VerifyMessagingConfiguration": "VerifyMessagingConfiguration",
+   "twilio:index:VerifyRateLimit": "VerifyRateLimit",
+   "twilio:index:VerifyRateLimitBucket": "VerifyRateLimitBucket",
+   "twilio:index:VerifySafeListNumber": "VerifySafeListNumber",
+   "twilio:index:VerifyService": "VerifyService",
+   "twilio:index:VerifyWebhook": "VerifyWebhook"
   }
  }
 ]

@@ -74,7 +74,7 @@ var noListReset = map[string]bool{"Permissions": true}
 
 // noAdopt names the string fields that an import never turns into an input
 // because Twilio always returns a value for them (the API version in use).
-var noAdopt = map[string]bool{"ApiVersion": true}
+var noAdopt = map[string]bool{"ApiVersion": true, "TriggerBy": true}
 
 // strDefault is the value an unset string field has on Twilio, which is what a
 // removed input is reset to. Every HTTP method defaults to POST. VoiceReceiveMode
@@ -131,15 +131,19 @@ var importBoolDefaults = map[string]bool{
 	"VoiceCallerIdLookup": false, "StickySender": true, "AreaCodeGeomatch": true, "MmsConverter": true,
 	"SmartEncoding": true, "SynchronousValidation": false, "UseInboundWebhookOnNumber": false,
 	"CustomCodeEnabled": false, "DtmfInputRequired": true, "Psd2Enabled": false, "SkipSmsToLandlines": false,
+	// SipDomain: a new domain does not accept registrations; the Twilio spec states no default (#1680).
+	"SipRegistration": false,
 }
 
-var importIntDefaults = map[string]int{"CodeLength": 6}
+// VerifyService TOTP settings: Twilio's twilio_verify_v2 spec states the defaults (code length 6,
+// time step 30 seconds, skew 1), so a service created without them reports these (#1681).
+var importIntDefaults = map[string]int{"CodeLength": 6, "Totp.CodeLength": 6, "Totp.TimeStep": 30, "Totp.Skew": 1}
 
 // importStrDefaults are the string values a freshly created resource reports (#1634): an import leaves
 // an equal value out of the inputs, like importBoolDefaults. MessagingService usecase is "undeclared"
 // until set. Like the other import maps this is never used to reset a removed input; the observed
 // values come from the Mirror report behind #1634 (pulumi-labs/pulumi-twilio#2). VerifyService
-// totpIssuer is a default too, but it is the friendly name, so adopt compares it with that.
+// totpIssuer is never adopted (see adopt).
 var importStrDefaults = map[string]string{"Usecase": "undeclared"}
 
 // importBoolDefault returns the default an import compares a returned bool with.
@@ -280,8 +284,12 @@ func (ps props) adopt(o obj) {
 		if d, ok := importStrDefaults[f.param]; ok && *v == d {
 			continue
 		}
-		if f.param == "Totp.Issuer" && *v == o.str("friendly_name") {
-			continue // Twilio sets the issuer to the friendly name at creation
+		if noStrReset[f.param] && f.param == "Totp.Issuer" {
+			// Twilio sets the issuer to the friendly name at creation and keeps it when the friendly name is
+			// renamed, so a returned issuer cannot be told from the default. An update never sends a removed
+			// issuer (noStrReset), so an adopted one could not be removed again and would plan a change for every
+			// program that omits it (#1658). A program that sets totpIssuer is an ordinary update.
+			continue
 		}
 		*f.p = v
 	}

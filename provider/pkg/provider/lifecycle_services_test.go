@@ -364,3 +364,55 @@ func TestVerifyServiceLC_DeletedOutsideAndChecks(t *testing.T) {
 	require.NotEmpty(t, l.check(pv(map[string]property.Value{"friendlyName": sv("")})).Failures)
 	require.NotEmpty(t, l.check(pv(map[string]property.Value{"friendlyName": sv("x"), "codeLength": nv(3)})).Failures)
 }
+
+// #1681: an import adopts TOTP settings that differ from Twilio's defaults (6 digits, 30 second step, skew 1)
+// and leaves default-valued ones out, so the program that created the service plans no change.
+func TestVerifyServiceLC_ImportAdoptsNonDefaultTotp(t *testing.T) {
+	l := newTL(t, "VerifyService", "verify")
+	in := pv(map[string]property.Value{
+		"friendlyName": sv("login"), "totpCodeLength": nv(7), "totpSkew": nv(2), "totpTimeStep": nv(20),
+	})
+	c := l.create(in)
+	l.f.mutate("verify", testAccount, c.ID, func(o map[string]any) {
+		o["custom_code_enabled"], o["dtmf_input_required"] = false, true // Twilio's defaults, so only the TOTP settings differ
+		setPath(o, "totp.code_length", float64(7))
+		setPath(o, "totp.skew", float64(2))
+		setPath(o, "totp.time_step", float64(20))
+	})
+	imp := l.read(c.ID, empty(), empty())
+	require.Equal(t, float64(7), imp.Inputs.Get("totpCodeLength").AsNumber())
+	require.Equal(t, float64(2), imp.Inputs.Get("totpSkew").AsNumber())
+	require.Equal(t, float64(20), imp.Inputs.Get("totpTimeStep").AsNumber())
+	requireNoChanges(t, l.diff(c.ID, imp.Properties, l.checked(in), imp.Inputs))
+
+	// A service on Twilio's defaults imports none of them.
+	plain := l.other("VerifyService", "plain")
+	pin := pv(map[string]property.Value{"friendlyName": sv("login")})
+	pc := plain.create(pin)
+	plain.f.mutate("verify", testAccount, pc.ID, func(o map[string]any) {
+		o["custom_code_enabled"], o["dtmf_input_required"] = false, true
+		setPath(o, "totp.code_length", float64(6))
+		setPath(o, "totp.skew", float64(1))
+		setPath(o, "totp.time_step", float64(30))
+	})
+	pimp := plain.read(pc.ID, empty(), empty())
+	for _, k := range []string{"totpCodeLength", "totpSkew", "totpTimeStep"} {
+		require.False(t, hasProp(pimp.Inputs, k), k)
+	}
+	requireNoChanges(t, plain.diff(pc.ID, pimp.Properties, plain.checked(pin), pimp.Inputs))
+}
+
+// A TOTP skew of 0 is a real, non-default value (Twilio allows 0 to 2): the import adopts it rather than
+// treating the zero as unset.
+func TestVerifyServiceLC_ImportAdoptsZeroTotpSkew(t *testing.T) {
+	l := newTL(t, "VerifyService", "verify")
+	in := pv(map[string]property.Value{"friendlyName": sv("login"), "totpSkew": nv(0)})
+	c := l.create(in)
+	l.f.mutate("verify", testAccount, c.ID, func(o map[string]any) {
+		o["custom_code_enabled"], o["dtmf_input_required"] = false, true
+		setPath(o, "totp.skew", float64(0))
+	})
+	imp := l.read(c.ID, empty(), empty())
+	require.True(t, hasProp(imp.Inputs, "totpSkew"))
+	require.Equal(t, float64(0), imp.Inputs.Get("totpSkew").AsNumber())
+}

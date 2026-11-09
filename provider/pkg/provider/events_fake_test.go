@@ -51,6 +51,8 @@ func (f *fakeTwilio) handleEvents(w http.ResponseWriter, r *http.Request, form u
 		f.eventsSubscription(w, r, form, parts[1], notFound)
 	case len(parts) >= 3 && parts[0] == "Subscriptions" && parts[2] == "SubscribedEvents" && len(parts) <= 4:
 		f.eventsSubscribed(w, r, form, parts, notFound)
+	case parts[0] == "Types" || parts[0] == "Schemas":
+		f.handleEventCatalog(w, r, parts, notFound)
 	default:
 		notFound()
 	}

@@ -58,7 +58,7 @@ type VerifyService struct {
 	SkipSmsToLandlines pulumi.BoolPtrOutput `pulumi:"skipSmsToLandlines"`
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength pulumi.IntPtrOutput `pulumi:"totpCodeLength"`
-	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 	TotpIssuer pulumi.StringPtrOutput `pulumi:"totpIssuer"`
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew pulumi.IntPtrOutput `pulumi:"totpSkew"`
@@ -155,7 +155,7 @@ type verifyServiceArgs struct {
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength *int `pulumi:"totpCodeLength"`
-	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 	TotpIssuer *string `pulumi:"totpIssuer"`
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew *int `pulumi:"totpSkew"`
@@ -211,7 +211,7 @@ type VerifyServiceArgs struct {
 	SkipSmsToLandlines pulumi.BoolPtrInput
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength pulumi.IntPtrInput
-	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 	TotpIssuer pulumi.StringPtrInput
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew pulumi.IntPtrInput
@@ -419,7 +419,7 @@ func (o VerifyServiceOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.IntPtrOutput { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 func (o VerifyServiceOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VerifyService) pulumi.StringPtrOutput { return v.TotpIssuer }).(pulumi.StringPtrOutput)
 }

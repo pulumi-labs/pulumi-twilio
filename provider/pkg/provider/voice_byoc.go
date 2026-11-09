@@ -157,6 +157,9 @@ func (r *ConnectionPolicy) Read(ctx context.Context, req infer.ReadRequest[Conne
 	o, err := c.do(ctx, "GET", voiceProduct, connectionPolicyPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("connection policy", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read connection policy %s: %w", req.ID, err)
@@ -419,6 +422,9 @@ func (r *ByocTrunk) Read(ctx context.Context, req infer.ReadRequest[ByocTrunkArg
 	o, err := c.do(ctx, "GET", voiceProduct, byocTrunkPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("byoc trunk", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read BYOC trunk %s: %w", req.ID, err)

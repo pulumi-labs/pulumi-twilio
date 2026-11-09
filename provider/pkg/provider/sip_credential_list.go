@@ -113,6 +113,9 @@ func (r *SipCredentialList) Read(ctx context.Context, req infer.ReadRequest[SipC
 	o, err := c.do(ctx, "GET", "api", sipPath(acct, "CredentialLists", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip credential list", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SipCredentialListArgs, SipCredentialListState]{}, err
+			}
 			return infer.ReadResponse[SipCredentialListArgs, SipCredentialListState]{}, nil
 		}
 		return infer.ReadResponse[SipCredentialListArgs, SipCredentialListState]{}, fmt.Errorf("read SIP credential list %s: %w", req.ID, err)

@@ -2023,6 +2023,471 @@ func (o PhoneNumberCapabilitiesOutput) Voice() pulumi.BoolOutput {
 	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Voice }).(pulumi.BoolOutput)
 }
 
+type RecordingCompositionPolicy struct {
+	// Number of channels to compose: dual or mono.
+	Channels *string `pulumi:"channels"`
+	// Which audio track to record: inbound, outbound or both.
+	Track *string `pulumi:"track"`
+	// Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+	Trim *string `pulumi:"trim"`
+}
+
+// RecordingCompositionPolicyInput is an input type that accepts RecordingCompositionPolicyArgs and RecordingCompositionPolicyOutput values.
+// You can construct a concrete instance of `RecordingCompositionPolicyInput` via:
+//
+//	RecordingCompositionPolicyArgs{...}
+type RecordingCompositionPolicyInput interface {
+	pulumi.Input
+
+	ToRecordingCompositionPolicyOutput() RecordingCompositionPolicyOutput
+	ToRecordingCompositionPolicyOutputWithContext(context.Context) RecordingCompositionPolicyOutput
+}
+
+type RecordingCompositionPolicyArgs struct {
+	// Number of channels to compose: dual or mono.
+	Channels pulumi.StringPtrInput `pulumi:"channels"`
+	// Which audio track to record: inbound, outbound or both.
+	Track pulumi.StringPtrInput `pulumi:"track"`
+	// Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+	Trim pulumi.StringPtrInput `pulumi:"trim"`
+}
+
+func (RecordingCompositionPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingCompositionPolicy)(nil)).Elem()
+}
+
+func (i RecordingCompositionPolicyArgs) ToRecordingCompositionPolicyOutput() RecordingCompositionPolicyOutput {
+	return i.ToRecordingCompositionPolicyOutputWithContext(context.Background())
+}
+
+func (i RecordingCompositionPolicyArgs) ToRecordingCompositionPolicyOutputWithContext(ctx context.Context) RecordingCompositionPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingCompositionPolicyOutput)
+}
+
+func (i RecordingCompositionPolicyArgs) ToRecordingCompositionPolicyPtrOutput() RecordingCompositionPolicyPtrOutput {
+	return i.ToRecordingCompositionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i RecordingCompositionPolicyArgs) ToRecordingCompositionPolicyPtrOutputWithContext(ctx context.Context) RecordingCompositionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingCompositionPolicyOutput).ToRecordingCompositionPolicyPtrOutputWithContext(ctx)
+}
+
+// RecordingCompositionPolicyPtrInput is an input type that accepts RecordingCompositionPolicyArgs, RecordingCompositionPolicyPtr and RecordingCompositionPolicyPtrOutput values.
+// You can construct a concrete instance of `RecordingCompositionPolicyPtrInput` via:
+//
+//	        RecordingCompositionPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type RecordingCompositionPolicyPtrInput interface {
+	pulumi.Input
+
+	ToRecordingCompositionPolicyPtrOutput() RecordingCompositionPolicyPtrOutput
+	ToRecordingCompositionPolicyPtrOutputWithContext(context.Context) RecordingCompositionPolicyPtrOutput
+}
+
+type recordingCompositionPolicyPtrType RecordingCompositionPolicyArgs
+
+func RecordingCompositionPolicyPtr(v *RecordingCompositionPolicyArgs) RecordingCompositionPolicyPtrInput {
+	return (*recordingCompositionPolicyPtrType)(v)
+}
+
+func (*recordingCompositionPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RecordingCompositionPolicy)(nil)).Elem()
+}
+
+func (i *recordingCompositionPolicyPtrType) ToRecordingCompositionPolicyPtrOutput() RecordingCompositionPolicyPtrOutput {
+	return i.ToRecordingCompositionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *recordingCompositionPolicyPtrType) ToRecordingCompositionPolicyPtrOutputWithContext(ctx context.Context) RecordingCompositionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingCompositionPolicyPtrOutput)
+}
+
+type RecordingCompositionPolicyOutput struct{ *pulumi.OutputState }
+
+func (RecordingCompositionPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingCompositionPolicy)(nil)).Elem()
+}
+
+func (o RecordingCompositionPolicyOutput) ToRecordingCompositionPolicyOutput() RecordingCompositionPolicyOutput {
+	return o
+}
+
+func (o RecordingCompositionPolicyOutput) ToRecordingCompositionPolicyOutputWithContext(ctx context.Context) RecordingCompositionPolicyOutput {
+	return o
+}
+
+func (o RecordingCompositionPolicyOutput) ToRecordingCompositionPolicyPtrOutput() RecordingCompositionPolicyPtrOutput {
+	return o.ToRecordingCompositionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o RecordingCompositionPolicyOutput) ToRecordingCompositionPolicyPtrOutputWithContext(ctx context.Context) RecordingCompositionPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RecordingCompositionPolicy) *RecordingCompositionPolicy {
+		return &v
+	}).(RecordingCompositionPolicyPtrOutput)
+}
+
+// Number of channels to compose: dual or mono.
+func (o RecordingCompositionPolicyOutput) Channels() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingCompositionPolicy) *string { return v.Channels }).(pulumi.StringPtrOutput)
+}
+
+// Which audio track to record: inbound, outbound or both.
+func (o RecordingCompositionPolicyOutput) Track() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingCompositionPolicy) *string { return v.Track }).(pulumi.StringPtrOutput)
+}
+
+// Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+func (o RecordingCompositionPolicyOutput) Trim() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingCompositionPolicy) *string { return v.Trim }).(pulumi.StringPtrOutput)
+}
+
+type RecordingCompositionPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (RecordingCompositionPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RecordingCompositionPolicy)(nil)).Elem()
+}
+
+func (o RecordingCompositionPolicyPtrOutput) ToRecordingCompositionPolicyPtrOutput() RecordingCompositionPolicyPtrOutput {
+	return o
+}
+
+func (o RecordingCompositionPolicyPtrOutput) ToRecordingCompositionPolicyPtrOutputWithContext(ctx context.Context) RecordingCompositionPolicyPtrOutput {
+	return o
+}
+
+func (o RecordingCompositionPolicyPtrOutput) Elem() RecordingCompositionPolicyOutput {
+	return o.ApplyT(func(v *RecordingCompositionPolicy) RecordingCompositionPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret RecordingCompositionPolicy
+		return ret
+	}).(RecordingCompositionPolicyOutput)
+}
+
+// Number of channels to compose: dual or mono.
+func (o RecordingCompositionPolicyPtrOutput) Channels() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RecordingCompositionPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Channels
+	}).(pulumi.StringPtrOutput)
+}
+
+// Which audio track to record: inbound, outbound or both.
+func (o RecordingCompositionPolicyPtrOutput) Track() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RecordingCompositionPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Track
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+func (o RecordingCompositionPolicyPtrOutput) Trim() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RecordingCompositionPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Trim
+	}).(pulumi.StringPtrOutput)
+}
+
+type RecordingFeature struct {
+	// Free-text description of the feature.
+	Description *string `pulumi:"description"`
+	// The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+	FeatureId string `pulumi:"featureId"`
+	// The feature type. Only transcriptionConfiguration exists today.
+	Type string `pulumi:"type"`
+}
+
+// RecordingFeatureInput is an input type that accepts RecordingFeatureArgs and RecordingFeatureOutput values.
+// You can construct a concrete instance of `RecordingFeatureInput` via:
+//
+//	RecordingFeatureArgs{...}
+type RecordingFeatureInput interface {
+	pulumi.Input
+
+	ToRecordingFeatureOutput() RecordingFeatureOutput
+	ToRecordingFeatureOutputWithContext(context.Context) RecordingFeatureOutput
+}
+
+type RecordingFeatureArgs struct {
+	// Free-text description of the feature.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+	FeatureId pulumi.StringInput `pulumi:"featureId"`
+	// The feature type. Only transcriptionConfiguration exists today.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (RecordingFeatureArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingFeature)(nil)).Elem()
+}
+
+func (i RecordingFeatureArgs) ToRecordingFeatureOutput() RecordingFeatureOutput {
+	return i.ToRecordingFeatureOutputWithContext(context.Background())
+}
+
+func (i RecordingFeatureArgs) ToRecordingFeatureOutputWithContext(ctx context.Context) RecordingFeatureOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingFeatureOutput)
+}
+
+// RecordingFeatureArrayInput is an input type that accepts RecordingFeatureArray and RecordingFeatureArrayOutput values.
+// You can construct a concrete instance of `RecordingFeatureArrayInput` via:
+//
+//	RecordingFeatureArray{ RecordingFeatureArgs{...} }
+type RecordingFeatureArrayInput interface {
+	pulumi.Input
+
+	ToRecordingFeatureArrayOutput() RecordingFeatureArrayOutput
+	ToRecordingFeatureArrayOutputWithContext(context.Context) RecordingFeatureArrayOutput
+}
+
+type RecordingFeatureArray []RecordingFeatureInput
+
+func (RecordingFeatureArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RecordingFeature)(nil)).Elem()
+}
+
+func (i RecordingFeatureArray) ToRecordingFeatureArrayOutput() RecordingFeatureArrayOutput {
+	return i.ToRecordingFeatureArrayOutputWithContext(context.Background())
+}
+
+func (i RecordingFeatureArray) ToRecordingFeatureArrayOutputWithContext(ctx context.Context) RecordingFeatureArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingFeatureArrayOutput)
+}
+
+type RecordingFeatureOutput struct{ *pulumi.OutputState }
+
+func (RecordingFeatureOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingFeature)(nil)).Elem()
+}
+
+func (o RecordingFeatureOutput) ToRecordingFeatureOutput() RecordingFeatureOutput {
+	return o
+}
+
+func (o RecordingFeatureOutput) ToRecordingFeatureOutputWithContext(ctx context.Context) RecordingFeatureOutput {
+	return o
+}
+
+// Free-text description of the feature.
+func (o RecordingFeatureOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingFeature) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+func (o RecordingFeatureOutput) FeatureId() pulumi.StringOutput {
+	return o.ApplyT(func(v RecordingFeature) string { return v.FeatureId }).(pulumi.StringOutput)
+}
+
+// The feature type. Only transcriptionConfiguration exists today.
+func (o RecordingFeatureOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v RecordingFeature) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type RecordingFeatureArrayOutput struct{ *pulumi.OutputState }
+
+func (RecordingFeatureArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RecordingFeature)(nil)).Elem()
+}
+
+func (o RecordingFeatureArrayOutput) ToRecordingFeatureArrayOutput() RecordingFeatureArrayOutput {
+	return o
+}
+
+func (o RecordingFeatureArrayOutput) ToRecordingFeatureArrayOutputWithContext(ctx context.Context) RecordingFeatureArrayOutput {
+	return o
+}
+
+func (o RecordingFeatureArrayOutput) Index(i pulumi.IntInput) RecordingFeatureOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RecordingFeature {
+		return vs[0].([]RecordingFeature)[vs[1].(int)]
+	}).(RecordingFeatureOutput)
+}
+
+type RecordingStatusCallback struct {
+	// Status events to report: in-progress, completed, absent and failed.
+	Events []string `pulumi:"events"`
+	// HTTP method used to request the URL: GET or POST.
+	Method *string `pulumi:"method"`
+	// URL Twilio requests with the recording status.
+	Url *string `pulumi:"url"`
+}
+
+// RecordingStatusCallbackInput is an input type that accepts RecordingStatusCallbackArgs and RecordingStatusCallbackOutput values.
+// You can construct a concrete instance of `RecordingStatusCallbackInput` via:
+//
+//	RecordingStatusCallbackArgs{...}
+type RecordingStatusCallbackInput interface {
+	pulumi.Input
+
+	ToRecordingStatusCallbackOutput() RecordingStatusCallbackOutput
+	ToRecordingStatusCallbackOutputWithContext(context.Context) RecordingStatusCallbackOutput
+}
+
+type RecordingStatusCallbackArgs struct {
+	// Status events to report: in-progress, completed, absent and failed.
+	Events pulumi.StringArrayInput `pulumi:"events"`
+	// HTTP method used to request the URL: GET or POST.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// URL Twilio requests with the recording status.
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+func (RecordingStatusCallbackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingStatusCallback)(nil)).Elem()
+}
+
+func (i RecordingStatusCallbackArgs) ToRecordingStatusCallbackOutput() RecordingStatusCallbackOutput {
+	return i.ToRecordingStatusCallbackOutputWithContext(context.Background())
+}
+
+func (i RecordingStatusCallbackArgs) ToRecordingStatusCallbackOutputWithContext(ctx context.Context) RecordingStatusCallbackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingStatusCallbackOutput)
+}
+
+func (i RecordingStatusCallbackArgs) ToRecordingStatusCallbackPtrOutput() RecordingStatusCallbackPtrOutput {
+	return i.ToRecordingStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (i RecordingStatusCallbackArgs) ToRecordingStatusCallbackPtrOutputWithContext(ctx context.Context) RecordingStatusCallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingStatusCallbackOutput).ToRecordingStatusCallbackPtrOutputWithContext(ctx)
+}
+
+// RecordingStatusCallbackPtrInput is an input type that accepts RecordingStatusCallbackArgs, RecordingStatusCallbackPtr and RecordingStatusCallbackPtrOutput values.
+// You can construct a concrete instance of `RecordingStatusCallbackPtrInput` via:
+//
+//	        RecordingStatusCallbackArgs{...}
+//
+//	or:
+//
+//	        nil
+type RecordingStatusCallbackPtrInput interface {
+	pulumi.Input
+
+	ToRecordingStatusCallbackPtrOutput() RecordingStatusCallbackPtrOutput
+	ToRecordingStatusCallbackPtrOutputWithContext(context.Context) RecordingStatusCallbackPtrOutput
+}
+
+type recordingStatusCallbackPtrType RecordingStatusCallbackArgs
+
+func RecordingStatusCallbackPtr(v *RecordingStatusCallbackArgs) RecordingStatusCallbackPtrInput {
+	return (*recordingStatusCallbackPtrType)(v)
+}
+
+func (*recordingStatusCallbackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RecordingStatusCallback)(nil)).Elem()
+}
+
+func (i *recordingStatusCallbackPtrType) ToRecordingStatusCallbackPtrOutput() RecordingStatusCallbackPtrOutput {
+	return i.ToRecordingStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (i *recordingStatusCallbackPtrType) ToRecordingStatusCallbackPtrOutputWithContext(ctx context.Context) RecordingStatusCallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RecordingStatusCallbackPtrOutput)
+}
+
+type RecordingStatusCallbackOutput struct{ *pulumi.OutputState }
+
+func (RecordingStatusCallbackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RecordingStatusCallback)(nil)).Elem()
+}
+
+func (o RecordingStatusCallbackOutput) ToRecordingStatusCallbackOutput() RecordingStatusCallbackOutput {
+	return o
+}
+
+func (o RecordingStatusCallbackOutput) ToRecordingStatusCallbackOutputWithContext(ctx context.Context) RecordingStatusCallbackOutput {
+	return o
+}
+
+func (o RecordingStatusCallbackOutput) ToRecordingStatusCallbackPtrOutput() RecordingStatusCallbackPtrOutput {
+	return o.ToRecordingStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (o RecordingStatusCallbackOutput) ToRecordingStatusCallbackPtrOutputWithContext(ctx context.Context) RecordingStatusCallbackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RecordingStatusCallback) *RecordingStatusCallback {
+		return &v
+	}).(RecordingStatusCallbackPtrOutput)
+}
+
+// Status events to report: in-progress, completed, absent and failed.
+func (o RecordingStatusCallbackOutput) Events() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v RecordingStatusCallback) []string { return v.Events }).(pulumi.StringArrayOutput)
+}
+
+// HTTP method used to request the URL: GET or POST.
+func (o RecordingStatusCallbackOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingStatusCallback) *string { return v.Method }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests with the recording status.
+func (o RecordingStatusCallbackOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RecordingStatusCallback) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type RecordingStatusCallbackPtrOutput struct{ *pulumi.OutputState }
+
+func (RecordingStatusCallbackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RecordingStatusCallback)(nil)).Elem()
+}
+
+func (o RecordingStatusCallbackPtrOutput) ToRecordingStatusCallbackPtrOutput() RecordingStatusCallbackPtrOutput {
+	return o
+}
+
+func (o RecordingStatusCallbackPtrOutput) ToRecordingStatusCallbackPtrOutputWithContext(ctx context.Context) RecordingStatusCallbackPtrOutput {
+	return o
+}
+
+func (o RecordingStatusCallbackPtrOutput) Elem() RecordingStatusCallbackOutput {
+	return o.ApplyT(func(v *RecordingStatusCallback) RecordingStatusCallback {
+		if v != nil {
+			return *v
+		}
+		var ret RecordingStatusCallback
+		return ret
+	}).(RecordingStatusCallbackOutput)
+}
+
+// Status events to report: in-progress, completed, absent and failed.
+func (o RecordingStatusCallbackPtrOutput) Events() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *RecordingStatusCallback) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Events
+	}).(pulumi.StringArrayOutput)
+}
+
+// HTTP method used to request the URL: GET or POST.
+func (o RecordingStatusCallbackPtrOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RecordingStatusCallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Method
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio requests with the recording status.
+func (o RecordingStatusCallbackPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RecordingStatusCallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
 type ShortCodeEffective struct {
 	// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -2214,6 +2679,268 @@ func (o ShortCodeEffectivePtrOutput) SmsUrl() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.SmsUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+type TranscriptionParticipantDefault struct {
+	// One-based index of the audio channel of a multi-channel recording.
+	AudioChannelIndex int `pulumi:"audioChannelIndex"`
+	// The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+	Type string `pulumi:"type"`
+}
+
+// TranscriptionParticipantDefaultInput is an input type that accepts TranscriptionParticipantDefaultArgs and TranscriptionParticipantDefaultOutput values.
+// You can construct a concrete instance of `TranscriptionParticipantDefaultInput` via:
+//
+//	TranscriptionParticipantDefaultArgs{...}
+type TranscriptionParticipantDefaultInput interface {
+	pulumi.Input
+
+	ToTranscriptionParticipantDefaultOutput() TranscriptionParticipantDefaultOutput
+	ToTranscriptionParticipantDefaultOutputWithContext(context.Context) TranscriptionParticipantDefaultOutput
+}
+
+type TranscriptionParticipantDefaultArgs struct {
+	// One-based index of the audio channel of a multi-channel recording.
+	AudioChannelIndex pulumi.IntInput `pulumi:"audioChannelIndex"`
+	// The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (TranscriptionParticipantDefaultArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscriptionParticipantDefault)(nil)).Elem()
+}
+
+func (i TranscriptionParticipantDefaultArgs) ToTranscriptionParticipantDefaultOutput() TranscriptionParticipantDefaultOutput {
+	return i.ToTranscriptionParticipantDefaultOutputWithContext(context.Background())
+}
+
+func (i TranscriptionParticipantDefaultArgs) ToTranscriptionParticipantDefaultOutputWithContext(ctx context.Context) TranscriptionParticipantDefaultOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscriptionParticipantDefaultOutput)
+}
+
+// TranscriptionParticipantDefaultArrayInput is an input type that accepts TranscriptionParticipantDefaultArray and TranscriptionParticipantDefaultArrayOutput values.
+// You can construct a concrete instance of `TranscriptionParticipantDefaultArrayInput` via:
+//
+//	TranscriptionParticipantDefaultArray{ TranscriptionParticipantDefaultArgs{...} }
+type TranscriptionParticipantDefaultArrayInput interface {
+	pulumi.Input
+
+	ToTranscriptionParticipantDefaultArrayOutput() TranscriptionParticipantDefaultArrayOutput
+	ToTranscriptionParticipantDefaultArrayOutputWithContext(context.Context) TranscriptionParticipantDefaultArrayOutput
+}
+
+type TranscriptionParticipantDefaultArray []TranscriptionParticipantDefaultInput
+
+func (TranscriptionParticipantDefaultArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TranscriptionParticipantDefault)(nil)).Elem()
+}
+
+func (i TranscriptionParticipantDefaultArray) ToTranscriptionParticipantDefaultArrayOutput() TranscriptionParticipantDefaultArrayOutput {
+	return i.ToTranscriptionParticipantDefaultArrayOutputWithContext(context.Background())
+}
+
+func (i TranscriptionParticipantDefaultArray) ToTranscriptionParticipantDefaultArrayOutputWithContext(ctx context.Context) TranscriptionParticipantDefaultArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscriptionParticipantDefaultArrayOutput)
+}
+
+type TranscriptionParticipantDefaultOutput struct{ *pulumi.OutputState }
+
+func (TranscriptionParticipantDefaultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscriptionParticipantDefault)(nil)).Elem()
+}
+
+func (o TranscriptionParticipantDefaultOutput) ToTranscriptionParticipantDefaultOutput() TranscriptionParticipantDefaultOutput {
+	return o
+}
+
+func (o TranscriptionParticipantDefaultOutput) ToTranscriptionParticipantDefaultOutputWithContext(ctx context.Context) TranscriptionParticipantDefaultOutput {
+	return o
+}
+
+// One-based index of the audio channel of a multi-channel recording.
+func (o TranscriptionParticipantDefaultOutput) AudioChannelIndex() pulumi.IntOutput {
+	return o.ApplyT(func(v TranscriptionParticipantDefault) int { return v.AudioChannelIndex }).(pulumi.IntOutput)
+}
+
+// The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+func (o TranscriptionParticipantDefaultOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TranscriptionParticipantDefault) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TranscriptionParticipantDefaultArrayOutput struct{ *pulumi.OutputState }
+
+func (TranscriptionParticipantDefaultArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TranscriptionParticipantDefault)(nil)).Elem()
+}
+
+func (o TranscriptionParticipantDefaultArrayOutput) ToTranscriptionParticipantDefaultArrayOutput() TranscriptionParticipantDefaultArrayOutput {
+	return o
+}
+
+func (o TranscriptionParticipantDefaultArrayOutput) ToTranscriptionParticipantDefaultArrayOutputWithContext(ctx context.Context) TranscriptionParticipantDefaultArrayOutput {
+	return o
+}
+
+func (o TranscriptionParticipantDefaultArrayOutput) Index(i pulumi.IntInput) TranscriptionParticipantDefaultOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TranscriptionParticipantDefault {
+		return vs[0].([]TranscriptionParticipantDefault)[vs[1].(int)]
+	}).(TranscriptionParticipantDefaultOutput)
+}
+
+type TranscriptionStatusCallback struct {
+	// HTTP method used to request the URL. Only POST is accepted.
+	Method *string `pulumi:"method"`
+	// Webhook URL Twilio requests when the transcription is complete.
+	Url *string `pulumi:"url"`
+}
+
+// TranscriptionStatusCallbackInput is an input type that accepts TranscriptionStatusCallbackArgs and TranscriptionStatusCallbackOutput values.
+// You can construct a concrete instance of `TranscriptionStatusCallbackInput` via:
+//
+//	TranscriptionStatusCallbackArgs{...}
+type TranscriptionStatusCallbackInput interface {
+	pulumi.Input
+
+	ToTranscriptionStatusCallbackOutput() TranscriptionStatusCallbackOutput
+	ToTranscriptionStatusCallbackOutputWithContext(context.Context) TranscriptionStatusCallbackOutput
+}
+
+type TranscriptionStatusCallbackArgs struct {
+	// HTTP method used to request the URL. Only POST is accepted.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// Webhook URL Twilio requests when the transcription is complete.
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+func (TranscriptionStatusCallbackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscriptionStatusCallback)(nil)).Elem()
+}
+
+func (i TranscriptionStatusCallbackArgs) ToTranscriptionStatusCallbackOutput() TranscriptionStatusCallbackOutput {
+	return i.ToTranscriptionStatusCallbackOutputWithContext(context.Background())
+}
+
+func (i TranscriptionStatusCallbackArgs) ToTranscriptionStatusCallbackOutputWithContext(ctx context.Context) TranscriptionStatusCallbackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscriptionStatusCallbackOutput)
+}
+
+func (i TranscriptionStatusCallbackArgs) ToTranscriptionStatusCallbackPtrOutput() TranscriptionStatusCallbackPtrOutput {
+	return i.ToTranscriptionStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (i TranscriptionStatusCallbackArgs) ToTranscriptionStatusCallbackPtrOutputWithContext(ctx context.Context) TranscriptionStatusCallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscriptionStatusCallbackOutput).ToTranscriptionStatusCallbackPtrOutputWithContext(ctx)
+}
+
+// TranscriptionStatusCallbackPtrInput is an input type that accepts TranscriptionStatusCallbackArgs, TranscriptionStatusCallbackPtr and TranscriptionStatusCallbackPtrOutput values.
+// You can construct a concrete instance of `TranscriptionStatusCallbackPtrInput` via:
+//
+//	        TranscriptionStatusCallbackArgs{...}
+//
+//	or:
+//
+//	        nil
+type TranscriptionStatusCallbackPtrInput interface {
+	pulumi.Input
+
+	ToTranscriptionStatusCallbackPtrOutput() TranscriptionStatusCallbackPtrOutput
+	ToTranscriptionStatusCallbackPtrOutputWithContext(context.Context) TranscriptionStatusCallbackPtrOutput
+}
+
+type transcriptionStatusCallbackPtrType TranscriptionStatusCallbackArgs
+
+func TranscriptionStatusCallbackPtr(v *TranscriptionStatusCallbackArgs) TranscriptionStatusCallbackPtrInput {
+	return (*transcriptionStatusCallbackPtrType)(v)
+}
+
+func (*transcriptionStatusCallbackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscriptionStatusCallback)(nil)).Elem()
+}
+
+func (i *transcriptionStatusCallbackPtrType) ToTranscriptionStatusCallbackPtrOutput() TranscriptionStatusCallbackPtrOutput {
+	return i.ToTranscriptionStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (i *transcriptionStatusCallbackPtrType) ToTranscriptionStatusCallbackPtrOutputWithContext(ctx context.Context) TranscriptionStatusCallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscriptionStatusCallbackPtrOutput)
+}
+
+type TranscriptionStatusCallbackOutput struct{ *pulumi.OutputState }
+
+func (TranscriptionStatusCallbackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscriptionStatusCallback)(nil)).Elem()
+}
+
+func (o TranscriptionStatusCallbackOutput) ToTranscriptionStatusCallbackOutput() TranscriptionStatusCallbackOutput {
+	return o
+}
+
+func (o TranscriptionStatusCallbackOutput) ToTranscriptionStatusCallbackOutputWithContext(ctx context.Context) TranscriptionStatusCallbackOutput {
+	return o
+}
+
+func (o TranscriptionStatusCallbackOutput) ToTranscriptionStatusCallbackPtrOutput() TranscriptionStatusCallbackPtrOutput {
+	return o.ToTranscriptionStatusCallbackPtrOutputWithContext(context.Background())
+}
+
+func (o TranscriptionStatusCallbackOutput) ToTranscriptionStatusCallbackPtrOutputWithContext(ctx context.Context) TranscriptionStatusCallbackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TranscriptionStatusCallback) *TranscriptionStatusCallback {
+		return &v
+	}).(TranscriptionStatusCallbackPtrOutput)
+}
+
+// HTTP method used to request the URL. Only POST is accepted.
+func (o TranscriptionStatusCallbackOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscriptionStatusCallback) *string { return v.Method }).(pulumi.StringPtrOutput)
+}
+
+// Webhook URL Twilio requests when the transcription is complete.
+func (o TranscriptionStatusCallbackOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscriptionStatusCallback) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type TranscriptionStatusCallbackPtrOutput struct{ *pulumi.OutputState }
+
+func (TranscriptionStatusCallbackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscriptionStatusCallback)(nil)).Elem()
+}
+
+func (o TranscriptionStatusCallbackPtrOutput) ToTranscriptionStatusCallbackPtrOutput() TranscriptionStatusCallbackPtrOutput {
+	return o
+}
+
+func (o TranscriptionStatusCallbackPtrOutput) ToTranscriptionStatusCallbackPtrOutputWithContext(ctx context.Context) TranscriptionStatusCallbackPtrOutput {
+	return o
+}
+
+func (o TranscriptionStatusCallbackPtrOutput) Elem() TranscriptionStatusCallbackOutput {
+	return o.ApplyT(func(v *TranscriptionStatusCallback) TranscriptionStatusCallback {
+		if v != nil {
+			return *v
+		}
+		var ret TranscriptionStatusCallback
+		return ret
+	}).(TranscriptionStatusCallbackOutput)
+}
+
+// HTTP method used to request the URL. Only POST is accepted.
+func (o TranscriptionStatusCallbackPtrOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscriptionStatusCallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Method
+	}).(pulumi.StringPtrOutput)
+}
+
+// Webhook URL Twilio requests when the transcription is complete.
+func (o TranscriptionStatusCallbackPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscriptionStatusCallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -3093,6 +3820,16 @@ func (o VerifyTemplateArrayOutput) Index(i pulumi.IntInput) VerifyTemplateOutput
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyPtrInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingFeatureInput)(nil)).Elem(), RecordingFeatureArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingFeatureArrayInput)(nil)).Elem(), RecordingFeatureArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingStatusCallbackInput)(nil)).Elem(), RecordingStatusCallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RecordingStatusCallbackPtrInput)(nil)).Elem(), RecordingStatusCallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionParticipantDefaultInput)(nil)).Elem(), TranscriptionParticipantDefaultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionParticipantDefaultArrayInput)(nil)).Elem(), TranscriptionParticipantDefaultArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionStatusCallbackInput)(nil)).Elem(), TranscriptionStatusCallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionStatusCallbackPtrInput)(nil)).Elem(), TranscriptionStatusCallbackArgs{})
 	pulumi.RegisterOutputType(ApplicationEffectiveOutput{})
 	pulumi.RegisterOutputType(ApplicationEffectivePtrOutput{})
 	pulumi.RegisterOutputType(AssignedAddOnExtensionOutput{})
@@ -3116,8 +3853,18 @@ func init() {
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
 	pulumi.RegisterOutputType(PhoneNumberCapabilitiesOutput{})
+	pulumi.RegisterOutputType(RecordingCompositionPolicyOutput{})
+	pulumi.RegisterOutputType(RecordingCompositionPolicyPtrOutput{})
+	pulumi.RegisterOutputType(RecordingFeatureOutput{})
+	pulumi.RegisterOutputType(RecordingFeatureArrayOutput{})
+	pulumi.RegisterOutputType(RecordingStatusCallbackOutput{})
+	pulumi.RegisterOutputType(RecordingStatusCallbackPtrOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
+	pulumi.RegisterOutputType(TranscriptionParticipantDefaultOutput{})
+	pulumi.RegisterOutputType(TranscriptionParticipantDefaultArrayOutput{})
+	pulumi.RegisterOutputType(TranscriptionStatusCallbackOutput{})
+	pulumi.RegisterOutputType(TranscriptionStatusCallbackPtrOutput{})
 	pulumi.RegisterOutputType(TrunkEffectiveOutput{})
 	pulumi.RegisterOutputType(TrunkEffectivePtrOutput{})
 	pulumi.RegisterOutputType(UsageRecordOutput{})

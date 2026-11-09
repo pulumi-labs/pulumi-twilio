@@ -180,6 +180,36 @@ func TestServerlessEnvironmentLC_ImportAndCheck(t *testing.T) {
 	}
 }
 
+// Regression for pulumi-labs/pulumi-twilio#18: an imported environment created with a domainSuffix
+// plans no replacement for the program that created it.
+func TestServerlessEnvironmentLC_ImportAdoptsDomainSuffix(t *testing.T) {
+	l := newTL(t, "ServerlessEnvironment", "env")
+	svc := serverlessSvc(l)
+	in := pv(map[string]property.Value{"serviceSid": sv(svc), "uniqueName": sv("stage"), "domainSuffix": sv("stg")})
+	c := l.create(in)
+
+	rd := l.read(c.ID, empty(), empty())
+	require.Equal(t, "stg", getS(t, rd.Inputs, "domainSuffix"))
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
+
+	// A suffix that equals the unique name is Twilio's default: not adopted, and still no replacement.
+	same := pv(map[string]property.Value{"serviceSid": sv(svc), "uniqueName": sv("prod"), "domainSuffix": sv("prod")})
+	c2 := l.create(same)
+	rd2 := l.read(c2.ID, empty(), empty())
+	require.False(t, hasProp(rd2.Inputs, "domainSuffix"))
+	requireNoChanges(t, l.diff(c2.ID, rd2.Properties, same, rd2.Inputs))
+
+	// A different suffix still replaces.
+	d := l.diff(c.ID, rd.Properties, with(in, map[string]property.Value{"domainSuffix": sv("other")}), rd.Inputs)
+	require.Equal(t, pgp.UpdateReplace, d.DetailedDiff["domainSuffix"].Kind)
+
+	// When the domain cannot be derived, the suffix stays empty and the diff still tolerates it.
+	l.f.mutate("zs", testAccount, svc, func(o map[string]any) { o["domain_base"] = "" })
+	rd3 := l.read(c.ID, empty(), empty())
+	require.False(t, hasProp(rd3.Inputs, "domainSuffix"))
+	requireNoChanges(t, l.diff(c.ID, rd3.Properties, in, rd3.Inputs))
+}
+
 func serverlessVariableInputs(svc, env string) property.Map {
 	return pv(map[string]property.Value{"serviceSid": sv(svc), "environmentSid": sv(env), "key": sv("API_URL"), "value": sv("https://example.com")})
 }

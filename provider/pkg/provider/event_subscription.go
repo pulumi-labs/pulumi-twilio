@@ -278,6 +278,9 @@ func (r *EventSubscription) Read(ctx context.Context, req infer.ReadRequest[Even
 	o, err := c.do(ctx, "GET", "events", eventSubscriptionPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("event subscription", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, err
+			}
 			return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, nil
 		}
 		return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, fmt.Errorf("read event subscription %s: %w", req.ID, err)
@@ -285,6 +288,9 @@ func (r *EventSubscription) Read(ctx context.Context, req infer.ReadRequest[Even
 	have, err := listSubscribedEvents(ctx, c, req.ID)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("event subscription", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, err
+			}
 			return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, nil
 		}
 		return infer.ReadResponse[EventSubscriptionArgs, EventSubscriptionState]{}, fmt.Errorf("read event types of subscription %s: %w", req.ID, err)

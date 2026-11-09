@@ -187,6 +187,9 @@ func (r *SipDomain) Read(ctx context.Context, req infer.ReadRequest[SipDomainArg
 	o, err := c.do(ctx, "GET", "api", sipPath(acct, "Domains", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip domain", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SipDomainArgs, SipDomainState]{}, err
+			}
 			return infer.ReadResponse[SipDomainArgs, SipDomainState]{}, nil
 		}
 		return infer.ReadResponse[SipDomainArgs, SipDomainState]{}, fmt.Errorf("read SIP domain %s: %w", req.ID, err)

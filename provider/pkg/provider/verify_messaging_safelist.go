@@ -80,6 +80,15 @@ func (r *VerifyMessagingConfiguration) Check(ctx context.Context, req infer.Chec
 	return infer.CheckResponse[VerifyMessagingConfigurationArgs]{Inputs: args, Failures: c.failures}, nil
 }
 
+// verifyMessagingConfigFound reports whether a messaging configuration response describes the country
+// that was asked for. Twilio answers a GET for a country that has no configuration with HTTP 200 and an
+// empty or foreign configuration (country "" and a made-up MG SID) instead of 404, so a 200 alone does
+// not prove the configuration exists.
+func verifyMessagingConfigFound(o obj, country string) bool {
+	got := o.str("country")
+	return got != "" && strings.EqualFold(got, country)
+}
+
 func verifyMessagingConfigOutputs(st *VerifyMessagingConfigurationState, o obj) {
 	st.DateCreated, st.DateUpdated = o.str("date_created"), o.str("date_updated")
 }
@@ -116,9 +125,21 @@ func (r *VerifyMessagingConfiguration) Read(ctx context.Context, req infer.ReadR
 	o, err := c.do(ctx, "GET", "verify", verifyChildPath(ids[0], "MessagingConfigurations", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify messaging configuration", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read messaging configuration %s: %w", req.ID, err)
+	}
+	if !verifyMessagingConfigFound(o, ids[1]) {
+		if req.Inputs.ServiceSid == "" {
+			return resp{}, fmt.Errorf("messaging configuration %s does not exist: Twilio returned no configuration for country %q", req.ID, ids[1])
+		}
+		if err := notFoundOnImport("verify messaging configuration", req.ID, req.Inputs, req.State); err != nil {
+			return resp{}, err
+		}
+		return resp{}, nil
 	}
 	in := req.Inputs
 	if in.ServiceSid == "" {
@@ -244,6 +265,9 @@ func (r *VerifySafeListNumber) Read(ctx context.Context, req infer.ReadRequest[V
 	o, err := c.do(ctx, "GET", "verify", safeListPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify safe list number", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read SafeList number %s: %w", req.ID, err)

@@ -107,6 +107,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &VerifyService{}
 	case "twilio:index:VerifyWebhook":
 		r = &VerifyWebhook{}
+	case "twilio:index:VoiceRecordingConfiguration":
+		r = &VoiceRecordingConfiguration{}
+	case "twilio:index:VoiceTranscriptionConfiguration":
+		r = &VoiceTranscriptionConfiguration{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

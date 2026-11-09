@@ -112,6 +112,9 @@ func (r *SigningKey) Read(ctx context.Context, req infer.ReadRequest[SigningKeyA
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, "SigningKeys", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("signing key", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SigningKeyArgs, SigningKeyState]{}, err
+			}
 			return infer.ReadResponse[SigningKeyArgs, SigningKeyState]{}, nil
 		}
 		return infer.ReadResponse[SigningKeyArgs, SigningKeyState]{}, fmt.Errorf("read signing key %s: %w", req.ID, err)

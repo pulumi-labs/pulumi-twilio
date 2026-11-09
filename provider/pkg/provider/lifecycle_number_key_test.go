@@ -205,7 +205,7 @@ func TestNumberLC_SubaccountIDAndImport(t *testing.T) {
 	require.Equal(t, fakeSub, getS(t, imp.Inputs, "accountSid"))
 	require.Equal(t, fakeSub, getS(t, imp.Properties, "ownerAccountSid"))
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
-	require.Empty(t, l.read("PN77", empty(), empty()).ID, "a bare SID is looked up in the provider's account")
+	l.requireImportFails("PN77")
 }
 
 func TestNumberLC_ConfigureFailureKeepsPartialState(t *testing.T) {
@@ -368,7 +368,7 @@ func TestApiKeyLC_SubaccountKey(t *testing.T) {
 	require.Equal(t, fakeSub, getS(t, imp.Inputs, "accountSid"), "a program with accountSid plans nothing after import")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, next, imp.Inputs))
-	require.Empty(t, l.read(sid, empty(), empty()).ID, "a bare SID is looked up in the provider's account")
+	l.requireImportFails(sid)
 
 	l.del(c.ID, u.Properties)
 	require.Nil(t, l.f.get("key", fakeSub, sid), "the credential must really be deleted")

@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- **VoiceRecordingConfiguration** and **VoiceTranscriptionConfiguration** resources and the lookups `getVoiceRecordingConfiguration` and `getVoiceTranscriptionConfiguration` for the Voice v2 configurations (`/v2/Configurations/Recording` and `/Transcription`, JSON bodies). Every input updates in place (PUT sends the whole configuration), import by configuration ID, `compositionPolicy`, callbacks, `features` and `participantDefaults` are typed objects with their enums checked at preview. Additive, not breaking; mocked-HTTP tests only, shapes from twilio-oai `twilio_voice_v2.json` (version 0.0.1, read 2026-11-09), not verified against a live account.
+
+### Fixed
+
+- `pulumi import` of an object that does not exist (any resource: Address, ApiKey, Application, ConnectApp, EventSink, EventSubscription, IncomingPhoneNumber, MessagingService, OutgoingCallerId, Queue, ServerlessEnvironment, ShortCode, SigningKey, SipDomain, Subaccount, Trunk, UsageTrigger, VerifyService, the Voice BYOC and Verify resources and their children) now fails with an error instead of exiting 0 with an empty resource in state. Read returned the empty response that only a refresh treats as deleted. A refresh of a deleted object still drops it from state (#1715, same defect as #1712).
+- `ServerlessEnvironment`: importing an environment created with a `domainSuffix` no longer plans a replacement (and with it a replacement of its variables) for the program that created it. An import now derives the suffix from the environment's domain name and the parent service's `domain_base` (`<domainBase>-<suffix>.twil.io`) and adopts it, except when it equals the unique name (Twilio's default suffix). When it cannot be derived, a program suffix that the recorded domain name already ends with is no change; a different suffix still replaces. Mirror issue https://github.com/pulumi-labs/pulumi-twilio/issues/18 (#1716).
+- `VerifyMessagingConfiguration` and `getVerifyMessagingConfiguration`: a country without a configuration is no longer reported as existing. Twilio answers that GET with HTTP 200, an empty `country` and a made-up Messaging Service SID instead of 404; a response whose country is empty or differs from the requested one (case-insensitive) is now treated as not found. A refresh of a deleted configuration drops it from state, importing one that does not exist fails, and the lookup fails with `was not found` (it used to return the requested country with the made-up SID). Mirror issue https://github.com/pulumi-labs/pulumi-twilio/issues/17 (#1717).
+
 ## [0.2.0] - 2026-11-08
 
 ### Fixed

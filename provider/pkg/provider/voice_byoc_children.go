@@ -217,6 +217,9 @@ func (r *ConnectionPolicyTarget) Read(ctx context.Context, req infer.ReadRequest
 	o, err := c.do(ctx, "GET", voiceProduct, policyTargetPath(policy, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("connection policy target", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read connection policy target %s: %w", req.ID, err)
@@ -404,6 +407,9 @@ func (r *IpRecord) Read(ctx context.Context, req infer.ReadRequest[IpRecordArgs,
 	o, err := c.do(ctx, "GET", voiceProduct, ipRecordPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("ip record", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read IP record %s: %w", req.ID, err)
@@ -562,6 +568,9 @@ func (r *SourceIpMapping) Read(ctx context.Context, req infer.ReadRequest[Source
 	o, err := c.do(ctx, "GET", voiceProduct, sourceIpMappingPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("source ip mapping", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read source IP mapping %s: %w", req.ID, err)

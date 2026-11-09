@@ -236,6 +236,9 @@ func (r *ApiKey) Read(ctx context.Context, req infer.ReadRequest[ApiKeyArgs, Api
 	o, classic, err := fetchKey(ctx, c, acct, sid)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("api key", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[ApiKeyArgs, ApiKeyState]{}, err
+			}
 			return infer.ReadResponse[ApiKeyArgs, ApiKeyState]{}, nil
 		}
 		return infer.ReadResponse[ApiKeyArgs, ApiKeyState]{}, fmt.Errorf("read API key %s: %w", req.ID, err)

@@ -159,6 +159,9 @@ func (r *OutgoingCallerId) Read(ctx context.Context, req infer.ReadRequest[Outgo
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, callerIDColl.coll, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("outgoing caller id", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[OutgoingCallerIdArgs, OutgoingCallerIdState]{}, err
+			}
 			return infer.ReadResponse[OutgoingCallerIdArgs, OutgoingCallerIdState]{}, nil
 		}
 		return infer.ReadResponse[OutgoingCallerIdArgs, OutgoingCallerIdState]{}, fmt.Errorf("read caller ID %s: %w", req.ID, err)

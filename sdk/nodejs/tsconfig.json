@@ -83,6 +83,8 @@
         "getVerifyService.ts",
         "getVerifyTemplates.ts",
         "getVerifyWebhook.ts",
+        "getVoiceRecordingConfiguration.ts",
+        "getVoiceTranscriptionConfiguration.ts",
         "incomingPhoneNumber.ts",
         "incomingPhoneNumberAssignedAddOn.ts",
         "index.ts",
@@ -122,6 +124,8 @@
         "verifyRateLimitBucket.ts",
         "verifySafeListNumber.ts",
         "verifyService.ts",
-        "verifyWebhook.ts"
+        "verifyWebhook.ts",
+        "voiceRecordingConfiguration.ts",
+        "voiceTranscriptionConfiguration.ts"
     ]
 }

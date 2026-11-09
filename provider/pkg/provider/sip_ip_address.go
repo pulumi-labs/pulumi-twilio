@@ -139,6 +139,9 @@ func (r *SipIpAddress) Read(ctx context.Context, req infer.ReadRequest[SipIpAddr
 	o, err := c.do(ctx, "GET", "api", sipChildPath(acct, "IpAccessControlLists", list, "IpAddresses", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip ip address", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SipIpAddressArgs, SipIpAddressState]{}, err
+			}
 			return infer.ReadResponse[SipIpAddressArgs, SipIpAddressState]{}, nil
 		}
 		return infer.ReadResponse[SipIpAddressArgs, SipIpAddressState]{}, fmt.Errorf("read SIP IP address %s: %w", req.ID, err)

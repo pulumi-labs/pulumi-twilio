@@ -132,7 +132,7 @@ func TestShortCodeLC_SubaccountAndFailures(t *testing.T) {
 	imp := l.read(fakeSub+"/SC77", empty(), empty())
 	require.Equal(t, fakeSub, getS(t, imp.Inputs, "accountSid"))
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
-	require.Empty(t, l.read("SC77", empty(), empty()).ID, "a bare SID is looked up in the provider's account")
+	l.requireImportFails("SC77")
 
 	// Not leased by the account.
 	_, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(pv(map[string]property.Value{"code": sv("1")}))})
@@ -229,7 +229,7 @@ func TestConnectAppLC_ImportCheckAndMissing(t *testing.T) {
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 
 	l.f.remove("connectapp", testAccount, cnSid)
-	require.Empty(t, l.read(cnSid, empty(), empty()).ID)
+	l.requireImportFails(cnSid)
 	_, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(pv(map[string]property.Value{"connectAppSid": sv("CNnone")}))})
 	require.ErrorContains(t, err, "has no Connect app with SID")
 
@@ -295,7 +295,7 @@ func TestCallerIDLC_ImportSubaccountAndMissing(t *testing.T) {
 	require.Equal(t, fakeSub, getS(t, sub.Inputs, "accountSid"))
 
 	l.f.remove("callerid", testAccount, cidSid)
-	require.Empty(t, l.read(cidSid, empty(), empty()).ID)
+	l.requireImportFails(cidSid)
 	_, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(pv(map[string]property.Value{"phoneNumber": sv(cidE)}))})
 	require.ErrorContains(t, err, "adopts an existing verified caller ID")
 

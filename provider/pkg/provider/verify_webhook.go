@@ -194,6 +194,9 @@ func (r *VerifyWebhook) Read(ctx context.Context, req infer.ReadRequest[VerifyWe
 	o, err := c.do(ctx, "GET", "verify", verifyChildPath(ids[0], "Webhooks", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify webhook", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read webhook %s: %w", req.ID, err)

@@ -200,6 +200,9 @@ func (r *SipDomainCredentialListMapping) Read(ctx context.Context, req infer.Rea
 	o, err := c.do(ctx, "GET", "api", sipMappingPath(acct, domain, authScopePath(scope), "CredentialListMappings", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip domain credential list mapping", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read SIP domain credential list mapping %s: %w", req.ID, err)
@@ -346,6 +349,9 @@ func (r *SipDomainIpAccessControlListMapping) Read(ctx context.Context, req infe
 	o, err := c.do(ctx, "GET", "api", sipMappingPath(acct, domain, "Calls", "IpAccessControlListMappings", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("sip domain ip access control list mapping", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read SIP domain IP access control list mapping %s: %w", req.ID, err)

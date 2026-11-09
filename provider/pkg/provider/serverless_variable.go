@@ -136,6 +136,9 @@ func (r *ServerlessVariable) Read(ctx context.Context, req infer.ReadRequest[Ser
 	o, err := c.do(ctx, "GET", "serverless", serverlessEnvPath(ids[0], ids[1], ids[2]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("serverless variable", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read serverless variable %s: %w", req.ID, err)

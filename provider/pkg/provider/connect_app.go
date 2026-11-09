@@ -173,6 +173,9 @@ func (r *ConnectApp) Read(ctx context.Context, req infer.ReadRequest[ConnectAppA
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, connectAppColl.coll, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("connect app", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[ConnectAppArgs, ConnectAppState]{}, err
+			}
 			return infer.ReadResponse[ConnectAppArgs, ConnectAppState]{}, nil
 		}
 		return infer.ReadResponse[ConnectAppArgs, ConnectAppState]{}, fmt.Errorf("read Connect app %s: %w", req.ID, err)

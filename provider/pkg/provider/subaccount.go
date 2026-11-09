@@ -136,11 +136,17 @@ func (r *Subaccount) Read(ctx context.Context, req infer.ReadRequest[SubaccountA
 	o, err := c.do(ctx, "GET", "api", accountPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("subaccount", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, err
+			}
 			return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, nil
 		}
 		return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, fmt.Errorf("read subaccount %s: %w", req.ID, err)
 	}
 	if o.str("status") == "closed" {
+		if err := notFoundOnImport("subaccount", req.ID, req.Inputs, req.State); err != nil {
+			return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, err
+		}
 		return infer.ReadResponse[SubaccountArgs, SubaccountState]{}, nil
 	}
 	if req.ID == c.accountSid || (o.str("owner_account_sid") != "" && o.str("owner_account_sid") == o.str("sid")) {

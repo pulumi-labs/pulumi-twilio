@@ -249,6 +249,9 @@ func (r *VerifyRateLimit) Read(ctx context.Context, req infer.ReadRequest[Verify
 	o, err := c.do(ctx, "GET", "verify", verifyChildPath(ids[0], "RateLimits", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify rate limit", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read rate limit %s: %w", req.ID, err)
@@ -411,6 +414,9 @@ func (r *VerifyRateLimitBucket) Read(ctx context.Context, req infer.ReadRequest[
 	o, err := c.do(ctx, "GET", "verify", verifyBucketPath(ids[0], ids[1], ids[2]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("verify rate limit bucket", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read bucket %s: %w", req.ID, err)

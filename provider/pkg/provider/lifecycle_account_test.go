@@ -295,7 +295,7 @@ func TestApplicationLC_SubaccountIDAndImport(t *testing.T) {
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, in, imp.Inputs))
 
 	// A bare SID cannot name a subaccount's object (it is looked up in the provider's account).
-	require.Empty(t, l.read(sid, empty(), empty()).ID)
+	l.requireImportFails(sid)
 
 	// State from before the ID format changed: bare SID, owner in state.
 	old := l.read(sid, c.Properties, in)

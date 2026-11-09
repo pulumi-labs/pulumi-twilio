@@ -263,6 +263,9 @@ func (r *EventSink) Read(ctx context.Context, req infer.ReadRequest[EventSinkArg
 	o, err := c.do(ctx, "GET", "events", eventSinkPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("event sink", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[EventSinkArgs, EventSinkState]{}, err
+			}
 			return infer.ReadResponse[EventSinkArgs, EventSinkState]{}, nil
 		}
 		return infer.ReadResponse[EventSinkArgs, EventSinkState]{}, fmt.Errorf("read event sink %s: %w", req.ID, err)

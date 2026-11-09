@@ -203,6 +203,9 @@ func (r *Application) Read(ctx context.Context, req infer.ReadRequest[Applicatio
 	o, err := c.do(ctx, "GET", "api", appPath(acct, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("application", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[ApplicationArgs, ApplicationState]{}, err
+			}
 			return infer.ReadResponse[ApplicationArgs, ApplicationState]{}, nil
 		}
 		return infer.ReadResponse[ApplicationArgs, ApplicationState]{}, fmt.Errorf("read application %s: %w", req.ID, err)

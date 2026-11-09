@@ -17,6 +17,16 @@ from . import _utilities
 __all__ = [
     'EventSubscriptionTypeArgs',
     'EventSubscriptionTypeArgsDict',
+    'RecordingCompositionPolicyArgs',
+    'RecordingCompositionPolicyArgsDict',
+    'RecordingFeatureArgs',
+    'RecordingFeatureArgsDict',
+    'RecordingStatusCallbackArgs',
+    'RecordingStatusCallbackArgsDict',
+    'TranscriptionParticipantDefaultArgs',
+    'TranscriptionParticipantDefaultArgsDict',
+    'TranscriptionStatusCallbackArgs',
+    'TranscriptionStatusCallbackArgsDict',
 ]
 
 class EventSubscriptionTypeArgsDict(TypedDict):
@@ -65,5 +75,306 @@ class EventSubscriptionTypeArgs:
     @schema_version.setter
     def schema_version(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "schema_version", value)
+
+
+class RecordingCompositionPolicyArgsDict(TypedDict):
+    channels: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Number of channels to compose: dual or mono.
+    """
+    track: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Which audio track to record: inbound, outbound or both.
+    """
+    trim: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+    """
+
+@pulumi.input_type
+class RecordingCompositionPolicyArgs:
+    def __init__(__self__, *,
+                 channels: Optional[pulumi.Input[_builtins.str]] = None,
+                 track: Optional[pulumi.Input[_builtins.str]] = None,
+                 trim: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] channels: Number of channels to compose: dual or mono.
+        :param pulumi.Input[_builtins.str] track: Which audio track to record: inbound, outbound or both.
+        :param pulumi.Input[_builtins.str] trim: Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+        """
+        if channels is not None:
+            pulumi.set(__self__, "channels", channels)
+        if track is not None:
+            pulumi.set(__self__, "track", track)
+        if trim is not None:
+            pulumi.set(__self__, "trim", trim)
+
+    @_builtins.property
+    @pulumi.getter
+    def channels(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Number of channels to compose: dual or mono.
+        """
+        return pulumi.get(self, "channels")
+
+    @channels.setter
+    def channels(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "channels", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def track(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Which audio track to record: inbound, outbound or both.
+        """
+        return pulumi.get(self, "track")
+
+    @track.setter
+    def track(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "track", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def trim(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Whether silence is trimmed from the recording: trim-silence or do-not-trim.
+        """
+        return pulumi.get(self, "trim")
+
+    @trim.setter
+    def trim(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "trim", value)
+
+
+class RecordingFeatureArgsDict(TypedDict):
+    feature_id: pulumi.Input[_builtins.str]
+    """
+    The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The feature type. Only transcriptionConfiguration exists today.
+    """
+    description: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Free-text description of the feature.
+    """
+
+@pulumi.input_type
+class RecordingFeatureArgs:
+    def __init__(__self__, *,
+                 feature_id: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[_builtins.str],
+                 description: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] feature_id: The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+        :param pulumi.Input[_builtins.str] type: The feature type. Only transcriptionConfiguration exists today.
+        :param pulumi.Input[_builtins.str] description: Free-text description of the feature.
+        """
+        pulumi.set(__self__, "feature_id", feature_id)
+        pulumi.set(__self__, "type", type)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @_builtins.property
+    @pulumi.getter(name="featureId")
+    def feature_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The ID of the feature, for example the configurationId of a VoiceTranscriptionConfiguration.
+        """
+        return pulumi.get(self, "feature_id")
+
+    @feature_id.setter
+    def feature_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "feature_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The feature type. Only transcriptionConfiguration exists today.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Free-text description of the feature.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+
+class RecordingStatusCallbackArgsDict(TypedDict):
+    events: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Status events to report: in-progress, completed, absent and failed.
+    """
+    method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    HTTP method used to request the URL: GET or POST.
+    """
+    url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL Twilio requests with the recording status.
+    """
+
+@pulumi.input_type
+class RecordingStatusCallbackArgs:
+    def __init__(__self__, *,
+                 events: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 method: Optional[pulumi.Input[_builtins.str]] = None,
+                 url: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] events: Status events to report: in-progress, completed, absent and failed.
+        :param pulumi.Input[_builtins.str] method: HTTP method used to request the URL: GET or POST.
+        :param pulumi.Input[_builtins.str] url: URL Twilio requests with the recording status.
+        """
+        if events is not None:
+            pulumi.set(__self__, "events", events)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter
+    def events(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Status events to report: in-progress, completed, absent and failed.
+        """
+        return pulumi.get(self, "events")
+
+    @events.setter
+    def events(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "events", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HTTP method used to request the URL: GET or POST.
+        """
+        return pulumi.get(self, "method")
+
+    @method.setter
+    def method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "method", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL Twilio requests with the recording status.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "url", value)
+
+
+class TranscriptionParticipantDefaultArgsDict(TypedDict):
+    audio_channel_index: pulumi.Input[_builtins.int]
+    """
+    One-based index of the audio channel of a multi-channel recording.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+    """
+
+@pulumi.input_type
+class TranscriptionParticipantDefaultArgs:
+    def __init__(__self__, *,
+                 audio_channel_index: pulumi.Input[_builtins.int],
+                 type: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.int] audio_channel_index: One-based index of the audio channel of a multi-channel recording.
+        :param pulumi.Input[_builtins.str] type: The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+        """
+        pulumi.set(__self__, "audio_channel_index", audio_channel_index)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="audioChannelIndex")
+    def audio_channel_index(self) -> pulumi.Input[_builtins.int]:
+        """
+        One-based index of the audio channel of a multi-channel recording.
+        """
+        return pulumi.get(self, "audio_channel_index")
+
+    @audio_channel_index.setter
+    def audio_channel_index(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "audio_channel_index", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The participant role of that channel: CUSTOMER, HUMAN_AGENT or AI_AGENT.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+
+class TranscriptionStatusCallbackArgsDict(TypedDict):
+    method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    HTTP method used to request the URL. Only POST is accepted.
+    """
+    url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Webhook URL Twilio requests when the transcription is complete.
+    """
+
+@pulumi.input_type
+class TranscriptionStatusCallbackArgs:
+    def __init__(__self__, *,
+                 method: Optional[pulumi.Input[_builtins.str]] = None,
+                 url: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] method: HTTP method used to request the URL. Only POST is accepted.
+        :param pulumi.Input[_builtins.str] url: Webhook URL Twilio requests when the transcription is complete.
+        """
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter
+    def method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HTTP method used to request the URL. Only POST is accepted.
+        """
+        return pulumi.get(self, "method")
+
+    @method.setter
+    def method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "method", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Webhook URL Twilio requests when the transcription is complete.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "url", value)
 
 

@@ -20,6 +20,7 @@ import (
 	"net/url"
 	"regexp"
 	"strconv"
+	"strings"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -203,6 +204,9 @@ func (r *ServerlessService) Read(ctx context.Context, req infer.ReadRequest[Serv
 	o, err := c.do(ctx, "GET", "serverless", serverlessPath(req.ID), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("serverless service", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read serverless service %s: %w", req.ID, err)
@@ -330,9 +334,11 @@ func (r *ServerlessEnvironment) Check(ctx context.Context, req infer.CheckReques
 	return infer.CheckResponse[ServerlessEnvironmentArgs]{Inputs: args, Failures: c.failures}, nil
 }
 
-// Diff treats an unset domain suffix as an empty one. Twilio's response does not carry the suffix, so
-// Read never adopts one: an import and a program that omits the suffix agree, and a program that
-// states one differs from the empty recorded value.
+// Diff treats an unset domain suffix as an empty one. Twilio's response does not carry the suffix as a
+// field, so an import derives it from the environment's domain name (see environmentDomainSuffix). When
+// that is not possible the recorded suffix stays empty; a program suffix that the recorded domain name
+// already ends with ("-<suffix>.twil.io") is then not a change, so an import never plans a replacement
+// (and with it a replacement of the environment's variables) for the program that created the environment.
 func (r *ServerlessEnvironment) Diff(_ context.Context, req infer.DiffRequest[ServerlessEnvironmentArgs, ServerlessEnvironmentState]) (infer.DiffResponse, error) {
 	o, n := req.State.ServerlessEnvironmentArgs, req.Inputs
 	detail := map[string]p.PropertyDiff{}
@@ -342,7 +348,8 @@ func (r *ServerlessEnvironment) Diff(_ context.Context, req infer.DiffRequest[Se
 	if o.UniqueName != n.UniqueName {
 		detail["uniqueName"] = p.PropertyDiff{Kind: p.UpdateReplace}
 	}
-	if n.DomainSuffix != nil && derefStr(o.DomainSuffix) != *n.DomainSuffix {
+	if n.DomainSuffix != nil && derefStr(o.DomainSuffix) != *n.DomainSuffix &&
+		!(o.DomainSuffix == nil && *n.DomainSuffix != "" && strings.HasSuffix(req.State.DomainName, "-"+*n.DomainSuffix+".twil.io")) {
 		detail["domainSuffix"] = p.PropertyDiff{Kind: p.UpdateReplace}
 	}
 	return infer.DiffResponse{HasChanges: len(detail) > 0, DetailedDiff: detail}, nil
@@ -387,14 +394,22 @@ func (r *ServerlessEnvironment) Read(ctx context.Context, req infer.ReadRequest[
 	o, err := c.do(ctx, "GET", "serverless", serverlessSvcPath(ids[0], "Environments", ids[1]), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("serverless environment", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read serverless environment %s: %w", req.ID, err)
 	}
 	in := req.Inputs
 	if in.ServiceSid == "" {
-		// An import adopts no domain suffix: Twilio does not return it on its own.
+		// Twilio does not return the suffix as a field: derive it from the domain name and the parent
+		// service's domain base. Any failure leaves it empty, which Diff tolerates.
 		in = ServerlessEnvironmentArgs{ServiceSid: ids[0]}
+		in.DomainSuffix = environmentDomainSuffix(ctx, c, ids[0], o)
+		if in.DomainSuffix != nil && *in.DomainSuffix == o.str("unique_name") {
+			in.DomainSuffix = nil // Twilio's own default suffix is the unique name
+		}
 	}
 	if v := o.str("unique_name"); v != "" {
 		in.UniqueName = v
@@ -402,6 +417,25 @@ func (r *ServerlessEnvironment) Read(ctx context.Context, req infer.ReadRequest[
 	st := ServerlessEnvironmentState{ServerlessEnvironmentArgs: in}
 	serverlessEnvironmentOutputs(&st, o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
+}
+
+// environmentDomainSuffix derives the domain suffix of an environment from its domain name, which is
+// "<domainBase>-<suffix>.twil.io" with a suffix and "<domainBase>.twil.io" without, where domainBase
+// belongs to the parent service. It returns nil when the suffix cannot be derived with confidence.
+func environmentDomainSuffix(ctx context.Context, c *Client, service string, env obj) *string {
+	svc, err := c.do(ctx, "GET", "serverless", serverlessSvcPath(service, "", ""), nil, nil)
+	if err != nil {
+		return nil
+	}
+	base := svc.str("domain_base")
+	name := strings.TrimSuffix(env.str("domain_name"), ".twil.io")
+	if base == "" || name == env.str("domain_name") || !strings.HasPrefix(name, base+"-") {
+		return nil
+	}
+	if suffix := strings.TrimPrefix(name, base+"-"); suffix != "" {
+		return &suffix
+	}
+	return nil
 }
 
 func (r *ServerlessEnvironment) Delete(ctx context.Context, req infer.DeleteRequest[ServerlessEnvironmentState]) (infer.DeleteResponse, error) {

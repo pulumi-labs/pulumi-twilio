@@ -124,7 +124,7 @@ func TestAddressLC_SubaccountAndInUse(t *testing.T) {
 	imp := l.read(c.ID, empty(), empty())
 	require.Equal(t, fakeSub, getS(t, imp.Inputs, "accountSid"))
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
-	require.Empty(t, l.read(sid, empty(), empty()).ID, "a bare SID is looked up in the provider account")
+	l.requireImportFails(sid)
 
 	// An address that is still used cannot be deleted: the error reaches the user.
 	l.f.mutate("address", fakeSub, sid, func(o map[string]any) { o["in_use"] = true })

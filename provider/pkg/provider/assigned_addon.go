@@ -195,6 +195,9 @@ func (r *IncomingPhoneNumberAssignedAddOn) Read(ctx context.Context, req infer.R
 	o, err := c.do(ctx, "GET", "api", assignedAddOnPath(acct, number, sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("incoming phone number assigned add on", req.ID, req.Inputs, req.State); err != nil {
+				return resp{}, err
+			}
 			return resp{}, nil
 		}
 		return resp{}, fmt.Errorf("read assigned add-on %s: %w", req.ID, err)

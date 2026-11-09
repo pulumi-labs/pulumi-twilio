@@ -170,6 +170,9 @@ func (r *Address) Read(ctx context.Context, req infer.ReadRequest[AddressArgs, A
 	o, err := c.do(ctx, "GET", "api", acctPath(acct, "Addresses", sid), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
+			if err := notFoundOnImport("address", req.ID, req.Inputs, req.State); err != nil {
+				return infer.ReadResponse[AddressArgs, AddressState]{}, err
+			}
 			return infer.ReadResponse[AddressArgs, AddressState]{}, nil
 		}
 		return infer.ReadResponse[AddressArgs, AddressState]{}, fmt.Errorf("read address %s: %w", req.ID, err)

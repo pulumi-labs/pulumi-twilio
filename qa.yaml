@@ -121,6 +121,70 @@ resources:
     test: true
     update: friendlyName
     cost: none
+  - type: twilio:index:VerifyRateLimit
+    test: true
+    update: description
+    cost: none; create it on a VerifyService made in the same program. uniqueName replaces
+  - type: twilio:index:VerifyRateLimitBucket
+    test: true
+    update: max
+    cost: none; attach it to a VerifyRateLimit made in the same program
+  - type: twilio:index:VerifyMessagingConfiguration
+    test: true
+    update: messagingServiceSid
+    cost: none; needs a MessagingService made in the same program (two to test the update). The mocked tests do not prove that Twilio accepts a country the service already overrides, so use a fresh service
+  - type: twilio:index:VerifyWebhook
+    test: true
+    update: friendlyName
+    cost: none; the webhookUrl is only called when a factor or challenge event fires, which this test does not cause. Use a url you own
+  - type: twilio:index:VerifySafeListNumber
+    test: true
+    update: null
+    cost: none; use a number you own, and destroy it again (an entry exempts the number from Twilio's fraud guard). Twilio has no update call, so a change replaces it
+  - type: twilio:index:ServerlessService
+    test: true
+    update: friendlyName
+    cost: none; services are free until a function runs. uniqueName replaces, and deleting the service deletes everything in it
+  - type: twilio:index:ServerlessEnvironment
+    test: true
+    update: null
+    cost: none; create it on a ServerlessService made in the same program. Twilio has no update call, so every input replaces
+  - type: twilio:index:ServerlessVariable
+    test: true
+    update: value
+    cost: none; attach it to a ServerlessEnvironment made in the same program. Use a throwaway value, not a real credential
+  - type: twilio:index:ServerlessFunction
+    test: true
+    update: friendlyName
+    cost: none; this creates the container only, no code is uploaded
+  - type: twilio:index:ServerlessAsset
+    test: true
+    update: friendlyName
+    cost: none; this creates the container only, no file is uploaded
+  - type: twilio:index:ConnectionPolicy
+    test: true
+    update: friendlyName
+    cost: none; a policy is free until a BYOC trunk uses it
+  - type: twilio:index:ConnectionPolicyTarget
+    test: true
+    update: priority
+    cost: none; create it on a ConnectionPolicy made in the same program. Use a placeholder SIP host you control (a sip URI), no calls are placed
+  - type: twilio:index:ByocTrunk
+    test: true
+    update: friendlyName
+    cost: none; a trunk is free until calls flow through it. Point connectionPolicySid at a ConnectionPolicy made in the same program
+  - type: twilio:index:IpRecord
+    test: true
+    update: friendlyName
+    cost: none; use a documentation address such as 203.0.113.10. The address and prefix replace
+  - type: twilio:index:SourceIpMapping
+    test: true
+    update: sipDomainSid
+    cost: none; map an IpRecord made in the same program to a SipDomain made in the same program
+  - type: twilio:index:IncomingPhoneNumberAssignedAddOn
+    test: false
+    reason: needs a Marketplace add-on already installed in the account (installed from the Console or a purchase, the REST API cannot install one) and some add-ons bill per use
+    cost: needs an add-on already installed in the account (installedAddOnSid, XE...) from the Marketplace, and a phone number the account owns; some add-ons bill per use. Not run automatically
 functions:
   - name: getAccount
     test: true
@@ -184,7 +248,64 @@ functions:
     test: true
   - name: getVerifyService
     test: true
+  - name: getVerifyRateLimit
+    test: true
+  - name: getVerifyRateLimitBucket
+    test: true
+  - name: getVerifyMessagingConfiguration
+    test: true
+  - name: getVerifyWebhook
+    test: true
+  - name: getVerifySafeListNumber
+    test: true
+  - name: getVerifyTemplates
+    test: true
+  - name: getServerlessService
+    test: true
+  - name: getServerlessEnvironment
+    test: true
+  - name: getServerlessVariable
+    test: true
+  - name: getServerlessFunction
+    test: true
+  - name: getServerlessAsset
+    test: true
+  - name: getByocTrunk
+    test: true
+  - name: getConnectionPolicy
+    test: true
+  - name: getConnectionPolicyTarget
+    test: true
+  - name: getIpRecord
+    test: true
+  - name: getSourceIpMapping
+    test: true
+  - name: getIncomingPhoneNumberAssignedAddOn
+    test: false
+    reason: needs a Marketplace add-on already installed and assigned to a number, which the REST API cannot set up
+  - name: getAvailablePhoneNumbers
+    test: true
+  - name: getUsageRecords
+    test: true
+  - name: getAuthorizedConnectApps
+    test: true
+  - name: getAuthorizedConnectApp
+    test: true
+  - name: getEventTypes
+    test: true
+  - name: getEventType
+    test: true
+  - name: getEventSchema
+    test: true
 regressions:
+  - "#1680 import a SipDomain created with sipRegistration: true, then pulumi preview --expect-no-changes against the same program: no update; a SipDomain created without it imports without sipRegistration and previews clean"
+  - "#1681 import a VerifyService created with totpCodeLength 7, totpSkew 2, totpTimeStep 20: the imported inputs contain all three and preview --expect-no-changes is clean; a service on the defaults (6, 1, 30) imports none of them"
+  - "#1679 import a UsageTrigger (pulumi import twilio:index:UsageTrigger t UT...), then pulumi preview --expect-no-changes against the program that created it (no triggerBy, and again with callbackMethod: POST): no replace and no update; setting triggerBy to a different value still plans a replace"
+  - "Assigned add-ons (#1431 part 13): with an add-on installed from the Marketplace, assign it to an owned number with IncomingPhoneNumberAssignedAddOn (phoneNumberSid, installedAddOnSid); refresh and preview show no change, and getIncomingPhoneNumberAssignedAddOn returns its friendlyName, configuration and extensions. Changing installedAddOnSid replaces it (Twilio has no update). Import <phoneNumberSid>/<sid>: the first preview plans only an in-place update of installedAddOnSid that calls no API (Twilio never returns it), and a later change of it replaces. Destroy unassigns it; destroying twice is a no-op. Not verified against a live account: whether the assignment SID equals the installed add-on SID and what Twilio answers when the same add-on is assigned twice."
+  - "Lookups (#1431 part 12): getAvailablePhoneNumbers for US local returns numbers whose phoneNumber is E.164 and whose capabilities match the smsEnabled and voiceEnabled filters, numberType tollFree and mobile hit their own paths, and limit caps the list; nothing is purchased. getUsageRecords for allTime and thisMonth returns the same categories as the console, price stays a decimal string; getAuthorizedConnectApps lists the apps shown under Authorized Connect Apps; getEventTypes lists the types the console offers for a subscription and getEventSchema reports the latest version. A schemaId that does not exist must fail with 'was not found'."
+  - "BYOC (#1431 part 11): create a ConnectionPolicy with two ConnectionPolicyTargets (different priority and weight), a ByocTrunk with connectionPolicySid pointing at the policy, an IpRecord and a SourceIpMapping to a SipDomain; refresh and preview show no change. Changing the trunk friendlyName and voiceMethod, a target priority, weight and enabled flag, the record friendlyName and the mapping sipDomainSid updates in place (no replacement); changing a record ipAddress or cidrPrefixLength, a target connectionPolicySid or a mapping ipRecordSid replaces. Removing the trunk voiceUrl or connectionPolicySid clears it. Import each (SID, or <connectionPolicySid>/<sid> for a target) and the first preview plans no change, also when the program states priority 10, weight 10, enabled true or cidrPrefixLength 32. Destroying a policy removes its targets. Not verified against a live account: whether Twilio accepts an empty ConnectionPolicySid or FromDomainSid to detach, and whether it normalizes ipAddress."
+  - "Serverless (#1431 part 10): create a ServerlessService, a ServerlessEnvironment with a domainSuffix, a ServerlessVariable, a ServerlessFunction and a ServerlessAsset; refresh and preview show no change. Changing the service friendlyName, the variable key and value, and the function friendlyName updates in place (no replacement); changing the environment domainSuffix or uniqueName replaces it. The variable value never appears in plaintext in the state. Import each (<serviceSid>, <serviceSid>/<sid>, <serviceSid>/<environmentSid>/<sid>) and the first preview plans no change, also when the program omits includeCredentials and uiEditable. Destroying the service removes the children and destroying a child afterwards is a no-op. Not verified against a live account: the defaults of includeCredentials and uiEditable, the limit of 16 characters on domainSuffix and whether Twilio returns the variable value on read."
+  - "Verify extras (#1431 part 9): on a fresh VerifyService create a VerifyRateLimit with a bucket, a VerifyMessagingConfiguration for one country and a VerifyWebhook, refresh and preview show no change; changing the bucket max, the webhook url and eventTypes (in a different order) updates in place; removing webhook status and webhookVersion resets them to enabled and v2 and a re-preview is clean; import each (<serviceSid>/<sid>, <serviceSid>/<rateLimitSid>/<sid>, <serviceSid>/<country>) and the first preview plans no change. Add a number to the SafeList (the plus sign must be escaped as %2B in the path), read it back with getVerifySafeListNumber, destroy it. getVerifyTemplates lists the templates; use one SID as VerifyService.defaultTemplateSid. Not verified against a live account: that Twilio accepts the Version parameter name webhookVersion maps to, and the casing of the country in the response."
   - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."
   - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."
   - "ShortCode, ConnectApp and OutgoingCallerId only adopt: destroy must leave the short code, the Connect app and the verified caller ID in place and make no API call; a removed friendlyName, companyName, description, homepageUrl, authorizeRedirectUrl or permissions input must leave the value on Twilio; accountSid changes replace (Twilio cannot move these between accounts)."

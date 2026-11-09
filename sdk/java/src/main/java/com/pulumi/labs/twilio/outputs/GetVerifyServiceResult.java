@@ -116,7 +116,7 @@ public final class GetVerifyServiceResult {
      */
     private @Nullable Integer totpCodeLength;
     /**
-     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
      * 
      */
     private @Nullable String totpIssuer;
@@ -293,7 +293,7 @@ public final class GetVerifyServiceResult {
         return Optional.ofNullable(this.totpCodeLength);
     }
     /**
-     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+     * @return Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
      * 
      */
     public Optional<String> totpIssuer() {

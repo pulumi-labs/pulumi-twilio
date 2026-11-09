@@ -36,7 +36,7 @@ type EventSink struct {
 	SinkType pulumi.StringOutput `pulumi:"sinkType"`
 	// Sink status reported by Twilio: initialized, validating, active or failed. A subscription can only be created for an active sink; a new webhook sink must first be validated with Twilio's sink test and validate calls.
 	Status pulumi.StringOutput `pulumi:"status"`
-	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
 	WebhookBatchEvents pulumi.BoolPtrOutput `pulumi:"webhookBatchEvents"`
 	// Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.
 	WebhookDestination pulumi.StringPtrOutput `pulumi:"webhookDestination"`
@@ -124,7 +124,7 @@ type eventSinkArgs struct {
 	SegmentWriteKey *string `pulumi:"segmentWriteKey"`
 	// Kind of destination: webhook, kinesis or segment. Changing it replaces the sink.
 	SinkType string `pulumi:"sinkType"`
-	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
 	WebhookBatchEvents *bool `pulumi:"webhookBatchEvents"`
 	// Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.
 	WebhookDestination *string `pulumi:"webhookDestination"`
@@ -146,7 +146,7 @@ type EventSinkArgs struct {
 	SegmentWriteKey pulumi.StringPtrInput
 	// Kind of destination: webhook, kinesis or segment. Changing it replaces the sink.
 	SinkType pulumi.StringInput
-	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+	// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
 	WebhookBatchEvents pulumi.BoolPtrInput
 	// Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.
 	WebhookDestination pulumi.StringPtrInput
@@ -291,7 +291,7 @@ func (o EventSinkOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v *EventSink) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
 }
 
-// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
 func (o EventSinkOutput) WebhookBatchEvents() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EventSink) pulumi.BoolPtrOutput { return v.WebhookBatchEvents }).(pulumi.BoolPtrOutput)
 }

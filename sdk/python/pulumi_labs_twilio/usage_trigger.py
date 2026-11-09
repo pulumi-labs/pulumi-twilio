@@ -37,7 +37,7 @@ class UsageTriggerArgs:
         :param pulumi.Input[_builtins.str] callback_method: HTTP method for callbackUrl: GET or POST (Twilio default POST).
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the trigger (up to 64 characters).
         :param pulumi.Input[_builtins.str] recurring: How often the trigger resets: daily, monthly, yearly or alltime. Omit for a trigger that fires once. Changing it replaces the trigger.
-        :param pulumi.Input[_builtins.str] trigger_by: What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        :param pulumi.Input[_builtins.str] trigger_by: What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         """
         pulumi.set(__self__, "callback_url", callback_url)
         pulumi.set(__self__, "trigger_value", trigger_value)
@@ -141,7 +141,7 @@ class UsageTriggerArgs:
     @pulumi.getter(name="triggerBy")
     def trigger_by(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         """
         return pulumi.get(self, "trigger_by")
 
@@ -176,7 +176,7 @@ class UsageTrigger(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] callback_url: URL Twilio requests when the trigger fires.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the trigger (up to 64 characters).
         :param pulumi.Input[_builtins.str] recurring: How often the trigger resets: daily, monthly, yearly or alltime. Omit for a trigger that fires once. Changing it replaces the trigger.
-        :param pulumi.Input[_builtins.str] trigger_by: What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        :param pulumi.Input[_builtins.str] trigger_by: What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         :param pulumi.Input[_builtins.str] trigger_value: Usage value at which the trigger fires, for example 100 (a count or amount in the category's unit), or an offset such as +30 from the current value. Twilio cannot change it, so changing it replaces the trigger.
         :param pulumi.Input[_builtins.str] usage_category: Usage category to watch, for example sms, calls or totalprice (see the Twilio usage categories). Changing it replaces the trigger.
         """
@@ -239,6 +239,7 @@ class UsageTrigger(pulumi.CustomResource):
             __props__.__dict__["api_version"] = None
             __props__.__dict__["current_value"] = None
             __props__.__dict__["date_fired"] = None
+            __props__.__dict__["effective_trigger_by"] = None
             __props__.__dict__["owner_account_sid"] = None
             __props__.__dict__["sid"] = None
             __props__.__dict__["usage_record_uri"] = None
@@ -272,6 +273,7 @@ class UsageTrigger(pulumi.CustomResource):
         __props__.__dict__["callback_url"] = None
         __props__.__dict__["current_value"] = None
         __props__.__dict__["date_fired"] = None
+        __props__.__dict__["effective_trigger_by"] = None
         __props__.__dict__["friendly_name"] = None
         __props__.__dict__["owner_account_sid"] = None
         __props__.__dict__["recurring"] = None
@@ -331,6 +333,14 @@ class UsageTrigger(pulumi.CustomResource):
         return pulumi.get(self, "date_fired")
 
     @_builtins.property
+    @pulumi.getter(name="effectiveTriggerBy")
+    def effective_trigger_by(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+        """
+        return pulumi.get(self, "effective_trigger_by")
+
+    @_builtins.property
     @pulumi.getter(name="friendlyName")
     def friendly_name(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
@@ -366,7 +376,7 @@ class UsageTrigger(pulumi.CustomResource):
     @pulumi.getter(name="triggerBy")
     def trigger_by(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         """
         return pulumi.get(self, "trigger_by")
 

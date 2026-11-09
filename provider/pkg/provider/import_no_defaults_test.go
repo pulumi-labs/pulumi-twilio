@@ -17,6 +17,7 @@ package provider
 import (
 	"testing"
 
+	pgp "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/property"
 	"github.com/stretchr/testify/require"
 )
@@ -185,11 +186,11 @@ func TestImport_NonDefaultSettingsAreAdopted(t *testing.T) {
 	}
 }
 
-// #1634: the issuer Twilio sets at creation (the friendlyName) stays out of the inputs, but an issuer
-// that differs from the friendlyName is a genuine setting and an import adopts it. The default is
-// compared against the friendlyName as it is now, so a rename out of band does not make the new
-// default look like a setting.
-func TestImport_TotpIssuerAdoptedOnlyWhenItDiffersFromFriendlyName(t *testing.T) {
+// #1634, #1658: an import never adopts the TOTP issuer. Twilio sets it to the friendlyName at creation and keeps it
+// when the service is renamed, so a returned issuer cannot be told from the default; and because a removed
+// totpIssuer is never sent (Twilio rejects an empty issuer), an adopted stale issuer could not be removed again
+// and would plan a change for every program that omits it.
+func TestImport_TotpIssuerIsNeverAdopted(t *testing.T) {
 	l := newTL(t, "VerifyService", "r")
 	program := pv(map[string]property.Value{"friendlyName": sv("arqa")})
 	created := l.create(program)
@@ -201,28 +202,26 @@ func TestImport_TotpIssuerAdoptedOnlyWhenItDiffersFromFriendlyName(t *testing.T)
 		}
 	})
 
-	// Created issuer equals the friendlyName: not adopted.
+	// Created issuer equals the friendlyName.
 	imp := l.read(created.ID, empty(), empty())
 	require.False(t, hasProp(imp.Inputs, "totpIssuer"), "%v", imp.Inputs)
 
-	// A different issuer is adopted, and the program that declares it plans nothing.
-	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { setPath(o, "totp.issuer", "beta") })
-	imp = l.read(created.ID, empty(), empty())
-	require.Equal(t, "beta", getS(t, imp.Inputs, "totpIssuer"))
-	declared := with(program, map[string]property.Value{"totpIssuer": sv("beta")})
-	d := l.diff(created.ID, imp.Properties, l.checked(declared), imp.Inputs)
-	require.False(t, d.HasChanges, "%+v", d.DetailedDiff)
-
-	// Renamed out of band with the issuer following it: still the default, still not adopted.
-	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) {
-		o["friendly_name"] = "renamed"
-		setPath(o, "totp.issuer", "renamed")
-	})
+	// #1658: renamed afterwards, the issuer stays the old friendlyName. The import must not adopt it, so the
+	// program that was written for the renamed service (no totpIssuer) plans nothing.
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { o["friendly_name"] = "arqa-renamed" })
 	imp = l.read(created.ID, empty(), empty())
 	require.False(t, hasProp(imp.Inputs, "totpIssuer"), "%v", imp.Inputs)
+	renamed := pv(map[string]property.Value{"friendlyName": sv("arqa-renamed")})
+	d := l.diff(created.ID, imp.Properties, l.checked(renamed), imp.Inputs)
+	require.False(t, d.HasChanges, "%+v", d.DetailedDiff)
 
-	// The old friendlyName as issuer is now a real setting.
-	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { setPath(o, "totp.issuer", "arqa") })
+	// A genuinely different issuer is not adopted either; a program that sets one is an ordinary in-place update.
+	l.f.mutate("verify", testAccount, created.ID, func(o map[string]any) { setPath(o, "totp.issuer", "beta") })
 	imp = l.read(created.ID, empty(), empty())
-	require.Equal(t, "arqa", getS(t, imp.Inputs, "totpIssuer"))
+	require.False(t, hasProp(imp.Inputs, "totpIssuer"), "%v", imp.Inputs)
+	require.False(t, l.diff(created.ID, imp.Properties, l.checked(renamed), imp.Inputs).HasChanges)
+	declared := with(renamed, map[string]property.Value{"totpIssuer": sv("beta")})
+	d = l.diff(created.ID, imp.Properties, l.checked(declared), imp.Inputs)
+	require.True(t, d.HasChanges)
+	require.Equal(t, pgp.Add, d.DetailedDiff["totpIssuer"].Kind)
 }

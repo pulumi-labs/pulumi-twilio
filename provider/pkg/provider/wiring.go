@@ -178,3 +178,91 @@ func (r *EventSubscription) WireDependencies(f infer.FieldSelector, args *EventS
 	wireEchoes(f, args, state)
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *VerifyRateLimit) WireDependencies(f infer.FieldSelector, args *VerifyRateLimitArgs, state *VerifyRateLimitState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *VerifyRateLimitBucket) WireDependencies(f infer.FieldSelector, args *VerifyRateLimitBucketArgs, state *VerifyRateLimitBucketState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the creation time is fixed at creation; the update time is what Twilio reports.
+func (r *VerifyMessagingConfiguration) WireDependencies(f infer.FieldSelector, args *VerifyMessagingConfigurationArgs, state *VerifyMessagingConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the method and update time are what Twilio reports.
+func (r *VerifyWebhook) WireDependencies(f infer.FieldSelector, args *VerifyWebhookArgs, state *VerifyWebhookState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.WebhookMethod, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the SID, domain and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ServerlessService) WireDependencies(f infer.FieldSelector, args *ServerlessServiceArgs, state *ServerlessServiceState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: an environment cannot be updated, so every output but the deployed build is fixed at creation.
+func (r *ServerlessEnvironment) WireDependencies(f infer.FieldSelector, args *ServerlessEnvironmentArgs, state *ServerlessEnvironmentState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.BuildSid, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ServerlessVariable) WireDependencies(f infer.FieldSelector, args *ServerlessVariableArgs, state *ServerlessVariableState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ServerlessFunction) WireDependencies(f infer.FieldSelector, args *ServerlessFunctionArgs, state *ServerlessFunctionState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ServerlessAsset) WireDependencies(f infer.FieldSelector, args *ServerlessAssetArgs, state *ServerlessAssetState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ConnectionPolicy) WireDependencies(f infer.FieldSelector, args *ConnectionPolicyArgs, state *ConnectionPolicyState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ConnectionPolicyTarget) WireDependencies(f infer.FieldSelector, args *ConnectionPolicyTargetArgs, state *ConnectionPolicyTargetState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ByocTrunk) WireDependencies(f infer.FieldSelector, args *ByocTrunkArgs, state *ByocTrunkState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *IpRecord) WireDependencies(f infer.FieldSelector, args *IpRecordArgs, state *IpRecordState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *SourceIpMapping) WireDependencies(f infer.FieldSelector, args *SourceIpMappingArgs, state *SourceIpMappingState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}

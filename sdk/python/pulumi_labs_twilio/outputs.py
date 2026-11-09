@@ -13,17 +13,26 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
+from . import outputs
 
 __all__ = [
     'ApplicationEffective',
+    'AssignedAddOnExtension',
+    'AuthorizedConnectApp',
+    'AvailablePhoneNumber',
     'ConnectAppEffective',
+    'EventSchemaVersion',
     'EventSubscriptionType',
+    'EventType',
     'IncomingPhoneNumberEffective',
     'MessagingServiceEffective',
     'OutgoingCallerIdEffective',
+    'PhoneNumberCapabilities',
     'ShortCodeEffective',
     'TrunkEffective',
+    'UsageRecord',
     'VerifyServiceEffective',
+    'VerifyTemplate',
 ]
 
 @pulumi.output_type
@@ -286,6 +295,309 @@ class ApplicationEffective(dict):
 
 
 @pulumi.output_type
+class AssignedAddOnExtension(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 friendly_name: _builtins.str,
+                 product_name: _builtins.str,
+                 sid: _builtins.str,
+                 unique_name: _builtins.str):
+        """
+        :param _builtins.bool enabled: Whether the extension is enabled.
+        :param _builtins.str friendly_name: The extension's friendly name.
+        :param _builtins.str product_name: The name of the add-on product the extension belongs to.
+        :param _builtins.str sid: The extension SID (XF...).
+        :param _builtins.str unique_name: The extension's application-defined unique name.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "product_name", product_name)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "unique_name", unique_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether the extension is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        The extension's friendly name.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="productName")
+    def product_name(self) -> _builtins.str:
+        """
+        The name of the add-on product the extension belongs to.
+        """
+        return pulumi.get(self, "product_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The extension SID (XF...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="uniqueName")
+    def unique_name(self) -> _builtins.str:
+        """
+        The extension's application-defined unique name.
+        """
+        return pulumi.get(self, "unique_name")
+
+
+@pulumi.output_type
+class AuthorizedConnectApp(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 company_name: _builtins.str,
+                 connect_app_sid: _builtins.str,
+                 description: _builtins.str,
+                 friendly_name: _builtins.str,
+                 homepage_url: _builtins.str,
+                 permissions: Sequence[_builtins.str]):
+        """
+        :param _builtins.str account_sid: SID of the account that authorized the app.
+        :param _builtins.str company_name: Company name set for the Connect App.
+        :param _builtins.str connect_app_sid: SID (CN...) of the Connect App.
+        :param _builtins.str description: Description of the Connect App.
+        :param _builtins.str friendly_name: Name of the Connect App.
+        :param _builtins.str homepage_url: Public URL of the Connect App.
+        :param Sequence[_builtins.str] permissions: Permissions the account granted: get-all or post-all.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "company_name", company_name)
+        pulumi.set(__self__, "connect_app_sid", connect_app_sid)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "homepage_url", homepage_url)
+        pulumi.set(__self__, "permissions", permissions)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID of the account that authorized the app.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="companyName")
+    def company_name(self) -> _builtins.str:
+        """
+        Company name set for the Connect App.
+        """
+        return pulumi.get(self, "company_name")
+
+    @_builtins.property
+    @pulumi.getter(name="connectAppSid")
+    def connect_app_sid(self) -> _builtins.str:
+        """
+        SID (CN...) of the Connect App.
+        """
+        return pulumi.get(self, "connect_app_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        Description of the Connect App.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Name of the Connect App.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="homepageUrl")
+    def homepage_url(self) -> _builtins.str:
+        """
+        Public URL of the Connect App.
+        """
+        return pulumi.get(self, "homepage_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def permissions(self) -> Sequence[_builtins.str]:
+        """
+        Permissions the account granted: get-all or post-all.
+        """
+        return pulumi.get(self, "permissions")
+
+
+@pulumi.output_type
+class AvailablePhoneNumber(dict):
+    def __init__(__self__, *,
+                 address_requirements: _builtins.str,
+                 beta: _builtins.bool,
+                 capabilities: 'outputs.PhoneNumberCapabilities',
+                 friendly_name: _builtins.str,
+                 iso_country: _builtins.str,
+                 phone_number: _builtins.str,
+                 lata: Optional[_builtins.str] = None,
+                 latitude: Optional[_builtins.float] = None,
+                 locality: Optional[_builtins.str] = None,
+                 longitude: Optional[_builtins.float] = None,
+                 postal_code: Optional[_builtins.str] = None,
+                 rate_center: Optional[_builtins.str] = None,
+                 region: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str address_requirements: Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported.
+        :param _builtins.bool beta: Whether the number is new to the Twilio platform.
+        :param 'PhoneNumberCapabilities' capabilities: What the number can do.
+        :param _builtins.str friendly_name: A formatted version of the number.
+        :param _builtins.str iso_country: ISO country code of the number.
+        :param _builtins.str phone_number: The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it.
+        :param _builtins.str lata: LATA of the number, when Twilio reports one.
+        :param _builtins.float latitude: Latitude of the number's location, when Twilio reports one.
+        :param _builtins.str locality: City or locality of the number, when Twilio reports one.
+        :param _builtins.float longitude: Longitude of the number's location, when Twilio reports one.
+        :param _builtins.str postal_code: Postal or ZIP code of the number, when Twilio reports one.
+        :param _builtins.str rate_center: Rate center of the number, when Twilio reports one.
+        :param _builtins.str region: State or province abbreviation of the number, when Twilio reports one.
+        """
+        pulumi.set(__self__, "address_requirements", address_requirements)
+        pulumi.set(__self__, "beta", beta)
+        pulumi.set(__self__, "capabilities", capabilities)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "iso_country", iso_country)
+        pulumi.set(__self__, "phone_number", phone_number)
+        if lata is not None:
+            pulumi.set(__self__, "lata", lata)
+        if latitude is not None:
+            pulumi.set(__self__, "latitude", latitude)
+        if locality is not None:
+            pulumi.set(__self__, "locality", locality)
+        if longitude is not None:
+            pulumi.set(__self__, "longitude", longitude)
+        if postal_code is not None:
+            pulumi.set(__self__, "postal_code", postal_code)
+        if rate_center is not None:
+            pulumi.set(__self__, "rate_center", rate_center)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+
+    @_builtins.property
+    @pulumi.getter(name="addressRequirements")
+    def address_requirements(self) -> _builtins.str:
+        """
+        Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported.
+        """
+        return pulumi.get(self, "address_requirements")
+
+    @_builtins.property
+    @pulumi.getter
+    def beta(self) -> _builtins.bool:
+        """
+        Whether the number is new to the Twilio platform.
+        """
+        return pulumi.get(self, "beta")
+
+    @_builtins.property
+    @pulumi.getter
+    def capabilities(self) -> 'outputs.PhoneNumberCapabilities':
+        """
+        What the number can do.
+        """
+        return pulumi.get(self, "capabilities")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        A formatted version of the number.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="isoCountry")
+    def iso_country(self) -> _builtins.str:
+        """
+        ISO country code of the number.
+        """
+        return pulumi.get(self, "iso_country")
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumber")
+    def phone_number(self) -> _builtins.str:
+        """
+        The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it.
+        """
+        return pulumi.get(self, "phone_number")
+
+    @_builtins.property
+    @pulumi.getter
+    def lata(self) -> Optional[_builtins.str]:
+        """
+        LATA of the number, when Twilio reports one.
+        """
+        return pulumi.get(self, "lata")
+
+    @_builtins.property
+    @pulumi.getter
+    def latitude(self) -> Optional[_builtins.float]:
+        """
+        Latitude of the number's location, when Twilio reports one.
+        """
+        return pulumi.get(self, "latitude")
+
+    @_builtins.property
+    @pulumi.getter
+    def locality(self) -> Optional[_builtins.str]:
+        """
+        City or locality of the number, when Twilio reports one.
+        """
+        return pulumi.get(self, "locality")
+
+    @_builtins.property
+    @pulumi.getter
+    def longitude(self) -> Optional[_builtins.float]:
+        """
+        Longitude of the number's location, when Twilio reports one.
+        """
+        return pulumi.get(self, "longitude")
+
+    @_builtins.property
+    @pulumi.getter(name="postalCode")
+    def postal_code(self) -> Optional[_builtins.str]:
+        """
+        Postal or ZIP code of the number, when Twilio reports one.
+        """
+        return pulumi.get(self, "postal_code")
+
+    @_builtins.property
+    @pulumi.getter(name="rateCenter")
+    def rate_center(self) -> Optional[_builtins.str]:
+        """
+        Rate center of the number, when Twilio reports one.
+        """
+        return pulumi.get(self, "rate_center")
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> Optional[_builtins.str]:
+        """
+        State or province abbreviation of the number, when Twilio reports one.
+        """
+        return pulumi.get(self, "region")
+
+
+@pulumi.output_type
 class ConnectAppEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -443,6 +755,46 @@ class ConnectAppEffective(dict):
 
 
 @pulumi.output_type
+class EventSchemaVersion(dict):
+    def __init__(__self__, *,
+                 date_created: _builtins.str,
+                 raw: _builtins.str,
+                 schema_version: _builtins.int):
+        """
+        :param _builtins.str date_created: When the version was published (ISO 8601).
+        :param _builtins.str raw: URL of the raw JSON schema document for the version.
+        :param _builtins.int schema_version: The version number.
+        """
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "raw", raw)
+        pulumi.set(__self__, "schema_version", schema_version)
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the version was published (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter
+    def raw(self) -> _builtins.str:
+        """
+        URL of the raw JSON schema document for the version.
+        """
+        return pulumi.get(self, "raw")
+
+    @_builtins.property
+    @pulumi.getter(name="schemaVersion")
+    def schema_version(self) -> _builtins.int:
+        """
+        The version number.
+        """
+        return pulumi.get(self, "schema_version")
+
+
+@pulumi.output_type
 class EventSubscriptionType(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -487,6 +839,90 @@ class EventSubscriptionType(dict):
         Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
         """
         return pulumi.get(self, "schema_version")
+
+
+@pulumi.output_type
+class EventType(dict):
+    def __init__(__self__, *,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 description: _builtins.str,
+                 documentation_url: _builtins.str,
+                 schema_id: _builtins.str,
+                 status: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str date_created: When the event type was created (ISO 8601).
+        :param _builtins.str date_updated: When the event type was last updated (ISO 8601).
+        :param _builtins.str description: Human-readable description of the event type.
+        :param _builtins.str documentation_url: Link to the documentation or changelog for the event type.
+        :param _builtins.str schema_id: ID of the schema the event type follows. See getEventSchema.
+        :param _builtins.str status: Whether the event type can be used, for example available or deprecated.
+        :param _builtins.str type: The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.
+        """
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "documentation_url", documentation_url)
+        pulumi.set(__self__, "schema_id", schema_id)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the event type was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the event type was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        Human-readable description of the event type.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="documentationUrl")
+    def documentation_url(self) -> _builtins.str:
+        """
+        Link to the documentation or changelog for the event type.
+        """
+        return pulumi.get(self, "documentation_url")
+
+    @_builtins.property
+    @pulumi.getter(name="schemaId")
+    def schema_id(self) -> _builtins.str:
+        """
+        ID of the schema the event type follows. See getEventSchema.
+        """
+        return pulumi.get(self, "schema_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        Whether the event type can be used, for example available or deprecated.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -1183,6 +1619,57 @@ class OutgoingCallerIdEffective(dict):
 
 
 @pulumi.output_type
+class PhoneNumberCapabilities(dict):
+    def __init__(__self__, *,
+                 fax: _builtins.bool,
+                 mms: _builtins.bool,
+                 sms: _builtins.bool,
+                 voice: _builtins.bool):
+        """
+        :param _builtins.bool fax: Whether the number supports fax.
+        :param _builtins.bool mms: Whether the number supports MMS.
+        :param _builtins.bool sms: Whether the number supports SMS.
+        :param _builtins.bool voice: Whether the number supports voice calls.
+        """
+        pulumi.set(__self__, "fax", fax)
+        pulumi.set(__self__, "mms", mms)
+        pulumi.set(__self__, "sms", sms)
+        pulumi.set(__self__, "voice", voice)
+
+    @_builtins.property
+    @pulumi.getter
+    def fax(self) -> _builtins.bool:
+        """
+        Whether the number supports fax.
+        """
+        return pulumi.get(self, "fax")
+
+    @_builtins.property
+    @pulumi.getter
+    def mms(self) -> _builtins.bool:
+        """
+        Whether the number supports MMS.
+        """
+        return pulumi.get(self, "mms")
+
+    @_builtins.property
+    @pulumi.getter
+    def sms(self) -> _builtins.bool:
+        """
+        Whether the number supports SMS.
+        """
+        return pulumi.get(self, "sms")
+
+    @_builtins.property
+    @pulumi.getter
+    def voice(self) -> _builtins.bool:
+        """
+        Whether the number supports voice calls.
+        """
+        return pulumi.get(self, "voice")
+
+
+@pulumi.output_type
 class ShortCodeEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1489,6 +1976,145 @@ class TrunkEffective(dict):
 
 
 @pulumi.output_type
+class UsageRecord(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 as_of: _builtins.str,
+                 category: _builtins.str,
+                 count: _builtins.str,
+                 count_unit: _builtins.str,
+                 description: _builtins.str,
+                 end_date: _builtins.str,
+                 price: _builtins.str,
+                 price_unit: _builtins.str,
+                 start_date: _builtins.str,
+                 usage: _builtins.str,
+                 usage_unit: _builtins.str):
+        """
+        :param _builtins.str account_sid: SID of the account the usage belongs to.
+        :param _builtins.str as_of: Timestamp the records are up to date as of.
+        :param _builtins.str category: The usage category, for example calls.
+        :param _builtins.str count: Number of usage events, as a decimal string.
+        :param _builtins.str count_unit: Unit of count, for example calls.
+        :param _builtins.str description: Plain-language description of the category.
+        :param _builtins.str end_date: Last date the record covers (YYYY-MM-DD).
+        :param _builtins.str price: Total price as a decimal string, kept as Twilio sends it.
+        :param _builtins.str price_unit: ISO 4217 currency of price.
+        :param _builtins.str start_date: First date the record covers (YYYY-MM-DD).
+        :param _builtins.str usage: Amount used, as a decimal string.
+        :param _builtins.str usage_unit: Unit of usage, for example minutes.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "as_of", as_of)
+        pulumi.set(__self__, "category", category)
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "count_unit", count_unit)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "end_date", end_date)
+        pulumi.set(__self__, "price", price)
+        pulumi.set(__self__, "price_unit", price_unit)
+        pulumi.set(__self__, "start_date", start_date)
+        pulumi.set(__self__, "usage", usage)
+        pulumi.set(__self__, "usage_unit", usage_unit)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID of the account the usage belongs to.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="asOf")
+    def as_of(self) -> _builtins.str:
+        """
+        Timestamp the records are up to date as of.
+        """
+        return pulumi.get(self, "as_of")
+
+    @_builtins.property
+    @pulumi.getter
+    def category(self) -> _builtins.str:
+        """
+        The usage category, for example calls.
+        """
+        return pulumi.get(self, "category")
+
+    @_builtins.property
+    @pulumi.getter
+    def count(self) -> _builtins.str:
+        """
+        Number of usage events, as a decimal string.
+        """
+        return pulumi.get(self, "count")
+
+    @_builtins.property
+    @pulumi.getter(name="countUnit")
+    def count_unit(self) -> _builtins.str:
+        """
+        Unit of count, for example calls.
+        """
+        return pulumi.get(self, "count_unit")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        Plain-language description of the category.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="endDate")
+    def end_date(self) -> _builtins.str:
+        """
+        Last date the record covers (YYYY-MM-DD).
+        """
+        return pulumi.get(self, "end_date")
+
+    @_builtins.property
+    @pulumi.getter
+    def price(self) -> _builtins.str:
+        """
+        Total price as a decimal string, kept as Twilio sends it.
+        """
+        return pulumi.get(self, "price")
+
+    @_builtins.property
+    @pulumi.getter(name="priceUnit")
+    def price_unit(self) -> _builtins.str:
+        """
+        ISO 4217 currency of price.
+        """
+        return pulumi.get(self, "price_unit")
+
+    @_builtins.property
+    @pulumi.getter(name="startDate")
+    def start_date(self) -> _builtins.str:
+        """
+        First date the record covers (YYYY-MM-DD).
+        """
+        return pulumi.get(self, "start_date")
+
+    @_builtins.property
+    @pulumi.getter
+    def usage(self) -> _builtins.str:
+        """
+        Amount used, as a decimal string.
+        """
+        return pulumi.get(self, "usage")
+
+    @_builtins.property
+    @pulumi.getter(name="usageUnit")
+    def usage_unit(self) -> _builtins.str:
+        """
+        Unit of usage, for example minutes.
+        """
+        return pulumi.get(self, "usage_unit")
+
+
+@pulumi.output_type
 class VerifyServiceEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1604,7 +2230,7 @@ class VerifyServiceEffective(dict):
         :param _builtins.bool push_include_date: Whether push challenges include the date they were created.
         :param _builtins.bool skip_sms_to_landlines: Whether to skip SMS to landline numbers.
         :param _builtins.int totp_code_length: Number of digits of a TOTP code (3 to 8).
-        :param _builtins.str totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        :param _builtins.str totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         :param _builtins.int totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
         :param _builtins.int totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param _builtins.str tts_name: Name spoken in voice verifications instead of friendlyName.
@@ -1820,7 +2446,7 @@ class VerifyServiceEffective(dict):
     @pulumi.getter(name="totpIssuer")
     def totp_issuer(self) -> Optional[_builtins.str]:
         """
-        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         """
         return pulumi.get(self, "totp_issuer")
 
@@ -1871,5 +2497,45 @@ class VerifyServiceEffective(dict):
         SID (MG...) of the Messaging Service used to send WhatsApp verifications. Removing it unassigns the service.
         """
         return pulumi.get(self, "whatsapp_msg_service_sid")
+
+
+@pulumi.output_type
+class VerifyTemplate(dict):
+    def __init__(__self__, *,
+                 channels: Sequence[_builtins.str],
+                 friendly_name: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param Sequence[_builtins.str] channels: Channels that support the template (sms, voice).
+        :param _builtins.str friendly_name: Name of the template.
+        :param _builtins.str sid: The template SID (HJ...). Use it as VerifyService.defaultTemplateSid.
+        """
+        pulumi.set(__self__, "channels", channels)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter
+    def channels(self) -> Sequence[_builtins.str]:
+        """
+        Channels that support the template (sms, voice).
+        """
+        return pulumi.get(self, "channels")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Name of the template.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The template SID (HJ...). Use it as VerifyService.defaultTemplateSid.
+        """
+        return pulumi.get(self, "sid")
 
 

@@ -26,7 +26,7 @@ func newProvider() (provider.Provider, error) {
 	return infer.NewProviderBuilder().
 		WithDisplayName("Twilio").
 		WithDescription(
-			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
+			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
 		).
 		WithHomepage("https://www.twilio.com").
 		WithRepository("https://github.com/pulumi-labs/pulumi-twilio").
@@ -35,7 +35,7 @@ func newProvider() (provider.Provider, error) {
 			"go": map[string]any{"generateResourceContainerTypes": true, "respectSchemaVersion": true},
 			"nodejs": map[string]any{
 				"packageName":          "@pulumi-labs/twilio",
-				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services and Verify services as infrastructure with Pulumi.",
+				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -82,6 +82,22 @@ func newProvider() (provider.Provider, error) {
 			infer.Resource[*TrunkOriginationUrl, TrunkOriginationUrlArgs, TrunkOriginationUrlState](&TrunkOriginationUrl{}),
 			infer.Resource[*TrunkCredentialList, TrunkCredentialListArgs, TrunkCredentialListState](&TrunkCredentialList{}),
 			infer.Resource[*TrunkIpAccessControlList, TrunkIpAccessControlListArgs, TrunkIpAccessControlListState](&TrunkIpAccessControlList{}),
+			infer.Resource[*VerifyRateLimit, VerifyRateLimitArgs, VerifyRateLimitState](&VerifyRateLimit{}),
+			infer.Resource[*VerifyRateLimitBucket, VerifyRateLimitBucketArgs, VerifyRateLimitBucketState](&VerifyRateLimitBucket{}),
+			infer.Resource[*VerifyMessagingConfiguration, VerifyMessagingConfigurationArgs, VerifyMessagingConfigurationState](&VerifyMessagingConfiguration{}),
+			infer.Resource[*VerifyWebhook, VerifyWebhookArgs, VerifyWebhookState](&VerifyWebhook{}),
+			infer.Resource[*VerifySafeListNumber, VerifySafeListNumberArgs, VerifySafeListNumberState](&VerifySafeListNumber{}),
+			infer.Resource[*ServerlessService, ServerlessServiceArgs, ServerlessServiceState](&ServerlessService{}),
+			infer.Resource[*ServerlessEnvironment, ServerlessEnvironmentArgs, ServerlessEnvironmentState](&ServerlessEnvironment{}),
+			infer.Resource[*ServerlessVariable, ServerlessVariableArgs, ServerlessVariableState](&ServerlessVariable{}),
+			infer.Resource[*ServerlessFunction, ServerlessFunctionArgs, ServerlessFunctionState](&ServerlessFunction{}),
+			infer.Resource[*ServerlessAsset, ServerlessAssetArgs, ServerlessAssetState](&ServerlessAsset{}),
+			infer.Resource[*ConnectionPolicy, ConnectionPolicyArgs, ConnectionPolicyState](&ConnectionPolicy{}),
+			infer.Resource[*ConnectionPolicyTarget, ConnectionPolicyTargetArgs, ConnectionPolicyTargetState](&ConnectionPolicyTarget{}),
+			infer.Resource[*ByocTrunk, ByocTrunkArgs, ByocTrunkState](&ByocTrunk{}),
+			infer.Resource[*IpRecord, IpRecordArgs, IpRecordState](&IpRecord{}),
+			infer.Resource[*SourceIpMapping, SourceIpMappingArgs, SourceIpMappingState](&SourceIpMapping{}),
+			infer.Resource[*IncomingPhoneNumberAssignedAddOn, IncomingPhoneNumberAssignedAddOnArgs, IncomingPhoneNumberAssignedAddOnState](&IncomingPhoneNumberAssignedAddOn{}),
 		).
 		WithFunctions(
 			infer.Function[*GetAccount, GetAccountArgs, GetAccountResult](&GetAccount{}),
@@ -113,6 +129,30 @@ func newProvider() (provider.Provider, error) {
 			infer.Function[*GetTrunkOriginationUrl, GetTrunkOriginationUrlArgs, GetTrunkOriginationUrlResult](&GetTrunkOriginationUrl{}),
 			infer.Function[*GetTrunkCredentialList, GetTrunkCredentialListArgs, GetTrunkCredentialListResult](&GetTrunkCredentialList{}),
 			infer.Function[*GetTrunkIpAccessControlList, GetTrunkIpAccessControlListArgs, GetTrunkIpAccessControlListResult](&GetTrunkIpAccessControlList{}),
+			infer.Function[*GetVerifyRateLimit, GetVerifyRateLimitArgs, GetVerifyRateLimitResult](&GetVerifyRateLimit{}),
+			infer.Function[*GetVerifyRateLimitBucket, GetVerifyRateLimitBucketArgs, GetVerifyRateLimitBucketResult](&GetVerifyRateLimitBucket{}),
+			infer.Function[*GetVerifyMessagingConfiguration, GetVerifyMessagingConfigurationArgs, GetVerifyMessagingConfigurationResult](&GetVerifyMessagingConfiguration{}),
+			infer.Function[*GetVerifyWebhook, GetVerifyWebhookArgs, GetVerifyWebhookResult](&GetVerifyWebhook{}),
+			infer.Function[*GetVerifySafeListNumber, GetVerifySafeListNumberArgs, GetVerifySafeListNumberResult](&GetVerifySafeListNumber{}),
+			infer.Function[*GetVerifyTemplates, GetVerifyTemplatesArgs, GetVerifyTemplatesResult](&GetVerifyTemplates{}),
+			infer.Function[*GetIncomingPhoneNumberAssignedAddOn, GetIncomingPhoneNumberAssignedAddOnArgs, GetIncomingPhoneNumberAssignedAddOnResult](&GetIncomingPhoneNumberAssignedAddOn{}),
+			infer.Function[*GetServerlessService, GetServerlessServiceArgs, GetServerlessServiceResult](&GetServerlessService{}),
+			infer.Function[*GetServerlessEnvironment, GetServerlessEnvironmentArgs, GetServerlessEnvironmentResult](&GetServerlessEnvironment{}),
+			infer.Function[*GetServerlessVariable, GetServerlessVariableArgs, GetServerlessVariableResult](&GetServerlessVariable{}),
+			infer.Function[*GetServerlessFunction, GetServerlessFunctionArgs, GetServerlessFunctionResult](&GetServerlessFunction{}),
+			infer.Function[*GetServerlessAsset, GetServerlessAssetArgs, GetServerlessAssetResult](&GetServerlessAsset{}),
+			infer.Function[*GetConnectionPolicy, GetConnectionPolicyArgs, GetConnectionPolicyResult](&GetConnectionPolicy{}),
+			infer.Function[*GetConnectionPolicyTarget, GetConnectionPolicyTargetArgs, GetConnectionPolicyTargetResult](&GetConnectionPolicyTarget{}),
+			infer.Function[*GetByocTrunk, GetByocTrunkArgs, GetByocTrunkResult](&GetByocTrunk{}),
+			infer.Function[*GetIpRecord, GetIpRecordArgs, GetIpRecordResult](&GetIpRecord{}),
+			infer.Function[*GetSourceIpMapping, GetSourceIpMappingArgs, GetSourceIpMappingResult](&GetSourceIpMapping{}),
+			infer.Function[*GetAvailablePhoneNumbers, GetAvailablePhoneNumbersArgs, GetAvailablePhoneNumbersResult](&GetAvailablePhoneNumbers{}),
+			infer.Function[*GetUsageRecords, GetUsageRecordsArgs, GetUsageRecordsResult](&GetUsageRecords{}),
+			infer.Function[*GetAuthorizedConnectApps, GetAuthorizedConnectAppsArgs, GetAuthorizedConnectAppsResult](&GetAuthorizedConnectApps{}),
+			infer.Function[*GetAuthorizedConnectApp, GetAuthorizedConnectAppArgs, AuthorizedConnectApp](&GetAuthorizedConnectApp{}),
+			infer.Function[*GetEventTypes, GetEventTypesArgs, GetEventTypesResult](&GetEventTypes{}),
+			infer.Function[*GetEventType, GetEventTypeArgs, EventType](&GetEventType{}),
+			infer.Function[*GetEventSchema, GetEventSchemaArgs, GetEventSchemaResult](&GetEventSchema{}),
 		).
 		Build()
 }

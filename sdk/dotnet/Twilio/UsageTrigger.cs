@@ -53,6 +53,12 @@ namespace Pulumi.Labs.Twilio
         public Output<string> DateFired { get; private set; } = null!;
 
         /// <summary>
+        /// What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+        /// </summary>
+        [Output("effectiveTriggerBy")]
+        public Output<string?> EffectiveTriggerBy { get; private set; } = null!;
+
+        /// <summary>
         /// Human-readable name of the trigger (up to 64 characters).
         /// </summary>
         [Output("friendlyName")]
@@ -77,7 +83,7 @@ namespace Pulumi.Labs.Twilio
         public Output<string> Sid { get; private set; } = null!;
 
         /// <summary>
-        /// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        /// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         /// </summary>
         [Output("triggerBy")]
         public Output<string?> TriggerBy { get; private set; } = null!;
@@ -185,7 +191,7 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? Recurring { get; set; }
 
         /// <summary>
-        /// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+        /// What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
         /// </summary>
         [Input("triggerBy")]
         public Input<string>? TriggerBy { get; set; }

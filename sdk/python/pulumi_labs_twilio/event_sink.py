@@ -37,7 +37,7 @@ class EventSinkArgs:
         :param pulumi.Input[_builtins.str] kinesis_external_id: Kinesis sinks: the external ID Twilio presents when assuming the role. Treated as a secret. Changing it replaces the sink.
         :param pulumi.Input[_builtins.str] kinesis_role_arn: Kinesis sinks: ARN of the IAM role Twilio assumes to write to the stream. Required for kinesis sinks. Changing it replaces the sink.
         :param pulumi.Input[_builtins.str] segment_write_key: Segment sinks: the Segment source write key. Required for segment sinks. A secret; Twilio does not return it, so drift in it is not detected. Changing it replaces the sink.
-        :param pulumi.Input[_builtins.bool] webhook_batch_events: Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        :param pulumi.Input[_builtins.bool] webhook_batch_events: Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         :param pulumi.Input[_builtins.str] webhook_destination: Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.
         :param pulumi.Input[_builtins.str] webhook_method: Webhook sinks: the HTTP method, GET or POST. Twilio's default is POST. Changing it replaces the sink.
         """
@@ -134,7 +134,7 @@ class EventSinkArgs:
     @pulumi.getter(name="webhookBatchEvents")
     def webhook_batch_events(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         """
         return pulumi.get(self, "webhook_batch_events")
 
@@ -195,7 +195,7 @@ class EventSink(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] kinesis_role_arn: Kinesis sinks: ARN of the IAM role Twilio assumes to write to the stream. Required for kinesis sinks. Changing it replaces the sink.
         :param pulumi.Input[_builtins.str] segment_write_key: Segment sinks: the Segment source write key. Required for segment sinks. A secret; Twilio does not return it, so drift in it is not detected. Changing it replaces the sink.
         :param pulumi.Input[_builtins.str] sink_type: Kind of destination: webhook, kinesis or segment. Changing it replaces the sink.
-        :param pulumi.Input[_builtins.bool] webhook_batch_events: Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        :param pulumi.Input[_builtins.bool] webhook_batch_events: Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         :param pulumi.Input[_builtins.str] webhook_destination: Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.
         :param pulumi.Input[_builtins.str] webhook_method: Webhook sinks: the HTTP method, GET or POST. Twilio's default is POST. Changing it replaces the sink.
         """
@@ -384,7 +384,7 @@ class EventSink(pulumi.CustomResource):
     @pulumi.getter(name="webhookBatchEvents")
     def webhook_batch_events(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         """
         return pulumi.get(self, "webhook_batch_events")
 

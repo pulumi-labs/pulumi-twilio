@@ -50,7 +50,7 @@ func (a *EventSinkArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.SinkType, "Kind of destination: webhook, kinesis or segment. Changing it replaces the sink.")
 	an.Describe(&a.WebhookDestination, "Webhook sinks: the URL Twilio delivers events to. Required for webhook sinks. Twilio cannot change a sink's configuration, so changing it replaces the sink.")
 	an.Describe(&a.WebhookMethod, "Webhook sinks: the HTTP method, GET or POST. Twilio's default is POST. Changing it replaces the sink.")
-	an.Describe(&a.WebhookBatchEvents, "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.")
+	an.Describe(&a.WebhookBatchEvents, "Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.")
 	an.Describe(&a.KinesisArn, "Kinesis sinks: ARN of the Amazon Kinesis Data Stream. Required for kinesis sinks. Changing it replaces the sink.")
 	an.Describe(&a.KinesisRoleArn, "Kinesis sinks: ARN of the IAM role Twilio assumes to write to the stream. Required for kinesis sinks. Changing it replaces the sink.")
 	an.Describe(&a.KinesisExternalId, "Kinesis sinks: the external ID Twilio presents when assuming the role. Treated as a secret. Changing it replaces the sink.")
@@ -225,7 +225,9 @@ func (a *EventSinkArgs) refresh(o obj, imported bool) {
 			*f.dst = v
 		}
 	}
-	if b := o.optBool("sink_configuration.batch_events"); b != nil && (a.WebhookBatchEvents != nil || (imported && *b)) {
+	// Twilio accepts batch_events=true on create but reports false afterwards, so a refresh never overwrites
+	// the recorded input (that would plan a replace on every run); an import adopts only an explicit true.
+	if b := o.optBool("sink_configuration.batch_events"); b != nil && imported && *b {
 		a.WebhookBatchEvents = b
 	}
 }
@@ -244,6 +246,9 @@ func (r *EventSink) Create(ctx context.Context, req infer.CreateRequest[EventSin
 	o, err := c.do(ctx, "POST", "events", eventSinksPath, nil, form)
 	if err != nil {
 		return infer.CreateResponse[EventSinkState]{}, fmt.Errorf("create event sink: %w", err)
+	}
+	if want := derefBool(a.WebhookBatchEvents); want && !derefBool(o.optBool("sink_configuration.batch_events")) {
+		p.GetLogger(ctx).Warningf("Twilio did not report webhookBatchEvents=true for event sink %s: the API accepts the flag but returns false, so batching may not be applied. The program's value is kept so later runs do not plan a replacement.", o.str("sid"))
 	}
 	st := EventSinkState{EventSinkArgs: a, Sid: o.str("sid")}
 	eventSinkOutputs(&st, o)

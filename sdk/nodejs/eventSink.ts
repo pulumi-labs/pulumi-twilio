@@ -75,7 +75,7 @@ export class EventSink extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly status: pulumi.Output<string>;
     /**
-     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      */
     declare public readonly webhookBatchEvents: pulumi.Output<boolean | undefined>;
     /**
@@ -170,7 +170,7 @@ export interface EventSinkArgs {
      */
     sinkType: pulumi.Input<string>;
     /**
-     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+     * Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
      */
     webhookBatchEvents?: pulumi.Input<boolean | undefined>;
     /**

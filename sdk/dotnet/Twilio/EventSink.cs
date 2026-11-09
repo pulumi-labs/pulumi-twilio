@@ -77,7 +77,7 @@ namespace Pulumi.Labs.Twilio
         public Output<string> Status { get; private set; } = null!;
 
         /// <summary>
-        /// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        /// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         /// </summary>
         [Output("webhookBatchEvents")]
         public Output<bool?> WebhookBatchEvents { get; private set; } = null!;
@@ -213,7 +213,7 @@ namespace Pulumi.Labs.Twilio
         public Input<string> SinkType { get; set; } = null!;
 
         /// <summary>
-        /// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink.
+        /// Webhook sinks: whether events are delivered in batches. Changing it replaces the sink. Twilio accepts true on create but its API reports false afterwards, so the provider keeps the value you set (it never reads it back) and logs a warning at create if the API does not echo it; an import adopts only true.
         /// </summary>
         [Input("webhookBatchEvents")]
         public Input<bool>? WebhookBatchEvents { get; set; }

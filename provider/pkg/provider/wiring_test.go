@@ -145,6 +145,11 @@ func TestWiring_EveryStateEmbedsItsArgsFirst(t *testing.T) {
 		"OutgoingCallerId":            {OutgoingCallerIdArgs{}, OutgoingCallerIdState{}},
 		"EventSink":                   {EventSinkArgs{}, EventSinkState{}},
 		"EventSubscription":           {EventSubscriptionArgs{}, EventSubscriptionState{}},
+		"ConnectionPolicy":            {ConnectionPolicyArgs{}, ConnectionPolicyState{}},
+		"ConnectionPolicyTarget":      {ConnectionPolicyTargetArgs{}, ConnectionPolicyTargetState{}},
+		"ByocTrunk":                   {ByocTrunkArgs{}, ByocTrunkState{}},
+		"IpRecord":                    {IpRecordArgs{}, IpRecordState{}},
+		"SourceIpMapping":             {SourceIpMappingArgs{}, SourceIpMappingState{}},
 	}
 	for name, p := range pairs {
 		args, state := reflect.TypeOf(p[0]), reflect.TypeOf(p[1])

@@ -59,6 +59,10 @@ export class UsageTrigger extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly dateFired: pulumi.Output<string>;
     /**
+     * What triggerValue is compared with (count, usage or price) as Twilio reports it, whether or not triggerBy was set. Setting triggerBy to this value is never a change.
+     */
+    declare public /*out*/ readonly effectiveTriggerBy: pulumi.Output<string | undefined>;
+    /**
      * Human-readable name of the trigger (up to 64 characters).
      */
     declare public readonly friendlyName: pulumi.Output<string | undefined>;
@@ -75,7 +79,7 @@ export class UsageTrigger extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly sid: pulumi.Output<string>;
     /**
-     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      */
     declare public readonly triggerBy: pulumi.Output<string | undefined>;
     /**
@@ -122,6 +126,7 @@ export class UsageTrigger extends pulumi.CustomResource {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["currentValue"] = undefined /*out*/;
             resourceInputs["dateFired"] = undefined /*out*/;
+            resourceInputs["effectiveTriggerBy"] = undefined /*out*/;
             resourceInputs["ownerAccountSid"] = undefined /*out*/;
             resourceInputs["sid"] = undefined /*out*/;
             resourceInputs["usageRecordUri"] = undefined /*out*/;
@@ -132,6 +137,7 @@ export class UsageTrigger extends pulumi.CustomResource {
             resourceInputs["callbackUrl"] = undefined /*out*/;
             resourceInputs["currentValue"] = undefined /*out*/;
             resourceInputs["dateFired"] = undefined /*out*/;
+            resourceInputs["effectiveTriggerBy"] = undefined /*out*/;
             resourceInputs["friendlyName"] = undefined /*out*/;
             resourceInputs["ownerAccountSid"] = undefined /*out*/;
             resourceInputs["recurring"] = undefined /*out*/;
@@ -173,7 +179,7 @@ export interface UsageTriggerArgs {
      */
     recurring?: pulumi.Input<string | undefined>;
     /**
-     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.
+     * What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.
      */
     triggerBy?: pulumi.Input<string | undefined>;
     /**

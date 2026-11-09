@@ -57,7 +57,7 @@ func (a *UsageTriggerArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.CallbackMethod, "HTTP method for callbackUrl: GET or POST (Twilio default POST).")
 	an.Describe(&a.FriendlyName, "Human-readable name of the trigger (up to 64 characters).")
 	an.Describe(&a.Recurring, "How often the trigger resets: daily, monthly, yearly or alltime. Omit for a trigger that fires once. Changing it replaces the trigger.")
-	an.Describe(&a.TriggerBy, "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one, so after importing a trigger set this input to the imported value to avoid a replacement. Changing it replaces the trigger.")
+	an.Describe(&a.TriggerBy, "What triggerValue is compared with: count, usage or price. Twilio picks one from the category when it is omitted and always reports one (the effectiveTriggerBy output). An import leaves it unset, and a program may omit it or state the value Twilio chose without a replacement; stating a different value replaces the trigger.")
 }
 
 // UsageTriggerState is the persisted state of a UsageTrigger.
@@ -76,6 +76,8 @@ type UsageTriggerState struct {
 	UsageRecordUri string `pulumi:"usageRecordUri"`
 	// ApiVersion is the API version used for the callback.
 	ApiVersion string `pulumi:"apiVersion"`
+	// EffectiveTriggerBy is what Twilio reports the value is compared with, whether or not triggerBy was set.
+	EffectiveTriggerBy *string `pulumi:"effectiveTriggerBy,optional"`
 }
 
 func (s *UsageTriggerState) Annotate(a infer.Annotator) {
@@ -85,6 +87,8 @@ func (s *UsageTriggerState) Annotate(a infer.Annotator) {
 	a.Describe(&s.DateFired, "When the trigger last fired (RFC 2822), empty if it never has.")
 	a.Describe(&s.UsageRecordUri, "Relative URI of the usage records the trigger watches.")
 	a.Describe(&s.ApiVersion, "API version Twilio uses for the callback request.")
+	a.Describe(&s.EffectiveTriggerBy, "What triggerValue is compared with (count, usage or price) as Twilio reports it, "+
+		"whether or not triggerBy was set. Setting triggerBy to this value is never a change.")
 }
 
 func (r *UsageTrigger) Annotate(a infer.Annotator) {
@@ -96,6 +100,7 @@ var _ infer.CustomResource[UsageTriggerArgs, UsageTriggerState] = (*UsageTrigger
 var _ infer.CustomCheck[UsageTriggerArgs] = (*UsageTrigger)(nil)
 var _ infer.CustomRead[UsageTriggerArgs, UsageTriggerState] = (*UsageTrigger)(nil)
 var _ infer.CustomUpdate[UsageTriggerArgs, UsageTriggerState] = (*UsageTrigger)(nil)
+var _ infer.CustomDiff[UsageTriggerArgs, UsageTriggerState] = (*UsageTrigger)(nil)
 var _ infer.CustomDelete[UsageTriggerState] = (*UsageTrigger)(nil)
 
 var triggerRecurring = map[string]bool{"daily": true, "monthly": true, "yearly": true, "alltime": true}
@@ -125,6 +130,36 @@ func (r *UsageTrigger) Check(ctx context.Context, req infer.CheckRequest) (infer
 func triggerOutputs(st *UsageTriggerState, o obj) {
 	st.CurrentValue, st.DateFired = o.str("current_value"), o.str("date_fired")
 	st.UsageRecordUri, st.ApiVersion = o.str("usage_record_uri"), o.str("api_version")
+	st.EffectiveTriggerBy = nonEmpty(o.optStr("trigger_by"))
+}
+
+// Diff changes the callback and the name in place and replaces the trigger for anything else. Twilio always
+// reports a triggerBy (it picks one from the usage category), and an import leaves the input unset so a
+// program that never sets it plans no change; a program may also state the value Twilio chose. An unset
+// callbackMethod is POST, so stating POST is not a change either (#1679).
+func (r *UsageTrigger) Diff(_ context.Context, req infer.DiffRequest[UsageTriggerArgs, UsageTriggerState]) (infer.DiffResponse, error) {
+	o, n := req.State.UsageTriggerArgs, req.Inputs
+	detail := map[string]p.PropertyDiff{}
+	set := func(prop string, changed bool, kind p.DiffKind) {
+		if changed {
+			detail[prop] = p.PropertyDiff{Kind: kind, InputDiff: true}
+		}
+	}
+	set("callbackUrl", o.CallbackUrl != n.CallbackUrl, p.Update)
+	set("callbackMethod", !strings.EqualFold(derefOr(o.CallbackMethod, "POST"), derefOr(n.CallbackMethod, "POST")), p.Update)
+	set("friendlyName", deref(o.FriendlyName) != deref(n.FriendlyName), p.Update)
+	set("triggerValue", o.TriggerValue != n.TriggerValue && !sameNumber(o.TriggerValue, n.TriggerValue), p.UpdateReplace)
+	set("usageCategory", o.UsageCategory != n.UsageCategory, p.UpdateReplace)
+	set("accountSid", deref(o.AccountSid) != deref(n.AccountSid), p.UpdateReplace)
+	set("recurring", deref(o.Recurring) != deref(n.Recurring), p.UpdateReplace)
+	recorded := o.TriggerBy
+	if recorded == nil {
+		recorded = req.State.EffectiveTriggerBy
+	}
+	if o.TriggerBy != nil || n.TriggerBy != nil {
+		set("triggerBy", deref(recorded) != deref(n.TriggerBy) && !(o.TriggerBy == nil && n.TriggerBy == nil), p.UpdateReplace)
+	}
+	return infer.DiffResponse{HasChanges: len(detail) > 0, DetailedDiff: detail}, nil
 }
 
 func (r *UsageTrigger) Create(ctx context.Context, req infer.CreateRequest[UsageTriggerArgs]) (infer.CreateResponse[UsageTriggerState], error) {

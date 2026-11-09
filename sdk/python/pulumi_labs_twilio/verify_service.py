@@ -68,7 +68,7 @@ class VerifyServiceArgs:
         :param pulumi.Input[_builtins.bool] push_include_date: Whether push challenges include the date they were created.
         :param pulumi.Input[_builtins.bool] skip_sms_to_landlines: Whether to skip SMS to landline numbers.
         :param pulumi.Input[_builtins.int] totp_code_length: Number of digits of a TOTP code (3 to 8).
-        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         :param pulumi.Input[_builtins.int] totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
         :param pulumi.Input[_builtins.int] totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param pulumi.Input[_builtins.str] tts_name: Name spoken in voice verifications instead of friendlyName.
@@ -360,7 +360,7 @@ class VerifyServiceArgs:
     @pulumi.getter(name="totpIssuer")
     def totp_issuer(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         """
         return pulumi.get(self, "totp_issuer")
 
@@ -499,7 +499,7 @@ class VerifyService(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] push_include_date: Whether push challenges include the date they were created.
         :param pulumi.Input[_builtins.bool] skip_sms_to_landlines: Whether to skip SMS to landline numbers.
         :param pulumi.Input[_builtins.int] totp_code_length: Number of digits of a TOTP code (3 to 8).
-        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        :param pulumi.Input[_builtins.str] totp_issuer: Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         :param pulumi.Input[_builtins.int] totp_skew: Number of time steps before and after the current one in which a TOTP code is accepted.
         :param pulumi.Input[_builtins.int] totp_time_step: Seconds a TOTP code is valid (Twilio's totp.time_step).
         :param pulumi.Input[_builtins.str] tts_name: Name spoken in voice verifications instead of friendlyName.
@@ -821,7 +821,7 @@ class VerifyService(pulumi.CustomResource):
     @pulumi.getter(name="totpIssuer")
     def totp_issuer(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+        Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
         """
         return pulumi.get(self, "totp_issuer")
 

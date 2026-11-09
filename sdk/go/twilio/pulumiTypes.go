@@ -343,6 +343,292 @@ func (o ApplicationEffectivePtrOutput) VoiceUrl() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type AssignedAddOnExtension struct {
+	// Whether the extension is enabled.
+	Enabled bool `pulumi:"enabled"`
+	// The extension's friendly name.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The name of the add-on product the extension belongs to.
+	ProductName string `pulumi:"productName"`
+	// The extension SID (XF...).
+	Sid string `pulumi:"sid"`
+	// The extension's application-defined unique name.
+	UniqueName string `pulumi:"uniqueName"`
+}
+
+type AssignedAddOnExtensionOutput struct{ *pulumi.OutputState }
+
+func (AssignedAddOnExtensionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AssignedAddOnExtension)(nil)).Elem()
+}
+
+func (o AssignedAddOnExtensionOutput) ToAssignedAddOnExtensionOutput() AssignedAddOnExtensionOutput {
+	return o
+}
+
+func (o AssignedAddOnExtensionOutput) ToAssignedAddOnExtensionOutputWithContext(ctx context.Context) AssignedAddOnExtensionOutput {
+	return o
+}
+
+// Whether the extension is enabled.
+func (o AssignedAddOnExtensionOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v AssignedAddOnExtension) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// The extension's friendly name.
+func (o AssignedAddOnExtensionOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v AssignedAddOnExtension) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The name of the add-on product the extension belongs to.
+func (o AssignedAddOnExtensionOutput) ProductName() pulumi.StringOutput {
+	return o.ApplyT(func(v AssignedAddOnExtension) string { return v.ProductName }).(pulumi.StringOutput)
+}
+
+// The extension SID (XF...).
+func (o AssignedAddOnExtensionOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v AssignedAddOnExtension) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The extension's application-defined unique name.
+func (o AssignedAddOnExtensionOutput) UniqueName() pulumi.StringOutput {
+	return o.ApplyT(func(v AssignedAddOnExtension) string { return v.UniqueName }).(pulumi.StringOutput)
+}
+
+type AssignedAddOnExtensionArrayOutput struct{ *pulumi.OutputState }
+
+func (AssignedAddOnExtensionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AssignedAddOnExtension)(nil)).Elem()
+}
+
+func (o AssignedAddOnExtensionArrayOutput) ToAssignedAddOnExtensionArrayOutput() AssignedAddOnExtensionArrayOutput {
+	return o
+}
+
+func (o AssignedAddOnExtensionArrayOutput) ToAssignedAddOnExtensionArrayOutputWithContext(ctx context.Context) AssignedAddOnExtensionArrayOutput {
+	return o
+}
+
+func (o AssignedAddOnExtensionArrayOutput) Index(i pulumi.IntInput) AssignedAddOnExtensionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AssignedAddOnExtension {
+		return vs[0].([]AssignedAddOnExtension)[vs[1].(int)]
+	}).(AssignedAddOnExtensionOutput)
+}
+
+type AuthorizedConnectApp struct {
+	// SID of the account that authorized the app.
+	AccountSid string `pulumi:"accountSid"`
+	// Company name set for the Connect App.
+	CompanyName string `pulumi:"companyName"`
+	// SID (CN...) of the Connect App.
+	ConnectAppSid string `pulumi:"connectAppSid"`
+	// Description of the Connect App.
+	Description string `pulumi:"description"`
+	// Name of the Connect App.
+	FriendlyName string `pulumi:"friendlyName"`
+	// Public URL of the Connect App.
+	HomepageUrl string `pulumi:"homepageUrl"`
+	// Permissions the account granted: get-all or post-all.
+	Permissions []string `pulumi:"permissions"`
+}
+
+type AuthorizedConnectAppOutput struct{ *pulumi.OutputState }
+
+func (AuthorizedConnectAppOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuthorizedConnectApp)(nil)).Elem()
+}
+
+func (o AuthorizedConnectAppOutput) ToAuthorizedConnectAppOutput() AuthorizedConnectAppOutput {
+	return o
+}
+
+func (o AuthorizedConnectAppOutput) ToAuthorizedConnectAppOutputWithContext(ctx context.Context) AuthorizedConnectAppOutput {
+	return o
+}
+
+// SID of the account that authorized the app.
+func (o AuthorizedConnectAppOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// Company name set for the Connect App.
+func (o AuthorizedConnectAppOutput) CompanyName() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.CompanyName }).(pulumi.StringOutput)
+}
+
+// SID (CN...) of the Connect App.
+func (o AuthorizedConnectAppOutput) ConnectAppSid() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.ConnectAppSid }).(pulumi.StringOutput)
+}
+
+// Description of the Connect App.
+func (o AuthorizedConnectAppOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Name of the Connect App.
+func (o AuthorizedConnectAppOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// Public URL of the Connect App.
+func (o AuthorizedConnectAppOutput) HomepageUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) string { return v.HomepageUrl }).(pulumi.StringOutput)
+}
+
+// Permissions the account granted: get-all or post-all.
+func (o AuthorizedConnectAppOutput) Permissions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v AuthorizedConnectApp) []string { return v.Permissions }).(pulumi.StringArrayOutput)
+}
+
+type AuthorizedConnectAppArrayOutput struct{ *pulumi.OutputState }
+
+func (AuthorizedConnectAppArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuthorizedConnectApp)(nil)).Elem()
+}
+
+func (o AuthorizedConnectAppArrayOutput) ToAuthorizedConnectAppArrayOutput() AuthorizedConnectAppArrayOutput {
+	return o
+}
+
+func (o AuthorizedConnectAppArrayOutput) ToAuthorizedConnectAppArrayOutputWithContext(ctx context.Context) AuthorizedConnectAppArrayOutput {
+	return o
+}
+
+func (o AuthorizedConnectAppArrayOutput) Index(i pulumi.IntInput) AuthorizedConnectAppOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AuthorizedConnectApp {
+		return vs[0].([]AuthorizedConnectApp)[vs[1].(int)]
+	}).(AuthorizedConnectAppOutput)
+}
+
+type AvailablePhoneNumber struct {
+	// Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported.
+	AddressRequirements string `pulumi:"addressRequirements"`
+	// Whether the number is new to the Twilio platform.
+	Beta bool `pulumi:"beta"`
+	// What the number can do.
+	Capabilities PhoneNumberCapabilities `pulumi:"capabilities"`
+	// A formatted version of the number.
+	FriendlyName string `pulumi:"friendlyName"`
+	// ISO country code of the number.
+	IsoCountry string `pulumi:"isoCountry"`
+	// LATA of the number, when Twilio reports one.
+	Lata *string `pulumi:"lata"`
+	// Latitude of the number's location, when Twilio reports one.
+	Latitude *float64 `pulumi:"latitude"`
+	// City or locality of the number, when Twilio reports one.
+	Locality *string `pulumi:"locality"`
+	// Longitude of the number's location, when Twilio reports one.
+	Longitude *float64 `pulumi:"longitude"`
+	// The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it.
+	PhoneNumber string `pulumi:"phoneNumber"`
+	// Postal or ZIP code of the number, when Twilio reports one.
+	PostalCode *string `pulumi:"postalCode"`
+	// Rate center of the number, when Twilio reports one.
+	RateCenter *string `pulumi:"rateCenter"`
+	// State or province abbreviation of the number, when Twilio reports one.
+	Region *string `pulumi:"region"`
+}
+
+type AvailablePhoneNumberOutput struct{ *pulumi.OutputState }
+
+func (AvailablePhoneNumberOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AvailablePhoneNumber)(nil)).Elem()
+}
+
+func (o AvailablePhoneNumberOutput) ToAvailablePhoneNumberOutput() AvailablePhoneNumberOutput {
+	return o
+}
+
+func (o AvailablePhoneNumberOutput) ToAvailablePhoneNumberOutputWithContext(ctx context.Context) AvailablePhoneNumberOutput {
+	return o
+}
+
+// Address Twilio needs on file to buy the number: none, any, local or foreign. Empty when not reported.
+func (o AvailablePhoneNumberOutput) AddressRequirements() pulumi.StringOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) string { return v.AddressRequirements }).(pulumi.StringOutput)
+}
+
+// Whether the number is new to the Twilio platform.
+func (o AvailablePhoneNumberOutput) Beta() pulumi.BoolOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) bool { return v.Beta }).(pulumi.BoolOutput)
+}
+
+// What the number can do.
+func (o AvailablePhoneNumberOutput) Capabilities() PhoneNumberCapabilitiesOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) PhoneNumberCapabilities { return v.Capabilities }).(PhoneNumberCapabilitiesOutput)
+}
+
+// A formatted version of the number.
+func (o AvailablePhoneNumberOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// ISO country code of the number.
+func (o AvailablePhoneNumberOutput) IsoCountry() pulumi.StringOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) string { return v.IsoCountry }).(pulumi.StringOutput)
+}
+
+// LATA of the number, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) Lata() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *string { return v.Lata }).(pulumi.StringPtrOutput)
+}
+
+// Latitude of the number's location, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) Latitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *float64 { return v.Latitude }).(pulumi.Float64PtrOutput)
+}
+
+// City or locality of the number, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) Locality() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *string { return v.Locality }).(pulumi.StringPtrOutput)
+}
+
+// Longitude of the number's location, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) Longitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *float64 { return v.Longitude }).(pulumi.Float64PtrOutput)
+}
+
+// The number in E.164 format. Use it as IncomingPhoneNumber.phoneNumber to buy it.
+func (o AvailablePhoneNumberOutput) PhoneNumber() pulumi.StringOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) string { return v.PhoneNumber }).(pulumi.StringOutput)
+}
+
+// Postal or ZIP code of the number, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) PostalCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *string { return v.PostalCode }).(pulumi.StringPtrOutput)
+}
+
+// Rate center of the number, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) RateCenter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *string { return v.RateCenter }).(pulumi.StringPtrOutput)
+}
+
+// State or province abbreviation of the number, when Twilio reports one.
+func (o AvailablePhoneNumberOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AvailablePhoneNumber) *string { return v.Region }).(pulumi.StringPtrOutput)
+}
+
+type AvailablePhoneNumberArrayOutput struct{ *pulumi.OutputState }
+
+func (AvailablePhoneNumberArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AvailablePhoneNumber)(nil)).Elem()
+}
+
+func (o AvailablePhoneNumberArrayOutput) ToAvailablePhoneNumberArrayOutput() AvailablePhoneNumberArrayOutput {
+	return o
+}
+
+func (o AvailablePhoneNumberArrayOutput) ToAvailablePhoneNumberArrayOutputWithContext(ctx context.Context) AvailablePhoneNumberArrayOutput {
+	return o
+}
+
+func (o AvailablePhoneNumberArrayOutput) Index(i pulumi.IntInput) AvailablePhoneNumberOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AvailablePhoneNumber {
+		return vs[0].([]AvailablePhoneNumber)[vs[1].(int)]
+	}).(AvailablePhoneNumberOutput)
+}
+
 type ConnectAppEffective struct {
 	// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -554,6 +840,64 @@ func (o ConnectAppEffectivePtrOutput) Permissions() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+type EventSchemaVersion struct {
+	// When the version was published (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// URL of the raw JSON schema document for the version.
+	Raw string `pulumi:"raw"`
+	// The version number.
+	SchemaVersion int `pulumi:"schemaVersion"`
+}
+
+type EventSchemaVersionOutput struct{ *pulumi.OutputState }
+
+func (EventSchemaVersionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventSchemaVersion)(nil)).Elem()
+}
+
+func (o EventSchemaVersionOutput) ToEventSchemaVersionOutput() EventSchemaVersionOutput {
+	return o
+}
+
+func (o EventSchemaVersionOutput) ToEventSchemaVersionOutputWithContext(ctx context.Context) EventSchemaVersionOutput {
+	return o
+}
+
+// When the version was published (ISO 8601).
+func (o EventSchemaVersionOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v EventSchemaVersion) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// URL of the raw JSON schema document for the version.
+func (o EventSchemaVersionOutput) Raw() pulumi.StringOutput {
+	return o.ApplyT(func(v EventSchemaVersion) string { return v.Raw }).(pulumi.StringOutput)
+}
+
+// The version number.
+func (o EventSchemaVersionOutput) SchemaVersion() pulumi.IntOutput {
+	return o.ApplyT(func(v EventSchemaVersion) int { return v.SchemaVersion }).(pulumi.IntOutput)
+}
+
+type EventSchemaVersionArrayOutput struct{ *pulumi.OutputState }
+
+func (EventSchemaVersionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventSchemaVersion)(nil)).Elem()
+}
+
+func (o EventSchemaVersionArrayOutput) ToEventSchemaVersionArrayOutput() EventSchemaVersionArrayOutput {
+	return o
+}
+
+func (o EventSchemaVersionArrayOutput) ToEventSchemaVersionArrayOutputWithContext(ctx context.Context) EventSchemaVersionArrayOutput {
+	return o
+}
+
+func (o EventSchemaVersionArrayOutput) Index(i pulumi.IntInput) EventSchemaVersionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventSchemaVersion {
+		return vs[0].([]EventSchemaVersion)[vs[1].(int)]
+	}).(EventSchemaVersionOutput)
+}
+
 type EventSubscriptionType struct {
 	// Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).
 	SchemaVersion *int `pulumi:"schemaVersion"`
@@ -658,6 +1002,92 @@ func (o EventSubscriptionTypeArrayOutput) Index(i pulumi.IntInput) EventSubscrip
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventSubscriptionType {
 		return vs[0].([]EventSubscriptionType)[vs[1].(int)]
 	}).(EventSubscriptionTypeOutput)
+}
+
+type EventType struct {
+	// When the event type was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the event type was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// Human-readable description of the event type.
+	Description string `pulumi:"description"`
+	// Link to the documentation or changelog for the event type.
+	DocumentationUrl string `pulumi:"documentationUrl"`
+	// ID of the schema the event type follows. See getEventSchema.
+	SchemaId string `pulumi:"schemaId"`
+	// Whether the event type can be used, for example available or deprecated.
+	Status string `pulumi:"status"`
+	// The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.
+	Type string `pulumi:"type"`
+}
+
+type EventTypeOutput struct{ *pulumi.OutputState }
+
+func (EventTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventType)(nil)).Elem()
+}
+
+func (o EventTypeOutput) ToEventTypeOutput() EventTypeOutput {
+	return o
+}
+
+func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) EventTypeOutput {
+	return o
+}
+
+// When the event type was created (ISO 8601).
+func (o EventTypeOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the event type was last updated (ISO 8601).
+func (o EventTypeOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// Human-readable description of the event type.
+func (o EventTypeOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Link to the documentation or changelog for the event type.
+func (o EventTypeOutput) DocumentationUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.DocumentationUrl }).(pulumi.StringOutput)
+}
+
+// ID of the schema the event type follows. See getEventSchema.
+func (o EventTypeOutput) SchemaId() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.SchemaId }).(pulumi.StringOutput)
+}
+
+// Whether the event type can be used, for example available or deprecated.
+func (o EventTypeOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The event type, for example com.twilio.messaging.message.delivered. Use it in EventSubscription.types.
+func (o EventTypeOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type EventTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (EventTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventType)(nil)).Elem()
+}
+
+func (o EventTypeArrayOutput) ToEventTypeArrayOutput() EventTypeArrayOutput {
+	return o
+}
+
+func (o EventTypeArrayOutput) ToEventTypeArrayOutputWithContext(ctx context.Context) EventTypeArrayOutput {
+	return o
+}
+
+func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventType {
+		return vs[0].([]EventType)[vs[1].(int)]
+	}).(EventTypeOutput)
 }
 
 type IncomingPhoneNumberEffective struct {
@@ -1548,6 +1978,51 @@ func (o OutgoingCallerIdEffectivePtrOutput) PhoneNumber() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
+type PhoneNumberCapabilities struct {
+	// Whether the number supports fax.
+	Fax bool `pulumi:"fax"`
+	// Whether the number supports MMS.
+	Mms bool `pulumi:"mms"`
+	// Whether the number supports SMS.
+	Sms bool `pulumi:"sms"`
+	// Whether the number supports voice calls.
+	Voice bool `pulumi:"voice"`
+}
+
+type PhoneNumberCapabilitiesOutput struct{ *pulumi.OutputState }
+
+func (PhoneNumberCapabilitiesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PhoneNumberCapabilities)(nil)).Elem()
+}
+
+func (o PhoneNumberCapabilitiesOutput) ToPhoneNumberCapabilitiesOutput() PhoneNumberCapabilitiesOutput {
+	return o
+}
+
+func (o PhoneNumberCapabilitiesOutput) ToPhoneNumberCapabilitiesOutputWithContext(ctx context.Context) PhoneNumberCapabilitiesOutput {
+	return o
+}
+
+// Whether the number supports fax.
+func (o PhoneNumberCapabilitiesOutput) Fax() pulumi.BoolOutput {
+	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Fax }).(pulumi.BoolOutput)
+}
+
+// Whether the number supports MMS.
+func (o PhoneNumberCapabilitiesOutput) Mms() pulumi.BoolOutput {
+	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Mms }).(pulumi.BoolOutput)
+}
+
+// Whether the number supports SMS.
+func (o PhoneNumberCapabilitiesOutput) Sms() pulumi.BoolOutput {
+	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Sms }).(pulumi.BoolOutput)
+}
+
+// Whether the number supports voice calls.
+func (o PhoneNumberCapabilitiesOutput) Voice() pulumi.BoolOutput {
+	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Voice }).(pulumi.BoolOutput)
+}
+
 type ShortCodeEffective struct {
 	// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -1953,6 +2428,127 @@ func (o TrunkEffectivePtrOutput) TransferMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type UsageRecord struct {
+	// SID of the account the usage belongs to.
+	AccountSid string `pulumi:"accountSid"`
+	// Timestamp the records are up to date as of.
+	AsOf string `pulumi:"asOf"`
+	// The usage category, for example calls.
+	Category string `pulumi:"category"`
+	// Number of usage events, as a decimal string.
+	Count string `pulumi:"count"`
+	// Unit of count, for example calls.
+	CountUnit string `pulumi:"countUnit"`
+	// Plain-language description of the category.
+	Description string `pulumi:"description"`
+	// Last date the record covers (YYYY-MM-DD).
+	EndDate string `pulumi:"endDate"`
+	// Total price as a decimal string, kept as Twilio sends it.
+	Price string `pulumi:"price"`
+	// ISO 4217 currency of price.
+	PriceUnit string `pulumi:"priceUnit"`
+	// First date the record covers (YYYY-MM-DD).
+	StartDate string `pulumi:"startDate"`
+	// Amount used, as a decimal string.
+	Usage string `pulumi:"usage"`
+	// Unit of usage, for example minutes.
+	UsageUnit string `pulumi:"usageUnit"`
+}
+
+type UsageRecordOutput struct{ *pulumi.OutputState }
+
+func (UsageRecordOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UsageRecord)(nil)).Elem()
+}
+
+func (o UsageRecordOutput) ToUsageRecordOutput() UsageRecordOutput {
+	return o
+}
+
+func (o UsageRecordOutput) ToUsageRecordOutputWithContext(ctx context.Context) UsageRecordOutput {
+	return o
+}
+
+// SID of the account the usage belongs to.
+func (o UsageRecordOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// Timestamp the records are up to date as of.
+func (o UsageRecordOutput) AsOf() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.AsOf }).(pulumi.StringOutput)
+}
+
+// The usage category, for example calls.
+func (o UsageRecordOutput) Category() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.Category }).(pulumi.StringOutput)
+}
+
+// Number of usage events, as a decimal string.
+func (o UsageRecordOutput) Count() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.Count }).(pulumi.StringOutput)
+}
+
+// Unit of count, for example calls.
+func (o UsageRecordOutput) CountUnit() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.CountUnit }).(pulumi.StringOutput)
+}
+
+// Plain-language description of the category.
+func (o UsageRecordOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Last date the record covers (YYYY-MM-DD).
+func (o UsageRecordOutput) EndDate() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.EndDate }).(pulumi.StringOutput)
+}
+
+// Total price as a decimal string, kept as Twilio sends it.
+func (o UsageRecordOutput) Price() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.Price }).(pulumi.StringOutput)
+}
+
+// ISO 4217 currency of price.
+func (o UsageRecordOutput) PriceUnit() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.PriceUnit }).(pulumi.StringOutput)
+}
+
+// First date the record covers (YYYY-MM-DD).
+func (o UsageRecordOutput) StartDate() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.StartDate }).(pulumi.StringOutput)
+}
+
+// Amount used, as a decimal string.
+func (o UsageRecordOutput) Usage() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.Usage }).(pulumi.StringOutput)
+}
+
+// Unit of usage, for example minutes.
+func (o UsageRecordOutput) UsageUnit() pulumi.StringOutput {
+	return o.ApplyT(func(v UsageRecord) string { return v.UsageUnit }).(pulumi.StringOutput)
+}
+
+type UsageRecordArrayOutput struct{ *pulumi.OutputState }
+
+func (UsageRecordArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UsageRecord)(nil)).Elem()
+}
+
+func (o UsageRecordArrayOutput) ToUsageRecordArrayOutput() UsageRecordArrayOutput {
+	return o
+}
+
+func (o UsageRecordArrayOutput) ToUsageRecordArrayOutputWithContext(ctx context.Context) UsageRecordArrayOutput {
+	return o
+}
+
+func (o UsageRecordArrayOutput) Index(i pulumi.IntInput) UsageRecordOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UsageRecord {
+		return vs[0].([]UsageRecord)[vs[1].(int)]
+	}).(UsageRecordOutput)
+}
+
 type VerifyServiceEffective struct {
 	// Length of the verification code, 4 to 10 digits (Twilio default 6).
 	CodeLength *int `pulumi:"codeLength"`
@@ -1992,7 +2588,7 @@ type VerifyServiceEffective struct {
 	SkipSmsToLandlines *bool `pulumi:"skipSmsToLandlines"`
 	// Number of digits of a TOTP code (3 to 8).
 	TotpCodeLength *int `pulumi:"totpCodeLength"`
-	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+	// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 	TotpIssuer *string `pulumi:"totpIssuer"`
 	// Number of time steps before and after the current one in which a TOTP code is accepted.
 	TotpSkew *int `pulumi:"totpSkew"`
@@ -2117,7 +2713,7 @@ func (o VerifyServiceEffectiveOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *int { return v.TotpCodeLength }).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 func (o VerifyServiceEffectiveOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VerifyServiceEffective) *string { return v.TotpIssuer }).(pulumi.StringPtrOutput)
 }
@@ -2366,7 +2962,7 @@ func (o VerifyServiceEffectivePtrOutput) TotpCodeLength() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.
+// Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.
 func (o VerifyServiceEffectivePtrOutput) TotpIssuer() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VerifyServiceEffective) *string {
 		if v == nil {
@@ -2436,25 +3032,98 @@ func (o VerifyServiceEffectivePtrOutput) WhatsappMsgServiceSid() pulumi.StringPt
 	}).(pulumi.StringPtrOutput)
 }
 
+type VerifyTemplate struct {
+	// Channels that support the template (sms, voice).
+	Channels []string `pulumi:"channels"`
+	// Name of the template.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The template SID (HJ...). Use it as VerifyService.defaultTemplateSid.
+	Sid string `pulumi:"sid"`
+}
+
+type VerifyTemplateOutput struct{ *pulumi.OutputState }
+
+func (VerifyTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VerifyTemplate)(nil)).Elem()
+}
+
+func (o VerifyTemplateOutput) ToVerifyTemplateOutput() VerifyTemplateOutput {
+	return o
+}
+
+func (o VerifyTemplateOutput) ToVerifyTemplateOutputWithContext(ctx context.Context) VerifyTemplateOutput {
+	return o
+}
+
+// Channels that support the template (sms, voice).
+func (o VerifyTemplateOutput) Channels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v VerifyTemplate) []string { return v.Channels }).(pulumi.StringArrayOutput)
+}
+
+// Name of the template.
+func (o VerifyTemplateOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v VerifyTemplate) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The template SID (HJ...). Use it as VerifyService.defaultTemplateSid.
+func (o VerifyTemplateOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v VerifyTemplate) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type VerifyTemplateArrayOutput struct{ *pulumi.OutputState }
+
+func (VerifyTemplateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VerifyTemplate)(nil)).Elem()
+}
+
+func (o VerifyTemplateArrayOutput) ToVerifyTemplateArrayOutput() VerifyTemplateArrayOutput {
+	return o
+}
+
+func (o VerifyTemplateArrayOutput) ToVerifyTemplateArrayOutputWithContext(ctx context.Context) VerifyTemplateArrayOutput {
+	return o
+}
+
+func (o VerifyTemplateArrayOutput) Index(i pulumi.IntInput) VerifyTemplateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VerifyTemplate {
+		return vs[0].([]VerifyTemplate)[vs[1].(int)]
+	}).(VerifyTemplateOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
 	pulumi.RegisterOutputType(ApplicationEffectiveOutput{})
 	pulumi.RegisterOutputType(ApplicationEffectivePtrOutput{})
+	pulumi.RegisterOutputType(AssignedAddOnExtensionOutput{})
+	pulumi.RegisterOutputType(AssignedAddOnExtensionArrayOutput{})
+	pulumi.RegisterOutputType(AuthorizedConnectAppOutput{})
+	pulumi.RegisterOutputType(AuthorizedConnectAppArrayOutput{})
+	pulumi.RegisterOutputType(AvailablePhoneNumberOutput{})
+	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
+	pulumi.RegisterOutputType(EventSchemaVersionOutput{})
+	pulumi.RegisterOutputType(EventSchemaVersionArrayOutput{})
 	pulumi.RegisterOutputType(EventSubscriptionTypeOutput{})
 	pulumi.RegisterOutputType(EventSubscriptionTypeArrayOutput{})
+	pulumi.RegisterOutputType(EventTypeOutput{})
+	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectiveOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectivePtrOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectivePtrOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
+	pulumi.RegisterOutputType(PhoneNumberCapabilitiesOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
 	pulumi.RegisterOutputType(TrunkEffectiveOutput{})
 	pulumi.RegisterOutputType(TrunkEffectivePtrOutput{})
+	pulumi.RegisterOutputType(UsageRecordOutput{})
+	pulumi.RegisterOutputType(UsageRecordArrayOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectivePtrOutput{})
+	pulumi.RegisterOutputType(VerifyTemplateOutput{})
+	pulumi.RegisterOutputType(VerifyTemplateArrayOutput{})
 }

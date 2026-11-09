@@ -154,7 +154,7 @@ func isNotFound(err error) bool {
 	return ok && ae.Status == http.StatusNotFound
 }
 
-// host returns the base URL for a Twilio product (api, messaging, verify, iam).
+// host returns the base URL for a Twilio product (api, messaging, verify, iam, events, trunking, serverless).
 func (c *Client) host(product string) string {
 	if c.baseURL != "" {
 		return c.baseURL + "/" + product

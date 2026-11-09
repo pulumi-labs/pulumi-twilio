@@ -20,10 +20,25 @@ export type Application = import("./application").Application;
 export const Application: typeof import("./application").Application = null as any;
 utilities.lazyLoad(exports, ["Application"], () => require("./application"));
 
+export { ByocTrunkArgs } from "./byocTrunk";
+export type ByocTrunk = import("./byocTrunk").ByocTrunk;
+export const ByocTrunk: typeof import("./byocTrunk").ByocTrunk = null as any;
+utilities.lazyLoad(exports, ["ByocTrunk"], () => require("./byocTrunk"));
+
 export { ConnectAppArgs } from "./connectApp";
 export type ConnectApp = import("./connectApp").ConnectApp;
 export const ConnectApp: typeof import("./connectApp").ConnectApp = null as any;
 utilities.lazyLoad(exports, ["ConnectApp"], () => require("./connectApp"));
+
+export { ConnectionPolicyArgs } from "./connectionPolicy";
+export type ConnectionPolicy = import("./connectionPolicy").ConnectionPolicy;
+export const ConnectionPolicy: typeof import("./connectionPolicy").ConnectionPolicy = null as any;
+utilities.lazyLoad(exports, ["ConnectionPolicy"], () => require("./connectionPolicy"));
+
+export { ConnectionPolicyTargetArgs } from "./connectionPolicyTarget";
+export type ConnectionPolicyTarget = import("./connectionPolicyTarget").ConnectionPolicyTarget;
+export const ConnectionPolicyTarget: typeof import("./connectionPolicyTarget").ConnectionPolicyTarget = null as any;
+utilities.lazyLoad(exports, ["ConnectionPolicyTarget"], () => require("./connectionPolicyTarget"));
 
 export { EventSinkArgs } from "./eventSink";
 export type EventSink = import("./eventSink").EventSink;
@@ -55,15 +70,50 @@ export const getApplication: typeof import("./getApplication").getApplication = 
 export const getApplicationOutput: typeof import("./getApplication").getApplicationOutput = null as any;
 utilities.lazyLoad(exports, ["getApplication","getApplicationOutput"], () => require("./getApplication"));
 
+export { GetAuthorizedConnectAppArgs, GetAuthorizedConnectAppResult, GetAuthorizedConnectAppOutputArgs } from "./getAuthorizedConnectApp";
+export const getAuthorizedConnectApp: typeof import("./getAuthorizedConnectApp").getAuthorizedConnectApp = null as any;
+export const getAuthorizedConnectAppOutput: typeof import("./getAuthorizedConnectApp").getAuthorizedConnectAppOutput = null as any;
+utilities.lazyLoad(exports, ["getAuthorizedConnectApp","getAuthorizedConnectAppOutput"], () => require("./getAuthorizedConnectApp"));
+
+export { GetAuthorizedConnectAppsArgs, GetAuthorizedConnectAppsResult, GetAuthorizedConnectAppsOutputArgs } from "./getAuthorizedConnectApps";
+export const getAuthorizedConnectApps: typeof import("./getAuthorizedConnectApps").getAuthorizedConnectApps = null as any;
+export const getAuthorizedConnectAppsOutput: typeof import("./getAuthorizedConnectApps").getAuthorizedConnectAppsOutput = null as any;
+utilities.lazyLoad(exports, ["getAuthorizedConnectApps","getAuthorizedConnectAppsOutput"], () => require("./getAuthorizedConnectApps"));
+
+export { GetAvailablePhoneNumbersArgs, GetAvailablePhoneNumbersResult, GetAvailablePhoneNumbersOutputArgs } from "./getAvailablePhoneNumbers";
+export const getAvailablePhoneNumbers: typeof import("./getAvailablePhoneNumbers").getAvailablePhoneNumbers = null as any;
+export const getAvailablePhoneNumbersOutput: typeof import("./getAvailablePhoneNumbers").getAvailablePhoneNumbersOutput = null as any;
+utilities.lazyLoad(exports, ["getAvailablePhoneNumbers","getAvailablePhoneNumbersOutput"], () => require("./getAvailablePhoneNumbers"));
+
 export { GetBalanceArgs, GetBalanceResult, GetBalanceOutputArgs } from "./getBalance";
 export const getBalance: typeof import("./getBalance").getBalance = null as any;
 export const getBalanceOutput: typeof import("./getBalance").getBalanceOutput = null as any;
 utilities.lazyLoad(exports, ["getBalance","getBalanceOutput"], () => require("./getBalance"));
 
+export { GetByocTrunkArgs, GetByocTrunkResult, GetByocTrunkOutputArgs } from "./getByocTrunk";
+export const getByocTrunk: typeof import("./getByocTrunk").getByocTrunk = null as any;
+export const getByocTrunkOutput: typeof import("./getByocTrunk").getByocTrunkOutput = null as any;
+utilities.lazyLoad(exports, ["getByocTrunk","getByocTrunkOutput"], () => require("./getByocTrunk"));
+
 export { GetConnectAppArgs, GetConnectAppResult, GetConnectAppOutputArgs } from "./getConnectApp";
 export const getConnectApp: typeof import("./getConnectApp").getConnectApp = null as any;
 export const getConnectAppOutput: typeof import("./getConnectApp").getConnectAppOutput = null as any;
 utilities.lazyLoad(exports, ["getConnectApp","getConnectAppOutput"], () => require("./getConnectApp"));
+
+export { GetConnectionPolicyArgs, GetConnectionPolicyResult, GetConnectionPolicyOutputArgs } from "./getConnectionPolicy";
+export const getConnectionPolicy: typeof import("./getConnectionPolicy").getConnectionPolicy = null as any;
+export const getConnectionPolicyOutput: typeof import("./getConnectionPolicy").getConnectionPolicyOutput = null as any;
+utilities.lazyLoad(exports, ["getConnectionPolicy","getConnectionPolicyOutput"], () => require("./getConnectionPolicy"));
+
+export { GetConnectionPolicyTargetArgs, GetConnectionPolicyTargetResult, GetConnectionPolicyTargetOutputArgs } from "./getConnectionPolicyTarget";
+export const getConnectionPolicyTarget: typeof import("./getConnectionPolicyTarget").getConnectionPolicyTarget = null as any;
+export const getConnectionPolicyTargetOutput: typeof import("./getConnectionPolicyTarget").getConnectionPolicyTargetOutput = null as any;
+utilities.lazyLoad(exports, ["getConnectionPolicyTarget","getConnectionPolicyTargetOutput"], () => require("./getConnectionPolicyTarget"));
+
+export { GetEventSchemaArgs, GetEventSchemaResult, GetEventSchemaOutputArgs } from "./getEventSchema";
+export const getEventSchema: typeof import("./getEventSchema").getEventSchema = null as any;
+export const getEventSchemaOutput: typeof import("./getEventSchema").getEventSchemaOutput = null as any;
+utilities.lazyLoad(exports, ["getEventSchema","getEventSchemaOutput"], () => require("./getEventSchema"));
 
 export { GetEventSinkArgs, GetEventSinkResult, GetEventSinkOutputArgs } from "./getEventSink";
 export const getEventSink: typeof import("./getEventSink").getEventSink = null as any;
@@ -75,10 +125,30 @@ export const getEventSubscription: typeof import("./getEventSubscription").getEv
 export const getEventSubscriptionOutput: typeof import("./getEventSubscription").getEventSubscriptionOutput = null as any;
 utilities.lazyLoad(exports, ["getEventSubscription","getEventSubscriptionOutput"], () => require("./getEventSubscription"));
 
+export { GetEventTypeArgs, GetEventTypeResult, GetEventTypeOutputArgs } from "./getEventType";
+export const getEventType: typeof import("./getEventType").getEventType = null as any;
+export const getEventTypeOutput: typeof import("./getEventType").getEventTypeOutput = null as any;
+utilities.lazyLoad(exports, ["getEventType","getEventTypeOutput"], () => require("./getEventType"));
+
+export { GetEventTypesArgs, GetEventTypesResult, GetEventTypesOutputArgs } from "./getEventTypes";
+export const getEventTypes: typeof import("./getEventTypes").getEventTypes = null as any;
+export const getEventTypesOutput: typeof import("./getEventTypes").getEventTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getEventTypes","getEventTypesOutput"], () => require("./getEventTypes"));
+
 export { GetIncomingPhoneNumberArgs, GetIncomingPhoneNumberResult, GetIncomingPhoneNumberOutputArgs } from "./getIncomingPhoneNumber";
 export const getIncomingPhoneNumber: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumber = null as any;
 export const getIncomingPhoneNumberOutput: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumberOutput = null as any;
 utilities.lazyLoad(exports, ["getIncomingPhoneNumber","getIncomingPhoneNumberOutput"], () => require("./getIncomingPhoneNumber"));
+
+export { GetIncomingPhoneNumberAssignedAddOnArgs, GetIncomingPhoneNumberAssignedAddOnResult, GetIncomingPhoneNumberAssignedAddOnOutputArgs } from "./getIncomingPhoneNumberAssignedAddOn";
+export const getIncomingPhoneNumberAssignedAddOn: typeof import("./getIncomingPhoneNumberAssignedAddOn").getIncomingPhoneNumberAssignedAddOn = null as any;
+export const getIncomingPhoneNumberAssignedAddOnOutput: typeof import("./getIncomingPhoneNumberAssignedAddOn").getIncomingPhoneNumberAssignedAddOnOutput = null as any;
+utilities.lazyLoad(exports, ["getIncomingPhoneNumberAssignedAddOn","getIncomingPhoneNumberAssignedAddOnOutput"], () => require("./getIncomingPhoneNumberAssignedAddOn"));
+
+export { GetIpRecordArgs, GetIpRecordResult, GetIpRecordOutputArgs } from "./getIpRecord";
+export const getIpRecord: typeof import("./getIpRecord").getIpRecord = null as any;
+export const getIpRecordOutput: typeof import("./getIpRecord").getIpRecordOutput = null as any;
+utilities.lazyLoad(exports, ["getIpRecord","getIpRecordOutput"], () => require("./getIpRecord"));
 
 export { GetMessagingServiceArgs, GetMessagingServiceResult, GetMessagingServiceOutputArgs } from "./getMessagingService";
 export const getMessagingService: typeof import("./getMessagingService").getMessagingService = null as any;
@@ -99,6 +169,31 @@ export { GetQueueArgs, GetQueueResult, GetQueueOutputArgs } from "./getQueue";
 export const getQueue: typeof import("./getQueue").getQueue = null as any;
 export const getQueueOutput: typeof import("./getQueue").getQueueOutput = null as any;
 utilities.lazyLoad(exports, ["getQueue","getQueueOutput"], () => require("./getQueue"));
+
+export { GetServerlessAssetArgs, GetServerlessAssetResult, GetServerlessAssetOutputArgs } from "./getServerlessAsset";
+export const getServerlessAsset: typeof import("./getServerlessAsset").getServerlessAsset = null as any;
+export const getServerlessAssetOutput: typeof import("./getServerlessAsset").getServerlessAssetOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessAsset","getServerlessAssetOutput"], () => require("./getServerlessAsset"));
+
+export { GetServerlessEnvironmentArgs, GetServerlessEnvironmentResult, GetServerlessEnvironmentOutputArgs } from "./getServerlessEnvironment";
+export const getServerlessEnvironment: typeof import("./getServerlessEnvironment").getServerlessEnvironment = null as any;
+export const getServerlessEnvironmentOutput: typeof import("./getServerlessEnvironment").getServerlessEnvironmentOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessEnvironment","getServerlessEnvironmentOutput"], () => require("./getServerlessEnvironment"));
+
+export { GetServerlessFunctionArgs, GetServerlessFunctionResult, GetServerlessFunctionOutputArgs } from "./getServerlessFunction";
+export const getServerlessFunction: typeof import("./getServerlessFunction").getServerlessFunction = null as any;
+export const getServerlessFunctionOutput: typeof import("./getServerlessFunction").getServerlessFunctionOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessFunction","getServerlessFunctionOutput"], () => require("./getServerlessFunction"));
+
+export { GetServerlessServiceArgs, GetServerlessServiceResult, GetServerlessServiceOutputArgs } from "./getServerlessService";
+export const getServerlessService: typeof import("./getServerlessService").getServerlessService = null as any;
+export const getServerlessServiceOutput: typeof import("./getServerlessService").getServerlessServiceOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessService","getServerlessServiceOutput"], () => require("./getServerlessService"));
+
+export { GetServerlessVariableArgs, GetServerlessVariableResult, GetServerlessVariableOutputArgs } from "./getServerlessVariable";
+export const getServerlessVariable: typeof import("./getServerlessVariable").getServerlessVariable = null as any;
+export const getServerlessVariableOutput: typeof import("./getServerlessVariable").getServerlessVariableOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessVariable","getServerlessVariableOutput"], () => require("./getServerlessVariable"));
 
 export { GetShortCodeArgs, GetShortCodeResult, GetShortCodeOutputArgs } from "./getShortCode";
 export const getShortCode: typeof import("./getShortCode").getShortCode = null as any;
@@ -145,6 +240,11 @@ export const getSipIpAddress: typeof import("./getSipIpAddress").getSipIpAddress
 export const getSipIpAddressOutput: typeof import("./getSipIpAddress").getSipIpAddressOutput = null as any;
 utilities.lazyLoad(exports, ["getSipIpAddress","getSipIpAddressOutput"], () => require("./getSipIpAddress"));
 
+export { GetSourceIpMappingArgs, GetSourceIpMappingResult, GetSourceIpMappingOutputArgs } from "./getSourceIpMapping";
+export const getSourceIpMapping: typeof import("./getSourceIpMapping").getSourceIpMapping = null as any;
+export const getSourceIpMappingOutput: typeof import("./getSourceIpMapping").getSourceIpMappingOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceIpMapping","getSourceIpMappingOutput"], () => require("./getSourceIpMapping"));
+
 export { GetSubaccountArgs, GetSubaccountResult, GetSubaccountOutputArgs } from "./getSubaccount";
 export const getSubaccount: typeof import("./getSubaccount").getSubaccount = null as any;
 export const getSubaccountOutput: typeof import("./getSubaccount").getSubaccountOutput = null as any;
@@ -170,20 +270,65 @@ export const getTrunkOriginationUrl: typeof import("./getTrunkOriginationUrl").g
 export const getTrunkOriginationUrlOutput: typeof import("./getTrunkOriginationUrl").getTrunkOriginationUrlOutput = null as any;
 utilities.lazyLoad(exports, ["getTrunkOriginationUrl","getTrunkOriginationUrlOutput"], () => require("./getTrunkOriginationUrl"));
 
+export { GetUsageRecordsArgs, GetUsageRecordsResult, GetUsageRecordsOutputArgs } from "./getUsageRecords";
+export const getUsageRecords: typeof import("./getUsageRecords").getUsageRecords = null as any;
+export const getUsageRecordsOutput: typeof import("./getUsageRecords").getUsageRecordsOutput = null as any;
+utilities.lazyLoad(exports, ["getUsageRecords","getUsageRecordsOutput"], () => require("./getUsageRecords"));
+
 export { GetUsageTriggerArgs, GetUsageTriggerResult, GetUsageTriggerOutputArgs } from "./getUsageTrigger";
 export const getUsageTrigger: typeof import("./getUsageTrigger").getUsageTrigger = null as any;
 export const getUsageTriggerOutput: typeof import("./getUsageTrigger").getUsageTriggerOutput = null as any;
 utilities.lazyLoad(exports, ["getUsageTrigger","getUsageTriggerOutput"], () => require("./getUsageTrigger"));
+
+export { GetVerifyMessagingConfigurationArgs, GetVerifyMessagingConfigurationResult, GetVerifyMessagingConfigurationOutputArgs } from "./getVerifyMessagingConfiguration";
+export const getVerifyMessagingConfiguration: typeof import("./getVerifyMessagingConfiguration").getVerifyMessagingConfiguration = null as any;
+export const getVerifyMessagingConfigurationOutput: typeof import("./getVerifyMessagingConfiguration").getVerifyMessagingConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifyMessagingConfiguration","getVerifyMessagingConfigurationOutput"], () => require("./getVerifyMessagingConfiguration"));
+
+export { GetVerifyRateLimitArgs, GetVerifyRateLimitResult, GetVerifyRateLimitOutputArgs } from "./getVerifyRateLimit";
+export const getVerifyRateLimit: typeof import("./getVerifyRateLimit").getVerifyRateLimit = null as any;
+export const getVerifyRateLimitOutput: typeof import("./getVerifyRateLimit").getVerifyRateLimitOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifyRateLimit","getVerifyRateLimitOutput"], () => require("./getVerifyRateLimit"));
+
+export { GetVerifyRateLimitBucketArgs, GetVerifyRateLimitBucketResult, GetVerifyRateLimitBucketOutputArgs } from "./getVerifyRateLimitBucket";
+export const getVerifyRateLimitBucket: typeof import("./getVerifyRateLimitBucket").getVerifyRateLimitBucket = null as any;
+export const getVerifyRateLimitBucketOutput: typeof import("./getVerifyRateLimitBucket").getVerifyRateLimitBucketOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifyRateLimitBucket","getVerifyRateLimitBucketOutput"], () => require("./getVerifyRateLimitBucket"));
+
+export { GetVerifySafeListNumberArgs, GetVerifySafeListNumberResult, GetVerifySafeListNumberOutputArgs } from "./getVerifySafeListNumber";
+export const getVerifySafeListNumber: typeof import("./getVerifySafeListNumber").getVerifySafeListNumber = null as any;
+export const getVerifySafeListNumberOutput: typeof import("./getVerifySafeListNumber").getVerifySafeListNumberOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifySafeListNumber","getVerifySafeListNumberOutput"], () => require("./getVerifySafeListNumber"));
 
 export { GetVerifyServiceArgs, GetVerifyServiceResult, GetVerifyServiceOutputArgs } from "./getVerifyService";
 export const getVerifyService: typeof import("./getVerifyService").getVerifyService = null as any;
 export const getVerifyServiceOutput: typeof import("./getVerifyService").getVerifyServiceOutput = null as any;
 utilities.lazyLoad(exports, ["getVerifyService","getVerifyServiceOutput"], () => require("./getVerifyService"));
 
+export { GetVerifyTemplatesArgs, GetVerifyTemplatesResult, GetVerifyTemplatesOutputArgs } from "./getVerifyTemplates";
+export const getVerifyTemplates: typeof import("./getVerifyTemplates").getVerifyTemplates = null as any;
+export const getVerifyTemplatesOutput: typeof import("./getVerifyTemplates").getVerifyTemplatesOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifyTemplates","getVerifyTemplatesOutput"], () => require("./getVerifyTemplates"));
+
+export { GetVerifyWebhookArgs, GetVerifyWebhookResult, GetVerifyWebhookOutputArgs } from "./getVerifyWebhook";
+export const getVerifyWebhook: typeof import("./getVerifyWebhook").getVerifyWebhook = null as any;
+export const getVerifyWebhookOutput: typeof import("./getVerifyWebhook").getVerifyWebhookOutput = null as any;
+utilities.lazyLoad(exports, ["getVerifyWebhook","getVerifyWebhookOutput"], () => require("./getVerifyWebhook"));
+
 export { IncomingPhoneNumberArgs } from "./incomingPhoneNumber";
 export type IncomingPhoneNumber = import("./incomingPhoneNumber").IncomingPhoneNumber;
 export const IncomingPhoneNumber: typeof import("./incomingPhoneNumber").IncomingPhoneNumber = null as any;
 utilities.lazyLoad(exports, ["IncomingPhoneNumber"], () => require("./incomingPhoneNumber"));
+
+export { IncomingPhoneNumberAssignedAddOnArgs } from "./incomingPhoneNumberAssignedAddOn";
+export type IncomingPhoneNumberAssignedAddOn = import("./incomingPhoneNumberAssignedAddOn").IncomingPhoneNumberAssignedAddOn;
+export const IncomingPhoneNumberAssignedAddOn: typeof import("./incomingPhoneNumberAssignedAddOn").IncomingPhoneNumberAssignedAddOn = null as any;
+utilities.lazyLoad(exports, ["IncomingPhoneNumberAssignedAddOn"], () => require("./incomingPhoneNumberAssignedAddOn"));
+
+export { IpRecordArgs } from "./ipRecord";
+export type IpRecord = import("./ipRecord").IpRecord;
+export const IpRecord: typeof import("./ipRecord").IpRecord = null as any;
+utilities.lazyLoad(exports, ["IpRecord"], () => require("./ipRecord"));
 
 export { MessagingServiceArgs } from "./messagingService";
 export type MessagingService = import("./messagingService").MessagingService;
@@ -209,6 +354,31 @@ export { QueueArgs } from "./queue";
 export type Queue = import("./queue").Queue;
 export const Queue: typeof import("./queue").Queue = null as any;
 utilities.lazyLoad(exports, ["Queue"], () => require("./queue"));
+
+export { ServerlessAssetArgs } from "./serverlessAsset";
+export type ServerlessAsset = import("./serverlessAsset").ServerlessAsset;
+export const ServerlessAsset: typeof import("./serverlessAsset").ServerlessAsset = null as any;
+utilities.lazyLoad(exports, ["ServerlessAsset"], () => require("./serverlessAsset"));
+
+export { ServerlessEnvironmentArgs } from "./serverlessEnvironment";
+export type ServerlessEnvironment = import("./serverlessEnvironment").ServerlessEnvironment;
+export const ServerlessEnvironment: typeof import("./serverlessEnvironment").ServerlessEnvironment = null as any;
+utilities.lazyLoad(exports, ["ServerlessEnvironment"], () => require("./serverlessEnvironment"));
+
+export { ServerlessFunctionArgs } from "./serverlessFunction";
+export type ServerlessFunction = import("./serverlessFunction").ServerlessFunction;
+export const ServerlessFunction: typeof import("./serverlessFunction").ServerlessFunction = null as any;
+utilities.lazyLoad(exports, ["ServerlessFunction"], () => require("./serverlessFunction"));
+
+export { ServerlessServiceArgs } from "./serverlessService";
+export type ServerlessService = import("./serverlessService").ServerlessService;
+export const ServerlessService: typeof import("./serverlessService").ServerlessService = null as any;
+utilities.lazyLoad(exports, ["ServerlessService"], () => require("./serverlessService"));
+
+export { ServerlessVariableArgs } from "./serverlessVariable";
+export type ServerlessVariable = import("./serverlessVariable").ServerlessVariable;
+export const ServerlessVariable: typeof import("./serverlessVariable").ServerlessVariable = null as any;
+utilities.lazyLoad(exports, ["ServerlessVariable"], () => require("./serverlessVariable"));
 
 export { ShortCodeArgs } from "./shortCode";
 export type ShortCode = import("./shortCode").ShortCode;
@@ -255,6 +425,11 @@ export type SipIpAddress = import("./sipIpAddress").SipIpAddress;
 export const SipIpAddress: typeof import("./sipIpAddress").SipIpAddress = null as any;
 utilities.lazyLoad(exports, ["SipIpAddress"], () => require("./sipIpAddress"));
 
+export { SourceIpMappingArgs } from "./sourceIpMapping";
+export type SourceIpMapping = import("./sourceIpMapping").SourceIpMapping;
+export const SourceIpMapping: typeof import("./sourceIpMapping").SourceIpMapping = null as any;
+utilities.lazyLoad(exports, ["SourceIpMapping"], () => require("./sourceIpMapping"));
+
 export { SubaccountArgs } from "./subaccount";
 export type Subaccount = import("./subaccount").Subaccount;
 export const Subaccount: typeof import("./subaccount").Subaccount = null as any;
@@ -285,10 +460,35 @@ export type UsageTrigger = import("./usageTrigger").UsageTrigger;
 export const UsageTrigger: typeof import("./usageTrigger").UsageTrigger = null as any;
 utilities.lazyLoad(exports, ["UsageTrigger"], () => require("./usageTrigger"));
 
+export { VerifyMessagingConfigurationArgs } from "./verifyMessagingConfiguration";
+export type VerifyMessagingConfiguration = import("./verifyMessagingConfiguration").VerifyMessagingConfiguration;
+export const VerifyMessagingConfiguration: typeof import("./verifyMessagingConfiguration").VerifyMessagingConfiguration = null as any;
+utilities.lazyLoad(exports, ["VerifyMessagingConfiguration"], () => require("./verifyMessagingConfiguration"));
+
+export { VerifyRateLimitArgs } from "./verifyRateLimit";
+export type VerifyRateLimit = import("./verifyRateLimit").VerifyRateLimit;
+export const VerifyRateLimit: typeof import("./verifyRateLimit").VerifyRateLimit = null as any;
+utilities.lazyLoad(exports, ["VerifyRateLimit"], () => require("./verifyRateLimit"));
+
+export { VerifyRateLimitBucketArgs } from "./verifyRateLimitBucket";
+export type VerifyRateLimitBucket = import("./verifyRateLimitBucket").VerifyRateLimitBucket;
+export const VerifyRateLimitBucket: typeof import("./verifyRateLimitBucket").VerifyRateLimitBucket = null as any;
+utilities.lazyLoad(exports, ["VerifyRateLimitBucket"], () => require("./verifyRateLimitBucket"));
+
+export { VerifySafeListNumberArgs } from "./verifySafeListNumber";
+export type VerifySafeListNumber = import("./verifySafeListNumber").VerifySafeListNumber;
+export const VerifySafeListNumber: typeof import("./verifySafeListNumber").VerifySafeListNumber = null as any;
+utilities.lazyLoad(exports, ["VerifySafeListNumber"], () => require("./verifySafeListNumber"));
+
 export { VerifyServiceArgs } from "./verifyService";
 export type VerifyService = import("./verifyService").VerifyService;
 export const VerifyService: typeof import("./verifyService").VerifyService = null as any;
 utilities.lazyLoad(exports, ["VerifyService"], () => require("./verifyService"));
+
+export { VerifyWebhookArgs } from "./verifyWebhook";
+export type VerifyWebhook = import("./verifyWebhook").VerifyWebhook;
+export const VerifyWebhook: typeof import("./verifyWebhook").VerifyWebhook = null as any;
+utilities.lazyLoad(exports, ["VerifyWebhook"], () => require("./verifyWebhook"));
 
 
 // Export sub-modules:
@@ -310,14 +510,24 @@ const _module = {
                 return new ApiKey(name, <any>undefined, { urn })
             case "twilio:index:Application":
                 return new Application(name, <any>undefined, { urn })
+            case "twilio:index:ByocTrunk":
+                return new ByocTrunk(name, <any>undefined, { urn })
             case "twilio:index:ConnectApp":
                 return new ConnectApp(name, <any>undefined, { urn })
+            case "twilio:index:ConnectionPolicy":
+                return new ConnectionPolicy(name, <any>undefined, { urn })
+            case "twilio:index:ConnectionPolicyTarget":
+                return new ConnectionPolicyTarget(name, <any>undefined, { urn })
             case "twilio:index:EventSink":
                 return new EventSink(name, <any>undefined, { urn })
             case "twilio:index:EventSubscription":
                 return new EventSubscription(name, <any>undefined, { urn })
             case "twilio:index:IncomingPhoneNumber":
                 return new IncomingPhoneNumber(name, <any>undefined, { urn })
+            case "twilio:index:IncomingPhoneNumberAssignedAddOn":
+                return new IncomingPhoneNumberAssignedAddOn(name, <any>undefined, { urn })
+            case "twilio:index:IpRecord":
+                return new IpRecord(name, <any>undefined, { urn })
             case "twilio:index:MessagingService":
                 return new MessagingService(name, <any>undefined, { urn })
             case "twilio:index:MessagingServicePhoneNumber":
@@ -326,6 +536,16 @@ const _module = {
                 return new OutgoingCallerId(name, <any>undefined, { urn })
             case "twilio:index:Queue":
                 return new Queue(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessAsset":
+                return new ServerlessAsset(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessEnvironment":
+                return new ServerlessEnvironment(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessFunction":
+                return new ServerlessFunction(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessService":
+                return new ServerlessService(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessVariable":
+                return new ServerlessVariable(name, <any>undefined, { urn })
             case "twilio:index:ShortCode":
                 return new ShortCode(name, <any>undefined, { urn })
             case "twilio:index:SigningKey":
@@ -344,6 +564,8 @@ const _module = {
                 return new SipIpAccessControlList(name, <any>undefined, { urn })
             case "twilio:index:SipIpAddress":
                 return new SipIpAddress(name, <any>undefined, { urn })
+            case "twilio:index:SourceIpMapping":
+                return new SourceIpMapping(name, <any>undefined, { urn })
             case "twilio:index:Subaccount":
                 return new Subaccount(name, <any>undefined, { urn })
             case "twilio:index:Trunk":
@@ -356,8 +578,18 @@ const _module = {
                 return new TrunkOriginationUrl(name, <any>undefined, { urn })
             case "twilio:index:UsageTrigger":
                 return new UsageTrigger(name, <any>undefined, { urn })
+            case "twilio:index:VerifyMessagingConfiguration":
+                return new VerifyMessagingConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:VerifyRateLimit":
+                return new VerifyRateLimit(name, <any>undefined, { urn })
+            case "twilio:index:VerifyRateLimitBucket":
+                return new VerifyRateLimitBucket(name, <any>undefined, { urn })
+            case "twilio:index:VerifySafeListNumber":
+                return new VerifySafeListNumber(name, <any>undefined, { urn })
             case "twilio:index:VerifyService":
                 return new VerifyService(name, <any>undefined, { urn })
+            case "twilio:index:VerifyWebhook":
+                return new VerifyWebhook(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -114,7 +114,7 @@ func (a *VerifyServiceArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.PushApnCredentialSid, "SID (CR...) of the Apple Push Notification credential used by the push channel. Removing it unassigns the credential.")
 	an.Describe(&a.PushFcmCredentialSid, "SID (CR...) of the Firebase Cloud Messaging credential used by the push channel. Removing it unassigns the credential.")
 	an.Describe(&a.PushIncludeDate, "Whether push challenges include the date they were created.")
-	an.Describe(&a.TotpIssuer, "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged.")
+	an.Describe(&a.TotpIssuer, "Issuer shown in authenticator apps for TOTP factors. Twilio sets it to the friendlyName when the service is created and rejects an empty issuer, so removing it leaves the issuer unchanged. An import does not adopt the issuer; set it in the program to change it.")
 	an.Describe(&a.TotpCodeLength, "Number of digits of a TOTP code (3 to 8).")
 	an.Describe(&a.TotpTimeStep, "Seconds a TOTP code is valid (Twilio's totp.time_step).")
 	an.Describe(&a.TotpSkew, "Number of time steps before and after the current one in which a TOTP code is accepted.")

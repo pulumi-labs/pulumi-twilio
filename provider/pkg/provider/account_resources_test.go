@@ -358,13 +358,45 @@ func TestUsageTriggerLC_OffsetImportAndDrift(t *testing.T) {
 	require.Equal(t, "sms", getS(t, imp.Inputs, "usageCategory"))
 	require.Equal(t, "30.0", getS(t, imp.Inputs, "triggerValue"))
 	require.Equal(t, "monthly", getS(t, imp.Inputs, "recurring"))
-	require.Equal(t, "usage", getS(t, imp.Inputs, "triggerBy"))
+	require.False(t, hasProp(imp.Inputs, "triggerBy"), "Twilio's own pick is not adopted (#1679)")
+	require.Equal(t, "usage", getS(t, imp.Properties, "effectiveTriggerBy"))
 	require.False(t, hasProp(imp.Inputs, "callbackMethod"), "the default method is not adopted")
 	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(imp.Inputs), imp.Inputs))
 
 	l.f.remove("trigger", testAccount, sid)
 	require.Empty(t, l.read(sid, c.Properties, in).ID)
 	l.del(sid, c.Properties)
+}
+
+// #1679: an import used to write Twilio's own triggerBy into the inputs, so the program that created the
+// trigger (which never set it) planned a replacement. Whether the program omits triggerBy, states what Twilio
+// chose, or states POST as the callback method, the preview is clean; a different triggerBy still replaces.
+func TestUsageTriggerLC_ImportThenProgramPlansNoChange(t *testing.T) {
+	l := newTL(t, "UsageTrigger", "ut")
+	c := l.create(triggerInputs()) // the program never sets triggerBy; Twilio reports "usage"
+	imp := l.read(c.ID, empty(), empty())
+	require.False(t, hasProp(imp.Inputs, "triggerBy"))
+	require.Equal(t, "usage", getS(t, imp.Properties, "effectiveTriggerBy"))
+
+	for name, program := range map[string]property.Map{
+		"omitted":              triggerInputs(),
+		"states Twilio's pick": with(triggerInputs(), map[string]property.Value{"triggerBy": sv("usage")}),
+		"states POST":          with(triggerInputs(), map[string]property.Value{"callbackMethod": sv("POST")}),
+	} {
+		requireNoChanges(t, l.diff(c.ID, imp.Properties, l.checked(program), imp.Inputs))
+		_ = name
+	}
+	// A different triggerBy still replaces; a different callbackMethod updates in place.
+	d := l.diff(c.ID, imp.Properties, l.checked(with(triggerInputs(), map[string]property.Value{"triggerBy": sv("count")})), imp.Inputs)
+	require.Equal(t, pgp.UpdateReplace, d.DetailedDiff["triggerBy"].Kind)
+	d = l.diff(c.ID, imp.Properties, l.checked(with(triggerInputs(), map[string]property.Value{"callbackMethod": sv("GET")})), imp.Inputs)
+	require.Equal(t, pgp.Update, d.DetailedDiff["callbackMethod"].Kind)
+	require.NotContains(t, d.DetailedDiff, "triggerBy")
+
+	// A trigger created with an explicit triggerBy keeps comparing against it.
+	c2 := l.create(with(triggerInputs(), map[string]property.Value{"triggerBy": sv("usage")}))
+	d = l.diff(c2.ID, c2.Properties, with(triggerInputs(), map[string]property.Value{"triggerBy": sv("price")}), c2.Properties)
+	require.Equal(t, pgp.UpdateReplace, d.DetailedDiff["triggerBy"].Kind)
 }
 
 func TestUsageTriggerLC_SubaccountAndChecks(t *testing.T) {

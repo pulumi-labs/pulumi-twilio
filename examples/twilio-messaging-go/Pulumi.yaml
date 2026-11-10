@@ -1,3 +1,0 @@
-name: twilio-messaging-go
-runtime: go
-description: Route SMS and voice webhooks with a Twilio application and messaging service (Go)

@@ -1,3 +1,0 @@
-name: twilio-subaccount-go
-runtime: go
-description: Provision a Twilio subaccount tenant with a restricted API key and a Verify service (Go)

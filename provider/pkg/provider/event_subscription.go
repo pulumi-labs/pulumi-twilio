@@ -110,6 +110,10 @@ func (r *EventSubscription) Check(ctx context.Context, req infer.CheckRequest) (
 		}
 		seen := map[string]bool{}
 		for i, t := range args.Types {
+			// types[i].type wired to another resource is unknown at preview and decodes to "".
+			if unknownAt(req.NewInputs, "types", i, "type") {
+				continue
+			}
 			if t.Type == "" {
 				failures = append(failures, p.CheckFailure{Property: fmt.Sprintf("types[%d].type", i), Reason: "type must not be empty"})
 			} else if seen[t.Type] {

@@ -97,7 +97,10 @@ func (r *VerifyWebhook) Check(ctx context.Context, req infer.CheckRequest) (infe
 		if len(args.EventTypes) == 0 {
 			c.fail("eventTypes", "eventTypes must list at least one event type")
 		}
-		for _, e := range args.EventTypes {
+		for i, e := range args.EventTypes {
+			if unknownAt(req.NewInputs, "eventTypes", i) {
+				continue
+			}
 			if e == "" {
 				c.fail("eventTypes", "eventTypes must not contain an empty event type")
 				break

@@ -288,3 +288,64 @@ func invokeLookup(t *testing.T, l *tl, token string, args map[string]property.Va
 func invokeLookupErr(l *tl, token string, args map[string]property.Value) (property.Map, error) {
 	return invoke(l.t, l, token, args)
 }
+
+// A recording configuration wired to a transcription configuration has an unknown featureId at
+// preview (#1742). Check must let it through, and must still reject a known empty one.
+func TestVoiceRecordingConfigurationLC_CheckUnknownFeatureId(t *testing.T) {
+	l := newTL(t, "VoiceRecordingConfiguration", "rec")
+	wired := pv(map[string]property.Value{"features": arrv(objv(map[string]property.Value{
+		"type": sv("transcriptionConfiguration"), "featureId": computed()}))})
+	chk := l.check(wired)
+	require.Empty(t, chk.Failures, "an unknown featureId must not be validated")
+	require.True(t, chk.Inputs.Get("features").AsArray().Get(0).AsMap().Get("featureId").IsComputed(),
+		"the unknown must be passed through Check, not replaced by an empty string")
+
+	// An unknown type is skipped too, and a known empty featureId next to it still fails.
+	require.Empty(t, l.check(pv(map[string]property.Value{"features": arrv(objv(map[string]property.Value{
+		"type": computed(), "featureId": sv("VXabc")}))})).Failures)
+	require.NotEmpty(t, l.check(pv(map[string]property.Value{"features": arrv(
+		objv(map[string]property.Value{"type": sv("transcriptionConfiguration"), "featureId": computed()}),
+		objv(map[string]property.Value{"type": sv("transcriptionConfiguration"), "featureId": sv("")}))})).Failures,
+		"a known empty featureId on another entry must still fail")
+}
+
+// The same bug class in the transcription configuration's participantDefaults: an unknown
+// audioChannelIndex or type decodes to its zero value and used to fail Check.
+func TestVoiceTranscriptionConfigurationLC_CheckUnknownParticipantDefaults(t *testing.T) {
+	l := newTL(t, "VoiceTranscriptionConfiguration", "tx")
+	for name, d := range map[string]property.Value{
+		"unknown index": objv(map[string]property.Value{"audioChannelIndex": computed(), "type": sv("CUSTOMER")}),
+		"unknown type":  objv(map[string]property.Value{"audioChannelIndex": property.New(float64(1)), "type": computed()}),
+		"both unknown":  objv(map[string]property.Value{"audioChannelIndex": computed(), "type": computed()}),
+	} {
+		in := with(transcriptionInputs(), map[string]property.Value{"participantDefaults": arrv(d)})
+		require.Empty(t, l.check(in).Failures, name)
+	}
+}
+
+func TestUnknownAt(t *testing.T) {
+	m := pv(map[string]property.Value{
+		"top":  computed(),
+		"list": arrv(objv(map[string]property.Value{"a": computed(), "b": sv("x")}), sv("known")),
+		"obj":  objv(map[string]property.Value{"c": computed(), "d": objv(map[string]property.Value{"e": computed()})}),
+	})
+	for name, tc := range map[string]struct {
+		path []any
+		want bool
+	}{
+		"top level unknown":     {[]any{"top"}, true},
+		"element field unknown": {[]any{"list", 0, "a"}, true},
+		"element field known":   {[]any{"list", 0, "b"}, false},
+		"other element":         {[]any{"list", 1}, false},
+		"object field unknown":  {[]any{"obj", "c"}, true},
+		"nested object unknown": {[]any{"obj", "d", "e"}, true},
+		"below an unknown":      {[]any{"top", "anything"}, true},
+		"missing key":           {[]any{"nope"}, false},
+		"index out of range":    {[]any{"list", 5, "a"}, false},
+		"index on a non array":  {[]any{"obj", 0}, false},
+		"key on a non object":   {[]any{"list", 1, "x"}, false},
+		"negative index":        {[]any{"list", -1}, false},
+	} {
+		require.Equal(t, tc.want, unknownAt(m, tc.path...), name)
+	}
+}

@@ -643,3 +643,39 @@ func TestWiring_VerifyExtrasPreviewUpdate(t *testing.T) {
 	requireKnown(t, u.Properties, "sid", "dateCreated")
 	requireComputed(t, u.Properties, "webhookMethod", "dateUpdated")
 }
+
+// An eventTypes element wired to another resource's output is unknown at preview and decodes to "".
+func TestVerifyWebhookLC_CheckUnknownEventTypeElement(t *testing.T) {
+	l := newTL(t, "VerifyWebhook", "wh")
+	svc := "VA" + strings.Repeat("a", 32)
+	chk := l.check(with(webhookInputs(svc), map[string]property.Value{"eventTypes": arrv(sv("factor.created"), computed())}))
+	require.Empty(t, chk.Failures, "an unknown eventTypes element must not be validated")
+	chk = l.check(with(webhookInputs(svc), map[string]property.Value{"eventTypes": arrv(computed(), sv(""))}))
+	require.Len(t, chk.Failures, 1, "a known empty element still fails")
+}
+
+// Twilio can answer the create POST with a 200 that describes no country and creates nothing (#1717).
+// Create must fail instead of storing a resource the next refresh would drop from the state.
+func TestVerifyMessagingConfigurationLC_CreatePhantomResponseFails(t *testing.T) {
+	l := newTL(t, "VerifyMessagingConfiguration", "mc")
+	svc := verifySvc(l)
+	l.f.mu.Lock()
+	l.f.verifyMsgCfgPhantomCreate = true
+	l.f.mu.Unlock()
+	_, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(configInputs(svc, "DE", verifyMsgSid))})
+	require.ErrorContains(t, err, "accepted the request without creating it")
+	require.ErrorContains(t, err, `country ""`)
+	require.Empty(t, l.f.get("vmc", testAccount, svc+"/DE"), "nothing may be left behind")
+
+	// A preview never calls the API, so it is unaffected.
+	c, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(configInputs(svc, "DE", verifyMsgSid)), DryRun: true})
+	require.NoError(t, err)
+	require.Empty(t, c.ID)
+
+	// A normal create still works once Twilio answers properly.
+	l.f.mu.Lock()
+	l.f.verifyMsgCfgPhantomCreate = false
+	l.f.mu.Unlock()
+	ok := l.create(configInputs(svc, "DE", verifyMsgSid))
+	require.Equal(t, svc+"/DE", ok.ID)
+}

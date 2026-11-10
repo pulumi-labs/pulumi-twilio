@@ -49,15 +49,16 @@ type fakeTwilio struct {
 	t      *testing.T
 	server *httptest.Server
 
-	mu                  sync.Mutex
-	endlessKeyPages     bool                      // the account-explicit key list never ends (a truncation probe)
-	templatePageSize    int                       // when set, /v2/Templates pages hold this many items
-	objs                map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
-	order               []string
-	next                int
-	calls               []fakeCall
-	failure             map[string]int // "METHOD substring" -> status to return once
-	verifyMsgCfgFake200 bool           // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
+	mu                        sync.Mutex
+	endlessKeyPages           bool                      // the account-explicit key list never ends (a truncation probe)
+	templatePageSize          int                       // when set, /v2/Templates pages hold this many items
+	objs                      map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
+	order                     []string
+	next                      int
+	calls                     []fakeCall
+	failure                   map[string]int // "METHOD substring" -> status to return once
+	verifyMsgCfgFake200       bool           // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
+	verifyMsgCfgPhantomCreate bool           // a POST creating a Verify messaging configuration answers 200 with an empty one and stores nothing (#1717)
 }
 
 type fakeCall struct {

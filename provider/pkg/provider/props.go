@@ -344,6 +344,47 @@ func unknowns(m property.Map) func(keys ...string) bool {
 	}
 }
 
+// unknownAt reports whether the value at path is a preview-time unknown, or sits
+// beneath one. A path element is a string (a map key) or an int (an array index).
+// unknowns only sees top-level inputs: when a known array or object holds a
+// computed element (features[0].featureId wired to another resource's output),
+// infer decodes that element to its zero value, so a Check that validated it
+// would reject a valid program at preview (issue #1742). A path that does not exist
+// is not unknown.
+func unknownAt(m property.Map, path ...any) bool {
+	var cur property.Value
+	have := false
+	for i, el := range path {
+		switch k := el.(type) {
+		case string:
+			var src property.Map
+			if i == 0 {
+				src = m
+			} else if cur.IsMap() {
+				src = cur.AsMap()
+			} else {
+				return false
+			}
+			v, ok := src.GetOk(k)
+			if !ok {
+				return false
+			}
+			cur, have = v, true
+		case int:
+			if !have || !cur.IsArray() || k < 0 || k >= cur.AsArray().Len() {
+				return false
+			}
+			cur = cur.AsArray().Get(k)
+		default:
+			return false
+		}
+		if cur.IsComputed() {
+			return true
+		}
+	}
+	return false
+}
+
 // splitScoped splits an ID of the form <accountSid>/<sid>; a bare SID has no
 // account.
 func splitScoped(id string) (acct, sid string) {

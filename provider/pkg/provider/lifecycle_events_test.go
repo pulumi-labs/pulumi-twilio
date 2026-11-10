@@ -374,3 +374,21 @@ func TestEventSubscriptionLC_UpdateRetryAfterPartialFailure(t *testing.T) {
 	require.Equal(t, map[string]float64{"b.two": 1, "c.three": 1, "d.four": 1}, l.f.eventsTypes(c.ID))
 	requireNoChanges(t, l.diff(c.ID, u.Properties, next, next))
 }
+
+// An event type wired to another resource's output is unknown at preview and decodes to "": Check
+// must skip it instead of failing "type must not be empty" (the #1742 bug class).
+func TestEventSubscriptionLC_CheckUnknownTypeElement(t *testing.T) {
+	l := newTL(t, "EventSubscription", "sub")
+	sink := "DG" + strings.Repeat("a", 32)
+	unknownType := objv(map[string]property.Value{"type": computed()})
+	chk := l.check(pv(map[string]property.Value{"description": sv("d"), "sinkSid": sv(sink),
+		"types": arrv(unknownType, objv(evType("com.twilio.voice.call.completed")))}))
+	require.Empty(t, chk.Failures, "an unknown type element must not be validated")
+	// A known empty type next to an unknown one still fails, and two unknowns are not duplicates.
+	chk = l.check(pv(map[string]property.Value{"description": sv("d"), "sinkSid": sv(sink),
+		"types": arrv(unknownType, objv(map[string]property.Value{"type": sv("")}))}))
+	require.Len(t, chk.Failures, 1)
+	require.Equal(t, "types[1].type", chk.Failures[0].Property)
+	require.Empty(t, l.check(pv(map[string]property.Value{"description": sv("d"), "sinkSid": sv(sink),
+		"types": arrv(unknownType, unknownType)})).Failures)
+}

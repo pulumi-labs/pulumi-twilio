@@ -199,6 +199,11 @@ func (f *fakeTwilio) verifyMessagingConfig(w http.ResponseWriter, r *http.Reques
 			}
 		}
 		c := form.Get("Country")
+		if f.verifyMsgCfgPhantomCreate {
+			fwrite(w, 200, map[string]any{"service_sid": svc, "account_sid": testAccount, "country": "", "messaging_service_sid": "MG" + strings.Repeat("f", 32),
+				"date_created": verifyStamp, "date_updated": verifyStamp})
+			return
+		}
 		if _, dup := f.objs[key("vmc", testAccount, svc+"/"+c)]; dup {
 			ferr(w, 409, "A configuration for this country already exists")
 			return

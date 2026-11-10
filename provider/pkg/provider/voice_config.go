@@ -247,9 +247,13 @@ func (r *VoiceRecordingConfiguration) Check(ctx context.Context, req infer.Check
 			failures = append(failures, p.CheckFailure{Property: "features", Reason: "features takes at most 3 entries"})
 		}
 		for i, f := range args.Features {
-			ft := f.Type
-			failures = oneOf(failures, fmt.Sprintf("features[%d].type", i), &ft, []string{"transcriptionConfiguration"})
-			if f.FeatureId == "" {
+			// A feature wired to another resource (featureId: ${transcription.configurationId}) is
+			// unknown at preview and decodes to "": skip it until it is known.
+			if !unknownAt(req.NewInputs, "features", i, "type") {
+				ft := f.Type
+				failures = oneOf(failures, fmt.Sprintf("features[%d].type", i), &ft, []string{"transcriptionConfiguration"})
+			}
+			if f.FeatureId == "" && !unknownAt(req.NewInputs, "features", i, "featureId") {
 				failures = append(failures, p.CheckFailure{Property: fmt.Sprintf("features[%d].featureId", i), Reason: "featureId must not be empty"})
 			}
 		}
@@ -522,9 +526,11 @@ func (r *VoiceTranscriptionConfiguration) Check(ctx context.Context, req infer.C
 	}
 	if !unk("participantDefaults") {
 		for i, d := range args.ParticipantDefaults {
-			dt := d.Type
-			failures = oneOf(failures, fmt.Sprintf("participantDefaults[%d].type", i), &dt, participantTypes)
-			if d.AudioChannelIndex < 1 {
+			if !unknownAt(req.NewInputs, "participantDefaults", i, "type") {
+				dt := d.Type
+				failures = oneOf(failures, fmt.Sprintf("participantDefaults[%d].type", i), &dt, participantTypes)
+			}
+			if d.AudioChannelIndex < 1 && !unknownAt(req.NewInputs, "participantDefaults", i, "audioChannelIndex") {
 				fail(fmt.Sprintf("participantDefaults[%d].audioChannelIndex", i), "audioChannelIndex is one-based and must be at least 1")
 			}
 		}

@@ -107,6 +107,16 @@ func (r *VerifyMessagingConfiguration) Create(ctx context.Context, req infer.Cre
 	if err != nil {
 		return infer.CreateResponse[VerifyMessagingConfigurationState]{}, fmt.Errorf("create messaging configuration for %s on Verify service %s: %w", a.Country, a.ServiceSid, err)
 	}
+	// Twilio can answer this POST with HTTP 200 and a configuration for no country and a made-up
+	// Messaging Service SID, without creating anything (a later GET answers the same way and the list
+	// stays empty). Storing that would record a resource that does not exist, which the next refresh
+	// drops from the state (#1717), so refuse it here.
+	if !verifyMessagingConfigFound(o, a.Country) {
+		return infer.CreateResponse[VerifyMessagingConfigurationState]{}, fmt.Errorf(
+			"create messaging configuration for %s on Verify service %s: Twilio accepted the request without creating it "+
+				"(the response names country %q and Messaging Service %q instead of %s and %s); nothing was stored",
+			a.Country, a.ServiceSid, o.str("country"), o.str("messaging_service_sid"), a.Country, a.MessagingServiceSid)
+	}
 	st := VerifyMessagingConfigurationState{VerifyMessagingConfigurationArgs: a}
 	verifyMessagingConfigOutputs(&st, o)
 	return infer.CreateResponse[VerifyMessagingConfigurationState]{ID: a.ServiceSid + "/" + a.Country, Output: st}, nil

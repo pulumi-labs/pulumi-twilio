@@ -151,7 +151,10 @@ func TestWiring_EveryStateEmbedsItsArgsFirst(t *testing.T) {
 		"IpRecord":                        {IpRecordArgs{}, IpRecordState{}},
 		"VoiceRecordingConfiguration":     {VoiceRecordingConfigurationArgs{}, VoiceRecordingConfigurationState{}},
 		"VoiceTranscriptionConfiguration": {VoiceTranscriptionConfigurationArgs{}, VoiceTranscriptionConfigurationState{}},
-		"SourceIpMapping":                 {SourceIpMappingArgs{}, SourceIpMappingState{}},
+		"VoiceAccountDefaultRecordingConfiguration": {VoiceAccountDefaultRecordingConfigurationArgs{}, VoiceAccountDefaultRecordingConfigurationState{}},
+		"VoiceDefaultRecordingConfiguration":        {VoiceDefaultRecordingConfigurationArgs{}, VoiceDefaultRecordingConfigurationState{}},
+		"VoiceDefaultTranscriptionConfiguration":    {VoiceDefaultTranscriptionConfigurationArgs{}, VoiceDefaultTranscriptionConfigurationState{}},
+		"SourceIpMapping":                           {SourceIpMappingArgs{}, SourceIpMappingState{}},
 	}
 	for name, p := range pairs {
 		args, state := reflect.TypeOf(p[0]), reflect.TypeOf(p[1])

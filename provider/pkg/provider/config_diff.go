@@ -21,13 +21,13 @@ import (
 )
 
 // New returns the configured provider, with provider configuration changes made in place and
-// the schema's secret properties marked as secrets on Read (#1577).
+// the schema's secret properties marked as secrets on Read (#1577), and an unset HTTP method equal to POST (#1743).
 func New() (p.Provider, error) {
 	prov, err := newProvider()
 	if err != nil {
 		return prov, err
 	}
-	return wrapReadSecrets(withInPlaceConfigDiff(prov)), nil
+	return wrapReadSecrets(withDefaultMethodDiff(withInPlaceConfigDiff(prov))), nil
 }
 
 // withInPlaceConfigDiff makes every change to the provider configuration an in-place update. By

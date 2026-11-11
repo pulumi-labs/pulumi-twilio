@@ -228,6 +228,37 @@ export interface ConnectAppEffective {
     permissions?: string[];
 }
 
+export interface DialingCountry {
+    /**
+     * The continent the country is in.
+     */
+    continent: string;
+    /**
+     * The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.
+     */
+    countryCodes: string[];
+    /**
+     * Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.
+     */
+    highRiskSpecialNumbersEnabled: boolean;
+    /**
+     * Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.
+     */
+    highRiskTollfraudNumbersEnabled: boolean;
+    /**
+     * The ISO 3166-1 alpha-2 country code.
+     */
+    isoCode: string;
+    /**
+     * Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.
+     */
+    lowRiskNumbersEnabled: boolean;
+    /**
+     * The name of the country.
+     */
+    name: string;
+}
+
 export interface EventSchemaVersion {
     /**
      * When the version was published (ISO 8601).
@@ -536,6 +567,17 @@ export interface RecordingStatusCallback {
      * URL Twilio requests with the recording status.
      */
     url?: string;
+}
+
+export interface ServerlessBuildDependency {
+    /**
+     * npm package name, for example twilio.
+     */
+    name: string;
+    /**
+     * Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+     */
+    version: string;
 }
 
 export interface ShortCodeEffective {

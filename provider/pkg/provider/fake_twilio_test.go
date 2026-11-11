@@ -56,15 +56,22 @@ type fakeTwilio struct {
 	order                     []string
 	next                      int
 	calls                     []fakeCall
-	failure                   map[string]int // "METHOD substring" -> status to return once
-	verifyMsgCfgFake200       bool           // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
-	verifyMsgCfgPhantomCreate bool           // a POST creating a Verify messaging configuration answers 200 with an empty one and stores nothing (#1717)
+	failure                   map[string]int        // "METHOD substring" -> status to return once
+	verifyMsgCfgFake200       bool                  // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
+	dialingMaxPage            int                   // when set, dialing permission lists never return more than this many items per page
+	verifyMsgCfgPhantomCreate bool                  // a POST creating a Verify messaging configuration answers 200 with an empty one and stores nothing (#1717)
+	uploads                   map[string]fakeUpload // serverless version SID -> the multipart file the upload host received
+	buildPolls                map[string]int        // serverless build SID -> status polls seen
+	buildBuildingPolls        int                   // status polls that still answer "building" before the build finishes
+	buildReadFails            bool                  // GET of a build itself (not its status) answers 500
+	buildFinalStatus          string                // what a finished build reports; completed when empty
 }
 
 type fakeCall struct {
 	Method, Path string
 	Form         url.Values
 	Body         string // the raw request body, for the JSON APIs
+	Query        url.Values
 }
 
 type fakeField struct{ param, key, typ string } // typ: s string, u url, m method enum, b bool, i int
@@ -267,7 +274,7 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 	}
 	body, _ := io.ReadAll(r.Body)
 	form, _ := url.ParseQuery(string(body))
-	f.calls = append(f.calls, fakeCall{Method: r.Method, Path: r.URL.Path, Form: form, Body: string(body)})
+	f.calls = append(f.calls, fakeCall{Method: r.Method, Path: r.URL.Path, Form: form, Body: string(body), Query: r.URL.Query()})
 	for k, status := range f.failure {
 		parts := strings.SplitN(k, " ", 2)
 		if parts[0] == r.Method && strings.Contains(r.URL.Path, parts[1]) {
@@ -295,6 +302,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleVerifySafeList(w, r, form, strings.Trim(strings.TrimPrefix(path, "/verify/v2/SafeList/Numbers"), "/"))
 	case path == "/verify/v2/Templates":
 		f.handleVerifyTemplates(w, r)
+	case strings.HasPrefix(path, "/serverless-upload/v1/Services"):
+		f.handleServerlessUpload(w, r, body, strings.Split(strings.Trim(strings.TrimPrefix(path, "/serverless-upload/v1/Services"), "/"), "/"))
 	case strings.HasPrefix(path, "/serverless/v1/Services"):
 		rest := strings.Trim(strings.TrimPrefix(path, "/serverless/v1/Services"), "/")
 		if rest == "" {

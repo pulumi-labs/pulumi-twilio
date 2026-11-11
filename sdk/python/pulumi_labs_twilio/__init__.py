@@ -27,6 +27,9 @@ from .get_byoc_trunk import *
 from .get_connect_app import *
 from .get_connection_policy import *
 from .get_connection_policy_target import *
+from .get_dialing_permissions_countries import *
+from .get_dialing_permissions_country import *
+from .get_dialing_permissions_high_risk_special_prefixes import *
 from .get_event_schema import *
 from .get_event_sink import *
 from .get_event_subscription import *
@@ -40,8 +43,12 @@ from .get_messaging_service_phone_number import *
 from .get_outgoing_caller_id import *
 from .get_queue import *
 from .get_serverless_asset import *
+from .get_serverless_asset_version import *
+from .get_serverless_build import *
+from .get_serverless_deployment import *
 from .get_serverless_environment import *
 from .get_serverless_function import *
+from .get_serverless_function_version import *
 from .get_serverless_service import *
 from .get_serverless_variable import *
 from .get_short_code import *
@@ -68,6 +75,9 @@ from .get_verify_safe_list_number import *
 from .get_verify_service import *
 from .get_verify_templates import *
 from .get_verify_webhook import *
+from .get_voice_account_default_recording_configuration import *
+from .get_voice_default_recording_configuration import *
+from .get_voice_default_transcription_configuration import *
 from .get_voice_recording_configuration import *
 from .get_voice_transcription_configuration import *
 from .incoming_phone_number import *
@@ -79,8 +89,12 @@ from .outgoing_caller_id import *
 from .provider import *
 from .queue import *
 from .serverless_asset import *
+from .serverless_asset_version import *
+from .serverless_build import *
+from .serverless_deployment import *
 from .serverless_environment import *
 from .serverless_function import *
+from .serverless_function_version import *
 from .serverless_service import *
 from .serverless_variable import *
 from .short_code import *
@@ -105,6 +119,9 @@ from .verify_rate_limit_bucket import *
 from .verify_safe_list_number import *
 from .verify_service import *
 from .verify_webhook import *
+from .voice_account_default_recording_configuration import *
+from .voice_default_recording_configuration import *
+from .voice_default_transcription_configuration import *
 from .voice_recording_configuration import *
 from .voice_transcription_configuration import *
 from ._inputs import *
@@ -142,8 +159,12 @@ _utilities.register(
    "twilio:index:OutgoingCallerId": "OutgoingCallerId",
    "twilio:index:Queue": "Queue",
    "twilio:index:ServerlessAsset": "ServerlessAsset",
+   "twilio:index:ServerlessAssetVersion": "ServerlessAssetVersion",
+   "twilio:index:ServerlessBuild": "ServerlessBuild",
+   "twilio:index:ServerlessDeployment": "ServerlessDeployment",
    "twilio:index:ServerlessEnvironment": "ServerlessEnvironment",
    "twilio:index:ServerlessFunction": "ServerlessFunction",
+   "twilio:index:ServerlessFunctionVersion": "ServerlessFunctionVersion",
    "twilio:index:ServerlessService": "ServerlessService",
    "twilio:index:ServerlessVariable": "ServerlessVariable",
    "twilio:index:ShortCode": "ShortCode",
@@ -168,6 +189,9 @@ _utilities.register(
    "twilio:index:VerifySafeListNumber": "VerifySafeListNumber",
    "twilio:index:VerifyService": "VerifyService",
    "twilio:index:VerifyWebhook": "VerifyWebhook",
+   "twilio:index:VoiceAccountDefaultRecordingConfiguration": "VoiceAccountDefaultRecordingConfiguration",
+   "twilio:index:VoiceDefaultRecordingConfiguration": "VoiceDefaultRecordingConfiguration",
+   "twilio:index:VoiceDefaultTranscriptionConfiguration": "VoiceDefaultTranscriptionConfiguration",
    "twilio:index:VoiceRecordingConfiguration": "VoiceRecordingConfiguration",
    "twilio:index:VoiceTranscriptionConfiguration": "VoiceTranscriptionConfiguration"
   }

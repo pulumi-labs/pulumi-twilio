@@ -26,7 +26,7 @@ func newProvider() (provider.Provider, error) {
 	return infer.NewProviderBuilder().
 		WithDisplayName("Twilio").
 		WithDescription(
-			"Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
+			"Experimental: manage Twilio as infrastructure with Pulumi: subaccounts, API keys, phone-number webhooks, TwiML applications, messaging and Verify services, SIP trunking and BYOC, Event Streams, Serverless services and more.",
 		).
 		WithHomepage("https://www.twilio.com").
 		WithRepository("https://github.com/pulumi-labs/pulumi-twilio").
@@ -35,7 +35,7 @@ func newProvider() (provider.Provider, error) {
 			"go": map[string]any{"generateResourceContainerTypes": true, "respectSchemaVersion": true},
 			"nodejs": map[string]any{
 				"packageName":          "@pulumi-labs/twilio",
-				"packageDescription":   "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
+				"packageDescription":   "Experimental: manage Twilio as infrastructure with Pulumi: subaccounts, API keys, phone-number webhooks, TwiML applications, messaging and Verify services, SIP trunking and BYOC, Event Streams, Serverless services and more.",
 				"respectSchemaVersion": true,
 			},
 			"python": map[string]any{
@@ -92,10 +92,17 @@ func newProvider() (provider.Provider, error) {
 			infer.Resource[*ServerlessVariable, ServerlessVariableArgs, ServerlessVariableState](&ServerlessVariable{}),
 			infer.Resource[*ServerlessFunction, ServerlessFunctionArgs, ServerlessFunctionState](&ServerlessFunction{}),
 			infer.Resource[*ServerlessAsset, ServerlessAssetArgs, ServerlessAssetState](&ServerlessAsset{}),
+			infer.Resource[*ServerlessFunctionVersion, ServerlessFunctionVersionArgs, ServerlessFunctionVersionState](&ServerlessFunctionVersion{}),
+			infer.Resource[*ServerlessAssetVersion, ServerlessAssetVersionArgs, ServerlessAssetVersionState](&ServerlessAssetVersion{}),
+			infer.Resource[*ServerlessBuild, ServerlessBuildArgs, ServerlessBuildState](&ServerlessBuild{}),
+			infer.Resource[*ServerlessDeployment, ServerlessDeploymentArgs, ServerlessDeploymentState](&ServerlessDeployment{}),
 			infer.Resource[*ConnectionPolicy, ConnectionPolicyArgs, ConnectionPolicyState](&ConnectionPolicy{}),
 			infer.Resource[*ConnectionPolicyTarget, ConnectionPolicyTargetArgs, ConnectionPolicyTargetState](&ConnectionPolicyTarget{}),
 			infer.Resource[*ByocTrunk, ByocTrunkArgs, ByocTrunkState](&ByocTrunk{}),
 			infer.Resource[*VoiceRecordingConfiguration, VoiceRecordingConfigurationArgs, VoiceRecordingConfigurationState](&VoiceRecordingConfiguration{}),
+			infer.Resource[*VoiceDefaultRecordingConfiguration, VoiceDefaultRecordingConfigurationArgs, VoiceDefaultRecordingConfigurationState](&VoiceDefaultRecordingConfiguration{}),
+			infer.Resource[*VoiceDefaultTranscriptionConfiguration, VoiceDefaultTranscriptionConfigurationArgs, VoiceDefaultTranscriptionConfigurationState](&VoiceDefaultTranscriptionConfiguration{}),
+			infer.Resource[*VoiceAccountDefaultRecordingConfiguration, VoiceAccountDefaultRecordingConfigurationArgs, VoiceAccountDefaultRecordingConfigurationState](&VoiceAccountDefaultRecordingConfiguration{}),
 			infer.Resource[*VoiceTranscriptionConfiguration, VoiceTranscriptionConfigurationArgs, VoiceTranscriptionConfigurationState](&VoiceTranscriptionConfiguration{}),
 			infer.Resource[*IpRecord, IpRecordArgs, IpRecordState](&IpRecord{}),
 			infer.Resource[*SourceIpMapping, SourceIpMappingArgs, SourceIpMappingState](&SourceIpMapping{}),
@@ -143,11 +150,21 @@ func newProvider() (provider.Provider, error) {
 			infer.Function[*GetServerlessVariable, GetServerlessVariableArgs, GetServerlessVariableResult](&GetServerlessVariable{}),
 			infer.Function[*GetServerlessFunction, GetServerlessFunctionArgs, GetServerlessFunctionResult](&GetServerlessFunction{}),
 			infer.Function[*GetServerlessAsset, GetServerlessAssetArgs, GetServerlessAssetResult](&GetServerlessAsset{}),
+			infer.Function[*GetServerlessFunctionVersion, GetServerlessFunctionVersionArgs, GetServerlessFunctionVersionResult](&GetServerlessFunctionVersion{}),
+			infer.Function[*GetServerlessAssetVersion, GetServerlessAssetVersionArgs, GetServerlessAssetVersionResult](&GetServerlessAssetVersion{}),
+			infer.Function[*GetServerlessBuild, GetServerlessBuildArgs, GetServerlessBuildResult](&GetServerlessBuild{}),
+			infer.Function[*GetServerlessDeployment, GetServerlessDeploymentArgs, GetServerlessDeploymentResult](&GetServerlessDeployment{}),
 			infer.Function[*GetConnectionPolicy, GetConnectionPolicyArgs, GetConnectionPolicyResult](&GetConnectionPolicy{}),
 			infer.Function[*GetConnectionPolicyTarget, GetConnectionPolicyTargetArgs, GetConnectionPolicyTargetResult](&GetConnectionPolicyTarget{}),
 			infer.Function[*GetByocTrunk, GetByocTrunkArgs, GetByocTrunkResult](&GetByocTrunk{}),
 			infer.Function[*GetVoiceRecordingConfiguration, GetVoiceRecordingConfigurationArgs, GetVoiceRecordingConfigurationResult](&GetVoiceRecordingConfiguration{}),
+			infer.Function[*GetVoiceDefaultRecordingConfiguration, GetVoiceDefaultRecordingConfigurationArgs, GetVoiceDefaultRecordingConfigurationResult](&GetVoiceDefaultRecordingConfiguration{}),
+			infer.Function[*GetVoiceDefaultTranscriptionConfiguration, GetVoiceDefaultTranscriptionConfigurationArgs, GetVoiceDefaultTranscriptionConfigurationResult](&GetVoiceDefaultTranscriptionConfiguration{}),
+			infer.Function[*GetVoiceAccountDefaultRecordingConfiguration, GetVoiceAccountDefaultRecordingConfigurationArgs, GetVoiceAccountDefaultRecordingConfigurationResult](&GetVoiceAccountDefaultRecordingConfiguration{}),
 			infer.Function[*GetVoiceTranscriptionConfiguration, GetVoiceTranscriptionConfigurationArgs, GetVoiceTranscriptionConfigurationResult](&GetVoiceTranscriptionConfiguration{}),
+			infer.Function[*GetDialingPermissionsCountry, GetDialingPermissionsCountryArgs, DialingCountry](&GetDialingPermissionsCountry{}),
+			infer.Function[*GetDialingPermissionsCountries, GetDialingPermissionsCountriesArgs, GetDialingPermissionsCountriesResult](&GetDialingPermissionsCountries{}),
+			infer.Function[*GetDialingPermissionsHighRiskSpecialPrefixes, GetDialingPermissionsHighRiskSpecialPrefixesArgs, GetDialingPermissionsHighRiskSpecialPrefixesResult](&GetDialingPermissionsHighRiskSpecialPrefixes{}),
 			infer.Function[*GetIpRecord, GetIpRecordArgs, GetIpRecordResult](&GetIpRecord{}),
 			infer.Function[*GetSourceIpMapping, GetSourceIpMappingArgs, GetSourceIpMappingResult](&GetSourceIpMapping{}),
 			infer.Function[*GetAvailablePhoneNumbers, GetAvailablePhoneNumbersArgs, GetAvailablePhoneNumbersResult](&GetAvailablePhoneNumbers{}),

@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "displayName": "Twilio",
-  "description": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
+  "description": "Experimental: manage Twilio as infrastructure with Pulumi: subaccounts, API keys, phone-number webhooks, TwiML applications, messaging and Verify services, SIP trunking and BYOC, Event Streams, Serverless services and more.",
   "keywords": [
     "pulumi",
     "twilio",
@@ -30,7 +30,7 @@
       "respectSchemaVersion": true
     },
     "nodejs": {
-      "packageDescription": "Experimental: manage Twilio subaccounts, API keys, phone-number webhooks, TwiML applications, addresses, signing keys, call queues, usage triggers, SIP credential lists, IP access control lists and domains, short codes, Connect apps, verified caller IDs, Event Streams sinks and subscriptions, Elastic SIP trunks, messaging services, Verify services, rate limits, messaging configurations, webhooks and SafeList numbers, Serverless services, environments, variables, functions and assets, and BYOC trunks, connection policies and targets, IP records and source IP mappings as infrastructure with Pulumi.",
+      "packageDescription": "Experimental: manage Twilio as infrastructure with Pulumi: subaccounts, API keys, phone-number webhooks, TwiML applications, messaging and Verify services, SIP trunking and BYOC, Event Streams, Serverless services and more.",
       "packageName": "@pulumi-labs/twilio",
       "respectSchemaVersion": true
     },
@@ -382,6 +382,51 @@
       "type": "object",
       "required": [
         "connectAppSid"
+      ]
+    },
+    "twilio:index:DialingCountry": {
+      "properties": {
+        "continent": {
+          "type": "string",
+          "description": "The continent the country is in."
+        },
+        "countryCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none."
+        },
+        "highRiskSpecialNumbersEnabled": {
+          "type": "boolean",
+          "description": "Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none."
+        },
+        "highRiskTollfraudNumbersEnabled": {
+          "type": "boolean",
+          "description": "Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none."
+        },
+        "isoCode": {
+          "type": "string",
+          "description": "The ISO 3166-1 alpha-2 country code."
+        },
+        "lowRiskNumbersEnabled": {
+          "type": "boolean",
+          "description": "Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the country."
+        }
+      },
+      "type": "object",
+      "required": [
+        "isoCode",
+        "name",
+        "continent",
+        "countryCodes",
+        "lowRiskNumbersEnabled",
+        "highRiskSpecialNumbersEnabled",
+        "highRiskTollfraudNumbersEnabled"
       ]
     },
     "twilio:index:EventSchemaVersion": {
@@ -751,6 +796,23 @@
         }
       },
       "type": "object"
+    },
+    "twilio:index:ServerlessBuildDependency": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "npm package name, for example twilio."
+        },
+        "version": {
+          "type": "string",
+          "description": "Exact version or range of the package, for example 5.3.0 or ^5.3.0."
+        }
+      },
+      "type": "object",
+      "required": [
+        "name",
+        "version"
+      ]
     },
     "twilio:index:ShortCodeEffective": {
       "properties": {
@@ -2906,6 +2968,276 @@
         "friendlyName"
       ]
     },
+    "twilio:index:ServerlessAssetVersion": {
+      "description": "One immutable version of a Twilio Asset: a static file uploaded to a ServerlessAsset. The provider uploads the file itself (multipart POST to serverless-upload.twilio.com), so a version created here can go straight into a ServerlessBuild. Every input replaces the version. Twilio has no delete for versions, so destroying the resource only removes it from Pulumi state. The resource ID is <serviceSid>/<assetSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the version."
+        },
+        "assetSid": {
+          "type": "string",
+          "description": "SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource."
+        },
+        "content": {
+          "type": "string",
+          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change."
+        },
+        "contentBase64": {
+          "type": "string",
+          "description": "The file as base64, for binary content such as images. Set exactly one of content and contentBase64."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Content type of the uploaded file. Defaults to application/octet-stream; set it (for example text/html) so Twilio serves the asset with the right type."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the version was created (ISO 8601)."
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path the asset is served on, starting with /, at most 255 characters, for example /logo.svg. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The version SID (ZN...). Pass it to ServerlessBuild.assetVersionSids."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the version resource."
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Who may fetch the asset: public (anyone), protected (requests signed by Twilio) or private (only Functions of the service). Changing it replaces the resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "assetSid",
+        "path",
+        "visibility",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated"
+      ],
+      "inputProperties": {
+        "assetSid": {
+          "type": "string",
+          "description": "SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource."
+        },
+        "content": {
+          "type": "string",
+          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change."
+        },
+        "contentBase64": {
+          "type": "string",
+          "description": "The file as base64, for binary content such as images. Set exactly one of content and contentBase64."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Content type of the uploaded file. Defaults to application/octet-stream; set it (for example text/html) so Twilio serves the asset with the right type."
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path the asset is served on, starting with /, at most 255 characters, for example /logo.svg. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Who may fetch the asset: public (anyone), protected (requests signed by Twilio) or private (only Functions of the service). Changing it replaces the resource."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "assetSid",
+        "path",
+        "visibility"
+      ]
+    },
+    "twilio:index:ServerlessBuild": {
+      "description": "A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. The resource ID is <serviceSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the build."
+        },
+        "assetVersionSids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "SIDs (ZN...) of the Asset versions to include, typically ServerlessAssetVersion.sid. Changing the list replaces the build."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the build was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the build was last updated (ISO 8601)."
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ServerlessBuildDependency"
+          },
+          "description": "npm packages to install into the build. Changing them replaces the build."
+        },
+        "functionVersionSids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "SIDs (ZN...) of the Function versions to include, typically ServerlessFunctionVersion.sid. Versions uploaded outside Pulumi (Twilio CLI, Serverless Toolkit) work too. Changing the list replaces the build."
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Node.js runtime the build runs on: node8 to node24. Defaults to what Twilio picks when unset. Changing it replaces the build."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The build SID (ZB...). Pass it to ServerlessDeployment.buildSid."
+        },
+        "status": {
+          "type": "string",
+          "description": "Build status: building, completed or failed. The resource is only created once the build is completed."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the build resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "sid",
+        "accountSid",
+        "status",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "assetVersionSids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "SIDs (ZN...) of the Asset versions to include, typically ServerlessAssetVersion.sid. Changing the list replaces the build."
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ServerlessBuildDependency"
+          },
+          "description": "npm packages to install into the build. Changing them replaces the build."
+        },
+        "functionVersionSids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "SIDs (ZN...) of the Function versions to include, typically ServerlessFunctionVersion.sid. Versions uploaded outside Pulumi (Twilio CLI, Serverless Toolkit) work too. Changing the list replaces the build."
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Node.js runtime the build runs on: node8 to node24. Defaults to what Twilio picks when unset. Changing it replaces the build."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid"
+      ]
+    },
+    "twilio:index:ServerlessDeployment": {
+      "description": "Deploys a ServerlessBuild to a ServerlessEnvironment, which makes the build's functions and assets live on the environment's domain. Deployments are immutable, so every input replaces the resource, which deploys again. Twilio has no delete for deployments: destroying the resource only removes it from Pulumi state and the environment keeps serving the build. The resource ID is <serviceSid>/<environmentSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the deployment."
+        },
+        "buildSid": {
+          "type": "string",
+          "description": "SID (ZB...) of the build to deploy (a ServerlessBuild). Changing it deploys the new build and replaces the resource."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the deployment was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the deployment was last updated (ISO 8601)."
+        },
+        "environmentSid": {
+          "type": "string",
+          "description": "SID (ZE...) of the environment to deploy to (a ServerlessEnvironment). Changing it replaces the resource."
+        },
+        "isPlugin": {
+          "type": "boolean",
+          "description": "Whether the deployment is a Flex plugin deployment. Twilio does not return it, so it is kept as given. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The deployment SID (ZD...)."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the deployment resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "environmentSid",
+        "buildSid",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "buildSid": {
+          "type": "string",
+          "description": "SID (ZB...) of the build to deploy (a ServerlessBuild). Changing it deploys the new build and replaces the resource."
+        },
+        "environmentSid": {
+          "type": "string",
+          "description": "SID (ZE...) of the environment to deploy to (a ServerlessEnvironment). Changing it replaces the resource."
+        },
+        "isPlugin": {
+          "type": "boolean",
+          "description": "Whether the deployment is a Flex plugin deployment. Twilio does not return it, so it is kept as given. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "environmentSid",
+        "buildSid"
+      ]
+    },
     "twilio:index:ServerlessEnvironment": {
       "description": "An environment of a Twilio Serverless service. Add ServerlessVariable resources to configure it. The resource ID is <serviceSid>/<sid>.",
       "properties": {
@@ -3041,6 +3373,95 @@
       "requiredInputs": [
         "serviceSid",
         "friendlyName"
+      ]
+    },
+    "twilio:index:ServerlessFunctionVersion": {
+      "description": "One immutable version of a Twilio Function: the source code uploaded to a ServerlessFunction. The provider uploads the code itself (multipart POST to serverless-upload.twilio.com), so a version created here can go straight into a ServerlessBuild. Every input replaces the version. Twilio has no delete for versions, so destroying the resource only removes it from Pulumi state. The resource ID is <serviceSid>/<functionSid>/<sid>.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the version."
+        },
+        "content": {
+          "type": "string",
+          "description": "The source code of the function, for example the text of a .js file. Changing it uploads a new version and replaces the resource. After an import the code is read back from Twilio."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Content type of the uploaded file. Defaults to application/javascript."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the version was created (ISO 8601)."
+        },
+        "functionSid": {
+          "type": "string",
+          "description": "SID (ZH...) of the Function (a ServerlessFunction) the version belongs to. Changing it replaces the resource."
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path the function answers on inside its service, starting with /, at most 255 characters, for example /hello. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The version SID (ZN...). Pass it to ServerlessBuild.functionVersionSids."
+        },
+        "url": {
+          "type": "string",
+          "description": "The absolute URL of the version resource."
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Who may call the function: public (anyone), protected (requests signed by Twilio) or private (only other Functions of the service). Changing it replaces the resource."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "functionSid",
+        "path",
+        "visibility",
+        "content",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated"
+      ],
+      "inputProperties": {
+        "content": {
+          "type": "string",
+          "description": "The source code of the function, for example the text of a .js file. Changing it uploads a new version and replaces the resource. After an import the code is read back from Twilio."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Content type of the uploaded file. Defaults to application/javascript."
+        },
+        "functionSid": {
+          "type": "string",
+          "description": "SID (ZH...) of the Function (a ServerlessFunction) the version belongs to. Changing it replaces the resource."
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path the function answers on inside its service, starting with /, at most 255 characters, for example /hello. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (ZS...) of the Serverless service. Changing it replaces the resource."
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Who may call the function: public (anyone), protected (requests signed by Twilio) or private (only other Functions of the service). Changing it replaces the resource."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "functionSid",
+        "path",
+        "visibility",
+        "content"
       ]
     },
     "twilio:index:ServerlessService": {
@@ -4998,6 +5419,138 @@
         "webhookUrl"
       ]
     },
+    "twilio:index:VoiceAccountDefaultRecordingConfiguration": {
+      "description": "The account-wide default Twilio Voice v2 recording configuration: how calls that have no recording configuration of their own are recorded. There is at most one per account, so create adopts an existing one (it is replaced by this resource's inputs) and destroy removes the account default. Import with the account SID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account the default applies to; also the resource ID."
+        },
+        "callRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where call recording status events are reported."
+        },
+        "compositionPolicy": {
+          "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+          "description": "How recordings are composed: channels, silence trimming and track."
+        },
+        "conferenceRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where conference recording status events are reported."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the default was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the default was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the default configuration."
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:RecordingFeature"
+          },
+          "description": "Features applied to the recording (at most 3), for example a transcription configuration."
+        }
+      },
+      "required": [
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "callRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where call recording status events are reported."
+        },
+        "compositionPolicy": {
+          "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+          "description": "How recordings are composed: channels, silence trimming and track."
+        },
+        "conferenceRecordingStatusCallback": {
+          "$ref": "#/types/twilio:index:RecordingStatusCallback",
+          "description": "Where conference recording status events are reported."
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the default configuration."
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:RecordingFeature"
+          },
+          "description": "Features applied to the recording (at most 3), for example a transcription configuration."
+        }
+      }
+    },
+    "twilio:index:VoiceDefaultRecordingConfiguration": {
+      "description": "Marks an existing Twilio Voice v2 recording configuration as the account default (POST /v2/Configurations/Recording/Default). There is at most one default per account. Twilio documents no way to unset it, so destroy only forgets the selection: the configuration stays the default until another is chosen. Import with the account SID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account the default applies to; also the resource ID."
+        },
+        "configurationId": {
+          "type": "string",
+          "description": "ID of the existing recording configuration to make the default (a VoiceRecordingConfiguration's configurationId). Changing it selects another configuration."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the selected configuration was last updated (ISO 8601)."
+        }
+      },
+      "required": [
+        "configurationId",
+        "accountSid",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "configurationId": {
+          "type": "string",
+          "description": "ID of the existing recording configuration to make the default (a VoiceRecordingConfiguration's configurationId). Changing it selects another configuration."
+        }
+      },
+      "requiredInputs": [
+        "configurationId"
+      ]
+    },
+    "twilio:index:VoiceDefaultTranscriptionConfiguration": {
+      "description": "Marks an existing Twilio Voice v2 transcription configuration as the account default (POST /v2/Configurations/Transcription/Default). There is at most one default per account. Twilio documents no way to unset it, so destroy only forgets the selection: the configuration stays the default until another is chosen. Import with the account SID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account the default applies to; also the resource ID."
+        },
+        "configurationId": {
+          "type": "string",
+          "description": "ID of the existing transcription configuration to make the default (a VoiceTranscriptionConfiguration's configurationId). Changing it selects another configuration."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the selected configuration was last updated (ISO 8601)."
+        }
+      },
+      "required": [
+        "configurationId",
+        "accountSid",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "configurationId": {
+          "type": "string",
+          "description": "ID of the existing transcription configuration to make the default (a VoiceTranscriptionConfiguration's configurationId). Changing it selects another configuration."
+        }
+      },
+      "requiredInputs": [
+        "configurationId"
+      ]
+    },
     "twilio:index:VoiceRecordingConfiguration": {
       "description": "A Twilio Voice v2 recording configuration: how calls and conferences are recorded and where the recording status is reported. Import with the configuration ID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
       "properties": {
@@ -6046,6 +6599,148 @@
         "type": "object"
       }
     },
+    "twilio:index:getDialingPermissionsCountries": {
+      "description": "List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "continent": {
+            "type": "string",
+            "description": "Only countries on this continent."
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Only countries with this E.164 calling code."
+          },
+          "highRiskSpecialNumbersEnabled": {
+            "type": "boolean",
+            "description": "Only countries where dialing high-risk special services numbers is (or is not) enabled."
+          },
+          "highRiskTollfraudNumbersEnabled": {
+            "type": "boolean",
+            "description": "Only countries where dialing high-risk toll fraud numbers is (or is not) enabled."
+          },
+          "isoCode": {
+            "type": "string",
+            "description": "Only this ISO 3166-1 alpha-2 country code."
+          },
+          "lowRiskNumbersEnabled": {
+            "type": "boolean",
+            "description": "Only countries where dialing low-risk numbers is (or is not) enabled."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "countries": {
+            "description": "The matching countries, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:DialingCountry"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countries"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getDialingPermissionsCountry": {
+      "description": "Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.",
+      "inputs": {
+        "properties": {
+          "isoCode": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCode"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "continent": {
+            "description": "The continent the country is in.",
+            "type": "string"
+          },
+          "countryCodes": {
+            "description": "The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "highRiskSpecialNumbersEnabled": {
+            "description": "Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.",
+            "type": "boolean"
+          },
+          "highRiskTollfraudNumbersEnabled": {
+            "description": "Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.",
+            "type": "boolean"
+          },
+          "isoCode": {
+            "description": "The ISO 3166-1 alpha-2 country code.",
+            "type": "string"
+          },
+          "lowRiskNumbersEnabled": {
+            "description": "Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "The name of the country.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "isoCode",
+          "name",
+          "continent",
+          "countryCodes",
+          "lowRiskNumbersEnabled",
+          "highRiskSpecialNumbersEnabled",
+          "highRiskTollfraudNumbersEnabled"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getDialingPermissionsHighRiskSpecialPrefixes": {
+      "description": "List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.",
+      "inputs": {
+        "properties": {
+          "isoCode": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCode"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "isoCode": {
+            "description": "The country code that was looked up.",
+            "type": "string"
+          },
+          "prefixes": {
+            "description": "The E.164 number prefixes (with the country code, for example `+49900`) that count as high-risk special services numbers in the country, in the order Twilio returns them.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "isoCode",
+          "prefixes"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getEventSchema": {
       "description": "Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).",
       "inputs": {
@@ -6847,6 +7542,240 @@
         "type": "object"
       }
     },
+    "twilio:index:getServerlessAssetVersion": {
+      "description": "Look up one version of a Serverless Asset by SID.",
+      "inputs": {
+        "properties": {
+          "assetSid": {
+            "type": "string",
+            "description": "SID (ZH...) of the Asset."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          },
+          "versionSid": {
+            "type": "string",
+            "description": "SID (ZN...) of the version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "assetSid",
+          "versionSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the version.",
+            "type": "string"
+          },
+          "assetSid": {
+            "description": "SID of the Asset the version belongs to.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the version was created (ISO 8601).",
+            "type": "string"
+          },
+          "path": {
+            "description": "URL path the asset is served on.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The version SID (ZN...).",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the version resource.",
+            "type": "string"
+          },
+          "visibility": {
+            "description": "public, protected or private.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "assetSid",
+          "sid",
+          "accountSid",
+          "path",
+          "visibility",
+          "url",
+          "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessBuild": {
+      "description": "Look up a Serverless build by SID.",
+      "inputs": {
+        "properties": {
+          "buildSid": {
+            "type": "string",
+            "description": "SID (ZB...) of the build."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "buildSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the build.",
+            "type": "string"
+          },
+          "assetVersionSids": {
+            "description": "SIDs of the Asset versions in the build.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "dateCreated": {
+            "description": "When the build was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the build was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "dependencies": {
+            "description": "npm packages installed into the build.",
+            "items": {
+              "$ref": "#/types/twilio:index:ServerlessBuildDependency"
+            },
+            "type": "array"
+          },
+          "functionVersionSids": {
+            "description": "SIDs of the Function versions in the build.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "runtime": {
+            "description": "Node.js runtime of the build.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The build SID (ZB...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "building, completed or failed.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the build resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "sid",
+          "accountSid",
+          "status",
+          "functionVersionSids",
+          "assetVersionSids",
+          "dependencies",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessDeployment": {
+      "description": "Look up a deployment of a Serverless environment by SID.",
+      "inputs": {
+        "properties": {
+          "deploymentSid": {
+            "type": "string",
+            "description": "SID (ZD...) of the deployment."
+          },
+          "environmentSid": {
+            "type": "string",
+            "description": "SID (ZE...) of the environment."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "environmentSid",
+          "deploymentSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the deployment.",
+            "type": "string"
+          },
+          "buildSid": {
+            "description": "SID (ZB...) of the build that was deployed.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the deployment was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the deployment was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "environmentSid": {
+            "description": "SID of the environment.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The deployment SID (ZD...).",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the deployment resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "environmentSid",
+          "sid",
+          "accountSid",
+          "buildSid",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getServerlessEnvironment": {
       "description": "Look up an environment of a Serverless service by SID.",
       "inputs": {
@@ -6976,6 +7905,78 @@
           "url",
           "dateCreated",
           "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getServerlessFunctionVersion": {
+      "description": "Look up one version of a Serverless Function by SID.",
+      "inputs": {
+        "properties": {
+          "functionSid": {
+            "type": "string",
+            "description": "SID (ZH...) of the Function."
+          },
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (ZS...) of the Serverless service."
+          },
+          "versionSid": {
+            "type": "string",
+            "description": "SID (ZN...) of the version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "functionSid",
+          "versionSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the version.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the version was created (ISO 8601).",
+            "type": "string"
+          },
+          "functionSid": {
+            "description": "SID of the Function the version belongs to.",
+            "type": "string"
+          },
+          "path": {
+            "description": "URL path the function answers on.",
+            "type": "string"
+          },
+          "serviceSid": {
+            "description": "SID of the Serverless service.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The version SID (ZN...).",
+            "type": "string"
+          },
+          "url": {
+            "description": "The absolute URL of the version resource.",
+            "type": "string"
+          },
+          "visibility": {
+            "description": "public, protected or private.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "serviceSid",
+          "functionSid",
+          "sid",
+          "accountSid",
+          "path",
+          "visibility",
+          "url",
+          "dateCreated"
         ],
         "type": "object"
       }
@@ -8670,6 +9671,125 @@
           "status",
           "webhookVersion",
           "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVoiceAccountDefaultRecordingConfiguration": {
+      "description": "Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account the default applies to.",
+            "type": "string"
+          },
+          "callRecordingStatusCallback": {
+            "$ref": "#/types/twilio:index:RecordingStatusCallback",
+            "description": "Where call recording status events are reported; unset when none."
+          },
+          "compositionPolicy": {
+            "$ref": "#/types/twilio:index:RecordingCompositionPolicy",
+            "description": "How recordings are composed; unset when Twilio reports none."
+          },
+          "conferenceRecordingStatusCallback": {
+            "$ref": "#/types/twilio:index:RecordingStatusCallback",
+            "description": "Where conference recording status events are reported; unset when none."
+          },
+          "dateCreated": {
+            "description": "When the default was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the default was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "description": {
+            "description": "The description; empty when none is set.",
+            "type": "string"
+          },
+          "features": {
+            "description": "Features applied to the recording; empty when none.",
+            "items": {
+              "$ref": "#/types/twilio:index:RecordingFeature"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "accountSid",
+          "description",
+          "features",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVoiceDefaultRecordingConfiguration": {
+      "description": "Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the configuration.",
+            "type": "string"
+          },
+          "configurationId": {
+            "description": "ID of the default recording configuration; pass it to getVoiceRecordingConfiguration for its settings.",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the default configuration was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "uniqueName": {
+            "description": "Unique name of the default configuration; empty when none is set.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "configurationId",
+          "uniqueName",
+          "accountSid",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVoiceDefaultTranscriptionConfiguration": {
+      "description": "Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the configuration.",
+            "type": "string"
+          },
+          "configurationId": {
+            "description": "ID of the default transcription configuration; pass it to getVoiceTranscriptionConfiguration for its settings.",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the default configuration was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "uniqueName": {
+            "description": "Unique name of the default configuration; empty when none is set.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "configurationId",
+          "uniqueName",
+          "accountSid",
           "dateUpdated"
         ],
         "type": "object"

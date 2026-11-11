@@ -237,6 +237,30 @@ func (r *ServerlessAsset) WireDependencies(f infer.FieldSelector, args *Serverle
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
 
+// WireDependencies: versions are immutable, so every output is fixed at creation.
+func (r *ServerlessFunctionVersion) WireDependencies(f infer.FieldSelector, args *ServerlessFunctionVersionArgs, state *ServerlessFunctionVersionState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: versions are immutable, so every output is fixed at creation.
+func (r *ServerlessAssetVersion) WireDependencies(f infer.FieldSelector, args *ServerlessAssetVersionArgs, state *ServerlessAssetVersionState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the status and update time are what Twilio reports.
+func (r *ServerlessBuild) WireDependencies(f infer.FieldSelector, args *ServerlessBuildArgs, state *ServerlessBuildState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ServerlessDeployment) WireDependencies(f infer.FieldSelector, args *ServerlessDeploymentArgs, state *ServerlessDeploymentState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
 // WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
 func (r *ConnectionPolicy) WireDependencies(f infer.FieldSelector, args *ConnectionPolicyArgs, state *ConnectionPolicyState) {
 	wireEchoes(f, args, state)
@@ -275,6 +299,18 @@ func (r *VoiceRecordingConfiguration) WireDependencies(f infer.FieldSelector, ar
 
 // WireDependencies: the ID, owner and creation time are fixed at creation; the update time is what Twilio reports.
 func (r *VoiceTranscriptionConfiguration) WireDependencies(f infer.FieldSelector, args *VoiceTranscriptionConfigurationArgs, state *VoiceTranscriptionConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the account SID is fixed; the update time is what Twilio reports.
+func (r *VoiceDefaultRecordingConfiguration) WireDependencies(f infer.FieldSelector, args *VoiceDefaultRecordingConfigurationArgs, state *VoiceDefaultRecordingConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the account SID is fixed; the update time is what Twilio reports.
+func (r *VoiceDefaultTranscriptionConfiguration) WireDependencies(f infer.FieldSelector, args *VoiceDefaultTranscriptionConfigurationArgs, state *VoiceDefaultTranscriptionConfigurationState) {
 	wireEchoes(f, args, state)
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }

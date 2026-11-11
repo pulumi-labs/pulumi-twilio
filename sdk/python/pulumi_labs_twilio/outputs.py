@@ -21,6 +21,7 @@ __all__ = [
     'AuthorizedConnectApp',
     'AvailablePhoneNumber',
     'ConnectAppEffective',
+    'DialingCountry',
     'EventSchemaVersion',
     'EventSubscriptionType',
     'EventType',
@@ -31,6 +32,7 @@ __all__ = [
     'RecordingCompositionPolicy',
     'RecordingFeature',
     'RecordingStatusCallback',
+    'ServerlessBuildDependency',
     'ShortCodeEffective',
     'TranscriptionParticipantDefault',
     'TranscriptionStatusCallback',
@@ -757,6 +759,90 @@ class ConnectAppEffective(dict):
         Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
         """
         return pulumi.get(self, "permissions")
+
+
+@pulumi.output_type
+class DialingCountry(dict):
+    def __init__(__self__, *,
+                 continent: _builtins.str,
+                 country_codes: Sequence[_builtins.str],
+                 high_risk_special_numbers_enabled: _builtins.bool,
+                 high_risk_tollfraud_numbers_enabled: _builtins.bool,
+                 iso_code: _builtins.str,
+                 low_risk_numbers_enabled: _builtins.bool,
+                 name: _builtins.str):
+        """
+        :param _builtins.str continent: The continent the country is in.
+        :param Sequence[_builtins.str] country_codes: The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.
+        :param _builtins.bool high_risk_special_numbers_enabled: Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.
+        :param _builtins.bool high_risk_tollfraud_numbers_enabled: Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.
+        :param _builtins.str iso_code: The ISO 3166-1 alpha-2 country code.
+        :param _builtins.bool low_risk_numbers_enabled: Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.
+        :param _builtins.str name: The name of the country.
+        """
+        pulumi.set(__self__, "continent", continent)
+        pulumi.set(__self__, "country_codes", country_codes)
+        pulumi.set(__self__, "high_risk_special_numbers_enabled", high_risk_special_numbers_enabled)
+        pulumi.set(__self__, "high_risk_tollfraud_numbers_enabled", high_risk_tollfraud_numbers_enabled)
+        pulumi.set(__self__, "iso_code", iso_code)
+        pulumi.set(__self__, "low_risk_numbers_enabled", low_risk_numbers_enabled)
+        pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter
+    def continent(self) -> _builtins.str:
+        """
+        The continent the country is in.
+        """
+        return pulumi.get(self, "continent")
+
+    @_builtins.property
+    @pulumi.getter(name="countryCodes")
+    def country_codes(self) -> Sequence[_builtins.str]:
+        """
+        The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.
+        """
+        return pulumi.get(self, "country_codes")
+
+    @_builtins.property
+    @pulumi.getter(name="highRiskSpecialNumbersEnabled")
+    def high_risk_special_numbers_enabled(self) -> _builtins.bool:
+        """
+        Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.
+        """
+        return pulumi.get(self, "high_risk_special_numbers_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="highRiskTollfraudNumbersEnabled")
+    def high_risk_tollfraud_numbers_enabled(self) -> _builtins.bool:
+        """
+        Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.
+        """
+        return pulumi.get(self, "high_risk_tollfraud_numbers_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="isoCode")
+    def iso_code(self) -> _builtins.str:
+        """
+        The ISO 3166-1 alpha-2 country code.
+        """
+        return pulumi.get(self, "iso_code")
+
+    @_builtins.property
+    @pulumi.getter(name="lowRiskNumbersEnabled")
+    def low_risk_numbers_enabled(self) -> _builtins.bool:
+        """
+        Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.
+        """
+        return pulumi.get(self, "low_risk_numbers_enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the country.
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -1816,6 +1902,35 @@ class RecordingStatusCallback(dict):
         URL Twilio requests with the recording status.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class ServerlessBuildDependency(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 version: _builtins.str):
+        """
+        :param _builtins.str name: npm package name, for example twilio.
+        :param _builtins.str version: Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        npm package name, for example twilio.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> _builtins.str:
+        """
+        Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+        """
+        return pulumi.get(self, "version")
 
 
 @pulumi.output_type

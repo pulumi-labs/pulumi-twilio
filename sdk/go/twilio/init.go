@@ -55,10 +55,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Queue{}
 	case "twilio:index:ServerlessAsset":
 		r = &ServerlessAsset{}
+	case "twilio:index:ServerlessAssetVersion":
+		r = &ServerlessAssetVersion{}
+	case "twilio:index:ServerlessBuild":
+		r = &ServerlessBuild{}
+	case "twilio:index:ServerlessDeployment":
+		r = &ServerlessDeployment{}
 	case "twilio:index:ServerlessEnvironment":
 		r = &ServerlessEnvironment{}
 	case "twilio:index:ServerlessFunction":
 		r = &ServerlessFunction{}
+	case "twilio:index:ServerlessFunctionVersion":
+		r = &ServerlessFunctionVersion{}
 	case "twilio:index:ServerlessService":
 		r = &ServerlessService{}
 	case "twilio:index:ServerlessVariable":
@@ -107,6 +115,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &VerifyService{}
 	case "twilio:index:VerifyWebhook":
 		r = &VerifyWebhook{}
+	case "twilio:index:VoiceAccountDefaultRecordingConfiguration":
+		r = &VoiceAccountDefaultRecordingConfiguration{}
+	case "twilio:index:VoiceDefaultRecordingConfiguration":
+		r = &VoiceDefaultRecordingConfiguration{}
+	case "twilio:index:VoiceDefaultTranscriptionConfiguration":
+		r = &VoiceDefaultTranscriptionConfiguration{}
 	case "twilio:index:VoiceRecordingConfiguration":
 		r = &VoiceRecordingConfiguration{}
 	case "twilio:index:VoiceTranscriptionConfiguration":

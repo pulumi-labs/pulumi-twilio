@@ -266,15 +266,19 @@ func nonEmptyList(l *[]string) *[]string {
 	return l
 }
 
-// adopt fills the fields on import: every returned value that differs from the
-// Twilio default becomes an input, so importing and then writing a program that
-// does not mention the defaults plans no change. A bool or int is adopted only
-// when a default is known (boolDefaults, intDefaults, or the import-only
-// importBoolDefaults, importIntDefaults) and the returned value differs from it. Without a verified default a returned value
-// cannot be told from the server's own default, and adopting it would make a
-// program that sets only the required fields plan to remove it on the next
-// preview (#1572); such a field is left unset, and declaring it later is an
-// ordinary update.
+// adopt fills the fields on import. A returned string is adopted unless it is
+// empty, equals the string default, is listed in noAdopt, or equals an
+// importStrDefaults entry. The one exception is Totp.Issuer, which is never
+// adopted (#1658). A non-empty list is adopted as returned. A bool or int is adopted only when a default is
+// known (boolDefaults and intDefaults, or the import-only importBoolDefaults
+// and importIntDefaults) and the returned value differs from it. Without a
+// known default a returned value cannot be told from the server's own default,
+// and adopting it would make a program that sets only the required fields plan
+// to remove it on the next preview (#1572); such a field is left unset, and
+// declaring it later is an ordinary update. The import-only maps are separate
+// from boolDefaults and intDefaults because those also decide what an update
+// sends when an input is removed, so an observed value must not go there
+// (#1595).
 func (ps props) adopt(o obj) {
 	for _, f := range ps.strs {
 		v := nonEmpty(o.optStr(f.key))

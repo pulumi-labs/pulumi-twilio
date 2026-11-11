@@ -91,6 +91,14 @@ func validateTranscriptionCfg(cfg map[string]any) string {
 }
 
 func (f *fakeTwilio) handleVoiceV2(w http.ResponseWriter, r *http.Request, body []byte, parts []string) {
+	if len(parts) == 2 && parts[0] == "AccountDefaultConfiguration" && parts[1] == "Recording" {
+		f.handleAccountDefaultRecording(w, r, body)
+		return
+	}
+	if len(parts) == 3 && parts[0] == "Configurations" && parts[2] == "Default" {
+		f.handleVoiceDefault(w, r, body, parts[1])
+		return
+	}
 	if len(parts) < 2 || len(parts) > 3 || parts[0] != "Configurations" {
 		ferr(w, 404, "no route "+r.URL.Path)
 		return
@@ -182,4 +190,116 @@ func (f *fakeTwilio) findVoiceV2(k voiceV2Kind, idOrName string) map[string]any 
 		}
 	}
 	return nil
+}
+
+// handleAccountDefaultRecording serves /voice/v2/AccountDefaultConfiguration/Recording: at most one
+// per account, POST answers 201 (409 when one exists), GET 200 (404 when none), PUT replaces and
+// answers 200 (404 when none), DELETE answers 204 (404 when none). The body has a description and
+// a configuration, no unique name, and the response carries the account_sid and no id.
+func (f *fakeTwilio) handleAccountDefaultRecording(w http.ResponseWriter, r *http.Request, body []byte) {
+	const kind = "voiceaccdef"
+	cur, exists := f.objs[key(kind, testAccount, "Recording")]
+	build := func() (map[string]any, string) {
+		var req struct {
+			Description   *string        `json:"description"`
+			UniqueName    *string        `json:"unique_name"`
+			Configuration map[string]any `json:"configuration"`
+		}
+		if err := json.Unmarshal(body, &req); err != nil || req.Configuration == nil {
+			return nil, "configuration is required"
+		}
+		if req.UniqueName != nil {
+			return nil, "unique_name is not allowed on the account default"
+		}
+		if t, _ := req.Configuration["configurationType"].(string); t != "Recording" {
+			return nil, "configurationType must be Recording"
+		}
+		if msg := validateRecordingCfg(req.Configuration); msg != "" {
+			return nil, msg
+		}
+		o := map[string]any{"account_sid": testAccount, "description": nil, "configuration": req.Configuration}
+		if req.Description != nil {
+			o["description"] = *req.Description
+		}
+		return o, ""
+	}
+	switch r.Method {
+	case "POST":
+		if exists {
+			ferr(w, 409, "Account Default Configuration already exists")
+			return
+		}
+		o, msg := build()
+		if msg != "" {
+			ferr(w, 400, msg)
+			return
+		}
+		o["date_created"], o["date_updated"] = voiceStamp, voiceStamp
+		f.put(kind, testAccount, "Recording", o)
+		fwrite(w, 201, o)
+	case "GET", "PUT", "DELETE":
+		if !exists {
+			ferr(w, 404, "The requested resource "+r.URL.Path+" was not found")
+			return
+		}
+		switch r.Method {
+		case "GET":
+			fwrite(w, 200, cur)
+		case "PUT":
+			o, msg := build()
+			if msg != "" {
+				ferr(w, 400, msg)
+				return
+			}
+			cur["description"], cur["configuration"], cur["date_updated"] = o["description"], o["configuration"], voiceUpdatedStamp
+			fwrite(w, 200, cur)
+		default:
+			f.del(kind, testAccount, "Recording")
+			w.WriteHeader(204)
+		}
+	default:
+		ferr(w, 405, "method not allowed")
+	}
+}
+
+// handleVoiceDefault serves /voice/v2/Configurations/{Type}/Default: POST selects an existing
+// configuration by configuration_id (204; 404 when it does not exist), GET answers the selected
+// configuration (404 when none is selected).
+func (f *fakeTwilio) handleVoiceDefault(w http.ResponseWriter, r *http.Request, body []byte, typ string) {
+	k, ok := voiceV2Kinds[typ]
+	if !ok {
+		ferr(w, 404, "no route "+r.URL.Path)
+		return
+	}
+	const kind = "voicedefault"
+	switch r.Method {
+	case "POST":
+		var req struct {
+			ConfigurationID string `json:"configuration_id"`
+		}
+		if err := json.Unmarshal(body, &req); err != nil || req.ConfigurationID == "" {
+			ferr(w, 400, "configuration_id is required")
+			return
+		}
+		if f.findVoiceV2(k, req.ConfigurationID) == nil {
+			ferr(w, 404, "The requested configuration "+req.ConfigurationID+" was not found")
+			return
+		}
+		f.put(kind, testAccount, typ, map[string]any{"id": req.ConfigurationID})
+		w.WriteHeader(204)
+	case "GET":
+		sel, ok := f.objs[key(kind, testAccount, typ)]
+		if !ok {
+			ferr(w, 404, "The requested resource "+r.URL.Path+" was not found")
+			return
+		}
+		o := f.findVoiceV2(k, sel["id"].(string))
+		if o == nil {
+			ferr(w, 404, "The requested resource "+r.URL.Path+" was not found")
+			return
+		}
+		fwrite(w, 200, o)
+	default:
+		ferr(w, 405, "method not allowed")
+	}
 }

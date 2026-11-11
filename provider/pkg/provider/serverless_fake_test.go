@@ -72,6 +72,20 @@ func (f *fakeTwilio) handleServerless(w http.ResponseWriter, r *http.Request, fo
 		f.serverlessVariable(w, r, form, svc, parts[2], vsid, notFound)
 	case (parts[1] == "Functions" || parts[1] == "Assets") && len(parts) <= 3:
 		f.serverlessContainer(w, r, form, svc, parts[1], sid, notFound)
+	case (parts[1] == "Functions" || parts[1] == "Assets") && len(parts) >= 5 && len(parts) <= 6 && parts[3] == "Versions":
+		f.serverlessVersion(w, r, svc, parts, notFound)
+	case parts[1] == "Builds" && len(parts) <= 4:
+		f.serverlessBuild(w, r, form, svc, parts, notFound)
+	case parts[1] == "Environments" && len(parts) >= 4 && parts[3] == "Deployments" && len(parts) <= 5:
+		if _, ok := f.objs[key("ze", testAccount, svc+"/"+parts[2])]; !ok {
+			notFound()
+			return
+		}
+		dsid := ""
+		if len(parts) == 5 {
+			dsid = parts[4]
+		}
+		f.serverlessDeployment(w, r, form, svc, parts[2], dsid, notFound)
 	default:
 		notFound()
 	}

@@ -85,6 +85,10 @@ var voiceKinds = map[string]voiceKind{
 
 func (f *fakeTwilio) handleVoice(w http.ResponseWriter, r *http.Request, form url.Values, parts []string) {
 	notFound := func() { ferr(w, 404, "The requested resource "+r.URL.Path+" was not found") }
+	if parts[0] == "DialingPermissions" {
+		f.handleDialingPermissions(w, r, parts[1:], notFound)
+		return
+	}
 	k, ok := voiceKinds[parts[0]]
 	if !ok {
 		notFound()

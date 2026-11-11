@@ -840,6 +840,92 @@ func (o ConnectAppEffectivePtrOutput) Permissions() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+type DialingCountry struct {
+	// The continent the country is in.
+	Continent string `pulumi:"continent"`
+	// The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.
+	CountryCodes []string `pulumi:"countryCodes"`
+	// Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.
+	HighRiskSpecialNumbersEnabled bool `pulumi:"highRiskSpecialNumbersEnabled"`
+	// Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.
+	HighRiskTollfraudNumbersEnabled bool `pulumi:"highRiskTollfraudNumbersEnabled"`
+	// The ISO 3166-1 alpha-2 country code.
+	IsoCode string `pulumi:"isoCode"`
+	// Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.
+	LowRiskNumbersEnabled bool `pulumi:"lowRiskNumbersEnabled"`
+	// The name of the country.
+	Name string `pulumi:"name"`
+}
+
+type DialingCountryOutput struct{ *pulumi.OutputState }
+
+func (DialingCountryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DialingCountry)(nil)).Elem()
+}
+
+func (o DialingCountryOutput) ToDialingCountryOutput() DialingCountryOutput {
+	return o
+}
+
+func (o DialingCountryOutput) ToDialingCountryOutputWithContext(ctx context.Context) DialingCountryOutput {
+	return o
+}
+
+// The continent the country is in.
+func (o DialingCountryOutput) Continent() pulumi.StringOutput {
+	return o.ApplyT(func(v DialingCountry) string { return v.Continent }).(pulumi.StringOutput)
+}
+
+// The E.164 country calling codes assigned to the country (without the plus sign); empty when Twilio reports none.
+func (o DialingCountryOutput) CountryCodes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DialingCountry) []string { return v.CountryCodes }).(pulumi.StringArrayOutput)
+}
+
+// Whether dialing high-risk special services numbers (premium, shared cost and similar ranges) in the country is enabled; false when Twilio reports none.
+func (o DialingCountryOutput) HighRiskSpecialNumbersEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v DialingCountry) bool { return v.HighRiskSpecialNumbersEnabled }).(pulumi.BoolOutput)
+}
+
+// Whether dialing high-risk toll fraud (IRSF) number ranges in the country is enabled; false when Twilio reports none.
+func (o DialingCountryOutput) HighRiskTollfraudNumbersEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v DialingCountry) bool { return v.HighRiskTollfraudNumbersEnabled }).(pulumi.BoolOutput)
+}
+
+// The ISO 3166-1 alpha-2 country code.
+func (o DialingCountryOutput) IsoCode() pulumi.StringOutput {
+	return o.ApplyT(func(v DialingCountry) string { return v.IsoCode }).(pulumi.StringOutput)
+}
+
+// Whether dialing low-risk numbers in the country is enabled; false when Twilio reports none.
+func (o DialingCountryOutput) LowRiskNumbersEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v DialingCountry) bool { return v.LowRiskNumbersEnabled }).(pulumi.BoolOutput)
+}
+
+// The name of the country.
+func (o DialingCountryOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DialingCountry) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type DialingCountryArrayOutput struct{ *pulumi.OutputState }
+
+func (DialingCountryArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DialingCountry)(nil)).Elem()
+}
+
+func (o DialingCountryArrayOutput) ToDialingCountryArrayOutput() DialingCountryArrayOutput {
+	return o
+}
+
+func (o DialingCountryArrayOutput) ToDialingCountryArrayOutputWithContext(ctx context.Context) DialingCountryArrayOutput {
+	return o
+}
+
+func (o DialingCountryArrayOutput) Index(i pulumi.IntInput) DialingCountryOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DialingCountry {
+		return vs[0].([]DialingCountry)[vs[1].(int)]
+	}).(DialingCountryOutput)
+}
+
 type EventSchemaVersion struct {
 	// When the version was published (ISO 8601).
 	DateCreated string `pulumi:"dateCreated"`
@@ -2488,6 +2574,112 @@ func (o RecordingStatusCallbackPtrOutput) Url() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ServerlessBuildDependency struct {
+	// npm package name, for example twilio.
+	Name string `pulumi:"name"`
+	// Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+	Version string `pulumi:"version"`
+}
+
+// ServerlessBuildDependencyInput is an input type that accepts ServerlessBuildDependencyArgs and ServerlessBuildDependencyOutput values.
+// You can construct a concrete instance of `ServerlessBuildDependencyInput` via:
+//
+//	ServerlessBuildDependencyArgs{...}
+type ServerlessBuildDependencyInput interface {
+	pulumi.Input
+
+	ToServerlessBuildDependencyOutput() ServerlessBuildDependencyOutput
+	ToServerlessBuildDependencyOutputWithContext(context.Context) ServerlessBuildDependencyOutput
+}
+
+type ServerlessBuildDependencyArgs struct {
+	// npm package name, for example twilio.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+	Version pulumi.StringInput `pulumi:"version"`
+}
+
+func (ServerlessBuildDependencyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServerlessBuildDependency)(nil)).Elem()
+}
+
+func (i ServerlessBuildDependencyArgs) ToServerlessBuildDependencyOutput() ServerlessBuildDependencyOutput {
+	return i.ToServerlessBuildDependencyOutputWithContext(context.Background())
+}
+
+func (i ServerlessBuildDependencyArgs) ToServerlessBuildDependencyOutputWithContext(ctx context.Context) ServerlessBuildDependencyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServerlessBuildDependencyOutput)
+}
+
+// ServerlessBuildDependencyArrayInput is an input type that accepts ServerlessBuildDependencyArray and ServerlessBuildDependencyArrayOutput values.
+// You can construct a concrete instance of `ServerlessBuildDependencyArrayInput` via:
+//
+//	ServerlessBuildDependencyArray{ ServerlessBuildDependencyArgs{...} }
+type ServerlessBuildDependencyArrayInput interface {
+	pulumi.Input
+
+	ToServerlessBuildDependencyArrayOutput() ServerlessBuildDependencyArrayOutput
+	ToServerlessBuildDependencyArrayOutputWithContext(context.Context) ServerlessBuildDependencyArrayOutput
+}
+
+type ServerlessBuildDependencyArray []ServerlessBuildDependencyInput
+
+func (ServerlessBuildDependencyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServerlessBuildDependency)(nil)).Elem()
+}
+
+func (i ServerlessBuildDependencyArray) ToServerlessBuildDependencyArrayOutput() ServerlessBuildDependencyArrayOutput {
+	return i.ToServerlessBuildDependencyArrayOutputWithContext(context.Background())
+}
+
+func (i ServerlessBuildDependencyArray) ToServerlessBuildDependencyArrayOutputWithContext(ctx context.Context) ServerlessBuildDependencyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServerlessBuildDependencyArrayOutput)
+}
+
+type ServerlessBuildDependencyOutput struct{ *pulumi.OutputState }
+
+func (ServerlessBuildDependencyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServerlessBuildDependency)(nil)).Elem()
+}
+
+func (o ServerlessBuildDependencyOutput) ToServerlessBuildDependencyOutput() ServerlessBuildDependencyOutput {
+	return o
+}
+
+func (o ServerlessBuildDependencyOutput) ToServerlessBuildDependencyOutputWithContext(ctx context.Context) ServerlessBuildDependencyOutput {
+	return o
+}
+
+// npm package name, for example twilio.
+func (o ServerlessBuildDependencyOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ServerlessBuildDependency) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+func (o ServerlessBuildDependencyOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v ServerlessBuildDependency) string { return v.Version }).(pulumi.StringOutput)
+}
+
+type ServerlessBuildDependencyArrayOutput struct{ *pulumi.OutputState }
+
+func (ServerlessBuildDependencyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServerlessBuildDependency)(nil)).Elem()
+}
+
+func (o ServerlessBuildDependencyArrayOutput) ToServerlessBuildDependencyArrayOutput() ServerlessBuildDependencyArrayOutput {
+	return o
+}
+
+func (o ServerlessBuildDependencyArrayOutput) ToServerlessBuildDependencyArrayOutputWithContext(ctx context.Context) ServerlessBuildDependencyArrayOutput {
+	return o
+}
+
+func (o ServerlessBuildDependencyArrayOutput) Index(i pulumi.IntInput) ServerlessBuildDependencyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ServerlessBuildDependency {
+		return vs[0].([]ServerlessBuildDependency)[vs[1].(int)]
+	}).(ServerlessBuildDependencyOutput)
+}
+
 type ShortCodeEffective struct {
 	// SID of the account or subaccount that owns the short code. Defaults to the provider account. Twilio cannot move a short code between accounts through this API, so changing it replaces the resource (which only adopts another account's short code; nothing is released). To import a short code owned by a subaccount use the ID <accountSid>/<shortCodeSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -3826,6 +4018,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingFeatureArrayInput)(nil)).Elem(), RecordingFeatureArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingStatusCallbackInput)(nil)).Elem(), RecordingStatusCallbackArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingStatusCallbackPtrInput)(nil)).Elem(), RecordingStatusCallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServerlessBuildDependencyInput)(nil)).Elem(), ServerlessBuildDependencyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServerlessBuildDependencyArrayInput)(nil)).Elem(), ServerlessBuildDependencyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionParticipantDefaultInput)(nil)).Elem(), TranscriptionParticipantDefaultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionParticipantDefaultArrayInput)(nil)).Elem(), TranscriptionParticipantDefaultArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TranscriptionStatusCallbackInput)(nil)).Elem(), TranscriptionStatusCallbackArgs{})
@@ -3840,6 +4034,8 @@ func init() {
 	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
+	pulumi.RegisterOutputType(DialingCountryOutput{})
+	pulumi.RegisterOutputType(DialingCountryArrayOutput{})
 	pulumi.RegisterOutputType(EventSchemaVersionOutput{})
 	pulumi.RegisterOutputType(EventSchemaVersionArrayOutput{})
 	pulumi.RegisterOutputType(EventSubscriptionTypeOutput{})
@@ -3859,6 +4055,8 @@ func init() {
 	pulumi.RegisterOutputType(RecordingFeatureArrayOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackPtrOutput{})
+	pulumi.RegisterOutputType(ServerlessBuildDependencyOutput{})
+	pulumi.RegisterOutputType(ServerlessBuildDependencyArrayOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
 	pulumi.RegisterOutputType(TranscriptionParticipantDefaultOutput{})

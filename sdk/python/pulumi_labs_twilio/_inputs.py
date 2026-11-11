@@ -23,6 +23,8 @@ __all__ = [
     'RecordingFeatureArgsDict',
     'RecordingStatusCallbackArgs',
     'RecordingStatusCallbackArgsDict',
+    'ServerlessBuildDependencyArgs',
+    'ServerlessBuildDependencyArgsDict',
     'TranscriptionParticipantDefaultArgs',
     'TranscriptionParticipantDefaultArgsDict',
     'TranscriptionStatusCallbackArgs',
@@ -280,6 +282,53 @@ class RecordingStatusCallbackArgs:
     @url.setter
     def url(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "url", value)
+
+
+class ServerlessBuildDependencyArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    npm package name, for example twilio.
+    """
+    version: pulumi.Input[_builtins.str]
+    """
+    Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+    """
+
+@pulumi.input_type
+class ServerlessBuildDependencyArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 version: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] name: npm package name, for example twilio.
+        :param pulumi.Input[_builtins.str] version: Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        npm package name, for example twilio.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> pulumi.Input[_builtins.str]:
+        """
+        Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "version", value)
 
 
 class TranscriptionParticipantDefaultArgsDict(TypedDict):

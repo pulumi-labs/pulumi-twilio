@@ -33,6 +33,12 @@ import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountryArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsHighRiskSpecialPrefixesArgs;
+import com.pulumi.labs.twilio.inputs.GetDialingPermissionsHighRiskSpecialPrefixesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSchemaArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSchemaPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetEventSinkArgs;
@@ -59,10 +65,18 @@ import com.pulumi.labs.twilio.inputs.GetQueueArgs;
 import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessAssetArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessAssetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessAssetVersionArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessAssetVersionPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessBuildArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessBuildPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessDeploymentArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessDeploymentPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessEnvironmentArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessEnvironmentPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessFunctionArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessFunctionPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessFunctionVersionArgs;
+import com.pulumi.labs.twilio.inputs.GetServerlessFunctionVersionPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessVariableArgs;
@@ -115,6 +129,12 @@ import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceAccountDefaultRecordingConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceAccountDefaultRecordingConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceDefaultRecordingConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceDefaultRecordingConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceDefaultTranscriptionConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetVoiceDefaultTranscriptionConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceRecordingConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceRecordingConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceTranscriptionConfigurationArgs;
@@ -131,6 +151,9 @@ import com.pulumi.labs.twilio.outputs.GetByocTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
+import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountriesResult;
+import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountryResult;
+import com.pulumi.labs.twilio.outputs.GetDialingPermissionsHighRiskSpecialPrefixesResult;
 import com.pulumi.labs.twilio.outputs.GetEventSchemaResult;
 import com.pulumi.labs.twilio.outputs.GetEventSinkResult;
 import com.pulumi.labs.twilio.outputs.GetEventSubscriptionResult;
@@ -144,8 +167,12 @@ import com.pulumi.labs.twilio.outputs.GetMessagingServiceResult;
 import com.pulumi.labs.twilio.outputs.GetOutgoingCallerIdResult;
 import com.pulumi.labs.twilio.outputs.GetQueueResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessAssetResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessAssetVersionResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessBuildResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessDeploymentResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessEnvironmentResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessFunctionResult;
+import com.pulumi.labs.twilio.outputs.GetServerlessFunctionVersionResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessServiceResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessVariableResult;
 import com.pulumi.labs.twilio.outputs.GetShortCodeResult;
@@ -172,6 +199,9 @@ import com.pulumi.labs.twilio.outputs.GetVerifySafeListNumberResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyTemplatesResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyWebhookResult;
+import com.pulumi.labs.twilio.outputs.GetVoiceAccountDefaultRecordingConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetVoiceDefaultRecordingConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetVoiceDefaultTranscriptionConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetVoiceRecordingConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetVoiceTranscriptionConfigurationResult;
 import java.util.concurrent.CompletableFuture;
@@ -638,6 +668,125 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetConnectionPolicyTargetResult> getConnectionPolicyTargetPlain(GetConnectionPolicyTargetPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountriesResult> getDialingPermissionsCountries() {
+        return getDialingPermissionsCountries(GetDialingPermissionsCountriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsCountriesResult> getDialingPermissionsCountriesPlain() {
+        return getDialingPermissionsCountriesPlain(GetDialingPermissionsCountriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountriesResult> getDialingPermissionsCountries(GetDialingPermissionsCountriesArgs args) {
+        return getDialingPermissionsCountries(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsCountriesResult> getDialingPermissionsCountriesPlain(GetDialingPermissionsCountriesPlainArgs args) {
+        return getDialingPermissionsCountriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountriesResult> getDialingPermissionsCountries(GetDialingPermissionsCountriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsCountries", TypeShape.of(GetDialingPermissionsCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountriesResult> getDialingPermissionsCountries(GetDialingPermissionsCountriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsCountries", TypeShape.of(GetDialingPermissionsCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsCountriesResult> getDialingPermissionsCountriesPlain(GetDialingPermissionsCountriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getDialingPermissionsCountries", TypeShape.of(GetDialingPermissionsCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountryResult> getDialingPermissionsCountry(GetDialingPermissionsCountryArgs args) {
+        return getDialingPermissionsCountry(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsCountryResult> getDialingPermissionsCountryPlain(GetDialingPermissionsCountryPlainArgs args) {
+        return getDialingPermissionsCountryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountryResult> getDialingPermissionsCountry(GetDialingPermissionsCountryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsCountry", TypeShape.of(GetDialingPermissionsCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.
+     * 
+     */
+    public static Output<GetDialingPermissionsCountryResult> getDialingPermissionsCountry(GetDialingPermissionsCountryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsCountry", TypeShape.of(GetDialingPermissionsCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice dialing permission of one country: whether the account may dial low-risk, high-risk special services and high-risk toll fraud numbers there (GET /v1/DialingPermissions/Countries/{IsoCode} on voice.twilio.com). Read-only: Twilio changes these through a bulk update that this provider does not model.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsCountryResult> getDialingPermissionsCountryPlain(GetDialingPermissionsCountryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getDialingPermissionsCountry", TypeShape.of(GetDialingPermissionsCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsHighRiskSpecialPrefixesResult> getDialingPermissionsHighRiskSpecialPrefixes(GetDialingPermissionsHighRiskSpecialPrefixesArgs args) {
+        return getDialingPermissionsHighRiskSpecialPrefixes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsHighRiskSpecialPrefixesResult> getDialingPermissionsHighRiskSpecialPrefixesPlain(GetDialingPermissionsHighRiskSpecialPrefixesPlainArgs args) {
+        return getDialingPermissionsHighRiskSpecialPrefixesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsHighRiskSpecialPrefixesResult> getDialingPermissionsHighRiskSpecialPrefixes(GetDialingPermissionsHighRiskSpecialPrefixesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsHighRiskSpecialPrefixes", TypeShape.of(GetDialingPermissionsHighRiskSpecialPrefixesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.
+     * 
+     */
+    public static Output<GetDialingPermissionsHighRiskSpecialPrefixesResult> getDialingPermissionsHighRiskSpecialPrefixes(GetDialingPermissionsHighRiskSpecialPrefixesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getDialingPermissionsHighRiskSpecialPrefixes", TypeShape.of(GetDialingPermissionsHighRiskSpecialPrefixesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the number prefixes Twilio treats as high-risk special services numbers in a country (GET /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetDialingPermissionsHighRiskSpecialPrefixesResult> getDialingPermissionsHighRiskSpecialPrefixesPlain(GetDialingPermissionsHighRiskSpecialPrefixesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getDialingPermissionsHighRiskSpecialPrefixes", TypeShape.of(GetDialingPermissionsHighRiskSpecialPrefixesResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up an Event Streams schema and its versions (GET /v1/Schemas/{Id} and /v1/Schemas/{Id}/Versions on events.twilio.com).
@@ -1137,6 +1286,111 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getServerlessAsset", TypeShape.of(GetServerlessAssetResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up one version of a Serverless Asset by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetVersionResult> getServerlessAssetVersion(GetServerlessAssetVersionArgs args) {
+        return getServerlessAssetVersion(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one version of a Serverless Asset by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessAssetVersionResult> getServerlessAssetVersionPlain(GetServerlessAssetVersionPlainArgs args) {
+        return getServerlessAssetVersionPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one version of a Serverless Asset by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetVersionResult> getServerlessAssetVersion(GetServerlessAssetVersionArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessAssetVersion", TypeShape.of(GetServerlessAssetVersionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one version of a Serverless Asset by SID.
+     * 
+     */
+    public static Output<GetServerlessAssetVersionResult> getServerlessAssetVersion(GetServerlessAssetVersionArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessAssetVersion", TypeShape.of(GetServerlessAssetVersionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one version of a Serverless Asset by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessAssetVersionResult> getServerlessAssetVersionPlain(GetServerlessAssetVersionPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessAssetVersion", TypeShape.of(GetServerlessAssetVersionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless build by SID.
+     * 
+     */
+    public static Output<GetServerlessBuildResult> getServerlessBuild(GetServerlessBuildArgs args) {
+        return getServerlessBuild(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Serverless build by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessBuildResult> getServerlessBuildPlain(GetServerlessBuildPlainArgs args) {
+        return getServerlessBuildPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Serverless build by SID.
+     * 
+     */
+    public static Output<GetServerlessBuildResult> getServerlessBuild(GetServerlessBuildArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessBuild", TypeShape.of(GetServerlessBuildResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless build by SID.
+     * 
+     */
+    public static Output<GetServerlessBuildResult> getServerlessBuild(GetServerlessBuildArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessBuild", TypeShape.of(GetServerlessBuildResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Serverless build by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessBuildResult> getServerlessBuildPlain(GetServerlessBuildPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessBuild", TypeShape.of(GetServerlessBuildResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a deployment of a Serverless environment by SID.
+     * 
+     */
+    public static Output<GetServerlessDeploymentResult> getServerlessDeployment(GetServerlessDeploymentArgs args) {
+        return getServerlessDeployment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a deployment of a Serverless environment by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessDeploymentResult> getServerlessDeploymentPlain(GetServerlessDeploymentPlainArgs args) {
+        return getServerlessDeploymentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a deployment of a Serverless environment by SID.
+     * 
+     */
+    public static Output<GetServerlessDeploymentResult> getServerlessDeployment(GetServerlessDeploymentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessDeployment", TypeShape.of(GetServerlessDeploymentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a deployment of a Serverless environment by SID.
+     * 
+     */
+    public static Output<GetServerlessDeploymentResult> getServerlessDeployment(GetServerlessDeploymentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessDeployment", TypeShape.of(GetServerlessDeploymentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a deployment of a Serverless environment by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessDeploymentResult> getServerlessDeploymentPlain(GetServerlessDeploymentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessDeployment", TypeShape.of(GetServerlessDeploymentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up an environment of a Serverless service by SID.
      * 
      */
@@ -1205,6 +1459,41 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetServerlessFunctionResult> getServerlessFunctionPlain(GetServerlessFunctionPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getServerlessFunction", TypeShape.of(GetServerlessFunctionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one version of a Serverless Function by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionVersionResult> getServerlessFunctionVersion(GetServerlessFunctionVersionArgs args) {
+        return getServerlessFunctionVersion(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one version of a Serverless Function by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessFunctionVersionResult> getServerlessFunctionVersionPlain(GetServerlessFunctionVersionPlainArgs args) {
+        return getServerlessFunctionVersionPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up one version of a Serverless Function by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionVersionResult> getServerlessFunctionVersion(GetServerlessFunctionVersionArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessFunctionVersion", TypeShape.of(GetServerlessFunctionVersionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one version of a Serverless Function by SID.
+     * 
+     */
+    public static Output<GetServerlessFunctionVersionResult> getServerlessFunctionVersion(GetServerlessFunctionVersionArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getServerlessFunctionVersion", TypeShape.of(GetServerlessFunctionVersionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up one version of a Serverless Function by SID.
+     * 
+     */
+    public static CompletableFuture<GetServerlessFunctionVersionResult> getServerlessFunctionVersionPlain(GetServerlessFunctionVersionPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getServerlessFunctionVersion", TypeShape.of(GetServerlessFunctionVersionResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Serverless service by SID.
@@ -2157,6 +2446,153 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetVerifyWebhookResult> getVerifyWebhookPlain(GetVerifyWebhookPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfiguration() {
+        return getVoiceAccountDefaultRecordingConfiguration(GetVoiceAccountDefaultRecordingConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfigurationPlain() {
+        return getVoiceAccountDefaultRecordingConfigurationPlain(GetVoiceAccountDefaultRecordingConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfiguration(GetVoiceAccountDefaultRecordingConfigurationArgs args) {
+        return getVoiceAccountDefaultRecordingConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfigurationPlain(GetVoiceAccountDefaultRecordingConfigurationPlainArgs args) {
+        return getVoiceAccountDefaultRecordingConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfiguration(GetVoiceAccountDefaultRecordingConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceAccountDefaultRecordingConfiguration", TypeShape.of(GetVoiceAccountDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfiguration(GetVoiceAccountDefaultRecordingConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceAccountDefaultRecordingConfiguration", TypeShape.of(GetVoiceAccountDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceAccountDefaultRecordingConfigurationResult> getVoiceAccountDefaultRecordingConfigurationPlain(GetVoiceAccountDefaultRecordingConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVoiceAccountDefaultRecordingConfiguration", TypeShape.of(GetVoiceAccountDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfiguration() {
+        return getVoiceDefaultRecordingConfiguration(GetVoiceDefaultRecordingConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfigurationPlain() {
+        return getVoiceDefaultRecordingConfigurationPlain(GetVoiceDefaultRecordingConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfiguration(GetVoiceDefaultRecordingConfigurationArgs args) {
+        return getVoiceDefaultRecordingConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfigurationPlain(GetVoiceDefaultRecordingConfigurationPlainArgs args) {
+        return getVoiceDefaultRecordingConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfiguration(GetVoiceDefaultRecordingConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceDefaultRecordingConfiguration", TypeShape.of(GetVoiceDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfiguration(GetVoiceDefaultRecordingConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceDefaultRecordingConfiguration", TypeShape.of(GetVoiceDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 recording configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultRecordingConfigurationResult> getVoiceDefaultRecordingConfigurationPlain(GetVoiceDefaultRecordingConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVoiceDefaultRecordingConfiguration", TypeShape.of(GetVoiceDefaultRecordingConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfiguration() {
+        return getVoiceDefaultTranscriptionConfiguration(GetVoiceDefaultTranscriptionConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfigurationPlain() {
+        return getVoiceDefaultTranscriptionConfigurationPlain(GetVoiceDefaultTranscriptionConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfiguration(GetVoiceDefaultTranscriptionConfigurationArgs args) {
+        return getVoiceDefaultTranscriptionConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfigurationPlain(GetVoiceDefaultTranscriptionConfigurationPlainArgs args) {
+        return getVoiceDefaultTranscriptionConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfiguration(GetVoiceDefaultTranscriptionConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceDefaultTranscriptionConfiguration", TypeShape.of(GetVoiceDefaultTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static Output<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfiguration(GetVoiceDefaultTranscriptionConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVoiceDefaultTranscriptionConfiguration", TypeShape.of(GetVoiceDefaultTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read which Twilio Voice v2 transcription configuration is the account default. Fails when the account has none.
+     * 
+     */
+    public static CompletableFuture<GetVoiceDefaultTranscriptionConfigurationResult> getVoiceDefaultTranscriptionConfigurationPlain(GetVoiceDefaultTranscriptionConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVoiceDefaultTranscriptionConfiguration", TypeShape.of(GetVoiceDefaultTranscriptionConfigurationResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Voice v2 recording configuration by ID or unique name.

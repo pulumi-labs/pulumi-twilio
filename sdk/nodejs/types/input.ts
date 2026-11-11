@@ -61,6 +61,17 @@ export interface RecordingStatusCallbackArgs {
     url?: pulumi.Input<string | undefined>;
 }
 
+export interface ServerlessBuildDependencyArgs {
+    /**
+     * npm package name, for example twilio.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Exact version or range of the package, for example 5.3.0 or ^5.3.0.
+     */
+    version: pulumi.Input<string>;
+}
+
 export interface TranscriptionParticipantDefaultArgs {
     /**
      * One-based index of the audio channel of a multi-channel recording.

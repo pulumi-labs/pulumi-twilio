@@ -161,6 +161,22 @@ resources:
     test: true
     update: friendlyName
     cost: none; this creates the container only, no file is uploaded
+  - type: twilio:index:ServerlessFunctionVersion
+    test: true
+    update: null
+    cost: none; upload a one-line handler to a ServerlessFunction made in the same program. Every input replaces the version (immutable); Twilio has no delete for versions, so destroy only forgets it. The upload host request shape is unverified against a live account
+  - type: twilio:index:ServerlessAssetVersion
+    test: true
+    update: null
+    cost: none; upload a small text asset (content) and, separately, a few bytes as contentBase64. Every input replaces the version; destroy only forgets it
+  - type: twilio:index:ServerlessBuild
+    test: true
+    update: null
+    cost: none; build from the versions above (runtime node20, one small dependency such as twilio). Create waits until the build completes, which takes a minute or more. Every input replaces; delete is a real DELETE
+  - type: twilio:index:ServerlessDeployment
+    test: true
+    update: null
+    cost: none; deploy the build to the ServerlessEnvironment of the same program. Every input replaces. Twilio has no delete for deployments, so destroy only forgets it and the environment keeps serving the build until the service is destroyed
   - type: twilio:index:ConnectionPolicy
     test: true
     update: friendlyName
@@ -181,6 +197,15 @@ resources:
     test: true
     update: sipDomainSid
     cost: none; map an IpRecord made in the same program to a SipDomain made in the same program
+  - type: twilio:index:VoiceAccountDefaultRecordingConfiguration
+    test: false
+    reason: A singleton that sets how every call on the account without a recording configuration of its own is recorded, so a test run changes the real account behaviour and create replaces an existing account default that cannot be restored on destroy. Exercise manually on a throwaway account.
+  - type: twilio:index:VoiceDefaultRecordingConfiguration
+    test: false
+    reason: A singleton that selects which recording configuration applies to every call on the account without one of its own, so a test run changes real account behaviour, and Twilio documents no call that unsets it, so destroy cannot restore the previous default. Exercise manually on a throwaway account.
+  - type: twilio:index:VoiceDefaultTranscriptionConfiguration
+    test: false
+    reason: A singleton that selects which transcription configuration applies to every call on the account without one of its own, so a test run changes real account behaviour, and Twilio documents no call that unsets it, so destroy cannot restore the previous default. Exercise manually on a throwaway account.
   - type: twilio:index:VoiceRecordingConfiguration
     test: true
     update: description
@@ -278,11 +303,34 @@ functions:
     test: true
   - name: getServerlessAsset
     test: true
+  - name: getServerlessFunctionVersion
+    test: true
+  - name: getServerlessAssetVersion
+    test: true
+  - name: getServerlessBuild
+    test: true
+  - name: getServerlessDeployment
+    test: true
   - name: getByocTrunk
     test: true
+  - name: getVoiceAccountDefaultRecordingConfiguration
+    test: false
+    reason: Fails when the account has no default recording configuration, and the VoiceAccountDefaultRecordingConfiguration that would create one is not auto-tested because it changes how every call on the account is recorded. Check manually, after creating a default on a throwaway account, that the lookup returns it.
+  - name: getVoiceDefaultRecordingConfiguration
+    test: false
+    reason: Fails when the account has no default recording configuration, and the VoiceDefaultRecordingConfiguration that would select one is not auto-tested because it changes account behaviour. Check manually, after selecting a default on a throwaway account, that the lookup returns it.
+  - name: getVoiceDefaultTranscriptionConfiguration
+    test: false
+    reason: Fails when the account has no default transcription configuration, and the VoiceDefaultTranscriptionConfiguration that would select one is not auto-tested because it changes account behaviour. Check manually, after selecting a default on a throwaway account, that the lookup returns it.
   - name: getVoiceRecordingConfiguration
     test: true
   - name: getVoiceTranscriptionConfiguration
+    test: true
+  - name: getDialingPermissionsCountry
+    test: true
+  - name: getDialingPermissionsCountries
+    test: true
+  - name: getDialingPermissionsHighRiskSpecialPrefixes
     test: true
   - name: getConnectionPolicy
     test: true
@@ -310,12 +358,16 @@ functions:
   - name: getEventSchema
     test: true
 regressions:
+  - "VoiceDefaultRecordingConfiguration and VoiceDefaultTranscriptionConfiguration (#1666): verify live that POST /v2/Configurations/{Type}/Default with configuration_id answers 204 for an existing configuration and 404 for an unknown one, that GET on the same path answers the selected configuration (with id and account_sid) and 404 when none is set, and that Twilio really offers no call to unset the default. The provider uses the account SID from the GET as the resource ID and falls back to the authenticated account SID when it is absent."
+  - "Dialing permissions lookups (#1665): verify live that getDialingPermissionsCountry for a country you know (for example DE) returns calling codes as text, the three permissions as booleans (and what Twilio sends for a permission that is not set), that getDialingPermissionsCountries with no filter returns every country across pages, that the Continent, CountryCode and boolean filters narrow it, and that getDialingPermissionsHighRiskSpecialPrefixes returns prefixes with the country code (an empty list for a country with none). Also capture one real BulkCountryUpdates request and response so the write side (#1665) can be designed from the true wire format."
+  - "VoiceAccountDefaultRecordingConfiguration (#1666): verify live that POST /v2/AccountDefaultConfiguration/Recording creates the account default (201) and answers 409 when one exists, that GET answers 404 when there is none, that PUT replaces the whole configuration and does not need an ETag or If-Match header (the spec lists a 412 for an ETag mismatch but documents no header), that DELETE removes it, and that the response carries account_sid (the provider uses it as the resource ID) and no id. getVoiceAccountDefaultRecordingConfiguration reads it and fails when none exists."
   - "#1742 a VoiceTranscriptionConfiguration and a VoiceRecordingConfiguration whose features[0].featureId is ${transcription.configurationId} (type transcriptionConfiguration): pulumi preview succeeds with no featureId error, pulumi up creates both and the recording configuration reports the feature, a second preview shows no change. A literal empty featureId must still fail the preview. The same wiring must preview for VoiceTranscriptionConfiguration participantDefaults values, EventSubscription types[].type and VerifyWebhook eventTypes elements taken from another resource's output"
   - "Voice v2 configurations (#1666): create a VoiceTranscriptionConfiguration (engine deepgram, model nova-3, language en-US, participantDefaults for channels 1 and 2, a status callback url) and a VoiceRecordingConfiguration whose features entry references its configurationId, with a compositionPolicy and a call status callback; refresh and preview show no change, also when the program omits the callback methods. Change the descriptions, the language and a callback url (PUT, same ID), remove a feature or the policy and check what Twilio keeps. Import each by ID and the first preview plans no change; getVoiceRecordingConfiguration and getVoiceTranscriptionConfiguration take the ID or the unique name. Not verified against a live account (the Voice v2 definition is version 0.0.1): whether PUT replaces or merges (the provider sends the whole configuration and leaves unset fields out), whether Twilio defaults a callback method to POST or adds other defaults on read, whether uniqueName can change, and the exact rules for participantDefaults (the provider leaves them to Twilio)."
   - "#1715 pulumi import of an ID that does not exist (for example twilio:index:ShortCode s SC00000000000000000000000000000001, Address, ApiKey, Application, Queue, Subaccount) fails with 'does not exist' and leaves nothing in state; a refresh of a resource deleted outside Pulumi still drops it from state"
   - "#1716 import a ServerlessEnvironment created with domainSuffix stg (pulumi import twilio:index:ServerlessEnvironment e <serviceSid>/ZE...), then pulumi preview --expect-no-changes against the program that created it: no replace of the environment or its variables, and the imported inputs carry domainSuffix; an environment created without a suffix imports without one; stating a different suffix still plans a replace"
   - "#1717 create: VerifyMessagingConfiguration for DE on a fresh Verify service either succeeds and a following refresh --expect-no-changes keeps it (the list endpoint shows DE), or fails at create with 'accepted the request without creating it' and leaves nothing in the state; it must never be stored and then dropped by refresh"
   - "#1717 on a VerifyService with no configuration for FR: getVerifyMessagingConfiguration (FR) fails with was not found and pulumi import twilio:index:VerifyMessagingConfiguration m <serviceSid>/FR fails instead of storing an empty resource; after pulumi destroy of a created DE configuration the lookup for DE fails and a refresh of a stack that still lists it drops it from state"
+  - "#1743 import: create an Application with no voiceMethod (Twilio shows POST), pulumi import it, then write the program with voiceMethod: POST (and smsMethod: post): pulumi preview --expect-no-changes shows no change; the same program with voiceMethod: GET plans one update, and removing it again plans one update that resets to POST"
   - "#1680 import a SipDomain created with sipRegistration: true, then pulumi preview --expect-no-changes against the same program: no update; a SipDomain created without it imports without sipRegistration and previews clean"
   - "#1681 import a VerifyService created with totpCodeLength 7, totpSkew 2, totpTimeStep 20: the imported inputs contain all three and preview --expect-no-changes is clean; a service on the defaults (6, 1, 30) imports none of them"
   - "#1679 import a UsageTrigger (pulumi import twilio:index:UsageTrigger t UT...), then pulumi preview --expect-no-changes against the program that created it (no triggerBy, and again with callbackMethod: POST): no replace and no update; setting triggerBy to a different value still plans a replace"
@@ -323,6 +375,7 @@ regressions:
   - "Lookups (#1431 part 12): getAvailablePhoneNumbers for US local returns numbers whose phoneNumber is E.164 and whose capabilities match the smsEnabled and voiceEnabled filters, numberType tollFree and mobile hit their own paths, and limit caps the list; nothing is purchased. getUsageRecords for allTime and thisMonth returns the same categories as the console, price stays a decimal string; getAuthorizedConnectApps lists the apps shown under Authorized Connect Apps; getEventTypes lists the types the console offers for a subscription and getEventSchema reports the latest version. A schemaId that does not exist must fail with 'was not found'."
   - "BYOC (#1431 part 11): create a ConnectionPolicy with two ConnectionPolicyTargets (different priority and weight), a ByocTrunk with connectionPolicySid pointing at the policy, an IpRecord and a SourceIpMapping to a SipDomain; refresh and preview show no change. Changing the trunk friendlyName and voiceMethod, a target priority, weight and enabled flag, the record friendlyName and the mapping sipDomainSid updates in place (no replacement); changing a record ipAddress or cidrPrefixLength, a target connectionPolicySid or a mapping ipRecordSid replaces. Removing the trunk voiceUrl or connectionPolicySid clears it. Import each (SID, or <connectionPolicySid>/<sid> for a target) and the first preview plans no change, also when the program states priority 10, weight 10, enabled true or cidrPrefixLength 32. Destroying a policy removes its targets. Not verified against a live account: whether Twilio accepts an empty ConnectionPolicySid or FromDomainSid to detach, and whether it normalizes ipAddress."
   - "Serverless (#1431 part 10): create a ServerlessService, a ServerlessEnvironment with a domainSuffix, a ServerlessVariable, a ServerlessFunction and a ServerlessAsset; refresh and preview show no change. Changing the service friendlyName, the variable key and value, and the function friendlyName updates in place (no replacement); changing the environment domainSuffix or uniqueName replaces it. The variable value never appears in plaintext in the state. Import each (<serviceSid>, <serviceSid>/<sid>, <serviceSid>/<environmentSid>/<sid>) and the first preview plans no change, also when the program omits includeCredentials and uiEditable. Destroying the service removes the children and destroying a child afterwards is a no-op. Not verified against a live account: the defaults of includeCredentials and uiEditable, the limit of 16 characters on domainSuffix and whether Twilio returns the variable value on read."
+  - "Serverless deploy plane (#1664): in one program create a ServerlessService, ServerlessEnvironment, ServerlessFunction (+ ServerlessFunctionVersion with a handler that returns a fixed string, visibility public), ServerlessAsset (+ ServerlessAssetVersion, path /hello.txt), a ServerlessBuild over both versions and a ServerlessDeployment of it to the environment; curl https://<domainName>/<function path> returns the string and the asset path serves the text. Regression checks: (1) the upload host works as coded (multipart POST to serverless-upload.twilio.com; try also with a configured edge/region and report whether it still resolves); (2) build creation waits for completed and a deliberately broken dependency name fails the create with the build removed; (3) refresh and preview show no change after the first up, also for the version resources and the build when the program omits runtime; (4) changing the function code replaces the version, then the build and deployment replace in the same up when they reference the new SIDs, and the old deployment is not an error; (5) pulumi destroy removes the build and leaves versions and the deployment alone (record what Twilio does with the orphaned versions); (6) import each of <serviceSid>/<functionSid>/<sid>, <serviceSid>/<assetSid>/<sid>, <serviceSid>/<sid> (build) and <serviceSid>/<environmentSid>/<sid> and preview plans no change (function version imports read the code back through /Content; asset version imports plan no change when the program sets content)."
   - "Verify extras (#1431 part 9): on a fresh VerifyService create a VerifyRateLimit with a bucket, a VerifyMessagingConfiguration for one country and a VerifyWebhook, refresh and preview show no change; changing the bucket max, the webhook url and eventTypes (in a different order) updates in place; removing webhook status and webhookVersion resets them to enabled and v2 and a re-preview is clean; import each (<serviceSid>/<sid>, <serviceSid>/<rateLimitSid>/<sid>, <serviceSid>/<country>) and the first preview plans no change. Add a number to the SafeList (the plus sign must be escaped as %2B in the path), read it back with getVerifySafeListNumber, destroy it. getVerifyTemplates lists the templates; use one SID as VerifyService.defaultTemplateSid. Not verified against a live account: that Twilio accepts the Version parameter name webhookVersion maps to, and the casing of the country in the response."
   - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."
   - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."

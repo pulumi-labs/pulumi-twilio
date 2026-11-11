@@ -110,6 +110,21 @@ export const getConnectionPolicyTarget: typeof import("./getConnectionPolicyTarg
 export const getConnectionPolicyTargetOutput: typeof import("./getConnectionPolicyTarget").getConnectionPolicyTargetOutput = null as any;
 utilities.lazyLoad(exports, ["getConnectionPolicyTarget","getConnectionPolicyTargetOutput"], () => require("./getConnectionPolicyTarget"));
 
+export { GetDialingPermissionsCountriesArgs, GetDialingPermissionsCountriesResult, GetDialingPermissionsCountriesOutputArgs } from "./getDialingPermissionsCountries";
+export const getDialingPermissionsCountries: typeof import("./getDialingPermissionsCountries").getDialingPermissionsCountries = null as any;
+export const getDialingPermissionsCountriesOutput: typeof import("./getDialingPermissionsCountries").getDialingPermissionsCountriesOutput = null as any;
+utilities.lazyLoad(exports, ["getDialingPermissionsCountries","getDialingPermissionsCountriesOutput"], () => require("./getDialingPermissionsCountries"));
+
+export { GetDialingPermissionsCountryArgs, GetDialingPermissionsCountryResult, GetDialingPermissionsCountryOutputArgs } from "./getDialingPermissionsCountry";
+export const getDialingPermissionsCountry: typeof import("./getDialingPermissionsCountry").getDialingPermissionsCountry = null as any;
+export const getDialingPermissionsCountryOutput: typeof import("./getDialingPermissionsCountry").getDialingPermissionsCountryOutput = null as any;
+utilities.lazyLoad(exports, ["getDialingPermissionsCountry","getDialingPermissionsCountryOutput"], () => require("./getDialingPermissionsCountry"));
+
+export { GetDialingPermissionsHighRiskSpecialPrefixesArgs, GetDialingPermissionsHighRiskSpecialPrefixesResult, GetDialingPermissionsHighRiskSpecialPrefixesOutputArgs } from "./getDialingPermissionsHighRiskSpecialPrefixes";
+export const getDialingPermissionsHighRiskSpecialPrefixes: typeof import("./getDialingPermissionsHighRiskSpecialPrefixes").getDialingPermissionsHighRiskSpecialPrefixes = null as any;
+export const getDialingPermissionsHighRiskSpecialPrefixesOutput: typeof import("./getDialingPermissionsHighRiskSpecialPrefixes").getDialingPermissionsHighRiskSpecialPrefixesOutput = null as any;
+utilities.lazyLoad(exports, ["getDialingPermissionsHighRiskSpecialPrefixes","getDialingPermissionsHighRiskSpecialPrefixesOutput"], () => require("./getDialingPermissionsHighRiskSpecialPrefixes"));
+
 export { GetEventSchemaArgs, GetEventSchemaResult, GetEventSchemaOutputArgs } from "./getEventSchema";
 export const getEventSchema: typeof import("./getEventSchema").getEventSchema = null as any;
 export const getEventSchemaOutput: typeof import("./getEventSchema").getEventSchemaOutput = null as any;
@@ -175,6 +190,21 @@ export const getServerlessAsset: typeof import("./getServerlessAsset").getServer
 export const getServerlessAssetOutput: typeof import("./getServerlessAsset").getServerlessAssetOutput = null as any;
 utilities.lazyLoad(exports, ["getServerlessAsset","getServerlessAssetOutput"], () => require("./getServerlessAsset"));
 
+export { GetServerlessAssetVersionArgs, GetServerlessAssetVersionResult, GetServerlessAssetVersionOutputArgs } from "./getServerlessAssetVersion";
+export const getServerlessAssetVersion: typeof import("./getServerlessAssetVersion").getServerlessAssetVersion = null as any;
+export const getServerlessAssetVersionOutput: typeof import("./getServerlessAssetVersion").getServerlessAssetVersionOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessAssetVersion","getServerlessAssetVersionOutput"], () => require("./getServerlessAssetVersion"));
+
+export { GetServerlessBuildArgs, GetServerlessBuildResult, GetServerlessBuildOutputArgs } from "./getServerlessBuild";
+export const getServerlessBuild: typeof import("./getServerlessBuild").getServerlessBuild = null as any;
+export const getServerlessBuildOutput: typeof import("./getServerlessBuild").getServerlessBuildOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessBuild","getServerlessBuildOutput"], () => require("./getServerlessBuild"));
+
+export { GetServerlessDeploymentArgs, GetServerlessDeploymentResult, GetServerlessDeploymentOutputArgs } from "./getServerlessDeployment";
+export const getServerlessDeployment: typeof import("./getServerlessDeployment").getServerlessDeployment = null as any;
+export const getServerlessDeploymentOutput: typeof import("./getServerlessDeployment").getServerlessDeploymentOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessDeployment","getServerlessDeploymentOutput"], () => require("./getServerlessDeployment"));
+
 export { GetServerlessEnvironmentArgs, GetServerlessEnvironmentResult, GetServerlessEnvironmentOutputArgs } from "./getServerlessEnvironment";
 export const getServerlessEnvironment: typeof import("./getServerlessEnvironment").getServerlessEnvironment = null as any;
 export const getServerlessEnvironmentOutput: typeof import("./getServerlessEnvironment").getServerlessEnvironmentOutput = null as any;
@@ -184,6 +214,11 @@ export { GetServerlessFunctionArgs, GetServerlessFunctionResult, GetServerlessFu
 export const getServerlessFunction: typeof import("./getServerlessFunction").getServerlessFunction = null as any;
 export const getServerlessFunctionOutput: typeof import("./getServerlessFunction").getServerlessFunctionOutput = null as any;
 utilities.lazyLoad(exports, ["getServerlessFunction","getServerlessFunctionOutput"], () => require("./getServerlessFunction"));
+
+export { GetServerlessFunctionVersionArgs, GetServerlessFunctionVersionResult, GetServerlessFunctionVersionOutputArgs } from "./getServerlessFunctionVersion";
+export const getServerlessFunctionVersion: typeof import("./getServerlessFunctionVersion").getServerlessFunctionVersion = null as any;
+export const getServerlessFunctionVersionOutput: typeof import("./getServerlessFunctionVersion").getServerlessFunctionVersionOutput = null as any;
+utilities.lazyLoad(exports, ["getServerlessFunctionVersion","getServerlessFunctionVersionOutput"], () => require("./getServerlessFunctionVersion"));
 
 export { GetServerlessServiceArgs, GetServerlessServiceResult, GetServerlessServiceOutputArgs } from "./getServerlessService";
 export const getServerlessService: typeof import("./getServerlessService").getServerlessService = null as any;
@@ -315,6 +350,21 @@ export const getVerifyWebhook: typeof import("./getVerifyWebhook").getVerifyWebh
 export const getVerifyWebhookOutput: typeof import("./getVerifyWebhook").getVerifyWebhookOutput = null as any;
 utilities.lazyLoad(exports, ["getVerifyWebhook","getVerifyWebhookOutput"], () => require("./getVerifyWebhook"));
 
+export { GetVoiceAccountDefaultRecordingConfigurationArgs, GetVoiceAccountDefaultRecordingConfigurationResult } from "./getVoiceAccountDefaultRecordingConfiguration";
+export const getVoiceAccountDefaultRecordingConfiguration: typeof import("./getVoiceAccountDefaultRecordingConfiguration").getVoiceAccountDefaultRecordingConfiguration = null as any;
+export const getVoiceAccountDefaultRecordingConfigurationOutput: typeof import("./getVoiceAccountDefaultRecordingConfiguration").getVoiceAccountDefaultRecordingConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVoiceAccountDefaultRecordingConfiguration","getVoiceAccountDefaultRecordingConfigurationOutput"], () => require("./getVoiceAccountDefaultRecordingConfiguration"));
+
+export { GetVoiceDefaultRecordingConfigurationArgs, GetVoiceDefaultRecordingConfigurationResult } from "./getVoiceDefaultRecordingConfiguration";
+export const getVoiceDefaultRecordingConfiguration: typeof import("./getVoiceDefaultRecordingConfiguration").getVoiceDefaultRecordingConfiguration = null as any;
+export const getVoiceDefaultRecordingConfigurationOutput: typeof import("./getVoiceDefaultRecordingConfiguration").getVoiceDefaultRecordingConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVoiceDefaultRecordingConfiguration","getVoiceDefaultRecordingConfigurationOutput"], () => require("./getVoiceDefaultRecordingConfiguration"));
+
+export { GetVoiceDefaultTranscriptionConfigurationArgs, GetVoiceDefaultTranscriptionConfigurationResult } from "./getVoiceDefaultTranscriptionConfiguration";
+export const getVoiceDefaultTranscriptionConfiguration: typeof import("./getVoiceDefaultTranscriptionConfiguration").getVoiceDefaultTranscriptionConfiguration = null as any;
+export const getVoiceDefaultTranscriptionConfigurationOutput: typeof import("./getVoiceDefaultTranscriptionConfiguration").getVoiceDefaultTranscriptionConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getVoiceDefaultTranscriptionConfiguration","getVoiceDefaultTranscriptionConfigurationOutput"], () => require("./getVoiceDefaultTranscriptionConfiguration"));
+
 export { GetVoiceRecordingConfigurationArgs, GetVoiceRecordingConfigurationResult, GetVoiceRecordingConfigurationOutputArgs } from "./getVoiceRecordingConfiguration";
 export const getVoiceRecordingConfiguration: typeof import("./getVoiceRecordingConfiguration").getVoiceRecordingConfiguration = null as any;
 export const getVoiceRecordingConfigurationOutput: typeof import("./getVoiceRecordingConfiguration").getVoiceRecordingConfigurationOutput = null as any;
@@ -370,6 +420,21 @@ export type ServerlessAsset = import("./serverlessAsset").ServerlessAsset;
 export const ServerlessAsset: typeof import("./serverlessAsset").ServerlessAsset = null as any;
 utilities.lazyLoad(exports, ["ServerlessAsset"], () => require("./serverlessAsset"));
 
+export { ServerlessAssetVersionArgs } from "./serverlessAssetVersion";
+export type ServerlessAssetVersion = import("./serverlessAssetVersion").ServerlessAssetVersion;
+export const ServerlessAssetVersion: typeof import("./serverlessAssetVersion").ServerlessAssetVersion = null as any;
+utilities.lazyLoad(exports, ["ServerlessAssetVersion"], () => require("./serverlessAssetVersion"));
+
+export { ServerlessBuildArgs } from "./serverlessBuild";
+export type ServerlessBuild = import("./serverlessBuild").ServerlessBuild;
+export const ServerlessBuild: typeof import("./serverlessBuild").ServerlessBuild = null as any;
+utilities.lazyLoad(exports, ["ServerlessBuild"], () => require("./serverlessBuild"));
+
+export { ServerlessDeploymentArgs } from "./serverlessDeployment";
+export type ServerlessDeployment = import("./serverlessDeployment").ServerlessDeployment;
+export const ServerlessDeployment: typeof import("./serverlessDeployment").ServerlessDeployment = null as any;
+utilities.lazyLoad(exports, ["ServerlessDeployment"], () => require("./serverlessDeployment"));
+
 export { ServerlessEnvironmentArgs } from "./serverlessEnvironment";
 export type ServerlessEnvironment = import("./serverlessEnvironment").ServerlessEnvironment;
 export const ServerlessEnvironment: typeof import("./serverlessEnvironment").ServerlessEnvironment = null as any;
@@ -379,6 +444,11 @@ export { ServerlessFunctionArgs } from "./serverlessFunction";
 export type ServerlessFunction = import("./serverlessFunction").ServerlessFunction;
 export const ServerlessFunction: typeof import("./serverlessFunction").ServerlessFunction = null as any;
 utilities.lazyLoad(exports, ["ServerlessFunction"], () => require("./serverlessFunction"));
+
+export { ServerlessFunctionVersionArgs } from "./serverlessFunctionVersion";
+export type ServerlessFunctionVersion = import("./serverlessFunctionVersion").ServerlessFunctionVersion;
+export const ServerlessFunctionVersion: typeof import("./serverlessFunctionVersion").ServerlessFunctionVersion = null as any;
+utilities.lazyLoad(exports, ["ServerlessFunctionVersion"], () => require("./serverlessFunctionVersion"));
 
 export { ServerlessServiceArgs } from "./serverlessService";
 export type ServerlessService = import("./serverlessService").ServerlessService;
@@ -500,6 +570,21 @@ export type VerifyWebhook = import("./verifyWebhook").VerifyWebhook;
 export const VerifyWebhook: typeof import("./verifyWebhook").VerifyWebhook = null as any;
 utilities.lazyLoad(exports, ["VerifyWebhook"], () => require("./verifyWebhook"));
 
+export { VoiceAccountDefaultRecordingConfigurationArgs } from "./voiceAccountDefaultRecordingConfiguration";
+export type VoiceAccountDefaultRecordingConfiguration = import("./voiceAccountDefaultRecordingConfiguration").VoiceAccountDefaultRecordingConfiguration;
+export const VoiceAccountDefaultRecordingConfiguration: typeof import("./voiceAccountDefaultRecordingConfiguration").VoiceAccountDefaultRecordingConfiguration = null as any;
+utilities.lazyLoad(exports, ["VoiceAccountDefaultRecordingConfiguration"], () => require("./voiceAccountDefaultRecordingConfiguration"));
+
+export { VoiceDefaultRecordingConfigurationArgs } from "./voiceDefaultRecordingConfiguration";
+export type VoiceDefaultRecordingConfiguration = import("./voiceDefaultRecordingConfiguration").VoiceDefaultRecordingConfiguration;
+export const VoiceDefaultRecordingConfiguration: typeof import("./voiceDefaultRecordingConfiguration").VoiceDefaultRecordingConfiguration = null as any;
+utilities.lazyLoad(exports, ["VoiceDefaultRecordingConfiguration"], () => require("./voiceDefaultRecordingConfiguration"));
+
+export { VoiceDefaultTranscriptionConfigurationArgs } from "./voiceDefaultTranscriptionConfiguration";
+export type VoiceDefaultTranscriptionConfiguration = import("./voiceDefaultTranscriptionConfiguration").VoiceDefaultTranscriptionConfiguration;
+export const VoiceDefaultTranscriptionConfiguration: typeof import("./voiceDefaultTranscriptionConfiguration").VoiceDefaultTranscriptionConfiguration = null as any;
+utilities.lazyLoad(exports, ["VoiceDefaultTranscriptionConfiguration"], () => require("./voiceDefaultTranscriptionConfiguration"));
+
 export { VoiceRecordingConfigurationArgs } from "./voiceRecordingConfiguration";
 export type VoiceRecordingConfiguration = import("./voiceRecordingConfiguration").VoiceRecordingConfiguration;
 export const VoiceRecordingConfiguration: typeof import("./voiceRecordingConfiguration").VoiceRecordingConfiguration = null as any;
@@ -558,10 +643,18 @@ const _module = {
                 return new Queue(name, <any>undefined, { urn })
             case "twilio:index:ServerlessAsset":
                 return new ServerlessAsset(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessAssetVersion":
+                return new ServerlessAssetVersion(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessBuild":
+                return new ServerlessBuild(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessDeployment":
+                return new ServerlessDeployment(name, <any>undefined, { urn })
             case "twilio:index:ServerlessEnvironment":
                 return new ServerlessEnvironment(name, <any>undefined, { urn })
             case "twilio:index:ServerlessFunction":
                 return new ServerlessFunction(name, <any>undefined, { urn })
+            case "twilio:index:ServerlessFunctionVersion":
+                return new ServerlessFunctionVersion(name, <any>undefined, { urn })
             case "twilio:index:ServerlessService":
                 return new ServerlessService(name, <any>undefined, { urn })
             case "twilio:index:ServerlessVariable":
@@ -610,6 +703,12 @@ const _module = {
                 return new VerifyService(name, <any>undefined, { urn })
             case "twilio:index:VerifyWebhook":
                 return new VerifyWebhook(name, <any>undefined, { urn })
+            case "twilio:index:VoiceAccountDefaultRecordingConfiguration":
+                return new VoiceAccountDefaultRecordingConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:VoiceDefaultRecordingConfiguration":
+                return new VoiceDefaultRecordingConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:VoiceDefaultTranscriptionConfiguration":
+                return new VoiceDefaultTranscriptionConfiguration(name, <any>undefined, { urn })
             case "twilio:index:VoiceRecordingConfiguration":
                 return new VoiceRecordingConfiguration(name, <any>undefined, { urn })
             case "twilio:index:VoiceTranscriptionConfiguration":

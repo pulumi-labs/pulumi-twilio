@@ -21,6 +21,7 @@ __all__ = [
     'AuthorizedConnectApp',
     'AvailablePhoneNumber',
     'ConnectAppEffective',
+    'ConversationsAutoCreation',
     'DialingCountry',
     'EventSchemaVersion',
     'EventSubscriptionType',
@@ -29,6 +30,11 @@ __all__ = [
     'MessagingServiceEffective',
     'OutgoingCallerIdEffective',
     'PhoneNumberCapabilities',
+    'PricingCountrySummary',
+    'PricingOutboundCallPrice',
+    'PricingPrefixPrice',
+    'PricingPrice',
+    'PricingSmsPrice',
     'RecordingCompositionPolicy',
     'RecordingFeature',
     'RecordingStatusCallback',
@@ -759,6 +765,135 @@ class ConnectAppEffective(dict):
         Permissions the app requests from its users: get-all and post-all. Removing the list leaves the permissions unchanged.
         """
         return pulumi.get(self, "permissions")
+
+
+@pulumi.output_type
+class ConversationsAutoCreation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conversationServiceSid":
+            suggest = "conversation_service_sid"
+        elif key == "studioFlowSid":
+            suggest = "studio_flow_sid"
+        elif key == "studioRetryCount":
+            suggest = "studio_retry_count"
+        elif key == "webhookFilters":
+            suggest = "webhook_filters"
+        elif key == "webhookMethod":
+            suggest = "webhook_method"
+        elif key == "webhookUrl":
+            suggest = "webhook_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConversationsAutoCreation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConversationsAutoCreation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConversationsAutoCreation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 conversation_service_sid: Optional[_builtins.str] = None,
+                 studio_flow_sid: Optional[_builtins.str] = None,
+                 studio_retry_count: Optional[_builtins.int] = None,
+                 type: Optional[_builtins.str] = None,
+                 webhook_filters: Optional[Sequence[_builtins.str]] = None,
+                 webhook_method: Optional[_builtins.str] = None,
+                 webhook_url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool enabled: Whether an inbound message to the address creates a conversation automatically.
+        :param _builtins.str conversation_service_sid: SID (IS...) of the service the conversation is created in; the default service when not set.
+        :param _builtins.str studio_flow_sid: For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+        :param _builtins.int studio_retry_count: For type studio, how many times to retry the webhook request.
+        :param _builtins.str type: How the auto-created conversation is handled: webhook, studio or default.
+        :param Sequence[_builtins.str] webhook_filters: For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+        :param _builtins.str webhook_method: For type webhook, the HTTP method, GET or POST (any case).
+        :param _builtins.str webhook_url: For type webhook, the URL the webhook request is sent to.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if conversation_service_sid is not None:
+            pulumi.set(__self__, "conversation_service_sid", conversation_service_sid)
+        if studio_flow_sid is not None:
+            pulumi.set(__self__, "studio_flow_sid", studio_flow_sid)
+        if studio_retry_count is not None:
+            pulumi.set(__self__, "studio_retry_count", studio_retry_count)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if webhook_filters is not None:
+            pulumi.set(__self__, "webhook_filters", webhook_filters)
+        if webhook_method is not None:
+            pulumi.set(__self__, "webhook_method", webhook_method)
+        if webhook_url is not None:
+            pulumi.set(__self__, "webhook_url", webhook_url)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether an inbound message to the address creates a conversation automatically.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="conversationServiceSid")
+    def conversation_service_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (IS...) of the service the conversation is created in; the default service when not set.
+        """
+        return pulumi.get(self, "conversation_service_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="studioFlowSid")
+    def studio_flow_sid(self) -> Optional[_builtins.str]:
+        """
+        For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+        """
+        return pulumi.get(self, "studio_flow_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="studioRetryCount")
+    def studio_retry_count(self) -> Optional[_builtins.int]:
+        """
+        For type studio, how many times to retry the webhook request.
+        """
+        return pulumi.get(self, "studio_retry_count")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        How the auto-created conversation is handled: webhook, studio or default.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="webhookFilters")
+    def webhook_filters(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+        """
+        return pulumi.get(self, "webhook_filters")
+
+    @_builtins.property
+    @pulumi.getter(name="webhookMethod")
+    def webhook_method(self) -> Optional[_builtins.str]:
+        """
+        For type webhook, the HTTP method, GET or POST (any case).
+        """
+        return pulumi.get(self, "webhook_method")
+
+    @_builtins.property
+    @pulumi.getter(name="webhookUrl")
+    def webhook_url(self) -> Optional[_builtins.str]:
+        """
+        For type webhook, the URL the webhook request is sent to.
+        """
+        return pulumi.get(self, "webhook_url")
 
 
 @pulumi.output_type
@@ -1758,6 +1893,228 @@ class PhoneNumberCapabilities(dict):
         Whether the number supports voice calls.
         """
         return pulumi.get(self, "voice")
+
+
+@pulumi.output_type
+class PricingCountrySummary(dict):
+    def __init__(__self__, *,
+                 country: _builtins.str,
+                 iso_country: _builtins.str):
+        """
+        :param _builtins.str country: The name of the country.
+        :param _builtins.str iso_country: The ISO 3166-1 alpha-2 country code.
+        """
+        pulumi.set(__self__, "country", country)
+        pulumi.set(__self__, "iso_country", iso_country)
+
+    @_builtins.property
+    @pulumi.getter
+    def country(self) -> _builtins.str:
+        """
+        The name of the country.
+        """
+        return pulumi.get(self, "country")
+
+    @_builtins.property
+    @pulumi.getter(name="isoCountry")
+    def iso_country(self) -> _builtins.str:
+        """
+        The ISO 3166-1 alpha-2 country code.
+        """
+        return pulumi.get(self, "iso_country")
+
+
+@pulumi.output_type
+class PricingOutboundCallPrice(dict):
+    def __init__(__self__, *,
+                 base_price: _builtins.str,
+                 current_price: _builtins.str,
+                 origination_prefixes: Sequence[_builtins.str]):
+        """
+        :param _builtins.str base_price: The list price per minute as a decimal string.
+        :param _builtins.str current_price: The price per minute that applies to your account as a decimal string.
+        :param Sequence[_builtins.str] origination_prefixes: The calling-number prefixes the price applies to; `ALL` means any origination.
+        """
+        pulumi.set(__self__, "base_price", base_price)
+        pulumi.set(__self__, "current_price", current_price)
+        pulumi.set(__self__, "origination_prefixes", origination_prefixes)
+
+    @_builtins.property
+    @pulumi.getter(name="basePrice")
+    def base_price(self) -> _builtins.str:
+        """
+        The list price per minute as a decimal string.
+        """
+        return pulumi.get(self, "base_price")
+
+    @_builtins.property
+    @pulumi.getter(name="currentPrice")
+    def current_price(self) -> _builtins.str:
+        """
+        The price per minute that applies to your account as a decimal string.
+        """
+        return pulumi.get(self, "current_price")
+
+    @_builtins.property
+    @pulumi.getter(name="originationPrefixes")
+    def origination_prefixes(self) -> Sequence[_builtins.str]:
+        """
+        The calling-number prefixes the price applies to; `ALL` means any origination.
+        """
+        return pulumi.get(self, "origination_prefixes")
+
+
+@pulumi.output_type
+class PricingPrefixPrice(dict):
+    def __init__(__self__, *,
+                 base_price: _builtins.str,
+                 current_price: _builtins.str,
+                 destination_prefixes: Sequence[_builtins.str],
+                 friendly_name: _builtins.str,
+                 origination_prefixes: Sequence[_builtins.str]):
+        """
+        :param _builtins.str base_price: The list price per minute as a decimal string, in the response's price unit.
+        :param _builtins.str current_price: The price per minute that applies to your account as a decimal string.
+        :param Sequence[_builtins.str] destination_prefixes: The destination number prefixes the price applies to.
+        :param _builtins.str friendly_name: The name of the destination the prefixes belong to, for example `Germany - Mobile`.
+        :param Sequence[_builtins.str] origination_prefixes: The calling-number prefixes the price applies to; `ALL` means any origination.
+        """
+        pulumi.set(__self__, "base_price", base_price)
+        pulumi.set(__self__, "current_price", current_price)
+        pulumi.set(__self__, "destination_prefixes", destination_prefixes)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "origination_prefixes", origination_prefixes)
+
+    @_builtins.property
+    @pulumi.getter(name="basePrice")
+    def base_price(self) -> _builtins.str:
+        """
+        The list price per minute as a decimal string, in the response's price unit.
+        """
+        return pulumi.get(self, "base_price")
+
+    @_builtins.property
+    @pulumi.getter(name="currentPrice")
+    def current_price(self) -> _builtins.str:
+        """
+        The price per minute that applies to your account as a decimal string.
+        """
+        return pulumi.get(self, "current_price")
+
+    @_builtins.property
+    @pulumi.getter(name="destinationPrefixes")
+    def destination_prefixes(self) -> Sequence[_builtins.str]:
+        """
+        The destination number prefixes the price applies to.
+        """
+        return pulumi.get(self, "destination_prefixes")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        The name of the destination the prefixes belong to, for example `Germany - Mobile`.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="originationPrefixes")
+    def origination_prefixes(self) -> Sequence[_builtins.str]:
+        """
+        The calling-number prefixes the price applies to; `ALL` means any origination.
+        """
+        return pulumi.get(self, "origination_prefixes")
+
+
+@pulumi.output_type
+class PricingPrice(dict):
+    def __init__(__self__, *,
+                 base_price: _builtins.str,
+                 current_price: _builtins.str,
+                 number_type: _builtins.str):
+        """
+        :param _builtins.str base_price: The list price per unit as a decimal string, in the response's price unit.
+        :param _builtins.str current_price: The price per unit that applies to your account (list price with your discounts) as a decimal string.
+        :param _builtins.str number_type: The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+        """
+        pulumi.set(__self__, "base_price", base_price)
+        pulumi.set(__self__, "current_price", current_price)
+        pulumi.set(__self__, "number_type", number_type)
+
+    @_builtins.property
+    @pulumi.getter(name="basePrice")
+    def base_price(self) -> _builtins.str:
+        """
+        The list price per unit as a decimal string, in the response's price unit.
+        """
+        return pulumi.get(self, "base_price")
+
+    @_builtins.property
+    @pulumi.getter(name="currentPrice")
+    def current_price(self) -> _builtins.str:
+        """
+        The price per unit that applies to your account (list price with your discounts) as a decimal string.
+        """
+        return pulumi.get(self, "current_price")
+
+    @_builtins.property
+    @pulumi.getter(name="numberType")
+    def number_type(self) -> _builtins.str:
+        """
+        The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+        """
+        return pulumi.get(self, "number_type")
+
+
+@pulumi.output_type
+class PricingSmsPrice(dict):
+    def __init__(__self__, *,
+                 carrier: _builtins.str,
+                 mcc: _builtins.str,
+                 mnc: _builtins.str,
+                 prices: Sequence['outputs.PricingPrice']):
+        """
+        :param _builtins.str carrier: The name of the carrier.
+        :param _builtins.str mcc: The mobile country code of the carrier.
+        :param _builtins.str mnc: The mobile network code of the carrier.
+        :param Sequence['PricingPrice'] prices: The price per message for each number type used to send.
+        """
+        pulumi.set(__self__, "carrier", carrier)
+        pulumi.set(__self__, "mcc", mcc)
+        pulumi.set(__self__, "mnc", mnc)
+        pulumi.set(__self__, "prices", prices)
+
+    @_builtins.property
+    @pulumi.getter
+    def carrier(self) -> _builtins.str:
+        """
+        The name of the carrier.
+        """
+        return pulumi.get(self, "carrier")
+
+    @_builtins.property
+    @pulumi.getter
+    def mcc(self) -> _builtins.str:
+        """
+        The mobile country code of the carrier.
+        """
+        return pulumi.get(self, "mcc")
+
+    @_builtins.property
+    @pulumi.getter
+    def mnc(self) -> _builtins.str:
+        """
+        The mobile network code of the carrier.
+        """
+        return pulumi.get(self, "mnc")
+
+    @_builtins.property
+    @pulumi.getter
+    def prices(self) -> Sequence['outputs.PricingPrice']:
+        """
+        The price per message for each number type used to send.
+        """
+        return pulumi.get(self, "prices")
 
 
 @pulumi.output_type

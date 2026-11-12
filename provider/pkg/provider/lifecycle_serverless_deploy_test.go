@@ -16,6 +16,7 @@ package provider
 
 import (
 	"encoding/base64"
+	"fmt"
 	"strings"
 	"testing"
 	"time"
@@ -369,4 +370,88 @@ func TestLookup_ServerlessDeployPlane(t *testing.T) {
 	require.Equal(t, bsid, getS(t, r, "buildSid"))
 	_, err = invoke(t, l, "getServerlessDeployment", map[string]property.Value{"serviceSid": sv(svc), "environmentSid": sv(env), "deploymentSid": sv("ZDmissing")})
 	require.ErrorContains(t, err, "was not found")
+}
+
+// Twilio refuses to delete a Build that a Deployment points at (400/20001) and a Function or Asset
+// whose version a Build holds (400/20001), and has no delete for deployments or versions, so a
+// destroy of a deployed Function must not fail on them (#1856). The fake models both refusals.
+func TestServerlessDeployPlane_DestroyEverything(t *testing.T) {
+	buildPollInterval = time.Millisecond
+	l := newTL(t, "ServerlessService", "svc")
+	svcC := l.create(serverlessServiceInputs())
+	svc := svcC.ID
+	envC := l.other("ServerlessEnvironment", "env").create(pv(map[string]property.Value{"serviceSid": sv(svc), "uniqueName": sv("stage")}))
+	env := getS(t, envC.Properties, "sid")
+	fnC := l.other("ServerlessFunction", "fn").create(pv(map[string]property.Value{"serviceSid": sv(svc), "friendlyName": sv("hello")}))
+	asC := l.other("ServerlessAsset", "as").create(pv(map[string]property.Value{"serviceSid": sv(svc), "friendlyName": sv("page")}))
+	fvC := l.other("ServerlessFunctionVersion", "fv").create(pv(map[string]property.Value{"serviceSid": sv(svc), "functionSid": sv(fnC.ID[len(svc)+1:]),
+		"path": sv("/hello"), "visibility": sv("public"), "content": sv("// hi")}))
+	avC := l.other("ServerlessAssetVersion", "av").create(pv(map[string]property.Value{"serviceSid": sv(svc), "assetSid": sv(asC.ID[len(svc)+1:]),
+		"path": sv("/a.txt"), "visibility": sv("public"), "content": sv("hi")}))
+	bC := l.other("ServerlessBuild", "b").create(pv(map[string]property.Value{"serviceSid": sv(svc),
+		"functionVersionSids": strList(getS(t, fvC.Properties, "sid")), "assetVersionSids": strList(getS(t, avC.Properties, "sid"))}))
+	dC := l.other("ServerlessDeployment", "d").create(pv(map[string]property.Value{"serviceSid": sv(svc), "environmentSid": sv(env), "buildSid": sv(getS(t, bC.Properties, "sid"))}))
+
+	// Destroy in dependency order: every step succeeds although Twilio refuses some deletes.
+	l.other("ServerlessDeployment", "d").del(dC.ID, dC.Properties)
+	l.other("ServerlessBuild", "b").del(bC.ID, bC.Properties)
+	require.NotNil(t, l.f.get("zb", testAccount, bC.ID), "the deployed build stays on Twilio until its service goes")
+	l.other("ServerlessAssetVersion", "av").del(avC.ID, avC.Properties)
+	l.other("ServerlessFunctionVersion", "fv").del(fvC.ID, fvC.Properties)
+	l.other("ServerlessAsset", "as").del(asC.ID, asC.Properties)
+	l.other("ServerlessFunction", "fn").del(fnC.ID, fnC.Properties)
+	l.other("ServerlessEnvironment", "env").del(envC.ID, envC.Properties)
+	l.del(svcC.ID, svcC.Properties)
+	require.Nil(t, l.f.get("zb", testAccount, bC.ID), "deleting the service removes what was left")
+
+	// Without a deployment the build is deleted for real, and an unrelated 400 is still an error.
+	l2 := newTL(t, "ServerlessService", "svc2")
+	svc2 := l2.create(serverlessServiceInputs()).ID
+	b2 := l2.other("ServerlessBuild", "b2").create(pv(map[string]property.Value{"serviceSid": sv(svc2)}))
+	l2.other("ServerlessBuild", "b2").del(b2.ID, b2.Properties)
+	require.Nil(t, l2.f.get("zb", testAccount, b2.ID))
+}
+
+// A 400/20001 that is not the deployment refusal is a real failure: delete must return it.
+func TestServerlessBuildLC_DeleteUnrelated400IsAnError(t *testing.T) {
+	buildPollInterval = time.Millisecond
+	l := newTL(t, "ServerlessBuild", "b")
+	svc := serverlessSvc(l)
+	c := l.create(pv(map[string]property.Value{"serviceSid": sv(svc)}))
+	l.f.buildDeleteUnrelated = true
+	err := l.s.Delete(pgp.DeleteRequest{ID: c.ID, Urn: l.urn, Properties: c.Properties})
+	require.ErrorContains(t, err, "Something else is wrong")
+}
+
+func TestIsRefusal(t *testing.T) {
+	e := &apiError{Status: 400, Code: 20001, Message: "Cannot delete Build because it's part of an active Deployment."}
+	require.True(t, isRefusal(e, "deployment"))
+	require.False(t, isRefusal(e, "referenced in a build"), "another 20001 is a real failure")
+	require.False(t, isRefusal(&apiError{Status: 400, Code: 20002, Message: e.Message}, "deployment"))
+	require.False(t, isRefusal(&apiError{Status: 500, Code: 20001, Message: e.Message}, "deployment"))
+	require.False(t, isRefusal(fmt.Errorf("x"), "deployment"))
+}
+
+// A known list that holds a computed element (functionVersionSids=[fnVersion.sid]) decodes that
+// element to "" at preview: Check must skip it and still reject a known malformed one (#1855).
+func TestServerlessBuildLC_CheckUnknownListElement(t *testing.T) {
+	l := newTL(t, "ServerlessBuild", "b")
+	svc := "ZS" + strings.Repeat("a", 32)
+	good := "ZN" + strings.Repeat("b", 32)
+	chk := l.check(pv(map[string]property.Value{"serviceSid": sv(svc),
+		"functionVersionSids": arrv(computed()), "assetVersionSids": arrv(computed(), sv(good))}))
+	require.Empty(t, chk.Failures, "a computed element must not be validated")
+	chk = l.check(pv(map[string]property.Value{"serviceSid": sv(svc),
+		"functionVersionSids": arrv(computed(), sv("not-a-sid"))}))
+	require.Len(t, chk.Failures, 1)
+	require.Equal(t, "functionVersionSids", chk.Failures[0].Property)
+	chk = l.check(pv(map[string]property.Value{"serviceSid": sv(svc),
+		"functionVersionSids": computed(), "dependencies": arrv(objv(map[string]property.Value{"name": computed(), "version": sv("1.0.0")}))}))
+	require.Empty(t, chk.Failures)
+}
+
+func TestConnectAppLC_CheckUnknownPermissionElement(t *testing.T) {
+	l := newTL(t, "ConnectApp", "ca")
+	chk := l.check(pv(map[string]property.Value{"connectAppSid": sv("CN" + strings.Repeat("a", 32)), "permissions": arrv(computed())}))
+	require.Empty(t, chk.Failures)
 }

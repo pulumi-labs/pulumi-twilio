@@ -33,6 +33,18 @@ import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsAddressConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsAddressConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsCredentialArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsCredentialPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsRoleArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsRolePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServiceConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServiceConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountryArgs;
@@ -61,8 +73,36 @@ import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdArgs;
 import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingMessagingCountriesArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingMessagingCountriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingMessagingCountryArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingMessagingCountryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingPhoneNumberCountriesArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingPhoneNumberCountriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingPhoneNumberCountryArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingPhoneNumberCountryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingCountriesArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingCountriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingCountryArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingCountryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingTrunkingNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountriesArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountryArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetPricingVoiceNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetQueueArgs;
 import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesPhoneNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesPhoneNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesShortCodeArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesShortCodePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesSipDomainArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesSipDomainPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesTrunkArgs;
+import com.pulumi.labs.twilio.inputs.GetRoutesTrunkPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessAssetArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessAssetPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetServerlessAssetVersionArgs;
@@ -103,6 +143,18 @@ import com.pulumi.labs.twilio.inputs.GetSourceIpMappingArgs;
 import com.pulumi.labs.twilio.inputs.GetSourceIpMappingPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterActivityArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterActivityPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterTaskChannelArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterTaskChannelPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterTaskQueueArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterTaskQueuePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkerArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkerPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkflowArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkflowPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkspaceArgs;
+import com.pulumi.labs.twilio.inputs.GetTaskRouterWorkspacePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkCredentialListArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkCredentialListPlainArgs;
@@ -151,6 +203,12 @@ import com.pulumi.labs.twilio.outputs.GetByocTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsAddressConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsCredentialResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsRoleResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsServiceConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsServiceResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsWebhookConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountriesResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountryResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsHighRiskSpecialPrefixesResult;
@@ -165,7 +223,21 @@ import com.pulumi.labs.twilio.outputs.GetIpRecordResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServicePhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServiceResult;
 import com.pulumi.labs.twilio.outputs.GetOutgoingCallerIdResult;
+import com.pulumi.labs.twilio.outputs.GetPricingMessagingCountriesResult;
+import com.pulumi.labs.twilio.outputs.GetPricingMessagingCountryResult;
+import com.pulumi.labs.twilio.outputs.GetPricingPhoneNumberCountriesResult;
+import com.pulumi.labs.twilio.outputs.GetPricingPhoneNumberCountryResult;
+import com.pulumi.labs.twilio.outputs.GetPricingTrunkingCountriesResult;
+import com.pulumi.labs.twilio.outputs.GetPricingTrunkingCountryResult;
+import com.pulumi.labs.twilio.outputs.GetPricingTrunkingNumberResult;
+import com.pulumi.labs.twilio.outputs.GetPricingVoiceCountriesResult;
+import com.pulumi.labs.twilio.outputs.GetPricingVoiceCountryResult;
+import com.pulumi.labs.twilio.outputs.GetPricingVoiceNumberResult;
 import com.pulumi.labs.twilio.outputs.GetQueueResult;
+import com.pulumi.labs.twilio.outputs.GetRoutesPhoneNumberResult;
+import com.pulumi.labs.twilio.outputs.GetRoutesShortCodeResult;
+import com.pulumi.labs.twilio.outputs.GetRoutesSipDomainResult;
+import com.pulumi.labs.twilio.outputs.GetRoutesTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessAssetResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessAssetVersionResult;
 import com.pulumi.labs.twilio.outputs.GetServerlessBuildResult;
@@ -186,6 +258,12 @@ import com.pulumi.labs.twilio.outputs.GetSipIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAddressResult;
 import com.pulumi.labs.twilio.outputs.GetSourceIpMappingResult;
 import com.pulumi.labs.twilio.outputs.GetSubaccountResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterActivityResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterTaskChannelResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterTaskQueueResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterWorkerResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterWorkflowResult;
+import com.pulumi.labs.twilio.outputs.GetTaskRouterWorkspaceResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkCredentialListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkOriginationUrlResult;
@@ -668,6 +746,230 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetConnectionPolicyTargetResult> getConnectionPolicyTargetPlain(GetConnectionPolicyTargetPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations address configuration by SID.
+     * 
+     */
+    public static Output<GetConversationsAddressConfigurationResult> getConversationsAddressConfiguration(GetConversationsAddressConfigurationArgs args) {
+        return getConversationsAddressConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations address configuration by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsAddressConfigurationResult> getConversationsAddressConfigurationPlain(GetConversationsAddressConfigurationPlainArgs args) {
+        return getConversationsAddressConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations address configuration by SID.
+     * 
+     */
+    public static Output<GetConversationsAddressConfigurationResult> getConversationsAddressConfiguration(GetConversationsAddressConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsAddressConfiguration", TypeShape.of(GetConversationsAddressConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations address configuration by SID.
+     * 
+     */
+    public static Output<GetConversationsAddressConfigurationResult> getConversationsAddressConfiguration(GetConversationsAddressConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsAddressConfiguration", TypeShape.of(GetConversationsAddressConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations address configuration by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsAddressConfigurationResult> getConversationsAddressConfigurationPlain(GetConversationsAddressConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsAddressConfiguration", TypeShape.of(GetConversationsAddressConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetConversationsCredentialResult> getConversationsCredential(GetConversationsCredentialArgs args) {
+        return getConversationsCredential(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static CompletableFuture<GetConversationsCredentialResult> getConversationsCredentialPlain(GetConversationsCredentialPlainArgs args) {
+        return getConversationsCredentialPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetConversationsCredentialResult> getConversationsCredential(GetConversationsCredentialArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsCredential", TypeShape.of(GetConversationsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetConversationsCredentialResult> getConversationsCredential(GetConversationsCredentialArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsCredential", TypeShape.of(GetConversationsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static CompletableFuture<GetConversationsCredentialResult> getConversationsCredentialPlain(GetConversationsCredentialPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsCredential", TypeShape.of(GetConversationsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations role by SID.
+     * 
+     */
+    public static Output<GetConversationsRoleResult> getConversationsRole(GetConversationsRoleArgs args) {
+        return getConversationsRole(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations role by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsRoleResult> getConversationsRolePlain(GetConversationsRolePlainArgs args) {
+        return getConversationsRolePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations role by SID.
+     * 
+     */
+    public static Output<GetConversationsRoleResult> getConversationsRole(GetConversationsRoleArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsRole", TypeShape.of(GetConversationsRoleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations role by SID.
+     * 
+     */
+    public static Output<GetConversationsRoleResult> getConversationsRole(GetConversationsRoleArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsRole", TypeShape.of(GetConversationsRoleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations role by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsRoleResult> getConversationsRolePlain(GetConversationsRolePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsRole", TypeShape.of(GetConversationsRoleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations service by SID.
+     * 
+     */
+    public static Output<GetConversationsServiceResult> getConversationsService(GetConversationsServiceArgs args) {
+        return getConversationsService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations service by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceResult> getConversationsServicePlain(GetConversationsServicePlainArgs args) {
+        return getConversationsServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Conversations service by SID.
+     * 
+     */
+    public static Output<GetConversationsServiceResult> getConversationsService(GetConversationsServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsService", TypeShape.of(GetConversationsServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations service by SID.
+     * 
+     */
+    public static Output<GetConversationsServiceResult> getConversationsService(GetConversationsServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsService", TypeShape.of(GetConversationsServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Conversations service by SID.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceResult> getConversationsServicePlain(GetConversationsServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsService", TypeShape.of(GetConversationsServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the configuration (default roles, reachability) of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceConfigurationResult> getConversationsServiceConfiguration(GetConversationsServiceConfigurationArgs args) {
+        return getConversationsServiceConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the configuration (default roles, reachability) of a Conversations service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceConfigurationResult> getConversationsServiceConfigurationPlain(GetConversationsServiceConfigurationPlainArgs args) {
+        return getConversationsServiceConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the configuration (default roles, reachability) of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceConfigurationResult> getConversationsServiceConfiguration(GetConversationsServiceConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsServiceConfiguration", TypeShape.of(GetConversationsServiceConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the configuration (default roles, reachability) of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceConfigurationResult> getConversationsServiceConfiguration(GetConversationsServiceConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsServiceConfiguration", TypeShape.of(GetConversationsServiceConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the configuration (default roles, reachability) of a Conversations service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceConfigurationResult> getConversationsServiceConfigurationPlain(GetConversationsServiceConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsServiceConfiguration", TypeShape.of(GetConversationsServiceConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static Output<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfiguration() {
+        return getConversationsWebhookConfiguration(GetConversationsWebhookConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfigurationPlain() {
+        return getConversationsWebhookConfigurationPlain(GetConversationsWebhookConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static Output<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfiguration(GetConversationsWebhookConfigurationArgs args) {
+        return getConversationsWebhookConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfigurationPlain(GetConversationsWebhookConfigurationPlainArgs args) {
+        return getConversationsWebhookConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static Output<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfiguration(GetConversationsWebhookConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsWebhookConfiguration", TypeShape.of(GetConversationsWebhookConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static Output<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfiguration(GetConversationsWebhookConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsWebhookConfiguration", TypeShape.of(GetConversationsWebhookConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the webhook configuration of Conversations, account-level or of one service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsWebhookConfigurationResult> getConversationsWebhookConfigurationPlain(GetConversationsWebhookConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsWebhookConfiguration", TypeShape.of(GetConversationsWebhookConfigurationResult.class), args, Utilities.withVersion(options));
     }
     /**
      * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
@@ -1216,6 +1518,412 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getOutgoingCallerId", TypeShape.of(GetOutgoingCallerIdResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingMessagingCountriesResult> getPricingMessagingCountries() {
+        return getPricingMessagingCountries(GetPricingMessagingCountriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingMessagingCountriesResult> getPricingMessagingCountriesPlain() {
+        return getPricingMessagingCountriesPlain(GetPricingMessagingCountriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingMessagingCountriesResult> getPricingMessagingCountries(GetPricingMessagingCountriesArgs args) {
+        return getPricingMessagingCountries(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingMessagingCountriesResult> getPricingMessagingCountriesPlain(GetPricingMessagingCountriesPlainArgs args) {
+        return getPricingMessagingCountriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingMessagingCountriesResult> getPricingMessagingCountries(GetPricingMessagingCountriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingMessagingCountries", TypeShape.of(GetPricingMessagingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingMessagingCountriesResult> getPricingMessagingCountries(GetPricingMessagingCountriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingMessagingCountries", TypeShape.of(GetPricingMessagingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingMessagingCountriesResult> getPricingMessagingCountriesPlain(GetPricingMessagingCountriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingMessagingCountries", TypeShape.of(GetPricingMessagingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingMessagingCountryResult> getPricingMessagingCountry(GetPricingMessagingCountryArgs args) {
+        return getPricingMessagingCountry(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingMessagingCountryResult> getPricingMessagingCountryPlain(GetPricingMessagingCountryPlainArgs args) {
+        return getPricingMessagingCountryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingMessagingCountryResult> getPricingMessagingCountry(GetPricingMessagingCountryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingMessagingCountry", TypeShape.of(GetPricingMessagingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingMessagingCountryResult> getPricingMessagingCountry(GetPricingMessagingCountryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingMessagingCountry", TypeShape.of(GetPricingMessagingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingMessagingCountryResult> getPricingMessagingCountryPlain(GetPricingMessagingCountryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingMessagingCountry", TypeShape.of(GetPricingMessagingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountries() {
+        return getPricingPhoneNumberCountries(GetPricingPhoneNumberCountriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountriesPlain() {
+        return getPricingPhoneNumberCountriesPlain(GetPricingPhoneNumberCountriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountries(GetPricingPhoneNumberCountriesArgs args) {
+        return getPricingPhoneNumberCountries(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountriesPlain(GetPricingPhoneNumberCountriesPlainArgs args) {
+        return getPricingPhoneNumberCountriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountries(GetPricingPhoneNumberCountriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingPhoneNumberCountries", TypeShape.of(GetPricingPhoneNumberCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountries(GetPricingPhoneNumberCountriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingPhoneNumberCountries", TypeShape.of(GetPricingPhoneNumberCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingPhoneNumberCountriesResult> getPricingPhoneNumberCountriesPlain(GetPricingPhoneNumberCountriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingPhoneNumberCountries", TypeShape.of(GetPricingPhoneNumberCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountryResult> getPricingPhoneNumberCountry(GetPricingPhoneNumberCountryArgs args) {
+        return getPricingPhoneNumberCountry(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingPhoneNumberCountryResult> getPricingPhoneNumberCountryPlain(GetPricingPhoneNumberCountryPlainArgs args) {
+        return getPricingPhoneNumberCountryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountryResult> getPricingPhoneNumberCountry(GetPricingPhoneNumberCountryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingPhoneNumberCountry", TypeShape.of(GetPricingPhoneNumberCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingPhoneNumberCountryResult> getPricingPhoneNumberCountry(GetPricingPhoneNumberCountryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingPhoneNumberCountry", TypeShape.of(GetPricingPhoneNumberCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingPhoneNumberCountryResult> getPricingPhoneNumberCountryPlain(GetPricingPhoneNumberCountryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingPhoneNumberCountry", TypeShape.of(GetPricingPhoneNumberCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountriesResult> getPricingTrunkingCountries() {
+        return getPricingTrunkingCountries(GetPricingTrunkingCountriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingCountriesResult> getPricingTrunkingCountriesPlain() {
+        return getPricingTrunkingCountriesPlain(GetPricingTrunkingCountriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountriesResult> getPricingTrunkingCountries(GetPricingTrunkingCountriesArgs args) {
+        return getPricingTrunkingCountries(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingCountriesResult> getPricingTrunkingCountriesPlain(GetPricingTrunkingCountriesPlainArgs args) {
+        return getPricingTrunkingCountriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountriesResult> getPricingTrunkingCountries(GetPricingTrunkingCountriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingCountries", TypeShape.of(GetPricingTrunkingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountriesResult> getPricingTrunkingCountries(GetPricingTrunkingCountriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingCountries", TypeShape.of(GetPricingTrunkingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingCountriesResult> getPricingTrunkingCountriesPlain(GetPricingTrunkingCountriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingTrunkingCountries", TypeShape.of(GetPricingTrunkingCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountryResult> getPricingTrunkingCountry(GetPricingTrunkingCountryArgs args) {
+        return getPricingTrunkingCountry(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingCountryResult> getPricingTrunkingCountryPlain(GetPricingTrunkingCountryPlainArgs args) {
+        return getPricingTrunkingCountryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountryResult> getPricingTrunkingCountry(GetPricingTrunkingCountryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingCountry", TypeShape.of(GetPricingTrunkingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingCountryResult> getPricingTrunkingCountry(GetPricingTrunkingCountryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingCountry", TypeShape.of(GetPricingTrunkingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingCountryResult> getPricingTrunkingCountryPlain(GetPricingTrunkingCountryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingTrunkingCountry", TypeShape.of(GetPricingTrunkingCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingNumberResult> getPricingTrunkingNumber(GetPricingTrunkingNumberArgs args) {
+        return getPricingTrunkingNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingNumberResult> getPricingTrunkingNumberPlain(GetPricingTrunkingNumberPlainArgs args) {
+        return getPricingTrunkingNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingNumberResult> getPricingTrunkingNumber(GetPricingTrunkingNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingNumber", TypeShape.of(GetPricingTrunkingNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingTrunkingNumberResult> getPricingTrunkingNumber(GetPricingTrunkingNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingTrunkingNumber", TypeShape.of(GetPricingTrunkingNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingTrunkingNumberResult> getPricingTrunkingNumberPlain(GetPricingTrunkingNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingTrunkingNumber", TypeShape.of(GetPricingTrunkingNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingVoiceCountriesResult> getPricingVoiceCountries() {
+        return getPricingVoiceCountries(GetPricingVoiceCountriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceCountriesResult> getPricingVoiceCountriesPlain() {
+        return getPricingVoiceCountriesPlain(GetPricingVoiceCountriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingVoiceCountriesResult> getPricingVoiceCountries(GetPricingVoiceCountriesArgs args) {
+        return getPricingVoiceCountries(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceCountriesResult> getPricingVoiceCountriesPlain(GetPricingVoiceCountriesPlainArgs args) {
+        return getPricingVoiceCountriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingVoiceCountriesResult> getPricingVoiceCountries(GetPricingVoiceCountriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceCountries", TypeShape.of(GetPricingVoiceCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static Output<GetPricingVoiceCountriesResult> getPricingVoiceCountries(GetPricingVoiceCountriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceCountries", TypeShape.of(GetPricingVoiceCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceCountriesResult> getPricingVoiceCountriesPlain(GetPricingVoiceCountriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingVoiceCountries", TypeShape.of(GetPricingVoiceCountriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceCountryResult> getPricingVoiceCountry(GetPricingVoiceCountryArgs args) {
+        return getPricingVoiceCountry(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceCountryResult> getPricingVoiceCountryPlain(GetPricingVoiceCountryPlainArgs args) {
+        return getPricingVoiceCountryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceCountryResult> getPricingVoiceCountry(GetPricingVoiceCountryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceCountry", TypeShape.of(GetPricingVoiceCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceCountryResult> getPricingVoiceCountry(GetPricingVoiceCountryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceCountry", TypeShape.of(GetPricingVoiceCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceCountryResult> getPricingVoiceCountryPlain(GetPricingVoiceCountryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingVoiceCountry", TypeShape.of(GetPricingVoiceCountryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceNumberResult> getPricingVoiceNumber(GetPricingVoiceNumberArgs args) {
+        return getPricingVoiceNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceNumberResult> getPricingVoiceNumberPlain(GetPricingVoiceNumberPlainArgs args) {
+        return getPricingVoiceNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceNumberResult> getPricingVoiceNumber(GetPricingVoiceNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceNumber", TypeShape.of(GetPricingVoiceNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static Output<GetPricingVoiceNumberResult> getPricingVoiceNumber(GetPricingVoiceNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPricingVoiceNumber", TypeShape.of(GetPricingVoiceNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.
+     * 
+     */
+    public static CompletableFuture<GetPricingVoiceNumberResult> getPricingVoiceNumberPlain(GetPricingVoiceNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPricingVoiceNumber", TypeShape.of(GetPricingVoiceNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Twilio call queue by SID.
      * 
      */
@@ -1249,6 +1957,146 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetQueueResult> getQueuePlain(GetQueuePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesPhoneNumberResult> getRoutesPhoneNumber(GetRoutesPhoneNumberArgs args) {
+        return getRoutesPhoneNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesPhoneNumberResult> getRoutesPhoneNumberPlain(GetRoutesPhoneNumberPlainArgs args) {
+        return getRoutesPhoneNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesPhoneNumberResult> getRoutesPhoneNumber(GetRoutesPhoneNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesPhoneNumber", TypeShape.of(GetRoutesPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesPhoneNumberResult> getRoutesPhoneNumber(GetRoutesPhoneNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesPhoneNumber", TypeShape.of(GetRoutesPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesPhoneNumberResult> getRoutesPhoneNumberPlain(GetRoutesPhoneNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRoutesPhoneNumber", TypeShape.of(GetRoutesPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesShortCodeResult> getRoutesShortCode(GetRoutesShortCodeArgs args) {
+        return getRoutesShortCode(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesShortCodeResult> getRoutesShortCodePlain(GetRoutesShortCodePlainArgs args) {
+        return getRoutesShortCodePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesShortCodeResult> getRoutesShortCode(GetRoutesShortCodeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesShortCode", TypeShape.of(GetRoutesShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesShortCodeResult> getRoutesShortCode(GetRoutesShortCodeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesShortCode", TypeShape.of(GetRoutesShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesShortCodeResult> getRoutesShortCodePlain(GetRoutesShortCodePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRoutesShortCode", TypeShape.of(GetRoutesShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesSipDomainResult> getRoutesSipDomain(GetRoutesSipDomainArgs args) {
+        return getRoutesSipDomain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesSipDomainResult> getRoutesSipDomainPlain(GetRoutesSipDomainPlainArgs args) {
+        return getRoutesSipDomainPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesSipDomainResult> getRoutesSipDomain(GetRoutesSipDomainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesSipDomain", TypeShape.of(GetRoutesSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesSipDomainResult> getRoutesSipDomain(GetRoutesSipDomainArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesSipDomain", TypeShape.of(GetRoutesSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesSipDomainResult> getRoutesSipDomainPlain(GetRoutesSipDomainPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRoutesSipDomain", TypeShape.of(GetRoutesSipDomainResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesTrunkResult> getRoutesTrunk(GetRoutesTrunkArgs args) {
+        return getRoutesTrunk(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesTrunkResult> getRoutesTrunkPlain(GetRoutesTrunkPlainArgs args) {
+        return getRoutesTrunkPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesTrunkResult> getRoutesTrunk(GetRoutesTrunkArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesTrunk", TypeShape.of(GetRoutesTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static Output<GetRoutesTrunkResult> getRoutesTrunk(GetRoutesTrunkArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRoutesTrunk", TypeShape.of(GetRoutesTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.
+     * 
+     */
+    public static CompletableFuture<GetRoutesTrunkResult> getRoutesTrunkPlain(GetRoutesTrunkPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRoutesTrunk", TypeShape.of(GetRoutesTrunkResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up the asset container of a Serverless service by SID.
@@ -1963,6 +2811,216 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetSubaccountResult> getSubaccountPlain(GetSubaccountPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getSubaccount", TypeShape.of(GetSubaccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an activity of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterActivityResult> getTaskRouterActivity(GetTaskRouterActivityArgs args) {
+        return getTaskRouterActivity(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an activity of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterActivityResult> getTaskRouterActivityPlain(GetTaskRouterActivityPlainArgs args) {
+        return getTaskRouterActivityPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an activity of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterActivityResult> getTaskRouterActivity(GetTaskRouterActivityArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterActivity", TypeShape.of(GetTaskRouterActivityResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an activity of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterActivityResult> getTaskRouterActivity(GetTaskRouterActivityArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterActivity", TypeShape.of(GetTaskRouterActivityResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an activity of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterActivityResult> getTaskRouterActivityPlain(GetTaskRouterActivityPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterActivity", TypeShape.of(GetTaskRouterActivityResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task channel of a TaskRouter workspace by SID or unique name.
+     * 
+     */
+    public static Output<GetTaskRouterTaskChannelResult> getTaskRouterTaskChannel(GetTaskRouterTaskChannelArgs args) {
+        return getTaskRouterTaskChannel(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a task channel of a TaskRouter workspace by SID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterTaskChannelResult> getTaskRouterTaskChannelPlain(GetTaskRouterTaskChannelPlainArgs args) {
+        return getTaskRouterTaskChannelPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a task channel of a TaskRouter workspace by SID or unique name.
+     * 
+     */
+    public static Output<GetTaskRouterTaskChannelResult> getTaskRouterTaskChannel(GetTaskRouterTaskChannelArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterTaskChannel", TypeShape.of(GetTaskRouterTaskChannelResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task channel of a TaskRouter workspace by SID or unique name.
+     * 
+     */
+    public static Output<GetTaskRouterTaskChannelResult> getTaskRouterTaskChannel(GetTaskRouterTaskChannelArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterTaskChannel", TypeShape.of(GetTaskRouterTaskChannelResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task channel of a TaskRouter workspace by SID or unique name.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterTaskChannelResult> getTaskRouterTaskChannelPlain(GetTaskRouterTaskChannelPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterTaskChannel", TypeShape.of(GetTaskRouterTaskChannelResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task queue of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterTaskQueueResult> getTaskRouterTaskQueue(GetTaskRouterTaskQueueArgs args) {
+        return getTaskRouterTaskQueue(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a task queue of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterTaskQueueResult> getTaskRouterTaskQueuePlain(GetTaskRouterTaskQueuePlainArgs args) {
+        return getTaskRouterTaskQueuePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a task queue of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterTaskQueueResult> getTaskRouterTaskQueue(GetTaskRouterTaskQueueArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterTaskQueue", TypeShape.of(GetTaskRouterTaskQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task queue of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterTaskQueueResult> getTaskRouterTaskQueue(GetTaskRouterTaskQueueArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterTaskQueue", TypeShape.of(GetTaskRouterTaskQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a task queue of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterTaskQueueResult> getTaskRouterTaskQueuePlain(GetTaskRouterTaskQueuePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterTaskQueue", TypeShape.of(GetTaskRouterTaskQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a worker of a TaskRouter workspace by SID. The activity is the worker&#39;s current one at the time of the lookup.
+     * 
+     */
+    public static Output<GetTaskRouterWorkerResult> getTaskRouterWorker(GetTaskRouterWorkerArgs args) {
+        return getTaskRouterWorker(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a worker of a TaskRouter workspace by SID. The activity is the worker&#39;s current one at the time of the lookup.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkerResult> getTaskRouterWorkerPlain(GetTaskRouterWorkerPlainArgs args) {
+        return getTaskRouterWorkerPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a worker of a TaskRouter workspace by SID. The activity is the worker&#39;s current one at the time of the lookup.
+     * 
+     */
+    public static Output<GetTaskRouterWorkerResult> getTaskRouterWorker(GetTaskRouterWorkerArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorker", TypeShape.of(GetTaskRouterWorkerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a worker of a TaskRouter workspace by SID. The activity is the worker&#39;s current one at the time of the lookup.
+     * 
+     */
+    public static Output<GetTaskRouterWorkerResult> getTaskRouterWorker(GetTaskRouterWorkerArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorker", TypeShape.of(GetTaskRouterWorkerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a worker of a TaskRouter workspace by SID. The activity is the worker&#39;s current one at the time of the lookup.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkerResult> getTaskRouterWorkerPlain(GetTaskRouterWorkerPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterWorker", TypeShape.of(GetTaskRouterWorkerResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a workflow of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkflowResult> getTaskRouterWorkflow(GetTaskRouterWorkflowArgs args) {
+        return getTaskRouterWorkflow(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a workflow of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkflowResult> getTaskRouterWorkflowPlain(GetTaskRouterWorkflowPlainArgs args) {
+        return getTaskRouterWorkflowPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a workflow of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkflowResult> getTaskRouterWorkflow(GetTaskRouterWorkflowArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorkflow", TypeShape.of(GetTaskRouterWorkflowResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a workflow of a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkflowResult> getTaskRouterWorkflow(GetTaskRouterWorkflowArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorkflow", TypeShape.of(GetTaskRouterWorkflowResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a workflow of a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkflowResult> getTaskRouterWorkflowPlain(GetTaskRouterWorkflowPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterWorkflow", TypeShape.of(GetTaskRouterWorkflowResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkspaceResult> getTaskRouterWorkspace(GetTaskRouterWorkspaceArgs args) {
+        return getTaskRouterWorkspace(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkspaceResult> getTaskRouterWorkspacePlain(GetTaskRouterWorkspacePlainArgs args) {
+        return getTaskRouterWorkspacePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkspaceResult> getTaskRouterWorkspace(GetTaskRouterWorkspaceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorkspace", TypeShape.of(GetTaskRouterWorkspaceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TaskRouter workspace by SID.
+     * 
+     */
+    public static Output<GetTaskRouterWorkspaceResult> getTaskRouterWorkspace(GetTaskRouterWorkspaceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTaskRouterWorkspace", TypeShape.of(GetTaskRouterWorkspaceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TaskRouter workspace by SID.
+     * 
+     */
+    public static CompletableFuture<GetTaskRouterWorkspaceResult> getTaskRouterWorkspacePlain(GetTaskRouterWorkspacePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTaskRouterWorkspace", TypeShape.of(GetTaskRouterWorkspaceResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up an Elastic SIP trunk by SID, including its termination domain and recording settings.

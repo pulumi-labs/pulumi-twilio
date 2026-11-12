@@ -22,6 +22,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // The Serverless deploy plane on the fake:
@@ -168,6 +169,17 @@ func (f *fakeTwilio) serverlessBuild(w http.ResponseWriter, r *http.Request, for
 		}
 		fwrite(w, 200, o)
 	case "DELETE":
+		if f.buildDeleteUnrelated {
+			fwrite(w, 400, map[string]any{"code": 20001, "status": 400, "message": "Something else is wrong with this request."})
+			return
+		}
+		// Twilio refuses to delete a Build a Deployment points at, and has no delete for deployments.
+		for _, d := range f.objs {
+			if d["service_sid"] == svc && d["build_sid"] == parts[2] && d["environment_sid"] != nil {
+				fwrite(w, 400, map[string]any{"code": 20001, "status": 400, "message": "Cannot delete Build because it's part of an active Deployment."})
+				return
+			}
+		}
 		f.del("zb", testAccount, svc+"/"+parts[2])
 		w.WriteHeader(204)
 	default:
@@ -204,4 +216,27 @@ func (f *fakeTwilio) serverlessDeployment(w http.ResponseWriter, r *http.Request
 		return
 	}
 	fwrite(w, 200, o)
+}
+
+// containerReferencedByBuild reports whether a Build of the service holds a version of the Function or Asset.
+func (f *fakeTwilio) containerReferencedByBuild(svc, coll, sid string) bool {
+	vkind, field := map[string]string{"Functions": "zvf", "Assets": "zva"}[coll], map[string]string{"Functions": "function_versions", "Assets": "asset_versions"}[coll]
+	prefix := key(vkind, testAccount, svc+"/"+sid+"/")
+	for k, v := range f.objs {
+		if !strings.HasPrefix(k, prefix) {
+			continue
+		}
+		for bk, b := range f.objs {
+			if !strings.HasPrefix(bk, key("zb", testAccount, svc+"/")) {
+				continue
+			}
+			list, _ := b[field].([]any)
+			for _, e := range list {
+				if e == v["sid"] {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }

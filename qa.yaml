@@ -210,6 +210,18 @@ resources:
     test: true
     update: description
     cost: none; a configuration is free until calls use it. Voice v2 is a new API (spec 0.0.1), so the account must have it enabled
+  - type: twilio:index:RoutesPhoneNumber
+    test: false
+    reason: Sets the inbound processing region of an existing phone number, so a test run changes where real traffic is processed, and Twilio documents no call that removes the setting, so destroy cannot restore the previous region. Needs an existing phone number. Exercise manually on a throwaway account with a phone number you can spare.
+  - type: twilio:index:RoutesShortCode
+    test: false
+    reason: Sets the inbound processing region of an existing short code, so a test run changes where real traffic is processed, and Twilio documents no call that removes the setting, so destroy cannot restore the previous region. Needs an existing short code. Exercise manually on a throwaway account with a short code you can spare.
+  - type: twilio:index:RoutesSipDomain
+    test: false
+    reason: Sets the inbound processing region of an existing SIP domain, so a test run changes where real traffic is processed, and Twilio documents no call that removes the setting, so destroy cannot restore the previous region. Needs an existing SIP domain. Exercise manually on a throwaway account with a SIP domain you can spare.
+  - type: twilio:index:RoutesTrunk
+    test: false
+    reason: Sets the inbound processing region of an existing SIP trunk domain, so a test run changes where real traffic is processed, and Twilio documents no call that removes the setting, so destroy cannot restore the previous region. Needs an existing SIP trunk domain. Exercise manually on a throwaway account with a SIP trunk domain you can spare.
   - type: twilio:index:VoiceTranscriptionConfiguration
     test: true
     update: description
@@ -218,6 +230,54 @@ resources:
     test: false
     reason: needs a Marketplace add-on already installed in the account (installed from the Console or a purchase, the REST API cannot install one) and some add-ons bill per use
     cost: needs an add-on already installed in the account (installedAddOnSid, XE...) from the Marketplace, and a phone number the account owns; some add-ons bill per use. Not run automatically
+  - type: twilio:index:TaskRouterWorkspace
+    test: true
+    update: friendlyName
+    cost: none; TaskRouter configuration is free. Destroying the workspace deletes everything in it
+  - type: twilio:index:TaskRouterActivity
+    test: true
+    update: friendlyName
+    cost: none; create it on a TaskRouterWorkspace made in the same program. available replaces
+  - type: twilio:index:TaskRouterTaskChannel
+    test: true
+    update: friendlyName
+    cost: none; create it on a TaskRouterWorkspace made in the same program. uniqueName replaces
+  - type: twilio:index:TaskRouterTaskQueue
+    test: true
+    update: friendlyName
+    cost: none; create it on a TaskRouterWorkspace made in the same program
+  - type: twilio:index:TaskRouterWorkflow
+    test: true
+    update: friendlyName
+    cost: none; its configuration must name a TaskRouterTaskQueue of the same workspace
+  - type: twilio:index:TaskRouterWorker
+    test: true
+    update: friendlyName
+    cost: none; create it on a TaskRouterWorkspace made in the same program
+  - type: twilio:index:ConversationsService
+    test: true
+    update: null
+    cost: none; Conversations configuration is free. friendlyName cannot be updated, so changing it replaces the service
+  - type: twilio:index:ConversationsServiceConfiguration
+    test: true
+    update: reachabilityEnabled
+    cost: none; create it on a ConversationsService made in the same program. Destroy forgets it
+  - type: twilio:index:ConversationsRole
+    test: true
+    update: permissions
+    cost: none; with chatServiceSid it belongs to a ConversationsService of the same program. Permissions update in place
+  - type: twilio:index:ConversationsCredential
+    test: false
+    reason: needs a real push credential (an APNs certificate and key, a GCM API key or an FCM server key); Twilio validates the APNs certificate
+    cost: none once you have the push credential. Not run automatically
+  - type: twilio:index:ConversationsAddressConfiguration
+    test: true
+    update: friendlyName
+    cost: none for an sms address (a phone number the account owns); auto-creation does not send anything by itself
+  - type: twilio:index:ConversationsWebhookConfiguration
+    test: false
+    reason: the account-level configuration is a single object shared with everything else in the account and has no delete, so a test would leave the account changed
+    cost: none; with chatServiceSid it configures one ConversationsService. Destroy forgets it
 functions:
   - name: getAccount
     test: true
@@ -291,6 +351,30 @@ functions:
     test: true
   - name: getVerifySafeListNumber
     test: true
+  - name: getTaskRouterWorkspace
+    test: true
+  - name: getTaskRouterActivity
+    test: true
+  - name: getTaskRouterTaskChannel
+    test: true
+  - name: getTaskRouterTaskQueue
+    test: true
+  - name: getTaskRouterWorkflow
+    test: true
+  - name: getTaskRouterWorker
+    test: true
+  - name: getConversationsService
+    test: true
+  - name: getConversationsServiceConfiguration
+    test: true
+  - name: getConversationsRole
+    test: true
+  - name: getConversationsCredential
+    test: true
+  - name: getConversationsAddressConfiguration
+    test: true
+  - name: getConversationsWebhookConfiguration
+    test: true
   - name: getVerifyTemplates
     test: true
   - name: getServerlessService
@@ -322,6 +406,18 @@ functions:
   - name: getVoiceDefaultTranscriptionConfiguration
     test: false
     reason: Fails when the account has no default transcription configuration, and the VoiceDefaultTranscriptionConfiguration that would select one is not auto-tested because it changes account behaviour. Check manually, after selecting a default on a throwaway account, that the lookup returns it.
+  - name: getRoutesPhoneNumber
+    test: false
+    reason: Reads the routing settings of an existing phone number, which the account must already own, and the RoutesPhoneNumber that would configure one is not auto-tested because it changes where real traffic is processed. Check manually against a phone number the account owns.
+  - name: getRoutesShortCode
+    test: false
+    reason: Reads the routing settings of an existing short code, which the account must already own, and the RoutesShortCode that would configure one is not auto-tested because it changes where real traffic is processed. Check manually against a short code the account owns.
+  - name: getRoutesSipDomain
+    test: false
+    reason: Reads the routing settings of an existing SIP domain, which the account must already own, and the RoutesSipDomain that would configure one is not auto-tested because it changes where real traffic is processed. Check manually against a SIP domain the account owns.
+  - name: getRoutesTrunk
+    test: false
+    reason: Reads the routing settings of an existing SIP trunk domain, which the account must already own, and the RoutesTrunk that would configure one is not auto-tested because it changes where real traffic is processed. Check manually against a SIP trunk domain the account owns.
   - name: getVoiceRecordingConfiguration
     test: true
   - name: getVoiceTranscriptionConfiguration
@@ -331,6 +427,26 @@ functions:
   - name: getDialingPermissionsCountries
     test: true
   - name: getDialingPermissionsHighRiskSpecialPrefixes
+    test: true
+  - name: getPricingMessagingCountries
+    test: true
+  - name: getPricingMessagingCountry
+    test: true
+  - name: getPricingPhoneNumberCountries
+    test: true
+  - name: getPricingPhoneNumberCountry
+    test: true
+  - name: getPricingVoiceCountries
+    test: true
+  - name: getPricingVoiceCountry
+    test: true
+  - name: getPricingVoiceNumber
+    test: true
+  - name: getPricingTrunkingCountries
+    test: true
+  - name: getPricingTrunkingCountry
+    test: true
+  - name: getPricingTrunkingNumber
     test: true
   - name: getConnectionPolicy
     test: true
@@ -358,6 +474,7 @@ functions:
   - name: getEventSchema
     test: true
 regressions:
+  - "Pricing lookups (#1846): verify live (pricing.twilio.com) that getPricingMessagingCountries / getPricingPhoneNumberCountries / getPricingVoiceCountries / getPricingTrunkingCountries return every country across pages (PageSize 1000), that the single-country lookups (for example DE) return prices as decimal strings with the price unit in lower or upper case as Twilio sends it, that getPricingMessagingCountry lists outbound prices per carrier (mcc, mnc) and number type, that getPricingVoiceNumber and getPricingTrunkingNumber work for a destination number with and without originationNumber (the + in the path), and that inboundCallPrice is unset for a number that is not yours. Prices are reference data, so compare one against the Twilio pricing page."
   - "VoiceDefaultRecordingConfiguration and VoiceDefaultTranscriptionConfiguration (#1666): verify live that POST /v2/Configurations/{Type}/Default with configuration_id answers 204 for an existing configuration and 404 for an unknown one, that GET on the same path answers the selected configuration (with id and account_sid) and 404 when none is set, and that Twilio really offers no call to unset the default. The provider uses the account SID from the GET as the resource ID and falls back to the authenticated account SID when it is absent."
   - "Dialing permissions lookups (#1665): verify live that getDialingPermissionsCountry for a country you know (for example DE) returns calling codes as text, the three permissions as booleans (and what Twilio sends for a permission that is not set), that getDialingPermissionsCountries with no filter returns every country across pages, that the Continent, CountryCode and boolean filters narrow it, and that getDialingPermissionsHighRiskSpecialPrefixes returns prefixes with the country code (an empty list for a country with none). Also capture one real BulkCountryUpdates request and response so the write side (#1665) can be designed from the true wire format."
   - "VoiceAccountDefaultRecordingConfiguration (#1666): verify live that POST /v2/AccountDefaultConfiguration/Recording creates the account default (201) and answers 409 when one exists, that GET answers 404 when there is none, that PUT replaces the whole configuration and does not need an ETag or If-Match header (the spec lists a 412 for an ETag mismatch but documents no header), that DELETE removes it, and that the response carries account_sid (the provider uses it as the resource ID) and no id. getVoiceAccountDefaultRecordingConfiguration reads it and fails when none exists."
@@ -375,7 +492,9 @@ regressions:
   - "Lookups (#1431 part 12): getAvailablePhoneNumbers for US local returns numbers whose phoneNumber is E.164 and whose capabilities match the smsEnabled and voiceEnabled filters, numberType tollFree and mobile hit their own paths, and limit caps the list; nothing is purchased. getUsageRecords for allTime and thisMonth returns the same categories as the console, price stays a decimal string; getAuthorizedConnectApps lists the apps shown under Authorized Connect Apps; getEventTypes lists the types the console offers for a subscription and getEventSchema reports the latest version. A schemaId that does not exist must fail with 'was not found'."
   - "BYOC (#1431 part 11): create a ConnectionPolicy with two ConnectionPolicyTargets (different priority and weight), a ByocTrunk with connectionPolicySid pointing at the policy, an IpRecord and a SourceIpMapping to a SipDomain; refresh and preview show no change. Changing the trunk friendlyName and voiceMethod, a target priority, weight and enabled flag, the record friendlyName and the mapping sipDomainSid updates in place (no replacement); changing a record ipAddress or cidrPrefixLength, a target connectionPolicySid or a mapping ipRecordSid replaces. Removing the trunk voiceUrl or connectionPolicySid clears it. Import each (SID, or <connectionPolicySid>/<sid> for a target) and the first preview plans no change, also when the program states priority 10, weight 10, enabled true or cidrPrefixLength 32. Destroying a policy removes its targets. Not verified against a live account: whether Twilio accepts an empty ConnectionPolicySid or FromDomainSid to detach, and whether it normalizes ipAddress."
   - "Serverless (#1431 part 10): create a ServerlessService, a ServerlessEnvironment with a domainSuffix, a ServerlessVariable, a ServerlessFunction and a ServerlessAsset; refresh and preview show no change. Changing the service friendlyName, the variable key and value, and the function friendlyName updates in place (no replacement); changing the environment domainSuffix or uniqueName replaces it. The variable value never appears in plaintext in the state. Import each (<serviceSid>, <serviceSid>/<sid>, <serviceSid>/<environmentSid>/<sid>) and the first preview plans no change, also when the program omits includeCredentials and uiEditable. Destroying the service removes the children and destroying a child afterwards is a no-op. Not verified against a live account: the defaults of includeCredentials and uiEditable, the limit of 16 characters on domainSuffix and whether Twilio returns the variable value on read."
-  - "Serverless deploy plane (#1664): in one program create a ServerlessService, ServerlessEnvironment, ServerlessFunction (+ ServerlessFunctionVersion with a handler that returns a fixed string, visibility public), ServerlessAsset (+ ServerlessAssetVersion, path /hello.txt), a ServerlessBuild over both versions and a ServerlessDeployment of it to the environment; curl https://<domainName>/<function path> returns the string and the asset path serves the text. Regression checks: (1) the upload host works as coded (multipart POST to serverless-upload.twilio.com; try also with a configured edge/region and report whether it still resolves); (2) build creation waits for completed and a deliberately broken dependency name fails the create with the build removed; (3) refresh and preview show no change after the first up, also for the version resources and the build when the program omits runtime; (4) changing the function code replaces the version, then the build and deployment replace in the same up when they reference the new SIDs, and the old deployment is not an error; (5) pulumi destroy removes the build and leaves versions and the deployment alone (record what Twilio does with the orphaned versions); (6) import each of <serviceSid>/<functionSid>/<sid>, <serviceSid>/<assetSid>/<sid>, <serviceSid>/<sid> (build) and <serviceSid>/<environmentSid>/<sid> and preview plans no change (function version imports read the code back through /Content; asset version imports plan no change when the program sets content)."
+  - "Serverless deploy plane (#1664): in one program create a ServerlessService, ServerlessEnvironment, ServerlessFunction (+ ServerlessFunctionVersion with a handler that returns a fixed string, visibility public), ServerlessAsset (+ ServerlessAssetVersion, path /hello.txt), a ServerlessBuild over both versions and a ServerlessDeployment of it to the environment; curl https://<domainName>/<function path> returns the string and the asset path serves the text. Regression checks: (1) the upload host works as coded (multipart POST to serverless-upload.twilio.com; try also with a configured edge/region and report whether it still resolves); (2) build creation waits for completed and a deliberately broken dependency name fails the create with the build removed; (3) refresh and preview show no change after the first up, also for the version resources and the build when the program omits runtime; (4) changing the function code replaces the version, then the build and deployment replace in the same up when they reference the new SIDs, and the old deployment is not an error; (5) pulumi destroy of the whole program succeeds (#1856): the deployment and versions are forgotten, a deployed build and a function or asset whose version a build holds answer 400/20001 and are forgotten with a warning, and the service delete removes what is left; confirm on a live account that the exact 20001 messages still contain 'active Deployment' and 'referenced in a Build' and that nothing is left after the service is gone; (6) import each of <serviceSid>/<functionSid>/<sid>, <serviceSid>/<assetSid>/<sid>, <serviceSid>/<sid> (build) and <serviceSid>/<environmentSid>/<sid> and preview plans no change (function version imports read the code back through /Content; asset version imports plan no change when the program sets content)."
+  - "Conversations (#1864, part of #1667): create a ConversationsService, a ConversationsServiceConfiguration naming a service role made with ConversationsRole (roleType service, chatServiceSid set), a ConversationsRole with no chatServiceSid and a ConversationsAddressConfiguration for an sms number the account owns with autoCreation enabled and type default; refresh and preview show no change. Changing the service friendlyName replaces it, changing role permissions, the address friendlyName and autoCreation, and reachabilityEnabled updates in place. A ConversationsWebhookConfiguration with a chatServiceSid sets pre and post URLs and filters, and the order of the filters is not drift. Import each (<sid>, <chatServiceSid>/<sid> for a service role, the service SID for the configurations, account for the account-level webhook configuration) and the first preview plans no change. Not verified against a live account: that a configuration POST with no parameters is accepted (the provider does a GET instead when nothing is set), the default autoCreation values Twilio reports, whether the account-level webhook configuration needs method and URLs together, and the exact APNs certificate validation."
+  - "TaskRouter (#1861, part of #1667): create a TaskRouterWorkspace, a TaskRouterActivity, a TaskRouterTaskChannel, a TaskRouterTaskQueue, a TaskRouterWorkflow whose configuration routes to the queue (written with different spacing from what Twilio returns) and a TaskRouterWorker, refresh and preview show no change; changing each friendlyName updates in place, changing the workflow configuration updates in place, changing the activity available flag or the channel uniqueName replaces. Add the worker to a different activity in the program and confirm the worker moves; then move it in the console and confirm preview shows no drift for activitySid. Import each (<workspaceSid>, <workspaceSid>/<sid>) and the first preview plans no change. Not verified against a live account: that Twilio accepts the configuration document exactly as the provider sends it, and whether a worker created with no activitySid reports the workspace default activity."
   - "Verify extras (#1431 part 9): on a fresh VerifyService create a VerifyRateLimit with a bucket, a VerifyMessagingConfiguration for one country and a VerifyWebhook, refresh and preview show no change; changing the bucket max, the webhook url and eventTypes (in a different order) updates in place; removing webhook status and webhookVersion resets them to enabled and v2 and a re-preview is clean; import each (<serviceSid>/<sid>, <serviceSid>/<rateLimitSid>/<sid>, <serviceSid>/<country>) and the first preview plans no change. Add a number to the SafeList (the plus sign must be escaped as %2B in the path), read it back with getVerifySafeListNumber, destroy it. getVerifyTemplates lists the templates; use one SID as VerifyService.defaultTemplateSid. Not verified against a live account: that Twilio accepts the Version parameter name webhookVersion maps to, and the casing of the country in the response."
   - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."
   - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."

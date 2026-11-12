@@ -15,6 +15,8 @@ else:
 from . import _utilities
 
 __all__ = [
+    'ConversationsAutoCreationArgs',
+    'ConversationsAutoCreationArgsDict',
     'EventSubscriptionTypeArgs',
     'EventSubscriptionTypeArgsDict',
     'RecordingCompositionPolicyArgs',
@@ -30,6 +32,174 @@ __all__ = [
     'TranscriptionStatusCallbackArgs',
     'TranscriptionStatusCallbackArgsDict',
 ]
+
+class ConversationsAutoCreationArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Whether an inbound message to the address creates a conversation automatically.
+    """
+    conversation_service_sid: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    SID (IS...) of the service the conversation is created in; the default service when not set.
+    """
+    studio_flow_sid: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+    """
+    studio_retry_count: NotRequired[Optional[pulumi.Input[_builtins.int]]]
+    """
+    For type studio, how many times to retry the webhook request.
+    """
+    type: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    How the auto-created conversation is handled: webhook, studio or default.
+    """
+    webhook_filters: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+    """
+    webhook_method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    For type webhook, the HTTP method, GET or POST (any case).
+    """
+    webhook_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    For type webhook, the URL the webhook request is sent to.
+    """
+
+@pulumi.input_type
+class ConversationsAutoCreationArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[_builtins.bool],
+                 conversation_service_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 studio_flow_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 studio_retry_count: Optional[pulumi.Input[_builtins.int]] = None,
+                 type: Optional[pulumi.Input[_builtins.str]] = None,
+                 webhook_filters: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 webhook_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: Whether an inbound message to the address creates a conversation automatically.
+        :param pulumi.Input[_builtins.str] conversation_service_sid: SID (IS...) of the service the conversation is created in; the default service when not set.
+        :param pulumi.Input[_builtins.str] studio_flow_sid: For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+        :param pulumi.Input[_builtins.int] studio_retry_count: For type studio, how many times to retry the webhook request.
+        :param pulumi.Input[_builtins.str] type: How the auto-created conversation is handled: webhook, studio or default.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] webhook_filters: For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+        :param pulumi.Input[_builtins.str] webhook_method: For type webhook, the HTTP method, GET or POST (any case).
+        :param pulumi.Input[_builtins.str] webhook_url: For type webhook, the URL the webhook request is sent to.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if conversation_service_sid is not None:
+            pulumi.set(__self__, "conversation_service_sid", conversation_service_sid)
+        if studio_flow_sid is not None:
+            pulumi.set(__self__, "studio_flow_sid", studio_flow_sid)
+        if studio_retry_count is not None:
+            pulumi.set(__self__, "studio_retry_count", studio_retry_count)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if webhook_filters is not None:
+            pulumi.set(__self__, "webhook_filters", webhook_filters)
+        if webhook_method is not None:
+            pulumi.set(__self__, "webhook_method", webhook_method)
+        if webhook_url is not None:
+            pulumi.set(__self__, "webhook_url", webhook_url)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether an inbound message to the address creates a conversation automatically.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="conversationServiceSid")
+    def conversation_service_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (IS...) of the service the conversation is created in; the default service when not set.
+        """
+        return pulumi.get(self, "conversation_service_sid")
+
+    @conversation_service_sid.setter
+    def conversation_service_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "conversation_service_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="studioFlowSid")
+    def studio_flow_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+        """
+        return pulumi.get(self, "studio_flow_sid")
+
+    @studio_flow_sid.setter
+    def studio_flow_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "studio_flow_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="studioRetryCount")
+    def studio_retry_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        For type studio, how many times to retry the webhook request.
+        """
+        return pulumi.get(self, "studio_retry_count")
+
+    @studio_retry_count.setter
+    def studio_retry_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "studio_retry_count", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        How the auto-created conversation is handled: webhook, studio or default.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="webhookFilters")
+    def webhook_filters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+        """
+        return pulumi.get(self, "webhook_filters")
+
+    @webhook_filters.setter
+    def webhook_filters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "webhook_filters", value)
+
+    @_builtins.property
+    @pulumi.getter(name="webhookMethod")
+    def webhook_method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        For type webhook, the HTTP method, GET or POST (any case).
+        """
+        return pulumi.get(self, "webhook_method")
+
+    @webhook_method.setter
+    def webhook_method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "webhook_method", value)
+
+    @_builtins.property
+    @pulumi.getter(name="webhookUrl")
+    def webhook_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        For type webhook, the URL the webhook request is sent to.
+        """
+        return pulumi.get(self, "webhook_url")
+
+    @webhook_url.setter
+    def webhook_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "webhook_url", value)
+
 
 class EventSubscriptionTypeArgsDict(TypedDict):
     type: pulumi.Input[_builtins.str]

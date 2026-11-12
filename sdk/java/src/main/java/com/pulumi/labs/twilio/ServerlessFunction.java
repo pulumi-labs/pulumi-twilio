@@ -14,7 +14,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 /**
- * The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio&#39;s upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). The resource ID is &lt;serviceSid&gt;/&lt;sid&gt;.
+ * The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio&#39;s upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). Twilio refuses to delete a function whose version a build holds, so destroying such a function only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is &lt;serviceSid&gt;/&lt;sid&gt;.
  * 
  */
 @ResourceType(type="twilio:index:ServerlessFunction")

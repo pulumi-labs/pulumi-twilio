@@ -486,7 +486,7 @@ func (s *ServerlessBuildState) Annotate(a infer.Annotator) {
 }
 
 func (r *ServerlessBuild) Annotate(a infer.Annotator) {
-	a.Describe(&r, "A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. The resource ID is <serviceSid>/<sid>.")
+	a.Describe(&r, "A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. Twilio refuses to delete a build that was deployed (and has no delete for deployments), so destroying such a build only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. A build that was never deployed is deleted. The resource ID is <serviceSid>/<sid>.")
 }
 
 var _ infer.CustomResource[ServerlessBuildArgs, ServerlessBuildState] = (*ServerlessBuild)(nil)
@@ -506,7 +506,11 @@ func (r *ServerlessBuild) Check(ctx context.Context, req infer.CheckRequest) (in
 		if list == nil || c.unk(prop) {
 			continue
 		}
-		for _, s := range *list {
+		for i, s := range *list {
+			// A known list can hold a computed element (functionVersionSids=[fnVersion.sid]); infer decodes it to "".
+			if unknownAt(req.NewInputs, prop, i) {
+				continue
+			}
 			if !serverlessVersionSidRE.MatchString(s) {
 				c.fail(prop, prop+" must hold version SIDs (ZN followed by 32 hex characters)")
 				break
@@ -517,8 +521,11 @@ func (r *ServerlessBuild) Check(ctx context.Context, req infer.CheckRequest) (in
 		c.oneOf("runtime", *args.Runtime, serverlessRuntimes)
 	}
 	if args.Dependencies != nil && !c.unk("dependencies") {
-		for _, d := range *args.Dependencies {
-			if d.Name == "" || d.Version == "" {
+		for i, d := range *args.Dependencies {
+			if unknownAt(req.NewInputs, "dependencies", i) {
+				continue
+			}
+			if (d.Name == "" && !unknownAt(req.NewInputs, "dependencies", i, "name")) || (d.Version == "" && !unknownAt(req.NewInputs, "dependencies", i, "version")) {
 				c.fail("dependencies", "every dependency needs a name and a version")
 				break
 			}
@@ -715,6 +722,15 @@ func (r *ServerlessBuild) Delete(ctx context.Context, req infer.DeleteRequest[Se
 		return infer.DeleteResponse{}, err
 	}
 	if _, err := c.do(ctx, "DELETE", "serverless", serverlessSvcPath(ids[0], "Builds", ids[1]), nil, nil); err != nil && !isNotFound(err) {
+		// Twilio has no delete for a Deployment, so a Build that was ever deployed cannot be deleted
+		// ("Cannot delete Build because it's part of an active Deployment", HTTP 400, error 20001).
+		// Forget it: deleting the Service (or its Environment) removes it, and failing here would make
+		// every destroy of a deployed Function fail (#1856).
+		if isRefusal(err, "deployment") {
+			p.GetLogger(ctx).Warningf("serverless build %s is part of a deployment, which Twilio cannot delete: it is removed from the state "+
+				"and stays on Twilio until its service is deleted", req.ID)
+			return infer.DeleteResponse{}, nil
+		}
 		return infer.DeleteResponse{}, fmt.Errorf("delete serverless build %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil

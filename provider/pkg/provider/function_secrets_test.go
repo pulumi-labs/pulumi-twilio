@@ -121,6 +121,7 @@ func credentialLikeName(name string) bool {
 var notCredentialFunctionOutputs = map[string]string{
 	"twilio:index:getApiKey#keyType":                                "an identifier, name, timestamp or metadata, never the credential itself",
 	"twilio:index:getSipCredential#credentialListSid":               "an identifier, name, timestamp or metadata, never the credential itself",
+	"twilio:index:getConversationsCredential#credentialType":        "which push service (apn, gcm or fcm) the credential is for, never the credential itself",
 	"twilio:index:getServerlessService#includeCredentials":          "a boolean flag that says whether Twilio injects account credentials into Functions, never a credential itself",
 	"twilio:index:getServerlessVariable#key":                        "the name of the variable (the value is the secret), never the credential itself",
 	"twilio:index:getTrunkCredentialList#credentialListSid":         "an identifier, name, timestamp or metadata, never the credential itself",

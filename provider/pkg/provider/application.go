@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"strings"
 
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -126,11 +127,21 @@ var _ infer.CustomDelete[ApplicationState] = (*Application)(nil)
 
 var httpMethods = map[string]bool{"GET": true, "POST": true}
 
+// checkMethods validates HTTP method inputs. Twilio takes GET and POST in either case, so a lower
+// case value is accepted and normalized to upper case in place: the checked inputs, and so every
+// request, carry the canonical form, and a program that writes "post" plans no change against
+// Twilio's "POST".
 func checkMethods(failures []p.CheckFailure, unk func(...string) bool, m map[string]*string) []p.CheckFailure {
 	for prop, v := range m {
-		if v != nil && !unk(prop) && !httpMethods[*v] {
-			failures = append(failures, p.CheckFailure{Property: prop, Reason: prop + " must be GET or POST"})
+		if v == nil || unk(prop) {
+			continue
 		}
+		up := strings.ToUpper(*v)
+		if !httpMethods[up] {
+			failures = append(failures, p.CheckFailure{Property: prop, Reason: prop + " must be GET or POST (any case)"})
+			continue
+		}
+		*v = up
 	}
 	return failures
 }

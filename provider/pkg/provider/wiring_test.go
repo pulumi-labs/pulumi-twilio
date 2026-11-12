@@ -154,6 +154,10 @@ func TestWiring_EveryStateEmbedsItsArgsFirst(t *testing.T) {
 		"VoiceAccountDefaultRecordingConfiguration": {VoiceAccountDefaultRecordingConfigurationArgs{}, VoiceAccountDefaultRecordingConfigurationState{}},
 		"VoiceDefaultRecordingConfiguration":        {VoiceDefaultRecordingConfigurationArgs{}, VoiceDefaultRecordingConfigurationState{}},
 		"VoiceDefaultTranscriptionConfiguration":    {VoiceDefaultTranscriptionConfigurationArgs{}, VoiceDefaultTranscriptionConfigurationState{}},
+		"RoutesSipDomain":                           {RoutesSipDomainArgs{}, RoutesSipDomainState{}},
+		"RoutesTrunk":                               {RoutesTrunkArgs{}, RoutesTrunkState{}},
+		"RoutesPhoneNumber":                         {RoutesPhoneNumberArgs{}, RoutesPhoneNumberState{}},
+		"RoutesShortCode":                           {RoutesShortCodeArgs{}, RoutesShortCodeState{}},
 		"SourceIpMapping":                           {SourceIpMappingArgs{}, SourceIpMappingState{}},
 	}
 	for name, p := range pairs {

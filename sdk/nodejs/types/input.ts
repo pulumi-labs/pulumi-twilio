@@ -5,6 +5,41 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface ConversationsAutoCreationArgs {
+    /**
+     * SID (IS...) of the service the conversation is created in; the default service when not set.
+     */
+    conversationServiceSid?: pulumi.Input<string | undefined>;
+    /**
+     * Whether an inbound message to the address creates a conversation automatically.
+     */
+    enabled: pulumi.Input<boolean>;
+    /**
+     * For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+     */
+    studioFlowSid?: pulumi.Input<string | undefined>;
+    /**
+     * For type studio, how many times to retry the webhook request.
+     */
+    studioRetryCount?: pulumi.Input<number | undefined>;
+    /**
+     * How the auto-created conversation is handled: webhook, studio or default.
+     */
+    type?: pulumi.Input<string | undefined>;
+    /**
+     * For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+     */
+    webhookFilters?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * For type webhook, the HTTP method, GET or POST (any case).
+     */
+    webhookMethod?: pulumi.Input<string | undefined>;
+    /**
+     * For type webhook, the URL the webhook request is sent to.
+     */
+    webhookUrl?: pulumi.Input<string | undefined>;
+}
+
 export interface EventSubscriptionTypeArgs {
     /**
      * Schema version of the event type to receive. Leave it unset to take Twilio's default (the latest version).

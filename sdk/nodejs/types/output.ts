@@ -228,6 +228,41 @@ export interface ConnectAppEffective {
     permissions?: string[];
 }
 
+export interface ConversationsAutoCreation {
+    /**
+     * SID (IS...) of the service the conversation is created in; the default service when not set.
+     */
+    conversationServiceSid?: string;
+    /**
+     * Whether an inbound message to the address creates a conversation automatically.
+     */
+    enabled: boolean;
+    /**
+     * For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+     */
+    studioFlowSid?: string;
+    /**
+     * For type studio, how many times to retry the webhook request.
+     */
+    studioRetryCount?: number;
+    /**
+     * How the auto-created conversation is handled: webhook, studio or default.
+     */
+    type?: string;
+    /**
+     * For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+     */
+    webhookFilters?: string[];
+    /**
+     * For type webhook, the HTTP method, GET or POST (any case).
+     */
+    webhookMethod?: string;
+    /**
+     * For type webhook, the URL the webhook request is sent to.
+     */
+    webhookUrl?: string;
+}
+
 export interface DialingCountry {
     /**
      * The continent the country is in.
@@ -522,6 +557,89 @@ export interface PhoneNumberCapabilities {
      * Whether the number supports voice calls.
      */
     voice: boolean;
+}
+
+export interface PricingCountrySummary {
+    /**
+     * The name of the country.
+     */
+    country: string;
+    /**
+     * The ISO 3166-1 alpha-2 country code.
+     */
+    isoCountry: string;
+}
+
+export interface PricingOutboundCallPrice {
+    /**
+     * The list price per minute as a decimal string.
+     */
+    basePrice: string;
+    /**
+     * The price per minute that applies to your account as a decimal string.
+     */
+    currentPrice: string;
+    /**
+     * The calling-number prefixes the price applies to; `ALL` means any origination.
+     */
+    originationPrefixes: string[];
+}
+
+export interface PricingPrefixPrice {
+    /**
+     * The list price per minute as a decimal string, in the response's price unit.
+     */
+    basePrice: string;
+    /**
+     * The price per minute that applies to your account as a decimal string.
+     */
+    currentPrice: string;
+    /**
+     * The destination number prefixes the price applies to.
+     */
+    destinationPrefixes: string[];
+    /**
+     * The name of the destination the prefixes belong to, for example `Germany - Mobile`.
+     */
+    friendlyName: string;
+    /**
+     * The calling-number prefixes the price applies to; `ALL` means any origination.
+     */
+    originationPrefixes: string[];
+}
+
+export interface PricingPrice {
+    /**
+     * The list price per unit as a decimal string, in the response's price unit.
+     */
+    basePrice: string;
+    /**
+     * The price per unit that applies to your account (list price with your discounts) as a decimal string.
+     */
+    currentPrice: string;
+    /**
+     * The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+     */
+    numberType: string;
+}
+
+export interface PricingSmsPrice {
+    /**
+     * The name of the carrier.
+     */
+    carrier: string;
+    /**
+     * The mobile country code of the carrier.
+     */
+    mcc: string;
+    /**
+     * The mobile network code of the carrier.
+     */
+    mnc: string;
+    /**
+     * The price per message for each number type used to send.
+     */
+    prices: outputs.PricingPrice[];
 }
 
 export interface RecordingCompositionPolicy {

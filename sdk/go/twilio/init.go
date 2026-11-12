@@ -35,6 +35,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ConnectionPolicy{}
 	case "twilio:index:ConnectionPolicyTarget":
 		r = &ConnectionPolicyTarget{}
+	case "twilio:index:ConversationsAddressConfiguration":
+		r = &ConversationsAddressConfiguration{}
+	case "twilio:index:ConversationsCredential":
+		r = &ConversationsCredential{}
+	case "twilio:index:ConversationsRole":
+		r = &ConversationsRole{}
+	case "twilio:index:ConversationsService":
+		r = &ConversationsService{}
+	case "twilio:index:ConversationsServiceConfiguration":
+		r = &ConversationsServiceConfiguration{}
+	case "twilio:index:ConversationsWebhookConfiguration":
+		r = &ConversationsWebhookConfiguration{}
 	case "twilio:index:EventSink":
 		r = &EventSink{}
 	case "twilio:index:EventSubscription":
@@ -53,6 +65,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &OutgoingCallerId{}
 	case "twilio:index:Queue":
 		r = &Queue{}
+	case "twilio:index:RoutesPhoneNumber":
+		r = &RoutesPhoneNumber{}
+	case "twilio:index:RoutesShortCode":
+		r = &RoutesShortCode{}
+	case "twilio:index:RoutesSipDomain":
+		r = &RoutesSipDomain{}
+	case "twilio:index:RoutesTrunk":
+		r = &RoutesTrunk{}
 	case "twilio:index:ServerlessAsset":
 		r = &ServerlessAsset{}
 	case "twilio:index:ServerlessAssetVersion":
@@ -93,6 +113,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SourceIpMapping{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
+	case "twilio:index:TaskRouterActivity":
+		r = &TaskRouterActivity{}
+	case "twilio:index:TaskRouterTaskChannel":
+		r = &TaskRouterTaskChannel{}
+	case "twilio:index:TaskRouterTaskQueue":
+		r = &TaskRouterTaskQueue{}
+	case "twilio:index:TaskRouterWorker":
+		r = &TaskRouterWorker{}
+	case "twilio:index:TaskRouterWorkflow":
+		r = &TaskRouterWorkflow{}
+	case "twilio:index:TaskRouterWorkspace":
+		r = &TaskRouterWorkspace{}
 	case "twilio:index:Trunk":
 		r = &Trunk{}
 	case "twilio:index:TrunkCredentialList":

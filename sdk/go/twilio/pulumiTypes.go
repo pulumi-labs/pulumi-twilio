@@ -840,6 +840,276 @@ func (o ConnectAppEffectivePtrOutput) Permissions() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+type ConversationsAutoCreation struct {
+	// SID (IS...) of the service the conversation is created in; the default service when not set.
+	ConversationServiceSid *string `pulumi:"conversationServiceSid"`
+	// Whether an inbound message to the address creates a conversation automatically.
+	Enabled bool `pulumi:"enabled"`
+	// For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+	StudioFlowSid *string `pulumi:"studioFlowSid"`
+	// For type studio, how many times to retry the webhook request.
+	StudioRetryCount *int `pulumi:"studioRetryCount"`
+	// How the auto-created conversation is handled: webhook, studio or default.
+	Type *string `pulumi:"type"`
+	// For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+	WebhookFilters []string `pulumi:"webhookFilters"`
+	// For type webhook, the HTTP method, GET or POST (any case).
+	WebhookMethod *string `pulumi:"webhookMethod"`
+	// For type webhook, the URL the webhook request is sent to.
+	WebhookUrl *string `pulumi:"webhookUrl"`
+}
+
+// ConversationsAutoCreationInput is an input type that accepts ConversationsAutoCreationArgs and ConversationsAutoCreationOutput values.
+// You can construct a concrete instance of `ConversationsAutoCreationInput` via:
+//
+//	ConversationsAutoCreationArgs{...}
+type ConversationsAutoCreationInput interface {
+	pulumi.Input
+
+	ToConversationsAutoCreationOutput() ConversationsAutoCreationOutput
+	ToConversationsAutoCreationOutputWithContext(context.Context) ConversationsAutoCreationOutput
+}
+
+type ConversationsAutoCreationArgs struct {
+	// SID (IS...) of the service the conversation is created in; the default service when not set.
+	ConversationServiceSid pulumi.StringPtrInput `pulumi:"conversationServiceSid"`
+	// Whether an inbound message to the address creates a conversation automatically.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+	StudioFlowSid pulumi.StringPtrInput `pulumi:"studioFlowSid"`
+	// For type studio, how many times to retry the webhook request.
+	StudioRetryCount pulumi.IntPtrInput `pulumi:"studioRetryCount"`
+	// How the auto-created conversation is handled: webhook, studio or default.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+	// For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+	WebhookFilters pulumi.StringArrayInput `pulumi:"webhookFilters"`
+	// For type webhook, the HTTP method, GET or POST (any case).
+	WebhookMethod pulumi.StringPtrInput `pulumi:"webhookMethod"`
+	// For type webhook, the URL the webhook request is sent to.
+	WebhookUrl pulumi.StringPtrInput `pulumi:"webhookUrl"`
+}
+
+func (ConversationsAutoCreationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsAutoCreation)(nil)).Elem()
+}
+
+func (i ConversationsAutoCreationArgs) ToConversationsAutoCreationOutput() ConversationsAutoCreationOutput {
+	return i.ToConversationsAutoCreationOutputWithContext(context.Background())
+}
+
+func (i ConversationsAutoCreationArgs) ToConversationsAutoCreationOutputWithContext(ctx context.Context) ConversationsAutoCreationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsAutoCreationOutput)
+}
+
+func (i ConversationsAutoCreationArgs) ToConversationsAutoCreationPtrOutput() ConversationsAutoCreationPtrOutput {
+	return i.ToConversationsAutoCreationPtrOutputWithContext(context.Background())
+}
+
+func (i ConversationsAutoCreationArgs) ToConversationsAutoCreationPtrOutputWithContext(ctx context.Context) ConversationsAutoCreationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsAutoCreationOutput).ToConversationsAutoCreationPtrOutputWithContext(ctx)
+}
+
+// ConversationsAutoCreationPtrInput is an input type that accepts ConversationsAutoCreationArgs, ConversationsAutoCreationPtr and ConversationsAutoCreationPtrOutput values.
+// You can construct a concrete instance of `ConversationsAutoCreationPtrInput` via:
+//
+//	        ConversationsAutoCreationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ConversationsAutoCreationPtrInput interface {
+	pulumi.Input
+
+	ToConversationsAutoCreationPtrOutput() ConversationsAutoCreationPtrOutput
+	ToConversationsAutoCreationPtrOutputWithContext(context.Context) ConversationsAutoCreationPtrOutput
+}
+
+type conversationsAutoCreationPtrType ConversationsAutoCreationArgs
+
+func ConversationsAutoCreationPtr(v *ConversationsAutoCreationArgs) ConversationsAutoCreationPtrInput {
+	return (*conversationsAutoCreationPtrType)(v)
+}
+
+func (*conversationsAutoCreationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsAutoCreation)(nil)).Elem()
+}
+
+func (i *conversationsAutoCreationPtrType) ToConversationsAutoCreationPtrOutput() ConversationsAutoCreationPtrOutput {
+	return i.ToConversationsAutoCreationPtrOutputWithContext(context.Background())
+}
+
+func (i *conversationsAutoCreationPtrType) ToConversationsAutoCreationPtrOutputWithContext(ctx context.Context) ConversationsAutoCreationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsAutoCreationPtrOutput)
+}
+
+type ConversationsAutoCreationOutput struct{ *pulumi.OutputState }
+
+func (ConversationsAutoCreationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsAutoCreation)(nil)).Elem()
+}
+
+func (o ConversationsAutoCreationOutput) ToConversationsAutoCreationOutput() ConversationsAutoCreationOutput {
+	return o
+}
+
+func (o ConversationsAutoCreationOutput) ToConversationsAutoCreationOutputWithContext(ctx context.Context) ConversationsAutoCreationOutput {
+	return o
+}
+
+func (o ConversationsAutoCreationOutput) ToConversationsAutoCreationPtrOutput() ConversationsAutoCreationPtrOutput {
+	return o.ToConversationsAutoCreationPtrOutputWithContext(context.Background())
+}
+
+func (o ConversationsAutoCreationOutput) ToConversationsAutoCreationPtrOutputWithContext(ctx context.Context) ConversationsAutoCreationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConversationsAutoCreation) *ConversationsAutoCreation {
+		return &v
+	}).(ConversationsAutoCreationPtrOutput)
+}
+
+// SID (IS...) of the service the conversation is created in; the default service when not set.
+func (o ConversationsAutoCreationOutput) ConversationServiceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *string { return v.ConversationServiceSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether an inbound message to the address creates a conversation automatically.
+func (o ConversationsAutoCreationOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+func (o ConversationsAutoCreationOutput) StudioFlowSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *string { return v.StudioFlowSid }).(pulumi.StringPtrOutput)
+}
+
+// For type studio, how many times to retry the webhook request.
+func (o ConversationsAutoCreationOutput) StudioRetryCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *int { return v.StudioRetryCount }).(pulumi.IntPtrOutput)
+}
+
+// How the auto-created conversation is handled: webhook, studio or default.
+func (o ConversationsAutoCreationOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+// For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+func (o ConversationsAutoCreationOutput) WebhookFilters() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) []string { return v.WebhookFilters }).(pulumi.StringArrayOutput)
+}
+
+// For type webhook, the HTTP method, GET or POST (any case).
+func (o ConversationsAutoCreationOutput) WebhookMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *string { return v.WebhookMethod }).(pulumi.StringPtrOutput)
+}
+
+// For type webhook, the URL the webhook request is sent to.
+func (o ConversationsAutoCreationOutput) WebhookUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsAutoCreation) *string { return v.WebhookUrl }).(pulumi.StringPtrOutput)
+}
+
+type ConversationsAutoCreationPtrOutput struct{ *pulumi.OutputState }
+
+func (ConversationsAutoCreationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsAutoCreation)(nil)).Elem()
+}
+
+func (o ConversationsAutoCreationPtrOutput) ToConversationsAutoCreationPtrOutput() ConversationsAutoCreationPtrOutput {
+	return o
+}
+
+func (o ConversationsAutoCreationPtrOutput) ToConversationsAutoCreationPtrOutputWithContext(ctx context.Context) ConversationsAutoCreationPtrOutput {
+	return o
+}
+
+func (o ConversationsAutoCreationPtrOutput) Elem() ConversationsAutoCreationOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) ConversationsAutoCreation {
+		if v != nil {
+			return *v
+		}
+		var ret ConversationsAutoCreation
+		return ret
+	}).(ConversationsAutoCreationOutput)
+}
+
+// SID (IS...) of the service the conversation is created in; the default service when not set.
+func (o ConversationsAutoCreationPtrOutput) ConversationServiceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ConversationServiceSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether an inbound message to the address creates a conversation automatically.
+func (o ConversationsAutoCreationPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// For type studio, the SID (FW...) of the Studio flow the webhook is sent to.
+func (o ConversationsAutoCreationPtrOutput) StudioFlowSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StudioFlowSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// For type studio, how many times to retry the webhook request.
+func (o ConversationsAutoCreationPtrOutput) StudioRetryCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StudioRetryCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// How the auto-created conversation is handled: webhook, studio or default.
+func (o ConversationsAutoCreationPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+// For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant.
+func (o ConversationsAutoCreationPtrOutput) WebhookFilters() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) []string {
+		if v == nil {
+			return nil
+		}
+		return v.WebhookFilters
+	}).(pulumi.StringArrayOutput)
+}
+
+// For type webhook, the HTTP method, GET or POST (any case).
+func (o ConversationsAutoCreationPtrOutput) WebhookMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WebhookMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// For type webhook, the URL the webhook request is sent to.
+func (o ConversationsAutoCreationPtrOutput) WebhookUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsAutoCreation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WebhookUrl
+	}).(pulumi.StringPtrOutput)
+}
+
 type DialingCountry struct {
 	// The continent the country is in.
 	Continent string `pulumi:"continent"`
@@ -2107,6 +2377,364 @@ func (o PhoneNumberCapabilitiesOutput) Sms() pulumi.BoolOutput {
 // Whether the number supports voice calls.
 func (o PhoneNumberCapabilitiesOutput) Voice() pulumi.BoolOutput {
 	return o.ApplyT(func(v PhoneNumberCapabilities) bool { return v.Voice }).(pulumi.BoolOutput)
+}
+
+type PricingCountrySummary struct {
+	// The name of the country.
+	Country string `pulumi:"country"`
+	// The ISO 3166-1 alpha-2 country code.
+	IsoCountry string `pulumi:"isoCountry"`
+}
+
+type PricingCountrySummaryOutput struct{ *pulumi.OutputState }
+
+func (PricingCountrySummaryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PricingCountrySummary)(nil)).Elem()
+}
+
+func (o PricingCountrySummaryOutput) ToPricingCountrySummaryOutput() PricingCountrySummaryOutput {
+	return o
+}
+
+func (o PricingCountrySummaryOutput) ToPricingCountrySummaryOutputWithContext(ctx context.Context) PricingCountrySummaryOutput {
+	return o
+}
+
+// The name of the country.
+func (o PricingCountrySummaryOutput) Country() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingCountrySummary) string { return v.Country }).(pulumi.StringOutput)
+}
+
+// The ISO 3166-1 alpha-2 country code.
+func (o PricingCountrySummaryOutput) IsoCountry() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingCountrySummary) string { return v.IsoCountry }).(pulumi.StringOutput)
+}
+
+type PricingCountrySummaryArrayOutput struct{ *pulumi.OutputState }
+
+func (PricingCountrySummaryArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PricingCountrySummary)(nil)).Elem()
+}
+
+func (o PricingCountrySummaryArrayOutput) ToPricingCountrySummaryArrayOutput() PricingCountrySummaryArrayOutput {
+	return o
+}
+
+func (o PricingCountrySummaryArrayOutput) ToPricingCountrySummaryArrayOutputWithContext(ctx context.Context) PricingCountrySummaryArrayOutput {
+	return o
+}
+
+func (o PricingCountrySummaryArrayOutput) Index(i pulumi.IntInput) PricingCountrySummaryOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PricingCountrySummary {
+		return vs[0].([]PricingCountrySummary)[vs[1].(int)]
+	}).(PricingCountrySummaryOutput)
+}
+
+type PricingOutboundCallPrice struct {
+	// The list price per minute as a decimal string.
+	BasePrice string `pulumi:"basePrice"`
+	// The price per minute that applies to your account as a decimal string.
+	CurrentPrice string `pulumi:"currentPrice"`
+	// The calling-number prefixes the price applies to; `ALL` means any origination.
+	OriginationPrefixes []string `pulumi:"originationPrefixes"`
+}
+
+type PricingOutboundCallPriceOutput struct{ *pulumi.OutputState }
+
+func (PricingOutboundCallPriceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PricingOutboundCallPrice)(nil)).Elem()
+}
+
+func (o PricingOutboundCallPriceOutput) ToPricingOutboundCallPriceOutput() PricingOutboundCallPriceOutput {
+	return o
+}
+
+func (o PricingOutboundCallPriceOutput) ToPricingOutboundCallPriceOutputWithContext(ctx context.Context) PricingOutboundCallPriceOutput {
+	return o
+}
+
+// The list price per minute as a decimal string.
+func (o PricingOutboundCallPriceOutput) BasePrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingOutboundCallPrice) string { return v.BasePrice }).(pulumi.StringOutput)
+}
+
+// The price per minute that applies to your account as a decimal string.
+func (o PricingOutboundCallPriceOutput) CurrentPrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingOutboundCallPrice) string { return v.CurrentPrice }).(pulumi.StringOutput)
+}
+
+// The calling-number prefixes the price applies to; `ALL` means any origination.
+func (o PricingOutboundCallPriceOutput) OriginationPrefixes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PricingOutboundCallPrice) []string { return v.OriginationPrefixes }).(pulumi.StringArrayOutput)
+}
+
+type PricingOutboundCallPriceArrayOutput struct{ *pulumi.OutputState }
+
+func (PricingOutboundCallPriceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PricingOutboundCallPrice)(nil)).Elem()
+}
+
+func (o PricingOutboundCallPriceArrayOutput) ToPricingOutboundCallPriceArrayOutput() PricingOutboundCallPriceArrayOutput {
+	return o
+}
+
+func (o PricingOutboundCallPriceArrayOutput) ToPricingOutboundCallPriceArrayOutputWithContext(ctx context.Context) PricingOutboundCallPriceArrayOutput {
+	return o
+}
+
+func (o PricingOutboundCallPriceArrayOutput) Index(i pulumi.IntInput) PricingOutboundCallPriceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PricingOutboundCallPrice {
+		return vs[0].([]PricingOutboundCallPrice)[vs[1].(int)]
+	}).(PricingOutboundCallPriceOutput)
+}
+
+type PricingPrefixPrice struct {
+	// The list price per minute as a decimal string, in the response's price unit.
+	BasePrice string `pulumi:"basePrice"`
+	// The price per minute that applies to your account as a decimal string.
+	CurrentPrice string `pulumi:"currentPrice"`
+	// The destination number prefixes the price applies to.
+	DestinationPrefixes []string `pulumi:"destinationPrefixes"`
+	// The name of the destination the prefixes belong to, for example `Germany - Mobile`.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The calling-number prefixes the price applies to; `ALL` means any origination.
+	OriginationPrefixes []string `pulumi:"originationPrefixes"`
+}
+
+type PricingPrefixPriceOutput struct{ *pulumi.OutputState }
+
+func (PricingPrefixPriceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PricingPrefixPrice)(nil)).Elem()
+}
+
+func (o PricingPrefixPriceOutput) ToPricingPrefixPriceOutput() PricingPrefixPriceOutput {
+	return o
+}
+
+func (o PricingPrefixPriceOutput) ToPricingPrefixPriceOutputWithContext(ctx context.Context) PricingPrefixPriceOutput {
+	return o
+}
+
+// The list price per minute as a decimal string, in the response's price unit.
+func (o PricingPrefixPriceOutput) BasePrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrefixPrice) string { return v.BasePrice }).(pulumi.StringOutput)
+}
+
+// The price per minute that applies to your account as a decimal string.
+func (o PricingPrefixPriceOutput) CurrentPrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrefixPrice) string { return v.CurrentPrice }).(pulumi.StringOutput)
+}
+
+// The destination number prefixes the price applies to.
+func (o PricingPrefixPriceOutput) DestinationPrefixes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PricingPrefixPrice) []string { return v.DestinationPrefixes }).(pulumi.StringArrayOutput)
+}
+
+// The name of the destination the prefixes belong to, for example `Germany - Mobile`.
+func (o PricingPrefixPriceOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrefixPrice) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The calling-number prefixes the price applies to; `ALL` means any origination.
+func (o PricingPrefixPriceOutput) OriginationPrefixes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PricingPrefixPrice) []string { return v.OriginationPrefixes }).(pulumi.StringArrayOutput)
+}
+
+type PricingPrefixPriceArrayOutput struct{ *pulumi.OutputState }
+
+func (PricingPrefixPriceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PricingPrefixPrice)(nil)).Elem()
+}
+
+func (o PricingPrefixPriceArrayOutput) ToPricingPrefixPriceArrayOutput() PricingPrefixPriceArrayOutput {
+	return o
+}
+
+func (o PricingPrefixPriceArrayOutput) ToPricingPrefixPriceArrayOutputWithContext(ctx context.Context) PricingPrefixPriceArrayOutput {
+	return o
+}
+
+func (o PricingPrefixPriceArrayOutput) Index(i pulumi.IntInput) PricingPrefixPriceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PricingPrefixPrice {
+		return vs[0].([]PricingPrefixPrice)[vs[1].(int)]
+	}).(PricingPrefixPriceOutput)
+}
+
+type PricingPrice struct {
+	// The list price per unit as a decimal string, in the response's price unit.
+	BasePrice string `pulumi:"basePrice"`
+	// The price per unit that applies to your account (list price with your discounts) as a decimal string.
+	CurrentPrice string `pulumi:"currentPrice"`
+	// The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+	NumberType string `pulumi:"numberType"`
+}
+
+type PricingPriceOutput struct{ *pulumi.OutputState }
+
+func (PricingPriceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PricingPrice)(nil)).Elem()
+}
+
+func (o PricingPriceOutput) ToPricingPriceOutput() PricingPriceOutput {
+	return o
+}
+
+func (o PricingPriceOutput) ToPricingPriceOutputWithContext(ctx context.Context) PricingPriceOutput {
+	return o
+}
+
+// The list price per unit as a decimal string, in the response's price unit.
+func (o PricingPriceOutput) BasePrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrice) string { return v.BasePrice }).(pulumi.StringOutput)
+}
+
+// The price per unit that applies to your account (list price with your discounts) as a decimal string.
+func (o PricingPriceOutput) CurrentPrice() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrice) string { return v.CurrentPrice }).(pulumi.StringOutput)
+}
+
+// The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+func (o PricingPriceOutput) NumberType() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingPrice) string { return v.NumberType }).(pulumi.StringOutput)
+}
+
+type PricingPricePtrOutput struct{ *pulumi.OutputState }
+
+func (PricingPricePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PricingPrice)(nil)).Elem()
+}
+
+func (o PricingPricePtrOutput) ToPricingPricePtrOutput() PricingPricePtrOutput {
+	return o
+}
+
+func (o PricingPricePtrOutput) ToPricingPricePtrOutputWithContext(ctx context.Context) PricingPricePtrOutput {
+	return o
+}
+
+func (o PricingPricePtrOutput) Elem() PricingPriceOutput {
+	return o.ApplyT(func(v *PricingPrice) PricingPrice {
+		if v != nil {
+			return *v
+		}
+		var ret PricingPrice
+		return ret
+	}).(PricingPriceOutput)
+}
+
+// The list price per unit as a decimal string, in the response's price unit.
+func (o PricingPricePtrOutput) BasePrice() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PricingPrice) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BasePrice
+	}).(pulumi.StringPtrOutput)
+}
+
+// The price per unit that applies to your account (list price with your discounts) as a decimal string.
+func (o PricingPricePtrOutput) CurrentPrice() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PricingPrice) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CurrentPrice
+	}).(pulumi.StringPtrOutput)
+}
+
+// The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type.
+func (o PricingPricePtrOutput) NumberType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PricingPrice) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.NumberType
+	}).(pulumi.StringPtrOutput)
+}
+
+type PricingPriceArrayOutput struct{ *pulumi.OutputState }
+
+func (PricingPriceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PricingPrice)(nil)).Elem()
+}
+
+func (o PricingPriceArrayOutput) ToPricingPriceArrayOutput() PricingPriceArrayOutput {
+	return o
+}
+
+func (o PricingPriceArrayOutput) ToPricingPriceArrayOutputWithContext(ctx context.Context) PricingPriceArrayOutput {
+	return o
+}
+
+func (o PricingPriceArrayOutput) Index(i pulumi.IntInput) PricingPriceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PricingPrice {
+		return vs[0].([]PricingPrice)[vs[1].(int)]
+	}).(PricingPriceOutput)
+}
+
+type PricingSmsPrice struct {
+	// The name of the carrier.
+	Carrier string `pulumi:"carrier"`
+	// The mobile country code of the carrier.
+	Mcc string `pulumi:"mcc"`
+	// The mobile network code of the carrier.
+	Mnc string `pulumi:"mnc"`
+	// The price per message for each number type used to send.
+	Prices []PricingPrice `pulumi:"prices"`
+}
+
+type PricingSmsPriceOutput struct{ *pulumi.OutputState }
+
+func (PricingSmsPriceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PricingSmsPrice)(nil)).Elem()
+}
+
+func (o PricingSmsPriceOutput) ToPricingSmsPriceOutput() PricingSmsPriceOutput {
+	return o
+}
+
+func (o PricingSmsPriceOutput) ToPricingSmsPriceOutputWithContext(ctx context.Context) PricingSmsPriceOutput {
+	return o
+}
+
+// The name of the carrier.
+func (o PricingSmsPriceOutput) Carrier() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingSmsPrice) string { return v.Carrier }).(pulumi.StringOutput)
+}
+
+// The mobile country code of the carrier.
+func (o PricingSmsPriceOutput) Mcc() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingSmsPrice) string { return v.Mcc }).(pulumi.StringOutput)
+}
+
+// The mobile network code of the carrier.
+func (o PricingSmsPriceOutput) Mnc() pulumi.StringOutput {
+	return o.ApplyT(func(v PricingSmsPrice) string { return v.Mnc }).(pulumi.StringOutput)
+}
+
+// The price per message for each number type used to send.
+func (o PricingSmsPriceOutput) Prices() PricingPriceArrayOutput {
+	return o.ApplyT(func(v PricingSmsPrice) []PricingPrice { return v.Prices }).(PricingPriceArrayOutput)
+}
+
+type PricingSmsPriceArrayOutput struct{ *pulumi.OutputState }
+
+func (PricingSmsPriceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PricingSmsPrice)(nil)).Elem()
+}
+
+func (o PricingSmsPriceArrayOutput) ToPricingSmsPriceArrayOutput() PricingSmsPriceArrayOutput {
+	return o
+}
+
+func (o PricingSmsPriceArrayOutput) ToPricingSmsPriceArrayOutputWithContext(ctx context.Context) PricingSmsPriceArrayOutput {
+	return o
+}
+
+func (o PricingSmsPriceArrayOutput) Index(i pulumi.IntInput) PricingSmsPriceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PricingSmsPrice {
+		return vs[0].([]PricingSmsPrice)[vs[1].(int)]
+	}).(PricingSmsPriceOutput)
 }
 
 type RecordingCompositionPolicy struct {
@@ -4010,6 +4638,8 @@ func (o VerifyTemplateArrayOutput) Index(i pulumi.IntInput) VerifyTemplateOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsAutoCreationInput)(nil)).Elem(), ConversationsAutoCreationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsAutoCreationPtrInput)(nil)).Elem(), ConversationsAutoCreationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
@@ -4034,6 +4664,8 @@ func init() {
 	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
+	pulumi.RegisterOutputType(ConversationsAutoCreationOutput{})
+	pulumi.RegisterOutputType(ConversationsAutoCreationPtrOutput{})
 	pulumi.RegisterOutputType(DialingCountryOutput{})
 	pulumi.RegisterOutputType(DialingCountryArrayOutput{})
 	pulumi.RegisterOutputType(EventSchemaVersionOutput{})
@@ -4049,6 +4681,17 @@ func init() {
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
 	pulumi.RegisterOutputType(PhoneNumberCapabilitiesOutput{})
+	pulumi.RegisterOutputType(PricingCountrySummaryOutput{})
+	pulumi.RegisterOutputType(PricingCountrySummaryArrayOutput{})
+	pulumi.RegisterOutputType(PricingOutboundCallPriceOutput{})
+	pulumi.RegisterOutputType(PricingOutboundCallPriceArrayOutput{})
+	pulumi.RegisterOutputType(PricingPrefixPriceOutput{})
+	pulumi.RegisterOutputType(PricingPrefixPriceArrayOutput{})
+	pulumi.RegisterOutputType(PricingPriceOutput{})
+	pulumi.RegisterOutputType(PricingPricePtrOutput{})
+	pulumi.RegisterOutputType(PricingPriceArrayOutput{})
+	pulumi.RegisterOutputType(PricingSmsPriceOutput{})
+	pulumi.RegisterOutputType(PricingSmsPriceArrayOutput{})
 	pulumi.RegisterOutputType(RecordingCompositionPolicyOutput{})
 	pulumi.RegisterOutputType(RecordingCompositionPolicyPtrOutput{})
 	pulumi.RegisterOutputType(RecordingFeatureOutput{})

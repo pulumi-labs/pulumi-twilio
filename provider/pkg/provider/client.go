@@ -155,6 +155,23 @@ func isNotFound(err error) bool {
 	return ok && ae.Status == http.StatusNotFound
 }
 
+// isRefusal reports whether err is a Twilio 400 with error code 20001 (a generic code) whose
+// message holds every one of the given lower case fragments. Matching the text keeps an unrelated
+// 20001 a real failure.
+func isRefusal(err error, fragments ...string) bool {
+	ae, ok := err.(*apiError)
+	if !ok || ae.Status != http.StatusBadRequest || ae.Code != 20001 {
+		return false
+	}
+	msg := strings.ToLower(ae.Message)
+	for _, fr := range fragments {
+		if !strings.Contains(msg, fr) {
+			return false
+		}
+	}
+	return true
+}
+
 // host returns the base URL for a Twilio product (api, messaging, verify, iam, events, trunking, serverless).
 func (c *Client) host(product string) string {
 	if c.baseURL != "" {

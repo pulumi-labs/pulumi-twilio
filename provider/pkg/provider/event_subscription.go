@@ -120,7 +120,7 @@ func (r *EventSubscription) Check(ctx context.Context, req infer.CheckRequest) (
 				failures = append(failures, p.CheckFailure{Property: fmt.Sprintf("types[%d].type", i), Reason: "event type " + t.Type + " is listed more than once"})
 			}
 			seen[t.Type] = true
-			if t.SchemaVersion != nil && *t.SchemaVersion < 1 {
+			if t.SchemaVersion != nil && *t.SchemaVersion < 1 && !unknownAt(req.NewInputs, "types", i, "schemaVersion") {
 				failures = append(failures, p.CheckFailure{Property: fmt.Sprintf("types[%d].schemaVersion", i), Reason: "schemaVersion must be 1 or greater"})
 			}
 		}

@@ -13,6 +13,12 @@ from .byoc_trunk import *
 from .connect_app import *
 from .connection_policy import *
 from .connection_policy_target import *
+from .conversations_address_configuration import *
+from .conversations_credential import *
+from .conversations_role import *
+from .conversations_service import *
+from .conversations_service_configuration import *
+from .conversations_webhook_configuration import *
 from .event_sink import *
 from .event_subscription import *
 from .get_account import *
@@ -27,6 +33,12 @@ from .get_byoc_trunk import *
 from .get_connect_app import *
 from .get_connection_policy import *
 from .get_connection_policy_target import *
+from .get_conversations_address_configuration import *
+from .get_conversations_credential import *
+from .get_conversations_role import *
+from .get_conversations_service import *
+from .get_conversations_service_configuration import *
+from .get_conversations_webhook_configuration import *
 from .get_dialing_permissions_countries import *
 from .get_dialing_permissions_country import *
 from .get_dialing_permissions_high_risk_special_prefixes import *
@@ -41,7 +53,21 @@ from .get_ip_record import *
 from .get_messaging_service import *
 from .get_messaging_service_phone_number import *
 from .get_outgoing_caller_id import *
+from .get_pricing_messaging_countries import *
+from .get_pricing_messaging_country import *
+from .get_pricing_phone_number_countries import *
+from .get_pricing_phone_number_country import *
+from .get_pricing_trunking_countries import *
+from .get_pricing_trunking_country import *
+from .get_pricing_trunking_number import *
+from .get_pricing_voice_countries import *
+from .get_pricing_voice_country import *
+from .get_pricing_voice_number import *
 from .get_queue import *
+from .get_routes_phone_number import *
+from .get_routes_short_code import *
+from .get_routes_sip_domain import *
+from .get_routes_trunk import *
 from .get_serverless_asset import *
 from .get_serverless_asset_version import *
 from .get_serverless_build import *
@@ -62,6 +88,12 @@ from .get_sip_ip_access_control_list import *
 from .get_sip_ip_address import *
 from .get_source_ip_mapping import *
 from .get_subaccount import *
+from .get_task_router_activity import *
+from .get_task_router_task_channel import *
+from .get_task_router_task_queue import *
+from .get_task_router_worker import *
+from .get_task_router_workflow import *
+from .get_task_router_workspace import *
 from .get_trunk import *
 from .get_trunk_credential_list import *
 from .get_trunk_ip_access_control_list import *
@@ -88,6 +120,10 @@ from .messaging_service_phone_number import *
 from .outgoing_caller_id import *
 from .provider import *
 from .queue import *
+from .routes_phone_number import *
+from .routes_short_code import *
+from .routes_sip_domain import *
+from .routes_trunk import *
 from .serverless_asset import *
 from .serverless_asset_version import *
 from .serverless_build import *
@@ -108,6 +144,12 @@ from .sip_ip_access_control_list import *
 from .sip_ip_address import *
 from .source_ip_mapping import *
 from .subaccount import *
+from .task_router_activity import *
+from .task_router_task_channel import *
+from .task_router_task_queue import *
+from .task_router_worker import *
+from .task_router_workflow import *
+from .task_router_workspace import *
 from .trunk import *
 from .trunk_credential_list import *
 from .trunk_ip_access_control_list import *
@@ -149,6 +191,12 @@ _utilities.register(
    "twilio:index:ConnectApp": "ConnectApp",
    "twilio:index:ConnectionPolicy": "ConnectionPolicy",
    "twilio:index:ConnectionPolicyTarget": "ConnectionPolicyTarget",
+   "twilio:index:ConversationsAddressConfiguration": "ConversationsAddressConfiguration",
+   "twilio:index:ConversationsCredential": "ConversationsCredential",
+   "twilio:index:ConversationsRole": "ConversationsRole",
+   "twilio:index:ConversationsService": "ConversationsService",
+   "twilio:index:ConversationsServiceConfiguration": "ConversationsServiceConfiguration",
+   "twilio:index:ConversationsWebhookConfiguration": "ConversationsWebhookConfiguration",
    "twilio:index:EventSink": "EventSink",
    "twilio:index:EventSubscription": "EventSubscription",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
@@ -158,6 +206,10 @@ _utilities.register(
    "twilio:index:MessagingServicePhoneNumber": "MessagingServicePhoneNumber",
    "twilio:index:OutgoingCallerId": "OutgoingCallerId",
    "twilio:index:Queue": "Queue",
+   "twilio:index:RoutesPhoneNumber": "RoutesPhoneNumber",
+   "twilio:index:RoutesShortCode": "RoutesShortCode",
+   "twilio:index:RoutesSipDomain": "RoutesSipDomain",
+   "twilio:index:RoutesTrunk": "RoutesTrunk",
    "twilio:index:ServerlessAsset": "ServerlessAsset",
    "twilio:index:ServerlessAssetVersion": "ServerlessAssetVersion",
    "twilio:index:ServerlessBuild": "ServerlessBuild",
@@ -178,6 +230,12 @@ _utilities.register(
    "twilio:index:SipIpAddress": "SipIpAddress",
    "twilio:index:SourceIpMapping": "SourceIpMapping",
    "twilio:index:Subaccount": "Subaccount",
+   "twilio:index:TaskRouterActivity": "TaskRouterActivity",
+   "twilio:index:TaskRouterTaskChannel": "TaskRouterTaskChannel",
+   "twilio:index:TaskRouterTaskQueue": "TaskRouterTaskQueue",
+   "twilio:index:TaskRouterWorker": "TaskRouterWorker",
+   "twilio:index:TaskRouterWorkflow": "TaskRouterWorkflow",
+   "twilio:index:TaskRouterWorkspace": "TaskRouterWorkspace",
    "twilio:index:Trunk": "Trunk",
    "twilio:index:TrunkCredentialList": "TrunkCredentialList",
    "twilio:index:TrunkIpAccessControlList": "TrunkIpAccessControlList",

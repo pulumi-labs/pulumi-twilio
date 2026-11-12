@@ -282,6 +282,10 @@ func (f *fakeTwilio) serverlessContainer(w http.ResponseWriter, r *http.Request,
 		o["date_updated"] = serverlessUpdatedStamp
 		fwrite(w, 200, o)
 	case "DELETE":
+		if f.containerReferencedByBuild(svc, coll, sid) {
+			fwrite(w, 400, map[string]any{"code": 20001, "status": 400, "message": "Cannot delete " + strings.ToLower(strings.TrimSuffix(coll, "s")) + ". One or more of its versions is referenced in a Build."})
+			return
+		}
 		f.del(kind, testAccount, svc+"/"+sid)
 		w.WriteHeader(204)
 	default:

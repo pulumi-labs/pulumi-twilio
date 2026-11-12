@@ -112,7 +112,10 @@ func (r *ConnectApp) Check(ctx context.Context, req infer.CheckRequest) (infer.C
 	}
 	failures = checkMethods(failures, unk, map[string]*string{"deauthorizeCallbackMethod": args.DeauthorizeCallbackMethod})
 	if args.Permissions != nil && !unk("permissions") {
-		for _, perm := range *args.Permissions {
+		for i, perm := range *args.Permissions {
+			if unknownAt(req.NewInputs, "permissions", i) {
+				continue
+			}
 			if perm != "get-all" && perm != "post-all" {
 				failures = append(failures, p.CheckFailure{Property: "permissions", Reason: fmt.Sprintf("permission %q must be get-all or post-all", perm)})
 			}

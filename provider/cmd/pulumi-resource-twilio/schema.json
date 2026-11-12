@@ -384,6 +384,49 @@
         "connectAppSid"
       ]
     },
+    "twilio:index:ConversationsAutoCreation": {
+      "properties": {
+        "conversationServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the service the conversation is created in; the default service when not set."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether an inbound message to the address creates a conversation automatically."
+        },
+        "studioFlowSid": {
+          "type": "string",
+          "description": "For type studio, the SID (FW...) of the Studio flow the webhook is sent to."
+        },
+        "studioRetryCount": {
+          "type": "integer",
+          "description": "For type studio, how many times to retry the webhook request."
+        },
+        "type": {
+          "type": "string",
+          "description": "How the auto-created conversation is handled: webhook, studio or default."
+        },
+        "webhookFilters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "For type webhook, the events that fire the webhook, for example onMessageAdded; the order is not significant."
+        },
+        "webhookMethod": {
+          "type": "string",
+          "description": "For type webhook, the HTTP method, GET or POST (any case)."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "For type webhook, the URL the webhook request is sent to."
+        }
+      },
+      "type": "object",
+      "required": [
+        "enabled"
+      ]
+    },
     "twilio:index:DialingCountry": {
       "properties": {
         "continent": {
@@ -737,6 +780,138 @@
         "sms",
         "mms",
         "fax"
+      ]
+    },
+    "twilio:index:PricingCountrySummary": {
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "The name of the country."
+        },
+        "isoCountry": {
+          "type": "string",
+          "description": "The ISO 3166-1 alpha-2 country code."
+        }
+      },
+      "type": "object",
+      "required": [
+        "isoCountry",
+        "country"
+      ]
+    },
+    "twilio:index:PricingOutboundCallPrice": {
+      "properties": {
+        "basePrice": {
+          "type": "string",
+          "description": "The list price per minute as a decimal string."
+        },
+        "currentPrice": {
+          "type": "string",
+          "description": "The price per minute that applies to your account as a decimal string."
+        },
+        "originationPrefixes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The calling-number prefixes the price applies to; `ALL` means any origination."
+        }
+      },
+      "type": "object",
+      "required": [
+        "originationPrefixes",
+        "basePrice",
+        "currentPrice"
+      ]
+    },
+    "twilio:index:PricingPrefixPrice": {
+      "properties": {
+        "basePrice": {
+          "type": "string",
+          "description": "The list price per minute as a decimal string, in the response's price unit."
+        },
+        "currentPrice": {
+          "type": "string",
+          "description": "The price per minute that applies to your account as a decimal string."
+        },
+        "destinationPrefixes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The destination number prefixes the price applies to."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "The name of the destination the prefixes belong to, for example `Germany - Mobile`."
+        },
+        "originationPrefixes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The calling-number prefixes the price applies to; `ALL` means any origination."
+        }
+      },
+      "type": "object",
+      "required": [
+        "friendlyName",
+        "originationPrefixes",
+        "destinationPrefixes",
+        "basePrice",
+        "currentPrice"
+      ]
+    },
+    "twilio:index:PricingPrice": {
+      "properties": {
+        "basePrice": {
+          "type": "string",
+          "description": "The list price per unit as a decimal string, in the response's price unit."
+        },
+        "currentPrice": {
+          "type": "string",
+          "description": "The price per unit that applies to your account (list price with your discounts) as a decimal string."
+        },
+        "numberType": {
+          "type": "string",
+          "description": "The kind of Twilio number the price applies to, for example `local`, `mobile`, `national` or `toll free`; empty when the price is not split by number type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "numberType",
+        "basePrice",
+        "currentPrice"
+      ]
+    },
+    "twilio:index:PricingSmsPrice": {
+      "properties": {
+        "carrier": {
+          "type": "string",
+          "description": "The name of the carrier."
+        },
+        "mcc": {
+          "type": "string",
+          "description": "The mobile country code of the carrier."
+        },
+        "mnc": {
+          "type": "string",
+          "description": "The mobile network code of the carrier."
+        },
+        "prices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:PricingPrice"
+          },
+          "description": "The price per message for each number type used to send."
+        }
+      },
+      "type": "object",
+      "required": [
+        "carrier",
+        "mcc",
+        "mnc",
+        "prices"
       ]
     },
     "twilio:index:RecordingCompositionPolicy": {
@@ -2003,6 +2178,406 @@
         "target"
       ]
     },
+    "twilio:index:ConversationsAddressConfiguration": {
+      "description": "An address configuration of Conversations. The resource ID is the configuration SID.",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "The address to configure: a phone number, a WhatsApp address such as whatsapp:+15551234567, or another channel address. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "addressCountry": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of the address; only applies to short codes. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "addressType": {
+          "type": "string",
+          "description": "Channel of the address: sms, whatsapp, messenger, gbm, email, rcs, apple or chat. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "autoCreation": {
+          "$ref": "#/types/twilio:index:ConversationsAutoCreation",
+          "description": "Whether and how a conversation is created for an inbound message to the address. Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the configuration was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the configuration was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the configuration, up to 256 characters. Removing it leaves the name unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The address configuration SID (IG...)."
+        }
+      },
+      "required": [
+        "addressType",
+        "address",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "address": {
+          "type": "string",
+          "description": "The address to configure: a phone number, a WhatsApp address such as whatsapp:+15551234567, or another channel address. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "addressCountry": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of the address; only applies to short codes. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "addressType": {
+          "type": "string",
+          "description": "Channel of the address: sms, whatsapp, messenger, gbm, email, rcs, apple or chat. Changing it replaces the configuration.",
+          "replaceOnChanges": true
+        },
+        "autoCreation": {
+          "$ref": "#/types/twilio:index:ConversationsAutoCreation",
+          "description": "Whether and how a conversation is created for an inbound message to the address. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the configuration, up to 256 characters. Removing it leaves the name unchanged."
+        }
+      },
+      "requiredInputs": [
+        "addressType",
+        "address"
+      ]
+    },
+    "twilio:index:ConversationsCredential": {
+      "description": "A push credential of Conversations. The resource ID is the credential SID.",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "description": "GCM only: the API key of the Google project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "certificate": {
+          "type": "string",
+          "description": "APNs only: the PEM certificate. Twilio never returns it, so a change made outside Pulumi is not detected."
+        },
+        "credentialType": {
+          "type": "string",
+          "description": "Push service the credential is for: apn, gcm or fcm. Changing it replaces the credential.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the credential was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the credential was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "privateKey": {
+          "type": "string",
+          "description": "APNs only: the PEM private key. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sandbox": {
+          "type": "boolean",
+          "description": "APNs only: whether to send to the sandbox APNs. Removing it leaves the setting unchanged."
+        },
+        "secret": {
+          "type": "string",
+          "description": "FCM only: the server key of the Firebase project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The credential SID (CR...)."
+        }
+      },
+      "required": [
+        "credentialType",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "apiKey": {
+          "type": "string",
+          "description": "GCM only: the API key of the Google project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "certificate": {
+          "type": "string",
+          "description": "APNs only: the PEM certificate. Twilio never returns it, so a change made outside Pulumi is not detected."
+        },
+        "credentialType": {
+          "type": "string",
+          "description": "Push service the credential is for: apn, gcm or fcm. Changing it replaces the credential.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "privateKey": {
+          "type": "string",
+          "description": "APNs only: the PEM private key. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sandbox": {
+          "type": "boolean",
+          "description": "APNs only: whether to send to the sandbox APNs. Removing it leaves the setting unchanged."
+        },
+        "secret": {
+          "type": "string",
+          "description": "FCM only: the server key of the Firebase project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        }
+      },
+      "requiredInputs": [
+        "credentialType"
+      ]
+    },
+    "twilio:index:ConversationsRole": {
+      "description": "A Conversations role. The resource ID is <sid>, or <chatServiceSid>/<sid> for a role of one service.",
+      "properties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service the role belongs to. Leave it out for an account-level role. Changing it replaces the role.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the role was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the role was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the role, up to 64 characters. It cannot be changed after creation, so changing it replaces the role.",
+          "replaceOnChanges": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The permissions the role grants, for example sendMessage or editOwnMessage; the order is not significant. The full list is in the Twilio Conversations roles documentation."
+        },
+        "roleType": {
+          "type": "string",
+          "description": "What the role applies to: conversation or service. It cannot be changed after creation, so changing it replaces the role.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The role SID (RL...)."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "roleType",
+        "permissions",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service the role belongs to. Leave it out for an account-level role. Changing it replaces the role.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the role, up to 64 characters. It cannot be changed after creation, so changing it replaces the role.",
+          "replaceOnChanges": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The permissions the role grants, for example sendMessage or editOwnMessage; the order is not significant. The full list is in the Twilio Conversations roles documentation."
+        },
+        "roleType": {
+          "type": "string",
+          "description": "What the role applies to: conversation or service. It cannot be changed after creation, so changing it replaces the role.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "friendlyName",
+        "roleType",
+        "permissions"
+      ]
+    },
+    "twilio:index:ConversationsService": {
+      "description": "A Conversations service. The resource ID is the service SID.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 256 characters. Twilio offers no way to rename a service, so changing it replaces the service and everything in it.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (IS...)."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 256 characters. Twilio offers no way to rename a service, so changing it replaces the service and everything in it.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:ConversationsServiceConfiguration": {
+      "description": "The configuration of a Conversations service (default roles, reachability). The resource ID is the service SID. Destroying it forgets it and leaves the settings on Twilio as they are.",
+      "properties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "defaultChatServiceRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the service role given to users added to the service. Removing it leaves the setting unchanged."
+        },
+        "defaultConversationCreatorRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the conversation role given to the creator of a conversation. Removing it leaves the setting unchanged."
+        },
+        "defaultConversationRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the conversation role given to users added to a conversation. Removing it leaves the setting unchanged."
+        },
+        "reachabilityEnabled": {
+          "type": "boolean",
+          "description": "Whether the Reachability Indicator is enabled for the service (Twilio default false). Removing it leaves the setting unchanged."
+        }
+      },
+      "required": [
+        "chatServiceSid"
+      ],
+      "inputProperties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "defaultChatServiceRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the service role given to users added to the service. Removing it leaves the setting unchanged."
+        },
+        "defaultConversationCreatorRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the conversation role given to the creator of a conversation. Removing it leaves the setting unchanged."
+        },
+        "defaultConversationRoleSid": {
+          "type": "string",
+          "description": "SID (RL...) of the conversation role given to users added to a conversation. Removing it leaves the setting unchanged."
+        },
+        "reachabilityEnabled": {
+          "type": "boolean",
+          "description": "Whether the Reachability Indicator is enabled for the service (Twilio default false). Removing it leaves the setting unchanged."
+        }
+      },
+      "requiredInputs": [
+        "chatServiceSid"
+      ]
+    },
+    "twilio:index:ConversationsWebhookConfiguration": {
+      "description": "The webhook configuration of Conversations, account-level or of one service. The resource ID is the service SID, or account for the account-level one. Destroying it forgets it and leaves the settings on Twilio as they are.",
+      "properties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service whose webhook configuration this is. Leave it out for the account-level configuration. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Events that fire the webhooks, for example onMessageAdded or onConversationUpdated; the order is not significant. Removing it leaves the setting unchanged."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method of the webhook requests, GET or POST (any case). Removing it leaves the setting unchanged."
+        },
+        "postWebhookUrl": {
+          "type": "string",
+          "description": "Absolute URL the post-event webhook request is sent to. Removing it leaves the setting unchanged."
+        },
+        "preWebhookUrl": {
+          "type": "string",
+          "description": "Absolute URL the pre-event webhook request is sent to. Removing it leaves the setting unchanged."
+        },
+        "target": {
+          "type": "string",
+          "description": "Where the webhooks are sent, webhook or flex. Account-level configuration only. Removing it leaves the setting unchanged."
+        }
+      },
+      "inputProperties": {
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service whose webhook configuration this is. Leave it out for the account-level configuration. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Events that fire the webhooks, for example onMessageAdded or onConversationUpdated; the order is not significant. Removing it leaves the setting unchanged."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method of the webhook requests, GET or POST (any case). Removing it leaves the setting unchanged."
+        },
+        "postWebhookUrl": {
+          "type": "string",
+          "description": "Absolute URL the post-event webhook request is sent to. Removing it leaves the setting unchanged."
+        },
+        "preWebhookUrl": {
+          "type": "string",
+          "description": "Absolute URL the pre-event webhook request is sent to. Removing it leaves the setting unchanged."
+        },
+        "target": {
+          "type": "string",
+          "description": "Where the webhooks are sent, webhook or flex. Account-level configuration only. Removing it leaves the setting unchanged."
+        }
+      }
+    },
     "twilio:index:EventSink": {
       "description": "A Twilio Event Streams sink: where subscribed events are delivered. Twilio only lets the description of a sink change; any change to its type or connection settings replaces the sink. Events API (events.twilio.com) credentials are the provider's account credentials.",
       "properties": {
@@ -2910,8 +3485,274 @@
         "friendlyName"
       ]
     },
+    "twilio:index:RoutesPhoneNumber": {
+      "description": "Sets the inbound voice and messaging processing regions of an existing Twilio phone number (POST /v3/PhoneNumbers/{phoneNumber}). Twilio documents no call that removes the setting, so destroy only forgets it and the object keeps its current region. The object must already exist and belong to the account. Import with the phone number in E.164 format. The Routes API is unverified against a live account.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the object."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the routing setting was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the routing setting was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "messagingRegion": {
+          "type": "string",
+          "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number in E.164 format whose inbound processing regions are set. The number must already exist in Twilio; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "Absolute URL of the Routes resource."
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "required": [
+        "phoneNumber",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "messagingRegion": {
+          "type": "string",
+          "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number in E.164 format whose inbound processing regions are set. The number must already exist in Twilio; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "requiredInputs": [
+        "phoneNumber"
+      ]
+    },
+    "twilio:index:RoutesShortCode": {
+      "description": "Sets the inbound messaging processing region of an existing Twilio short code (POST /v3/ShortCodes/{isoCountryCode}/{shortCode}). Twilio documents no call that removes the setting, so destroy only forgets it and the object keeps its current region. The object must already exist and belong to the account. Import with `<isoCountryCode>/<shortCode>`. The Routes API is unverified against a live account.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the object."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the routing setting was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the routing setting was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "isoCountryCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of the short code (for example `US`). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "messagingRegion": {
+          "type": "string",
+          "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "The short code itself (for example `12345`). The short code must already exist in Twilio; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "Absolute URL of the Routes resource."
+        }
+      },
+      "required": [
+        "isoCountryCode",
+        "shortCode",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "isoCountryCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of the short code (for example `US`). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "messagingRegion": {
+          "type": "string",
+          "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "The short code itself (for example `12345`). The short code must already exist in Twilio; changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "isoCountryCode",
+        "shortCode"
+      ]
+    },
+    "twilio:index:RoutesSipDomain": {
+      "description": "Sets the inbound processing region of an existing Twilio SIP domain (POST /v2/SipDomains/{SipDomain}). Twilio documents no call that removes the setting, so destroy only forgets it and the object keeps its current region. The object must already exist and belong to the account. Import with the SIP domain name. The Routes API is unverified against a live account.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the object."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the routing setting was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the routing setting was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "sid": {
+          "type": "string",
+          "description": "SID of the routing setting."
+        },
+        "sipDomain": {
+          "type": "string",
+          "description": "The SIP domain name (for example `example.sip.twilio.com`) whose inbound voice processing region is set. The domain must already exist; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "Absolute URL of the Routes resource."
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "required": [
+        "sipDomain",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "sipDomain": {
+          "type": "string",
+          "description": "The SIP domain name (for example `example.sip.twilio.com`) whose inbound voice processing region is set. The domain must already exist; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "requiredInputs": [
+        "sipDomain"
+      ]
+    },
+    "twilio:index:RoutesTrunk": {
+      "description": "Sets the inbound processing region of an existing Twilio SIP trunk domain (POST /v2/Trunks/{SipTrunkDomain}). Twilio documents no call that removes the setting, so destroy only forgets it and the object keeps its current region. The object must already exist and belong to the account. Import with the SIP trunk domain name. The Routes API is unverified against a live account.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the object."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the routing setting was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the routing setting was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "sid": {
+          "type": "string",
+          "description": "SID of the routing setting."
+        },
+        "sipTrunkDomain": {
+          "type": "string",
+          "description": "The SIP trunk domain name (for example `example.pstn.twilio.com`) whose inbound voice processing region is set. The trunk must already exist; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "url": {
+          "type": "string",
+          "description": "Absolute URL of the Routes resource."
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "required": [
+        "sipTrunkDomain",
+        "sid",
+        "accountSid",
+        "url",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name of the routing setting. Twilio keeps the current name when unset."
+        },
+        "sipTrunkDomain": {
+          "type": "string",
+          "description": "The SIP trunk domain name (for example `example.pstn.twilio.com`) whose inbound voice processing region is set. The trunk must already exist; changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "voiceRegion": {
+          "type": "string",
+          "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`). Twilio keeps the current region when unset."
+        }
+      },
+      "requiredInputs": [
+        "sipTrunkDomain"
+      ]
+    },
     "twilio:index:ServerlessAsset": {
-      "description": "The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is <serviceSid>/<sid>.",
+      "description": "The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). Twilio refuses to delete an asset whose version a build holds, so destroying such an asset only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.",
       "properties": {
         "accountSid": {
           "type": "string",
@@ -3064,7 +3905,7 @@
       ]
     },
     "twilio:index:ServerlessBuild": {
-      "description": "A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. The resource ID is <serviceSid>/<sid>.",
+      "description": "A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. Twilio refuses to delete a build that was deployed (and has no delete for deployments), so destroying such a build only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. A build that was never deployed is deleted. The resource ID is <serviceSid>/<sid>.",
       "properties": {
         "accountSid": {
           "type": "string",
@@ -3318,7 +4159,7 @@
       ]
     },
     "twilio:index:ServerlessFunction": {
-      "description": "The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). The resource ID is <serviceSid>/<sid>.",
+      "description": "The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). Twilio refuses to delete a function whose version a build holds, so destroying such a function only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.",
       "properties": {
         "accountSid": {
           "type": "string",
@@ -4436,6 +5277,444 @@
           "type": "string",
           "description": "Desired status: active (default) or suspended. A suspended subaccount stops all activity but can be reactivated. Closing is only done by destroying the resource.",
           "default": "active"
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:TaskRouterActivity": {
+      "description": "An activity of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether workers in this activity can receive tasks (Twilio default true). It cannot be changed after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the activity was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the activity was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the activity, unique in the workspace."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The activity SID (WA...)."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "workspaceSid",
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether workers in this activity can receive tasks (Twilio default true). It cannot be changed after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the activity, unique in the workspace."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "workspaceSid",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:TaskRouterTaskChannel": {
+      "description": "A task channel of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
+      "properties": {
+        "channelOptimizedRouting": {
+          "type": "boolean",
+          "description": "Whether TaskRouter prefers the worker that has been available longest in the channel (Twilio default false). Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the channel was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the channel was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the channel."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The task channel SID (TC...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the channel, such as voice, sms or email. It cannot be changed after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "workspaceSid",
+        "uniqueName",
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "channelOptimizedRouting": {
+          "type": "boolean",
+          "description": "Whether TaskRouter prefers the worker that has been available longest in the channel (Twilio default false). Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the channel."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique name of the channel, such as voice, sms or email. It cannot be changed after creation, so changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "workspaceSid",
+        "uniqueName",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:TaskRouterTaskQueue": {
+      "description": "A task queue of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
+      "properties": {
+        "assignmentActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity a worker moves to when it accepts a task. Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the queue was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the queue was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the queue."
+        },
+        "maxReservedWorkers": {
+          "type": "integer",
+          "description": "Maximum number of workers reserved for a task at once, 1 to 50 (Twilio default 1). Removing it leaves the setting unchanged."
+        },
+        "reservationActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity a worker moves to when a task is reserved for it. Removing it leaves the setting unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The task queue SID (WQ...)."
+        },
+        "targetWorkers": {
+          "type": "string",
+          "description": "Worker selection expression, for example skills HAS \"support\" (Twilio default 1==1, every worker). Removing it leaves the setting unchanged."
+        },
+        "taskOrder": {
+          "type": "string",
+          "description": "Order tasks are assigned from the queue: FIFO or LIFO (Twilio default FIFO). Removing it leaves the setting unchanged."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "workspaceSid",
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "assignmentActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity a worker moves to when it accepts a task. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the queue."
+        },
+        "maxReservedWorkers": {
+          "type": "integer",
+          "description": "Maximum number of workers reserved for a task at once, 1 to 50 (Twilio default 1). Removing it leaves the setting unchanged."
+        },
+        "reservationActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity a worker moves to when a task is reserved for it. Removing it leaves the setting unchanged."
+        },
+        "targetWorkers": {
+          "type": "string",
+          "description": "Worker selection expression, for example skills HAS \"support\" (Twilio default 1==1, every worker). Removing it leaves the setting unchanged."
+        },
+        "taskOrder": {
+          "type": "string",
+          "description": "Order tasks are assigned from the queue: FIFO or LIFO (Twilio default FIFO). Removing it leaves the setting unchanged."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "workspaceSid",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:TaskRouterWorker": {
+      "description": "A worker of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
+      "properties": {
+        "activitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the worker was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the worker was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the worker."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The worker SID (WK...)."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "workspaceSid",
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "activitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the worker."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "workspaceSid",
+        "friendlyName"
+      ]
+    },
+    "twilio:index:TaskRouterWorkflow": {
+      "description": "A workflow of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
+      "properties": {
+        "assignmentCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio calls when a worker is reserved for a task of this workflow. Removing it leaves the setting unchanged."
+        },
+        "configuration": {
+          "type": "string",
+          "description": "The routing rules as a JSON document (task_routing with filters and targets, and an optional default_filter). Formatting and key order do not matter: a document that means the same as Twilio's is not a change."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the workflow was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the workflow was last updated (ISO 8601)."
+        },
+        "fallbackAssignmentCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio calls when assignmentCallbackUrl fails. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the workflow."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The workflow SID (WW...)."
+        },
+        "taskReservationTimeout": {
+          "type": "integer",
+          "description": "Seconds a worker has to accept a reservation, 1 to 86400 (Twilio default 120). Removing it leaves the setting unchanged."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "workspaceSid",
+        "friendlyName",
+        "configuration",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "assignmentCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio calls when a worker is reserved for a task of this workflow. Removing it leaves the setting unchanged."
+        },
+        "configuration": {
+          "type": "string",
+          "description": "The routing rules as a JSON document (task_routing with filters and targets, and an optional default_filter). Formatting and key order do not matter: a document that means the same as Twilio's is not a change."
+        },
+        "fallbackAssignmentCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio calls when assignmentCallbackUrl fails. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the workflow."
+        },
+        "taskReservationTimeout": {
+          "type": "integer",
+          "description": "Seconds a worker has to accept a reservation, 1 to 86400 (Twilio default 120). Removing it leaves the setting unchanged."
+        },
+        "workspaceSid": {
+          "type": "string",
+          "description": "SID (WS...) of the workspace. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "workspaceSid",
+        "friendlyName",
+        "configuration"
+      ]
+    },
+    "twilio:index:TaskRouterWorkspace": {
+      "description": "A TaskRouter workspace. Twilio creates a set of default activities with it (see defaultActivitySid and timeoutActivitySid); add TaskRouterActivity, TaskRouterTaskChannel, TaskRouterTaskQueue, TaskRouterWorkflow and TaskRouterWorker resources to configure it. Destroying a workspace deletes everything in it. The resource ID is the workspace SID.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the workspace was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the workspace was last updated (ISO 8601)."
+        },
+        "defaultActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity new workers start in. Twilio creates it with the workspace."
+        },
+        "eventCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio posts workspace events to. Removing it leaves the setting unchanged."
+        },
+        "eventsFilter": {
+          "type": "string",
+          "description": "Comma-separated list of event types sent to eventCallbackUrl, for example task.created,worker.activity.update. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the workspace."
+        },
+        "multiTaskEnabled": {
+          "type": "boolean",
+          "description": "Whether workers may handle several tasks at once (Twilio default false). Twilio does not allow turning it back off once it is on. Removing it leaves the setting unchanged."
+        },
+        "prioritizeQueueOrder": {
+          "type": "string",
+          "description": "Which queue order is used first when a task is routed through several queues: FIFO or LIFO (Twilio default FIFO). Removing it leaves the setting unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The workspace SID (WS...)."
+        },
+        "timeoutActivitySid": {
+          "type": "string",
+          "description": "SID (WA...) of the activity a worker moves to when it does not answer a reservation in time. Twilio creates it with the workspace."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated",
+        "defaultActivitySid",
+        "timeoutActivitySid"
+      ],
+      "inputProperties": {
+        "eventCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio posts workspace events to. Removing it leaves the setting unchanged."
+        },
+        "eventsFilter": {
+          "type": "string",
+          "description": "Comma-separated list of event types sent to eventCallbackUrl, for example task.created,worker.activity.update. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the workspace."
+        },
+        "multiTaskEnabled": {
+          "type": "boolean",
+          "description": "Whether workers may handle several tasks at once (Twilio default false). Twilio does not allow turning it back off once it is on. Removing it leaves the setting unchanged."
+        },
+        "prioritizeQueueOrder": {
+          "type": "string",
+          "description": "Which queue order is used first when a task is routed through several queues: FIFO or LIFO (Twilio default FIFO). Removing it leaves the setting unchanged."
         }
       },
       "requiredInputs": [
@@ -6599,6 +7878,274 @@
         "type": "object"
       }
     },
+    "twilio:index:getConversationsAddressConfiguration": {
+      "description": "Look up a Conversations address configuration by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (IG...) of the address configuration."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "addressCountry": {
+            "type": "string"
+          },
+          "addressType": {
+            "type": "string"
+          },
+          "autoCreation": {
+            "$ref": "#/types/twilio:index:ConversationsAutoCreation"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "addressType",
+          "address",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsCredential": {
+      "description": "Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (CR...) of the credential."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "credentialType": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sandbox": {
+            "type": "boolean"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "credentialType",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsRole": {
+      "description": "Look up a Conversations role by SID.",
+      "inputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string",
+            "description": "SID (IS...) of the service the role belongs to; leave it out for an account-level role."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (RL...) of the role."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "permissions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "roleType": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "roleType",
+          "permissions",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsService": {
+      "description": "Look up a Conversations service by SID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (IS...) of the Conversations service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsServiceConfiguration": {
+      "description": "Look up the configuration (default roles, reachability) of a Conversations service.",
+      "inputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string",
+            "description": "SID (IS...) of the Conversations service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "chatServiceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string"
+          },
+          "defaultChatServiceRoleSid": {
+            "type": "string"
+          },
+          "defaultConversationCreatorRoleSid": {
+            "type": "string"
+          },
+          "defaultConversationRoleSid": {
+            "type": "string"
+          },
+          "reachabilityEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "chatServiceSid"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsWebhookConfiguration": {
+      "description": "Look up the webhook configuration of Conversations, account-level or of one service.",
+      "inputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string",
+            "description": "SID (IS...) of the Conversations service; leave it out for the account-level configuration."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string"
+          },
+          "filters": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "method": {
+            "type": "string"
+          },
+          "postWebhookUrl": {
+            "type": "string"
+          },
+          "preWebhookUrl": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "filters"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getDialingPermissionsCountries": {
       "description": "List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.",
       "inputs": {
@@ -7414,6 +8961,420 @@
         "type": "object"
       }
     },
+    "twilio:index:getPricingMessagingCountries": {
+      "description": "List the countries Twilio publishes Messaging (SMS) prices for (GET /v1/Messaging/Countries on pricing.twilio.com). Read-only; every page is read.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "countries": {
+            "description": "The countries Twilio publishes prices for, in the order Twilio returns them (every page is read). Look one up with the matching single-country function for its prices.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingCountrySummary"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countries"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingMessagingCountry": {
+      "description": "Look up the Messaging (SMS) prices of one country: outbound per carrier and number type, inbound per number type (GET /v1/Messaging/Countries/{IsoCountry} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "isoCountry": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCountry"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the country.",
+            "type": "string"
+          },
+          "inboundSmsPrices": {
+            "description": "The price to receive a message per Twilio number type.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrice"
+            },
+            "type": "array"
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code.",
+            "type": "string"
+          },
+          "outboundSmsPrices": {
+            "description": "The price to send a message per carrier (MCC/MNC) and number type.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingSmsPrice"
+            },
+            "type": "array"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "outboundSmsPrices",
+          "inboundSmsPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingPhoneNumberCountries": {
+      "description": "List the countries Twilio publishes phone number prices for (GET /v1/PhoneNumbers/Countries on pricing.twilio.com). Read-only; every page is read.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "countries": {
+            "description": "The countries Twilio publishes prices for, in the order Twilio returns them (every page is read). Look one up with the matching single-country function for its prices.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingCountrySummary"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countries"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingPhoneNumberCountry": {
+      "description": "Look up the monthly phone number prices of one country per number type (GET /v1/PhoneNumbers/Countries/{IsoCountry} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "isoCountry": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCountry"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the country.",
+            "type": "string"
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code.",
+            "type": "string"
+          },
+          "phoneNumberPrices": {
+            "description": "The monthly price of a phone number of each type (`local`, `mobile`, `national`, `toll free`).",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrice"
+            },
+            "type": "array"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "phoneNumberPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingTrunkingCountries": {
+      "description": "List the countries Twilio publishes Elastic SIP Trunking prices for (GET /v2/Trunking/Countries on pricing.twilio.com). Read-only; every page is read.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "countries": {
+            "description": "The countries Twilio publishes prices for, in the order Twilio returns them (every page is read). Look one up with the matching single-country function for its prices.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingCountrySummary"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countries"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingTrunkingCountry": {
+      "description": "Look up the Elastic SIP Trunking prices of one country: terminating per destination prefix, originating per number type (GET /v2/Trunking/Countries/{IsoCountry} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "isoCountry": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCountry"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the country.",
+            "type": "string"
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code.",
+            "type": "string"
+          },
+          "originatingCallPrices": {
+            "description": "The per-minute price of originating calls (calls from the PSTN to your trunk) per Twilio number type.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrice"
+            },
+            "type": "array"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          },
+          "terminatingPrefixPrices": {
+            "description": "The per-minute price of terminating calls (calls from your trunk to the PSTN) per destination prefix and origination.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrefixPrice"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "terminatingPrefixPrices",
+          "originatingCallPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingTrunkingNumber": {
+      "description": "Look up the Elastic SIP Trunking prices of one phone number, optionally for one origination number (GET /v2/Trunking/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "destinationNumber": {
+            "type": "string",
+            "description": "The destination phone number in E.164 format, for example `+14155550100`."
+          },
+          "originationNumber": {
+            "type": "string",
+            "description": "The calling phone number in E.164 format; when set, Twilio returns the price for that origination only. Unset returns the prices for every origination."
+          }
+        },
+        "type": "object",
+        "required": [
+          "destinationNumber"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the destination country.",
+            "type": "string"
+          },
+          "destinationNumber": {
+            "description": "The destination number that was looked up.",
+            "type": "string"
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code of the destination.",
+            "type": "string"
+          },
+          "originatingCallPrice": {
+            "$ref": "#/types/twilio:index:PricingPrice",
+            "description": "The per-minute price of an originating call to the number; unset when Twilio reports none."
+          },
+          "originationNumber": {
+            "description": "The origination number that was looked up; empty when none was given.",
+            "type": "string"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          },
+          "terminatingPrefixPrices": {
+            "description": "The per-minute price of terminating a call to the number, per prefix and origination.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrefixPrice"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "destinationNumber",
+          "originationNumber",
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "terminatingPrefixPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingVoiceCountries": {
+      "description": "List the countries Twilio publishes Voice prices for (GET /v2/Voice/Countries on pricing.twilio.com). Read-only; every page is read.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "countries": {
+            "description": "The countries Twilio publishes prices for, in the order Twilio returns them (every page is read). Look one up with the matching single-country function for its prices.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingCountrySummary"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "countries"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingVoiceCountry": {
+      "description": "Look up the Voice prices of one country: outbound per destination prefix and origination, inbound per number type (GET /v2/Voice/Countries/{IsoCountry} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "isoCountry": {
+            "type": "string",
+            "description": "The ISO 3166-1 alpha-2 country code, for example `DE`."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCountry"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the country.",
+            "type": "string"
+          },
+          "inboundCallPrices": {
+            "description": "The per-minute price to receive a call on each Twilio number type.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrice"
+            },
+            "type": "array"
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code.",
+            "type": "string"
+          },
+          "outboundPrefixPrices": {
+            "description": "The per-minute price to call each group of destination prefixes, by origination prefix.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingPrefixPrice"
+            },
+            "type": "array"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "outboundPrefixPrices",
+          "inboundCallPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPricingVoiceNumber": {
+      "description": "Look up the Voice prices of one phone number, optionally for one origination number (GET /v2/Voice/Numbers/{DestinationNumber} on pricing.twilio.com). Read-only.",
+      "inputs": {
+        "properties": {
+          "destinationNumber": {
+            "type": "string",
+            "description": "The destination phone number in E.164 format, for example `+14155550100`."
+          },
+          "originationNumber": {
+            "type": "string",
+            "description": "The calling phone number in E.164 format; when set, Twilio returns the price for that origination only. Unset returns the prices for every origination."
+          }
+        },
+        "type": "object",
+        "required": [
+          "destinationNumber"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "country": {
+            "description": "The name of the destination country.",
+            "type": "string"
+          },
+          "destinationNumber": {
+            "description": "The destination number that was looked up.",
+            "type": "string"
+          },
+          "inboundCallPrice": {
+            "$ref": "#/types/twilio:index:PricingPrice",
+            "description": "The per-minute price to receive a call on the number; unset when the number is not a Twilio number of this account."
+          },
+          "isoCountry": {
+            "description": "The ISO 3166-1 alpha-2 country code of the destination.",
+            "type": "string"
+          },
+          "originationNumber": {
+            "description": "The origination number that was looked up; empty when none was given.",
+            "type": "string"
+          },
+          "outboundCallPrices": {
+            "description": "The per-minute price to call the number, per origination prefix.",
+            "items": {
+              "$ref": "#/types/twilio:index:PricingOutboundCallPrice"
+            },
+            "type": "array"
+          },
+          "priceUnit": {
+            "description": "The currency of every price, an ISO 4217 code such as `USD`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "destinationNumber",
+          "originationNumber",
+          "isoCountry",
+          "country",
+          "priceUnit",
+          "outboundCallPrices"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getQueue": {
       "description": "Look up a Twilio call queue by SID.",
       "inputs": {
@@ -7474,6 +9435,259 @@
           "maxSize",
           "currentSize",
           "averageWaitTime",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getRoutesPhoneNumber": {
+      "description": "Read the routing settings of a phone number (GET /v3/PhoneNumbers/{phoneNumber}). Fails when the object does not exist.",
+      "inputs": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number in E.164 format whose inbound processing regions are set. The number must already exist in Twilio; changing it replaces the resource."
+          }
+        },
+        "type": "object",
+        "required": [
+          "phoneNumber"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the routing setting was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the routing setting was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Friendly name of the routing setting; empty when Twilio reports none.",
+            "type": "string"
+          },
+          "messagingRegion": {
+            "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`); empty when Twilio reports none.",
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "As passed in.",
+            "type": "string"
+          },
+          "url": {
+            "description": "Absolute URL of the Routes resource.",
+            "type": "string"
+          },
+          "voiceRegion": {
+            "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`); empty when Twilio reports none.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "voiceRegion",
+          "messagingRegion",
+          "friendlyName",
+          "accountSid",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getRoutesShortCode": {
+      "description": "Read the routing settings of a short code (GET /v3/ShortCodes/{isoCountryCode}/{shortCode}). Fails when the object does not exist.",
+      "inputs": {
+        "properties": {
+          "isoCountryCode": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the short code (for example `US`)."
+          },
+          "shortCode": {
+            "type": "string",
+            "description": "The short code itself (for example `12345`). The short code must already exist in Twilio; changing it replaces the resource."
+          }
+        },
+        "type": "object",
+        "required": [
+          "isoCountryCode",
+          "shortCode"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the routing setting was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the routing setting was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Friendly name of the routing setting; empty when Twilio reports none.",
+            "type": "string"
+          },
+          "isoCountryCode": {
+            "description": "As passed in.",
+            "type": "string"
+          },
+          "messagingRegion": {
+            "description": "Region that processes inbound messaging traffic for the object (for example `us1`, `ie1`, `au1`); empty when Twilio reports none.",
+            "type": "string"
+          },
+          "shortCode": {
+            "description": "As passed in.",
+            "type": "string"
+          },
+          "url": {
+            "description": "Absolute URL of the Routes resource.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "isoCountryCode",
+          "shortCode",
+          "messagingRegion",
+          "friendlyName",
+          "accountSid",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getRoutesSipDomain": {
+      "description": "Read the routing settings of a SIP domain (GET /v2/SipDomains/{SipDomain}). Fails when the object does not exist.",
+      "inputs": {
+        "properties": {
+          "sipDomain": {
+            "type": "string",
+            "description": "The SIP domain name (for example `example.sip.twilio.com`) whose inbound voice processing region is set. The domain must already exist; changing it replaces the resource."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sipDomain"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the routing setting was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the routing setting was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Friendly name of the routing setting; empty when Twilio reports none.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "SID of the routing setting.",
+            "type": "string"
+          },
+          "sipDomain": {
+            "description": "As passed in.",
+            "type": "string"
+          },
+          "url": {
+            "description": "Absolute URL of the Routes resource.",
+            "type": "string"
+          },
+          "voiceRegion": {
+            "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`); empty when Twilio reports none.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sipDomain",
+          "voiceRegion",
+          "friendlyName",
+          "sid",
+          "accountSid",
+          "url",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getRoutesTrunk": {
+      "description": "Read the routing settings of a SIP trunk domain (GET /v2/Trunks/{SipTrunkDomain}). Fails when the object does not exist.",
+      "inputs": {
+        "properties": {
+          "sipTrunkDomain": {
+            "type": "string",
+            "description": "The SIP trunk domain name (for example `example.pstn.twilio.com`) whose inbound voice processing region is set. The trunk must already exist; changing it replaces the resource."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sipTrunkDomain"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the object.",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the routing setting was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the routing setting was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Friendly name of the routing setting; empty when Twilio reports none.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "SID of the routing setting.",
+            "type": "string"
+          },
+          "sipTrunkDomain": {
+            "description": "As passed in.",
+            "type": "string"
+          },
+          "url": {
+            "description": "Absolute URL of the Routes resource.",
+            "type": "string"
+          },
+          "voiceRegion": {
+            "description": "Region that processes inbound voice traffic for the object (for example `us1`, `ie1`, `au1`); empty when Twilio reports none.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sipTrunkDomain",
+          "voiceRegion",
+          "friendlyName",
+          "sid",
+          "accountSid",
+          "url",
           "dateCreated",
           "dateUpdated"
         ],
@@ -8813,6 +11027,347 @@
           "type",
           "ownerAccountSid",
           "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterActivity": {
+      "description": "Look up an activity of a TaskRouter workspace by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (WA...) of the activity."
+          },
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "available": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "workspaceSid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "workspaceSid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterTaskChannel": {
+      "description": "Look up a task channel of a TaskRouter workspace by SID or unique name.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (TC...) or unique name of the task channel."
+          },
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "channelOptimizedRouting": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "uniqueName": {
+            "type": "string"
+          },
+          "workspaceSid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "workspaceSid",
+          "uniqueName",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterTaskQueue": {
+      "description": "Look up a task queue of a TaskRouter workspace by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (WQ...) of the task queue."
+          },
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "assignmentActivitySid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "maxReservedWorkers": {
+            "type": "integer"
+          },
+          "reservationActivitySid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "targetWorkers": {
+            "type": "string"
+          },
+          "taskOrder": {
+            "type": "string"
+          },
+          "workspaceSid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "workspaceSid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterWorker": {
+      "description": "Look up a worker of a TaskRouter workspace by SID. The activity is the worker's current one at the time of the lookup.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (WK...) of the worker."
+          },
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "activityName": {
+            "type": "string"
+          },
+          "activitySid": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "string"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "workspaceSid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "workspaceSid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterWorkflow": {
+      "description": "Look up a workflow of a TaskRouter workspace by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (WW...) of the workflow."
+          },
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "assignmentCallbackUrl": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "fallbackAssignmentCallbackUrl": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "taskReservationTimeout": {
+            "type": "integer"
+          },
+          "workspaceSid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "workspaceSid",
+          "friendlyName",
+          "configuration",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTaskRouterWorkspace": {
+      "description": "Look up a TaskRouter workspace by SID.",
+      "inputs": {
+        "properties": {
+          "workspaceSid": {
+            "type": "string",
+            "description": "SID (WS...) of the TaskRouter workspace."
+          }
+        },
+        "type": "object",
+        "required": [
+          "workspaceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "defaultActivitySid": {
+            "type": "string"
+          },
+          "eventCallbackUrl": {
+            "type": "string"
+          },
+          "eventsFilter": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "multiTaskEnabled": {
+            "type": "boolean"
+          },
+          "prioritizeQueueOrder": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "timeoutActivitySid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }

@@ -314,3 +314,74 @@ func (r *VoiceDefaultTranscriptionConfiguration) WireDependencies(f infer.FieldS
 	wireEchoes(f, args, state)
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time and the default activities are what Twilio reports.
+func (r *TaskRouterWorkspace) WireDependencies(f infer.FieldSelector, args *TaskRouterWorkspaceArgs, state *TaskRouterWorkspaceState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.DateUpdated, &state.DefaultActivitySid, &state.TimeoutActivitySid} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *TaskRouterActivity) WireDependencies(f infer.FieldSelector, args *TaskRouterActivityArgs, state *TaskRouterActivityState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *TaskRouterTaskChannel) WireDependencies(f infer.FieldSelector, args *TaskRouterTaskChannelArgs, state *TaskRouterTaskChannelState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *TaskRouterTaskQueue) WireDependencies(f infer.FieldSelector, args *TaskRouterTaskQueueArgs, state *TaskRouterTaskQueueState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *TaskRouterWorkflow) WireDependencies(f infer.FieldSelector, args *TaskRouterWorkflowArgs, state *TaskRouterWorkflowState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *TaskRouterWorker) WireDependencies(f infer.FieldSelector, args *TaskRouterWorkerArgs, state *TaskRouterWorkerState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: a service cannot be updated, so every output is fixed at creation.
+func (r *ConversationsService) WireDependencies(f infer.FieldSelector, args *ConversationsServiceArgs, state *ConversationsServiceState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ConversationsRole) WireDependencies(f infer.FieldSelector, args *ConversationsRoleArgs, state *ConversationsRoleState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ConversationsCredential) WireDependencies(f infer.FieldSelector, args *ConversationsCredentialArgs, state *ConversationsCredentialState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ConversationsAddressConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsAddressConfigurationArgs, state *ConversationsAddressConfigurationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the state holds only what the program set.
+func (r *ConversationsServiceConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsServiceConfigurationArgs, state *ConversationsServiceConfigurationState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the state holds only what the program set.
+func (r *ConversationsWebhookConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsWebhookConfigurationArgs, state *ConversationsWebhookConfigurationState) {
+	wireEchoes(f, args, state)
+}

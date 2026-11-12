@@ -64,7 +64,7 @@ func (s *ServerlessFunctionState) Annotate(a infer.Annotator) {
 }
 
 func (r *ServerlessFunction) Annotate(a infer.Annotator) {
-	a.Describe(&r, "The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). The resource ID is <serviceSid>/<sid>.")
+	a.Describe(&r, "The function container of a Twilio Serverless service. Function code is uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to deploy code). Twilio refuses to delete a function whose version a build holds, so destroying such a function only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.")
 }
 
 var _ infer.CustomResource[ServerlessFunctionArgs, ServerlessFunctionState] = (*ServerlessFunction)(nil)
@@ -186,6 +186,13 @@ func (r *ServerlessFunction) Delete(ctx context.Context, req infer.DeleteRequest
 		return infer.DeleteResponse{}, err
 	}
 	if _, err := c.do(ctx, "DELETE", "serverless", serverlessSvcPath(ids[0], "Functions", ids[1]), nil, nil); err != nil && !isNotFound(err) {
+		// A version referenced by a Build cannot be deleted, and a Build that was deployed cannot be
+		// deleted either (HTTP 400, error 20001): forget the function, deleting the Service removes it (#1856).
+		if isRefusal(err, "referenced in a build") {
+			p.GetLogger(ctx).Warningf("serverless function %s has a version referenced in a build, which Twilio cannot delete: it is removed from the state "+
+				"and stays on Twilio until its service is deleted", req.ID)
+			return infer.DeleteResponse{}, nil
+		}
 		return infer.DeleteResponse{}, fmt.Errorf("delete serverless function %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil
@@ -228,7 +235,7 @@ func (s *ServerlessAssetState) Annotate(a infer.Annotator) {
 }
 
 func (r *ServerlessAsset) Annotate(a infer.Annotator) {
-	a.Describe(&r, "The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is <serviceSid>/<sid>.")
+	a.Describe(&r, "The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). Twilio refuses to delete an asset whose version a build holds, so destroying such an asset only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.")
 }
 
 var _ infer.CustomResource[ServerlessAssetArgs, ServerlessAssetState] = (*ServerlessAsset)(nil)
@@ -350,6 +357,13 @@ func (r *ServerlessAsset) Delete(ctx context.Context, req infer.DeleteRequest[Se
 		return infer.DeleteResponse{}, err
 	}
 	if _, err := c.do(ctx, "DELETE", "serverless", serverlessSvcPath(ids[0], "Assets", ids[1]), nil, nil); err != nil && !isNotFound(err) {
+		// A version referenced by a Build cannot be deleted, and a Build that was deployed cannot be
+		// deleted either (HTTP 400, error 20001): forget the asset, deleting the Service removes it (#1856).
+		if isRefusal(err, "referenced in a build") {
+			p.GetLogger(ctx).Warningf("serverless asset %s has a version referenced in a build, which Twilio cannot delete: it is removed from the state "+
+				"and stays on Twilio until its service is deleted", req.ID)
+			return infer.DeleteResponse{}, nil
+		}
 		return infer.DeleteResponse{}, fmt.Errorf("delete serverless asset %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil

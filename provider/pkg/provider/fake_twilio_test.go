@@ -58,11 +58,13 @@ type fakeTwilio struct {
 	calls                     []fakeCall
 	failure                   map[string]int        // "METHOD substring" -> status to return once
 	verifyMsgCfgFake200       bool                  // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
+	pricingMaxPage            int                   // when set, pricing country lists never return more than this many items per page
 	dialingMaxPage            int                   // when set, dialing permission lists never return more than this many items per page
 	verifyMsgCfgPhantomCreate bool                  // a POST creating a Verify messaging configuration answers 200 with an empty one and stores nothing (#1717)
 	uploads                   map[string]fakeUpload // serverless version SID -> the multipart file the upload host received
 	buildPolls                map[string]int        // serverless build SID -> status polls seen
 	buildBuildingPolls        int                   // status polls that still answer "building" before the build finishes
+	buildDeleteUnrelated      bool                  // DELETE of a build answers 400/20001 with a message unrelated to deployments
 	buildReadFails            bool                  // GET of a build itself (not its status) answers 500
 	buildFinalStatus          string                // what a finished build reports; completed when empty
 }
@@ -317,6 +319,14 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleVoice(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/voice/v2/"):
 		f.handleVoiceV2(w, r, body, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v2/"), "/"), "/"))
+	case strings.HasPrefix(path, "/conversations/v1/"):
+		f.handleConversations(w, r, form, strings.Trim(strings.TrimPrefix(path, "/conversations/v1/"), "/"))
+	case strings.HasPrefix(path, "/taskrouter/v1/Workspaces"):
+		f.handleTaskRouter(w, r, form, strings.Trim(strings.TrimPrefix(path, "/taskrouter/v1/Workspaces"), "/"))
+	case strings.HasPrefix(path, "/routes/"):
+		f.handleRoutes(w, r, form)
+	case strings.HasPrefix(path, "/pricing/"):
+		f.handlePricing(w, r)
 	case strings.HasPrefix(path, "/trunking/v1/"):
 		f.handleTrunking(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trunking/v1/"), "/"), "/"))
 	default:

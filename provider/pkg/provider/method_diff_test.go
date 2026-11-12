@@ -77,3 +77,31 @@ func TestNumberLC_ImportThenProgramStatesDefaultMethod(t *testing.T) {
 	d := l.diff(imp.ID, imp.Properties, with(in, map[string]property.Value{"smsMethod": computed()}), imp.Inputs)
 	require.True(t, d.HasChanges)
 }
+
+// Twilio takes GET and POST in either case (#1857): Check accepts a lower case method, normalizes
+// it to upper case so the request carries the canonical form, and still rejects a real typo.
+func TestMethodInputsAcceptAnyCase(t *testing.T) {
+	l := newTL(t, "Application", "app")
+	in := pv(map[string]property.Value{"friendlyName": sv("a"), "voiceMethod": sv("post"), "smsMethod": sv("Get")})
+	chk := l.check(in)
+	require.Empty(t, chk.Failures)
+	require.Equal(t, "POST", getS(t, chk.Inputs, "voiceMethod"))
+	require.Equal(t, "GET", getS(t, chk.Inputs, "smsMethod"))
+
+	c := l.create(in)
+	form := l.f.callsMatching("POST", "/Applications.json")[0].Form
+	require.Equal(t, "POST", form.Get("VoiceMethod"))
+	require.Equal(t, "GET", form.Get("SmsMethod"))
+	require.Equal(t, "POST", l.f.get("app", testAccount, c.ID)["voice_method"])
+	// Twilio reports "POST"; the program wrote "post": nothing to change.
+	requireNoChanges(t, l.diff(c.ID, c.Properties, in, l.checked(in)))
+
+	bad := l.check(pv(map[string]property.Value{"friendlyName": sv("a"), "voiceMethod": sv("PUT")}))
+	require.Len(t, bad.Failures, 1)
+	require.Equal(t, "voiceMethod", bad.Failures[0].Property)
+
+	d := newTL(t, "SipDomain", "d")
+	dc := d.check(pv(map[string]property.Value{"domainName": sv("x.sip.twilio.com"), "voiceMethod": sv("get")}))
+	require.Empty(t, dc.Failures)
+	require.Equal(t, "GET", getS(t, dc.Inputs, "voiceMethod"))
+}

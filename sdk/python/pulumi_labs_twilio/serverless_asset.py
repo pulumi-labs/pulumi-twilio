@@ -65,7 +65,7 @@ class ServerlessAsset(pulumi.CustomResource):
                  service_sid: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is <serviceSid>/<sid>.
+        The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). Twilio refuses to delete an asset whose version a build holds, so destroying such an asset only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.
 
 
         :param str resource_name: The name of the resource.
@@ -80,7 +80,7 @@ class ServerlessAsset(pulumi.CustomResource):
                  args: ServerlessAssetArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is <serviceSid>/<sid>.
+        The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio's upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). Twilio refuses to delete an asset whose version a build holds, so destroying such an asset only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is <serviceSid>/<sid>.
 
 
         :param str resource_name: The name of the resource.

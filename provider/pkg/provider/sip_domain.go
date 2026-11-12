@@ -137,14 +137,8 @@ func (r *SipDomain) Check(ctx context.Context, req infer.CheckRequest) (infer.Ch
 	if args.FriendlyName != nil && !unk("friendlyName") && (*args.FriendlyName == "" || len(*args.FriendlyName) > 64) {
 		failures = append(failures, p.CheckFailure{Property: "friendlyName", Reason: "friendlyName must be 1-64 characters"})
 	}
-	for _, m := range []struct {
-		name string
-		v    *string
-	}{{"voiceMethod", args.VoiceMethod}, {"voiceFallbackMethod", args.VoiceFallbackMethod}, {"voiceStatusCallbackMethod", args.VoiceStatusCallbackMethod}} {
-		if m.v != nil && !unk(m.name) && *m.v != "GET" && *m.v != "POST" {
-			failures = append(failures, p.CheckFailure{Property: m.name, Reason: m.name + " must be GET or POST"})
-		}
-	}
+	failures = checkMethods(failures, unk, map[string]*string{"voiceMethod": args.VoiceMethod, "voiceFallbackMethod": args.VoiceFallbackMethod,
+		"voiceStatusCallbackMethod": args.VoiceStatusCallbackMethod})
 	return infer.CheckResponse[SipDomainArgs]{Inputs: args, Failures: failures}, nil
 }
 

@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. The resource ID is <serviceSid>/<sid>.
+// A Twilio Serverless build: function versions, asset versions and npm dependencies assembled into one deployable unit. Creating it waits until Twilio reports the build completed and fails if the build fails. Builds are immutable, so every input replaces the build. Deploy one with a ServerlessDeployment. Twilio refuses to delete a build that was deployed (and has no delete for deployments), so destroying such a build only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. A build that was never deployed is deleted. The resource ID is <serviceSid>/<sid>.
 type ServerlessBuild struct {
 	pulumi.CustomResourceState
 

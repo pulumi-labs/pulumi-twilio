@@ -14,7 +14,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 /**
- * The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio&#39;s upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). The resource ID is &lt;serviceSid&gt;/&lt;sid&gt;.
+ * The asset container of a Twilio Serverless service. Asset files are uploaded as immutable versions through Twilio&#39;s upload host, which this provider does not manage (use the Serverless Toolkit or the Twilio CLI to upload files). Twilio refuses to delete an asset whose version a build holds, so destroying such an asset only removes it from Pulumi state with a warning; it stays on Twilio until its service is deleted. The resource ID is &lt;serviceSid&gt;/&lt;sid&gt;.
  * 
  */
 @ResourceType(type="twilio:index:ServerlessAsset")

@@ -303,8 +303,13 @@ func TestConversationsAddressConfigurationLC_Lifecycle(t *testing.T) {
 	l.requireImportFails("IG" + strings.Repeat("0", 32))
 
 	bad := l.check(pv(map[string]property.Value{"addressType": sv("fax"), "address": sv("x"),
-		"autoCreation": auto(map[string]property.Value{"enabled": bv(true), "type": sv("magic")})}))
-	require.Len(t, bad.Failures, 2)
+		"autoCreation": auto(map[string]property.Value{"enabled": bv(true), "type": sv("magic"), "conversationServiceSid": sv("nope"), "webhookMethod": sv("PUT")})}))
+	// A failure inside the autoCreation object names the nested path, so the message points at the field.
+	var props []string
+	for _, fl := range bad.Failures {
+		props = append(props, fl.Property)
+	}
+	require.ElementsMatch(t, []string{"addressType", "autoCreation.type", "autoCreation.conversationServiceSid", "autoCreation.webhookMethod"}, props)
 }
 
 func TestConversationsWebhookConfigurationLC_Lifecycle(t *testing.T) {

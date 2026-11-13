@@ -840,6 +840,4091 @@ func (o ConnectAppEffectivePtrOutput) Permissions() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+type ContentAuthenticationAction struct {
+	// Label of the copy-code button.
+	CopyCodeText string `pulumi:"copyCodeText"`
+	// The button type. Only COPY_CODE exists.
+	Type string `pulumi:"type"`
+}
+
+// ContentAuthenticationActionInput is an input type that accepts ContentAuthenticationActionArgs and ContentAuthenticationActionOutput values.
+// You can construct a concrete instance of `ContentAuthenticationActionInput` via:
+//
+//	ContentAuthenticationActionArgs{...}
+type ContentAuthenticationActionInput interface {
+	pulumi.Input
+
+	ToContentAuthenticationActionOutput() ContentAuthenticationActionOutput
+	ToContentAuthenticationActionOutputWithContext(context.Context) ContentAuthenticationActionOutput
+}
+
+type ContentAuthenticationActionArgs struct {
+	// Label of the copy-code button.
+	CopyCodeText pulumi.StringInput `pulumi:"copyCodeText"`
+	// The button type. Only COPY_CODE exists.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (ContentAuthenticationActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentAuthenticationAction)(nil)).Elem()
+}
+
+func (i ContentAuthenticationActionArgs) ToContentAuthenticationActionOutput() ContentAuthenticationActionOutput {
+	return i.ToContentAuthenticationActionOutputWithContext(context.Background())
+}
+
+func (i ContentAuthenticationActionArgs) ToContentAuthenticationActionOutputWithContext(ctx context.Context) ContentAuthenticationActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentAuthenticationActionOutput)
+}
+
+// ContentAuthenticationActionArrayInput is an input type that accepts ContentAuthenticationActionArray and ContentAuthenticationActionArrayOutput values.
+// You can construct a concrete instance of `ContentAuthenticationActionArrayInput` via:
+//
+//	ContentAuthenticationActionArray{ ContentAuthenticationActionArgs{...} }
+type ContentAuthenticationActionArrayInput interface {
+	pulumi.Input
+
+	ToContentAuthenticationActionArrayOutput() ContentAuthenticationActionArrayOutput
+	ToContentAuthenticationActionArrayOutputWithContext(context.Context) ContentAuthenticationActionArrayOutput
+}
+
+type ContentAuthenticationActionArray []ContentAuthenticationActionInput
+
+func (ContentAuthenticationActionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentAuthenticationAction)(nil)).Elem()
+}
+
+func (i ContentAuthenticationActionArray) ToContentAuthenticationActionArrayOutput() ContentAuthenticationActionArrayOutput {
+	return i.ToContentAuthenticationActionArrayOutputWithContext(context.Background())
+}
+
+func (i ContentAuthenticationActionArray) ToContentAuthenticationActionArrayOutputWithContext(ctx context.Context) ContentAuthenticationActionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentAuthenticationActionArrayOutput)
+}
+
+type ContentAuthenticationActionOutput struct{ *pulumi.OutputState }
+
+func (ContentAuthenticationActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentAuthenticationAction)(nil)).Elem()
+}
+
+func (o ContentAuthenticationActionOutput) ToContentAuthenticationActionOutput() ContentAuthenticationActionOutput {
+	return o
+}
+
+func (o ContentAuthenticationActionOutput) ToContentAuthenticationActionOutputWithContext(ctx context.Context) ContentAuthenticationActionOutput {
+	return o
+}
+
+// Label of the copy-code button.
+func (o ContentAuthenticationActionOutput) CopyCodeText() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentAuthenticationAction) string { return v.CopyCodeText }).(pulumi.StringOutput)
+}
+
+// The button type. Only COPY_CODE exists.
+func (o ContentAuthenticationActionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentAuthenticationAction) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type ContentAuthenticationActionArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentAuthenticationActionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentAuthenticationAction)(nil)).Elem()
+}
+
+func (o ContentAuthenticationActionArrayOutput) ToContentAuthenticationActionArrayOutput() ContentAuthenticationActionArrayOutput {
+	return o
+}
+
+func (o ContentAuthenticationActionArrayOutput) ToContentAuthenticationActionArrayOutputWithContext(ctx context.Context) ContentAuthenticationActionArrayOutput {
+	return o
+}
+
+func (o ContentAuthenticationActionArrayOutput) Index(i pulumi.IntInput) ContentAuthenticationActionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentAuthenticationAction {
+		return vs[0].([]ContentAuthenticationAction)[vs[1].(int)]
+	}).(ContentAuthenticationActionOutput)
+}
+
+type ContentCallToAction struct {
+	// The buttons.
+	Actions []ContentCallToActionAction `pulumi:"actions"`
+	// The text of the message.
+	Body string `pulumi:"body"`
+}
+
+// ContentCallToActionInput is an input type that accepts ContentCallToActionArgs and ContentCallToActionOutput values.
+// You can construct a concrete instance of `ContentCallToActionInput` via:
+//
+//	ContentCallToActionArgs{...}
+type ContentCallToActionInput interface {
+	pulumi.Input
+
+	ToContentCallToActionOutput() ContentCallToActionOutput
+	ToContentCallToActionOutputWithContext(context.Context) ContentCallToActionOutput
+}
+
+type ContentCallToActionArgs struct {
+	// The buttons.
+	Actions ContentCallToActionActionArrayInput `pulumi:"actions"`
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+}
+
+func (ContentCallToActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCallToAction)(nil)).Elem()
+}
+
+func (i ContentCallToActionArgs) ToContentCallToActionOutput() ContentCallToActionOutput {
+	return i.ToContentCallToActionOutputWithContext(context.Background())
+}
+
+func (i ContentCallToActionArgs) ToContentCallToActionOutputWithContext(ctx context.Context) ContentCallToActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCallToActionOutput)
+}
+
+func (i ContentCallToActionArgs) ToContentCallToActionPtrOutput() ContentCallToActionPtrOutput {
+	return i.ToContentCallToActionPtrOutputWithContext(context.Background())
+}
+
+func (i ContentCallToActionArgs) ToContentCallToActionPtrOutputWithContext(ctx context.Context) ContentCallToActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCallToActionOutput).ToContentCallToActionPtrOutputWithContext(ctx)
+}
+
+// ContentCallToActionPtrInput is an input type that accepts ContentCallToActionArgs, ContentCallToActionPtr and ContentCallToActionPtrOutput values.
+// You can construct a concrete instance of `ContentCallToActionPtrInput` via:
+//
+//	        ContentCallToActionArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentCallToActionPtrInput interface {
+	pulumi.Input
+
+	ToContentCallToActionPtrOutput() ContentCallToActionPtrOutput
+	ToContentCallToActionPtrOutputWithContext(context.Context) ContentCallToActionPtrOutput
+}
+
+type contentCallToActionPtrType ContentCallToActionArgs
+
+func ContentCallToActionPtr(v *ContentCallToActionArgs) ContentCallToActionPtrInput {
+	return (*contentCallToActionPtrType)(v)
+}
+
+func (*contentCallToActionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCallToAction)(nil)).Elem()
+}
+
+func (i *contentCallToActionPtrType) ToContentCallToActionPtrOutput() ContentCallToActionPtrOutput {
+	return i.ToContentCallToActionPtrOutputWithContext(context.Background())
+}
+
+func (i *contentCallToActionPtrType) ToContentCallToActionPtrOutputWithContext(ctx context.Context) ContentCallToActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCallToActionPtrOutput)
+}
+
+type ContentCallToActionOutput struct{ *pulumi.OutputState }
+
+func (ContentCallToActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCallToAction)(nil)).Elem()
+}
+
+func (o ContentCallToActionOutput) ToContentCallToActionOutput() ContentCallToActionOutput {
+	return o
+}
+
+func (o ContentCallToActionOutput) ToContentCallToActionOutputWithContext(ctx context.Context) ContentCallToActionOutput {
+	return o
+}
+
+func (o ContentCallToActionOutput) ToContentCallToActionPtrOutput() ContentCallToActionPtrOutput {
+	return o.ToContentCallToActionPtrOutputWithContext(context.Background())
+}
+
+func (o ContentCallToActionOutput) ToContentCallToActionPtrOutputWithContext(ctx context.Context) ContentCallToActionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentCallToAction) *ContentCallToAction {
+		return &v
+	}).(ContentCallToActionPtrOutput)
+}
+
+// The buttons.
+func (o ContentCallToActionOutput) Actions() ContentCallToActionActionArrayOutput {
+	return o.ApplyT(func(v ContentCallToAction) []ContentCallToActionAction { return v.Actions }).(ContentCallToActionActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentCallToActionOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCallToAction) string { return v.Body }).(pulumi.StringOutput)
+}
+
+type ContentCallToActionPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentCallToActionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCallToAction)(nil)).Elem()
+}
+
+func (o ContentCallToActionPtrOutput) ToContentCallToActionPtrOutput() ContentCallToActionPtrOutput {
+	return o
+}
+
+func (o ContentCallToActionPtrOutput) ToContentCallToActionPtrOutputWithContext(ctx context.Context) ContentCallToActionPtrOutput {
+	return o
+}
+
+func (o ContentCallToActionPtrOutput) Elem() ContentCallToActionOutput {
+	return o.ApplyT(func(v *ContentCallToAction) ContentCallToAction {
+		if v != nil {
+			return *v
+		}
+		var ret ContentCallToAction
+		return ret
+	}).(ContentCallToActionOutput)
+}
+
+// The buttons.
+func (o ContentCallToActionPtrOutput) Actions() ContentCallToActionActionArrayOutput {
+	return o.ApplyT(func(v *ContentCallToAction) []ContentCallToActionAction {
+		if v == nil {
+			return nil
+		}
+		return v.Actions
+	}).(ContentCallToActionActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentCallToActionPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCallToAction) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentCallToActionAction struct {
+	// Code the button copies (type COPY_CODE).
+	Code *string `pulumi:"code"`
+	// Identifier of the button.
+	Id *string `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+	Phone *string `pulumi:"phone"`
+	// Label of the button.
+	Title *string `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+	Type string `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url *string `pulumi:"url"`
+}
+
+// ContentCallToActionActionInput is an input type that accepts ContentCallToActionActionArgs and ContentCallToActionActionOutput values.
+// You can construct a concrete instance of `ContentCallToActionActionInput` via:
+//
+//	ContentCallToActionActionArgs{...}
+type ContentCallToActionActionInput interface {
+	pulumi.Input
+
+	ToContentCallToActionActionOutput() ContentCallToActionActionOutput
+	ToContentCallToActionActionOutputWithContext(context.Context) ContentCallToActionActionOutput
+}
+
+type ContentCallToActionActionArgs struct {
+	// Code the button copies (type COPY_CODE).
+	Code pulumi.StringPtrInput `pulumi:"code"`
+	// Identifier of the button.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+	Phone pulumi.StringPtrInput `pulumi:"phone"`
+	// Label of the button.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+	Type pulumi.StringInput `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+func (ContentCallToActionActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCallToActionAction)(nil)).Elem()
+}
+
+func (i ContentCallToActionActionArgs) ToContentCallToActionActionOutput() ContentCallToActionActionOutput {
+	return i.ToContentCallToActionActionOutputWithContext(context.Background())
+}
+
+func (i ContentCallToActionActionArgs) ToContentCallToActionActionOutputWithContext(ctx context.Context) ContentCallToActionActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCallToActionActionOutput)
+}
+
+// ContentCallToActionActionArrayInput is an input type that accepts ContentCallToActionActionArray and ContentCallToActionActionArrayOutput values.
+// You can construct a concrete instance of `ContentCallToActionActionArrayInput` via:
+//
+//	ContentCallToActionActionArray{ ContentCallToActionActionArgs{...} }
+type ContentCallToActionActionArrayInput interface {
+	pulumi.Input
+
+	ToContentCallToActionActionArrayOutput() ContentCallToActionActionArrayOutput
+	ToContentCallToActionActionArrayOutputWithContext(context.Context) ContentCallToActionActionArrayOutput
+}
+
+type ContentCallToActionActionArray []ContentCallToActionActionInput
+
+func (ContentCallToActionActionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCallToActionAction)(nil)).Elem()
+}
+
+func (i ContentCallToActionActionArray) ToContentCallToActionActionArrayOutput() ContentCallToActionActionArrayOutput {
+	return i.ToContentCallToActionActionArrayOutputWithContext(context.Background())
+}
+
+func (i ContentCallToActionActionArray) ToContentCallToActionActionArrayOutputWithContext(ctx context.Context) ContentCallToActionActionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCallToActionActionArrayOutput)
+}
+
+type ContentCallToActionActionOutput struct{ *pulumi.OutputState }
+
+func (ContentCallToActionActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCallToActionAction)(nil)).Elem()
+}
+
+func (o ContentCallToActionActionOutput) ToContentCallToActionActionOutput() ContentCallToActionActionOutput {
+	return o
+}
+
+func (o ContentCallToActionActionOutput) ToContentCallToActionActionOutputWithContext(ctx context.Context) ContentCallToActionActionOutput {
+	return o
+}
+
+// Code the button copies (type COPY_CODE).
+func (o ContentCallToActionActionOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) *string { return v.Code }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the button.
+func (o ContentCallToActionActionOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+func (o ContentCallToActionActionOutput) Phone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) *string { return v.Phone }).(pulumi.StringPtrOutput)
+}
+
+// Label of the button.
+func (o ContentCallToActionActionOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+// The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+func (o ContentCallToActionActionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// URL the button opens (type URL).
+func (o ContentCallToActionActionOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCallToActionAction) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type ContentCallToActionActionArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentCallToActionActionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCallToActionAction)(nil)).Elem()
+}
+
+func (o ContentCallToActionActionArrayOutput) ToContentCallToActionActionArrayOutput() ContentCallToActionActionArrayOutput {
+	return o
+}
+
+func (o ContentCallToActionActionArrayOutput) ToContentCallToActionActionArrayOutputWithContext(ctx context.Context) ContentCallToActionActionArrayOutput {
+	return o
+}
+
+func (o ContentCallToActionActionArrayOutput) Index(i pulumi.IntInput) ContentCallToActionActionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentCallToActionAction {
+		return vs[0].([]ContentCallToActionAction)[vs[1].(int)]
+	}).(ContentCallToActionActionOutput)
+}
+
+type ContentCard struct {
+	// Buttons of the card.
+	Actions []ContentCardAction `pulumi:"actions"`
+	// URLs of the card's media.
+	Media []string `pulumi:"media"`
+	// Subtitle of the card.
+	Subtitle *string `pulumi:"subtitle"`
+	// Title of the card.
+	Title *string `pulumi:"title"`
+}
+
+// ContentCardInput is an input type that accepts ContentCardArgs and ContentCardOutput values.
+// You can construct a concrete instance of `ContentCardInput` via:
+//
+//	ContentCardArgs{...}
+type ContentCardInput interface {
+	pulumi.Input
+
+	ToContentCardOutput() ContentCardOutput
+	ToContentCardOutputWithContext(context.Context) ContentCardOutput
+}
+
+type ContentCardArgs struct {
+	// Buttons of the card.
+	Actions ContentCardActionArrayInput `pulumi:"actions"`
+	// URLs of the card's media.
+	Media pulumi.StringArrayInput `pulumi:"media"`
+	// Subtitle of the card.
+	Subtitle pulumi.StringPtrInput `pulumi:"subtitle"`
+	// Title of the card.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+}
+
+func (ContentCardArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCard)(nil)).Elem()
+}
+
+func (i ContentCardArgs) ToContentCardOutput() ContentCardOutput {
+	return i.ToContentCardOutputWithContext(context.Background())
+}
+
+func (i ContentCardArgs) ToContentCardOutputWithContext(ctx context.Context) ContentCardOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCardOutput)
+}
+
+func (i ContentCardArgs) ToContentCardPtrOutput() ContentCardPtrOutput {
+	return i.ToContentCardPtrOutputWithContext(context.Background())
+}
+
+func (i ContentCardArgs) ToContentCardPtrOutputWithContext(ctx context.Context) ContentCardPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCardOutput).ToContentCardPtrOutputWithContext(ctx)
+}
+
+// ContentCardPtrInput is an input type that accepts ContentCardArgs, ContentCardPtr and ContentCardPtrOutput values.
+// You can construct a concrete instance of `ContentCardPtrInput` via:
+//
+//	        ContentCardArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentCardPtrInput interface {
+	pulumi.Input
+
+	ToContentCardPtrOutput() ContentCardPtrOutput
+	ToContentCardPtrOutputWithContext(context.Context) ContentCardPtrOutput
+}
+
+type contentCardPtrType ContentCardArgs
+
+func ContentCardPtr(v *ContentCardArgs) ContentCardPtrInput {
+	return (*contentCardPtrType)(v)
+}
+
+func (*contentCardPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCard)(nil)).Elem()
+}
+
+func (i *contentCardPtrType) ToContentCardPtrOutput() ContentCardPtrOutput {
+	return i.ToContentCardPtrOutputWithContext(context.Background())
+}
+
+func (i *contentCardPtrType) ToContentCardPtrOutputWithContext(ctx context.Context) ContentCardPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCardPtrOutput)
+}
+
+type ContentCardOutput struct{ *pulumi.OutputState }
+
+func (ContentCardOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCard)(nil)).Elem()
+}
+
+func (o ContentCardOutput) ToContentCardOutput() ContentCardOutput {
+	return o
+}
+
+func (o ContentCardOutput) ToContentCardOutputWithContext(ctx context.Context) ContentCardOutput {
+	return o
+}
+
+func (o ContentCardOutput) ToContentCardPtrOutput() ContentCardPtrOutput {
+	return o.ToContentCardPtrOutputWithContext(context.Background())
+}
+
+func (o ContentCardOutput) ToContentCardPtrOutputWithContext(ctx context.Context) ContentCardPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentCard) *ContentCard {
+		return &v
+	}).(ContentCardPtrOutput)
+}
+
+// Buttons of the card.
+func (o ContentCardOutput) Actions() ContentCardActionArrayOutput {
+	return o.ApplyT(func(v ContentCard) []ContentCardAction { return v.Actions }).(ContentCardActionArrayOutput)
+}
+
+// URLs of the card's media.
+func (o ContentCardOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ContentCard) []string { return v.Media }).(pulumi.StringArrayOutput)
+}
+
+// Subtitle of the card.
+func (o ContentCardOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCard) *string { return v.Subtitle }).(pulumi.StringPtrOutput)
+}
+
+// Title of the card.
+func (o ContentCardOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCard) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+type ContentCardPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentCardPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCard)(nil)).Elem()
+}
+
+func (o ContentCardPtrOutput) ToContentCardPtrOutput() ContentCardPtrOutput {
+	return o
+}
+
+func (o ContentCardPtrOutput) ToContentCardPtrOutputWithContext(ctx context.Context) ContentCardPtrOutput {
+	return o
+}
+
+func (o ContentCardPtrOutput) Elem() ContentCardOutput {
+	return o.ApplyT(func(v *ContentCard) ContentCard {
+		if v != nil {
+			return *v
+		}
+		var ret ContentCard
+		return ret
+	}).(ContentCardOutput)
+}
+
+// Buttons of the card.
+func (o ContentCardPtrOutput) Actions() ContentCardActionArrayOutput {
+	return o.ApplyT(func(v *ContentCard) []ContentCardAction {
+		if v == nil {
+			return nil
+		}
+		return v.Actions
+	}).(ContentCardActionArrayOutput)
+}
+
+// URLs of the card's media.
+func (o ContentCardPtrOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ContentCard) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Media
+	}).(pulumi.StringArrayOutput)
+}
+
+// Subtitle of the card.
+func (o ContentCardPtrOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCard) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Subtitle
+	}).(pulumi.StringPtrOutput)
+}
+
+// Title of the card.
+func (o ContentCardPtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCard) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentCardAction struct {
+	// Code the button copies (type COPY_CODE).
+	Code *string `pulumi:"code"`
+	// Digitable line of a BOLETO payment.
+	DigitableLine *string `pulumi:"digitableLine"`
+	// Identifier of the button.
+	Id *string `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+	Phone *string `pulumi:"phone"`
+	// Label of the button.
+	Title *string `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+	Type string `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url *string `pulumi:"url"`
+	// Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+	WebviewSize *string `pulumi:"webviewSize"`
+}
+
+// ContentCardActionInput is an input type that accepts ContentCardActionArgs and ContentCardActionOutput values.
+// You can construct a concrete instance of `ContentCardActionInput` via:
+//
+//	ContentCardActionArgs{...}
+type ContentCardActionInput interface {
+	pulumi.Input
+
+	ToContentCardActionOutput() ContentCardActionOutput
+	ToContentCardActionOutputWithContext(context.Context) ContentCardActionOutput
+}
+
+type ContentCardActionArgs struct {
+	// Code the button copies (type COPY_CODE).
+	Code pulumi.StringPtrInput `pulumi:"code"`
+	// Digitable line of a BOLETO payment.
+	DigitableLine pulumi.StringPtrInput `pulumi:"digitableLine"`
+	// Identifier of the button.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+	Phone pulumi.StringPtrInput `pulumi:"phone"`
+	// Label of the button.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+	Type pulumi.StringInput `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url pulumi.StringPtrInput `pulumi:"url"`
+	// Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+	WebviewSize pulumi.StringPtrInput `pulumi:"webviewSize"`
+}
+
+func (ContentCardActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCardAction)(nil)).Elem()
+}
+
+func (i ContentCardActionArgs) ToContentCardActionOutput() ContentCardActionOutput {
+	return i.ToContentCardActionOutputWithContext(context.Background())
+}
+
+func (i ContentCardActionArgs) ToContentCardActionOutputWithContext(ctx context.Context) ContentCardActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCardActionOutput)
+}
+
+// ContentCardActionArrayInput is an input type that accepts ContentCardActionArray and ContentCardActionArrayOutput values.
+// You can construct a concrete instance of `ContentCardActionArrayInput` via:
+//
+//	ContentCardActionArray{ ContentCardActionArgs{...} }
+type ContentCardActionArrayInput interface {
+	pulumi.Input
+
+	ToContentCardActionArrayOutput() ContentCardActionArrayOutput
+	ToContentCardActionArrayOutputWithContext(context.Context) ContentCardActionArrayOutput
+}
+
+type ContentCardActionArray []ContentCardActionInput
+
+func (ContentCardActionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCardAction)(nil)).Elem()
+}
+
+func (i ContentCardActionArray) ToContentCardActionArrayOutput() ContentCardActionArrayOutput {
+	return i.ToContentCardActionArrayOutputWithContext(context.Background())
+}
+
+func (i ContentCardActionArray) ToContentCardActionArrayOutputWithContext(ctx context.Context) ContentCardActionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCardActionArrayOutput)
+}
+
+type ContentCardActionOutput struct{ *pulumi.OutputState }
+
+func (ContentCardActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCardAction)(nil)).Elem()
+}
+
+func (o ContentCardActionOutput) ToContentCardActionOutput() ContentCardActionOutput {
+	return o
+}
+
+func (o ContentCardActionOutput) ToContentCardActionOutputWithContext(ctx context.Context) ContentCardActionOutput {
+	return o
+}
+
+// Code the button copies (type COPY_CODE).
+func (o ContentCardActionOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.Code }).(pulumi.StringPtrOutput)
+}
+
+// Digitable line of a BOLETO payment.
+func (o ContentCardActionOutput) DigitableLine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.DigitableLine }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the button.
+func (o ContentCardActionOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+func (o ContentCardActionOutput) Phone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.Phone }).(pulumi.StringPtrOutput)
+}
+
+// Label of the button.
+func (o ContentCardActionOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+// The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+func (o ContentCardActionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCardAction) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// URL the button opens (type URL).
+func (o ContentCardActionOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+// Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+func (o ContentCardActionOutput) WebviewSize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCardAction) *string { return v.WebviewSize }).(pulumi.StringPtrOutput)
+}
+
+type ContentCardActionArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentCardActionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCardAction)(nil)).Elem()
+}
+
+func (o ContentCardActionArrayOutput) ToContentCardActionArrayOutput() ContentCardActionArrayOutput {
+	return o
+}
+
+func (o ContentCardActionArrayOutput) ToContentCardActionArrayOutputWithContext(ctx context.Context) ContentCardActionArrayOutput {
+	return o
+}
+
+func (o ContentCardActionArrayOutput) Index(i pulumi.IntInput) ContentCardActionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentCardAction {
+		return vs[0].([]ContentCardAction)[vs[1].(int)]
+	}).(ContentCardActionOutput)
+}
+
+type ContentCarousel struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// The cards.
+	Cards []ContentCarouselCard `pulumi:"cards"`
+}
+
+// ContentCarouselInput is an input type that accepts ContentCarouselArgs and ContentCarouselOutput values.
+// You can construct a concrete instance of `ContentCarouselInput` via:
+//
+//	ContentCarouselArgs{...}
+type ContentCarouselInput interface {
+	pulumi.Input
+
+	ToContentCarouselOutput() ContentCarouselOutput
+	ToContentCarouselOutputWithContext(context.Context) ContentCarouselOutput
+}
+
+type ContentCarouselArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// The cards.
+	Cards ContentCarouselCardArrayInput `pulumi:"cards"`
+}
+
+func (ContentCarouselArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarousel)(nil)).Elem()
+}
+
+func (i ContentCarouselArgs) ToContentCarouselOutput() ContentCarouselOutput {
+	return i.ToContentCarouselOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselArgs) ToContentCarouselOutputWithContext(ctx context.Context) ContentCarouselOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselOutput)
+}
+
+func (i ContentCarouselArgs) ToContentCarouselPtrOutput() ContentCarouselPtrOutput {
+	return i.ToContentCarouselPtrOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselArgs) ToContentCarouselPtrOutputWithContext(ctx context.Context) ContentCarouselPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselOutput).ToContentCarouselPtrOutputWithContext(ctx)
+}
+
+// ContentCarouselPtrInput is an input type that accepts ContentCarouselArgs, ContentCarouselPtr and ContentCarouselPtrOutput values.
+// You can construct a concrete instance of `ContentCarouselPtrInput` via:
+//
+//	        ContentCarouselArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentCarouselPtrInput interface {
+	pulumi.Input
+
+	ToContentCarouselPtrOutput() ContentCarouselPtrOutput
+	ToContentCarouselPtrOutputWithContext(context.Context) ContentCarouselPtrOutput
+}
+
+type contentCarouselPtrType ContentCarouselArgs
+
+func ContentCarouselPtr(v *ContentCarouselArgs) ContentCarouselPtrInput {
+	return (*contentCarouselPtrType)(v)
+}
+
+func (*contentCarouselPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCarousel)(nil)).Elem()
+}
+
+func (i *contentCarouselPtrType) ToContentCarouselPtrOutput() ContentCarouselPtrOutput {
+	return i.ToContentCarouselPtrOutputWithContext(context.Background())
+}
+
+func (i *contentCarouselPtrType) ToContentCarouselPtrOutputWithContext(ctx context.Context) ContentCarouselPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselPtrOutput)
+}
+
+type ContentCarouselOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarousel)(nil)).Elem()
+}
+
+func (o ContentCarouselOutput) ToContentCarouselOutput() ContentCarouselOutput {
+	return o
+}
+
+func (o ContentCarouselOutput) ToContentCarouselOutputWithContext(ctx context.Context) ContentCarouselOutput {
+	return o
+}
+
+func (o ContentCarouselOutput) ToContentCarouselPtrOutput() ContentCarouselPtrOutput {
+	return o.ToContentCarouselPtrOutputWithContext(context.Background())
+}
+
+func (o ContentCarouselOutput) ToContentCarouselPtrOutputWithContext(ctx context.Context) ContentCarouselPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentCarousel) *ContentCarousel {
+		return &v
+	}).(ContentCarouselPtrOutput)
+}
+
+// The text of the message.
+func (o ContentCarouselOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCarousel) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// The cards.
+func (o ContentCarouselOutput) Cards() ContentCarouselCardArrayOutput {
+	return o.ApplyT(func(v ContentCarousel) []ContentCarouselCard { return v.Cards }).(ContentCarouselCardArrayOutput)
+}
+
+type ContentCarouselPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCarousel)(nil)).Elem()
+}
+
+func (o ContentCarouselPtrOutput) ToContentCarouselPtrOutput() ContentCarouselPtrOutput {
+	return o
+}
+
+func (o ContentCarouselPtrOutput) ToContentCarouselPtrOutputWithContext(ctx context.Context) ContentCarouselPtrOutput {
+	return o
+}
+
+func (o ContentCarouselPtrOutput) Elem() ContentCarouselOutput {
+	return o.ApplyT(func(v *ContentCarousel) ContentCarousel {
+		if v != nil {
+			return *v
+		}
+		var ret ContentCarousel
+		return ret
+	}).(ContentCarouselOutput)
+}
+
+// The text of the message.
+func (o ContentCarouselPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCarousel) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// The cards.
+func (o ContentCarouselPtrOutput) Cards() ContentCarouselCardArrayOutput {
+	return o.ApplyT(func(v *ContentCarousel) []ContentCarouselCard {
+		if v == nil {
+			return nil
+		}
+		return v.Cards
+	}).(ContentCarouselCardArrayOutput)
+}
+
+type ContentCarouselAction struct {
+	// Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+	Id *string `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER).
+	Phone *string `pulumi:"phone"`
+	// Label of the button.
+	Title string `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+	Type string `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url *string `pulumi:"url"`
+}
+
+// ContentCarouselActionInput is an input type that accepts ContentCarouselActionArgs and ContentCarouselActionOutput values.
+// You can construct a concrete instance of `ContentCarouselActionInput` via:
+//
+//	ContentCarouselActionArgs{...}
+type ContentCarouselActionInput interface {
+	pulumi.Input
+
+	ToContentCarouselActionOutput() ContentCarouselActionOutput
+	ToContentCarouselActionOutputWithContext(context.Context) ContentCarouselActionOutput
+}
+
+type ContentCarouselActionArgs struct {
+	// Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Phone number the button dials (type PHONE_NUMBER).
+	Phone pulumi.StringPtrInput `pulumi:"phone"`
+	// Label of the button.
+	Title pulumi.StringInput `pulumi:"title"`
+	// The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+	Type pulumi.StringInput `pulumi:"type"`
+	// URL the button opens (type URL).
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+func (ContentCarouselActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarouselAction)(nil)).Elem()
+}
+
+func (i ContentCarouselActionArgs) ToContentCarouselActionOutput() ContentCarouselActionOutput {
+	return i.ToContentCarouselActionOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselActionArgs) ToContentCarouselActionOutputWithContext(ctx context.Context) ContentCarouselActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselActionOutput)
+}
+
+// ContentCarouselActionArrayInput is an input type that accepts ContentCarouselActionArray and ContentCarouselActionArrayOutput values.
+// You can construct a concrete instance of `ContentCarouselActionArrayInput` via:
+//
+//	ContentCarouselActionArray{ ContentCarouselActionArgs{...} }
+type ContentCarouselActionArrayInput interface {
+	pulumi.Input
+
+	ToContentCarouselActionArrayOutput() ContentCarouselActionArrayOutput
+	ToContentCarouselActionArrayOutputWithContext(context.Context) ContentCarouselActionArrayOutput
+}
+
+type ContentCarouselActionArray []ContentCarouselActionInput
+
+func (ContentCarouselActionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCarouselAction)(nil)).Elem()
+}
+
+func (i ContentCarouselActionArray) ToContentCarouselActionArrayOutput() ContentCarouselActionArrayOutput {
+	return i.ToContentCarouselActionArrayOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselActionArray) ToContentCarouselActionArrayOutputWithContext(ctx context.Context) ContentCarouselActionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselActionArrayOutput)
+}
+
+type ContentCarouselActionOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarouselAction)(nil)).Elem()
+}
+
+func (o ContentCarouselActionOutput) ToContentCarouselActionOutput() ContentCarouselActionOutput {
+	return o
+}
+
+func (o ContentCarouselActionOutput) ToContentCarouselActionOutputWithContext(ctx context.Context) ContentCarouselActionOutput {
+	return o
+}
+
+// Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+func (o ContentCarouselActionOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCarouselAction) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Phone number the button dials (type PHONE_NUMBER).
+func (o ContentCarouselActionOutput) Phone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCarouselAction) *string { return v.Phone }).(pulumi.StringPtrOutput)
+}
+
+// Label of the button.
+func (o ContentCarouselActionOutput) Title() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCarouselAction) string { return v.Title }).(pulumi.StringOutput)
+}
+
+// The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+func (o ContentCarouselActionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCarouselAction) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// URL the button opens (type URL).
+func (o ContentCarouselActionOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCarouselAction) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type ContentCarouselActionArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselActionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCarouselAction)(nil)).Elem()
+}
+
+func (o ContentCarouselActionArrayOutput) ToContentCarouselActionArrayOutput() ContentCarouselActionArrayOutput {
+	return o
+}
+
+func (o ContentCarouselActionArrayOutput) ToContentCarouselActionArrayOutputWithContext(ctx context.Context) ContentCarouselActionArrayOutput {
+	return o
+}
+
+func (o ContentCarouselActionArrayOutput) Index(i pulumi.IntInput) ContentCarouselActionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentCarouselAction {
+		return vs[0].([]ContentCarouselAction)[vs[1].(int)]
+	}).(ContentCarouselActionOutput)
+}
+
+type ContentCarouselCard struct {
+	// Buttons of the card.
+	Actions []ContentCarouselAction `pulumi:"actions"`
+	// Text of the card.
+	Body string `pulumi:"body"`
+	// URL of the card's media.
+	Media string `pulumi:"media"`
+	// Title of the card.
+	Title *string `pulumi:"title"`
+}
+
+// ContentCarouselCardInput is an input type that accepts ContentCarouselCardArgs and ContentCarouselCardOutput values.
+// You can construct a concrete instance of `ContentCarouselCardInput` via:
+//
+//	ContentCarouselCardArgs{...}
+type ContentCarouselCardInput interface {
+	pulumi.Input
+
+	ToContentCarouselCardOutput() ContentCarouselCardOutput
+	ToContentCarouselCardOutputWithContext(context.Context) ContentCarouselCardOutput
+}
+
+type ContentCarouselCardArgs struct {
+	// Buttons of the card.
+	Actions ContentCarouselActionArrayInput `pulumi:"actions"`
+	// Text of the card.
+	Body pulumi.StringInput `pulumi:"body"`
+	// URL of the card's media.
+	Media pulumi.StringInput `pulumi:"media"`
+	// Title of the card.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+}
+
+func (ContentCarouselCardArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarouselCard)(nil)).Elem()
+}
+
+func (i ContentCarouselCardArgs) ToContentCarouselCardOutput() ContentCarouselCardOutput {
+	return i.ToContentCarouselCardOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselCardArgs) ToContentCarouselCardOutputWithContext(ctx context.Context) ContentCarouselCardOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselCardOutput)
+}
+
+// ContentCarouselCardArrayInput is an input type that accepts ContentCarouselCardArray and ContentCarouselCardArrayOutput values.
+// You can construct a concrete instance of `ContentCarouselCardArrayInput` via:
+//
+//	ContentCarouselCardArray{ ContentCarouselCardArgs{...} }
+type ContentCarouselCardArrayInput interface {
+	pulumi.Input
+
+	ToContentCarouselCardArrayOutput() ContentCarouselCardArrayOutput
+	ToContentCarouselCardArrayOutputWithContext(context.Context) ContentCarouselCardArrayOutput
+}
+
+type ContentCarouselCardArray []ContentCarouselCardInput
+
+func (ContentCarouselCardArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCarouselCard)(nil)).Elem()
+}
+
+func (i ContentCarouselCardArray) ToContentCarouselCardArrayOutput() ContentCarouselCardArrayOutput {
+	return i.ToContentCarouselCardArrayOutputWithContext(context.Background())
+}
+
+func (i ContentCarouselCardArray) ToContentCarouselCardArrayOutputWithContext(ctx context.Context) ContentCarouselCardArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCarouselCardArrayOutput)
+}
+
+type ContentCarouselCardOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselCardOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCarouselCard)(nil)).Elem()
+}
+
+func (o ContentCarouselCardOutput) ToContentCarouselCardOutput() ContentCarouselCardOutput {
+	return o
+}
+
+func (o ContentCarouselCardOutput) ToContentCarouselCardOutputWithContext(ctx context.Context) ContentCarouselCardOutput {
+	return o
+}
+
+// Buttons of the card.
+func (o ContentCarouselCardOutput) Actions() ContentCarouselActionArrayOutput {
+	return o.ApplyT(func(v ContentCarouselCard) []ContentCarouselAction { return v.Actions }).(ContentCarouselActionArrayOutput)
+}
+
+// Text of the card.
+func (o ContentCarouselCardOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCarouselCard) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// URL of the card's media.
+func (o ContentCarouselCardOutput) Media() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCarouselCard) string { return v.Media }).(pulumi.StringOutput)
+}
+
+// Title of the card.
+func (o ContentCarouselCardOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCarouselCard) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+type ContentCarouselCardArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentCarouselCardArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCarouselCard)(nil)).Elem()
+}
+
+func (o ContentCarouselCardArrayOutput) ToContentCarouselCardArrayOutput() ContentCarouselCardArrayOutput {
+	return o
+}
+
+func (o ContentCarouselCardArrayOutput) ToContentCarouselCardArrayOutputWithContext(ctx context.Context) ContentCarouselCardArrayOutput {
+	return o
+}
+
+func (o ContentCarouselCardArrayOutput) Index(i pulumi.IntInput) ContentCarouselCardOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentCarouselCard {
+		return vs[0].([]ContentCarouselCard)[vs[1].(int)]
+	}).(ContentCarouselCardOutput)
+}
+
+type ContentCatalog struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// A variable placeholder that Twilio fills with the products when the message is sent.
+	DynamicItems *string `pulumi:"dynamicItems"`
+	// Identifier of the catalog.
+	Id *string `pulumi:"id"`
+	// The products to show.
+	Items []ContentCatalogItem `pulumi:"items"`
+	// Subtitle of the message.
+	Subtitle *string `pulumi:"subtitle"`
+	// Title of the message.
+	Title *string `pulumi:"title"`
+}
+
+// ContentCatalogInput is an input type that accepts ContentCatalogArgs and ContentCatalogOutput values.
+// You can construct a concrete instance of `ContentCatalogInput` via:
+//
+//	ContentCatalogArgs{...}
+type ContentCatalogInput interface {
+	pulumi.Input
+
+	ToContentCatalogOutput() ContentCatalogOutput
+	ToContentCatalogOutputWithContext(context.Context) ContentCatalogOutput
+}
+
+type ContentCatalogArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// A variable placeholder that Twilio fills with the products when the message is sent.
+	DynamicItems pulumi.StringPtrInput `pulumi:"dynamicItems"`
+	// Identifier of the catalog.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The products to show.
+	Items ContentCatalogItemArrayInput `pulumi:"items"`
+	// Subtitle of the message.
+	Subtitle pulumi.StringPtrInput `pulumi:"subtitle"`
+	// Title of the message.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+}
+
+func (ContentCatalogArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCatalog)(nil)).Elem()
+}
+
+func (i ContentCatalogArgs) ToContentCatalogOutput() ContentCatalogOutput {
+	return i.ToContentCatalogOutputWithContext(context.Background())
+}
+
+func (i ContentCatalogArgs) ToContentCatalogOutputWithContext(ctx context.Context) ContentCatalogOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCatalogOutput)
+}
+
+func (i ContentCatalogArgs) ToContentCatalogPtrOutput() ContentCatalogPtrOutput {
+	return i.ToContentCatalogPtrOutputWithContext(context.Background())
+}
+
+func (i ContentCatalogArgs) ToContentCatalogPtrOutputWithContext(ctx context.Context) ContentCatalogPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCatalogOutput).ToContentCatalogPtrOutputWithContext(ctx)
+}
+
+// ContentCatalogPtrInput is an input type that accepts ContentCatalogArgs, ContentCatalogPtr and ContentCatalogPtrOutput values.
+// You can construct a concrete instance of `ContentCatalogPtrInput` via:
+//
+//	        ContentCatalogArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentCatalogPtrInput interface {
+	pulumi.Input
+
+	ToContentCatalogPtrOutput() ContentCatalogPtrOutput
+	ToContentCatalogPtrOutputWithContext(context.Context) ContentCatalogPtrOutput
+}
+
+type contentCatalogPtrType ContentCatalogArgs
+
+func ContentCatalogPtr(v *ContentCatalogArgs) ContentCatalogPtrInput {
+	return (*contentCatalogPtrType)(v)
+}
+
+func (*contentCatalogPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCatalog)(nil)).Elem()
+}
+
+func (i *contentCatalogPtrType) ToContentCatalogPtrOutput() ContentCatalogPtrOutput {
+	return i.ToContentCatalogPtrOutputWithContext(context.Background())
+}
+
+func (i *contentCatalogPtrType) ToContentCatalogPtrOutputWithContext(ctx context.Context) ContentCatalogPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCatalogPtrOutput)
+}
+
+type ContentCatalogOutput struct{ *pulumi.OutputState }
+
+func (ContentCatalogOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCatalog)(nil)).Elem()
+}
+
+func (o ContentCatalogOutput) ToContentCatalogOutput() ContentCatalogOutput {
+	return o
+}
+
+func (o ContentCatalogOutput) ToContentCatalogOutputWithContext(ctx context.Context) ContentCatalogOutput {
+	return o
+}
+
+func (o ContentCatalogOutput) ToContentCatalogPtrOutput() ContentCatalogPtrOutput {
+	return o.ToContentCatalogPtrOutputWithContext(context.Background())
+}
+
+func (o ContentCatalogOutput) ToContentCatalogPtrOutputWithContext(ctx context.Context) ContentCatalogPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentCatalog) *ContentCatalog {
+		return &v
+	}).(ContentCatalogPtrOutput)
+}
+
+// The text of the message.
+func (o ContentCatalogOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentCatalog) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// A variable placeholder that Twilio fills with the products when the message is sent.
+func (o ContentCatalogOutput) DynamicItems() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalog) *string { return v.DynamicItems }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the catalog.
+func (o ContentCatalogOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalog) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// The products to show.
+func (o ContentCatalogOutput) Items() ContentCatalogItemArrayOutput {
+	return o.ApplyT(func(v ContentCatalog) []ContentCatalogItem { return v.Items }).(ContentCatalogItemArrayOutput)
+}
+
+// Subtitle of the message.
+func (o ContentCatalogOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalog) *string { return v.Subtitle }).(pulumi.StringPtrOutput)
+}
+
+// Title of the message.
+func (o ContentCatalogOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalog) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+type ContentCatalogPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentCatalogPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentCatalog)(nil)).Elem()
+}
+
+func (o ContentCatalogPtrOutput) ToContentCatalogPtrOutput() ContentCatalogPtrOutput {
+	return o
+}
+
+func (o ContentCatalogPtrOutput) ToContentCatalogPtrOutputWithContext(ctx context.Context) ContentCatalogPtrOutput {
+	return o
+}
+
+func (o ContentCatalogPtrOutput) Elem() ContentCatalogOutput {
+	return o.ApplyT(func(v *ContentCatalog) ContentCatalog {
+		if v != nil {
+			return *v
+		}
+		var ret ContentCatalog
+		return ret
+	}).(ContentCatalogOutput)
+}
+
+// The text of the message.
+func (o ContentCatalogPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCatalog) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// A variable placeholder that Twilio fills with the products when the message is sent.
+func (o ContentCatalogPtrOutput) DynamicItems() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCatalog) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DynamicItems
+	}).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the catalog.
+func (o ContentCatalogPtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCatalog) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// The products to show.
+func (o ContentCatalogPtrOutput) Items() ContentCatalogItemArrayOutput {
+	return o.ApplyT(func(v *ContentCatalog) []ContentCatalogItem {
+		if v == nil {
+			return nil
+		}
+		return v.Items
+	}).(ContentCatalogItemArrayOutput)
+}
+
+// Subtitle of the message.
+func (o ContentCatalogPtrOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCatalog) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Subtitle
+	}).(pulumi.StringPtrOutput)
+}
+
+// Title of the message.
+func (o ContentCatalogPtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentCatalog) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentCatalogItem struct {
+	// Description of the product.
+	Description *string `pulumi:"description"`
+	// Identifier of the product in the catalog.
+	Id *string `pulumi:"id"`
+	// URL of the product image.
+	MediaUrl *string `pulumi:"mediaUrl"`
+	// Name of the product.
+	Name *string `pulumi:"name"`
+	// Price of the product.
+	Price *float64 `pulumi:"price"`
+	// Title of the section the product is listed in.
+	SectionTitle *string `pulumi:"sectionTitle"`
+}
+
+// ContentCatalogItemInput is an input type that accepts ContentCatalogItemArgs and ContentCatalogItemOutput values.
+// You can construct a concrete instance of `ContentCatalogItemInput` via:
+//
+//	ContentCatalogItemArgs{...}
+type ContentCatalogItemInput interface {
+	pulumi.Input
+
+	ToContentCatalogItemOutput() ContentCatalogItemOutput
+	ToContentCatalogItemOutputWithContext(context.Context) ContentCatalogItemOutput
+}
+
+type ContentCatalogItemArgs struct {
+	// Description of the product.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// Identifier of the product in the catalog.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// URL of the product image.
+	MediaUrl pulumi.StringPtrInput `pulumi:"mediaUrl"`
+	// Name of the product.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Price of the product.
+	Price pulumi.Float64PtrInput `pulumi:"price"`
+	// Title of the section the product is listed in.
+	SectionTitle pulumi.StringPtrInput `pulumi:"sectionTitle"`
+}
+
+func (ContentCatalogItemArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCatalogItem)(nil)).Elem()
+}
+
+func (i ContentCatalogItemArgs) ToContentCatalogItemOutput() ContentCatalogItemOutput {
+	return i.ToContentCatalogItemOutputWithContext(context.Background())
+}
+
+func (i ContentCatalogItemArgs) ToContentCatalogItemOutputWithContext(ctx context.Context) ContentCatalogItemOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCatalogItemOutput)
+}
+
+// ContentCatalogItemArrayInput is an input type that accepts ContentCatalogItemArray and ContentCatalogItemArrayOutput values.
+// You can construct a concrete instance of `ContentCatalogItemArrayInput` via:
+//
+//	ContentCatalogItemArray{ ContentCatalogItemArgs{...} }
+type ContentCatalogItemArrayInput interface {
+	pulumi.Input
+
+	ToContentCatalogItemArrayOutput() ContentCatalogItemArrayOutput
+	ToContentCatalogItemArrayOutputWithContext(context.Context) ContentCatalogItemArrayOutput
+}
+
+type ContentCatalogItemArray []ContentCatalogItemInput
+
+func (ContentCatalogItemArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCatalogItem)(nil)).Elem()
+}
+
+func (i ContentCatalogItemArray) ToContentCatalogItemArrayOutput() ContentCatalogItemArrayOutput {
+	return i.ToContentCatalogItemArrayOutputWithContext(context.Background())
+}
+
+func (i ContentCatalogItemArray) ToContentCatalogItemArrayOutputWithContext(ctx context.Context) ContentCatalogItemArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentCatalogItemArrayOutput)
+}
+
+type ContentCatalogItemOutput struct{ *pulumi.OutputState }
+
+func (ContentCatalogItemOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentCatalogItem)(nil)).Elem()
+}
+
+func (o ContentCatalogItemOutput) ToContentCatalogItemOutput() ContentCatalogItemOutput {
+	return o
+}
+
+func (o ContentCatalogItemOutput) ToContentCatalogItemOutputWithContext(ctx context.Context) ContentCatalogItemOutput {
+	return o
+}
+
+// Description of the product.
+func (o ContentCatalogItemOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the product in the catalog.
+func (o ContentCatalogItemOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// URL of the product image.
+func (o ContentCatalogItemOutput) MediaUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *string { return v.MediaUrl }).(pulumi.StringPtrOutput)
+}
+
+// Name of the product.
+func (o ContentCatalogItemOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Price of the product.
+func (o ContentCatalogItemOutput) Price() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *float64 { return v.Price }).(pulumi.Float64PtrOutput)
+}
+
+// Title of the section the product is listed in.
+func (o ContentCatalogItemOutput) SectionTitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentCatalogItem) *string { return v.SectionTitle }).(pulumi.StringPtrOutput)
+}
+
+type ContentCatalogItemArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentCatalogItemArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentCatalogItem)(nil)).Elem()
+}
+
+func (o ContentCatalogItemArrayOutput) ToContentCatalogItemArrayOutput() ContentCatalogItemArrayOutput {
+	return o
+}
+
+func (o ContentCatalogItemArrayOutput) ToContentCatalogItemArrayOutputWithContext(ctx context.Context) ContentCatalogItemArrayOutput {
+	return o
+}
+
+func (o ContentCatalogItemArrayOutput) Index(i pulumi.IntInput) ContentCatalogItemOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentCatalogItem {
+		return vs[0].([]ContentCatalogItem)[vs[1].(int)]
+	}).(ContentCatalogItemOutput)
+}
+
+type ContentFlows struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// Label of the button that opens the flow.
+	ButtonText string `pulumi:"buttonText"`
+	// URL of the media shown with the message.
+	MediaUrl *string `pulumi:"mediaUrl"`
+	// The pages of the flow.
+	Pages []ContentFlowsPage `pulumi:"pages"`
+	// Subtitle of the message.
+	Subtitle *string `pulumi:"subtitle"`
+	// The flow type.
+	Type string `pulumi:"type"`
+}
+
+// ContentFlowsInput is an input type that accepts ContentFlowsArgs and ContentFlowsOutput values.
+// You can construct a concrete instance of `ContentFlowsInput` via:
+//
+//	ContentFlowsArgs{...}
+type ContentFlowsInput interface {
+	pulumi.Input
+
+	ToContentFlowsOutput() ContentFlowsOutput
+	ToContentFlowsOutputWithContext(context.Context) ContentFlowsOutput
+}
+
+type ContentFlowsArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// Label of the button that opens the flow.
+	ButtonText pulumi.StringInput `pulumi:"buttonText"`
+	// URL of the media shown with the message.
+	MediaUrl pulumi.StringPtrInput `pulumi:"mediaUrl"`
+	// The pages of the flow.
+	Pages ContentFlowsPageArrayInput `pulumi:"pages"`
+	// Subtitle of the message.
+	Subtitle pulumi.StringPtrInput `pulumi:"subtitle"`
+	// The flow type.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (ContentFlowsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlows)(nil)).Elem()
+}
+
+func (i ContentFlowsArgs) ToContentFlowsOutput() ContentFlowsOutput {
+	return i.ToContentFlowsOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsArgs) ToContentFlowsOutputWithContext(ctx context.Context) ContentFlowsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsOutput)
+}
+
+func (i ContentFlowsArgs) ToContentFlowsPtrOutput() ContentFlowsPtrOutput {
+	return i.ToContentFlowsPtrOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsArgs) ToContentFlowsPtrOutputWithContext(ctx context.Context) ContentFlowsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsOutput).ToContentFlowsPtrOutputWithContext(ctx)
+}
+
+// ContentFlowsPtrInput is an input type that accepts ContentFlowsArgs, ContentFlowsPtr and ContentFlowsPtrOutput values.
+// You can construct a concrete instance of `ContentFlowsPtrInput` via:
+//
+//	        ContentFlowsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentFlowsPtrInput interface {
+	pulumi.Input
+
+	ToContentFlowsPtrOutput() ContentFlowsPtrOutput
+	ToContentFlowsPtrOutputWithContext(context.Context) ContentFlowsPtrOutput
+}
+
+type contentFlowsPtrType ContentFlowsArgs
+
+func ContentFlowsPtr(v *ContentFlowsArgs) ContentFlowsPtrInput {
+	return (*contentFlowsPtrType)(v)
+}
+
+func (*contentFlowsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentFlows)(nil)).Elem()
+}
+
+func (i *contentFlowsPtrType) ToContentFlowsPtrOutput() ContentFlowsPtrOutput {
+	return i.ToContentFlowsPtrOutputWithContext(context.Background())
+}
+
+func (i *contentFlowsPtrType) ToContentFlowsPtrOutputWithContext(ctx context.Context) ContentFlowsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsPtrOutput)
+}
+
+type ContentFlowsOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlows)(nil)).Elem()
+}
+
+func (o ContentFlowsOutput) ToContentFlowsOutput() ContentFlowsOutput {
+	return o
+}
+
+func (o ContentFlowsOutput) ToContentFlowsOutputWithContext(ctx context.Context) ContentFlowsOutput {
+	return o
+}
+
+func (o ContentFlowsOutput) ToContentFlowsPtrOutput() ContentFlowsPtrOutput {
+	return o.ToContentFlowsPtrOutputWithContext(context.Background())
+}
+
+func (o ContentFlowsOutput) ToContentFlowsPtrOutputWithContext(ctx context.Context) ContentFlowsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentFlows) *ContentFlows {
+		return &v
+	}).(ContentFlowsPtrOutput)
+}
+
+// The text of the message.
+func (o ContentFlowsOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlows) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// Label of the button that opens the flow.
+func (o ContentFlowsOutput) ButtonText() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlows) string { return v.ButtonText }).(pulumi.StringOutput)
+}
+
+// URL of the media shown with the message.
+func (o ContentFlowsOutput) MediaUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentFlows) *string { return v.MediaUrl }).(pulumi.StringPtrOutput)
+}
+
+// The pages of the flow.
+func (o ContentFlowsOutput) Pages() ContentFlowsPageArrayOutput {
+	return o.ApplyT(func(v ContentFlows) []ContentFlowsPage { return v.Pages }).(ContentFlowsPageArrayOutput)
+}
+
+// Subtitle of the message.
+func (o ContentFlowsOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentFlows) *string { return v.Subtitle }).(pulumi.StringPtrOutput)
+}
+
+// The flow type.
+func (o ContentFlowsOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlows) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type ContentFlowsPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentFlows)(nil)).Elem()
+}
+
+func (o ContentFlowsPtrOutput) ToContentFlowsPtrOutput() ContentFlowsPtrOutput {
+	return o
+}
+
+func (o ContentFlowsPtrOutput) ToContentFlowsPtrOutputWithContext(ctx context.Context) ContentFlowsPtrOutput {
+	return o
+}
+
+func (o ContentFlowsPtrOutput) Elem() ContentFlowsOutput {
+	return o.ApplyT(func(v *ContentFlows) ContentFlows {
+		if v != nil {
+			return *v
+		}
+		var ret ContentFlows
+		return ret
+	}).(ContentFlowsOutput)
+}
+
+// The text of the message.
+func (o ContentFlowsPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// Label of the button that opens the flow.
+func (o ContentFlowsPtrOutput) ButtonText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ButtonText
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL of the media shown with the message.
+func (o ContentFlowsPtrOutput) MediaUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MediaUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The pages of the flow.
+func (o ContentFlowsPtrOutput) Pages() ContentFlowsPageArrayOutput {
+	return o.ApplyT(func(v *ContentFlows) []ContentFlowsPage {
+		if v == nil {
+			return nil
+		}
+		return v.Pages
+	}).(ContentFlowsPageArrayOutput)
+}
+
+// Subtitle of the message.
+func (o ContentFlowsPtrOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Subtitle
+	}).(pulumi.StringPtrOutput)
+}
+
+// The flow type.
+func (o ContentFlowsPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentFlowsPage struct {
+	// Identifier of the page.
+	Id string `pulumi:"id"`
+	// Components of the page.
+	Layout []ContentFlowsPageComponent `pulumi:"layout"`
+	// Identifier of the page that follows this one.
+	NextPageId *string `pulumi:"nextPageId"`
+	// Subtitle of the page.
+	Subtitle *string `pulumi:"subtitle"`
+	// Title of the page.
+	Title string `pulumi:"title"`
+}
+
+// ContentFlowsPageInput is an input type that accepts ContentFlowsPageArgs and ContentFlowsPageOutput values.
+// You can construct a concrete instance of `ContentFlowsPageInput` via:
+//
+//	ContentFlowsPageArgs{...}
+type ContentFlowsPageInput interface {
+	pulumi.Input
+
+	ToContentFlowsPageOutput() ContentFlowsPageOutput
+	ToContentFlowsPageOutputWithContext(context.Context) ContentFlowsPageOutput
+}
+
+type ContentFlowsPageArgs struct {
+	// Identifier of the page.
+	Id pulumi.StringInput `pulumi:"id"`
+	// Components of the page.
+	Layout ContentFlowsPageComponentArrayInput `pulumi:"layout"`
+	// Identifier of the page that follows this one.
+	NextPageId pulumi.StringPtrInput `pulumi:"nextPageId"`
+	// Subtitle of the page.
+	Subtitle pulumi.StringPtrInput `pulumi:"subtitle"`
+	// Title of the page.
+	Title pulumi.StringInput `pulumi:"title"`
+}
+
+func (ContentFlowsPageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlowsPage)(nil)).Elem()
+}
+
+func (i ContentFlowsPageArgs) ToContentFlowsPageOutput() ContentFlowsPageOutput {
+	return i.ToContentFlowsPageOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsPageArgs) ToContentFlowsPageOutputWithContext(ctx context.Context) ContentFlowsPageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsPageOutput)
+}
+
+// ContentFlowsPageArrayInput is an input type that accepts ContentFlowsPageArray and ContentFlowsPageArrayOutput values.
+// You can construct a concrete instance of `ContentFlowsPageArrayInput` via:
+//
+//	ContentFlowsPageArray{ ContentFlowsPageArgs{...} }
+type ContentFlowsPageArrayInput interface {
+	pulumi.Input
+
+	ToContentFlowsPageArrayOutput() ContentFlowsPageArrayOutput
+	ToContentFlowsPageArrayOutputWithContext(context.Context) ContentFlowsPageArrayOutput
+}
+
+type ContentFlowsPageArray []ContentFlowsPageInput
+
+func (ContentFlowsPageArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentFlowsPage)(nil)).Elem()
+}
+
+func (i ContentFlowsPageArray) ToContentFlowsPageArrayOutput() ContentFlowsPageArrayOutput {
+	return i.ToContentFlowsPageArrayOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsPageArray) ToContentFlowsPageArrayOutputWithContext(ctx context.Context) ContentFlowsPageArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsPageArrayOutput)
+}
+
+type ContentFlowsPageOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsPageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlowsPage)(nil)).Elem()
+}
+
+func (o ContentFlowsPageOutput) ToContentFlowsPageOutput() ContentFlowsPageOutput {
+	return o
+}
+
+func (o ContentFlowsPageOutput) ToContentFlowsPageOutputWithContext(ctx context.Context) ContentFlowsPageOutput {
+	return o
+}
+
+// Identifier of the page.
+func (o ContentFlowsPageOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlowsPage) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Components of the page.
+func (o ContentFlowsPageOutput) Layout() ContentFlowsPageComponentArrayOutput {
+	return o.ApplyT(func(v ContentFlowsPage) []ContentFlowsPageComponent { return v.Layout }).(ContentFlowsPageComponentArrayOutput)
+}
+
+// Identifier of the page that follows this one.
+func (o ContentFlowsPageOutput) NextPageId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentFlowsPage) *string { return v.NextPageId }).(pulumi.StringPtrOutput)
+}
+
+// Subtitle of the page.
+func (o ContentFlowsPageOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentFlowsPage) *string { return v.Subtitle }).(pulumi.StringPtrOutput)
+}
+
+// Title of the page.
+func (o ContentFlowsPageOutput) Title() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlowsPage) string { return v.Title }).(pulumi.StringOutput)
+}
+
+type ContentFlowsPageArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsPageArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentFlowsPage)(nil)).Elem()
+}
+
+func (o ContentFlowsPageArrayOutput) ToContentFlowsPageArrayOutput() ContentFlowsPageArrayOutput {
+	return o
+}
+
+func (o ContentFlowsPageArrayOutput) ToContentFlowsPageArrayOutputWithContext(ctx context.Context) ContentFlowsPageArrayOutput {
+	return o
+}
+
+func (o ContentFlowsPageArrayOutput) Index(i pulumi.IntInput) ContentFlowsPageOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentFlowsPage {
+		return vs[0].([]ContentFlowsPage)[vs[1].(int)]
+	}).(ContentFlowsPageOutput)
+}
+
+type ContentFlowsPageComponent struct {
+	// Label of the component.
+	Label *string `pulumi:"label"`
+	// The component type.
+	Type string `pulumi:"type"`
+}
+
+// ContentFlowsPageComponentInput is an input type that accepts ContentFlowsPageComponentArgs and ContentFlowsPageComponentOutput values.
+// You can construct a concrete instance of `ContentFlowsPageComponentInput` via:
+//
+//	ContentFlowsPageComponentArgs{...}
+type ContentFlowsPageComponentInput interface {
+	pulumi.Input
+
+	ToContentFlowsPageComponentOutput() ContentFlowsPageComponentOutput
+	ToContentFlowsPageComponentOutputWithContext(context.Context) ContentFlowsPageComponentOutput
+}
+
+type ContentFlowsPageComponentArgs struct {
+	// Label of the component.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The component type.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (ContentFlowsPageComponentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlowsPageComponent)(nil)).Elem()
+}
+
+func (i ContentFlowsPageComponentArgs) ToContentFlowsPageComponentOutput() ContentFlowsPageComponentOutput {
+	return i.ToContentFlowsPageComponentOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsPageComponentArgs) ToContentFlowsPageComponentOutputWithContext(ctx context.Context) ContentFlowsPageComponentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsPageComponentOutput)
+}
+
+// ContentFlowsPageComponentArrayInput is an input type that accepts ContentFlowsPageComponentArray and ContentFlowsPageComponentArrayOutput values.
+// You can construct a concrete instance of `ContentFlowsPageComponentArrayInput` via:
+//
+//	ContentFlowsPageComponentArray{ ContentFlowsPageComponentArgs{...} }
+type ContentFlowsPageComponentArrayInput interface {
+	pulumi.Input
+
+	ToContentFlowsPageComponentArrayOutput() ContentFlowsPageComponentArrayOutput
+	ToContentFlowsPageComponentArrayOutputWithContext(context.Context) ContentFlowsPageComponentArrayOutput
+}
+
+type ContentFlowsPageComponentArray []ContentFlowsPageComponentInput
+
+func (ContentFlowsPageComponentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentFlowsPageComponent)(nil)).Elem()
+}
+
+func (i ContentFlowsPageComponentArray) ToContentFlowsPageComponentArrayOutput() ContentFlowsPageComponentArrayOutput {
+	return i.ToContentFlowsPageComponentArrayOutputWithContext(context.Background())
+}
+
+func (i ContentFlowsPageComponentArray) ToContentFlowsPageComponentArrayOutputWithContext(ctx context.Context) ContentFlowsPageComponentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentFlowsPageComponentArrayOutput)
+}
+
+type ContentFlowsPageComponentOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsPageComponentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentFlowsPageComponent)(nil)).Elem()
+}
+
+func (o ContentFlowsPageComponentOutput) ToContentFlowsPageComponentOutput() ContentFlowsPageComponentOutput {
+	return o
+}
+
+func (o ContentFlowsPageComponentOutput) ToContentFlowsPageComponentOutputWithContext(ctx context.Context) ContentFlowsPageComponentOutput {
+	return o
+}
+
+// Label of the component.
+func (o ContentFlowsPageComponentOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentFlowsPageComponent) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The component type.
+func (o ContentFlowsPageComponentOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentFlowsPageComponent) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type ContentFlowsPageComponentArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentFlowsPageComponentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentFlowsPageComponent)(nil)).Elem()
+}
+
+func (o ContentFlowsPageComponentArrayOutput) ToContentFlowsPageComponentArrayOutput() ContentFlowsPageComponentArrayOutput {
+	return o
+}
+
+func (o ContentFlowsPageComponentArrayOutput) ToContentFlowsPageComponentArrayOutputWithContext(ctx context.Context) ContentFlowsPageComponentArrayOutput {
+	return o
+}
+
+func (o ContentFlowsPageComponentArrayOutput) Index(i pulumi.IntInput) ContentFlowsPageComponentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentFlowsPageComponent {
+		return vs[0].([]ContentFlowsPageComponent)[vs[1].(int)]
+	}).(ContentFlowsPageComponentOutput)
+}
+
+type ContentListItem struct {
+	// Secondary text shown under the label.
+	Description *string `pulumi:"description"`
+	// Identifier of the option, returned to you when the recipient picks it.
+	Id string `pulumi:"id"`
+	// Label of the option.
+	Item string `pulumi:"item"`
+}
+
+// ContentListItemInput is an input type that accepts ContentListItemArgs and ContentListItemOutput values.
+// You can construct a concrete instance of `ContentListItemInput` via:
+//
+//	ContentListItemArgs{...}
+type ContentListItemInput interface {
+	pulumi.Input
+
+	ToContentListItemOutput() ContentListItemOutput
+	ToContentListItemOutputWithContext(context.Context) ContentListItemOutput
+}
+
+type ContentListItemArgs struct {
+	// Secondary text shown under the label.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// Identifier of the option, returned to you when the recipient picks it.
+	Id pulumi.StringInput `pulumi:"id"`
+	// Label of the option.
+	Item pulumi.StringInput `pulumi:"item"`
+}
+
+func (ContentListItemArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentListItem)(nil)).Elem()
+}
+
+func (i ContentListItemArgs) ToContentListItemOutput() ContentListItemOutput {
+	return i.ToContentListItemOutputWithContext(context.Background())
+}
+
+func (i ContentListItemArgs) ToContentListItemOutputWithContext(ctx context.Context) ContentListItemOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentListItemOutput)
+}
+
+// ContentListItemArrayInput is an input type that accepts ContentListItemArray and ContentListItemArrayOutput values.
+// You can construct a concrete instance of `ContentListItemArrayInput` via:
+//
+//	ContentListItemArray{ ContentListItemArgs{...} }
+type ContentListItemArrayInput interface {
+	pulumi.Input
+
+	ToContentListItemArrayOutput() ContentListItemArrayOutput
+	ToContentListItemArrayOutputWithContext(context.Context) ContentListItemArrayOutput
+}
+
+type ContentListItemArray []ContentListItemInput
+
+func (ContentListItemArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentListItem)(nil)).Elem()
+}
+
+func (i ContentListItemArray) ToContentListItemArrayOutput() ContentListItemArrayOutput {
+	return i.ToContentListItemArrayOutputWithContext(context.Background())
+}
+
+func (i ContentListItemArray) ToContentListItemArrayOutputWithContext(ctx context.Context) ContentListItemArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentListItemArrayOutput)
+}
+
+type ContentListItemOutput struct{ *pulumi.OutputState }
+
+func (ContentListItemOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentListItem)(nil)).Elem()
+}
+
+func (o ContentListItemOutput) ToContentListItemOutput() ContentListItemOutput {
+	return o
+}
+
+func (o ContentListItemOutput) ToContentListItemOutputWithContext(ctx context.Context) ContentListItemOutput {
+	return o
+}
+
+// Secondary text shown under the label.
+func (o ContentListItemOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentListItem) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the option, returned to you when the recipient picks it.
+func (o ContentListItemOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentListItem) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Label of the option.
+func (o ContentListItemOutput) Item() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentListItem) string { return v.Item }).(pulumi.StringOutput)
+}
+
+type ContentListItemArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentListItemArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentListItem)(nil)).Elem()
+}
+
+func (o ContentListItemArrayOutput) ToContentListItemArrayOutput() ContentListItemArrayOutput {
+	return o
+}
+
+func (o ContentListItemArrayOutput) ToContentListItemArrayOutputWithContext(ctx context.Context) ContentListItemArrayOutput {
+	return o
+}
+
+func (o ContentListItemArrayOutput) Index(i pulumi.IntInput) ContentListItemOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentListItem {
+		return vs[0].([]ContentListItem)[vs[1].(int)]
+	}).(ContentListItemOutput)
+}
+
+type ContentListPicker struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// Label of the button that opens the menu.
+	Button string `pulumi:"button"`
+	// The options of the menu.
+	Items []ContentListItem `pulumi:"items"`
+}
+
+// ContentListPickerInput is an input type that accepts ContentListPickerArgs and ContentListPickerOutput values.
+// You can construct a concrete instance of `ContentListPickerInput` via:
+//
+//	ContentListPickerArgs{...}
+type ContentListPickerInput interface {
+	pulumi.Input
+
+	ToContentListPickerOutput() ContentListPickerOutput
+	ToContentListPickerOutputWithContext(context.Context) ContentListPickerOutput
+}
+
+type ContentListPickerArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// Label of the button that opens the menu.
+	Button pulumi.StringInput `pulumi:"button"`
+	// The options of the menu.
+	Items ContentListItemArrayInput `pulumi:"items"`
+}
+
+func (ContentListPickerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentListPicker)(nil)).Elem()
+}
+
+func (i ContentListPickerArgs) ToContentListPickerOutput() ContentListPickerOutput {
+	return i.ToContentListPickerOutputWithContext(context.Background())
+}
+
+func (i ContentListPickerArgs) ToContentListPickerOutputWithContext(ctx context.Context) ContentListPickerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentListPickerOutput)
+}
+
+func (i ContentListPickerArgs) ToContentListPickerPtrOutput() ContentListPickerPtrOutput {
+	return i.ToContentListPickerPtrOutputWithContext(context.Background())
+}
+
+func (i ContentListPickerArgs) ToContentListPickerPtrOutputWithContext(ctx context.Context) ContentListPickerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentListPickerOutput).ToContentListPickerPtrOutputWithContext(ctx)
+}
+
+// ContentListPickerPtrInput is an input type that accepts ContentListPickerArgs, ContentListPickerPtr and ContentListPickerPtrOutput values.
+// You can construct a concrete instance of `ContentListPickerPtrInput` via:
+//
+//	        ContentListPickerArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentListPickerPtrInput interface {
+	pulumi.Input
+
+	ToContentListPickerPtrOutput() ContentListPickerPtrOutput
+	ToContentListPickerPtrOutputWithContext(context.Context) ContentListPickerPtrOutput
+}
+
+type contentListPickerPtrType ContentListPickerArgs
+
+func ContentListPickerPtr(v *ContentListPickerArgs) ContentListPickerPtrInput {
+	return (*contentListPickerPtrType)(v)
+}
+
+func (*contentListPickerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentListPicker)(nil)).Elem()
+}
+
+func (i *contentListPickerPtrType) ToContentListPickerPtrOutput() ContentListPickerPtrOutput {
+	return i.ToContentListPickerPtrOutputWithContext(context.Background())
+}
+
+func (i *contentListPickerPtrType) ToContentListPickerPtrOutputWithContext(ctx context.Context) ContentListPickerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentListPickerPtrOutput)
+}
+
+type ContentListPickerOutput struct{ *pulumi.OutputState }
+
+func (ContentListPickerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentListPicker)(nil)).Elem()
+}
+
+func (o ContentListPickerOutput) ToContentListPickerOutput() ContentListPickerOutput {
+	return o
+}
+
+func (o ContentListPickerOutput) ToContentListPickerOutputWithContext(ctx context.Context) ContentListPickerOutput {
+	return o
+}
+
+func (o ContentListPickerOutput) ToContentListPickerPtrOutput() ContentListPickerPtrOutput {
+	return o.ToContentListPickerPtrOutputWithContext(context.Background())
+}
+
+func (o ContentListPickerOutput) ToContentListPickerPtrOutputWithContext(ctx context.Context) ContentListPickerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentListPicker) *ContentListPicker {
+		return &v
+	}).(ContentListPickerPtrOutput)
+}
+
+// The text of the message.
+func (o ContentListPickerOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentListPicker) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// Label of the button that opens the menu.
+func (o ContentListPickerOutput) Button() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentListPicker) string { return v.Button }).(pulumi.StringOutput)
+}
+
+// The options of the menu.
+func (o ContentListPickerOutput) Items() ContentListItemArrayOutput {
+	return o.ApplyT(func(v ContentListPicker) []ContentListItem { return v.Items }).(ContentListItemArrayOutput)
+}
+
+type ContentListPickerPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentListPickerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentListPicker)(nil)).Elem()
+}
+
+func (o ContentListPickerPtrOutput) ToContentListPickerPtrOutput() ContentListPickerPtrOutput {
+	return o
+}
+
+func (o ContentListPickerPtrOutput) ToContentListPickerPtrOutputWithContext(ctx context.Context) ContentListPickerPtrOutput {
+	return o
+}
+
+func (o ContentListPickerPtrOutput) Elem() ContentListPickerOutput {
+	return o.ApplyT(func(v *ContentListPicker) ContentListPicker {
+		if v != nil {
+			return *v
+		}
+		var ret ContentListPicker
+		return ret
+	}).(ContentListPickerOutput)
+}
+
+// The text of the message.
+func (o ContentListPickerPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentListPicker) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// Label of the button that opens the menu.
+func (o ContentListPickerPtrOutput) Button() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentListPicker) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Button
+	}).(pulumi.StringPtrOutput)
+}
+
+// The options of the menu.
+func (o ContentListPickerPtrOutput) Items() ContentListItemArrayOutput {
+	return o.ApplyT(func(v *ContentListPicker) []ContentListItem {
+		if v == nil {
+			return nil
+		}
+		return v.Items
+	}).(ContentListItemArrayOutput)
+}
+
+type ContentLocation struct {
+	// Address shown with the pin.
+	Address *string `pulumi:"address"`
+	// Identifier of the location.
+	Id *string `pulumi:"id"`
+	// Label shown with the pin.
+	Label *string `pulumi:"label"`
+	// Latitude of the pin.
+	Latitude float64 `pulumi:"latitude"`
+	// Longitude of the pin.
+	Longitude float64 `pulumi:"longitude"`
+}
+
+// ContentLocationInput is an input type that accepts ContentLocationArgs and ContentLocationOutput values.
+// You can construct a concrete instance of `ContentLocationInput` via:
+//
+//	ContentLocationArgs{...}
+type ContentLocationInput interface {
+	pulumi.Input
+
+	ToContentLocationOutput() ContentLocationOutput
+	ToContentLocationOutputWithContext(context.Context) ContentLocationOutput
+}
+
+type ContentLocationArgs struct {
+	// Address shown with the pin.
+	Address pulumi.StringPtrInput `pulumi:"address"`
+	// Identifier of the location.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Label shown with the pin.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// Latitude of the pin.
+	Latitude pulumi.Float64Input `pulumi:"latitude"`
+	// Longitude of the pin.
+	Longitude pulumi.Float64Input `pulumi:"longitude"`
+}
+
+func (ContentLocationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentLocation)(nil)).Elem()
+}
+
+func (i ContentLocationArgs) ToContentLocationOutput() ContentLocationOutput {
+	return i.ToContentLocationOutputWithContext(context.Background())
+}
+
+func (i ContentLocationArgs) ToContentLocationOutputWithContext(ctx context.Context) ContentLocationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentLocationOutput)
+}
+
+func (i ContentLocationArgs) ToContentLocationPtrOutput() ContentLocationPtrOutput {
+	return i.ToContentLocationPtrOutputWithContext(context.Background())
+}
+
+func (i ContentLocationArgs) ToContentLocationPtrOutputWithContext(ctx context.Context) ContentLocationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentLocationOutput).ToContentLocationPtrOutputWithContext(ctx)
+}
+
+// ContentLocationPtrInput is an input type that accepts ContentLocationArgs, ContentLocationPtr and ContentLocationPtrOutput values.
+// You can construct a concrete instance of `ContentLocationPtrInput` via:
+//
+//	        ContentLocationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentLocationPtrInput interface {
+	pulumi.Input
+
+	ToContentLocationPtrOutput() ContentLocationPtrOutput
+	ToContentLocationPtrOutputWithContext(context.Context) ContentLocationPtrOutput
+}
+
+type contentLocationPtrType ContentLocationArgs
+
+func ContentLocationPtr(v *ContentLocationArgs) ContentLocationPtrInput {
+	return (*contentLocationPtrType)(v)
+}
+
+func (*contentLocationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentLocation)(nil)).Elem()
+}
+
+func (i *contentLocationPtrType) ToContentLocationPtrOutput() ContentLocationPtrOutput {
+	return i.ToContentLocationPtrOutputWithContext(context.Background())
+}
+
+func (i *contentLocationPtrType) ToContentLocationPtrOutputWithContext(ctx context.Context) ContentLocationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentLocationPtrOutput)
+}
+
+type ContentLocationOutput struct{ *pulumi.OutputState }
+
+func (ContentLocationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentLocation)(nil)).Elem()
+}
+
+func (o ContentLocationOutput) ToContentLocationOutput() ContentLocationOutput {
+	return o
+}
+
+func (o ContentLocationOutput) ToContentLocationOutputWithContext(ctx context.Context) ContentLocationOutput {
+	return o
+}
+
+func (o ContentLocationOutput) ToContentLocationPtrOutput() ContentLocationPtrOutput {
+	return o.ToContentLocationPtrOutputWithContext(context.Background())
+}
+
+func (o ContentLocationOutput) ToContentLocationPtrOutputWithContext(ctx context.Context) ContentLocationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentLocation) *ContentLocation {
+		return &v
+	}).(ContentLocationPtrOutput)
+}
+
+// Address shown with the pin.
+func (o ContentLocationOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentLocation) *string { return v.Address }).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the location.
+func (o ContentLocationOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentLocation) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Label shown with the pin.
+func (o ContentLocationOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentLocation) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// Latitude of the pin.
+func (o ContentLocationOutput) Latitude() pulumi.Float64Output {
+	return o.ApplyT(func(v ContentLocation) float64 { return v.Latitude }).(pulumi.Float64Output)
+}
+
+// Longitude of the pin.
+func (o ContentLocationOutput) Longitude() pulumi.Float64Output {
+	return o.ApplyT(func(v ContentLocation) float64 { return v.Longitude }).(pulumi.Float64Output)
+}
+
+type ContentLocationPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentLocationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentLocation)(nil)).Elem()
+}
+
+func (o ContentLocationPtrOutput) ToContentLocationPtrOutput() ContentLocationPtrOutput {
+	return o
+}
+
+func (o ContentLocationPtrOutput) ToContentLocationPtrOutputWithContext(ctx context.Context) ContentLocationPtrOutput {
+	return o
+}
+
+func (o ContentLocationPtrOutput) Elem() ContentLocationOutput {
+	return o.ApplyT(func(v *ContentLocation) ContentLocation {
+		if v != nil {
+			return *v
+		}
+		var ret ContentLocation
+		return ret
+	}).(ContentLocationOutput)
+}
+
+// Address shown with the pin.
+func (o ContentLocationPtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentLocation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+// Identifier of the location.
+func (o ContentLocationPtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentLocation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// Label shown with the pin.
+func (o ContentLocationPtrOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentLocation) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Label
+	}).(pulumi.StringPtrOutput)
+}
+
+// Latitude of the pin.
+func (o ContentLocationPtrOutput) Latitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *ContentLocation) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.Latitude
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Longitude of the pin.
+func (o ContentLocationPtrOutput) Longitude() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *ContentLocation) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.Longitude
+	}).(pulumi.Float64PtrOutput)
+}
+
+type ContentMedia struct {
+	// Text sent with the media.
+	Body *string `pulumi:"body"`
+	// URLs of the media to send.
+	Media []string `pulumi:"media"`
+}
+
+// ContentMediaInput is an input type that accepts ContentMediaArgs and ContentMediaOutput values.
+// You can construct a concrete instance of `ContentMediaInput` via:
+//
+//	ContentMediaArgs{...}
+type ContentMediaInput interface {
+	pulumi.Input
+
+	ToContentMediaOutput() ContentMediaOutput
+	ToContentMediaOutputWithContext(context.Context) ContentMediaOutput
+}
+
+type ContentMediaArgs struct {
+	// Text sent with the media.
+	Body pulumi.StringPtrInput `pulumi:"body"`
+	// URLs of the media to send.
+	Media pulumi.StringArrayInput `pulumi:"media"`
+}
+
+func (ContentMediaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentMedia)(nil)).Elem()
+}
+
+func (i ContentMediaArgs) ToContentMediaOutput() ContentMediaOutput {
+	return i.ToContentMediaOutputWithContext(context.Background())
+}
+
+func (i ContentMediaArgs) ToContentMediaOutputWithContext(ctx context.Context) ContentMediaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentMediaOutput)
+}
+
+func (i ContentMediaArgs) ToContentMediaPtrOutput() ContentMediaPtrOutput {
+	return i.ToContentMediaPtrOutputWithContext(context.Background())
+}
+
+func (i ContentMediaArgs) ToContentMediaPtrOutputWithContext(ctx context.Context) ContentMediaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentMediaOutput).ToContentMediaPtrOutputWithContext(ctx)
+}
+
+// ContentMediaPtrInput is an input type that accepts ContentMediaArgs, ContentMediaPtr and ContentMediaPtrOutput values.
+// You can construct a concrete instance of `ContentMediaPtrInput` via:
+//
+//	        ContentMediaArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentMediaPtrInput interface {
+	pulumi.Input
+
+	ToContentMediaPtrOutput() ContentMediaPtrOutput
+	ToContentMediaPtrOutputWithContext(context.Context) ContentMediaPtrOutput
+}
+
+type contentMediaPtrType ContentMediaArgs
+
+func ContentMediaPtr(v *ContentMediaArgs) ContentMediaPtrInput {
+	return (*contentMediaPtrType)(v)
+}
+
+func (*contentMediaPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentMedia)(nil)).Elem()
+}
+
+func (i *contentMediaPtrType) ToContentMediaPtrOutput() ContentMediaPtrOutput {
+	return i.ToContentMediaPtrOutputWithContext(context.Background())
+}
+
+func (i *contentMediaPtrType) ToContentMediaPtrOutputWithContext(ctx context.Context) ContentMediaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentMediaPtrOutput)
+}
+
+type ContentMediaOutput struct{ *pulumi.OutputState }
+
+func (ContentMediaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentMedia)(nil)).Elem()
+}
+
+func (o ContentMediaOutput) ToContentMediaOutput() ContentMediaOutput {
+	return o
+}
+
+func (o ContentMediaOutput) ToContentMediaOutputWithContext(ctx context.Context) ContentMediaOutput {
+	return o
+}
+
+func (o ContentMediaOutput) ToContentMediaPtrOutput() ContentMediaPtrOutput {
+	return o.ToContentMediaPtrOutputWithContext(context.Background())
+}
+
+func (o ContentMediaOutput) ToContentMediaPtrOutputWithContext(ctx context.Context) ContentMediaPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentMedia) *ContentMedia {
+		return &v
+	}).(ContentMediaPtrOutput)
+}
+
+// Text sent with the media.
+func (o ContentMediaOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentMedia) *string { return v.Body }).(pulumi.StringPtrOutput)
+}
+
+// URLs of the media to send.
+func (o ContentMediaOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ContentMedia) []string { return v.Media }).(pulumi.StringArrayOutput)
+}
+
+type ContentMediaPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentMediaPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentMedia)(nil)).Elem()
+}
+
+func (o ContentMediaPtrOutput) ToContentMediaPtrOutput() ContentMediaPtrOutput {
+	return o
+}
+
+func (o ContentMediaPtrOutput) ToContentMediaPtrOutputWithContext(ctx context.Context) ContentMediaPtrOutput {
+	return o
+}
+
+func (o ContentMediaPtrOutput) Elem() ContentMediaOutput {
+	return o.ApplyT(func(v *ContentMedia) ContentMedia {
+		if v != nil {
+			return *v
+		}
+		var ret ContentMedia
+		return ret
+	}).(ContentMediaOutput)
+}
+
+// Text sent with the media.
+func (o ContentMediaPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentMedia) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// URLs of the media to send.
+func (o ContentMediaPtrOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ContentMedia) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Media
+	}).(pulumi.StringArrayOutput)
+}
+
+type ContentQuickReply struct {
+	// The reply buttons.
+	Actions []ContentQuickReplyAction `pulumi:"actions"`
+	// The text of the message.
+	Body string `pulumi:"body"`
+}
+
+// ContentQuickReplyInput is an input type that accepts ContentQuickReplyArgs and ContentQuickReplyOutput values.
+// You can construct a concrete instance of `ContentQuickReplyInput` via:
+//
+//	ContentQuickReplyArgs{...}
+type ContentQuickReplyInput interface {
+	pulumi.Input
+
+	ToContentQuickReplyOutput() ContentQuickReplyOutput
+	ToContentQuickReplyOutputWithContext(context.Context) ContentQuickReplyOutput
+}
+
+type ContentQuickReplyArgs struct {
+	// The reply buttons.
+	Actions ContentQuickReplyActionArrayInput `pulumi:"actions"`
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+}
+
+func (ContentQuickReplyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentQuickReply)(nil)).Elem()
+}
+
+func (i ContentQuickReplyArgs) ToContentQuickReplyOutput() ContentQuickReplyOutput {
+	return i.ToContentQuickReplyOutputWithContext(context.Background())
+}
+
+func (i ContentQuickReplyArgs) ToContentQuickReplyOutputWithContext(ctx context.Context) ContentQuickReplyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentQuickReplyOutput)
+}
+
+func (i ContentQuickReplyArgs) ToContentQuickReplyPtrOutput() ContentQuickReplyPtrOutput {
+	return i.ToContentQuickReplyPtrOutputWithContext(context.Background())
+}
+
+func (i ContentQuickReplyArgs) ToContentQuickReplyPtrOutputWithContext(ctx context.Context) ContentQuickReplyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentQuickReplyOutput).ToContentQuickReplyPtrOutputWithContext(ctx)
+}
+
+// ContentQuickReplyPtrInput is an input type that accepts ContentQuickReplyArgs, ContentQuickReplyPtr and ContentQuickReplyPtrOutput values.
+// You can construct a concrete instance of `ContentQuickReplyPtrInput` via:
+//
+//	        ContentQuickReplyArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentQuickReplyPtrInput interface {
+	pulumi.Input
+
+	ToContentQuickReplyPtrOutput() ContentQuickReplyPtrOutput
+	ToContentQuickReplyPtrOutputWithContext(context.Context) ContentQuickReplyPtrOutput
+}
+
+type contentQuickReplyPtrType ContentQuickReplyArgs
+
+func ContentQuickReplyPtr(v *ContentQuickReplyArgs) ContentQuickReplyPtrInput {
+	return (*contentQuickReplyPtrType)(v)
+}
+
+func (*contentQuickReplyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentQuickReply)(nil)).Elem()
+}
+
+func (i *contentQuickReplyPtrType) ToContentQuickReplyPtrOutput() ContentQuickReplyPtrOutput {
+	return i.ToContentQuickReplyPtrOutputWithContext(context.Background())
+}
+
+func (i *contentQuickReplyPtrType) ToContentQuickReplyPtrOutputWithContext(ctx context.Context) ContentQuickReplyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentQuickReplyPtrOutput)
+}
+
+type ContentQuickReplyOutput struct{ *pulumi.OutputState }
+
+func (ContentQuickReplyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentQuickReply)(nil)).Elem()
+}
+
+func (o ContentQuickReplyOutput) ToContentQuickReplyOutput() ContentQuickReplyOutput {
+	return o
+}
+
+func (o ContentQuickReplyOutput) ToContentQuickReplyOutputWithContext(ctx context.Context) ContentQuickReplyOutput {
+	return o
+}
+
+func (o ContentQuickReplyOutput) ToContentQuickReplyPtrOutput() ContentQuickReplyPtrOutput {
+	return o.ToContentQuickReplyPtrOutputWithContext(context.Background())
+}
+
+func (o ContentQuickReplyOutput) ToContentQuickReplyPtrOutputWithContext(ctx context.Context) ContentQuickReplyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentQuickReply) *ContentQuickReply {
+		return &v
+	}).(ContentQuickReplyPtrOutput)
+}
+
+// The reply buttons.
+func (o ContentQuickReplyOutput) Actions() ContentQuickReplyActionArrayOutput {
+	return o.ApplyT(func(v ContentQuickReply) []ContentQuickReplyAction { return v.Actions }).(ContentQuickReplyActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentQuickReplyOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentQuickReply) string { return v.Body }).(pulumi.StringOutput)
+}
+
+type ContentQuickReplyPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentQuickReplyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentQuickReply)(nil)).Elem()
+}
+
+func (o ContentQuickReplyPtrOutput) ToContentQuickReplyPtrOutput() ContentQuickReplyPtrOutput {
+	return o
+}
+
+func (o ContentQuickReplyPtrOutput) ToContentQuickReplyPtrOutputWithContext(ctx context.Context) ContentQuickReplyPtrOutput {
+	return o
+}
+
+func (o ContentQuickReplyPtrOutput) Elem() ContentQuickReplyOutput {
+	return o.ApplyT(func(v *ContentQuickReply) ContentQuickReply {
+		if v != nil {
+			return *v
+		}
+		var ret ContentQuickReply
+		return ret
+	}).(ContentQuickReplyOutput)
+}
+
+// The reply buttons.
+func (o ContentQuickReplyPtrOutput) Actions() ContentQuickReplyActionArrayOutput {
+	return o.ApplyT(func(v *ContentQuickReply) []ContentQuickReplyAction {
+		if v == nil {
+			return nil
+		}
+		return v.Actions
+	}).(ContentQuickReplyActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentQuickReplyPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentQuickReply) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentQuickReplyAction struct {
+	// Identifier returned to you when the recipient taps the button.
+	Id *string `pulumi:"id"`
+	// Label of the button.
+	Title string `pulumi:"title"`
+	// The button type. Only QUICK_REPLY exists.
+	Type *string `pulumi:"type"`
+}
+
+// ContentQuickReplyActionInput is an input type that accepts ContentQuickReplyActionArgs and ContentQuickReplyActionOutput values.
+// You can construct a concrete instance of `ContentQuickReplyActionInput` via:
+//
+//	ContentQuickReplyActionArgs{...}
+type ContentQuickReplyActionInput interface {
+	pulumi.Input
+
+	ToContentQuickReplyActionOutput() ContentQuickReplyActionOutput
+	ToContentQuickReplyActionOutputWithContext(context.Context) ContentQuickReplyActionOutput
+}
+
+type ContentQuickReplyActionArgs struct {
+	// Identifier returned to you when the recipient taps the button.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Label of the button.
+	Title pulumi.StringInput `pulumi:"title"`
+	// The button type. Only QUICK_REPLY exists.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (ContentQuickReplyActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentQuickReplyAction)(nil)).Elem()
+}
+
+func (i ContentQuickReplyActionArgs) ToContentQuickReplyActionOutput() ContentQuickReplyActionOutput {
+	return i.ToContentQuickReplyActionOutputWithContext(context.Background())
+}
+
+func (i ContentQuickReplyActionArgs) ToContentQuickReplyActionOutputWithContext(ctx context.Context) ContentQuickReplyActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentQuickReplyActionOutput)
+}
+
+// ContentQuickReplyActionArrayInput is an input type that accepts ContentQuickReplyActionArray and ContentQuickReplyActionArrayOutput values.
+// You can construct a concrete instance of `ContentQuickReplyActionArrayInput` via:
+//
+//	ContentQuickReplyActionArray{ ContentQuickReplyActionArgs{...} }
+type ContentQuickReplyActionArrayInput interface {
+	pulumi.Input
+
+	ToContentQuickReplyActionArrayOutput() ContentQuickReplyActionArrayOutput
+	ToContentQuickReplyActionArrayOutputWithContext(context.Context) ContentQuickReplyActionArrayOutput
+}
+
+type ContentQuickReplyActionArray []ContentQuickReplyActionInput
+
+func (ContentQuickReplyActionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentQuickReplyAction)(nil)).Elem()
+}
+
+func (i ContentQuickReplyActionArray) ToContentQuickReplyActionArrayOutput() ContentQuickReplyActionArrayOutput {
+	return i.ToContentQuickReplyActionArrayOutputWithContext(context.Background())
+}
+
+func (i ContentQuickReplyActionArray) ToContentQuickReplyActionArrayOutputWithContext(ctx context.Context) ContentQuickReplyActionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentQuickReplyActionArrayOutput)
+}
+
+type ContentQuickReplyActionOutput struct{ *pulumi.OutputState }
+
+func (ContentQuickReplyActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentQuickReplyAction)(nil)).Elem()
+}
+
+func (o ContentQuickReplyActionOutput) ToContentQuickReplyActionOutput() ContentQuickReplyActionOutput {
+	return o
+}
+
+func (o ContentQuickReplyActionOutput) ToContentQuickReplyActionOutputWithContext(ctx context.Context) ContentQuickReplyActionOutput {
+	return o
+}
+
+// Identifier returned to you when the recipient taps the button.
+func (o ContentQuickReplyActionOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentQuickReplyAction) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Label of the button.
+func (o ContentQuickReplyActionOutput) Title() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentQuickReplyAction) string { return v.Title }).(pulumi.StringOutput)
+}
+
+// The button type. Only QUICK_REPLY exists.
+func (o ContentQuickReplyActionOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentQuickReplyAction) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type ContentQuickReplyActionArrayOutput struct{ *pulumi.OutputState }
+
+func (ContentQuickReplyActionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContentQuickReplyAction)(nil)).Elem()
+}
+
+func (o ContentQuickReplyActionArrayOutput) ToContentQuickReplyActionArrayOutput() ContentQuickReplyActionArrayOutput {
+	return o
+}
+
+func (o ContentQuickReplyActionArrayOutput) ToContentQuickReplyActionArrayOutputWithContext(ctx context.Context) ContentQuickReplyActionArrayOutput {
+	return o
+}
+
+func (o ContentQuickReplyActionArrayOutput) Index(i pulumi.IntInput) ContentQuickReplyActionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContentQuickReplyAction {
+		return vs[0].([]ContentQuickReplyAction)[vs[1].(int)]
+	}).(ContentQuickReplyActionOutput)
+}
+
+type ContentSchedule struct {
+	// Identifier of the schedule.
+	Id string `pulumi:"id"`
+	// The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+	TimeSlots string `pulumi:"timeSlots"`
+	// Title of the message.
+	Title string `pulumi:"title"`
+}
+
+// ContentScheduleInput is an input type that accepts ContentScheduleArgs and ContentScheduleOutput values.
+// You can construct a concrete instance of `ContentScheduleInput` via:
+//
+//	ContentScheduleArgs{...}
+type ContentScheduleInput interface {
+	pulumi.Input
+
+	ToContentScheduleOutput() ContentScheduleOutput
+	ToContentScheduleOutputWithContext(context.Context) ContentScheduleOutput
+}
+
+type ContentScheduleArgs struct {
+	// Identifier of the schedule.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+	TimeSlots pulumi.StringInput `pulumi:"timeSlots"`
+	// Title of the message.
+	Title pulumi.StringInput `pulumi:"title"`
+}
+
+func (ContentScheduleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentSchedule)(nil)).Elem()
+}
+
+func (i ContentScheduleArgs) ToContentScheduleOutput() ContentScheduleOutput {
+	return i.ToContentScheduleOutputWithContext(context.Background())
+}
+
+func (i ContentScheduleArgs) ToContentScheduleOutputWithContext(ctx context.Context) ContentScheduleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentScheduleOutput)
+}
+
+func (i ContentScheduleArgs) ToContentSchedulePtrOutput() ContentSchedulePtrOutput {
+	return i.ToContentSchedulePtrOutputWithContext(context.Background())
+}
+
+func (i ContentScheduleArgs) ToContentSchedulePtrOutputWithContext(ctx context.Context) ContentSchedulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentScheduleOutput).ToContentSchedulePtrOutputWithContext(ctx)
+}
+
+// ContentSchedulePtrInput is an input type that accepts ContentScheduleArgs, ContentSchedulePtr and ContentSchedulePtrOutput values.
+// You can construct a concrete instance of `ContentSchedulePtrInput` via:
+//
+//	        ContentScheduleArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentSchedulePtrInput interface {
+	pulumi.Input
+
+	ToContentSchedulePtrOutput() ContentSchedulePtrOutput
+	ToContentSchedulePtrOutputWithContext(context.Context) ContentSchedulePtrOutput
+}
+
+type contentSchedulePtrType ContentScheduleArgs
+
+func ContentSchedulePtr(v *ContentScheduleArgs) ContentSchedulePtrInput {
+	return (*contentSchedulePtrType)(v)
+}
+
+func (*contentSchedulePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentSchedule)(nil)).Elem()
+}
+
+func (i *contentSchedulePtrType) ToContentSchedulePtrOutput() ContentSchedulePtrOutput {
+	return i.ToContentSchedulePtrOutputWithContext(context.Background())
+}
+
+func (i *contentSchedulePtrType) ToContentSchedulePtrOutputWithContext(ctx context.Context) ContentSchedulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentSchedulePtrOutput)
+}
+
+type ContentScheduleOutput struct{ *pulumi.OutputState }
+
+func (ContentScheduleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentSchedule)(nil)).Elem()
+}
+
+func (o ContentScheduleOutput) ToContentScheduleOutput() ContentScheduleOutput {
+	return o
+}
+
+func (o ContentScheduleOutput) ToContentScheduleOutputWithContext(ctx context.Context) ContentScheduleOutput {
+	return o
+}
+
+func (o ContentScheduleOutput) ToContentSchedulePtrOutput() ContentSchedulePtrOutput {
+	return o.ToContentSchedulePtrOutputWithContext(context.Background())
+}
+
+func (o ContentScheduleOutput) ToContentSchedulePtrOutputWithContext(ctx context.Context) ContentSchedulePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentSchedule) *ContentSchedule {
+		return &v
+	}).(ContentSchedulePtrOutput)
+}
+
+// Identifier of the schedule.
+func (o ContentScheduleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentSchedule) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+func (o ContentScheduleOutput) TimeSlots() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentSchedule) string { return v.TimeSlots }).(pulumi.StringOutput)
+}
+
+// Title of the message.
+func (o ContentScheduleOutput) Title() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentSchedule) string { return v.Title }).(pulumi.StringOutput)
+}
+
+type ContentSchedulePtrOutput struct{ *pulumi.OutputState }
+
+func (ContentSchedulePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentSchedule)(nil)).Elem()
+}
+
+func (o ContentSchedulePtrOutput) ToContentSchedulePtrOutput() ContentSchedulePtrOutput {
+	return o
+}
+
+func (o ContentSchedulePtrOutput) ToContentSchedulePtrOutputWithContext(ctx context.Context) ContentSchedulePtrOutput {
+	return o
+}
+
+func (o ContentSchedulePtrOutput) Elem() ContentScheduleOutput {
+	return o.ApplyT(func(v *ContentSchedule) ContentSchedule {
+		if v != nil {
+			return *v
+		}
+		var ret ContentSchedule
+		return ret
+	}).(ContentScheduleOutput)
+}
+
+// Identifier of the schedule.
+func (o ContentSchedulePtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentSchedule) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+func (o ContentSchedulePtrOutput) TimeSlots() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentSchedule) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TimeSlots
+	}).(pulumi.StringPtrOutput)
+}
+
+// Title of the message.
+func (o ContentSchedulePtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentSchedule) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentText struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+}
+
+// ContentTextInput is an input type that accepts ContentTextArgs and ContentTextOutput values.
+// You can construct a concrete instance of `ContentTextInput` via:
+//
+//	ContentTextArgs{...}
+type ContentTextInput interface {
+	pulumi.Input
+
+	ToContentTextOutput() ContentTextOutput
+	ToContentTextOutputWithContext(context.Context) ContentTextOutput
+}
+
+type ContentTextArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+}
+
+func (ContentTextArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentText)(nil)).Elem()
+}
+
+func (i ContentTextArgs) ToContentTextOutput() ContentTextOutput {
+	return i.ToContentTextOutputWithContext(context.Background())
+}
+
+func (i ContentTextArgs) ToContentTextOutputWithContext(ctx context.Context) ContentTextOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentTextOutput)
+}
+
+func (i ContentTextArgs) ToContentTextPtrOutput() ContentTextPtrOutput {
+	return i.ToContentTextPtrOutputWithContext(context.Background())
+}
+
+func (i ContentTextArgs) ToContentTextPtrOutputWithContext(ctx context.Context) ContentTextPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentTextOutput).ToContentTextPtrOutputWithContext(ctx)
+}
+
+// ContentTextPtrInput is an input type that accepts ContentTextArgs, ContentTextPtr and ContentTextPtrOutput values.
+// You can construct a concrete instance of `ContentTextPtrInput` via:
+//
+//	        ContentTextArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentTextPtrInput interface {
+	pulumi.Input
+
+	ToContentTextPtrOutput() ContentTextPtrOutput
+	ToContentTextPtrOutputWithContext(context.Context) ContentTextPtrOutput
+}
+
+type contentTextPtrType ContentTextArgs
+
+func ContentTextPtr(v *ContentTextArgs) ContentTextPtrInput {
+	return (*contentTextPtrType)(v)
+}
+
+func (*contentTextPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentText)(nil)).Elem()
+}
+
+func (i *contentTextPtrType) ToContentTextPtrOutput() ContentTextPtrOutput {
+	return i.ToContentTextPtrOutputWithContext(context.Background())
+}
+
+func (i *contentTextPtrType) ToContentTextPtrOutputWithContext(ctx context.Context) ContentTextPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentTextPtrOutput)
+}
+
+type ContentTextOutput struct{ *pulumi.OutputState }
+
+func (ContentTextOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentText)(nil)).Elem()
+}
+
+func (o ContentTextOutput) ToContentTextOutput() ContentTextOutput {
+	return o
+}
+
+func (o ContentTextOutput) ToContentTextOutputWithContext(ctx context.Context) ContentTextOutput {
+	return o
+}
+
+func (o ContentTextOutput) ToContentTextPtrOutput() ContentTextPtrOutput {
+	return o.ToContentTextPtrOutputWithContext(context.Background())
+}
+
+func (o ContentTextOutput) ToContentTextPtrOutputWithContext(ctx context.Context) ContentTextPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentText) *ContentText {
+		return &v
+	}).(ContentTextPtrOutput)
+}
+
+// The text of the message.
+func (o ContentTextOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentText) string { return v.Body }).(pulumi.StringOutput)
+}
+
+type ContentTextPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentTextPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentText)(nil)).Elem()
+}
+
+func (o ContentTextPtrOutput) ToContentTextPtrOutput() ContentTextPtrOutput {
+	return o
+}
+
+func (o ContentTextPtrOutput) ToContentTextPtrOutputWithContext(ctx context.Context) ContentTextPtrOutput {
+	return o
+}
+
+func (o ContentTextPtrOutput) Elem() ContentTextOutput {
+	return o.ApplyT(func(v *ContentText) ContentText {
+		if v != nil {
+			return *v
+		}
+		var ret ContentText
+		return ret
+	}).(ContentTextOutput)
+}
+
+// The text of the message.
+func (o ContentTextPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentText) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+type ContentTypes struct {
+	// twilio/call-to-action: buttons that open a URL or dial a number.
+	CallToAction *ContentCallToAction `pulumi:"callToAction"`
+	// twilio/card: a structured message with media and buttons.
+	Card *ContentCard `pulumi:"card"`
+	// twilio/carousel: a message with up to 10 cards.
+	Carousel *ContentCarousel `pulumi:"carousel"`
+	// twilio/catalog: a list of catalog products.
+	Catalog *ContentCatalog `pulumi:"catalog"`
+	// twilio/flows: a multi-page flow.
+	Flows *ContentFlows `pulumi:"flows"`
+	// twilio/list-picker: a menu of up to 10 options.
+	ListPicker *ContentListPicker `pulumi:"listPicker"`
+	// twilio/location: a location pin with an optional label.
+	Location *ContentLocation `pulumi:"location"`
+	// twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+	Media *ContentMedia `pulumi:"media"`
+	// twilio/quick-reply: buttons the recipient taps to answer.
+	QuickReply *ContentQuickReply `pulumi:"quickReply"`
+	// twilio/schedule: a message offering time slots.
+	Schedule *ContentSchedule `pulumi:"schedule"`
+	// twilio/text: plain text.
+	Text *ContentText `pulumi:"text"`
+	// whatsapp/authentication: a WhatsApp one-time-password message.
+	WhatsappAuthentication *ContentWhatsappAuthentication `pulumi:"whatsappAuthentication"`
+	// whatsapp/card: a WhatsApp card with header, footer and buttons.
+	WhatsappCard *ContentWhatsappCard `pulumi:"whatsappCard"`
+	// whatsapp/flows: a message that opens a WhatsApp Flow.
+	WhatsappFlows *ContentWhatsappFlows `pulumi:"whatsappFlows"`
+}
+
+// ContentTypesInput is an input type that accepts ContentTypesArgs and ContentTypesOutput values.
+// You can construct a concrete instance of `ContentTypesInput` via:
+//
+//	ContentTypesArgs{...}
+type ContentTypesInput interface {
+	pulumi.Input
+
+	ToContentTypesOutput() ContentTypesOutput
+	ToContentTypesOutputWithContext(context.Context) ContentTypesOutput
+}
+
+type ContentTypesArgs struct {
+	// twilio/call-to-action: buttons that open a URL or dial a number.
+	CallToAction ContentCallToActionPtrInput `pulumi:"callToAction"`
+	// twilio/card: a structured message with media and buttons.
+	Card ContentCardPtrInput `pulumi:"card"`
+	// twilio/carousel: a message with up to 10 cards.
+	Carousel ContentCarouselPtrInput `pulumi:"carousel"`
+	// twilio/catalog: a list of catalog products.
+	Catalog ContentCatalogPtrInput `pulumi:"catalog"`
+	// twilio/flows: a multi-page flow.
+	Flows ContentFlowsPtrInput `pulumi:"flows"`
+	// twilio/list-picker: a menu of up to 10 options.
+	ListPicker ContentListPickerPtrInput `pulumi:"listPicker"`
+	// twilio/location: a location pin with an optional label.
+	Location ContentLocationPtrInput `pulumi:"location"`
+	// twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+	Media ContentMediaPtrInput `pulumi:"media"`
+	// twilio/quick-reply: buttons the recipient taps to answer.
+	QuickReply ContentQuickReplyPtrInput `pulumi:"quickReply"`
+	// twilio/schedule: a message offering time slots.
+	Schedule ContentSchedulePtrInput `pulumi:"schedule"`
+	// twilio/text: plain text.
+	Text ContentTextPtrInput `pulumi:"text"`
+	// whatsapp/authentication: a WhatsApp one-time-password message.
+	WhatsappAuthentication ContentWhatsappAuthenticationPtrInput `pulumi:"whatsappAuthentication"`
+	// whatsapp/card: a WhatsApp card with header, footer and buttons.
+	WhatsappCard ContentWhatsappCardPtrInput `pulumi:"whatsappCard"`
+	// whatsapp/flows: a message that opens a WhatsApp Flow.
+	WhatsappFlows ContentWhatsappFlowsPtrInput `pulumi:"whatsappFlows"`
+}
+
+func (ContentTypesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentTypes)(nil)).Elem()
+}
+
+func (i ContentTypesArgs) ToContentTypesOutput() ContentTypesOutput {
+	return i.ToContentTypesOutputWithContext(context.Background())
+}
+
+func (i ContentTypesArgs) ToContentTypesOutputWithContext(ctx context.Context) ContentTypesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentTypesOutput)
+}
+
+type ContentTypesOutput struct{ *pulumi.OutputState }
+
+func (ContentTypesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentTypes)(nil)).Elem()
+}
+
+func (o ContentTypesOutput) ToContentTypesOutput() ContentTypesOutput {
+	return o
+}
+
+func (o ContentTypesOutput) ToContentTypesOutputWithContext(ctx context.Context) ContentTypesOutput {
+	return o
+}
+
+// twilio/call-to-action: buttons that open a URL or dial a number.
+func (o ContentTypesOutput) CallToAction() ContentCallToActionPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentCallToAction { return v.CallToAction }).(ContentCallToActionPtrOutput)
+}
+
+// twilio/card: a structured message with media and buttons.
+func (o ContentTypesOutput) Card() ContentCardPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentCard { return v.Card }).(ContentCardPtrOutput)
+}
+
+// twilio/carousel: a message with up to 10 cards.
+func (o ContentTypesOutput) Carousel() ContentCarouselPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentCarousel { return v.Carousel }).(ContentCarouselPtrOutput)
+}
+
+// twilio/catalog: a list of catalog products.
+func (o ContentTypesOutput) Catalog() ContentCatalogPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentCatalog { return v.Catalog }).(ContentCatalogPtrOutput)
+}
+
+// twilio/flows: a multi-page flow.
+func (o ContentTypesOutput) Flows() ContentFlowsPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentFlows { return v.Flows }).(ContentFlowsPtrOutput)
+}
+
+// twilio/list-picker: a menu of up to 10 options.
+func (o ContentTypesOutput) ListPicker() ContentListPickerPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentListPicker { return v.ListPicker }).(ContentListPickerPtrOutput)
+}
+
+// twilio/location: a location pin with an optional label.
+func (o ContentTypesOutput) Location() ContentLocationPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentLocation { return v.Location }).(ContentLocationPtrOutput)
+}
+
+// twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+func (o ContentTypesOutput) Media() ContentMediaPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentMedia { return v.Media }).(ContentMediaPtrOutput)
+}
+
+// twilio/quick-reply: buttons the recipient taps to answer.
+func (o ContentTypesOutput) QuickReply() ContentQuickReplyPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentQuickReply { return v.QuickReply }).(ContentQuickReplyPtrOutput)
+}
+
+// twilio/schedule: a message offering time slots.
+func (o ContentTypesOutput) Schedule() ContentSchedulePtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentSchedule { return v.Schedule }).(ContentSchedulePtrOutput)
+}
+
+// twilio/text: plain text.
+func (o ContentTypesOutput) Text() ContentTextPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentText { return v.Text }).(ContentTextPtrOutput)
+}
+
+// whatsapp/authentication: a WhatsApp one-time-password message.
+func (o ContentTypesOutput) WhatsappAuthentication() ContentWhatsappAuthenticationPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentWhatsappAuthentication { return v.WhatsappAuthentication }).(ContentWhatsappAuthenticationPtrOutput)
+}
+
+// whatsapp/card: a WhatsApp card with header, footer and buttons.
+func (o ContentTypesOutput) WhatsappCard() ContentWhatsappCardPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentWhatsappCard { return v.WhatsappCard }).(ContentWhatsappCardPtrOutput)
+}
+
+// whatsapp/flows: a message that opens a WhatsApp Flow.
+func (o ContentTypesOutput) WhatsappFlows() ContentWhatsappFlowsPtrOutput {
+	return o.ApplyT(func(v ContentTypes) *ContentWhatsappFlows { return v.WhatsappFlows }).(ContentWhatsappFlowsPtrOutput)
+}
+
+type ContentWhatsappAuthentication struct {
+	// The copy-code button.
+	Actions []ContentAuthenticationAction `pulumi:"actions"`
+	// Whether WhatsApp adds its security recommendation to the message.
+	AddSecurityRecommendation *bool `pulumi:"addSecurityRecommendation"`
+	// Minutes until the code expires.
+	CodeExpirationMinutes *float64 `pulumi:"codeExpirationMinutes"`
+}
+
+// ContentWhatsappAuthenticationInput is an input type that accepts ContentWhatsappAuthenticationArgs and ContentWhatsappAuthenticationOutput values.
+// You can construct a concrete instance of `ContentWhatsappAuthenticationInput` via:
+//
+//	ContentWhatsappAuthenticationArgs{...}
+type ContentWhatsappAuthenticationInput interface {
+	pulumi.Input
+
+	ToContentWhatsappAuthenticationOutput() ContentWhatsappAuthenticationOutput
+	ToContentWhatsappAuthenticationOutputWithContext(context.Context) ContentWhatsappAuthenticationOutput
+}
+
+type ContentWhatsappAuthenticationArgs struct {
+	// The copy-code button.
+	Actions ContentAuthenticationActionArrayInput `pulumi:"actions"`
+	// Whether WhatsApp adds its security recommendation to the message.
+	AddSecurityRecommendation pulumi.BoolPtrInput `pulumi:"addSecurityRecommendation"`
+	// Minutes until the code expires.
+	CodeExpirationMinutes pulumi.Float64PtrInput `pulumi:"codeExpirationMinutes"`
+}
+
+func (ContentWhatsappAuthenticationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappAuthentication)(nil)).Elem()
+}
+
+func (i ContentWhatsappAuthenticationArgs) ToContentWhatsappAuthenticationOutput() ContentWhatsappAuthenticationOutput {
+	return i.ToContentWhatsappAuthenticationOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappAuthenticationArgs) ToContentWhatsappAuthenticationOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappAuthenticationOutput)
+}
+
+func (i ContentWhatsappAuthenticationArgs) ToContentWhatsappAuthenticationPtrOutput() ContentWhatsappAuthenticationPtrOutput {
+	return i.ToContentWhatsappAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappAuthenticationArgs) ToContentWhatsappAuthenticationPtrOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappAuthenticationOutput).ToContentWhatsappAuthenticationPtrOutputWithContext(ctx)
+}
+
+// ContentWhatsappAuthenticationPtrInput is an input type that accepts ContentWhatsappAuthenticationArgs, ContentWhatsappAuthenticationPtr and ContentWhatsappAuthenticationPtrOutput values.
+// You can construct a concrete instance of `ContentWhatsappAuthenticationPtrInput` via:
+//
+//	        ContentWhatsappAuthenticationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentWhatsappAuthenticationPtrInput interface {
+	pulumi.Input
+
+	ToContentWhatsappAuthenticationPtrOutput() ContentWhatsappAuthenticationPtrOutput
+	ToContentWhatsappAuthenticationPtrOutputWithContext(context.Context) ContentWhatsappAuthenticationPtrOutput
+}
+
+type contentWhatsappAuthenticationPtrType ContentWhatsappAuthenticationArgs
+
+func ContentWhatsappAuthenticationPtr(v *ContentWhatsappAuthenticationArgs) ContentWhatsappAuthenticationPtrInput {
+	return (*contentWhatsappAuthenticationPtrType)(v)
+}
+
+func (*contentWhatsappAuthenticationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappAuthentication)(nil)).Elem()
+}
+
+func (i *contentWhatsappAuthenticationPtrType) ToContentWhatsappAuthenticationPtrOutput() ContentWhatsappAuthenticationPtrOutput {
+	return i.ToContentWhatsappAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (i *contentWhatsappAuthenticationPtrType) ToContentWhatsappAuthenticationPtrOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappAuthenticationPtrOutput)
+}
+
+type ContentWhatsappAuthenticationOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappAuthenticationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappAuthentication)(nil)).Elem()
+}
+
+func (o ContentWhatsappAuthenticationOutput) ToContentWhatsappAuthenticationOutput() ContentWhatsappAuthenticationOutput {
+	return o
+}
+
+func (o ContentWhatsappAuthenticationOutput) ToContentWhatsappAuthenticationOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationOutput {
+	return o
+}
+
+func (o ContentWhatsappAuthenticationOutput) ToContentWhatsappAuthenticationPtrOutput() ContentWhatsappAuthenticationPtrOutput {
+	return o.ToContentWhatsappAuthenticationPtrOutputWithContext(context.Background())
+}
+
+func (o ContentWhatsappAuthenticationOutput) ToContentWhatsappAuthenticationPtrOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentWhatsappAuthentication) *ContentWhatsappAuthentication {
+		return &v
+	}).(ContentWhatsappAuthenticationPtrOutput)
+}
+
+// The copy-code button.
+func (o ContentWhatsappAuthenticationOutput) Actions() ContentAuthenticationActionArrayOutput {
+	return o.ApplyT(func(v ContentWhatsappAuthentication) []ContentAuthenticationAction { return v.Actions }).(ContentAuthenticationActionArrayOutput)
+}
+
+// Whether WhatsApp adds its security recommendation to the message.
+func (o ContentWhatsappAuthenticationOutput) AddSecurityRecommendation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappAuthentication) *bool { return v.AddSecurityRecommendation }).(pulumi.BoolPtrOutput)
+}
+
+// Minutes until the code expires.
+func (o ContentWhatsappAuthenticationOutput) CodeExpirationMinutes() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ContentWhatsappAuthentication) *float64 { return v.CodeExpirationMinutes }).(pulumi.Float64PtrOutput)
+}
+
+type ContentWhatsappAuthenticationPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappAuthenticationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappAuthentication)(nil)).Elem()
+}
+
+func (o ContentWhatsappAuthenticationPtrOutput) ToContentWhatsappAuthenticationPtrOutput() ContentWhatsappAuthenticationPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappAuthenticationPtrOutput) ToContentWhatsappAuthenticationPtrOutputWithContext(ctx context.Context) ContentWhatsappAuthenticationPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappAuthenticationPtrOutput) Elem() ContentWhatsappAuthenticationOutput {
+	return o.ApplyT(func(v *ContentWhatsappAuthentication) ContentWhatsappAuthentication {
+		if v != nil {
+			return *v
+		}
+		var ret ContentWhatsappAuthentication
+		return ret
+	}).(ContentWhatsappAuthenticationOutput)
+}
+
+// The copy-code button.
+func (o ContentWhatsappAuthenticationPtrOutput) Actions() ContentAuthenticationActionArrayOutput {
+	return o.ApplyT(func(v *ContentWhatsappAuthentication) []ContentAuthenticationAction {
+		if v == nil {
+			return nil
+		}
+		return v.Actions
+	}).(ContentAuthenticationActionArrayOutput)
+}
+
+// Whether WhatsApp adds its security recommendation to the message.
+func (o ContentWhatsappAuthenticationPtrOutput) AddSecurityRecommendation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappAuthentication) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AddSecurityRecommendation
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Minutes until the code expires.
+func (o ContentWhatsappAuthenticationPtrOutput) CodeExpirationMinutes() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappAuthentication) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.CodeExpirationMinutes
+	}).(pulumi.Float64PtrOutput)
+}
+
+type ContentWhatsappCard struct {
+	// Buttons of the card.
+	Actions []ContentCardAction `pulumi:"actions"`
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// Footer text.
+	Footer *string `pulumi:"footer"`
+	// Header text.
+	HeaderText *string `pulumi:"headerText"`
+	// URLs of the card's media.
+	Media []string `pulumi:"media"`
+}
+
+// ContentWhatsappCardInput is an input type that accepts ContentWhatsappCardArgs and ContentWhatsappCardOutput values.
+// You can construct a concrete instance of `ContentWhatsappCardInput` via:
+//
+//	ContentWhatsappCardArgs{...}
+type ContentWhatsappCardInput interface {
+	pulumi.Input
+
+	ToContentWhatsappCardOutput() ContentWhatsappCardOutput
+	ToContentWhatsappCardOutputWithContext(context.Context) ContentWhatsappCardOutput
+}
+
+type ContentWhatsappCardArgs struct {
+	// Buttons of the card.
+	Actions ContentCardActionArrayInput `pulumi:"actions"`
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// Footer text.
+	Footer pulumi.StringPtrInput `pulumi:"footer"`
+	// Header text.
+	HeaderText pulumi.StringPtrInput `pulumi:"headerText"`
+	// URLs of the card's media.
+	Media pulumi.StringArrayInput `pulumi:"media"`
+}
+
+func (ContentWhatsappCardArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappCard)(nil)).Elem()
+}
+
+func (i ContentWhatsappCardArgs) ToContentWhatsappCardOutput() ContentWhatsappCardOutput {
+	return i.ToContentWhatsappCardOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappCardArgs) ToContentWhatsappCardOutputWithContext(ctx context.Context) ContentWhatsappCardOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappCardOutput)
+}
+
+func (i ContentWhatsappCardArgs) ToContentWhatsappCardPtrOutput() ContentWhatsappCardPtrOutput {
+	return i.ToContentWhatsappCardPtrOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappCardArgs) ToContentWhatsappCardPtrOutputWithContext(ctx context.Context) ContentWhatsappCardPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappCardOutput).ToContentWhatsappCardPtrOutputWithContext(ctx)
+}
+
+// ContentWhatsappCardPtrInput is an input type that accepts ContentWhatsappCardArgs, ContentWhatsappCardPtr and ContentWhatsappCardPtrOutput values.
+// You can construct a concrete instance of `ContentWhatsappCardPtrInput` via:
+//
+//	        ContentWhatsappCardArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentWhatsappCardPtrInput interface {
+	pulumi.Input
+
+	ToContentWhatsappCardPtrOutput() ContentWhatsappCardPtrOutput
+	ToContentWhatsappCardPtrOutputWithContext(context.Context) ContentWhatsappCardPtrOutput
+}
+
+type contentWhatsappCardPtrType ContentWhatsappCardArgs
+
+func ContentWhatsappCardPtr(v *ContentWhatsappCardArgs) ContentWhatsappCardPtrInput {
+	return (*contentWhatsappCardPtrType)(v)
+}
+
+func (*contentWhatsappCardPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappCard)(nil)).Elem()
+}
+
+func (i *contentWhatsappCardPtrType) ToContentWhatsappCardPtrOutput() ContentWhatsappCardPtrOutput {
+	return i.ToContentWhatsappCardPtrOutputWithContext(context.Background())
+}
+
+func (i *contentWhatsappCardPtrType) ToContentWhatsappCardPtrOutputWithContext(ctx context.Context) ContentWhatsappCardPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappCardPtrOutput)
+}
+
+type ContentWhatsappCardOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappCardOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappCard)(nil)).Elem()
+}
+
+func (o ContentWhatsappCardOutput) ToContentWhatsappCardOutput() ContentWhatsappCardOutput {
+	return o
+}
+
+func (o ContentWhatsappCardOutput) ToContentWhatsappCardOutputWithContext(ctx context.Context) ContentWhatsappCardOutput {
+	return o
+}
+
+func (o ContentWhatsappCardOutput) ToContentWhatsappCardPtrOutput() ContentWhatsappCardPtrOutput {
+	return o.ToContentWhatsappCardPtrOutputWithContext(context.Background())
+}
+
+func (o ContentWhatsappCardOutput) ToContentWhatsappCardPtrOutputWithContext(ctx context.Context) ContentWhatsappCardPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentWhatsappCard) *ContentWhatsappCard {
+		return &v
+	}).(ContentWhatsappCardPtrOutput)
+}
+
+// Buttons of the card.
+func (o ContentWhatsappCardOutput) Actions() ContentCardActionArrayOutput {
+	return o.ApplyT(func(v ContentWhatsappCard) []ContentCardAction { return v.Actions }).(ContentCardActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentWhatsappCardOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentWhatsappCard) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// Footer text.
+func (o ContentWhatsappCardOutput) Footer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappCard) *string { return v.Footer }).(pulumi.StringPtrOutput)
+}
+
+// Header text.
+func (o ContentWhatsappCardOutput) HeaderText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappCard) *string { return v.HeaderText }).(pulumi.StringPtrOutput)
+}
+
+// URLs of the card's media.
+func (o ContentWhatsappCardOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ContentWhatsappCard) []string { return v.Media }).(pulumi.StringArrayOutput)
+}
+
+type ContentWhatsappCardPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappCardPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappCard)(nil)).Elem()
+}
+
+func (o ContentWhatsappCardPtrOutput) ToContentWhatsappCardPtrOutput() ContentWhatsappCardPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappCardPtrOutput) ToContentWhatsappCardPtrOutputWithContext(ctx context.Context) ContentWhatsappCardPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappCardPtrOutput) Elem() ContentWhatsappCardOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) ContentWhatsappCard {
+		if v != nil {
+			return *v
+		}
+		var ret ContentWhatsappCard
+		return ret
+	}).(ContentWhatsappCardOutput)
+}
+
+// Buttons of the card.
+func (o ContentWhatsappCardPtrOutput) Actions() ContentCardActionArrayOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) []ContentCardAction {
+		if v == nil {
+			return nil
+		}
+		return v.Actions
+	}).(ContentCardActionArrayOutput)
+}
+
+// The text of the message.
+func (o ContentWhatsappCardPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// Footer text.
+func (o ContentWhatsappCardPtrOutput) Footer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Footer
+	}).(pulumi.StringPtrOutput)
+}
+
+// Header text.
+func (o ContentWhatsappCardPtrOutput) HeaderText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HeaderText
+	}).(pulumi.StringPtrOutput)
+}
+
+// URLs of the card's media.
+func (o ContentWhatsappCardPtrOutput) Media() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ContentWhatsappCard) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Media
+	}).(pulumi.StringArrayOutput)
+}
+
+type ContentWhatsappFlows struct {
+	// The text of the message.
+	Body string `pulumi:"body"`
+	// Label of the button that opens the flow.
+	ButtonText string `pulumi:"buttonText"`
+	// ID of the first page of the flow.
+	FlowFirstPageId *string `pulumi:"flowFirstPageId"`
+	// ID of the WhatsApp Flow to open.
+	FlowId string `pulumi:"flowId"`
+	// Token passed to the flow.
+	FlowToken *string `pulumi:"flowToken"`
+	// Whether the first page of the flow is served by an endpoint.
+	IsFlowFirstPageEndpoint *bool `pulumi:"isFlowFirstPageEndpoint"`
+	// URL of the media shown with the message.
+	MediaUrl *string `pulumi:"mediaUrl"`
+	// Subtitle of the message.
+	Subtitle *string `pulumi:"subtitle"`
+}
+
+// ContentWhatsappFlowsInput is an input type that accepts ContentWhatsappFlowsArgs and ContentWhatsappFlowsOutput values.
+// You can construct a concrete instance of `ContentWhatsappFlowsInput` via:
+//
+//	ContentWhatsappFlowsArgs{...}
+type ContentWhatsappFlowsInput interface {
+	pulumi.Input
+
+	ToContentWhatsappFlowsOutput() ContentWhatsappFlowsOutput
+	ToContentWhatsappFlowsOutputWithContext(context.Context) ContentWhatsappFlowsOutput
+}
+
+type ContentWhatsappFlowsArgs struct {
+	// The text of the message.
+	Body pulumi.StringInput `pulumi:"body"`
+	// Label of the button that opens the flow.
+	ButtonText pulumi.StringInput `pulumi:"buttonText"`
+	// ID of the first page of the flow.
+	FlowFirstPageId pulumi.StringPtrInput `pulumi:"flowFirstPageId"`
+	// ID of the WhatsApp Flow to open.
+	FlowId pulumi.StringInput `pulumi:"flowId"`
+	// Token passed to the flow.
+	FlowToken pulumi.StringPtrInput `pulumi:"flowToken"`
+	// Whether the first page of the flow is served by an endpoint.
+	IsFlowFirstPageEndpoint pulumi.BoolPtrInput `pulumi:"isFlowFirstPageEndpoint"`
+	// URL of the media shown with the message.
+	MediaUrl pulumi.StringPtrInput `pulumi:"mediaUrl"`
+	// Subtitle of the message.
+	Subtitle pulumi.StringPtrInput `pulumi:"subtitle"`
+}
+
+func (ContentWhatsappFlowsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappFlows)(nil)).Elem()
+}
+
+func (i ContentWhatsappFlowsArgs) ToContentWhatsappFlowsOutput() ContentWhatsappFlowsOutput {
+	return i.ToContentWhatsappFlowsOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappFlowsArgs) ToContentWhatsappFlowsOutputWithContext(ctx context.Context) ContentWhatsappFlowsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappFlowsOutput)
+}
+
+func (i ContentWhatsappFlowsArgs) ToContentWhatsappFlowsPtrOutput() ContentWhatsappFlowsPtrOutput {
+	return i.ToContentWhatsappFlowsPtrOutputWithContext(context.Background())
+}
+
+func (i ContentWhatsappFlowsArgs) ToContentWhatsappFlowsPtrOutputWithContext(ctx context.Context) ContentWhatsappFlowsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappFlowsOutput).ToContentWhatsappFlowsPtrOutputWithContext(ctx)
+}
+
+// ContentWhatsappFlowsPtrInput is an input type that accepts ContentWhatsappFlowsArgs, ContentWhatsappFlowsPtr and ContentWhatsappFlowsPtrOutput values.
+// You can construct a concrete instance of `ContentWhatsappFlowsPtrInput` via:
+//
+//	        ContentWhatsappFlowsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ContentWhatsappFlowsPtrInput interface {
+	pulumi.Input
+
+	ToContentWhatsappFlowsPtrOutput() ContentWhatsappFlowsPtrOutput
+	ToContentWhatsappFlowsPtrOutputWithContext(context.Context) ContentWhatsappFlowsPtrOutput
+}
+
+type contentWhatsappFlowsPtrType ContentWhatsappFlowsArgs
+
+func ContentWhatsappFlowsPtr(v *ContentWhatsappFlowsArgs) ContentWhatsappFlowsPtrInput {
+	return (*contentWhatsappFlowsPtrType)(v)
+}
+
+func (*contentWhatsappFlowsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappFlows)(nil)).Elem()
+}
+
+func (i *contentWhatsappFlowsPtrType) ToContentWhatsappFlowsPtrOutput() ContentWhatsappFlowsPtrOutput {
+	return i.ToContentWhatsappFlowsPtrOutputWithContext(context.Background())
+}
+
+func (i *contentWhatsappFlowsPtrType) ToContentWhatsappFlowsPtrOutputWithContext(ctx context.Context) ContentWhatsappFlowsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContentWhatsappFlowsPtrOutput)
+}
+
+type ContentWhatsappFlowsOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappFlowsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContentWhatsappFlows)(nil)).Elem()
+}
+
+func (o ContentWhatsappFlowsOutput) ToContentWhatsappFlowsOutput() ContentWhatsappFlowsOutput {
+	return o
+}
+
+func (o ContentWhatsappFlowsOutput) ToContentWhatsappFlowsOutputWithContext(ctx context.Context) ContentWhatsappFlowsOutput {
+	return o
+}
+
+func (o ContentWhatsappFlowsOutput) ToContentWhatsappFlowsPtrOutput() ContentWhatsappFlowsPtrOutput {
+	return o.ToContentWhatsappFlowsPtrOutputWithContext(context.Background())
+}
+
+func (o ContentWhatsappFlowsOutput) ToContentWhatsappFlowsPtrOutputWithContext(ctx context.Context) ContentWhatsappFlowsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContentWhatsappFlows) *ContentWhatsappFlows {
+		return &v
+	}).(ContentWhatsappFlowsPtrOutput)
+}
+
+// The text of the message.
+func (o ContentWhatsappFlowsOutput) Body() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) string { return v.Body }).(pulumi.StringOutput)
+}
+
+// Label of the button that opens the flow.
+func (o ContentWhatsappFlowsOutput) ButtonText() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) string { return v.ButtonText }).(pulumi.StringOutput)
+}
+
+// ID of the first page of the flow.
+func (o ContentWhatsappFlowsOutput) FlowFirstPageId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) *string { return v.FlowFirstPageId }).(pulumi.StringPtrOutput)
+}
+
+// ID of the WhatsApp Flow to open.
+func (o ContentWhatsappFlowsOutput) FlowId() pulumi.StringOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) string { return v.FlowId }).(pulumi.StringOutput)
+}
+
+// Token passed to the flow.
+func (o ContentWhatsappFlowsOutput) FlowToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) *string { return v.FlowToken }).(pulumi.StringPtrOutput)
+}
+
+// Whether the first page of the flow is served by an endpoint.
+func (o ContentWhatsappFlowsOutput) IsFlowFirstPageEndpoint() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) *bool { return v.IsFlowFirstPageEndpoint }).(pulumi.BoolPtrOutput)
+}
+
+// URL of the media shown with the message.
+func (o ContentWhatsappFlowsOutput) MediaUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) *string { return v.MediaUrl }).(pulumi.StringPtrOutput)
+}
+
+// Subtitle of the message.
+func (o ContentWhatsappFlowsOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContentWhatsappFlows) *string { return v.Subtitle }).(pulumi.StringPtrOutput)
+}
+
+type ContentWhatsappFlowsPtrOutput struct{ *pulumi.OutputState }
+
+func (ContentWhatsappFlowsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContentWhatsappFlows)(nil)).Elem()
+}
+
+func (o ContentWhatsappFlowsPtrOutput) ToContentWhatsappFlowsPtrOutput() ContentWhatsappFlowsPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappFlowsPtrOutput) ToContentWhatsappFlowsPtrOutputWithContext(ctx context.Context) ContentWhatsappFlowsPtrOutput {
+	return o
+}
+
+func (o ContentWhatsappFlowsPtrOutput) Elem() ContentWhatsappFlowsOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) ContentWhatsappFlows {
+		if v != nil {
+			return *v
+		}
+		var ret ContentWhatsappFlows
+		return ret
+	}).(ContentWhatsappFlowsOutput)
+}
+
+// The text of the message.
+func (o ContentWhatsappFlowsPtrOutput) Body() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Body
+	}).(pulumi.StringPtrOutput)
+}
+
+// Label of the button that opens the flow.
+func (o ContentWhatsappFlowsPtrOutput) ButtonText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ButtonText
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the first page of the flow.
+func (o ContentWhatsappFlowsPtrOutput) FlowFirstPageId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FlowFirstPageId
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the WhatsApp Flow to open.
+func (o ContentWhatsappFlowsPtrOutput) FlowId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.FlowId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Token passed to the flow.
+func (o ContentWhatsappFlowsPtrOutput) FlowToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FlowToken
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the first page of the flow is served by an endpoint.
+func (o ContentWhatsappFlowsPtrOutput) IsFlowFirstPageEndpoint() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IsFlowFirstPageEndpoint
+	}).(pulumi.BoolPtrOutput)
+}
+
+// URL of the media shown with the message.
+func (o ContentWhatsappFlowsPtrOutput) MediaUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MediaUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// Subtitle of the message.
+func (o ContentWhatsappFlowsPtrOutput) Subtitle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContentWhatsappFlows) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Subtitle
+	}).(pulumi.StringPtrOutput)
+}
+
 type ConversationsAutoCreation struct {
 	// SID (IS...) of the service the conversation is created in; the default service when not set.
 	ConversationServiceSid *string `pulumi:"conversationServiceSid"`
@@ -1107,6 +5192,550 @@ func (o ConversationsAutoCreationPtrOutput) WebhookUrl() pulumi.StringPtrOutput 
 			return nil
 		}
 		return v.WebhookUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+type ConversationsMediaNotification struct {
+	// Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+	Enabled *bool `pulumi:"enabled"`
+	// Template of the notification text for a message with media.
+	Template *string `pulumi:"template"`
+}
+
+// ConversationsMediaNotificationInput is an input type that accepts ConversationsMediaNotificationArgs and ConversationsMediaNotificationOutput values.
+// You can construct a concrete instance of `ConversationsMediaNotificationInput` via:
+//
+//	ConversationsMediaNotificationArgs{...}
+type ConversationsMediaNotificationInput interface {
+	pulumi.Input
+
+	ToConversationsMediaNotificationOutput() ConversationsMediaNotificationOutput
+	ToConversationsMediaNotificationOutputWithContext(context.Context) ConversationsMediaNotificationOutput
+}
+
+type ConversationsMediaNotificationArgs struct {
+	// Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Template of the notification text for a message with media.
+	Template pulumi.StringPtrInput `pulumi:"template"`
+}
+
+func (ConversationsMediaNotificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsMediaNotification)(nil)).Elem()
+}
+
+func (i ConversationsMediaNotificationArgs) ToConversationsMediaNotificationOutput() ConversationsMediaNotificationOutput {
+	return i.ToConversationsMediaNotificationOutputWithContext(context.Background())
+}
+
+func (i ConversationsMediaNotificationArgs) ToConversationsMediaNotificationOutputWithContext(ctx context.Context) ConversationsMediaNotificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsMediaNotificationOutput)
+}
+
+func (i ConversationsMediaNotificationArgs) ToConversationsMediaNotificationPtrOutput() ConversationsMediaNotificationPtrOutput {
+	return i.ToConversationsMediaNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i ConversationsMediaNotificationArgs) ToConversationsMediaNotificationPtrOutputWithContext(ctx context.Context) ConversationsMediaNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsMediaNotificationOutput).ToConversationsMediaNotificationPtrOutputWithContext(ctx)
+}
+
+// ConversationsMediaNotificationPtrInput is an input type that accepts ConversationsMediaNotificationArgs, ConversationsMediaNotificationPtr and ConversationsMediaNotificationPtrOutput values.
+// You can construct a concrete instance of `ConversationsMediaNotificationPtrInput` via:
+//
+//	        ConversationsMediaNotificationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ConversationsMediaNotificationPtrInput interface {
+	pulumi.Input
+
+	ToConversationsMediaNotificationPtrOutput() ConversationsMediaNotificationPtrOutput
+	ToConversationsMediaNotificationPtrOutputWithContext(context.Context) ConversationsMediaNotificationPtrOutput
+}
+
+type conversationsMediaNotificationPtrType ConversationsMediaNotificationArgs
+
+func ConversationsMediaNotificationPtr(v *ConversationsMediaNotificationArgs) ConversationsMediaNotificationPtrInput {
+	return (*conversationsMediaNotificationPtrType)(v)
+}
+
+func (*conversationsMediaNotificationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsMediaNotification)(nil)).Elem()
+}
+
+func (i *conversationsMediaNotificationPtrType) ToConversationsMediaNotificationPtrOutput() ConversationsMediaNotificationPtrOutput {
+	return i.ToConversationsMediaNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i *conversationsMediaNotificationPtrType) ToConversationsMediaNotificationPtrOutputWithContext(ctx context.Context) ConversationsMediaNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsMediaNotificationPtrOutput)
+}
+
+type ConversationsMediaNotificationOutput struct{ *pulumi.OutputState }
+
+func (ConversationsMediaNotificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsMediaNotification)(nil)).Elem()
+}
+
+func (o ConversationsMediaNotificationOutput) ToConversationsMediaNotificationOutput() ConversationsMediaNotificationOutput {
+	return o
+}
+
+func (o ConversationsMediaNotificationOutput) ToConversationsMediaNotificationOutputWithContext(ctx context.Context) ConversationsMediaNotificationOutput {
+	return o
+}
+
+func (o ConversationsMediaNotificationOutput) ToConversationsMediaNotificationPtrOutput() ConversationsMediaNotificationPtrOutput {
+	return o.ToConversationsMediaNotificationPtrOutputWithContext(context.Background())
+}
+
+func (o ConversationsMediaNotificationOutput) ToConversationsMediaNotificationPtrOutputWithContext(ctx context.Context) ConversationsMediaNotificationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConversationsMediaNotification) *ConversationsMediaNotification {
+		return &v
+	}).(ConversationsMediaNotificationPtrOutput)
+}
+
+// Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+func (o ConversationsMediaNotificationOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ConversationsMediaNotification) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Template of the notification text for a message with media.
+func (o ConversationsMediaNotificationOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsMediaNotification) *string { return v.Template }).(pulumi.StringPtrOutput)
+}
+
+type ConversationsMediaNotificationPtrOutput struct{ *pulumi.OutputState }
+
+func (ConversationsMediaNotificationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsMediaNotification)(nil)).Elem()
+}
+
+func (o ConversationsMediaNotificationPtrOutput) ToConversationsMediaNotificationPtrOutput() ConversationsMediaNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsMediaNotificationPtrOutput) ToConversationsMediaNotificationPtrOutputWithContext(ctx context.Context) ConversationsMediaNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsMediaNotificationPtrOutput) Elem() ConversationsMediaNotificationOutput {
+	return o.ApplyT(func(v *ConversationsMediaNotification) ConversationsMediaNotification {
+		if v != nil {
+			return *v
+		}
+		var ret ConversationsMediaNotification
+		return ret
+	}).(ConversationsMediaNotificationOutput)
+}
+
+// Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+func (o ConversationsMediaNotificationPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ConversationsMediaNotification) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Template of the notification text for a message with media.
+func (o ConversationsMediaNotificationPtrOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsMediaNotification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(pulumi.StringPtrOutput)
+}
+
+type ConversationsNewMessageNotification struct {
+	// Whether the badge count is enabled (Twilio default false).
+	BadgeCountEnabled *bool `pulumi:"badgeCountEnabled"`
+	// Whether a notification is sent when a message is added to a conversation (Twilio default false).
+	Enabled *bool `pulumi:"enabled"`
+	// Name of the sound played with the notification.
+	Sound *string `pulumi:"sound"`
+	// Template of the notification text.
+	Template *string `pulumi:"template"`
+	// The notification for a message with media or file attachments.
+	WithMedia *ConversationsMediaNotification `pulumi:"withMedia"`
+}
+
+// ConversationsNewMessageNotificationInput is an input type that accepts ConversationsNewMessageNotificationArgs and ConversationsNewMessageNotificationOutput values.
+// You can construct a concrete instance of `ConversationsNewMessageNotificationInput` via:
+//
+//	ConversationsNewMessageNotificationArgs{...}
+type ConversationsNewMessageNotificationInput interface {
+	pulumi.Input
+
+	ToConversationsNewMessageNotificationOutput() ConversationsNewMessageNotificationOutput
+	ToConversationsNewMessageNotificationOutputWithContext(context.Context) ConversationsNewMessageNotificationOutput
+}
+
+type ConversationsNewMessageNotificationArgs struct {
+	// Whether the badge count is enabled (Twilio default false).
+	BadgeCountEnabled pulumi.BoolPtrInput `pulumi:"badgeCountEnabled"`
+	// Whether a notification is sent when a message is added to a conversation (Twilio default false).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Name of the sound played with the notification.
+	Sound pulumi.StringPtrInput `pulumi:"sound"`
+	// Template of the notification text.
+	Template pulumi.StringPtrInput `pulumi:"template"`
+	// The notification for a message with media or file attachments.
+	WithMedia ConversationsMediaNotificationPtrInput `pulumi:"withMedia"`
+}
+
+func (ConversationsNewMessageNotificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsNewMessageNotification)(nil)).Elem()
+}
+
+func (i ConversationsNewMessageNotificationArgs) ToConversationsNewMessageNotificationOutput() ConversationsNewMessageNotificationOutput {
+	return i.ToConversationsNewMessageNotificationOutputWithContext(context.Background())
+}
+
+func (i ConversationsNewMessageNotificationArgs) ToConversationsNewMessageNotificationOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNewMessageNotificationOutput)
+}
+
+func (i ConversationsNewMessageNotificationArgs) ToConversationsNewMessageNotificationPtrOutput() ConversationsNewMessageNotificationPtrOutput {
+	return i.ToConversationsNewMessageNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i ConversationsNewMessageNotificationArgs) ToConversationsNewMessageNotificationPtrOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNewMessageNotificationOutput).ToConversationsNewMessageNotificationPtrOutputWithContext(ctx)
+}
+
+// ConversationsNewMessageNotificationPtrInput is an input type that accepts ConversationsNewMessageNotificationArgs, ConversationsNewMessageNotificationPtr and ConversationsNewMessageNotificationPtrOutput values.
+// You can construct a concrete instance of `ConversationsNewMessageNotificationPtrInput` via:
+//
+//	        ConversationsNewMessageNotificationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ConversationsNewMessageNotificationPtrInput interface {
+	pulumi.Input
+
+	ToConversationsNewMessageNotificationPtrOutput() ConversationsNewMessageNotificationPtrOutput
+	ToConversationsNewMessageNotificationPtrOutputWithContext(context.Context) ConversationsNewMessageNotificationPtrOutput
+}
+
+type conversationsNewMessageNotificationPtrType ConversationsNewMessageNotificationArgs
+
+func ConversationsNewMessageNotificationPtr(v *ConversationsNewMessageNotificationArgs) ConversationsNewMessageNotificationPtrInput {
+	return (*conversationsNewMessageNotificationPtrType)(v)
+}
+
+func (*conversationsNewMessageNotificationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsNewMessageNotification)(nil)).Elem()
+}
+
+func (i *conversationsNewMessageNotificationPtrType) ToConversationsNewMessageNotificationPtrOutput() ConversationsNewMessageNotificationPtrOutput {
+	return i.ToConversationsNewMessageNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i *conversationsNewMessageNotificationPtrType) ToConversationsNewMessageNotificationPtrOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNewMessageNotificationPtrOutput)
+}
+
+type ConversationsNewMessageNotificationOutput struct{ *pulumi.OutputState }
+
+func (ConversationsNewMessageNotificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsNewMessageNotification)(nil)).Elem()
+}
+
+func (o ConversationsNewMessageNotificationOutput) ToConversationsNewMessageNotificationOutput() ConversationsNewMessageNotificationOutput {
+	return o
+}
+
+func (o ConversationsNewMessageNotificationOutput) ToConversationsNewMessageNotificationOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationOutput {
+	return o
+}
+
+func (o ConversationsNewMessageNotificationOutput) ToConversationsNewMessageNotificationPtrOutput() ConversationsNewMessageNotificationPtrOutput {
+	return o.ToConversationsNewMessageNotificationPtrOutputWithContext(context.Background())
+}
+
+func (o ConversationsNewMessageNotificationOutput) ToConversationsNewMessageNotificationPtrOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConversationsNewMessageNotification) *ConversationsNewMessageNotification {
+		return &v
+	}).(ConversationsNewMessageNotificationPtrOutput)
+}
+
+// Whether the badge count is enabled (Twilio default false).
+func (o ConversationsNewMessageNotificationOutput) BadgeCountEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ConversationsNewMessageNotification) *bool { return v.BadgeCountEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Whether a notification is sent when a message is added to a conversation (Twilio default false).
+func (o ConversationsNewMessageNotificationOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ConversationsNewMessageNotification) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Name of the sound played with the notification.
+func (o ConversationsNewMessageNotificationOutput) Sound() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsNewMessageNotification) *string { return v.Sound }).(pulumi.StringPtrOutput)
+}
+
+// Template of the notification text.
+func (o ConversationsNewMessageNotificationOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsNewMessageNotification) *string { return v.Template }).(pulumi.StringPtrOutput)
+}
+
+// The notification for a message with media or file attachments.
+func (o ConversationsNewMessageNotificationOutput) WithMedia() ConversationsMediaNotificationPtrOutput {
+	return o.ApplyT(func(v ConversationsNewMessageNotification) *ConversationsMediaNotification { return v.WithMedia }).(ConversationsMediaNotificationPtrOutput)
+}
+
+type ConversationsNewMessageNotificationPtrOutput struct{ *pulumi.OutputState }
+
+func (ConversationsNewMessageNotificationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsNewMessageNotification)(nil)).Elem()
+}
+
+func (o ConversationsNewMessageNotificationPtrOutput) ToConversationsNewMessageNotificationPtrOutput() ConversationsNewMessageNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsNewMessageNotificationPtrOutput) ToConversationsNewMessageNotificationPtrOutputWithContext(ctx context.Context) ConversationsNewMessageNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsNewMessageNotificationPtrOutput) Elem() ConversationsNewMessageNotificationOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) ConversationsNewMessageNotification {
+		if v != nil {
+			return *v
+		}
+		var ret ConversationsNewMessageNotification
+		return ret
+	}).(ConversationsNewMessageNotificationOutput)
+}
+
+// Whether the badge count is enabled (Twilio default false).
+func (o ConversationsNewMessageNotificationPtrOutput) BadgeCountEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BadgeCountEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether a notification is sent when a message is added to a conversation (Twilio default false).
+func (o ConversationsNewMessageNotificationPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Name of the sound played with the notification.
+func (o ConversationsNewMessageNotificationPtrOutput) Sound() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Sound
+	}).(pulumi.StringPtrOutput)
+}
+
+// Template of the notification text.
+func (o ConversationsNewMessageNotificationPtrOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(pulumi.StringPtrOutput)
+}
+
+// The notification for a message with media or file attachments.
+func (o ConversationsNewMessageNotificationPtrOutput) WithMedia() ConversationsMediaNotificationPtrOutput {
+	return o.ApplyT(func(v *ConversationsNewMessageNotification) *ConversationsMediaNotification {
+		if v == nil {
+			return nil
+		}
+		return v.WithMedia
+	}).(ConversationsMediaNotificationPtrOutput)
+}
+
+type ConversationsNotification struct {
+	// Whether the notification is sent (Twilio default false).
+	Enabled *bool `pulumi:"enabled"`
+	// Name of the sound played with the notification.
+	Sound *string `pulumi:"sound"`
+	// Template of the notification text.
+	Template *string `pulumi:"template"`
+}
+
+// ConversationsNotificationInput is an input type that accepts ConversationsNotificationArgs and ConversationsNotificationOutput values.
+// You can construct a concrete instance of `ConversationsNotificationInput` via:
+//
+//	ConversationsNotificationArgs{...}
+type ConversationsNotificationInput interface {
+	pulumi.Input
+
+	ToConversationsNotificationOutput() ConversationsNotificationOutput
+	ToConversationsNotificationOutputWithContext(context.Context) ConversationsNotificationOutput
+}
+
+type ConversationsNotificationArgs struct {
+	// Whether the notification is sent (Twilio default false).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Name of the sound played with the notification.
+	Sound pulumi.StringPtrInput `pulumi:"sound"`
+	// Template of the notification text.
+	Template pulumi.StringPtrInput `pulumi:"template"`
+}
+
+func (ConversationsNotificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsNotification)(nil)).Elem()
+}
+
+func (i ConversationsNotificationArgs) ToConversationsNotificationOutput() ConversationsNotificationOutput {
+	return i.ToConversationsNotificationOutputWithContext(context.Background())
+}
+
+func (i ConversationsNotificationArgs) ToConversationsNotificationOutputWithContext(ctx context.Context) ConversationsNotificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNotificationOutput)
+}
+
+func (i ConversationsNotificationArgs) ToConversationsNotificationPtrOutput() ConversationsNotificationPtrOutput {
+	return i.ToConversationsNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i ConversationsNotificationArgs) ToConversationsNotificationPtrOutputWithContext(ctx context.Context) ConversationsNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNotificationOutput).ToConversationsNotificationPtrOutputWithContext(ctx)
+}
+
+// ConversationsNotificationPtrInput is an input type that accepts ConversationsNotificationArgs, ConversationsNotificationPtr and ConversationsNotificationPtrOutput values.
+// You can construct a concrete instance of `ConversationsNotificationPtrInput` via:
+//
+//	        ConversationsNotificationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ConversationsNotificationPtrInput interface {
+	pulumi.Input
+
+	ToConversationsNotificationPtrOutput() ConversationsNotificationPtrOutput
+	ToConversationsNotificationPtrOutputWithContext(context.Context) ConversationsNotificationPtrOutput
+}
+
+type conversationsNotificationPtrType ConversationsNotificationArgs
+
+func ConversationsNotificationPtr(v *ConversationsNotificationArgs) ConversationsNotificationPtrInput {
+	return (*conversationsNotificationPtrType)(v)
+}
+
+func (*conversationsNotificationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsNotification)(nil)).Elem()
+}
+
+func (i *conversationsNotificationPtrType) ToConversationsNotificationPtrOutput() ConversationsNotificationPtrOutput {
+	return i.ToConversationsNotificationPtrOutputWithContext(context.Background())
+}
+
+func (i *conversationsNotificationPtrType) ToConversationsNotificationPtrOutputWithContext(ctx context.Context) ConversationsNotificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConversationsNotificationPtrOutput)
+}
+
+type ConversationsNotificationOutput struct{ *pulumi.OutputState }
+
+func (ConversationsNotificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConversationsNotification)(nil)).Elem()
+}
+
+func (o ConversationsNotificationOutput) ToConversationsNotificationOutput() ConversationsNotificationOutput {
+	return o
+}
+
+func (o ConversationsNotificationOutput) ToConversationsNotificationOutputWithContext(ctx context.Context) ConversationsNotificationOutput {
+	return o
+}
+
+func (o ConversationsNotificationOutput) ToConversationsNotificationPtrOutput() ConversationsNotificationPtrOutput {
+	return o.ToConversationsNotificationPtrOutputWithContext(context.Background())
+}
+
+func (o ConversationsNotificationOutput) ToConversationsNotificationPtrOutputWithContext(ctx context.Context) ConversationsNotificationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConversationsNotification) *ConversationsNotification {
+		return &v
+	}).(ConversationsNotificationPtrOutput)
+}
+
+// Whether the notification is sent (Twilio default false).
+func (o ConversationsNotificationOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ConversationsNotification) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Name of the sound played with the notification.
+func (o ConversationsNotificationOutput) Sound() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsNotification) *string { return v.Sound }).(pulumi.StringPtrOutput)
+}
+
+// Template of the notification text.
+func (o ConversationsNotificationOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConversationsNotification) *string { return v.Template }).(pulumi.StringPtrOutput)
+}
+
+type ConversationsNotificationPtrOutput struct{ *pulumi.OutputState }
+
+func (ConversationsNotificationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConversationsNotification)(nil)).Elem()
+}
+
+func (o ConversationsNotificationPtrOutput) ToConversationsNotificationPtrOutput() ConversationsNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsNotificationPtrOutput) ToConversationsNotificationPtrOutputWithContext(ctx context.Context) ConversationsNotificationPtrOutput {
+	return o
+}
+
+func (o ConversationsNotificationPtrOutput) Elem() ConversationsNotificationOutput {
+	return o.ApplyT(func(v *ConversationsNotification) ConversationsNotification {
+		if v != nil {
+			return *v
+		}
+		var ret ConversationsNotification
+		return ret
+	}).(ConversationsNotificationOutput)
+}
+
+// Whether the notification is sent (Twilio default false).
+func (o ConversationsNotificationPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ConversationsNotification) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Name of the sound played with the notification.
+func (o ConversationsNotificationPtrOutput) Sound() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsNotification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Sound
+	}).(pulumi.StringPtrOutput)
+}
+
+// Template of the notification text.
+func (o ConversationsNotificationPtrOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConversationsNotification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Template
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1910,6 +6539,78 @@ func (o IncomingPhoneNumberEffectivePtrOutput) VoiceUrl() pulumi.StringPtrOutput
 		}
 		return v.VoiceUrl
 	}).(pulumi.StringPtrOutput)
+}
+
+type MessagingGeoPermission struct {
+	// The ISO country code.
+	CountryCode string `pulumi:"countryCode"`
+	// Whether the account may send messages to the country.
+	Enabled *bool `pulumi:"enabled"`
+	// A note Twilio attaches to the country, for example a risk warning.
+	Message *string `pulumi:"message"`
+	// The international dialing prefix of the country.
+	Prefix *string `pulumi:"prefix"`
+	// The kind of permission, for example country.
+	Type *string `pulumi:"type"`
+}
+
+type MessagingGeoPermissionOutput struct{ *pulumi.OutputState }
+
+func (MessagingGeoPermissionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MessagingGeoPermission)(nil)).Elem()
+}
+
+func (o MessagingGeoPermissionOutput) ToMessagingGeoPermissionOutput() MessagingGeoPermissionOutput {
+	return o
+}
+
+func (o MessagingGeoPermissionOutput) ToMessagingGeoPermissionOutputWithContext(ctx context.Context) MessagingGeoPermissionOutput {
+	return o
+}
+
+// The ISO country code.
+func (o MessagingGeoPermissionOutput) CountryCode() pulumi.StringOutput {
+	return o.ApplyT(func(v MessagingGeoPermission) string { return v.CountryCode }).(pulumi.StringOutput)
+}
+
+// Whether the account may send messages to the country.
+func (o MessagingGeoPermissionOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MessagingGeoPermission) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// A note Twilio attaches to the country, for example a risk warning.
+func (o MessagingGeoPermissionOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingGeoPermission) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// The international dialing prefix of the country.
+func (o MessagingGeoPermissionOutput) Prefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingGeoPermission) *string { return v.Prefix }).(pulumi.StringPtrOutput)
+}
+
+// The kind of permission, for example country.
+func (o MessagingGeoPermissionOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingGeoPermission) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type MessagingGeoPermissionArrayOutput struct{ *pulumi.OutputState }
+
+func (MessagingGeoPermissionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MessagingGeoPermission)(nil)).Elem()
+}
+
+func (o MessagingGeoPermissionArrayOutput) ToMessagingGeoPermissionArrayOutput() MessagingGeoPermissionArrayOutput {
+	return o
+}
+
+func (o MessagingGeoPermissionArrayOutput) ToMessagingGeoPermissionArrayOutputWithContext(ctx context.Context) MessagingGeoPermissionArrayOutput {
+	return o
+}
+
+func (o MessagingGeoPermissionArrayOutput) Index(i pulumi.IntInput) MessagingGeoPermissionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MessagingGeoPermission {
+		return vs[0].([]MessagingGeoPermission)[vs[1].(int)]
+	}).(MessagingGeoPermissionOutput)
 }
 
 type MessagingServiceEffective struct {
@@ -4638,8 +9339,63 @@ func (o VerifyTemplateArrayOutput) Index(i pulumi.IntInput) VerifyTemplateOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentAuthenticationActionInput)(nil)).Elem(), ContentAuthenticationActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentAuthenticationActionArrayInput)(nil)).Elem(), ContentAuthenticationActionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCallToActionInput)(nil)).Elem(), ContentCallToActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCallToActionPtrInput)(nil)).Elem(), ContentCallToActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCallToActionActionInput)(nil)).Elem(), ContentCallToActionActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCallToActionActionArrayInput)(nil)).Elem(), ContentCallToActionActionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCardInput)(nil)).Elem(), ContentCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCardPtrInput)(nil)).Elem(), ContentCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCardActionInput)(nil)).Elem(), ContentCardActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCardActionArrayInput)(nil)).Elem(), ContentCardActionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselInput)(nil)).Elem(), ContentCarouselArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselPtrInput)(nil)).Elem(), ContentCarouselArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselActionInput)(nil)).Elem(), ContentCarouselActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselActionArrayInput)(nil)).Elem(), ContentCarouselActionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselCardInput)(nil)).Elem(), ContentCarouselCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCarouselCardArrayInput)(nil)).Elem(), ContentCarouselCardArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCatalogInput)(nil)).Elem(), ContentCatalogArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCatalogPtrInput)(nil)).Elem(), ContentCatalogArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCatalogItemInput)(nil)).Elem(), ContentCatalogItemArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentCatalogItemArrayInput)(nil)).Elem(), ContentCatalogItemArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsInput)(nil)).Elem(), ContentFlowsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsPtrInput)(nil)).Elem(), ContentFlowsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsPageInput)(nil)).Elem(), ContentFlowsPageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsPageArrayInput)(nil)).Elem(), ContentFlowsPageArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsPageComponentInput)(nil)).Elem(), ContentFlowsPageComponentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentFlowsPageComponentArrayInput)(nil)).Elem(), ContentFlowsPageComponentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentListItemInput)(nil)).Elem(), ContentListItemArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentListItemArrayInput)(nil)).Elem(), ContentListItemArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentListPickerInput)(nil)).Elem(), ContentListPickerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentListPickerPtrInput)(nil)).Elem(), ContentListPickerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentLocationInput)(nil)).Elem(), ContentLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentLocationPtrInput)(nil)).Elem(), ContentLocationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentMediaInput)(nil)).Elem(), ContentMediaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentMediaPtrInput)(nil)).Elem(), ContentMediaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentQuickReplyInput)(nil)).Elem(), ContentQuickReplyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentQuickReplyPtrInput)(nil)).Elem(), ContentQuickReplyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentQuickReplyActionInput)(nil)).Elem(), ContentQuickReplyActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentQuickReplyActionArrayInput)(nil)).Elem(), ContentQuickReplyActionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentScheduleInput)(nil)).Elem(), ContentScheduleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentSchedulePtrInput)(nil)).Elem(), ContentScheduleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentTextInput)(nil)).Elem(), ContentTextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentTextPtrInput)(nil)).Elem(), ContentTextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentTypesInput)(nil)).Elem(), ContentTypesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappAuthenticationInput)(nil)).Elem(), ContentWhatsappAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappAuthenticationPtrInput)(nil)).Elem(), ContentWhatsappAuthenticationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappCardInput)(nil)).Elem(), ContentWhatsappCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappCardPtrInput)(nil)).Elem(), ContentWhatsappCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappFlowsInput)(nil)).Elem(), ContentWhatsappFlowsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContentWhatsappFlowsPtrInput)(nil)).Elem(), ContentWhatsappFlowsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsAutoCreationInput)(nil)).Elem(), ConversationsAutoCreationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsAutoCreationPtrInput)(nil)).Elem(), ConversationsAutoCreationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsMediaNotificationInput)(nil)).Elem(), ConversationsMediaNotificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsMediaNotificationPtrInput)(nil)).Elem(), ConversationsMediaNotificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNewMessageNotificationInput)(nil)).Elem(), ConversationsNewMessageNotificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNewMessageNotificationPtrInput)(nil)).Elem(), ConversationsNewMessageNotificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNotificationInput)(nil)).Elem(), ConversationsNotificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNotificationPtrInput)(nil)).Elem(), ConversationsNotificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
@@ -4664,8 +9420,63 @@ func init() {
 	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
+	pulumi.RegisterOutputType(ContentAuthenticationActionOutput{})
+	pulumi.RegisterOutputType(ContentAuthenticationActionArrayOutput{})
+	pulumi.RegisterOutputType(ContentCallToActionOutput{})
+	pulumi.RegisterOutputType(ContentCallToActionPtrOutput{})
+	pulumi.RegisterOutputType(ContentCallToActionActionOutput{})
+	pulumi.RegisterOutputType(ContentCallToActionActionArrayOutput{})
+	pulumi.RegisterOutputType(ContentCardOutput{})
+	pulumi.RegisterOutputType(ContentCardPtrOutput{})
+	pulumi.RegisterOutputType(ContentCardActionOutput{})
+	pulumi.RegisterOutputType(ContentCardActionArrayOutput{})
+	pulumi.RegisterOutputType(ContentCarouselOutput{})
+	pulumi.RegisterOutputType(ContentCarouselPtrOutput{})
+	pulumi.RegisterOutputType(ContentCarouselActionOutput{})
+	pulumi.RegisterOutputType(ContentCarouselActionArrayOutput{})
+	pulumi.RegisterOutputType(ContentCarouselCardOutput{})
+	pulumi.RegisterOutputType(ContentCarouselCardArrayOutput{})
+	pulumi.RegisterOutputType(ContentCatalogOutput{})
+	pulumi.RegisterOutputType(ContentCatalogPtrOutput{})
+	pulumi.RegisterOutputType(ContentCatalogItemOutput{})
+	pulumi.RegisterOutputType(ContentCatalogItemArrayOutput{})
+	pulumi.RegisterOutputType(ContentFlowsOutput{})
+	pulumi.RegisterOutputType(ContentFlowsPtrOutput{})
+	pulumi.RegisterOutputType(ContentFlowsPageOutput{})
+	pulumi.RegisterOutputType(ContentFlowsPageArrayOutput{})
+	pulumi.RegisterOutputType(ContentFlowsPageComponentOutput{})
+	pulumi.RegisterOutputType(ContentFlowsPageComponentArrayOutput{})
+	pulumi.RegisterOutputType(ContentListItemOutput{})
+	pulumi.RegisterOutputType(ContentListItemArrayOutput{})
+	pulumi.RegisterOutputType(ContentListPickerOutput{})
+	pulumi.RegisterOutputType(ContentListPickerPtrOutput{})
+	pulumi.RegisterOutputType(ContentLocationOutput{})
+	pulumi.RegisterOutputType(ContentLocationPtrOutput{})
+	pulumi.RegisterOutputType(ContentMediaOutput{})
+	pulumi.RegisterOutputType(ContentMediaPtrOutput{})
+	pulumi.RegisterOutputType(ContentQuickReplyOutput{})
+	pulumi.RegisterOutputType(ContentQuickReplyPtrOutput{})
+	pulumi.RegisterOutputType(ContentQuickReplyActionOutput{})
+	pulumi.RegisterOutputType(ContentQuickReplyActionArrayOutput{})
+	pulumi.RegisterOutputType(ContentScheduleOutput{})
+	pulumi.RegisterOutputType(ContentSchedulePtrOutput{})
+	pulumi.RegisterOutputType(ContentTextOutput{})
+	pulumi.RegisterOutputType(ContentTextPtrOutput{})
+	pulumi.RegisterOutputType(ContentTypesOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappAuthenticationOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappAuthenticationPtrOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappCardOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappCardPtrOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappFlowsOutput{})
+	pulumi.RegisterOutputType(ContentWhatsappFlowsPtrOutput{})
 	pulumi.RegisterOutputType(ConversationsAutoCreationOutput{})
 	pulumi.RegisterOutputType(ConversationsAutoCreationPtrOutput{})
+	pulumi.RegisterOutputType(ConversationsMediaNotificationOutput{})
+	pulumi.RegisterOutputType(ConversationsMediaNotificationPtrOutput{})
+	pulumi.RegisterOutputType(ConversationsNewMessageNotificationOutput{})
+	pulumi.RegisterOutputType(ConversationsNewMessageNotificationPtrOutput{})
+	pulumi.RegisterOutputType(ConversationsNotificationOutput{})
+	pulumi.RegisterOutputType(ConversationsNotificationPtrOutput{})
 	pulumi.RegisterOutputType(DialingCountryOutput{})
 	pulumi.RegisterOutputType(DialingCountryArrayOutput{})
 	pulumi.RegisterOutputType(EventSchemaVersionOutput{})
@@ -4676,6 +9487,8 @@ func init() {
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectiveOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectivePtrOutput{})
+	pulumi.RegisterOutputType(MessagingGeoPermissionOutput{})
+	pulumi.RegisterOutputType(MessagingGeoPermissionArrayOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectivePtrOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})

@@ -369,3 +369,61 @@ func TestLookup_TaskRouter(t *testing.T) {
 	require.Equal(t, "{}", getS(t, out, "attributes"))
 	require.True(t, strings.HasPrefix(getS(t, out, "activitySid"), "WA"))
 }
+
+// An import leaves an input unset when Twilio's value is the default, so a program that sets the
+// default explicitly must plan no change, for every TaskRouter resource (#1880). Activity's
+// `available` replaces, so a spurious diff there would destroy the activity.
+func TestTaskRouterImportThenExplicitDefaultsPlansNothing(t *testing.T) {
+	l := newTL(t, "TaskRouterWorkspace", "ws")
+	ws := trWS(l)
+	boolV := func(b bool) property.Value { return property.New(b) }
+	num := func(n float64) property.Value { return property.New(n) }
+
+	type tc struct {
+		typ      string
+		minimal  map[string]property.Value // creates the object with Twilio defaults
+		explicit map[string]property.Value // the same program with every default written out
+		changed  map[string]property.Value // a non-default value that must still plan a change
+	}
+	cases := []tc{
+		{"TaskRouterActivity",
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Idle")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Idle"), "available": boolV(true)},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Idle"), "available": boolV(false)}},
+		{"TaskRouterTaskChannel",
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Voice"), "uniqueName": sv("voice")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Voice"), "uniqueName": sv("voice"), "channelOptimizedRouting": boolV(false)},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Voice"), "uniqueName": sv("voice"), "channelOptimizedRouting": boolV(true)}},
+		{"TaskRouterTaskQueue",
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("q")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("q"), "targetWorkers": sv("1==1"), "maxReservedWorkers": num(1), "taskOrder": sv("FIFO"),
+				"reservationActivitySid": sv(""), "assignmentActivitySid": sv("")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("q"), "taskOrder": sv("LIFO")}},
+		{"TaskRouterWorkflow",
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("w"), "configuration": sv(trConfigA)},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("w"), "configuration": sv(trConfigA), "taskReservationTimeout": num(120),
+				"assignmentCallbackUrl": sv(""), "fallbackAssignmentCallbackUrl": sv("")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("w"), "configuration": sv(trConfigA), "taskReservationTimeout": num(60)}},
+		{"TaskRouterWorker",
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("alice")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("alice"), "attributes": sv("{}")},
+			map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("alice"), "attributes": sv(`{"a":1}`)}},
+	}
+	for _, c := range cases {
+		lc := l.other(c.typ, "x")
+		created := lc.create(pv(c.minimal))
+		imp := lc.read(created.ID, empty(), empty())
+		require.NotEmpty(t, imp.ID, c.typ)
+		requireNoChanges(t, lc.diff(imp.ID, imp.Properties, pv(c.explicit), imp.Inputs))
+		require.True(t, lc.diff(imp.ID, imp.Properties, pv(c.changed), imp.Inputs).HasChanges, "%s: a non-default value still plans a change", c.typ)
+	}
+
+	// The workspace itself.
+	wl := l.other("TaskRouterWorkspace", "ws2")
+	created := wl.create(pv(map[string]property.Value{"friendlyName": sv("plain")}))
+	imp := wl.read(created.ID, empty(), empty())
+	explicit := pv(map[string]property.Value{"friendlyName": sv("plain"), "eventCallbackUrl": sv(""), "eventsFilter": sv(""),
+		"multiTaskEnabled": boolV(false), "prioritizeQueueOrder": sv("FIFO")})
+	requireNoChanges(t, wl.diff(imp.ID, imp.Properties, explicit, imp.Inputs))
+	require.True(t, wl.diff(imp.ID, imp.Properties, with(explicit, map[string]property.Value{"multiTaskEnabled": boolV(true)}), imp.Inputs).HasChanges)
+}

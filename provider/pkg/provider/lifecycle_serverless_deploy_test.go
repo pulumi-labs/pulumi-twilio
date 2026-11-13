@@ -137,6 +137,11 @@ func TestServerlessAssetVersionLC_Lifecycle(t *testing.T) {
 	require.Equal(t, as, getS(t, imp.Inputs, "assetSid"))
 	require.False(t, hasProp(imp.Inputs, "content"))
 	requireNoChanges(t, l.diff(c.ID, imp.Properties, in, imp.Inputs))
+	// The imported inputs (neither content nor contentBase64) pass Check, so `pulumi import`
+	// no longer warns (#1879); a new version with no bytes is refused at create.
+	require.Empty(t, l.check(imp.Inputs).Failures)
+	_, cerr := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: imp.Inputs})
+	require.ErrorContains(t, cerr, "exactly one")
 	l.requireImportFails(svc + "/" + as + "/ZN" + strings.Repeat("9", 32))
 
 	// Binary assets go in as base64.
@@ -146,15 +151,11 @@ func TestServerlessAssetVersionLC_Lifecycle(t *testing.T) {
 	b := l.other("ServerlessAssetVersion", "bin").create(bin)
 	require.Equal(t, raw, l.f.uploads[getS(t, b.Properties, "sid")].Content)
 
-	// Exactly one of content and contentBase64, and the base64 must decode.
-	for name, bad := range map[string]property.Map{
-		"content":       without(in, "content"),
-		"contentBase64": with(bin, map[string]property.Value{"contentBase64": sv("!!!")}),
-	} {
-		chk := l.check(bad)
-		require.Len(t, chk.Failures, 1, name)
-		require.Equal(t, name, chk.Failures[0].Property)
-	}
+	// The base64 must decode.
+	badB64 := l.check(with(bin, map[string]property.Value{"contentBase64": sv("!!!")}))
+	require.Len(t, badB64.Failures, 1)
+	require.Equal(t, "contentBase64", badB64.Failures[0].Property)
+	// Setting both content and contentBase64 still fails.
 	both := l.check(with(in, map[string]property.Value{"contentBase64": sv("aGk=")}))
 	require.Len(t, both.Failures, 1)
 
@@ -454,4 +455,43 @@ func TestConnectAppLC_CheckUnknownPermissionElement(t *testing.T) {
 	l := newTL(t, "ConnectApp", "ca")
 	chk := l.check(pv(map[string]property.Value{"connectAppSid": sv("CN" + strings.Repeat("a", 32)), "permissions": arrv(computed())}))
 	require.Empty(t, chk.Failures)
+}
+
+// An imported build lists the versions as objects and carries Twilio's default
+// dependencies; importing and then running the original program must plan no
+// change (#1878).
+func TestServerlessBuildLC_ImportThenDiffIsClean(t *testing.T) {
+	buildPollInterval = time.Millisecond
+	l := newTL(t, "ServerlessService", "svc")
+	svc := serverlessSvc(l)
+	fn := serverlessFn(l, svc)
+	v := l.other("ServerlessFunctionVersion", "v").create(pv(map[string]property.Value{"serviceSid": sv(svc), "functionSid": sv(fn), "path": sv("/hello"), "visibility": sv("protected"), "content": sv("//")}))
+	vsid := getS(t, v.Properties, "sid")
+	bl := l.other("ServerlessBuild", "b")
+	in := pv(map[string]property.Value{"serviceSid": sv(svc), "functionVersionSids": strList(vsid),
+		"dependencies": property.New(property.NewArray([]property.Value{
+			property.New(property.NewMap(map[string]property.Value{"name": sv("twilio"), "version": sv("5.3.0")})),
+		}))})
+	b := bl.create(in)
+	bsid := getS(t, b.Properties, "sid")
+
+	// Twilio adds its defaults, and lists them in its own order.
+	o := l.f.get("zb", testAccount, svc+"/"+bsid)
+	o["dependencies"] = []any{
+		map[string]any{"name": "util", "version": "0.12.5"},
+		map[string]any{"name": "twilio", "version": "5.3.0"},
+		map[string]any{"name": "xmldom", "version": "0.6.0"},
+		map[string]any{"name": "lodash", "version": "4.17.21"},
+		map[string]any{"name": "@twilio/runtime-handler", "version": "2.1.2"},
+	}
+
+	imp := bl.read(svc+"/"+bsid, empty(), empty())
+	require.Equal(t, vsid, imp.Inputs.Get("functionVersionSids").AsArray().Get(0).AsString(), "the version SID is read from the object")
+	requireNoChanges(t, bl.diff(imp.ID, imp.Properties, bl.checked(in), imp.Inputs))
+
+	// A real change to a listed dependency still plans a replacement.
+	changed := with(in, map[string]property.Value{"dependencies": property.New(property.NewArray([]property.Value{
+		property.New(property.NewMap(map[string]property.Value{"name": sv("twilio"), "version": sv("5.4.0")})),
+	}))})
+	require.True(t, bl.diff(imp.ID, imp.Properties, bl.checked(changed), imp.Inputs).HasChanges)
 }

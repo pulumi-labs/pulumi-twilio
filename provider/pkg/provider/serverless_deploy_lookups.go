@@ -220,10 +220,10 @@ func (f *GetServerlessBuild) Invoke(ctx context.Context, req infer.FunctionReque
 		FunctionVersionSids: []string{}, AssetVersionSids: []string{}, Dependencies: []ServerlessBuildDependency{},
 		Url: o.str("url"), DateCreated: o.str("date_created"), DateUpdated: o.str("date_updated"),
 	}
-	if l := o.optList("function_versions"); l != nil {
+	if l := versionList(o, "function_versions"); l != nil {
 		res.FunctionVersionSids = *l
 	}
-	if l := o.optList("asset_versions"); l != nil {
+	if l := versionList(o, "asset_versions"); l != nil {
 		res.AssetVersionSids = *l
 	}
 	if d := buildDeps(o); d != nil {

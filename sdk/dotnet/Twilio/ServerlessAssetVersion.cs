@@ -29,7 +29,7 @@ namespace Pulumi.Labs.Twilio
         public Output<string> AssetSid { get; private set; } = null!;
 
         /// <summary>
-        /// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        /// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         /// </summary>
         [Output("content")]
         public Output<string?> Content { get; private set; } = null!;
@@ -135,7 +135,7 @@ namespace Pulumi.Labs.Twilio
         public Input<string> AssetSid { get; set; } = null!;
 
         /// <summary>
-        /// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        /// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         /// </summary>
         [Input("content")]
         public Input<string>? Content { get; set; }

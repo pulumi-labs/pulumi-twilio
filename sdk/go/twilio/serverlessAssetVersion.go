@@ -20,7 +20,7 @@ type ServerlessAssetVersion struct {
 	AccountSid pulumi.StringOutput `pulumi:"accountSid"`
 	// SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource.
 	AssetSid pulumi.StringOutput `pulumi:"assetSid"`
-	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
 	Content pulumi.StringPtrOutput `pulumi:"content"`
 	// The file as base64, for binary content such as images. Set exactly one of content and contentBase64.
 	ContentBase64 pulumi.StringPtrOutput `pulumi:"contentBase64"`
@@ -94,7 +94,7 @@ func (ServerlessAssetVersionState) ElementType() reflect.Type {
 type serverlessAssetVersionArgs struct {
 	// SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource.
 	AssetSid string `pulumi:"assetSid"`
-	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
 	Content *string `pulumi:"content"`
 	// The file as base64, for binary content such as images. Set exactly one of content and contentBase64.
 	ContentBase64 *string `pulumi:"contentBase64"`
@@ -112,7 +112,7 @@ type serverlessAssetVersionArgs struct {
 type ServerlessAssetVersionArgs struct {
 	// SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource.
 	AssetSid pulumi.StringInput
-	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+	// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
 	Content pulumi.StringPtrInput
 	// The file as base64, for binary content such as images. Set exactly one of content and contentBase64.
 	ContentBase64 pulumi.StringPtrInput
@@ -223,7 +223,7 @@ func (o ServerlessAssetVersionOutput) AssetSid() pulumi.StringOutput {
 	return o.ApplyT(func(v *ServerlessAssetVersion) pulumi.StringOutput { return v.AssetSid }).(pulumi.StringOutput)
 }
 
-// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+// The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
 func (o ServerlessAssetVersionOutput) Content() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServerlessAssetVersion) pulumi.StringPtrOutput { return v.Content }).(pulumi.StringPtrOutput)
 }

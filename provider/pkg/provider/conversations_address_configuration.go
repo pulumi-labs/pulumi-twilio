@@ -111,23 +111,36 @@ func (r *ConversationsAddressConfiguration) Check(ctx context.Context, req infer
 	}
 	if ac := args.AutoCreation; ac != nil && !c.unk("autoCreation") {
 		if ac.Type != nil {
-			c.oneOf("autoCreation", *ac.Type, []string{"webhook", "studio", "default"})
+			c.oneOf("autoCreation.type", *ac.Type, []string{"webhook", "studio", "default"})
 		}
-		cvCheckOptionalService(c, "autoCreation", ac.ConversationServiceSid)
-		cvUpper(c, "autoCreation", ac.WebhookMethod)
+		cvCheckOptionalService(c, "autoCreation.conversationServiceSid", ac.ConversationServiceSid)
+		cvUpper(c, "autoCreation.webhookMethod", ac.WebhookMethod)
 	}
 	return infer.CheckResponse[ConversationsAddressConfigurationArgs]{Inputs: args, Failures: c.failures}, nil
 }
 
-// sameAutoCreation reports whether every field the program sets in n is already set so in o.
+// sameAutoCreation reports whether every field the program sets in n is already set so in o. An
+// import leaves a field unset when Twilio holds its default, so an unset old value is the default
+// (disabled, empty strings, a retry count of 0) and a program that writes it is not a change (#1888).
 func sameAutoCreation(o, n *ConversationsAutoCreation) bool {
 	if n == nil {
 		return true
 	}
-	if o == nil || o.Enabled != n.Enabled {
+	if o == nil {
+		o = &ConversationsAutoCreation{}
+	}
+	if o.Enabled != n.Enabled {
 		return false
 	}
-	same := func(a, b *string) bool { return b == nil || (a != nil && *a == *b) }
+	same := func(a, b *string) bool {
+		if b == nil {
+			return true
+		}
+		if a == nil {
+			return *b == ""
+		}
+		return *a == *b
+	}
 	if !same(o.Type, n.Type) || !same(o.ConversationServiceSid, n.ConversationServiceSid) || !same(o.WebhookUrl, n.WebhookUrl) ||
 		!same(o.WebhookMethod, n.WebhookMethod) || !same(o.StudioFlowSid, n.StudioFlowSid) {
 		return false
@@ -135,7 +148,10 @@ func sameAutoCreation(o, n *ConversationsAutoCreation) bool {
 	if n.WebhookFilters != nil && (o.WebhookFilters == nil || !sameSet(*o.WebhookFilters, *n.WebhookFilters)) {
 		return false
 	}
-	return n.StudioRetryCount == nil || (o.StudioRetryCount != nil && *o.StudioRetryCount == *n.StudioRetryCount)
+	if o.StudioRetryCount == nil {
+		return n.StudioRetryCount == nil || *n.StudioRetryCount == 0
+	}
+	return n.StudioRetryCount == nil || *o.StudioRetryCount == *n.StudioRetryCount
 }
 
 func (r *ConversationsAddressConfiguration) Diff(_ context.Context, req infer.DiffRequest[ConversationsAddressConfigurationArgs, ConversationsAddressConfigurationState]) (infer.DiffResponse, error) {
@@ -143,10 +159,10 @@ func (r *ConversationsAddressConfiguration) Diff(_ context.Context, req infer.Di
 	d := trDiffSet{}
 	d.replace("addressType", o.AddressType, n.AddressType)
 	d.replace("address", o.Address, n.Address)
-	if n.AddressCountry != nil && !reflect.DeepEqual(o.AddressCountry, n.AddressCountry) {
+	if n.AddressCountry != nil && !reflect.DeepEqual(o.AddressCountry, n.AddressCountry) && !(o.AddressCountry == nil && *n.AddressCountry == "") {
 		d["addressCountry"] = p.PropertyDiff{Kind: p.UpdateReplace}
 	}
-	d.str("friendlyName", o.FriendlyName, n.FriendlyName)
+	d.strDef(conversationsAddressConfigurationDefaults, "friendlyName", o.FriendlyName, n.FriendlyName)
 	if !sameAutoCreation(o.AutoCreation, n.AutoCreation) {
 		d["autoCreation"] = p.PropertyDiff{Kind: p.Update}
 	}
@@ -210,13 +226,13 @@ func cvAutoCreation(in *ConversationsAutoCreation, o obj, imported bool) *Conver
 	if enabled != nil {
 		out.Enabled = *enabled
 	}
-	out.Type = trStr(in.Type, o.optStr("auto_creation.type"), "", imported)
-	out.ConversationServiceSid = trStr(in.ConversationServiceSid, o.optStr("auto_creation.conversation_service_sid"), "", imported)
-	out.WebhookUrl = trStr(in.WebhookUrl, o.optStr("auto_creation.webhook_url"), "", imported)
-	out.WebhookMethod = trStr(in.WebhookMethod, o.optStr("auto_creation.webhook_method"), "", imported)
+	out.Type = trStr(in.Type, o.optStr("auto_creation.type"), conversationsAddressConfigurationDefaults.str("autoCreation.type"), imported)
+	out.ConversationServiceSid = trStr(in.ConversationServiceSid, o.optStr("auto_creation.conversation_service_sid"), conversationsAddressConfigurationDefaults.str("autoCreation.conversationServiceSid"), imported)
+	out.WebhookUrl = trStr(in.WebhookUrl, o.optStr("auto_creation.webhook_url"), conversationsAddressConfigurationDefaults.str("autoCreation.webhookUrl"), imported)
+	out.WebhookMethod = trStr(in.WebhookMethod, o.optStr("auto_creation.webhook_method"), conversationsAddressConfigurationDefaults.str("autoCreation.webhookMethod"), imported)
 	out.WebhookFilters = cvList(in.WebhookFilters, o.optList("auto_creation.webhook_filters"), imported)
-	out.StudioFlowSid = trStr(in.StudioFlowSid, o.optStr("auto_creation.studio_flow_sid"), "", imported)
-	out.StudioRetryCount = trInt(in.StudioRetryCount, o.optInt("auto_creation.studio_retry_count"), 0, imported)
+	out.StudioFlowSid = trStr(in.StudioFlowSid, o.optStr("auto_creation.studio_flow_sid"), conversationsAddressConfigurationDefaults.str("autoCreation.studioFlowSid"), imported)
+	out.StudioRetryCount = trInt(in.StudioRetryCount, o.optInt("auto_creation.studio_retry_count"), conversationsAddressConfigurationDefaults.integer("autoCreation.studioRetryCount"), imported)
 	return &out
 }
 
@@ -240,8 +256,8 @@ func (r *ConversationsAddressConfiguration) Read(ctx context.Context, req infer.
 	imported := in.Address == ""
 	in.AddressType = o.str("type")
 	in.Address = o.str("address")
-	in.FriendlyName = trStr(in.FriendlyName, o.optStr("friendly_name"), "", imported)
-	in.AddressCountry = trStr(in.AddressCountry, o.optStr("address_country"), "", imported)
+	in.FriendlyName = trStr(in.FriendlyName, o.optStr("friendly_name"), conversationsAddressConfigurationDefaults.str("friendlyName"), imported)
+	in.AddressCountry = trStr(in.AddressCountry, o.optStr("address_country"), conversationsAddressConfigurationDefaults.str("addressCountry"), imported)
 	in.AutoCreation = cvAutoCreation(in.AutoCreation, o, imported)
 	st := ConversationsAddressConfigurationState{ConversationsAddressConfigurationArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
@@ -276,4 +292,16 @@ func (r *ConversationsAddressConfiguration) Delete(ctx context.Context, req infe
 		return infer.DeleteResponse{}, fmt.Errorf("delete Conversations address configuration %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil
+}
+
+// conversationsAddressConfigurationDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var conversationsAddressConfigurationDefaults = trDefaults{
+	"friendlyName":                        "",
+	"autoCreation.type":                   "",
+	"autoCreation.conversationServiceSid": "",
+	"autoCreation.webhookUrl":             "",
+	"autoCreation.webhookMethod":          "",
+	"autoCreation.studioFlowSid":          "",
+	"autoCreation.studioRetryCount":       0,
+	"addressCountry":                      "",
 }

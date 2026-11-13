@@ -384,6 +384,699 @@
         "connectAppSid"
       ]
     },
+    "twilio:index:ContentAuthenticationAction": {
+      "properties": {
+        "copyCodeText": {
+          "type": "string",
+          "description": "Label of the copy-code button."
+        },
+        "type": {
+          "type": "string",
+          "description": "The button type. Only COPY_CODE exists."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "copyCodeText"
+      ]
+    },
+    "twilio:index:ContentCallToAction": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCallToActionAction"
+          },
+          "description": "The buttons."
+        },
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "actions"
+      ]
+    },
+    "twilio:index:ContentCallToActionAction": {
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Code the button copies (type COPY_CODE)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the button."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number the button dials (type PHONE_NUMBER or VOICE_CALL)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Label of the button."
+        },
+        "type": {
+          "type": "string",
+          "description": "The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL the button opens (type URL)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type"
+      ]
+    },
+    "twilio:index:ContentCard": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCardAction"
+          },
+          "description": "Buttons of the card."
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URLs of the card's media."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the card."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the card."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ContentCardAction": {
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Code the button copies (type COPY_CODE)."
+        },
+        "digitableLine": {
+          "type": "string",
+          "description": "Digitable line of a BOLETO payment."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the button."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number the button dials (type PHONE_NUMBER or VOICE_CALL)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Label of the button."
+        },
+        "type": {
+          "type": "string",
+          "description": "The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL the button opens (type URL)."
+        },
+        "webviewSize": {
+          "type": "string",
+          "description": "Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type"
+      ]
+    },
+    "twilio:index:ContentCarousel": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCarouselCard"
+          },
+          "description": "The cards."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "cards"
+      ]
+    },
+    "twilio:index:ContentCarouselAction": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier returned to you when the recipient taps the button (type QUICK_REPLY)."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number the button dials (type PHONE_NUMBER)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Label of the button."
+        },
+        "type": {
+          "type": "string",
+          "description": "The button type: URL, PHONE_NUMBER or QUICK_REPLY."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL the button opens (type URL)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "title"
+      ]
+    },
+    "twilio:index:ContentCarouselCard": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCarouselAction"
+          },
+          "description": "Buttons of the card."
+        },
+        "body": {
+          "type": "string",
+          "description": "Text of the card."
+        },
+        "media": {
+          "type": "string",
+          "description": "URL of the card's media."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the card."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "media",
+        "actions"
+      ]
+    },
+    "twilio:index:ContentCatalog": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "dynamicItems": {
+          "type": "string",
+          "description": "A variable placeholder that Twilio fills with the products when the message is sent."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the catalog."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCatalogItem"
+          },
+          "description": "The products to show."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the message."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body"
+      ]
+    },
+    "twilio:index:ContentCatalogItem": {
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the product."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the product in the catalog."
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "URL of the product image."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the product."
+        },
+        "sectionTitle": {
+          "type": "string",
+          "description": "Title of the section the product is listed in."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ContentFlows": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "buttonText": {
+          "type": "string",
+          "description": "Label of the button that opens the flow."
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "URL of the media shown with the message."
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentFlowsPage"
+          },
+          "description": "The pages of the flow."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the message."
+        },
+        "type": {
+          "type": "string",
+          "description": "The flow type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "buttonText",
+        "pages",
+        "type"
+      ]
+    },
+    "twilio:index:ContentFlowsPage": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the page."
+        },
+        "layout": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentFlowsPageComponent"
+          },
+          "description": "Components of the page."
+        },
+        "nextPageId": {
+          "type": "string",
+          "description": "Identifier of the page that follows this one."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the page."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the page."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "layout"
+      ]
+    },
+    "twilio:index:ContentFlowsPageComponent": {
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label of the component."
+        },
+        "type": {
+          "type": "string",
+          "description": "The component type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "type"
+      ]
+    },
+    "twilio:index:ContentListItem": {
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Secondary text shown under the label."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the option, returned to you when the recipient picks it."
+        },
+        "item": {
+          "type": "string",
+          "description": "Label of the option."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "item"
+      ]
+    },
+    "twilio:index:ContentListPicker": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "button": {
+          "type": "string",
+          "description": "Label of the button that opens the menu."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentListItem"
+          },
+          "description": "The options of the menu."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "button",
+        "items"
+      ]
+    },
+    "twilio:index:ContentLocation": {
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "Address shown with the pin."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the location."
+        },
+        "label": {
+          "type": "string",
+          "description": "Label shown with the pin."
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Latitude of the pin."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Longitude of the pin."
+        }
+      },
+      "type": "object",
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "twilio:index:ContentMedia": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "Text sent with the media."
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URLs of the media to send."
+        }
+      },
+      "type": "object",
+      "required": [
+        "media"
+      ]
+    },
+    "twilio:index:ContentQuickReply": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentQuickReplyAction"
+          },
+          "description": "The reply buttons."
+        },
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "actions"
+      ]
+    },
+    "twilio:index:ContentQuickReplyAction": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier returned to you when the recipient taps the button."
+        },
+        "title": {
+          "type": "string",
+          "description": "Label of the button."
+        },
+        "type": {
+          "type": "string",
+          "description": "The button type. Only QUICK_REPLY exists."
+        }
+      },
+      "type": "object",
+      "required": [
+        "title"
+      ]
+    },
+    "twilio:index:ContentSchedule": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the schedule."
+        },
+        "timeSlots": {
+          "type": "string",
+          "description": "The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "timeSlots"
+      ]
+    },
+    "twilio:index:ContentText": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body"
+      ]
+    },
+    "twilio:index:ContentTypes": {
+      "properties": {
+        "callToAction": {
+          "$ref": "#/types/twilio:index:ContentCallToAction",
+          "description": "twilio/call-to-action: buttons that open a URL or dial a number."
+        },
+        "card": {
+          "$ref": "#/types/twilio:index:ContentCard",
+          "description": "twilio/card: a structured message with media and buttons."
+        },
+        "carousel": {
+          "$ref": "#/types/twilio:index:ContentCarousel",
+          "description": "twilio/carousel: a message with up to 10 cards."
+        },
+        "catalog": {
+          "$ref": "#/types/twilio:index:ContentCatalog",
+          "description": "twilio/catalog: a list of catalog products."
+        },
+        "flows": {
+          "$ref": "#/types/twilio:index:ContentFlows",
+          "description": "twilio/flows: a multi-page flow."
+        },
+        "listPicker": {
+          "$ref": "#/types/twilio:index:ContentListPicker",
+          "description": "twilio/list-picker: a menu of up to 10 options."
+        },
+        "location": {
+          "$ref": "#/types/twilio:index:ContentLocation",
+          "description": "twilio/location: a location pin with an optional label."
+        },
+        "media": {
+          "$ref": "#/types/twilio:index:ContentMedia",
+          "description": "twilio/media: file attachments, or long text sent by MMS in the US and Canada."
+        },
+        "quickReply": {
+          "$ref": "#/types/twilio:index:ContentQuickReply",
+          "description": "twilio/quick-reply: buttons the recipient taps to answer."
+        },
+        "schedule": {
+          "$ref": "#/types/twilio:index:ContentSchedule",
+          "description": "twilio/schedule: a message offering time slots."
+        },
+        "text": {
+          "$ref": "#/types/twilio:index:ContentText",
+          "description": "twilio/text: plain text."
+        },
+        "whatsappAuthentication": {
+          "$ref": "#/types/twilio:index:ContentWhatsappAuthentication",
+          "description": "whatsapp/authentication: a WhatsApp one-time-password message."
+        },
+        "whatsappCard": {
+          "$ref": "#/types/twilio:index:ContentWhatsappCard",
+          "description": "whatsapp/card: a WhatsApp card with header, footer and buttons."
+        },
+        "whatsappFlows": {
+          "$ref": "#/types/twilio:index:ContentWhatsappFlows",
+          "description": "whatsapp/flows: a message that opens a WhatsApp Flow."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ContentWhatsappAuthentication": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentAuthenticationAction"
+          },
+          "description": "The copy-code button."
+        },
+        "addSecurityRecommendation": {
+          "type": "boolean",
+          "description": "Whether WhatsApp adds its security recommendation to the message."
+        },
+        "codeExpirationMinutes": {
+          "type": "number",
+          "description": "Minutes until the code expires."
+        }
+      },
+      "type": "object",
+      "required": [
+        "actions"
+      ]
+    },
+    "twilio:index:ContentWhatsappCard": {
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ContentCardAction"
+          },
+          "description": "Buttons of the card."
+        },
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "footer": {
+          "type": "string",
+          "description": "Footer text."
+        },
+        "headerText": {
+          "type": "string",
+          "description": "Header text."
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URLs of the card's media."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body"
+      ]
+    },
+    "twilio:index:ContentWhatsappFlows": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "The text of the message."
+        },
+        "buttonText": {
+          "type": "string",
+          "description": "Label of the button that opens the flow."
+        },
+        "flowFirstPageId": {
+          "type": "string",
+          "description": "ID of the first page of the flow."
+        },
+        "flowId": {
+          "type": "string",
+          "description": "ID of the WhatsApp Flow to open."
+        },
+        "flowToken": {
+          "type": "string",
+          "description": "Token passed to the flow."
+        },
+        "isFlowFirstPageEndpoint": {
+          "type": "boolean",
+          "description": "Whether the first page of the flow is served by an endpoint."
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "URL of the media shown with the message."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the message."
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "buttonText",
+        "flowId"
+      ]
+    },
     "twilio:index:ConversationsAutoCreation": {
       "properties": {
         "conversationServiceSid": {
@@ -426,6 +1119,61 @@
       "required": [
         "enabled"
       ]
+    },
+    "twilio:index:ConversationsMediaNotification": {
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether a notification is sent for a new message with media or file attachments (Twilio default false)."
+        },
+        "template": {
+          "type": "string",
+          "description": "Template of the notification text for a message with media."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ConversationsNewMessageNotification": {
+      "properties": {
+        "badgeCountEnabled": {
+          "type": "boolean",
+          "description": "Whether the badge count is enabled (Twilio default false)."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether a notification is sent when a message is added to a conversation (Twilio default false)."
+        },
+        "sound": {
+          "type": "string",
+          "description": "Name of the sound played with the notification."
+        },
+        "template": {
+          "type": "string",
+          "description": "Template of the notification text."
+        },
+        "withMedia": {
+          "$ref": "#/types/twilio:index:ConversationsMediaNotification",
+          "description": "The notification for a message with media or file attachments."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ConversationsNotification": {
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the notification is sent (Twilio default false)."
+        },
+        "sound": {
+          "type": "string",
+          "description": "Name of the sound played with the notification."
+        },
+        "template": {
+          "type": "string",
+          "description": "Template of the notification text."
+        }
+      },
+      "type": "object"
     },
     "twilio:index:DialingCountry": {
       "properties": {
@@ -658,6 +1406,34 @@
         }
       },
       "type": "object"
+    },
+    "twilio:index:MessagingGeoPermission": {
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the account may send messages to the country."
+        },
+        "message": {
+          "type": "string",
+          "description": "A note Twilio attaches to the country, for example a risk warning."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "The international dialing prefix of the country."
+        },
+        "type": {
+          "type": "string",
+          "description": "The kind of permission, for example country."
+        }
+      },
+      "type": "object",
+      "required": [
+        "countryCode"
+      ]
     },
     "twilio:index:MessagingServiceEffective": {
       "properties": {
@@ -1453,6 +2229,34 @@
     }
   },
   "resources": {
+    "twilio:index:AccountSafeListNumber": {
+      "description": "A phone number on the account's Global SafeList (accounts.twilio.com /v1/SafeList/Numbers). The resource ID is the phone number in E.164 format. Twilio has no update call, so changing the number replaces the entry. This is not the Verify SafeList (see VerifySafeListNumber).",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number, or the leading digits of a range of numbers, to add to the Global SafeList, in E.164 format (+14155550100). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The SafeList entry SID, as Twilio reports it."
+        }
+      },
+      "required": [
+        "phoneNumber",
+        "sid"
+      ],
+      "inputProperties": {
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number, or the leading digits of a range of numbers, to add to the Global SafeList, in E.164 format (+14155550100). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "phoneNumber"
+      ]
+    },
     "twilio:index:Address": {
       "description": "A Twilio address. Deleting an address that is still used by a phone number, bundle or regulatory registration fails until it is released from them.",
       "properties": {
@@ -1830,6 +2634,56 @@
         "friendlyName"
       ]
     },
+    "twilio:index:AwsCredential": {
+      "description": "AWS access keys stored with Twilio (accounts.twilio.com /v1/Credentials/AWS). The resource ID is the credential SID. Only the friendly name updates in place; the keys and the subaccount replace the credential.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of a subaccount of the provider's account to associate the credential with. Changing it replaces the credential. An import adopts the account Twilio reports."
+        },
+        "credentials": {
+          "type": "string",
+          "description": "The AWS access keys as <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>. Required to create the credential. Twilio never returns it, so a change made outside Pulumi is not detected, and a credential imported by SID has none until the program states it (stating it after an import is no change). Changing it replaces the credential, because Twilio cannot update the keys.",
+          "secret": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the credential was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the credential was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The credential SID (CR...)."
+        }
+      },
+      "required": [
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of a subaccount of the provider's account to associate the credential with. Changing it replaces the credential. An import adopts the account Twilio reports."
+        },
+        "credentials": {
+          "type": "string",
+          "description": "The AWS access keys as <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>. Required to create the credential. Twilio never returns it, so a change made outside Pulumi is not detected, and a credential imported by SID has none until the program states it (stating it after an import is no change). Changing it replaces the credential, because Twilio cannot update the keys.",
+          "secret": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        }
+      }
+    },
     "twilio:index:ByocTrunk": {
       "description": "A Twilio BYOC (Bring Your Own Carrier) trunk. Point connectionPolicySid at a ConnectionPolicy for outbound calls and map the carrier's IP addresses to it with IpRecord and SourceIpMapping for inbound calls.",
       "properties": {
@@ -2178,6 +3032,84 @@
         "target"
       ]
     },
+    "twilio:index:ContentTemplate": {
+      "description": "A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. Submitting the template to WhatsApp for approval is not managed here; read the result with the getContentApprovalStatus function.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID of the account that owns the template."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the template was created, as Twilio reports it."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the template was last updated, as Twilio reports it."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the template, not shown to the recipient. Removing it leaves the name as it is on Twilio."
+        },
+        "language": {
+          "type": "string",
+          "description": "Language code of the template, for example en."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The template SID (HX...)."
+        },
+        "types": {
+          "$ref": "#/types/twilio:index:ContentTypes",
+          "description": "The content types of the template. Set at least one."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of the template, relative to https://content.twilio.com."
+        },
+        "variables": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Default values of the placeholders used in the template, keyed by variable name (for example \"1\" for {{1}}). Removing all of them leaves the defaults as they are on Twilio."
+        }
+      },
+      "required": [
+        "language",
+        "types",
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated",
+        "url"
+      ],
+      "inputProperties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the template, not shown to the recipient. Removing it leaves the name as it is on Twilio."
+        },
+        "language": {
+          "type": "string",
+          "description": "Language code of the template, for example en."
+        },
+        "types": {
+          "$ref": "#/types/twilio:index:ContentTypes",
+          "description": "The content types of the template. Set at least one."
+        },
+        "variables": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Default values of the placeholders used in the template, keyed by variable name (for example \"1\" for {{1}}). Removing all of them leaves the defaults as they are on Twilio."
+        }
+      },
+      "requiredInputs": [
+        "language",
+        "types"
+      ]
+    },
     "twilio:index:ConversationsAddressConfiguration": {
       "description": "An address configuration of Conversations. The resource ID is the configuration SID.",
       "properties": {
@@ -2253,6 +3185,45 @@
         "addressType",
         "address"
       ]
+    },
+    "twilio:index:ConversationsConfiguration": {
+      "description": "The account-level defaults of Conversations. The resource ID is account. Destroying it forgets it and leaves the settings on Twilio as they are.",
+      "properties": {
+        "defaultChatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service a conversation is created in when none is given. Removing it leaves the setting unchanged."
+        },
+        "defaultClosedTimer": {
+          "type": "string",
+          "description": "ISO 8601 duration after which a conversation is closed, at least ten minutes, for example P1D. Removing it leaves the setting unchanged."
+        },
+        "defaultInactiveTimer": {
+          "type": "string",
+          "description": "ISO 8601 duration after which a conversation becomes inactive, at least one minute, for example PT10M. Removing it leaves the setting unchanged."
+        },
+        "defaultMessagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the messaging service used when a conversation is created. Removing it leaves the setting unchanged."
+        }
+      },
+      "inputProperties": {
+        "defaultChatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service a conversation is created in when none is given. Removing it leaves the setting unchanged."
+        },
+        "defaultClosedTimer": {
+          "type": "string",
+          "description": "ISO 8601 duration after which a conversation is closed, at least ten minutes, for example P1D. Removing it leaves the setting unchanged."
+        },
+        "defaultInactiveTimer": {
+          "type": "string",
+          "description": "ISO 8601 duration after which a conversation becomes inactive, at least one minute, for example PT10M. Removing it leaves the setting unchanged."
+        },
+        "defaultMessagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the messaging service used when a conversation is created. Removing it leaves the setting unchanged."
+        }
+      }
     },
     "twilio:index:ConversationsCredential": {
       "description": "A push credential of Conversations. The resource ID is the credential SID.",
@@ -2509,6 +3480,61 @@
         "reachabilityEnabled": {
           "type": "boolean",
           "description": "Whether the Reachability Indicator is enabled for the service (Twilio default false). Removing it leaves the setting unchanged."
+        }
+      },
+      "requiredInputs": [
+        "chatServiceSid"
+      ]
+    },
+    "twilio:index:ConversationsServiceNotificationConfiguration": {
+      "description": "The push notification settings of a Conversations service. The resource ID is the service SID. Destroying it forgets it and leaves the settings on Twilio as they are.",
+      "properties": {
+        "addedToConversation": {
+          "$ref": "#/types/twilio:index:ConversationsNotification",
+          "description": "The notification sent when a participant is added to a conversation. Fields that are removed are left unchanged."
+        },
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "logEnabled": {
+          "type": "boolean",
+          "description": "Whether notification logging is enabled. Removing it leaves the setting unchanged."
+        },
+        "newMessage": {
+          "$ref": "#/types/twilio:index:ConversationsNewMessageNotification",
+          "description": "The notification sent when a message is added to a conversation. Fields that are removed are left unchanged."
+        },
+        "removedFromConversation": {
+          "$ref": "#/types/twilio:index:ConversationsNotification",
+          "description": "The notification sent to a user removed from a conversation. Fields that are removed are left unchanged."
+        }
+      },
+      "required": [
+        "chatServiceSid"
+      ],
+      "inputProperties": {
+        "addedToConversation": {
+          "$ref": "#/types/twilio:index:ConversationsNotification",
+          "description": "The notification sent when a participant is added to a conversation. Fields that are removed are left unchanged."
+        },
+        "chatServiceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Conversations service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "logEnabled": {
+          "type": "boolean",
+          "description": "Whether notification logging is enabled. Removing it leaves the setting unchanged."
+        },
+        "newMessage": {
+          "$ref": "#/types/twilio:index:ConversationsNewMessageNotification",
+          "description": "The notification sent when a message is added to a conversation. Fields that are removed are left unchanged."
+        },
+        "removedFromConversation": {
+          "$ref": "#/types/twilio:index:ConversationsNotification",
+          "description": "The notification sent to a user removed from a conversation. Fields that are removed are left unchanged."
         }
       },
       "requiredInputs": [
@@ -3091,6 +4117,174 @@
         "installedAddOnSid"
       ]
     },
+    "twilio:index:IntelligenceCustomOperator": {
+      "description": "A custom Voice Intelligence operator. The resource ID is the operator SID. Updating changes the name and configuration.",
+      "properties": {
+        "availability": {
+          "type": "string",
+          "description": "Availability Twilio reports for the operator (internal, beta, public, retired, general-availability or deprecated)."
+        },
+        "config": {
+          "type": "string",
+          "description": "The operator configuration as a JSON object, following the schema of the operator type. Key order and formatting are not significant."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the operator was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the operator was last updated (ISO 8601)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description Twilio reports for the operator."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the operator, up to 64 characters."
+        },
+        "operatorType": {
+          "type": "string",
+          "description": "The operator type the operator is built from (an existing Twilio operator type). Twilio does not allow changing it, so changing it replaces the operator."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The operator SID (LY...)."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "operatorType",
+        "config",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "config": {
+          "type": "string",
+          "description": "The operator configuration as a JSON object, following the schema of the operator type. Key order and formatting are not significant."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the operator, up to 64 characters."
+        },
+        "operatorType": {
+          "type": "string",
+          "description": "The operator type the operator is built from (an existing Twilio operator type). Twilio does not allow changing it, so changing it replaces the operator."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName",
+        "operatorType",
+        "config"
+      ]
+    },
+    "twilio:index:IntelligenceService": {
+      "description": "A Voice Intelligence service. The resource ID is the service SID. Optional settings that are set are sent and kept in step with Twilio; one that is removed leaves the setting as it is on Twilio.",
+      "properties": {
+        "autoRedaction": {
+          "type": "boolean",
+          "description": "Whether Twilio redacts PII from transcripts automatically (Twilio default false)."
+        },
+        "autoTranscribe": {
+          "type": "boolean",
+          "description": "Whether Twilio transcribes every recording made on the account automatically (Twilio default false)."
+        },
+        "dataLogging": {
+          "type": "boolean",
+          "description": "Whether Twilio may use the service's data to improve its speech models. Twilio only allows turning it on from the console, so it is reported and never set."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "encryptionCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key credential used to encrypt sentences and operator results. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "languageCode": {
+          "type": "string",
+          "description": "Transcription language of every recording the service processes (Twilio default en-US). Twilio does not allow changing it once set, so changing it replaces the service."
+        },
+        "mediaRedaction": {
+          "type": "boolean",
+          "description": "Whether Twilio redacts PII from the media as well as the transcript (Twilio default false)."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (GA...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique, addressable name of the service, usable in place of the SID."
+        },
+        "webhookHttpMethod": {
+          "type": "string",
+          "description": "HTTP method of the webhook call, GET or POST. Removing it leaves the setting unchanged."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when a transcript completes. Removing it leaves the setting unchanged."
+        }
+      },
+      "required": [
+        "uniqueName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "autoRedaction": {
+          "type": "boolean",
+          "description": "Whether Twilio redacts PII from transcripts automatically (Twilio default false)."
+        },
+        "autoTranscribe": {
+          "type": "boolean",
+          "description": "Whether Twilio transcribes every recording made on the account automatically (Twilio default false)."
+        },
+        "encryptionCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key credential used to encrypt sentences and operator results. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "languageCode": {
+          "type": "string",
+          "description": "Transcription language of every recording the service processes (Twilio default en-US). Twilio does not allow changing it once set, so changing it replaces the service."
+        },
+        "mediaRedaction": {
+          "type": "boolean",
+          "description": "Whether Twilio redacts PII from the media as well as the transcript (Twilio default false)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Unique, addressable name of the service, usable in place of the SID."
+        },
+        "webhookHttpMethod": {
+          "type": "string",
+          "description": "HTTP method of the webhook call, GET or POST. Removing it leaves the setting unchanged."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when a transcript completes. Removing it leaves the setting unchanged."
+        }
+      },
+      "requiredInputs": [
+        "uniqueName"
+      ]
+    },
     "twilio:index:IpRecord": {
       "description": "A BYOC IP record: an IPv4 address or CIDR block of your carrier, for use in a SourceIpMapping.",
       "properties": {
@@ -3302,6 +4496,162 @@
         "friendlyName"
       ]
     },
+    "twilio:index:MessagingServiceAlphaSender": {
+      "description": "An alphanumeric sender ID in a Messaging Service sender pool. The resource ID is <serviceSid>/<sid>. Twilio has no update call, so every change replaces it.",
+      "properties": {
+        "alphaSender": {
+          "type": "string",
+          "description": "The alphanumeric sender ID, up to 11 characters of A-Z, a-z, 0-9, space, hyphen, plus, underscore and ampersand, and not only digits. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Capabilities of the sender, as Twilio reports them."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The alpha sender SID (AI...)."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "alphaSender",
+        "sid",
+        "capabilities"
+      ],
+      "inputProperties": {
+        "alphaSender": {
+          "type": "string",
+          "description": "The alphanumeric sender ID, up to 11 characters of A-Z, a-z, 0-9, space, hyphen, plus, underscore and ampersand, and not only digits. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "alphaSender"
+      ]
+    },
+    "twilio:index:MessagingServiceChannelSender": {
+      "description": "Membership of a channel sender in a Messaging Service sender pool. The resource ID is <serviceSid>/<channelSenderSid>. Every input replaces the resource; destroying it removes the sender from the pool and keeps the sender.",
+      "properties": {
+        "channelSenderSid": {
+          "type": "string",
+          "description": "SID (XE...) of the channel sender of the account to add, for example a registered WhatsApp sender. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code of the sender."
+        },
+        "sender": {
+          "type": "string",
+          "description": "The sender, for example whatsapp:+14155550100, as Twilio reports it."
+        },
+        "senderType": {
+          "type": "string",
+          "description": "The kind of sender, for example whatsapp or messenger."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "channelSenderSid",
+        "sender",
+        "senderType",
+        "countryCode"
+      ],
+      "inputProperties": {
+        "channelSenderSid": {
+          "type": "string",
+          "description": "SID (XE...) of the channel sender of the account to add, for example a registered WhatsApp sender. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "channelSenderSid"
+      ]
+    },
+    "twilio:index:MessagingServiceDestinationAlphaSender": {
+      "description": "A destination-specific alphanumeric sender ID in a Messaging Service. The resource ID is <serviceSid>/<sid>. Twilio has no update call, so every change replaces it.",
+      "properties": {
+        "alphaSender": {
+          "type": "string",
+          "description": "The alphanumeric sender ID, up to 11 characters of A-Z, a-z, 0-9, space, hyphen, plus, underscore and ampersand, and not only digits. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Capabilities of the sender, as Twilio reports them."
+        },
+        "isoCountryCode": {
+          "type": "string",
+          "description": "Two letter ISO 3166-1 country code the sender ID is used for, stored in upper case. Omit it for a default sender ID that is used in every country. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The destination alpha sender SID (AI...)."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "alphaSender",
+        "sid",
+        "capabilities"
+      ],
+      "inputProperties": {
+        "alphaSender": {
+          "type": "string",
+          "description": "The alphanumeric sender ID, up to 11 characters of A-Z, a-z, 0-9, space, hyphen, plus, underscore and ampersand, and not only digits. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "isoCountryCode": {
+          "type": "string",
+          "description": "Two letter ISO 3166-1 country code the sender ID is used for, stored in upper case. Omit it for a default sender ID that is used in every country. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "alphaSender"
+      ]
+    },
     "twilio:index:MessagingServicePhoneNumber": {
       "description": "Membership of a phone number in a Messaging Service sender pool. The resource ID is <serviceSid>/<phoneNumberSid>.",
       "properties": {
@@ -3349,6 +4699,263 @@
         "serviceSid",
         "phoneNumberSid"
       ]
+    },
+    "twilio:index:MessagingServiceShortCode": {
+      "description": "Membership of a short code in a Messaging Service sender pool. The resource ID is <serviceSid>/<shortCodeSid>. Every input replaces the resource; destroying it removes the short code from the pool and keeps the short code.",
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Capabilities of the sender, for example SMS and MMS."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code of the short code."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "The short code in E.164 format, as Twilio reports it."
+        },
+        "shortCodeSid": {
+          "type": "string",
+          "description": "SID (SC...) of the short code of the account to add as a sender (see ShortCode). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "serviceSid",
+        "shortCodeSid",
+        "shortCode",
+        "countryCode",
+        "capabilities"
+      ],
+      "inputProperties": {
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging Service. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "shortCodeSid": {
+          "type": "string",
+          "description": "SID (SC...) of the short code of the account to add as a sender (see ShortCode). Changing it replaces the resource.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "serviceSid",
+        "shortCodeSid"
+      ]
+    },
+    "twilio:index:NotifyCredential": {
+      "description": "A push credential of Notify. The resource ID is the credential SID.",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "description": "GCM only: the API key of the Google project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "certificate": {
+          "type": "string",
+          "description": "APNs only: the PEM certificate. Twilio never returns it, so a change made outside Pulumi is not detected."
+        },
+        "credentialType": {
+          "type": "string",
+          "description": "Push service the credential is for: apn, gcm or fcm. Changing it replaces the credential.",
+          "replaceOnChanges": true
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the credential was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the credential was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "privateKey": {
+          "type": "string",
+          "description": "APNs only: the PEM private key. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sandbox": {
+          "type": "boolean",
+          "description": "APNs only: whether to send to the sandbox APNs. Removing it leaves the setting unchanged."
+        },
+        "secret": {
+          "type": "string",
+          "description": "FCM only: the server key of the Firebase project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The credential SID (CR...)."
+        }
+      },
+      "required": [
+        "credentialType",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "apiKey": {
+          "type": "string",
+          "description": "GCM only: the API key of the Google project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "certificate": {
+          "type": "string",
+          "description": "APNs only: the PEM certificate. Twilio never returns it, so a change made outside Pulumi is not detected."
+        },
+        "credentialType": {
+          "type": "string",
+          "description": "Push service the credential is for: apn, gcm or fcm. Changing it replaces the credential.",
+          "replaceOnChanges": true
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "privateKey": {
+          "type": "string",
+          "description": "APNs only: the PEM private key. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        },
+        "sandbox": {
+          "type": "boolean",
+          "description": "APNs only: whether to send to the sandbox APNs. Removing it leaves the setting unchanged."
+        },
+        "secret": {
+          "type": "string",
+          "description": "FCM only: the server key of the Firebase project. Twilio never returns it, so a change made outside Pulumi is not detected.",
+          "secret": true
+        }
+      },
+      "requiredInputs": [
+        "credentialType"
+      ]
+    },
+    "twilio:index:NotifyService": {
+      "description": "A Notify service. The resource ID is the service SID. Optional settings that are set are sent and kept in step with Twilio; one that is removed leaves the setting as it is on Twilio.",
+      "properties": {
+        "apnCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for APNs bindings. Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "defaultApnNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for APNs notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "defaultFcmNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for FCM notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "defaultGcmNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for GCM notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "deliveryCallbackEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls deliveryCallbackUrl (Twilio default false)."
+        },
+        "deliveryCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls with delivery receipts. Removing it leaves the setting unchanged."
+        },
+        "fcmCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for FCM bindings. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "gcmCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for GCM bindings. Removing it leaves the setting unchanged."
+        },
+        "logEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio logs notifications (Twilio default true)."
+        },
+        "messagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging service used for SMS bindings; it must be set to send SMS notifications. Removing it leaves the setting unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (IS...)."
+        }
+      },
+      "required": [
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "apnCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for APNs bindings. Removing it leaves the setting unchanged."
+        },
+        "defaultApnNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for APNs notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "defaultFcmNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for FCM notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "defaultGcmNotificationProtocolVersion": {
+          "type": "string",
+          "description": "Protocol version used for GCM notifications unless a binding overrides it. Removing it leaves the setting unchanged."
+        },
+        "deliveryCallbackEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls deliveryCallbackUrl (Twilio default false)."
+        },
+        "deliveryCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls with delivery receipts. Removing it leaves the setting unchanged."
+        },
+        "fcmCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for FCM bindings. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "gcmCredentialSid": {
+          "type": "string",
+          "description": "SID (CR...) of the NotifyCredential used for GCM bindings. Removing it leaves the setting unchanged."
+        },
+        "logEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio logs notifications (Twilio default true)."
+        },
+        "messagingServiceSid": {
+          "type": "string",
+          "description": "SID (MG...) of the Messaging service used for SMS bindings; it must be set to send SMS notifications. Removing it leaves the setting unchanged."
+        }
+      }
     },
     "twilio:index:OutgoingCallerId": {
       "description": "A phone number the account has already verified as an outgoing caller ID. The resource adopts the caller ID; it never starts a verification (Twilio phones the number and a person must enter a code), and destroying it does NOT remove the caller ID (re-verifying would need a person), it only stops managing it.",
@@ -3413,6 +5020,218 @@
           "type": "string",
           "description": "The verified number in E.164 format, for example +14155550100. Set exactly one of phoneNumber or outgoingCallerIdSid. Changing it replaces the resource (a different caller ID is adopted).",
           "replaceOnChanges": true
+        }
+      }
+    },
+    "twilio:index:ProxyPhoneNumber": {
+      "description": "A phone number in the pool of a Proxy service. The resource ID is <serviceSid>/<sid>. Only isReserved updates in place; the service and the number replace. Destroying it removes the number from the pool and leaves the number itself in the account.",
+      "properties": {
+        "dateCreated": {
+          "type": "string",
+          "description": "When the number was added to the service (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the entry was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Friendly name Twilio reports for the number."
+        },
+        "inUse": {
+          "type": "integer",
+          "description": "How many open sessions currently use the number."
+        },
+        "isReserved": {
+          "type": "boolean",
+          "description": "Whether the number is reserved: a reserved number is never assigned to a participant by the pool logic (Twilio default false)."
+        },
+        "isoCountry": {
+          "type": "string",
+          "description": "ISO country code of the number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The number to add in E.164 format, for example +14155551234. Set exactly one of phoneNumberSid and phoneNumber. Changing it replaces the resource."
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the account's IncomingPhoneNumber to add. Set exactly one of phoneNumberSid and phoneNumber. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (KS...) of the Proxy service whose pool the number joins. Changing it replaces the resource."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The SID (PN...) of the phone number, the same as phoneNumberSid."
+        }
+      },
+      "required": [
+        "serviceSid",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "isReserved": {
+          "type": "boolean",
+          "description": "Whether the number is reserved: a reserved number is never assigned to a participant by the pool logic (Twilio default false)."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The number to add in E.164 format, for example +14155551234. Set exactly one of phoneNumberSid and phoneNumber. Changing it replaces the resource."
+        },
+        "phoneNumberSid": {
+          "type": "string",
+          "description": "SID (PN...) of the account's IncomingPhoneNumber to add. Set exactly one of phoneNumberSid and phoneNumber. Changing it replaces the resource."
+        },
+        "serviceSid": {
+          "type": "string",
+          "description": "SID (KS...) of the Proxy service whose pool the number joins. Changing it replaces the resource."
+        }
+      },
+      "requiredInputs": [
+        "serviceSid"
+      ]
+    },
+    "twilio:index:ProxyService": {
+      "description": "A Proxy service (Public Beta). The resource ID is the service SID. Optional settings that are set are sent and kept in step with Twilio; one that is removed leaves the setting as it is on Twilio.",
+      "properties": {
+        "callbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when an interaction status changes. Removing it leaves the setting unchanged."
+        },
+        "chatInstanceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Chat service instance Proxy forwards SMS and channel messages to. Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "defaultTtl": {
+          "type": "integer",
+          "description": "Default time to live in seconds of the sessions created in the service, measured from the session's last create or interaction; 0 is unlimited (Twilio default 0)."
+        },
+        "geoMatchLevel": {
+          "type": "string",
+          "description": "Where a proxy number must be located relative to the participant: country, area-code, overlay, radius or extended-area-code (Twilio default country; more specific levels are only available in North America)."
+        },
+        "interceptCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls on every interaction; a 403 response blocks the interaction. Removing it leaves the setting unchanged."
+        },
+        "numberSelectionBehavior": {
+          "type": "string",
+          "description": "How proxy numbers are chosen: prefer-sticky tries to reuse a participant's earlier number, avoid-sticky tries to use a different one (Twilio default prefer-sticky)."
+        },
+        "outOfSessionCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when a call or SMS arrives for a closed or missing session. Removing it leaves the setting unchanged."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (KS...)."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Application-defined name of the service, up to 191 characters and unique in the account. Do not put personal data in it."
+        }
+      },
+      "required": [
+        "uniqueName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "callbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when an interaction status changes. Removing it leaves the setting unchanged."
+        },
+        "chatInstanceSid": {
+          "type": "string",
+          "description": "SID (IS...) of the Chat service instance Proxy forwards SMS and channel messages to. Removing it leaves the setting unchanged."
+        },
+        "defaultTtl": {
+          "type": "integer",
+          "description": "Default time to live in seconds of the sessions created in the service, measured from the session's last create or interaction; 0 is unlimited (Twilio default 0)."
+        },
+        "geoMatchLevel": {
+          "type": "string",
+          "description": "Where a proxy number must be located relative to the participant: country, area-code, overlay, radius or extended-area-code (Twilio default country; more specific levels are only available in North America)."
+        },
+        "interceptCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls on every interaction; a 403 response blocks the interaction. Removing it leaves the setting unchanged."
+        },
+        "numberSelectionBehavior": {
+          "type": "string",
+          "description": "How proxy numbers are chosen: prefer-sticky tries to reuse a participant's earlier number, avoid-sticky tries to use a different one (Twilio default prefer-sticky)."
+        },
+        "outOfSessionCallbackUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when a call or SMS arrives for a closed or missing session. Removing it leaves the setting unchanged."
+        },
+        "uniqueName": {
+          "type": "string",
+          "description": "Application-defined name of the service, up to 191 characters and unique in the account. Do not put personal data in it."
+        }
+      },
+      "requiredInputs": [
+        "uniqueName"
+      ]
+    },
+    "twilio:index:PublicKeyCredential": {
+      "description": "A public key stored with Twilio (accounts.twilio.com /v1/Credentials/PublicKeys). The resource ID is the credential SID. Only the friendly name updates in place; the key and the subaccount replace the credential.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of a subaccount of the provider's account to associate the credential with. Changing it replaces the credential. An import adopts the account Twilio reports."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the credential was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the credential was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "publicKey": {
+          "type": "string",
+          "description": "The PEM encoded public key (-----BEGIN PUBLIC KEY-----). Required to create the credential. Twilio never returns it, so a change made outside Pulumi is not detected, and a credential imported by SID has none until the program states it (stating it after an import is no change). Changing it replaces the credential, because Twilio cannot update the key."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The credential SID (CR...)."
+        }
+      },
+      "required": [
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of a subaccount of the provider's account to associate the credential with. Changing it replaces the credential. An import adopts the account Twilio reports."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the credential, up to 64 characters. Removing it leaves the name unchanged."
+        },
+        "publicKey": {
+          "type": "string",
+          "description": "The PEM encoded public key (-----BEGIN PUBLIC KEY-----). Required to create the credential. Twilio never returns it, so a change made outside Pulumi is not detected, and a credential imported by SID has none until the program states it (stating it after an import is no change). Changing it replaces the credential, because Twilio cannot update the key."
         }
       }
     },
@@ -3822,7 +5641,7 @@
         },
         "content": {
           "type": "string",
-          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change."
+          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change."
         },
         "contentBase64": {
           "type": "string",
@@ -3874,7 +5693,7 @@
         },
         "content": {
           "type": "string",
-          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change."
+          "description": "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change."
         },
         "contentBase64": {
           "type": "string",
@@ -5282,6 +7101,86 @@
       "requiredInputs": [
         "friendlyName"
       ]
+    },
+    "twilio:index:SyncService": {
+      "description": "A Sync service. The resource ID is the service SID. Optional settings that are set are sent and kept in step with Twilio; one that is removed leaves the setting as it is on Twilio.",
+      "properties": {
+        "aclEnabled": {
+          "type": "boolean",
+          "description": "Whether token identities must be granted access to Sync objects through permissions (Twilio default false)."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the service was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the service was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service. Removing it leaves the name unchanged."
+        },
+        "reachabilityDebouncingEnabled": {
+          "type": "boolean",
+          "description": "Whether every endpoint_disconnected event occurs after a configurable delay (Twilio default false)."
+        },
+        "reachabilityDebouncingWindow": {
+          "type": "integer",
+          "description": "Delay of the reachability events in milliseconds when reachabilityDebouncingEnabled is true, 1000 to 30000 (Twilio default 5000)."
+        },
+        "reachabilityWebhooksEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls webhookUrl when client endpoints connect to Sync (Twilio default false)."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The service SID (IS...)."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when Sync objects are manipulated. Removing it leaves the setting unchanged."
+        },
+        "webhooksFromRestEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls webhookUrl when the REST API updates Sync objects (Twilio default false)."
+        }
+      },
+      "required": [
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "aclEnabled": {
+          "type": "boolean",
+          "description": "Whether token identities must be granted access to Sync objects through permissions (Twilio default false)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the service. Removing it leaves the name unchanged."
+        },
+        "reachabilityDebouncingEnabled": {
+          "type": "boolean",
+          "description": "Whether every endpoint_disconnected event occurs after a configurable delay (Twilio default false)."
+        },
+        "reachabilityDebouncingWindow": {
+          "type": "integer",
+          "description": "Delay of the reachability events in milliseconds when reachabilityDebouncingEnabled is true, 1000 to 30000 (Twilio default 5000)."
+        },
+        "reachabilityWebhooksEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls webhookUrl when client endpoints connect to Sync (Twilio default false)."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls when Sync objects are manipulated. Removing it leaves the setting unchanged."
+        },
+        "webhooksFromRestEnabled": {
+          "type": "boolean",
+          "description": "Whether Twilio calls webhookUrl when the REST API updates Sync objects (Twilio default false)."
+        }
+      }
     },
     "twilio:index:TaskRouterActivity": {
       "description": "An activity of a TaskRouter workspace. The resource ID is <workspaceSid>/<sid>.",
@@ -6698,6 +8597,248 @@
         "webhookUrl"
       ]
     },
+    "twilio:index:VideoCompositionHook": {
+      "description": "A Programmable Video composition hook. The resource ID is the hook SID. Optional settings that are set are sent and kept in step with Twilio; one that is removed leaves the setting as it is on Twilio.",
+      "properties": {
+        "audioSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Track names (a * matches any characters) whose audio is merged into the compositions. Order is not significant. Removing it leaves the setting unchanged."
+        },
+        "audioSourcesExcluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Track names to leave out of the merged audio. Order is not significant. Removing it leaves the setting unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the hook was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the hook was last updated (ISO 8601)."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the hook is active: when true it is triggered for every completed group room in the account. Removing it leaves the setting unchanged."
+        },
+        "format": {
+          "type": "string",
+          "description": "Container format of the compositions, mp4 or webm. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the hook, up to 100 characters, unique within the account."
+        },
+        "resolution": {
+          "type": "string",
+          "description": "Size of the composed video as {width}x{height} pixels, each from 16 to 1280 and at most 921,600 pixels in all (Twilio default 640x480)."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The hook SID (HK...)."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls on every composition event. Removing it leaves the setting unchanged."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method of the status callback, GET or POST (Twilio default POST)."
+        },
+        "trim": {
+          "type": "boolean",
+          "description": "Whether to clip the stretches with no active media from the compositions (Twilio default true)."
+        },
+        "videoLayout": {
+          "type": "string",
+          "description": "The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged."
+        }
+      },
+      "required": [
+        "friendlyName",
+        "sid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "audioSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Track names (a * matches any characters) whose audio is merged into the compositions. Order is not significant. Removing it leaves the setting unchanged."
+        },
+        "audioSourcesExcluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Track names to leave out of the merged audio. Order is not significant. Removing it leaves the setting unchanged."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the hook is active: when true it is triggered for every completed group room in the account. Removing it leaves the setting unchanged."
+        },
+        "format": {
+          "type": "string",
+          "description": "Container format of the compositions, mp4 or webm. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Name of the hook, up to 100 characters, unique within the account."
+        },
+        "resolution": {
+          "type": "string",
+          "description": "Size of the composed video as {width}x{height} pixels, each from 16 to 1280 and at most 921,600 pixels in all (Twilio default 640x480)."
+        },
+        "statusCallback": {
+          "type": "string",
+          "description": "Absolute URL Twilio calls on every composition event. Removing it leaves the setting unchanged."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method of the status callback, GET or POST (Twilio default POST)."
+        },
+        "trim": {
+          "type": "boolean",
+          "description": "Whether to clip the stretches with no active media from the compositions (Twilio default true)."
+        },
+        "videoLayout": {
+          "type": "string",
+          "description": "The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:VideoCompositionSettings": {
+      "description": "The account-wide Video compositions storage settings. The resource ID is default. Twilio has no way to delete the settings, so destroying the resource forgets it and leaves them on Twilio as they are; set awsStorageEnabled and encryptionEnabled to false first to return to Twilio's own storage.",
+      "properties": {
+        "awsCredentialsSid": {
+          "type": "string",
+          "description": "SID (CR...) of the stored AWS credential Twilio writes to the bucket with. It is an identifier, not the credential. Removing it leaves the setting unchanged."
+        },
+        "awsS3Url": {
+          "type": "string",
+          "description": "URL of the S3 bucket and path where compositions are stored, for example https://my-bucket.s3.amazonaws.com/compositions. Twilio only supports DNS-compliant bucket URLs. Removing it leaves the setting unchanged."
+        },
+        "awsStorageEnabled": {
+          "type": "boolean",
+          "description": "Whether all compositions are written to awsS3Url; when false they are stored in Twilio's cloud (Twilio default false)."
+        },
+        "encryptionEnabled": {
+          "type": "boolean",
+          "description": "Whether all compositions are stored encrypted (Twilio default false)."
+        },
+        "encryptionKeySid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key used to encrypt compositions. It is an identifier, not the key. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Description of the settings shown in the Twilio console."
+        }
+      },
+      "required": [
+        "friendlyName"
+      ],
+      "inputProperties": {
+        "awsCredentialsSid": {
+          "type": "string",
+          "description": "SID (CR...) of the stored AWS credential Twilio writes to the bucket with. It is an identifier, not the credential. Removing it leaves the setting unchanged."
+        },
+        "awsS3Url": {
+          "type": "string",
+          "description": "URL of the S3 bucket and path where compositions are stored, for example https://my-bucket.s3.amazonaws.com/compositions. Twilio only supports DNS-compliant bucket URLs. Removing it leaves the setting unchanged."
+        },
+        "awsStorageEnabled": {
+          "type": "boolean",
+          "description": "Whether all compositions are written to awsS3Url; when false they are stored in Twilio's cloud (Twilio default false)."
+        },
+        "encryptionEnabled": {
+          "type": "boolean",
+          "description": "Whether all compositions are stored encrypted (Twilio default false)."
+        },
+        "encryptionKeySid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key used to encrypt compositions. It is an identifier, not the key. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Description of the settings shown in the Twilio console."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
+    "twilio:index:VideoRecordingSettings": {
+      "description": "The account-wide Video recordings storage settings. The resource ID is default. Twilio has no way to delete the settings, so destroying the resource forgets it and leaves them on Twilio as they are; set awsStorageEnabled and encryptionEnabled to false first to return to Twilio's own storage.",
+      "properties": {
+        "awsCredentialsSid": {
+          "type": "string",
+          "description": "SID (CR...) of the stored AWS credential Twilio writes to the bucket with. It is an identifier, not the credential. Removing it leaves the setting unchanged."
+        },
+        "awsS3Url": {
+          "type": "string",
+          "description": "URL of the S3 bucket and path where recordings are stored, for example https://my-bucket.s3.amazonaws.com/recordings. Twilio only supports DNS-compliant bucket URLs. Removing it leaves the setting unchanged."
+        },
+        "awsStorageEnabled": {
+          "type": "boolean",
+          "description": "Whether all recordings are written to awsS3Url; when false they are stored in Twilio's cloud (Twilio default false)."
+        },
+        "encryptionEnabled": {
+          "type": "boolean",
+          "description": "Whether all recordings are stored encrypted (Twilio default false)."
+        },
+        "encryptionKeySid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key used to encrypt recordings. It is an identifier, not the key. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Description of the settings shown in the Twilio console."
+        }
+      },
+      "required": [
+        "friendlyName"
+      ],
+      "inputProperties": {
+        "awsCredentialsSid": {
+          "type": "string",
+          "description": "SID (CR...) of the stored AWS credential Twilio writes to the bucket with. It is an identifier, not the credential. Removing it leaves the setting unchanged."
+        },
+        "awsS3Url": {
+          "type": "string",
+          "description": "URL of the S3 bucket and path where recordings are stored, for example https://my-bucket.s3.amazonaws.com/recordings. Twilio only supports DNS-compliant bucket URLs. Removing it leaves the setting unchanged."
+        },
+        "awsStorageEnabled": {
+          "type": "boolean",
+          "description": "Whether all recordings are written to awsS3Url; when false they are stored in Twilio's cloud (Twilio default false)."
+        },
+        "encryptionEnabled": {
+          "type": "boolean",
+          "description": "Whether all recordings are stored encrypted (Twilio default false)."
+        },
+        "encryptionKeySid": {
+          "type": "string",
+          "description": "SID (CR...) of the public key used to encrypt recordings. It is an identifier, not the key. Removing it leaves the setting unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Description of the settings shown in the Twilio console."
+        }
+      },
+      "requiredInputs": [
+        "friendlyName"
+      ]
+    },
     "twilio:index:VoiceAccountDefaultRecordingConfiguration": {
       "description": "The account-wide default Twilio Voice v2 recording configuration: how calls that have no recording configuration of their own are recorded. There is at most one per account, so create adopts an existing one (it is replaced by this resource's inputs) and destroy removes the account default. Import with the account SID. The Voice v2 API is a new, versioned 0.0.1 product, so expect it to change.",
       "properties": {
@@ -7067,6 +9208,35 @@
           "type",
           "ownerAccountSid",
           "dateCreated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getAccountSafeListNumber": {
+      "description": "Look up a phone number on the account's Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).",
+      "inputs": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number (or number prefix) in E.164 format, for example +14155550100."
+          }
+        },
+        "type": "object",
+        "required": [
+          "phoneNumber"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber"
         ],
         "type": "object"
       }
@@ -7549,6 +9719,46 @@
         "type": "object"
       }
     },
+    "twilio:index:getAwsCredential": {
+      "description": "Look up an AWS credential by SID. Twilio never returns the keys.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (CR...) of the AWS credential."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getBalance": {
       "description": "Read the account balance (GET /2010-04-01/Accounts/{AccountSid}/Balance.json).",
       "inputs": {
@@ -7878,6 +10088,118 @@
         "type": "object"
       }
     },
+    "twilio:index:getContentApprovalStatus": {
+      "description": "Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (HX...) of the Content template."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID of the account that owns the template.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "SID of the Content template.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of the approval status resource, relative to https://content.twilio.com.",
+            "type": "string"
+          },
+          "whatsappCategory": {
+            "description": "The template category WhatsApp assigned. Null when Twilio reports none.",
+            "type": "string"
+          },
+          "whatsappJson": {
+            "description": "The whole whatsapp approval object as JSON. Null when the template was never submitted to WhatsApp.",
+            "type": "string"
+          },
+          "whatsappRejectionReason": {
+            "description": "Why WhatsApp rejected the template. Null when Twilio reports none.",
+            "type": "string"
+          },
+          "whatsappStatus": {
+            "description": "WhatsApp approval status, for example unsubmitted, pending, approved or rejected. Null when Twilio reports none.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "url"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getContentTemplate": {
+      "description": "Look up a Content template by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (HX...) of the Content template."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "types": {
+            "$ref": "#/types/twilio:index:ContentTypes"
+          },
+          "url": {
+            "type": "string"
+          },
+          "variables": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "language",
+          "types",
+          "dateCreated",
+          "dateUpdated",
+          "url"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getConversationsAddressConfiguration": {
       "description": "Look up a Conversations address configuration by SID.",
       "inputs": {
@@ -7926,6 +10248,29 @@
           "dateCreated",
           "dateUpdated"
         ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsConfiguration": {
+      "description": "Look up the account-level defaults of Conversations (default service, messaging service and timers).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "defaultChatServiceSid": {
+            "type": "string"
+          },
+          "defaultClosedTimer": {
+            "type": "string"
+          },
+          "defaultInactiveTimer": {
+            "type": "string"
+          },
+          "defaultMessagingServiceSid": {
+            "type": "string"
+          }
+        },
         "type": "object"
       }
     },
@@ -8097,6 +10442,44 @@
           },
           "reachabilityEnabled": {
             "type": "boolean"
+          }
+        },
+        "required": [
+          "chatServiceSid"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getConversationsServiceNotificationConfiguration": {
+      "description": "Look up the push notification settings of a Conversations service.",
+      "inputs": {
+        "properties": {
+          "chatServiceSid": {
+            "type": "string",
+            "description": "SID (IS...) of the Conversations service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "chatServiceSid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "addedToConversation": {
+            "$ref": "#/types/twilio:index:ConversationsNotification"
+          },
+          "chatServiceSid": {
+            "type": "string"
+          },
+          "logEnabled": {
+            "type": "boolean"
+          },
+          "newMessage": {
+            "$ref": "#/types/twilio:index:ConversationsNewMessageNotification"
+          },
+          "removedFromConversation": {
+            "$ref": "#/types/twilio:index:ConversationsNotification"
           }
         },
         "required": [
@@ -8710,6 +11093,122 @@
         "type": "object"
       }
     },
+    "twilio:index:getIntelligenceCustomOperator": {
+      "description": "Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (LY...) of the custom operator."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "availability": {
+            "type": "string"
+          },
+          "config": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "operatorType": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getIntelligenceService": {
+      "description": "Look up a Voice Intelligence service by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (GA...) of the Intelligence service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "autoRedaction": {
+            "type": "boolean"
+          },
+          "autoTranscribe": {
+            "type": "boolean"
+          },
+          "dataLogging": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "encryptionCredentialSid": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "languageCode": {
+            "type": "string"
+          },
+          "mediaRedaction": {
+            "type": "boolean"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "uniqueName": {
+            "type": "string"
+          },
+          "webhookHttpMethod": {
+            "type": "string"
+          },
+          "webhookUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getIpRecord": {
       "description": "Look up a BYOC IP record by SID.",
       "inputs": {
@@ -8763,6 +11262,33 @@
           "accountSid",
           "dateCreated",
           "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingGeoPermissions": {
+      "description": "Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.",
+      "inputs": {
+        "properties": {
+          "countryCodes": {
+            "type": "string",
+            "description": "Comma separated ISO country codes to report, for example IN,PK,US. Omit it for every country."
+          }
+        },
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "permissions": {
+            "description": "The permission of each country.",
+            "items": {
+              "$ref": "#/types/twilio:index:MessagingGeoPermission"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "permissions"
         ],
         "type": "object"
       }
@@ -8859,6 +11385,172 @@
         "type": "object"
       }
     },
+    "twilio:index:getMessagingServiceAlphaSender": {
+      "description": "Look up an alphanumeric sender ID in a Messaging Service.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (AI...) of the alpha sender."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "alphaSender": {
+            "type": "string"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "serviceSid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "serviceSid",
+          "alphaSender",
+          "capabilities",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingServiceChannelSender": {
+      "description": "Look up a channel sender in a Messaging Service sender pool.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (XE...) of the channel sender in the sender pool."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "countryCode": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "senderType": {
+            "type": "string"
+          },
+          "serviceSid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "serviceSid",
+          "sender",
+          "senderType",
+          "countryCode",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingServiceDestinationAlphaSender": {
+      "description": "Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (AI...) of the destination alpha sender."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "alphaSender": {
+            "type": "string"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "isoCountryCode": {
+            "type": "string"
+          },
+          "serviceSid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "serviceSid",
+          "alphaSender",
+          "capabilities",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getMessagingServicePhoneNumber": {
       "description": "Look up a phone number in a Messaging Service sender pool.",
       "inputs": {
@@ -8905,6 +11597,175 @@
           "phoneNumberSid",
           "phoneNumber",
           "capabilities"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getMessagingServiceShortCode": {
+      "description": "Look up a short code in a Messaging Service sender pool.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (MG...) of the Messaging Service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (SC...) of the short code in the sender pool."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "serviceSid": {
+            "type": "string"
+          },
+          "shortCode": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "serviceSid",
+          "shortCode",
+          "countryCode",
+          "capabilities",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getNotifyCredential": {
+      "description": "Look up a Notify push credential by SID. The certificate, keys and secret are never returned.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (CR...) of the credential."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "credentialType": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sandbox": {
+            "type": "boolean"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "credentialType",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getNotifyService": {
+      "description": "Look up a Notify service by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (IS...) of the Notify service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "apnCredentialSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "defaultApnNotificationProtocolVersion": {
+            "type": "string"
+          },
+          "defaultFcmNotificationProtocolVersion": {
+            "type": "string"
+          },
+          "defaultGcmNotificationProtocolVersion": {
+            "type": "string"
+          },
+          "deliveryCallbackEnabled": {
+            "type": "boolean"
+          },
+          "deliveryCallbackUrl": {
+            "type": "string"
+          },
+          "fcmCredentialSid": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "gcmCredentialSid": {
+            "type": "string"
+          },
+          "logEnabled": {
+            "type": "boolean"
+          },
+          "messagingServiceSid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }
@@ -9371,6 +12232,162 @@
           "country",
           "priceUnit",
           "outboundCallPrices"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getProxyPhoneNumber": {
+      "description": "Look up a phone number in the pool of a Proxy service.",
+      "inputs": {
+        "properties": {
+          "serviceSid": {
+            "type": "string",
+            "description": "SID (KS...) of the Proxy service."
+          },
+          "sid": {
+            "type": "string",
+            "description": "SID (PN...) of the phone number."
+          }
+        },
+        "type": "object",
+        "required": [
+          "serviceSid",
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "inUse": {
+            "type": "integer"
+          },
+          "isReserved": {
+            "type": "boolean"
+          },
+          "isoCountry": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "serviceSid": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "serviceSid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getProxyService": {
+      "description": "Look up a Proxy service by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (KS...) of the Proxy service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "callbackUrl": {
+            "type": "string"
+          },
+          "chatInstanceSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "defaultTtl": {
+            "type": "integer"
+          },
+          "geoMatchLevel": {
+            "type": "string"
+          },
+          "interceptCallbackUrl": {
+            "type": "string"
+          },
+          "numberSelectionBehavior": {
+            "type": "string"
+          },
+          "outOfSessionCallbackUrl": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "uniqueName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getPublicKeyCredential": {
+      "description": "Look up a public key credential by SID. Twilio never returns the key.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (CR...) of the public key credential."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
         ],
         "type": "object"
       }
@@ -11031,6 +14048,61 @@
         "type": "object"
       }
     },
+    "twilio:index:getSyncService": {
+      "description": "Look up a Sync service by SID.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (IS...) of the Sync service."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "aclEnabled": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "reachabilityDebouncingEnabled": {
+            "type": "boolean"
+          },
+          "reachabilityDebouncingWindow": {
+            "type": "integer"
+          },
+          "reachabilityWebhooksEnabled": {
+            "type": "boolean"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "webhookUrl": {
+            "type": "string"
+          },
+          "webhooksFromRestEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
     "twilio:index:getTaskRouterActivity": {
       "description": "Look up an activity of a TaskRouter workspace by SID.",
       "inputs": {
@@ -12228,6 +15300,134 @@
           "dateCreated",
           "dateUpdated"
         ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVideoCompositionHook": {
+      "description": "Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (HK...) of the composition hook."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "audioSources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "audioSourcesExcluded": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "dateCreated": {
+            "type": "string"
+          },
+          "dateUpdated": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "format": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "statusCallback": {
+            "type": "string"
+          },
+          "statusCallbackMethod": {
+            "type": "string"
+          },
+          "trim": {
+            "type": "boolean"
+          },
+          "videoLayout": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getVideoCompositionSettings": {
+      "description": "Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "awsCredentialsSid": {
+            "type": "string"
+          },
+          "awsS3Url": {
+            "type": "string"
+          },
+          "awsStorageEnabled": {
+            "type": "boolean"
+          },
+          "encryptionEnabled": {
+            "type": "boolean"
+          },
+          "encryptionKeySid": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "twilio:index:getVideoRecordingSettings": {
+      "description": "Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "awsCredentialsSid": {
+            "type": "string"
+          },
+          "awsS3Url": {
+            "type": "string"
+          },
+          "awsStorageEnabled": {
+            "type": "boolean"
+          },
+          "encryptionEnabled": {
+            "type": "boolean"
+          },
+          "encryptionKeySid": {
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string"
+          }
+        },
         "type": "object"
       }
     },

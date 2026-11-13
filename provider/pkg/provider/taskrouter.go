@@ -121,6 +121,49 @@ func (d trDiffSet) jsonDoc(name string, o, n *string) {
 	}
 }
 
+// trDefaults is one resource's table of Twilio defaults, keyed by property. Read (trStr, trBool,
+// trInt: an import adopts a value that is not the default) and Diff (strDef, boolDef, intDef: an
+// unset stored value means the default) both take their default from the same table, so the two
+// cannot disagree (#1896). TestDefaultsTablesAgree keeps every Read default paired with a Diff one.
+type trDefaults map[string]any
+
+func (t trDefaults) str(key string) string   { return trDefault[string](t, key) }
+func (t trDefaults) boolean(key string) bool { return trDefault[bool](t, key) }
+func (t trDefaults) integer(key string) int  { return trDefault[int](t, key) }
+
+func trDefault[V any](t trDefaults, key string) V {
+	v, ok := t[key].(V)
+	if !ok {
+		panic(fmt.Sprintf("twilio: no %T default for %q", v, key))
+	}
+	return v
+}
+
+// strDef, boolDef and intDef are str, boolean and integer for a property with a Twilio default.
+// An import leaves the stored input unset when Twilio's value is the default (trStr, trBool,
+// trInt), so a nil old value means the default: a program that sets the default explicitly is
+// not a change (#1880).
+func (d trDiffSet) strDef(t trDefaults, name string, o, n *string) {
+	if def := t.str(name); n != nil && o == nil {
+		o = &def
+	}
+	d.str(name, o, n)
+}
+
+func (d trDiffSet) boolDef(t trDefaults, name string, o, n *bool) {
+	if def := t.boolean(name); n != nil && o == nil {
+		o = &def
+	}
+	d.boolean(name, o, n)
+}
+
+func (d trDiffSet) intDef(t trDefaults, name string, o, n *int) {
+	if def := t.integer(name); n != nil && o == nil {
+		o = &def
+	}
+	d.integer(name, o, n)
+}
+
 func (d trDiffSet) response() infer.DiffResponse {
 	return infer.DiffResponse{HasChanges: len(d) > 0, DetailedDiff: d}
 }

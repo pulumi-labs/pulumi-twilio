@@ -106,11 +106,11 @@ func (r *ConversationsWebhookConfiguration) Diff(_ context.Context, req infer.Di
 	if o.id() != n.id() {
 		d.replace("chatServiceSid", o.id(), n.id())
 	}
-	d.str("method", o.Method, n.Method)
+	d.strDef(conversationsWebhookConfigurationDefaults, "method", o.Method, n.Method)
 	d.strList("filters", o.Filters, n.Filters)
-	d.str("preWebhookUrl", o.PreWebhookUrl, n.PreWebhookUrl)
-	d.str("postWebhookUrl", o.PostWebhookUrl, n.PostWebhookUrl)
-	d.str("target", o.Target, n.Target)
+	d.strDef(conversationsWebhookConfigurationDefaults, "preWebhookUrl", o.PreWebhookUrl, n.PreWebhookUrl)
+	d.strDef(conversationsWebhookConfigurationDefaults, "postWebhookUrl", o.PostWebhookUrl, n.PostWebhookUrl)
+	d.strDef(conversationsWebhookConfigurationDefaults, "target", o.Target, n.Target)
 	return d.response(), nil
 }
 
@@ -176,12 +176,12 @@ func (r *ConversationsWebhookConfiguration) Read(ctx context.Context, req infer.
 		id := req.ID
 		in.ChatServiceSid = &id
 	}
-	in.Method = trStr(in.Method, o.optStr("method"), "", imported)
+	in.Method = trStr(in.Method, o.optStr("method"), conversationsWebhookConfigurationDefaults.str("method"), imported)
 	in.Filters = cvList(in.Filters, o.optList("filters"), imported)
-	in.PreWebhookUrl = trStr(in.PreWebhookUrl, o.optStr("pre_webhook_url"), "", imported)
-	in.PostWebhookUrl = trStr(in.PostWebhookUrl, o.optStr("post_webhook_url"), "", imported)
+	in.PreWebhookUrl = trStr(in.PreWebhookUrl, o.optStr("pre_webhook_url"), conversationsWebhookConfigurationDefaults.str("preWebhookUrl"), imported)
+	in.PostWebhookUrl = trStr(in.PostWebhookUrl, o.optStr("post_webhook_url"), conversationsWebhookConfigurationDefaults.str("postWebhookUrl"), imported)
 	if req.ID == cvAccountWebhookID {
-		in.Target = trStr(in.Target, o.optStr("target"), "", imported)
+		in.Target = trStr(in.Target, o.optStr("target"), conversationsWebhookConfigurationDefaults.str("target"), imported)
 	}
 	return resp{ID: req.ID, Inputs: in, State: ConversationsWebhookConfigurationState{ConversationsWebhookConfigurationArgs: in}}, nil
 }
@@ -200,4 +200,12 @@ func (r *ConversationsWebhookConfiguration) Update(ctx context.Context, req infe
 // Delete forgets the configuration: there is always one and the spec offers no way to remove it.
 func (r *ConversationsWebhookConfiguration) Delete(_ context.Context, _ infer.DeleteRequest[ConversationsWebhookConfigurationState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, nil
+}
+
+// conversationsWebhookConfigurationDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var conversationsWebhookConfigurationDefaults = trDefaults{
+	"method":         "",
+	"preWebhookUrl":  "",
+	"postWebhookUrl": "",
+	"target":         "",
 }

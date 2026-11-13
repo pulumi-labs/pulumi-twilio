@@ -11,6 +11,8 @@ import com.pulumi.deployment.InvokeOutputOptions;
 import com.pulumi.labs.twilio.Utilities;
 import com.pulumi.labs.twilio.inputs.GetAccountArgs;
 import com.pulumi.labs.twilio.inputs.GetAccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAccountSafeListNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetAccountSafeListNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetAddressArgs;
 import com.pulumi.labs.twilio.inputs.GetAddressPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetApiKeyArgs;
@@ -23,6 +25,8 @@ import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppsArgs;
 import com.pulumi.labs.twilio.inputs.GetAuthorizedConnectAppsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetAvailablePhoneNumbersArgs;
 import com.pulumi.labs.twilio.inputs.GetAvailablePhoneNumbersPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetAwsCredentialArgs;
+import com.pulumi.labs.twilio.inputs.GetAwsCredentialPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetBalanceArgs;
 import com.pulumi.labs.twilio.inputs.GetBalancePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetByocTrunkArgs;
@@ -33,8 +37,14 @@ import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetContentApprovalStatusArgs;
+import com.pulumi.labs.twilio.inputs.GetContentApprovalStatusPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetContentTemplateArgs;
+import com.pulumi.labs.twilio.inputs.GetContentTemplatePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsAddressConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsAddressConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsCredentialArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsCredentialPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsRoleArgs;
@@ -42,6 +52,8 @@ import com.pulumi.labs.twilio.inputs.GetConversationsRolePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsServiceConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsServiceConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServiceNotificationConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetConversationsServiceNotificationConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationPlainArgs;
@@ -65,12 +77,30 @@ import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetIntelligenceCustomOperatorArgs;
+import com.pulumi.labs.twilio.inputs.GetIntelligenceCustomOperatorPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetIntelligenceServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetIntelligenceServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIpRecordArgs;
 import com.pulumi.labs.twilio.inputs.GetIpRecordPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingGeoPermissionsArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingGeoPermissionsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceAlphaSenderArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceAlphaSenderPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceChannelSenderArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceChannelSenderPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceDestinationAlphaSenderArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceDestinationAlphaSenderPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePhoneNumberPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceShortCodeArgs;
+import com.pulumi.labs.twilio.inputs.GetMessagingServiceShortCodePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetNotifyCredentialArgs;
+import com.pulumi.labs.twilio.inputs.GetNotifyCredentialPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetNotifyServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetNotifyServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdArgs;
 import com.pulumi.labs.twilio.inputs.GetOutgoingCallerIdPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetPricingMessagingCountriesArgs;
@@ -93,6 +123,12 @@ import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountryArgs;
 import com.pulumi.labs.twilio.inputs.GetPricingVoiceCountryPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetPricingVoiceNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetPricingVoiceNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetProxyPhoneNumberArgs;
+import com.pulumi.labs.twilio.inputs.GetProxyPhoneNumberPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetProxyServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetProxyServicePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetPublicKeyCredentialArgs;
+import com.pulumi.labs.twilio.inputs.GetPublicKeyCredentialPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetQueueArgs;
 import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetRoutesPhoneNumberArgs;
@@ -143,6 +179,8 @@ import com.pulumi.labs.twilio.inputs.GetSourceIpMappingArgs;
 import com.pulumi.labs.twilio.inputs.GetSourceIpMappingPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountArgs;
 import com.pulumi.labs.twilio.inputs.GetSubaccountPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetSyncServiceArgs;
+import com.pulumi.labs.twilio.inputs.GetSyncServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTaskRouterActivityArgs;
 import com.pulumi.labs.twilio.inputs.GetTaskRouterActivityPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTaskRouterTaskChannelArgs;
@@ -181,6 +219,12 @@ import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyTemplatesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookArgs;
 import com.pulumi.labs.twilio.inputs.GetVerifyWebhookPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoCompositionHookArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoCompositionHookPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoCompositionSettingsArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoCompositionSettingsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoRecordingSettingsArgs;
+import com.pulumi.labs.twilio.inputs.GetVideoRecordingSettingsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceAccountDefaultRecordingConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceAccountDefaultRecordingConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceDefaultRecordingConfigurationArgs;
@@ -192,21 +236,27 @@ import com.pulumi.labs.twilio.inputs.GetVoiceRecordingConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceTranscriptionConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetVoiceTranscriptionConfigurationPlainArgs;
 import com.pulumi.labs.twilio.outputs.GetAccountResult;
+import com.pulumi.labs.twilio.outputs.GetAccountSafeListNumberResult;
 import com.pulumi.labs.twilio.outputs.GetAddressResult;
 import com.pulumi.labs.twilio.outputs.GetApiKeyResult;
 import com.pulumi.labs.twilio.outputs.GetApplicationResult;
 import com.pulumi.labs.twilio.outputs.GetAuthorizedConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetAuthorizedConnectAppsResult;
 import com.pulumi.labs.twilio.outputs.GetAvailablePhoneNumbersResult;
+import com.pulumi.labs.twilio.outputs.GetAwsCredentialResult;
 import com.pulumi.labs.twilio.outputs.GetBalanceResult;
 import com.pulumi.labs.twilio.outputs.GetByocTrunkResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
+import com.pulumi.labs.twilio.outputs.GetContentApprovalStatusResult;
+import com.pulumi.labs.twilio.outputs.GetContentTemplateResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsAddressConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsCredentialResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsRoleResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsServiceConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetConversationsServiceNotificationConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsServiceResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsWebhookConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountriesResult;
@@ -219,9 +269,18 @@ import com.pulumi.labs.twilio.outputs.GetEventTypeResult;
 import com.pulumi.labs.twilio.outputs.GetEventTypesResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberAssignedAddOnResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberResult;
+import com.pulumi.labs.twilio.outputs.GetIntelligenceCustomOperatorResult;
+import com.pulumi.labs.twilio.outputs.GetIntelligenceServiceResult;
 import com.pulumi.labs.twilio.outputs.GetIpRecordResult;
+import com.pulumi.labs.twilio.outputs.GetMessagingGeoPermissionsResult;
+import com.pulumi.labs.twilio.outputs.GetMessagingServiceAlphaSenderResult;
+import com.pulumi.labs.twilio.outputs.GetMessagingServiceChannelSenderResult;
+import com.pulumi.labs.twilio.outputs.GetMessagingServiceDestinationAlphaSenderResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServicePhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServiceResult;
+import com.pulumi.labs.twilio.outputs.GetMessagingServiceShortCodeResult;
+import com.pulumi.labs.twilio.outputs.GetNotifyCredentialResult;
+import com.pulumi.labs.twilio.outputs.GetNotifyServiceResult;
 import com.pulumi.labs.twilio.outputs.GetOutgoingCallerIdResult;
 import com.pulumi.labs.twilio.outputs.GetPricingMessagingCountriesResult;
 import com.pulumi.labs.twilio.outputs.GetPricingMessagingCountryResult;
@@ -233,6 +292,9 @@ import com.pulumi.labs.twilio.outputs.GetPricingTrunkingNumberResult;
 import com.pulumi.labs.twilio.outputs.GetPricingVoiceCountriesResult;
 import com.pulumi.labs.twilio.outputs.GetPricingVoiceCountryResult;
 import com.pulumi.labs.twilio.outputs.GetPricingVoiceNumberResult;
+import com.pulumi.labs.twilio.outputs.GetProxyPhoneNumberResult;
+import com.pulumi.labs.twilio.outputs.GetProxyServiceResult;
+import com.pulumi.labs.twilio.outputs.GetPublicKeyCredentialResult;
 import com.pulumi.labs.twilio.outputs.GetQueueResult;
 import com.pulumi.labs.twilio.outputs.GetRoutesPhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetRoutesShortCodeResult;
@@ -258,6 +320,7 @@ import com.pulumi.labs.twilio.outputs.GetSipIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetSipIpAddressResult;
 import com.pulumi.labs.twilio.outputs.GetSourceIpMappingResult;
 import com.pulumi.labs.twilio.outputs.GetSubaccountResult;
+import com.pulumi.labs.twilio.outputs.GetSyncServiceResult;
 import com.pulumi.labs.twilio.outputs.GetTaskRouterActivityResult;
 import com.pulumi.labs.twilio.outputs.GetTaskRouterTaskChannelResult;
 import com.pulumi.labs.twilio.outputs.GetTaskRouterTaskQueueResult;
@@ -277,6 +340,9 @@ import com.pulumi.labs.twilio.outputs.GetVerifySafeListNumberResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyServiceResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyTemplatesResult;
 import com.pulumi.labs.twilio.outputs.GetVerifyWebhookResult;
+import com.pulumi.labs.twilio.outputs.GetVideoCompositionHookResult;
+import com.pulumi.labs.twilio.outputs.GetVideoCompositionSettingsResult;
+import com.pulumi.labs.twilio.outputs.GetVideoRecordingSettingsResult;
 import com.pulumi.labs.twilio.outputs.GetVoiceAccountDefaultRecordingConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetVoiceDefaultRecordingConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetVoiceDefaultTranscriptionConfigurationResult;
@@ -333,6 +399,41 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetAccountResult> getAccountPlain(GetAccountPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getAccount", TypeShape.of(GetAccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).
+     * 
+     */
+    public static Output<GetAccountSafeListNumberResult> getAccountSafeListNumber(GetAccountSafeListNumberArgs args) {
+        return getAccountSafeListNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number on the account&#39;s Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).
+     * 
+     */
+    public static CompletableFuture<GetAccountSafeListNumberResult> getAccountSafeListNumberPlain(GetAccountSafeListNumberPlainArgs args) {
+        return getAccountSafeListNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number on the account&#39;s Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).
+     * 
+     */
+    public static Output<GetAccountSafeListNumberResult> getAccountSafeListNumber(GetAccountSafeListNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAccountSafeListNumber", TypeShape.of(GetAccountSafeListNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).
+     * 
+     */
+    public static Output<GetAccountSafeListNumberResult> getAccountSafeListNumber(GetAccountSafeListNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAccountSafeListNumber", TypeShape.of(GetAccountSafeListNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number on the account&#39;s Global SafeList (accounts.twilio.com). Fails when the number is not on the list. Not the Verify SafeList (see getVerifySafeListNumber).
+     * 
+     */
+    public static CompletableFuture<GetAccountSafeListNumberResult> getAccountSafeListNumberPlain(GetAccountSafeListNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAccountSafeListNumber", TypeShape.of(GetAccountSafeListNumberResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio address by SID.
@@ -559,6 +660,41 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getAvailablePhoneNumbers", TypeShape.of(GetAvailablePhoneNumbersResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up an AWS credential by SID. Twilio never returns the keys.
+     * 
+     */
+    public static Output<GetAwsCredentialResult> getAwsCredential(GetAwsCredentialArgs args) {
+        return getAwsCredential(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an AWS credential by SID. Twilio never returns the keys.
+     * 
+     */
+    public static CompletableFuture<GetAwsCredentialResult> getAwsCredentialPlain(GetAwsCredentialPlainArgs args) {
+        return getAwsCredentialPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an AWS credential by SID. Twilio never returns the keys.
+     * 
+     */
+    public static Output<GetAwsCredentialResult> getAwsCredential(GetAwsCredentialArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAwsCredential", TypeShape.of(GetAwsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an AWS credential by SID. Twilio never returns the keys.
+     * 
+     */
+    public static Output<GetAwsCredentialResult> getAwsCredential(GetAwsCredentialArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getAwsCredential", TypeShape.of(GetAwsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an AWS credential by SID. Twilio never returns the keys.
+     * 
+     */
+    public static CompletableFuture<GetAwsCredentialResult> getAwsCredentialPlain(GetAwsCredentialPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getAwsCredential", TypeShape.of(GetAwsCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Read the account balance (GET /2010-04-01/Accounts/{AccountSid}/Balance.json).
      * 
      */
@@ -748,6 +884,76 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * 
+     */
+    public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args) {
+        return getContentApprovalStatus(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * 
+     */
+    public static CompletableFuture<GetContentApprovalStatusResult> getContentApprovalStatusPlain(GetContentApprovalStatusPlainArgs args) {
+        return getContentApprovalStatusPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * 
+     */
+    public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentApprovalStatus", TypeShape.of(GetContentApprovalStatusResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * 
+     */
+    public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentApprovalStatus", TypeShape.of(GetContentApprovalStatusResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * 
+     */
+    public static CompletableFuture<GetContentApprovalStatusResult> getContentApprovalStatusPlain(GetContentApprovalStatusPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getContentApprovalStatus", TypeShape.of(GetContentApprovalStatusResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Content template by SID.
+     * 
+     */
+    public static Output<GetContentTemplateResult> getContentTemplate(GetContentTemplateArgs args) {
+        return getContentTemplate(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Content template by SID.
+     * 
+     */
+    public static CompletableFuture<GetContentTemplateResult> getContentTemplatePlain(GetContentTemplatePlainArgs args) {
+        return getContentTemplatePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Content template by SID.
+     * 
+     */
+    public static Output<GetContentTemplateResult> getContentTemplate(GetContentTemplateArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentTemplate", TypeShape.of(GetContentTemplateResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Content template by SID.
+     * 
+     */
+    public static Output<GetContentTemplateResult> getContentTemplate(GetContentTemplateArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentTemplate", TypeShape.of(GetContentTemplateResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Content template by SID.
+     * 
+     */
+    public static CompletableFuture<GetContentTemplateResult> getContentTemplatePlain(GetContentTemplatePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getContentTemplate", TypeShape.of(GetContentTemplateResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Conversations address configuration by SID.
      * 
      */
@@ -781,6 +987,55 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetConversationsAddressConfigurationResult> getConversationsAddressConfigurationPlain(GetConversationsAddressConfigurationPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getConversationsAddressConfiguration", TypeShape.of(GetConversationsAddressConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static Output<GetConversationsConfigurationResult> getConversationsConfiguration() {
+        return getConversationsConfiguration(GetConversationsConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static CompletableFuture<GetConversationsConfigurationResult> getConversationsConfigurationPlain() {
+        return getConversationsConfigurationPlain(GetConversationsConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static Output<GetConversationsConfigurationResult> getConversationsConfiguration(GetConversationsConfigurationArgs args) {
+        return getConversationsConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static CompletableFuture<GetConversationsConfigurationResult> getConversationsConfigurationPlain(GetConversationsConfigurationPlainArgs args) {
+        return getConversationsConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static Output<GetConversationsConfigurationResult> getConversationsConfiguration(GetConversationsConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsConfiguration", TypeShape.of(GetConversationsConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static Output<GetConversationsConfigurationResult> getConversationsConfiguration(GetConversationsConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsConfiguration", TypeShape.of(GetConversationsConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-level defaults of Conversations (default service, messaging service and timers).
+     * 
+     */
+    public static CompletableFuture<GetConversationsConfigurationResult> getConversationsConfigurationPlain(GetConversationsConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsConfiguration", TypeShape.of(GetConversationsConfigurationResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Conversations push credential by SID. The certificate, keys and secret are never returned.
@@ -921,6 +1176,41 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetConversationsServiceConfigurationResult> getConversationsServiceConfigurationPlain(GetConversationsServiceConfigurationPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getConversationsServiceConfiguration", TypeShape.of(GetConversationsServiceConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the push notification settings of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceNotificationConfigurationResult> getConversationsServiceNotificationConfiguration(GetConversationsServiceNotificationConfigurationArgs args) {
+        return getConversationsServiceNotificationConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the push notification settings of a Conversations service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceNotificationConfigurationResult> getConversationsServiceNotificationConfigurationPlain(GetConversationsServiceNotificationConfigurationPlainArgs args) {
+        return getConversationsServiceNotificationConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the push notification settings of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceNotificationConfigurationResult> getConversationsServiceNotificationConfiguration(GetConversationsServiceNotificationConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsServiceNotificationConfiguration", TypeShape.of(GetConversationsServiceNotificationConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the push notification settings of a Conversations service.
+     * 
+     */
+    public static Output<GetConversationsServiceNotificationConfigurationResult> getConversationsServiceNotificationConfiguration(GetConversationsServiceNotificationConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getConversationsServiceNotificationConfiguration", TypeShape.of(GetConversationsServiceNotificationConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the push notification settings of a Conversations service.
+     * 
+     */
+    public static CompletableFuture<GetConversationsServiceNotificationConfigurationResult> getConversationsServiceNotificationConfigurationPlain(GetConversationsServiceNotificationConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getConversationsServiceNotificationConfiguration", TypeShape.of(GetConversationsServiceNotificationConfigurationResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up the webhook configuration of Conversations, account-level or of one service.
@@ -1364,6 +1654,76 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getIncomingPhoneNumberAssignedAddOn", TypeShape.of(GetIncomingPhoneNumberAssignedAddOnResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.
+     * 
+     */
+    public static Output<GetIntelligenceCustomOperatorResult> getIntelligenceCustomOperator(GetIntelligenceCustomOperatorArgs args) {
+        return getIntelligenceCustomOperator(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.
+     * 
+     */
+    public static CompletableFuture<GetIntelligenceCustomOperatorResult> getIntelligenceCustomOperatorPlain(GetIntelligenceCustomOperatorPlainArgs args) {
+        return getIntelligenceCustomOperatorPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.
+     * 
+     */
+    public static Output<GetIntelligenceCustomOperatorResult> getIntelligenceCustomOperator(GetIntelligenceCustomOperatorArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIntelligenceCustomOperator", TypeShape.of(GetIntelligenceCustomOperatorResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.
+     * 
+     */
+    public static Output<GetIntelligenceCustomOperatorResult> getIntelligenceCustomOperator(GetIntelligenceCustomOperatorArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIntelligenceCustomOperator", TypeShape.of(GetIntelligenceCustomOperatorResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a custom Voice Intelligence operator by SID. config is the configuration as a JSON document.
+     * 
+     */
+    public static CompletableFuture<GetIntelligenceCustomOperatorResult> getIntelligenceCustomOperatorPlain(GetIntelligenceCustomOperatorPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getIntelligenceCustomOperator", TypeShape.of(GetIntelligenceCustomOperatorResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice Intelligence service by SID.
+     * 
+     */
+    public static Output<GetIntelligenceServiceResult> getIntelligenceService(GetIntelligenceServiceArgs args) {
+        return getIntelligenceService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice Intelligence service by SID.
+     * 
+     */
+    public static CompletableFuture<GetIntelligenceServiceResult> getIntelligenceServicePlain(GetIntelligenceServicePlainArgs args) {
+        return getIntelligenceServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Voice Intelligence service by SID.
+     * 
+     */
+    public static Output<GetIntelligenceServiceResult> getIntelligenceService(GetIntelligenceServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIntelligenceService", TypeShape.of(GetIntelligenceServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice Intelligence service by SID.
+     * 
+     */
+    public static Output<GetIntelligenceServiceResult> getIntelligenceService(GetIntelligenceServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getIntelligenceService", TypeShape.of(GetIntelligenceServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Voice Intelligence service by SID.
+     * 
+     */
+    public static CompletableFuture<GetIntelligenceServiceResult> getIntelligenceServicePlain(GetIntelligenceServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getIntelligenceService", TypeShape.of(GetIntelligenceServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a BYOC IP record by SID.
      * 
      */
@@ -1397,6 +1757,55 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetIpRecordResult> getIpRecordPlain(GetIpRecordPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getIpRecord", TypeShape.of(GetIpRecordResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions() {
+        return getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain() {
+        return getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args) {
+        return getMessagingGeoPermissions(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs args) {
+        return getMessagingGeoPermissionsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingGeoPermissions", TypeShape.of(GetMessagingGeoPermissionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingGeoPermissions", TypeShape.of(GetMessagingGeoPermissionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * 
+     */
+    public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMessagingGeoPermissions", TypeShape.of(GetMessagingGeoPermissionsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Messaging Service by SID.
@@ -1434,6 +1843,111 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getMessagingService", TypeShape.of(GetMessagingServiceResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up an alphanumeric sender ID in a Messaging Service.
+     * 
+     */
+    public static Output<GetMessagingServiceAlphaSenderResult> getMessagingServiceAlphaSender(GetMessagingServiceAlphaSenderArgs args) {
+        return getMessagingServiceAlphaSender(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an alphanumeric sender ID in a Messaging Service.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceAlphaSenderResult> getMessagingServiceAlphaSenderPlain(GetMessagingServiceAlphaSenderPlainArgs args) {
+        return getMessagingServiceAlphaSenderPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an alphanumeric sender ID in a Messaging Service.
+     * 
+     */
+    public static Output<GetMessagingServiceAlphaSenderResult> getMessagingServiceAlphaSender(GetMessagingServiceAlphaSenderArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceAlphaSender", TypeShape.of(GetMessagingServiceAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an alphanumeric sender ID in a Messaging Service.
+     * 
+     */
+    public static Output<GetMessagingServiceAlphaSenderResult> getMessagingServiceAlphaSender(GetMessagingServiceAlphaSenderArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceAlphaSender", TypeShape.of(GetMessagingServiceAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an alphanumeric sender ID in a Messaging Service.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceAlphaSenderResult> getMessagingServiceAlphaSenderPlain(GetMessagingServiceAlphaSenderPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServiceAlphaSender", TypeShape.of(GetMessagingServiceAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel sender in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceChannelSenderResult> getMessagingServiceChannelSender(GetMessagingServiceChannelSenderArgs args) {
+        return getMessagingServiceChannelSender(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel sender in a Messaging Service sender pool.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceChannelSenderResult> getMessagingServiceChannelSenderPlain(GetMessagingServiceChannelSenderPlainArgs args) {
+        return getMessagingServiceChannelSenderPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel sender in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceChannelSenderResult> getMessagingServiceChannelSender(GetMessagingServiceChannelSenderArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceChannelSender", TypeShape.of(GetMessagingServiceChannelSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel sender in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceChannelSenderResult> getMessagingServiceChannelSender(GetMessagingServiceChannelSenderArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceChannelSender", TypeShape.of(GetMessagingServiceChannelSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel sender in a Messaging Service sender pool.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceChannelSenderResult> getMessagingServiceChannelSenderPlain(GetMessagingServiceChannelSenderPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServiceChannelSender", TypeShape.of(GetMessagingServiceChannelSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.
+     * 
+     */
+    public static Output<GetMessagingServiceDestinationAlphaSenderResult> getMessagingServiceDestinationAlphaSender(GetMessagingServiceDestinationAlphaSenderArgs args) {
+        return getMessagingServiceDestinationAlphaSender(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceDestinationAlphaSenderResult> getMessagingServiceDestinationAlphaSenderPlain(GetMessagingServiceDestinationAlphaSenderPlainArgs args) {
+        return getMessagingServiceDestinationAlphaSenderPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.
+     * 
+     */
+    public static Output<GetMessagingServiceDestinationAlphaSenderResult> getMessagingServiceDestinationAlphaSender(GetMessagingServiceDestinationAlphaSenderArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceDestinationAlphaSender", TypeShape.of(GetMessagingServiceDestinationAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.
+     * 
+     */
+    public static Output<GetMessagingServiceDestinationAlphaSenderResult> getMessagingServiceDestinationAlphaSender(GetMessagingServiceDestinationAlphaSenderArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceDestinationAlphaSender", TypeShape.of(GetMessagingServiceDestinationAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a destination alphanumeric sender ID in a Messaging Service. isoCountryCode is null for a default sender ID.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceDestinationAlphaSenderResult> getMessagingServiceDestinationAlphaSenderPlain(GetMessagingServiceDestinationAlphaSenderPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServiceDestinationAlphaSender", TypeShape.of(GetMessagingServiceDestinationAlphaSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a phone number in a Messaging Service sender pool.
      * 
      */
@@ -1467,6 +1981,111 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetMessagingServicePhoneNumberResult> getMessagingServicePhoneNumberPlain(GetMessagingServicePhoneNumberPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServicePhoneNumber", TypeShape.of(GetMessagingServicePhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a short code in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceShortCodeResult> getMessagingServiceShortCode(GetMessagingServiceShortCodeArgs args) {
+        return getMessagingServiceShortCode(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a short code in a Messaging Service sender pool.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceShortCodeResult> getMessagingServiceShortCodePlain(GetMessagingServiceShortCodePlainArgs args) {
+        return getMessagingServiceShortCodePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a short code in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceShortCodeResult> getMessagingServiceShortCode(GetMessagingServiceShortCodeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceShortCode", TypeShape.of(GetMessagingServiceShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a short code in a Messaging Service sender pool.
+     * 
+     */
+    public static Output<GetMessagingServiceShortCodeResult> getMessagingServiceShortCode(GetMessagingServiceShortCodeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMessagingServiceShortCode", TypeShape.of(GetMessagingServiceShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a short code in a Messaging Service sender pool.
+     * 
+     */
+    public static CompletableFuture<GetMessagingServiceShortCodeResult> getMessagingServiceShortCodePlain(GetMessagingServiceShortCodePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMessagingServiceShortCode", TypeShape.of(GetMessagingServiceShortCodeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetNotifyCredentialResult> getNotifyCredential(GetNotifyCredentialArgs args) {
+        return getNotifyCredential(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Notify push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static CompletableFuture<GetNotifyCredentialResult> getNotifyCredentialPlain(GetNotifyCredentialPlainArgs args) {
+        return getNotifyCredentialPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Notify push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetNotifyCredentialResult> getNotifyCredential(GetNotifyCredentialArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getNotifyCredential", TypeShape.of(GetNotifyCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static Output<GetNotifyCredentialResult> getNotifyCredential(GetNotifyCredentialArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getNotifyCredential", TypeShape.of(GetNotifyCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify push credential by SID. The certificate, keys and secret are never returned.
+     * 
+     */
+    public static CompletableFuture<GetNotifyCredentialResult> getNotifyCredentialPlain(GetNotifyCredentialPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getNotifyCredential", TypeShape.of(GetNotifyCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify service by SID.
+     * 
+     */
+    public static Output<GetNotifyServiceResult> getNotifyService(GetNotifyServiceArgs args) {
+        return getNotifyService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Notify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetNotifyServiceResult> getNotifyServicePlain(GetNotifyServicePlainArgs args) {
+        return getNotifyServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Notify service by SID.
+     * 
+     */
+    public static Output<GetNotifyServiceResult> getNotifyService(GetNotifyServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getNotifyService", TypeShape.of(GetNotifyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify service by SID.
+     * 
+     */
+    public static Output<GetNotifyServiceResult> getNotifyService(GetNotifyServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getNotifyService", TypeShape.of(GetNotifyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Notify service by SID.
+     * 
+     */
+    public static CompletableFuture<GetNotifyServiceResult> getNotifyServicePlain(GetNotifyServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getNotifyService", TypeShape.of(GetNotifyServiceResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a verified outgoing caller ID by E.164 number or SID.
@@ -1922,6 +2541,111 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetPricingVoiceNumberResult> getPricingVoiceNumberPlain(GetPricingVoiceNumberPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getPricingVoiceNumber", TypeShape.of(GetPricingVoiceNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number in the pool of a Proxy service.
+     * 
+     */
+    public static Output<GetProxyPhoneNumberResult> getProxyPhoneNumber(GetProxyPhoneNumberArgs args) {
+        return getProxyPhoneNumber(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number in the pool of a Proxy service.
+     * 
+     */
+    public static CompletableFuture<GetProxyPhoneNumberResult> getProxyPhoneNumberPlain(GetProxyPhoneNumberPlainArgs args) {
+        return getProxyPhoneNumberPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a phone number in the pool of a Proxy service.
+     * 
+     */
+    public static Output<GetProxyPhoneNumberResult> getProxyPhoneNumber(GetProxyPhoneNumberArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getProxyPhoneNumber", TypeShape.of(GetProxyPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number in the pool of a Proxy service.
+     * 
+     */
+    public static Output<GetProxyPhoneNumberResult> getProxyPhoneNumber(GetProxyPhoneNumberArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getProxyPhoneNumber", TypeShape.of(GetProxyPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a phone number in the pool of a Proxy service.
+     * 
+     */
+    public static CompletableFuture<GetProxyPhoneNumberResult> getProxyPhoneNumberPlain(GetProxyPhoneNumberPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getProxyPhoneNumber", TypeShape.of(GetProxyPhoneNumberResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Proxy service by SID.
+     * 
+     */
+    public static Output<GetProxyServiceResult> getProxyService(GetProxyServiceArgs args) {
+        return getProxyService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Proxy service by SID.
+     * 
+     */
+    public static CompletableFuture<GetProxyServiceResult> getProxyServicePlain(GetProxyServicePlainArgs args) {
+        return getProxyServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Proxy service by SID.
+     * 
+     */
+    public static Output<GetProxyServiceResult> getProxyService(GetProxyServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getProxyService", TypeShape.of(GetProxyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Proxy service by SID.
+     * 
+     */
+    public static Output<GetProxyServiceResult> getProxyService(GetProxyServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getProxyService", TypeShape.of(GetProxyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Proxy service by SID.
+     * 
+     */
+    public static CompletableFuture<GetProxyServiceResult> getProxyServicePlain(GetProxyServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getProxyService", TypeShape.of(GetProxyServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a public key credential by SID. Twilio never returns the key.
+     * 
+     */
+    public static Output<GetPublicKeyCredentialResult> getPublicKeyCredential(GetPublicKeyCredentialArgs args) {
+        return getPublicKeyCredential(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a public key credential by SID. Twilio never returns the key.
+     * 
+     */
+    public static CompletableFuture<GetPublicKeyCredentialResult> getPublicKeyCredentialPlain(GetPublicKeyCredentialPlainArgs args) {
+        return getPublicKeyCredentialPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a public key credential by SID. Twilio never returns the key.
+     * 
+     */
+    public static Output<GetPublicKeyCredentialResult> getPublicKeyCredential(GetPublicKeyCredentialArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPublicKeyCredential", TypeShape.of(GetPublicKeyCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a public key credential by SID. Twilio never returns the key.
+     * 
+     */
+    public static Output<GetPublicKeyCredentialResult> getPublicKeyCredential(GetPublicKeyCredentialArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getPublicKeyCredential", TypeShape.of(GetPublicKeyCredentialResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a public key credential by SID. Twilio never returns the key.
+     * 
+     */
+    public static CompletableFuture<GetPublicKeyCredentialResult> getPublicKeyCredentialPlain(GetPublicKeyCredentialPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getPublicKeyCredential", TypeShape.of(GetPublicKeyCredentialResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio call queue by SID.
@@ -2813,6 +3537,41 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getSubaccount", TypeShape.of(GetSubaccountResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a Sync service by SID.
+     * 
+     */
+    public static Output<GetSyncServiceResult> getSyncService(GetSyncServiceArgs args) {
+        return getSyncService(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Sync service by SID.
+     * 
+     */
+    public static CompletableFuture<GetSyncServiceResult> getSyncServicePlain(GetSyncServicePlainArgs args) {
+        return getSyncServicePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Sync service by SID.
+     * 
+     */
+    public static Output<GetSyncServiceResult> getSyncService(GetSyncServiceArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSyncService", TypeShape.of(GetSyncServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Sync service by SID.
+     * 
+     */
+    public static Output<GetSyncServiceResult> getSyncService(GetSyncServiceArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getSyncService", TypeShape.of(GetSyncServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Sync service by SID.
+     * 
+     */
+    public static CompletableFuture<GetSyncServiceResult> getSyncServicePlain(GetSyncServicePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getSyncService", TypeShape.of(GetSyncServiceResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up an activity of a TaskRouter workspace by SID.
      * 
      */
@@ -3504,6 +4263,139 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetVerifyWebhookResult> getVerifyWebhookPlain(GetVerifyWebhookPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getVerifyWebhook", TypeShape.of(GetVerifyWebhookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.
+     * 
+     */
+    public static Output<GetVideoCompositionHookResult> getVideoCompositionHook(GetVideoCompositionHookArgs args) {
+        return getVideoCompositionHook(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.
+     * 
+     */
+    public static CompletableFuture<GetVideoCompositionHookResult> getVideoCompositionHookPlain(GetVideoCompositionHookPlainArgs args) {
+        return getVideoCompositionHookPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.
+     * 
+     */
+    public static Output<GetVideoCompositionHookResult> getVideoCompositionHook(GetVideoCompositionHookArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoCompositionHook", TypeShape.of(GetVideoCompositionHookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.
+     * 
+     */
+    public static Output<GetVideoCompositionHookResult> getVideoCompositionHook(GetVideoCompositionHookArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoCompositionHook", TypeShape.of(GetVideoCompositionHookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Programmable Video composition hook by SID. videoLayout is the layout as a JSON document.
+     * 
+     */
+    public static CompletableFuture<GetVideoCompositionHookResult> getVideoCompositionHookPlain(GetVideoCompositionHookPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVideoCompositionHook", TypeShape.of(GetVideoCompositionHookResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoCompositionSettingsResult> getVideoCompositionSettings() {
+        return getVideoCompositionSettings(GetVideoCompositionSettingsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoCompositionSettingsResult> getVideoCompositionSettingsPlain() {
+        return getVideoCompositionSettingsPlain(GetVideoCompositionSettingsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoCompositionSettingsResult> getVideoCompositionSettings(GetVideoCompositionSettingsArgs args) {
+        return getVideoCompositionSettings(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoCompositionSettingsResult> getVideoCompositionSettingsPlain(GetVideoCompositionSettingsPlainArgs args) {
+        return getVideoCompositionSettingsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoCompositionSettingsResult> getVideoCompositionSettings(GetVideoCompositionSettingsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoCompositionSettings", TypeShape.of(GetVideoCompositionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoCompositionSettingsResult> getVideoCompositionSettings(GetVideoCompositionSettingsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoCompositionSettings", TypeShape.of(GetVideoCompositionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video compositions storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoCompositionSettingsResult> getVideoCompositionSettingsPlain(GetVideoCompositionSettingsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVideoCompositionSettings", TypeShape.of(GetVideoCompositionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoRecordingSettingsResult> getVideoRecordingSettings() {
+        return getVideoRecordingSettings(GetVideoRecordingSettingsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoRecordingSettingsResult> getVideoRecordingSettingsPlain() {
+        return getVideoRecordingSettingsPlain(GetVideoRecordingSettingsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoRecordingSettingsResult> getVideoRecordingSettings(GetVideoRecordingSettingsArgs args) {
+        return getVideoRecordingSettings(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoRecordingSettingsResult> getVideoRecordingSettingsPlain(GetVideoRecordingSettingsPlainArgs args) {
+        return getVideoRecordingSettingsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoRecordingSettingsResult> getVideoRecordingSettings(GetVideoRecordingSettingsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoRecordingSettings", TypeShape.of(GetVideoRecordingSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static Output<GetVideoRecordingSettingsResult> getVideoRecordingSettings(GetVideoRecordingSettingsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getVideoRecordingSettings", TypeShape.of(GetVideoRecordingSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the account-wide Video recordings storage settings. The credential and key SIDs are identifiers, never the credential or key.
+     * 
+     */
+    public static CompletableFuture<GetVideoRecordingSettingsResult> getVideoRecordingSettingsPlain(GetVideoRecordingSettingsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getVideoRecordingSettings", TypeShape.of(GetVideoRecordingSettingsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Read the account-wide default Twilio Voice v2 recording configuration. Fails when the account has none.

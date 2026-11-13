@@ -120,10 +120,10 @@ func (f *fakeTwilio) serverlessBuild(w http.ResponseWriter, r *http.Request, for
 		}
 		fv, av := []any{}, []any{}
 		for _, v := range form["FunctionVersions"] {
-			fv = append(fv, v)
+			fv = append(fv, map[string]any{"sid": v, "service_sid": svc, "path": "/f"}) // real shape: objects, not SID strings
 		}
 		for _, v := range form["AssetVersions"] {
-			av = append(av, v)
+			av = append(av, map[string]any{"sid": v, "service_sid": svc, "path": "/a"})
 		}
 		runtime := "node18"
 		if v := form.Get("Runtime"); v != "" {

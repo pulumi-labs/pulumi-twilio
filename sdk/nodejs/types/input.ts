@@ -5,6 +5,521 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface ContentAuthenticationActionArgs {
+    /**
+     * Label of the copy-code button.
+     */
+    copyCodeText: pulumi.Input<string>;
+    /**
+     * The button type. Only COPY_CODE exists.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface ContentCallToActionArgs {
+    /**
+     * The buttons.
+     */
+    actions: pulumi.Input<pulumi.Input<inputs.ContentCallToActionActionArgs>[]>;
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+}
+
+export interface ContentCallToActionActionArgs {
+    /**
+     * Code the button copies (type COPY_CODE).
+     */
+    code?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the button.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+     */
+    phone?: pulumi.Input<string | undefined>;
+    /**
+     * Label of the button.
+     */
+    title?: pulumi.Input<string | undefined>;
+    /**
+     * The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+     */
+    type: pulumi.Input<string>;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCardArgs {
+    /**
+     * Buttons of the card.
+     */
+    actions?: pulumi.Input<pulumi.Input<inputs.ContentCardActionArgs>[] | undefined>;
+    /**
+     * URLs of the card's media.
+     */
+    media?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Subtitle of the card.
+     */
+    subtitle?: pulumi.Input<string | undefined>;
+    /**
+     * Title of the card.
+     */
+    title?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCardActionArgs {
+    /**
+     * Code the button copies (type COPY_CODE).
+     */
+    code?: pulumi.Input<string | undefined>;
+    /**
+     * Digitable line of a BOLETO payment.
+     */
+    digitableLine?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the button.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+     */
+    phone?: pulumi.Input<string | undefined>;
+    /**
+     * Label of the button.
+     */
+    title?: pulumi.Input<string | undefined>;
+    /**
+     * The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+     */
+    type: pulumi.Input<string>;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: pulumi.Input<string | undefined>;
+    /**
+     * Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+     */
+    webviewSize?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCarouselArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * The cards.
+     */
+    cards: pulumi.Input<pulumi.Input<inputs.ContentCarouselCardArgs>[]>;
+}
+
+export interface ContentCarouselActionArgs {
+    /**
+     * Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER).
+     */
+    phone?: pulumi.Input<string | undefined>;
+    /**
+     * Label of the button.
+     */
+    title: pulumi.Input<string>;
+    /**
+     * The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+     */
+    type: pulumi.Input<string>;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCarouselCardArgs {
+    /**
+     * Buttons of the card.
+     */
+    actions: pulumi.Input<pulumi.Input<inputs.ContentCarouselActionArgs>[]>;
+    /**
+     * Text of the card.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * URL of the card's media.
+     */
+    media: pulumi.Input<string>;
+    /**
+     * Title of the card.
+     */
+    title?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCatalogArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * A variable placeholder that Twilio fills with the products when the message is sent.
+     */
+    dynamicItems?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the catalog.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * The products to show.
+     */
+    items?: pulumi.Input<pulumi.Input<inputs.ContentCatalogItemArgs>[] | undefined>;
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: pulumi.Input<string | undefined>;
+    /**
+     * Title of the message.
+     */
+    title?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentCatalogItemArgs {
+    /**
+     * Description of the product.
+     */
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the product in the catalog.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * URL of the product image.
+     */
+    mediaUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Name of the product.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Price of the product.
+     */
+    price?: pulumi.Input<number | undefined>;
+    /**
+     * Title of the section the product is listed in.
+     */
+    sectionTitle?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentFlowsArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * Label of the button that opens the flow.
+     */
+    buttonText: pulumi.Input<string>;
+    /**
+     * URL of the media shown with the message.
+     */
+    mediaUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The pages of the flow.
+     */
+    pages: pulumi.Input<pulumi.Input<inputs.ContentFlowsPageArgs>[]>;
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: pulumi.Input<string | undefined>;
+    /**
+     * The flow type.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface ContentFlowsPageArgs {
+    /**
+     * Identifier of the page.
+     */
+    id: pulumi.Input<string>;
+    /**
+     * Components of the page.
+     */
+    layout: pulumi.Input<pulumi.Input<inputs.ContentFlowsPageComponentArgs>[]>;
+    /**
+     * Identifier of the page that follows this one.
+     */
+    nextPageId?: pulumi.Input<string | undefined>;
+    /**
+     * Subtitle of the page.
+     */
+    subtitle?: pulumi.Input<string | undefined>;
+    /**
+     * Title of the page.
+     */
+    title: pulumi.Input<string>;
+}
+
+export interface ContentFlowsPageComponentArgs {
+    /**
+     * Label of the component.
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * The component type.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface ContentListItemArgs {
+    /**
+     * Secondary text shown under the label.
+     */
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the option, returned to you when the recipient picks it.
+     */
+    id: pulumi.Input<string>;
+    /**
+     * Label of the option.
+     */
+    item: pulumi.Input<string>;
+}
+
+export interface ContentListPickerArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * Label of the button that opens the menu.
+     */
+    button: pulumi.Input<string>;
+    /**
+     * The options of the menu.
+     */
+    items: pulumi.Input<pulumi.Input<inputs.ContentListItemArgs>[]>;
+}
+
+export interface ContentLocationArgs {
+    /**
+     * Address shown with the pin.
+     */
+    address?: pulumi.Input<string | undefined>;
+    /**
+     * Identifier of the location.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Label shown with the pin.
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * Latitude of the pin.
+     */
+    latitude: pulumi.Input<number>;
+    /**
+     * Longitude of the pin.
+     */
+    longitude: pulumi.Input<number>;
+}
+
+export interface ContentMediaArgs {
+    /**
+     * Text sent with the media.
+     */
+    body?: pulumi.Input<string | undefined>;
+    /**
+     * URLs of the media to send.
+     */
+    media: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface ContentQuickReplyArgs {
+    /**
+     * The reply buttons.
+     */
+    actions: pulumi.Input<pulumi.Input<inputs.ContentQuickReplyActionArgs>[]>;
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+}
+
+export interface ContentQuickReplyActionArgs {
+    /**
+     * Identifier returned to you when the recipient taps the button.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Label of the button.
+     */
+    title: pulumi.Input<string>;
+    /**
+     * The button type. Only QUICK_REPLY exists.
+     */
+    type?: pulumi.Input<string | undefined>;
+}
+
+export interface ContentScheduleArgs {
+    /**
+     * Identifier of the schedule.
+     */
+    id: pulumi.Input<string>;
+    /**
+     * The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+     */
+    timeSlots: pulumi.Input<string>;
+    /**
+     * Title of the message.
+     */
+    title: pulumi.Input<string>;
+}
+
+export interface ContentTextArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+}
+
+export interface ContentTypesArgs {
+    /**
+     * twilio/call-to-action: buttons that open a URL or dial a number.
+     */
+    callToAction?: pulumi.Input<inputs.ContentCallToActionArgs | undefined>;
+    /**
+     * twilio/card: a structured message with media and buttons.
+     */
+    card?: pulumi.Input<inputs.ContentCardArgs | undefined>;
+    /**
+     * twilio/carousel: a message with up to 10 cards.
+     */
+    carousel?: pulumi.Input<inputs.ContentCarouselArgs | undefined>;
+    /**
+     * twilio/catalog: a list of catalog products.
+     */
+    catalog?: pulumi.Input<inputs.ContentCatalogArgs | undefined>;
+    /**
+     * twilio/flows: a multi-page flow.
+     */
+    flows?: pulumi.Input<inputs.ContentFlowsArgs | undefined>;
+    /**
+     * twilio/list-picker: a menu of up to 10 options.
+     */
+    listPicker?: pulumi.Input<inputs.ContentListPickerArgs | undefined>;
+    /**
+     * twilio/location: a location pin with an optional label.
+     */
+    location?: pulumi.Input<inputs.ContentLocationArgs | undefined>;
+    /**
+     * twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+     */
+    media?: pulumi.Input<inputs.ContentMediaArgs | undefined>;
+    /**
+     * twilio/quick-reply: buttons the recipient taps to answer.
+     */
+    quickReply?: pulumi.Input<inputs.ContentQuickReplyArgs | undefined>;
+    /**
+     * twilio/schedule: a message offering time slots.
+     */
+    schedule?: pulumi.Input<inputs.ContentScheduleArgs | undefined>;
+    /**
+     * twilio/text: plain text.
+     */
+    text?: pulumi.Input<inputs.ContentTextArgs | undefined>;
+    /**
+     * whatsapp/authentication: a WhatsApp one-time-password message.
+     */
+    whatsappAuthentication?: pulumi.Input<inputs.ContentWhatsappAuthenticationArgs | undefined>;
+    /**
+     * whatsapp/card: a WhatsApp card with header, footer and buttons.
+     */
+    whatsappCard?: pulumi.Input<inputs.ContentWhatsappCardArgs | undefined>;
+    /**
+     * whatsapp/flows: a message that opens a WhatsApp Flow.
+     */
+    whatsappFlows?: pulumi.Input<inputs.ContentWhatsappFlowsArgs | undefined>;
+}
+
+export interface ContentWhatsappAuthenticationArgs {
+    /**
+     * The copy-code button.
+     */
+    actions: pulumi.Input<pulumi.Input<inputs.ContentAuthenticationActionArgs>[]>;
+    /**
+     * Whether WhatsApp adds its security recommendation to the message.
+     */
+    addSecurityRecommendation?: pulumi.Input<boolean | undefined>;
+    /**
+     * Minutes until the code expires.
+     */
+    codeExpirationMinutes?: pulumi.Input<number | undefined>;
+}
+
+export interface ContentWhatsappCardArgs {
+    /**
+     * Buttons of the card.
+     */
+    actions?: pulumi.Input<pulumi.Input<inputs.ContentCardActionArgs>[] | undefined>;
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * Footer text.
+     */
+    footer?: pulumi.Input<string | undefined>;
+    /**
+     * Header text.
+     */
+    headerText?: pulumi.Input<string | undefined>;
+    /**
+     * URLs of the card's media.
+     */
+    media?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
+export interface ContentWhatsappFlowsArgs {
+    /**
+     * The text of the message.
+     */
+    body: pulumi.Input<string>;
+    /**
+     * Label of the button that opens the flow.
+     */
+    buttonText: pulumi.Input<string>;
+    /**
+     * ID of the first page of the flow.
+     */
+    flowFirstPageId?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the WhatsApp Flow to open.
+     */
+    flowId: pulumi.Input<string>;
+    /**
+     * Token passed to the flow.
+     */
+    flowToken?: pulumi.Input<string | undefined>;
+    /**
+     * Whether the first page of the flow is served by an endpoint.
+     */
+    isFlowFirstPageEndpoint?: pulumi.Input<boolean | undefined>;
+    /**
+     * URL of the media shown with the message.
+     */
+    mediaUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: pulumi.Input<string | undefined>;
+}
+
 export interface ConversationsAutoCreationArgs {
     /**
      * SID (IS...) of the service the conversation is created in; the default service when not set.
@@ -38,6 +553,55 @@ export interface ConversationsAutoCreationArgs {
      * For type webhook, the URL the webhook request is sent to.
      */
     webhookUrl?: pulumi.Input<string | undefined>;
+}
+
+export interface ConversationsMediaNotificationArgs {
+    /**
+     * Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Template of the notification text for a message with media.
+     */
+    template?: pulumi.Input<string | undefined>;
+}
+
+export interface ConversationsNewMessageNotificationArgs {
+    /**
+     * Whether the badge count is enabled (Twilio default false).
+     */
+    badgeCountEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether a notification is sent when a message is added to a conversation (Twilio default false).
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Name of the sound played with the notification.
+     */
+    sound?: pulumi.Input<string | undefined>;
+    /**
+     * Template of the notification text.
+     */
+    template?: pulumi.Input<string | undefined>;
+    /**
+     * The notification for a message with media or file attachments.
+     */
+    withMedia?: pulumi.Input<inputs.ConversationsMediaNotificationArgs | undefined>;
+}
+
+export interface ConversationsNotificationArgs {
+    /**
+     * Whether the notification is sent (Twilio default false).
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Name of the sound played with the notification.
+     */
+    sound?: pulumi.Input<string | undefined>;
+    /**
+     * Template of the notification text.
+     */
+    template?: pulumi.Input<string | undefined>;
 }
 
 export interface EventSubscriptionTypeArgs {

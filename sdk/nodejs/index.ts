@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { AccountSafeListNumberArgs } from "./accountSafeListNumber";
+export type AccountSafeListNumber = import("./accountSafeListNumber").AccountSafeListNumber;
+export const AccountSafeListNumber: typeof import("./accountSafeListNumber").AccountSafeListNumber = null as any;
+utilities.lazyLoad(exports, ["AccountSafeListNumber"], () => require("./accountSafeListNumber"));
+
 export { AddressArgs } from "./address";
 export type Address = import("./address").Address;
 export const Address: typeof import("./address").Address = null as any;
@@ -19,6 +24,11 @@ export { ApplicationArgs } from "./application";
 export type Application = import("./application").Application;
 export const Application: typeof import("./application").Application = null as any;
 utilities.lazyLoad(exports, ["Application"], () => require("./application"));
+
+export { AwsCredentialArgs } from "./awsCredential";
+export type AwsCredential = import("./awsCredential").AwsCredential;
+export const AwsCredential: typeof import("./awsCredential").AwsCredential = null as any;
+utilities.lazyLoad(exports, ["AwsCredential"], () => require("./awsCredential"));
 
 export { ByocTrunkArgs } from "./byocTrunk";
 export type ByocTrunk = import("./byocTrunk").ByocTrunk;
@@ -40,10 +50,20 @@ export type ConnectionPolicyTarget = import("./connectionPolicyTarget").Connecti
 export const ConnectionPolicyTarget: typeof import("./connectionPolicyTarget").ConnectionPolicyTarget = null as any;
 utilities.lazyLoad(exports, ["ConnectionPolicyTarget"], () => require("./connectionPolicyTarget"));
 
+export { ContentTemplateArgs } from "./contentTemplate";
+export type ContentTemplate = import("./contentTemplate").ContentTemplate;
+export const ContentTemplate: typeof import("./contentTemplate").ContentTemplate = null as any;
+utilities.lazyLoad(exports, ["ContentTemplate"], () => require("./contentTemplate"));
+
 export { ConversationsAddressConfigurationArgs } from "./conversationsAddressConfiguration";
 export type ConversationsAddressConfiguration = import("./conversationsAddressConfiguration").ConversationsAddressConfiguration;
 export const ConversationsAddressConfiguration: typeof import("./conversationsAddressConfiguration").ConversationsAddressConfiguration = null as any;
 utilities.lazyLoad(exports, ["ConversationsAddressConfiguration"], () => require("./conversationsAddressConfiguration"));
+
+export { ConversationsConfigurationArgs } from "./conversationsConfiguration";
+export type ConversationsConfiguration = import("./conversationsConfiguration").ConversationsConfiguration;
+export const ConversationsConfiguration: typeof import("./conversationsConfiguration").ConversationsConfiguration = null as any;
+utilities.lazyLoad(exports, ["ConversationsConfiguration"], () => require("./conversationsConfiguration"));
 
 export { ConversationsCredentialArgs } from "./conversationsCredential";
 export type ConversationsCredential = import("./conversationsCredential").ConversationsCredential;
@@ -65,6 +85,11 @@ export type ConversationsServiceConfiguration = import("./conversationsServiceCo
 export const ConversationsServiceConfiguration: typeof import("./conversationsServiceConfiguration").ConversationsServiceConfiguration = null as any;
 utilities.lazyLoad(exports, ["ConversationsServiceConfiguration"], () => require("./conversationsServiceConfiguration"));
 
+export { ConversationsServiceNotificationConfigurationArgs } from "./conversationsServiceNotificationConfiguration";
+export type ConversationsServiceNotificationConfiguration = import("./conversationsServiceNotificationConfiguration").ConversationsServiceNotificationConfiguration;
+export const ConversationsServiceNotificationConfiguration: typeof import("./conversationsServiceNotificationConfiguration").ConversationsServiceNotificationConfiguration = null as any;
+utilities.lazyLoad(exports, ["ConversationsServiceNotificationConfiguration"], () => require("./conversationsServiceNotificationConfiguration"));
+
 export { ConversationsWebhookConfigurationArgs } from "./conversationsWebhookConfiguration";
 export type ConversationsWebhookConfiguration = import("./conversationsWebhookConfiguration").ConversationsWebhookConfiguration;
 export const ConversationsWebhookConfiguration: typeof import("./conversationsWebhookConfiguration").ConversationsWebhookConfiguration = null as any;
@@ -84,6 +109,11 @@ export { GetAccountArgs, GetAccountResult, GetAccountOutputArgs } from "./getAcc
 export const getAccount: typeof import("./getAccount").getAccount = null as any;
 export const getAccountOutput: typeof import("./getAccount").getAccountOutput = null as any;
 utilities.lazyLoad(exports, ["getAccount","getAccountOutput"], () => require("./getAccount"));
+
+export { GetAccountSafeListNumberArgs, GetAccountSafeListNumberResult, GetAccountSafeListNumberOutputArgs } from "./getAccountSafeListNumber";
+export const getAccountSafeListNumber: typeof import("./getAccountSafeListNumber").getAccountSafeListNumber = null as any;
+export const getAccountSafeListNumberOutput: typeof import("./getAccountSafeListNumber").getAccountSafeListNumberOutput = null as any;
+utilities.lazyLoad(exports, ["getAccountSafeListNumber","getAccountSafeListNumberOutput"], () => require("./getAccountSafeListNumber"));
 
 export { GetAddressArgs, GetAddressResult, GetAddressOutputArgs } from "./getAddress";
 export const getAddress: typeof import("./getAddress").getAddress = null as any;
@@ -115,6 +145,11 @@ export const getAvailablePhoneNumbers: typeof import("./getAvailablePhoneNumbers
 export const getAvailablePhoneNumbersOutput: typeof import("./getAvailablePhoneNumbers").getAvailablePhoneNumbersOutput = null as any;
 utilities.lazyLoad(exports, ["getAvailablePhoneNumbers","getAvailablePhoneNumbersOutput"], () => require("./getAvailablePhoneNumbers"));
 
+export { GetAwsCredentialArgs, GetAwsCredentialResult, GetAwsCredentialOutputArgs } from "./getAwsCredential";
+export const getAwsCredential: typeof import("./getAwsCredential").getAwsCredential = null as any;
+export const getAwsCredentialOutput: typeof import("./getAwsCredential").getAwsCredentialOutput = null as any;
+utilities.lazyLoad(exports, ["getAwsCredential","getAwsCredentialOutput"], () => require("./getAwsCredential"));
+
 export { GetBalanceArgs, GetBalanceResult, GetBalanceOutputArgs } from "./getBalance";
 export const getBalance: typeof import("./getBalance").getBalance = null as any;
 export const getBalanceOutput: typeof import("./getBalance").getBalanceOutput = null as any;
@@ -140,10 +175,25 @@ export const getConnectionPolicyTarget: typeof import("./getConnectionPolicyTarg
 export const getConnectionPolicyTargetOutput: typeof import("./getConnectionPolicyTarget").getConnectionPolicyTargetOutput = null as any;
 utilities.lazyLoad(exports, ["getConnectionPolicyTarget","getConnectionPolicyTargetOutput"], () => require("./getConnectionPolicyTarget"));
 
+export { GetContentApprovalStatusArgs, GetContentApprovalStatusResult, GetContentApprovalStatusOutputArgs } from "./getContentApprovalStatus";
+export const getContentApprovalStatus: typeof import("./getContentApprovalStatus").getContentApprovalStatus = null as any;
+export const getContentApprovalStatusOutput: typeof import("./getContentApprovalStatus").getContentApprovalStatusOutput = null as any;
+utilities.lazyLoad(exports, ["getContentApprovalStatus","getContentApprovalStatusOutput"], () => require("./getContentApprovalStatus"));
+
+export { GetContentTemplateArgs, GetContentTemplateResult, GetContentTemplateOutputArgs } from "./getContentTemplate";
+export const getContentTemplate: typeof import("./getContentTemplate").getContentTemplate = null as any;
+export const getContentTemplateOutput: typeof import("./getContentTemplate").getContentTemplateOutput = null as any;
+utilities.lazyLoad(exports, ["getContentTemplate","getContentTemplateOutput"], () => require("./getContentTemplate"));
+
 export { GetConversationsAddressConfigurationArgs, GetConversationsAddressConfigurationResult, GetConversationsAddressConfigurationOutputArgs } from "./getConversationsAddressConfiguration";
 export const getConversationsAddressConfiguration: typeof import("./getConversationsAddressConfiguration").getConversationsAddressConfiguration = null as any;
 export const getConversationsAddressConfigurationOutput: typeof import("./getConversationsAddressConfiguration").getConversationsAddressConfigurationOutput = null as any;
 utilities.lazyLoad(exports, ["getConversationsAddressConfiguration","getConversationsAddressConfigurationOutput"], () => require("./getConversationsAddressConfiguration"));
+
+export { GetConversationsConfigurationArgs, GetConversationsConfigurationResult } from "./getConversationsConfiguration";
+export const getConversationsConfiguration: typeof import("./getConversationsConfiguration").getConversationsConfiguration = null as any;
+export const getConversationsConfigurationOutput: typeof import("./getConversationsConfiguration").getConversationsConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getConversationsConfiguration","getConversationsConfigurationOutput"], () => require("./getConversationsConfiguration"));
 
 export { GetConversationsCredentialArgs, GetConversationsCredentialResult, GetConversationsCredentialOutputArgs } from "./getConversationsCredential";
 export const getConversationsCredential: typeof import("./getConversationsCredential").getConversationsCredential = null as any;
@@ -164,6 +214,11 @@ export { GetConversationsServiceConfigurationArgs, GetConversationsServiceConfig
 export const getConversationsServiceConfiguration: typeof import("./getConversationsServiceConfiguration").getConversationsServiceConfiguration = null as any;
 export const getConversationsServiceConfigurationOutput: typeof import("./getConversationsServiceConfiguration").getConversationsServiceConfigurationOutput = null as any;
 utilities.lazyLoad(exports, ["getConversationsServiceConfiguration","getConversationsServiceConfigurationOutput"], () => require("./getConversationsServiceConfiguration"));
+
+export { GetConversationsServiceNotificationConfigurationArgs, GetConversationsServiceNotificationConfigurationResult, GetConversationsServiceNotificationConfigurationOutputArgs } from "./getConversationsServiceNotificationConfiguration";
+export const getConversationsServiceNotificationConfiguration: typeof import("./getConversationsServiceNotificationConfiguration").getConversationsServiceNotificationConfiguration = null as any;
+export const getConversationsServiceNotificationConfigurationOutput: typeof import("./getConversationsServiceNotificationConfiguration").getConversationsServiceNotificationConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getConversationsServiceNotificationConfiguration","getConversationsServiceNotificationConfigurationOutput"], () => require("./getConversationsServiceNotificationConfiguration"));
 
 export { GetConversationsWebhookConfigurationArgs, GetConversationsWebhookConfigurationResult, GetConversationsWebhookConfigurationOutputArgs } from "./getConversationsWebhookConfiguration";
 export const getConversationsWebhookConfiguration: typeof import("./getConversationsWebhookConfiguration").getConversationsWebhookConfiguration = null as any;
@@ -220,20 +275,65 @@ export const getIncomingPhoneNumberAssignedAddOn: typeof import("./getIncomingPh
 export const getIncomingPhoneNumberAssignedAddOnOutput: typeof import("./getIncomingPhoneNumberAssignedAddOn").getIncomingPhoneNumberAssignedAddOnOutput = null as any;
 utilities.lazyLoad(exports, ["getIncomingPhoneNumberAssignedAddOn","getIncomingPhoneNumberAssignedAddOnOutput"], () => require("./getIncomingPhoneNumberAssignedAddOn"));
 
+export { GetIntelligenceCustomOperatorArgs, GetIntelligenceCustomOperatorResult, GetIntelligenceCustomOperatorOutputArgs } from "./getIntelligenceCustomOperator";
+export const getIntelligenceCustomOperator: typeof import("./getIntelligenceCustomOperator").getIntelligenceCustomOperator = null as any;
+export const getIntelligenceCustomOperatorOutput: typeof import("./getIntelligenceCustomOperator").getIntelligenceCustomOperatorOutput = null as any;
+utilities.lazyLoad(exports, ["getIntelligenceCustomOperator","getIntelligenceCustomOperatorOutput"], () => require("./getIntelligenceCustomOperator"));
+
+export { GetIntelligenceServiceArgs, GetIntelligenceServiceResult, GetIntelligenceServiceOutputArgs } from "./getIntelligenceService";
+export const getIntelligenceService: typeof import("./getIntelligenceService").getIntelligenceService = null as any;
+export const getIntelligenceServiceOutput: typeof import("./getIntelligenceService").getIntelligenceServiceOutput = null as any;
+utilities.lazyLoad(exports, ["getIntelligenceService","getIntelligenceServiceOutput"], () => require("./getIntelligenceService"));
+
 export { GetIpRecordArgs, GetIpRecordResult, GetIpRecordOutputArgs } from "./getIpRecord";
 export const getIpRecord: typeof import("./getIpRecord").getIpRecord = null as any;
 export const getIpRecordOutput: typeof import("./getIpRecord").getIpRecordOutput = null as any;
 utilities.lazyLoad(exports, ["getIpRecord","getIpRecordOutput"], () => require("./getIpRecord"));
+
+export { GetMessagingGeoPermissionsArgs, GetMessagingGeoPermissionsResult, GetMessagingGeoPermissionsOutputArgs } from "./getMessagingGeoPermissions";
+export const getMessagingGeoPermissions: typeof import("./getMessagingGeoPermissions").getMessagingGeoPermissions = null as any;
+export const getMessagingGeoPermissionsOutput: typeof import("./getMessagingGeoPermissions").getMessagingGeoPermissionsOutput = null as any;
+utilities.lazyLoad(exports, ["getMessagingGeoPermissions","getMessagingGeoPermissionsOutput"], () => require("./getMessagingGeoPermissions"));
 
 export { GetMessagingServiceArgs, GetMessagingServiceResult, GetMessagingServiceOutputArgs } from "./getMessagingService";
 export const getMessagingService: typeof import("./getMessagingService").getMessagingService = null as any;
 export const getMessagingServiceOutput: typeof import("./getMessagingService").getMessagingServiceOutput = null as any;
 utilities.lazyLoad(exports, ["getMessagingService","getMessagingServiceOutput"], () => require("./getMessagingService"));
 
+export { GetMessagingServiceAlphaSenderArgs, GetMessagingServiceAlphaSenderResult, GetMessagingServiceAlphaSenderOutputArgs } from "./getMessagingServiceAlphaSender";
+export const getMessagingServiceAlphaSender: typeof import("./getMessagingServiceAlphaSender").getMessagingServiceAlphaSender = null as any;
+export const getMessagingServiceAlphaSenderOutput: typeof import("./getMessagingServiceAlphaSender").getMessagingServiceAlphaSenderOutput = null as any;
+utilities.lazyLoad(exports, ["getMessagingServiceAlphaSender","getMessagingServiceAlphaSenderOutput"], () => require("./getMessagingServiceAlphaSender"));
+
+export { GetMessagingServiceChannelSenderArgs, GetMessagingServiceChannelSenderResult, GetMessagingServiceChannelSenderOutputArgs } from "./getMessagingServiceChannelSender";
+export const getMessagingServiceChannelSender: typeof import("./getMessagingServiceChannelSender").getMessagingServiceChannelSender = null as any;
+export const getMessagingServiceChannelSenderOutput: typeof import("./getMessagingServiceChannelSender").getMessagingServiceChannelSenderOutput = null as any;
+utilities.lazyLoad(exports, ["getMessagingServiceChannelSender","getMessagingServiceChannelSenderOutput"], () => require("./getMessagingServiceChannelSender"));
+
+export { GetMessagingServiceDestinationAlphaSenderArgs, GetMessagingServiceDestinationAlphaSenderResult, GetMessagingServiceDestinationAlphaSenderOutputArgs } from "./getMessagingServiceDestinationAlphaSender";
+export const getMessagingServiceDestinationAlphaSender: typeof import("./getMessagingServiceDestinationAlphaSender").getMessagingServiceDestinationAlphaSender = null as any;
+export const getMessagingServiceDestinationAlphaSenderOutput: typeof import("./getMessagingServiceDestinationAlphaSender").getMessagingServiceDestinationAlphaSenderOutput = null as any;
+utilities.lazyLoad(exports, ["getMessagingServiceDestinationAlphaSender","getMessagingServiceDestinationAlphaSenderOutput"], () => require("./getMessagingServiceDestinationAlphaSender"));
+
 export { GetMessagingServicePhoneNumberArgs, GetMessagingServicePhoneNumberResult, GetMessagingServicePhoneNumberOutputArgs } from "./getMessagingServicePhoneNumber";
 export const getMessagingServicePhoneNumber: typeof import("./getMessagingServicePhoneNumber").getMessagingServicePhoneNumber = null as any;
 export const getMessagingServicePhoneNumberOutput: typeof import("./getMessagingServicePhoneNumber").getMessagingServicePhoneNumberOutput = null as any;
 utilities.lazyLoad(exports, ["getMessagingServicePhoneNumber","getMessagingServicePhoneNumberOutput"], () => require("./getMessagingServicePhoneNumber"));
+
+export { GetMessagingServiceShortCodeArgs, GetMessagingServiceShortCodeResult, GetMessagingServiceShortCodeOutputArgs } from "./getMessagingServiceShortCode";
+export const getMessagingServiceShortCode: typeof import("./getMessagingServiceShortCode").getMessagingServiceShortCode = null as any;
+export const getMessagingServiceShortCodeOutput: typeof import("./getMessagingServiceShortCode").getMessagingServiceShortCodeOutput = null as any;
+utilities.lazyLoad(exports, ["getMessagingServiceShortCode","getMessagingServiceShortCodeOutput"], () => require("./getMessagingServiceShortCode"));
+
+export { GetNotifyCredentialArgs, GetNotifyCredentialResult, GetNotifyCredentialOutputArgs } from "./getNotifyCredential";
+export const getNotifyCredential: typeof import("./getNotifyCredential").getNotifyCredential = null as any;
+export const getNotifyCredentialOutput: typeof import("./getNotifyCredential").getNotifyCredentialOutput = null as any;
+utilities.lazyLoad(exports, ["getNotifyCredential","getNotifyCredentialOutput"], () => require("./getNotifyCredential"));
+
+export { GetNotifyServiceArgs, GetNotifyServiceResult, GetNotifyServiceOutputArgs } from "./getNotifyService";
+export const getNotifyService: typeof import("./getNotifyService").getNotifyService = null as any;
+export const getNotifyServiceOutput: typeof import("./getNotifyService").getNotifyServiceOutput = null as any;
+utilities.lazyLoad(exports, ["getNotifyService","getNotifyServiceOutput"], () => require("./getNotifyService"));
 
 export { GetOutgoingCallerIdArgs, GetOutgoingCallerIdResult, GetOutgoingCallerIdOutputArgs } from "./getOutgoingCallerId";
 export const getOutgoingCallerId: typeof import("./getOutgoingCallerId").getOutgoingCallerId = null as any;
@@ -289,6 +389,21 @@ export { GetPricingVoiceNumberArgs, GetPricingVoiceNumberResult, GetPricingVoice
 export const getPricingVoiceNumber: typeof import("./getPricingVoiceNumber").getPricingVoiceNumber = null as any;
 export const getPricingVoiceNumberOutput: typeof import("./getPricingVoiceNumber").getPricingVoiceNumberOutput = null as any;
 utilities.lazyLoad(exports, ["getPricingVoiceNumber","getPricingVoiceNumberOutput"], () => require("./getPricingVoiceNumber"));
+
+export { GetProxyPhoneNumberArgs, GetProxyPhoneNumberResult, GetProxyPhoneNumberOutputArgs } from "./getProxyPhoneNumber";
+export const getProxyPhoneNumber: typeof import("./getProxyPhoneNumber").getProxyPhoneNumber = null as any;
+export const getProxyPhoneNumberOutput: typeof import("./getProxyPhoneNumber").getProxyPhoneNumberOutput = null as any;
+utilities.lazyLoad(exports, ["getProxyPhoneNumber","getProxyPhoneNumberOutput"], () => require("./getProxyPhoneNumber"));
+
+export { GetProxyServiceArgs, GetProxyServiceResult, GetProxyServiceOutputArgs } from "./getProxyService";
+export const getProxyService: typeof import("./getProxyService").getProxyService = null as any;
+export const getProxyServiceOutput: typeof import("./getProxyService").getProxyServiceOutput = null as any;
+utilities.lazyLoad(exports, ["getProxyService","getProxyServiceOutput"], () => require("./getProxyService"));
+
+export { GetPublicKeyCredentialArgs, GetPublicKeyCredentialResult, GetPublicKeyCredentialOutputArgs } from "./getPublicKeyCredential";
+export const getPublicKeyCredential: typeof import("./getPublicKeyCredential").getPublicKeyCredential = null as any;
+export const getPublicKeyCredentialOutput: typeof import("./getPublicKeyCredential").getPublicKeyCredentialOutput = null as any;
+utilities.lazyLoad(exports, ["getPublicKeyCredential","getPublicKeyCredentialOutput"], () => require("./getPublicKeyCredential"));
 
 export { GetQueueArgs, GetQueueResult, GetQueueOutputArgs } from "./getQueue";
 export const getQueue: typeof import("./getQueue").getQueue = null as any;
@@ -415,6 +530,11 @@ export const getSubaccount: typeof import("./getSubaccount").getSubaccount = nul
 export const getSubaccountOutput: typeof import("./getSubaccount").getSubaccountOutput = null as any;
 utilities.lazyLoad(exports, ["getSubaccount","getSubaccountOutput"], () => require("./getSubaccount"));
 
+export { GetSyncServiceArgs, GetSyncServiceResult, GetSyncServiceOutputArgs } from "./getSyncService";
+export const getSyncService: typeof import("./getSyncService").getSyncService = null as any;
+export const getSyncServiceOutput: typeof import("./getSyncService").getSyncServiceOutput = null as any;
+utilities.lazyLoad(exports, ["getSyncService","getSyncServiceOutput"], () => require("./getSyncService"));
+
 export { GetTaskRouterActivityArgs, GetTaskRouterActivityResult, GetTaskRouterActivityOutputArgs } from "./getTaskRouterActivity";
 export const getTaskRouterActivity: typeof import("./getTaskRouterActivity").getTaskRouterActivity = null as any;
 export const getTaskRouterActivityOutput: typeof import("./getTaskRouterActivity").getTaskRouterActivityOutput = null as any;
@@ -510,6 +630,21 @@ export const getVerifyWebhook: typeof import("./getVerifyWebhook").getVerifyWebh
 export const getVerifyWebhookOutput: typeof import("./getVerifyWebhook").getVerifyWebhookOutput = null as any;
 utilities.lazyLoad(exports, ["getVerifyWebhook","getVerifyWebhookOutput"], () => require("./getVerifyWebhook"));
 
+export { GetVideoCompositionHookArgs, GetVideoCompositionHookResult, GetVideoCompositionHookOutputArgs } from "./getVideoCompositionHook";
+export const getVideoCompositionHook: typeof import("./getVideoCompositionHook").getVideoCompositionHook = null as any;
+export const getVideoCompositionHookOutput: typeof import("./getVideoCompositionHook").getVideoCompositionHookOutput = null as any;
+utilities.lazyLoad(exports, ["getVideoCompositionHook","getVideoCompositionHookOutput"], () => require("./getVideoCompositionHook"));
+
+export { GetVideoCompositionSettingsArgs, GetVideoCompositionSettingsResult } from "./getVideoCompositionSettings";
+export const getVideoCompositionSettings: typeof import("./getVideoCompositionSettings").getVideoCompositionSettings = null as any;
+export const getVideoCompositionSettingsOutput: typeof import("./getVideoCompositionSettings").getVideoCompositionSettingsOutput = null as any;
+utilities.lazyLoad(exports, ["getVideoCompositionSettings","getVideoCompositionSettingsOutput"], () => require("./getVideoCompositionSettings"));
+
+export { GetVideoRecordingSettingsArgs, GetVideoRecordingSettingsResult } from "./getVideoRecordingSettings";
+export const getVideoRecordingSettings: typeof import("./getVideoRecordingSettings").getVideoRecordingSettings = null as any;
+export const getVideoRecordingSettingsOutput: typeof import("./getVideoRecordingSettings").getVideoRecordingSettingsOutput = null as any;
+utilities.lazyLoad(exports, ["getVideoRecordingSettings","getVideoRecordingSettingsOutput"], () => require("./getVideoRecordingSettings"));
+
 export { GetVoiceAccountDefaultRecordingConfigurationArgs, GetVoiceAccountDefaultRecordingConfigurationResult } from "./getVoiceAccountDefaultRecordingConfiguration";
 export const getVoiceAccountDefaultRecordingConfiguration: typeof import("./getVoiceAccountDefaultRecordingConfiguration").getVoiceAccountDefaultRecordingConfiguration = null as any;
 export const getVoiceAccountDefaultRecordingConfigurationOutput: typeof import("./getVoiceAccountDefaultRecordingConfiguration").getVoiceAccountDefaultRecordingConfigurationOutput = null as any;
@@ -545,6 +680,16 @@ export type IncomingPhoneNumberAssignedAddOn = import("./incomingPhoneNumberAssi
 export const IncomingPhoneNumberAssignedAddOn: typeof import("./incomingPhoneNumberAssignedAddOn").IncomingPhoneNumberAssignedAddOn = null as any;
 utilities.lazyLoad(exports, ["IncomingPhoneNumberAssignedAddOn"], () => require("./incomingPhoneNumberAssignedAddOn"));
 
+export { IntelligenceCustomOperatorArgs } from "./intelligenceCustomOperator";
+export type IntelligenceCustomOperator = import("./intelligenceCustomOperator").IntelligenceCustomOperator;
+export const IntelligenceCustomOperator: typeof import("./intelligenceCustomOperator").IntelligenceCustomOperator = null as any;
+utilities.lazyLoad(exports, ["IntelligenceCustomOperator"], () => require("./intelligenceCustomOperator"));
+
+export { IntelligenceServiceArgs } from "./intelligenceService";
+export type IntelligenceService = import("./intelligenceService").IntelligenceService;
+export const IntelligenceService: typeof import("./intelligenceService").IntelligenceService = null as any;
+utilities.lazyLoad(exports, ["IntelligenceService"], () => require("./intelligenceService"));
+
 export { IpRecordArgs } from "./ipRecord";
 export type IpRecord = import("./ipRecord").IpRecord;
 export const IpRecord: typeof import("./ipRecord").IpRecord = null as any;
@@ -555,10 +700,40 @@ export type MessagingService = import("./messagingService").MessagingService;
 export const MessagingService: typeof import("./messagingService").MessagingService = null as any;
 utilities.lazyLoad(exports, ["MessagingService"], () => require("./messagingService"));
 
+export { MessagingServiceAlphaSenderArgs } from "./messagingServiceAlphaSender";
+export type MessagingServiceAlphaSender = import("./messagingServiceAlphaSender").MessagingServiceAlphaSender;
+export const MessagingServiceAlphaSender: typeof import("./messagingServiceAlphaSender").MessagingServiceAlphaSender = null as any;
+utilities.lazyLoad(exports, ["MessagingServiceAlphaSender"], () => require("./messagingServiceAlphaSender"));
+
+export { MessagingServiceChannelSenderArgs } from "./messagingServiceChannelSender";
+export type MessagingServiceChannelSender = import("./messagingServiceChannelSender").MessagingServiceChannelSender;
+export const MessagingServiceChannelSender: typeof import("./messagingServiceChannelSender").MessagingServiceChannelSender = null as any;
+utilities.lazyLoad(exports, ["MessagingServiceChannelSender"], () => require("./messagingServiceChannelSender"));
+
+export { MessagingServiceDestinationAlphaSenderArgs } from "./messagingServiceDestinationAlphaSender";
+export type MessagingServiceDestinationAlphaSender = import("./messagingServiceDestinationAlphaSender").MessagingServiceDestinationAlphaSender;
+export const MessagingServiceDestinationAlphaSender: typeof import("./messagingServiceDestinationAlphaSender").MessagingServiceDestinationAlphaSender = null as any;
+utilities.lazyLoad(exports, ["MessagingServiceDestinationAlphaSender"], () => require("./messagingServiceDestinationAlphaSender"));
+
 export { MessagingServicePhoneNumberArgs } from "./messagingServicePhoneNumber";
 export type MessagingServicePhoneNumber = import("./messagingServicePhoneNumber").MessagingServicePhoneNumber;
 export const MessagingServicePhoneNumber: typeof import("./messagingServicePhoneNumber").MessagingServicePhoneNumber = null as any;
 utilities.lazyLoad(exports, ["MessagingServicePhoneNumber"], () => require("./messagingServicePhoneNumber"));
+
+export { MessagingServiceShortCodeArgs } from "./messagingServiceShortCode";
+export type MessagingServiceShortCode = import("./messagingServiceShortCode").MessagingServiceShortCode;
+export const MessagingServiceShortCode: typeof import("./messagingServiceShortCode").MessagingServiceShortCode = null as any;
+utilities.lazyLoad(exports, ["MessagingServiceShortCode"], () => require("./messagingServiceShortCode"));
+
+export { NotifyCredentialArgs } from "./notifyCredential";
+export type NotifyCredential = import("./notifyCredential").NotifyCredential;
+export const NotifyCredential: typeof import("./notifyCredential").NotifyCredential = null as any;
+utilities.lazyLoad(exports, ["NotifyCredential"], () => require("./notifyCredential"));
+
+export { NotifyServiceArgs } from "./notifyService";
+export type NotifyService = import("./notifyService").NotifyService;
+export const NotifyService: typeof import("./notifyService").NotifyService = null as any;
+utilities.lazyLoad(exports, ["NotifyService"], () => require("./notifyService"));
 
 export { OutgoingCallerIdArgs } from "./outgoingCallerId";
 export type OutgoingCallerId = import("./outgoingCallerId").OutgoingCallerId;
@@ -569,6 +744,21 @@ export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+export { ProxyPhoneNumberArgs } from "./proxyPhoneNumber";
+export type ProxyPhoneNumber = import("./proxyPhoneNumber").ProxyPhoneNumber;
+export const ProxyPhoneNumber: typeof import("./proxyPhoneNumber").ProxyPhoneNumber = null as any;
+utilities.lazyLoad(exports, ["ProxyPhoneNumber"], () => require("./proxyPhoneNumber"));
+
+export { ProxyServiceArgs } from "./proxyService";
+export type ProxyService = import("./proxyService").ProxyService;
+export const ProxyService: typeof import("./proxyService").ProxyService = null as any;
+utilities.lazyLoad(exports, ["ProxyService"], () => require("./proxyService"));
+
+export { PublicKeyCredentialArgs } from "./publicKeyCredential";
+export type PublicKeyCredential = import("./publicKeyCredential").PublicKeyCredential;
+export const PublicKeyCredential: typeof import("./publicKeyCredential").PublicKeyCredential = null as any;
+utilities.lazyLoad(exports, ["PublicKeyCredential"], () => require("./publicKeyCredential"));
 
 export { QueueArgs } from "./queue";
 export type Queue = import("./queue").Queue;
@@ -695,6 +885,11 @@ export type Subaccount = import("./subaccount").Subaccount;
 export const Subaccount: typeof import("./subaccount").Subaccount = null as any;
 utilities.lazyLoad(exports, ["Subaccount"], () => require("./subaccount"));
 
+export { SyncServiceArgs } from "./syncService";
+export type SyncService = import("./syncService").SyncService;
+export const SyncService: typeof import("./syncService").SyncService = null as any;
+utilities.lazyLoad(exports, ["SyncService"], () => require("./syncService"));
+
 export { TaskRouterActivityArgs } from "./taskRouterActivity";
 export type TaskRouterActivity = import("./taskRouterActivity").TaskRouterActivity;
 export const TaskRouterActivity: typeof import("./taskRouterActivity").TaskRouterActivity = null as any;
@@ -780,6 +975,21 @@ export type VerifyWebhook = import("./verifyWebhook").VerifyWebhook;
 export const VerifyWebhook: typeof import("./verifyWebhook").VerifyWebhook = null as any;
 utilities.lazyLoad(exports, ["VerifyWebhook"], () => require("./verifyWebhook"));
 
+export { VideoCompositionHookArgs } from "./videoCompositionHook";
+export type VideoCompositionHook = import("./videoCompositionHook").VideoCompositionHook;
+export const VideoCompositionHook: typeof import("./videoCompositionHook").VideoCompositionHook = null as any;
+utilities.lazyLoad(exports, ["VideoCompositionHook"], () => require("./videoCompositionHook"));
+
+export { VideoCompositionSettingsArgs } from "./videoCompositionSettings";
+export type VideoCompositionSettings = import("./videoCompositionSettings").VideoCompositionSettings;
+export const VideoCompositionSettings: typeof import("./videoCompositionSettings").VideoCompositionSettings = null as any;
+utilities.lazyLoad(exports, ["VideoCompositionSettings"], () => require("./videoCompositionSettings"));
+
+export { VideoRecordingSettingsArgs } from "./videoRecordingSettings";
+export type VideoRecordingSettings = import("./videoRecordingSettings").VideoRecordingSettings;
+export const VideoRecordingSettings: typeof import("./videoRecordingSettings").VideoRecordingSettings = null as any;
+utilities.lazyLoad(exports, ["VideoRecordingSettings"], () => require("./videoRecordingSettings"));
+
 export { VoiceAccountDefaultRecordingConfigurationArgs } from "./voiceAccountDefaultRecordingConfiguration";
 export type VoiceAccountDefaultRecordingConfiguration = import("./voiceAccountDefaultRecordingConfiguration").VoiceAccountDefaultRecordingConfiguration;
 export const VoiceAccountDefaultRecordingConfiguration: typeof import("./voiceAccountDefaultRecordingConfiguration").VoiceAccountDefaultRecordingConfiguration = null as any;
@@ -819,12 +1029,16 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "twilio:index:AccountSafeListNumber":
+                return new AccountSafeListNumber(name, <any>undefined, { urn })
             case "twilio:index:Address":
                 return new Address(name, <any>undefined, { urn })
             case "twilio:index:ApiKey":
                 return new ApiKey(name, <any>undefined, { urn })
             case "twilio:index:Application":
                 return new Application(name, <any>undefined, { urn })
+            case "twilio:index:AwsCredential":
+                return new AwsCredential(name, <any>undefined, { urn })
             case "twilio:index:ByocTrunk":
                 return new ByocTrunk(name, <any>undefined, { urn })
             case "twilio:index:ConnectApp":
@@ -833,8 +1047,12 @@ const _module = {
                 return new ConnectionPolicy(name, <any>undefined, { urn })
             case "twilio:index:ConnectionPolicyTarget":
                 return new ConnectionPolicyTarget(name, <any>undefined, { urn })
+            case "twilio:index:ContentTemplate":
+                return new ContentTemplate(name, <any>undefined, { urn })
             case "twilio:index:ConversationsAddressConfiguration":
                 return new ConversationsAddressConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:ConversationsConfiguration":
+                return new ConversationsConfiguration(name, <any>undefined, { urn })
             case "twilio:index:ConversationsCredential":
                 return new ConversationsCredential(name, <any>undefined, { urn })
             case "twilio:index:ConversationsRole":
@@ -843,6 +1061,8 @@ const _module = {
                 return new ConversationsService(name, <any>undefined, { urn })
             case "twilio:index:ConversationsServiceConfiguration":
                 return new ConversationsServiceConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:ConversationsServiceNotificationConfiguration":
+                return new ConversationsServiceNotificationConfiguration(name, <any>undefined, { urn })
             case "twilio:index:ConversationsWebhookConfiguration":
                 return new ConversationsWebhookConfiguration(name, <any>undefined, { urn })
             case "twilio:index:EventSink":
@@ -853,14 +1073,36 @@ const _module = {
                 return new IncomingPhoneNumber(name, <any>undefined, { urn })
             case "twilio:index:IncomingPhoneNumberAssignedAddOn":
                 return new IncomingPhoneNumberAssignedAddOn(name, <any>undefined, { urn })
+            case "twilio:index:IntelligenceCustomOperator":
+                return new IntelligenceCustomOperator(name, <any>undefined, { urn })
+            case "twilio:index:IntelligenceService":
+                return new IntelligenceService(name, <any>undefined, { urn })
             case "twilio:index:IpRecord":
                 return new IpRecord(name, <any>undefined, { urn })
             case "twilio:index:MessagingService":
                 return new MessagingService(name, <any>undefined, { urn })
+            case "twilio:index:MessagingServiceAlphaSender":
+                return new MessagingServiceAlphaSender(name, <any>undefined, { urn })
+            case "twilio:index:MessagingServiceChannelSender":
+                return new MessagingServiceChannelSender(name, <any>undefined, { urn })
+            case "twilio:index:MessagingServiceDestinationAlphaSender":
+                return new MessagingServiceDestinationAlphaSender(name, <any>undefined, { urn })
             case "twilio:index:MessagingServicePhoneNumber":
                 return new MessagingServicePhoneNumber(name, <any>undefined, { urn })
+            case "twilio:index:MessagingServiceShortCode":
+                return new MessagingServiceShortCode(name, <any>undefined, { urn })
+            case "twilio:index:NotifyCredential":
+                return new NotifyCredential(name, <any>undefined, { urn })
+            case "twilio:index:NotifyService":
+                return new NotifyService(name, <any>undefined, { urn })
             case "twilio:index:OutgoingCallerId":
                 return new OutgoingCallerId(name, <any>undefined, { urn })
+            case "twilio:index:ProxyPhoneNumber":
+                return new ProxyPhoneNumber(name, <any>undefined, { urn })
+            case "twilio:index:ProxyService":
+                return new ProxyService(name, <any>undefined, { urn })
+            case "twilio:index:PublicKeyCredential":
+                return new PublicKeyCredential(name, <any>undefined, { urn })
             case "twilio:index:Queue":
                 return new Queue(name, <any>undefined, { urn })
             case "twilio:index:RoutesPhoneNumber":
@@ -911,6 +1153,8 @@ const _module = {
                 return new SourceIpMapping(name, <any>undefined, { urn })
             case "twilio:index:Subaccount":
                 return new Subaccount(name, <any>undefined, { urn })
+            case "twilio:index:SyncService":
+                return new SyncService(name, <any>undefined, { urn })
             case "twilio:index:TaskRouterActivity":
                 return new TaskRouterActivity(name, <any>undefined, { urn })
             case "twilio:index:TaskRouterTaskChannel":
@@ -945,6 +1189,12 @@ const _module = {
                 return new VerifyService(name, <any>undefined, { urn })
             case "twilio:index:VerifyWebhook":
                 return new VerifyWebhook(name, <any>undefined, { urn })
+            case "twilio:index:VideoCompositionHook":
+                return new VideoCompositionHook(name, <any>undefined, { urn })
+            case "twilio:index:VideoCompositionSettings":
+                return new VideoCompositionSettings(name, <any>undefined, { urn })
+            case "twilio:index:VideoRecordingSettings":
+                return new VideoRecordingSettings(name, <any>undefined, { urn })
             case "twilio:index:VoiceAccountDefaultRecordingConfiguration":
                 return new VoiceAccountDefaultRecordingConfiguration(name, <any>undefined, { urn })
             case "twilio:index:VoiceDefaultRecordingConfiguration":

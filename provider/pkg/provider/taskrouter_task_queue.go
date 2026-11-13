@@ -98,11 +98,11 @@ func (r *TaskRouterTaskQueue) Diff(_ context.Context, req infer.DiffRequest[Task
 	d := trDiffSet{}
 	d.replace("workspaceSid", o.WorkspaceSid, n.WorkspaceSid)
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
-	d.str("targetWorkers", o.TargetWorkers, n.TargetWorkers)
-	d.integer("maxReservedWorkers", o.MaxReservedWorkers, n.MaxReservedWorkers)
-	d.str("taskOrder", o.TaskOrder, n.TaskOrder)
-	d.str("reservationActivitySid", o.ReservationActivitySid, n.ReservationActivitySid)
-	d.str("assignmentActivitySid", o.AssignmentActivitySid, n.AssignmentActivitySid)
+	d.strDef(taskrouterTaskQueueDefaults, "targetWorkers", o.TargetWorkers, n.TargetWorkers)
+	d.intDef(taskrouterTaskQueueDefaults, "maxReservedWorkers", o.MaxReservedWorkers, n.MaxReservedWorkers)
+	d.strDef(taskrouterTaskQueueDefaults, "taskOrder", o.TaskOrder, n.TaskOrder)
+	d.strDef(taskrouterTaskQueueDefaults, "reservationActivitySid", o.ReservationActivitySid, n.ReservationActivitySid)
+	d.strDef(taskrouterTaskQueueDefaults, "assignmentActivitySid", o.AssignmentActivitySid, n.AssignmentActivitySid)
 	return d.response(), nil
 }
 
@@ -159,11 +159,11 @@ func (r *TaskRouterTaskQueue) Read(ctx context.Context, req infer.ReadRequest[Ta
 	imported := in.WorkspaceSid == ""
 	in.WorkspaceSid = ws
 	in.FriendlyName = o.str("friendly_name")
-	in.TargetWorkers = trStr(in.TargetWorkers, o.optStr("target_workers"), "1==1", imported)
-	in.MaxReservedWorkers = trInt(in.MaxReservedWorkers, o.optInt("max_reserved_workers"), 1, imported)
-	in.TaskOrder = trStr(in.TaskOrder, o.optStr("task_order"), "FIFO", imported)
-	in.ReservationActivitySid = trStr(in.ReservationActivitySid, o.optStr("reservation_activity_sid"), "", imported)
-	in.AssignmentActivitySid = trStr(in.AssignmentActivitySid, o.optStr("assignment_activity_sid"), "", imported)
+	in.TargetWorkers = trStr(in.TargetWorkers, o.optStr("target_workers"), taskrouterTaskQueueDefaults.str("targetWorkers"), imported)
+	in.MaxReservedWorkers = trInt(in.MaxReservedWorkers, o.optInt("max_reserved_workers"), taskrouterTaskQueueDefaults.integer("maxReservedWorkers"), imported)
+	in.TaskOrder = trStr(in.TaskOrder, o.optStr("task_order"), taskrouterTaskQueueDefaults.str("taskOrder"), imported)
+	in.ReservationActivitySid = trStr(in.ReservationActivitySid, o.optStr("reservation_activity_sid"), taskrouterTaskQueueDefaults.str("reservationActivitySid"), imported)
+	in.AssignmentActivitySid = trStr(in.AssignmentActivitySid, o.optStr("assignment_activity_sid"), taskrouterTaskQueueDefaults.str("assignmentActivitySid"), imported)
 	st := TaskRouterTaskQueueState{TaskRouterTaskQueueArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -195,4 +195,13 @@ func (r *TaskRouterTaskQueue) Update(ctx context.Context, req infer.UpdateReques
 
 func (r *TaskRouterTaskQueue) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterTaskQueueState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, trDelete(ctx, "task queue", "TaskQueues", req.ID)
+}
+
+// taskrouterTaskQueueDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var taskrouterTaskQueueDefaults = trDefaults{
+	"targetWorkers":          "1==1",
+	"maxReservedWorkers":     1,
+	"taskOrder":              "FIFO",
+	"reservationActivitySid": "",
+	"assignmentActivitySid":  "",
 }

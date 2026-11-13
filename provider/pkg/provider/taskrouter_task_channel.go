@@ -88,7 +88,7 @@ func (r *TaskRouterTaskChannel) Diff(_ context.Context, req infer.DiffRequest[Ta
 	d.replace("workspaceSid", o.WorkspaceSid, n.WorkspaceSid)
 	d.replace("uniqueName", o.UniqueName, n.UniqueName)
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
-	d.boolean("channelOptimizedRouting", o.ChannelOptimizedRouting, n.ChannelOptimizedRouting)
+	d.boolDef(taskrouterTaskChannelDefaults, "channelOptimizedRouting", o.ChannelOptimizedRouting, n.ChannelOptimizedRouting)
 	return d.response(), nil
 }
 
@@ -138,7 +138,7 @@ func (r *TaskRouterTaskChannel) Read(ctx context.Context, req infer.ReadRequest[
 	in.WorkspaceSid = ws
 	in.UniqueName = o.str("unique_name")
 	in.FriendlyName = o.str("friendly_name")
-	in.ChannelOptimizedRouting = trBool(in.ChannelOptimizedRouting, o.optBool("channel_optimized_routing"), false, imported)
+	in.ChannelOptimizedRouting = trBool(in.ChannelOptimizedRouting, o.optBool("channel_optimized_routing"), taskrouterTaskChannelDefaults.boolean("channelOptimizedRouting"), imported)
 	st := TaskRouterTaskChannelState{TaskRouterTaskChannelArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -172,4 +172,9 @@ func (r *TaskRouterTaskChannel) Update(ctx context.Context, req infer.UpdateRequ
 
 func (r *TaskRouterTaskChannel) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterTaskChannelState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, trDelete(ctx, "task channel", "TaskChannels", req.ID)
+}
+
+// taskrouterTaskChannelDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var taskrouterTaskChannelDefaults = trDefaults{
+	"channelOptimizedRouting": false,
 }

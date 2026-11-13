@@ -33,7 +33,7 @@ class ServerlessAssetVersionArgs:
         :param pulumi.Input[_builtins.str] path: URL path the asset is served on, starting with /, at most 255 characters, for example /logo.svg. Changing it replaces the resource.
         :param pulumi.Input[_builtins.str] service_sid: SID (ZS...) of the Serverless service. Changing it replaces the resource.
         :param pulumi.Input[_builtins.str] visibility: Who may fetch the asset: public (anyone), protected (requests signed by Twilio) or private (only Functions of the service). Changing it replaces the resource.
-        :param pulumi.Input[_builtins.str] content: The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        :param pulumi.Input[_builtins.str] content: The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         :param pulumi.Input[_builtins.str] content_base64: The file as base64, for binary content such as images. Set exactly one of content and contentBase64.
         :param pulumi.Input[_builtins.str] content_type: Content type of the uploaded file. Defaults to application/octet-stream; set it (for example text/html) so Twilio serves the asset with the right type.
         """
@@ -100,7 +100,7 @@ class ServerlessAssetVersionArgs:
     @pulumi.getter
     def content(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         """
         return pulumi.get(self, "content")
 
@@ -154,7 +154,7 @@ class ServerlessAssetVersion(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] asset_sid: SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource.
-        :param pulumi.Input[_builtins.str] content: The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        :param pulumi.Input[_builtins.str] content: The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         :param pulumi.Input[_builtins.str] content_base64: The file as base64, for binary content such as images. Set exactly one of content and contentBase64.
         :param pulumi.Input[_builtins.str] content_type: Content type of the uploaded file. Defaults to application/octet-stream; set it (for example text/html) so Twilio serves the asset with the right type.
         :param pulumi.Input[_builtins.str] path: URL path the asset is served on, starting with /, at most 255 characters, for example /logo.svg. Changing it replaces the resource.
@@ -276,7 +276,7 @@ class ServerlessAssetVersion(pulumi.CustomResource):
     @pulumi.getter
     def content(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+        The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
         """
         return pulumi.get(self, "content")
 

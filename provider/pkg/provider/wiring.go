@@ -385,3 +385,119 @@ func (r *ConversationsServiceConfiguration) WireDependencies(f infer.FieldSelect
 func (r *ConversationsWebhookConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsWebhookConfigurationArgs, state *ConversationsWebhookConfigurationState) {
 	wireEchoes(f, args, state)
 }
+
+// WireDependencies: the state holds only what the program set.
+func (r *ConversationsServiceNotificationConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsServiceNotificationConfigurationArgs, state *ConversationsServiceNotificationConfigurationState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the state holds only what the program set.
+func (r *ConversationsConfiguration) WireDependencies(f infer.FieldSelector, args *ConversationsConfigurationArgs, state *ConversationsConfigurationState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *SyncService) WireDependencies(f infer.FieldSelector, args *SyncServiceArgs, state *SyncServiceState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *NotifyService) WireDependencies(f infer.FieldSelector, args *NotifyServiceArgs, state *NotifyServiceState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *NotifyCredential) WireDependencies(f infer.FieldSelector, args *NotifyCredentialArgs, state *NotifyCredentialState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time and the data logging flag are what Twilio reports.
+func (r *IntelligenceService) WireDependencies(f infer.FieldSelector, args *IntelligenceServiceArgs, state *IntelligenceServiceState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DataLogging).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time and what Twilio reports about the operator follow its configuration.
+func (r *IntelligenceCustomOperator) WireDependencies(f infer.FieldSelector, args *IntelligenceCustomOperatorArgs, state *IntelligenceCustomOperatorState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.Description).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.Availability).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *VideoCompositionHook) WireDependencies(f infer.FieldSelector, args *VideoCompositionHookArgs, state *VideoCompositionHookState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ProxyService) WireDependencies(f infer.FieldSelector, args *ProxyServiceArgs, state *ProxyServiceState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the number's identifiers, name and country are fixed once it is in the pool;
+// the reservation, use count and update time follow the settings.
+func (r *ProxyPhoneNumber) WireDependencies(f infer.FieldSelector, args *ProxyPhoneNumberArgs, state *ProxyPhoneNumberState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.InUse).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the settings are a singleton with no identifiers or timestamps of its own; every output echoes an input.
+func (r *VideoCompositionSettings) WireDependencies(f infer.FieldSelector, args *VideoCompositionSettingsArgs, state *VideoCompositionSettingsState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the settings are a singleton with no identifiers or timestamps of its own; every output echoes an input.
+func (r *VideoRecordingSettings) WireDependencies(f infer.FieldSelector, args *VideoRecordingSettingsArgs, state *VideoRecordingSettingsState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *AwsCredential) WireDependencies(f infer.FieldSelector, args *AwsCredentialArgs, state *AwsCredentialState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *PublicKeyCredential) WireDependencies(f infer.FieldSelector, args *PublicKeyCredentialArgs, state *PublicKeyCredentialState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the entry SID is fixed when the number is added.
+func (r *AccountSafeListNumber) WireDependencies(f infer.FieldSelector, args *AccountSafeListNumberArgs, state *AccountSafeListNumberState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input identifies the pool member, so the outputs are fixed once it is added.
+func (r *MessagingServiceShortCode) WireDependencies(f infer.FieldSelector, args *MessagingServiceShortCodeArgs, state *MessagingServiceShortCodeState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input identifies the pool member, so the outputs are fixed once it is added.
+func (r *MessagingServiceChannelSender) WireDependencies(f infer.FieldSelector, args *MessagingServiceChannelSenderArgs, state *MessagingServiceChannelSenderState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input identifies the pool member, so the outputs are fixed once it is added.
+func (r *MessagingServiceAlphaSender) WireDependencies(f infer.FieldSelector, args *MessagingServiceAlphaSenderArgs, state *MessagingServiceAlphaSenderState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input identifies the pool member, so the outputs are fixed once it is added.
+func (r *MessagingServiceDestinationAlphaSender) WireDependencies(f infer.FieldSelector, args *MessagingServiceDestinationAlphaSenderArgs, state *MessagingServiceDestinationAlphaSenderState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *ContentTemplate) WireDependencies(f infer.FieldSelector, args *ContentTemplateArgs, state *ContentTemplateState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}

@@ -1,3 +1,0 @@
-name: twilio-subaccount-java
-runtime: java
-description: Provision a Twilio subaccount tenant with a restricted API key and a Verify service (Java)

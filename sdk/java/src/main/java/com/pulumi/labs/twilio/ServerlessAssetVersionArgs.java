@@ -32,14 +32,14 @@ public final class ServerlessAssetVersionArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      * 
      */
     @Import(name="content")
     private @Nullable Output<String> content;
 
     /**
-     * @return The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * @return The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      * 
      */
     public Optional<Output<String>> content() {
@@ -173,7 +173,7 @@ public final class ServerlessAssetVersionArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param content The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+         * @param content The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class ServerlessAssetVersionArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param content The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+         * @param content The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
          * 
          * @return builder
          * 

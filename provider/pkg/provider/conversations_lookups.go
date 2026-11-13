@@ -317,3 +317,91 @@ func (f *GetConversationsWebhookConfiguration) Invoke(ctx context.Context, req i
 		Target: nonEmpty(o.optStr("target")),
 	}}, nil
 }
+
+// ------------------------------------------------------------ getConversationsServiceNotificationConfiguration
+
+// GetConversationsServiceNotificationConfiguration looks up the push notification settings of a Conversations service.
+type GetConversationsServiceNotificationConfiguration struct{}
+
+// GetConversationsServiceNotificationConfigurationArgs are the lookup arguments.
+type GetConversationsServiceNotificationConfigurationArgs struct {
+	ChatServiceSid string `pulumi:"chatServiceSid"`
+}
+
+func (a *GetConversationsServiceNotificationConfigurationArgs) Annotate(an infer.Annotator) {
+	an.Describe(&a.ChatServiceSid, "SID (IS...) of the Conversations service.")
+}
+
+// GetConversationsServiceNotificationConfigurationResult is the looked-up notification settings.
+type GetConversationsServiceNotificationConfigurationResult struct {
+	ChatServiceSid          string                               `pulumi:"chatServiceSid"`
+	LogEnabled              *bool                                `pulumi:"logEnabled,optional"`
+	NewMessage              *ConversationsNewMessageNotification `pulumi:"newMessage,optional"`
+	AddedToConversation     *ConversationsNotification           `pulumi:"addedToConversation,optional"`
+	RemovedFromConversation *ConversationsNotification           `pulumi:"removedFromConversation,optional"`
+}
+
+func (f *GetConversationsServiceNotificationConfiguration) Annotate(a infer.Annotator) {
+	a.Describe(&f, "Look up the push notification settings of a Conversations service.")
+}
+
+func (f *GetConversationsServiceNotificationConfiguration) Invoke(ctx context.Context, req infer.FunctionRequest[GetConversationsServiceNotificationConfigurationArgs]) (infer.FunctionResponse[GetConversationsServiceNotificationConfigurationResult], error) {
+	const fn = "getConversationsServiceNotificationConfiguration"
+	type resp = infer.FunctionResponse[GetConversationsServiceNotificationConfigurationResult]
+	if err := requireArg(fn, "chatServiceSid", req.Input.ChatServiceSid); err != nil {
+		return resp{}, err
+	}
+	o, err := cvLookup(ctx, fn, "the notification configuration of Conversations service "+req.Input.ChatServiceSid, cvPath(req.Input.ChatServiceSid, "Configuration", "Notifications"))
+	if err != nil {
+		return resp{}, err
+	}
+	nm := ConversationsNewMessageNotification{
+		Enabled: o.optBool("new_message.enabled"), Template: nonEmpty(o.optStr("new_message.template")), Sound: nonEmpty(o.optStr("new_message.sound")),
+		BadgeCountEnabled: o.optBool("new_message.badge_count_enabled"),
+		WithMedia:         &ConversationsMediaNotification{Enabled: o.optBool("new_message.with_media.enabled"), Template: nonEmpty(o.optStr("new_message.with_media.template"))},
+	}
+	event := func(prefix string) *ConversationsNotification {
+		return &ConversationsNotification{Enabled: o.optBool(prefix + ".enabled"), Template: nonEmpty(o.optStr(prefix + ".template")), Sound: nonEmpty(o.optStr(prefix + ".sound"))}
+	}
+	return resp{Output: GetConversationsServiceNotificationConfigurationResult{
+		ChatServiceSid:          req.Input.ChatServiceSid,
+		LogEnabled:              o.optBool("log_enabled"),
+		NewMessage:              &nm,
+		AddedToConversation:     event("added_to_conversation"),
+		RemovedFromConversation: event("removed_from_conversation"),
+	}}, nil
+}
+
+// ------------------------------------------------------------ getConversationsConfiguration
+
+// GetConversationsConfiguration looks up the account-level defaults of Conversations.
+type GetConversationsConfiguration struct{}
+
+// GetConversationsConfigurationArgs are the lookup arguments; there are none.
+type GetConversationsConfigurationArgs struct{}
+
+// GetConversationsConfigurationResult is the looked-up configuration.
+type GetConversationsConfigurationResult struct {
+	DefaultChatServiceSid      *string `pulumi:"defaultChatServiceSid,optional"`
+	DefaultMessagingServiceSid *string `pulumi:"defaultMessagingServiceSid,optional"`
+	DefaultInactiveTimer       *string `pulumi:"defaultInactiveTimer,optional"`
+	DefaultClosedTimer         *string `pulumi:"defaultClosedTimer,optional"`
+}
+
+func (f *GetConversationsConfiguration) Annotate(a infer.Annotator) {
+	a.Describe(&f, "Look up the account-level defaults of Conversations (default service, messaging service and timers).")
+}
+
+func (f *GetConversationsConfiguration) Invoke(ctx context.Context, _ infer.FunctionRequest[GetConversationsConfigurationArgs]) (infer.FunctionResponse[GetConversationsConfigurationResult], error) {
+	const fn = "getConversationsConfiguration"
+	o, err := cvLookup(ctx, fn, "the Conversations configuration", cvPath("", "Configuration", ""))
+	if err != nil {
+		return infer.FunctionResponse[GetConversationsConfigurationResult]{}, err
+	}
+	return infer.FunctionResponse[GetConversationsConfigurationResult]{Output: GetConversationsConfigurationResult{
+		DefaultChatServiceSid:      nonEmpty(o.optStr("default_chat_service_sid")),
+		DefaultMessagingServiceSid: nonEmpty(o.optStr("default_messaging_service_sid")),
+		DefaultInactiveTimer:       nonEmpty(o.optStr("default_inactive_timer")),
+		DefaultClosedTimer:         nonEmpty(o.optStr("default_closed_timer")),
+	}}, nil
+}

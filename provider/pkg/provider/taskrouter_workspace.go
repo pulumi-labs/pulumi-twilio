@@ -91,10 +91,10 @@ func (r *TaskRouterWorkspace) Diff(_ context.Context, req infer.DiffRequest[Task
 	o, n := req.State.TaskRouterWorkspaceArgs, req.Inputs
 	d := trDiffSet{}
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
-	d.str("eventCallbackUrl", o.EventCallbackUrl, n.EventCallbackUrl)
-	d.str("eventsFilter", o.EventsFilter, n.EventsFilter)
-	d.boolean("multiTaskEnabled", o.MultiTaskEnabled, n.MultiTaskEnabled)
-	d.str("prioritizeQueueOrder", o.PrioritizeQueueOrder, n.PrioritizeQueueOrder)
+	d.strDef(taskrouterWorkspaceDefaults, "eventCallbackUrl", o.EventCallbackUrl, n.EventCallbackUrl)
+	d.strDef(taskrouterWorkspaceDefaults, "eventsFilter", o.EventsFilter, n.EventsFilter)
+	d.boolDef(taskrouterWorkspaceDefaults, "multiTaskEnabled", o.MultiTaskEnabled, n.MultiTaskEnabled)
+	d.strDef(taskrouterWorkspaceDefaults, "prioritizeQueueOrder", o.PrioritizeQueueOrder, n.PrioritizeQueueOrder)
 	return d.response(), nil
 }
 
@@ -150,10 +150,10 @@ func (r *TaskRouterWorkspace) Read(ctx context.Context, req infer.ReadRequest[Ta
 	in := req.Inputs
 	imported := in.FriendlyName == ""
 	in.FriendlyName = o.str("friendly_name")
-	in.EventCallbackUrl = trStr(in.EventCallbackUrl, o.optStr("event_callback_url"), "", imported)
-	in.EventsFilter = trStr(in.EventsFilter, o.optStr("events_filter"), "", imported)
-	in.MultiTaskEnabled = trBool(in.MultiTaskEnabled, o.optBool("multi_task_enabled"), false, imported)
-	in.PrioritizeQueueOrder = trStr(in.PrioritizeQueueOrder, o.optStr("prioritize_queue_order"), "FIFO", imported)
+	in.EventCallbackUrl = trStr(in.EventCallbackUrl, o.optStr("event_callback_url"), taskrouterWorkspaceDefaults.str("eventCallbackUrl"), imported)
+	in.EventsFilter = trStr(in.EventsFilter, o.optStr("events_filter"), taskrouterWorkspaceDefaults.str("eventsFilter"), imported)
+	in.MultiTaskEnabled = trBool(in.MultiTaskEnabled, o.optBool("multi_task_enabled"), taskrouterWorkspaceDefaults.boolean("multiTaskEnabled"), imported)
+	in.PrioritizeQueueOrder = trStr(in.PrioritizeQueueOrder, o.optStr("prioritize_queue_order"), taskrouterWorkspaceDefaults.str("prioritizeQueueOrder"), imported)
 	st := TaskRouterWorkspaceState{TaskRouterWorkspaceArgs: in}
 	trWorkspaceOutputs(&st, o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -188,4 +188,12 @@ func (r *TaskRouterWorkspace) Delete(ctx context.Context, req infer.DeleteReques
 		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter workspace %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil
+}
+
+// taskrouterWorkspaceDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var taskrouterWorkspaceDefaults = trDefaults{
+	"eventCallbackUrl":     "",
+	"eventsFilter":         "",
+	"multiTaskEnabled":     false,
+	"prioritizeQueueOrder": "FIFO",
 }

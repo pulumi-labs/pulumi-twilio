@@ -99,9 +99,9 @@ func (r *TaskRouterWorkflow) Diff(_ context.Context, req infer.DiffRequest[TaskR
 	if !jsonSame(o.Configuration, n.Configuration) {
 		d["configuration"] = p.PropertyDiff{Kind: p.Update}
 	}
-	d.str("assignmentCallbackUrl", o.AssignmentCallbackUrl, n.AssignmentCallbackUrl)
-	d.str("fallbackAssignmentCallbackUrl", o.FallbackAssignmentCallbackUrl, n.FallbackAssignmentCallbackUrl)
-	d.integer("taskReservationTimeout", o.TaskReservationTimeout, n.TaskReservationTimeout)
+	d.strDef(taskrouterWorkflowDefaults, "assignmentCallbackUrl", o.AssignmentCallbackUrl, n.AssignmentCallbackUrl)
+	d.strDef(taskrouterWorkflowDefaults, "fallbackAssignmentCallbackUrl", o.FallbackAssignmentCallbackUrl, n.FallbackAssignmentCallbackUrl)
+	d.intDef(taskrouterWorkflowDefaults, "taskReservationTimeout", o.TaskReservationTimeout, n.TaskReservationTimeout)
 	return d.response(), nil
 }
 
@@ -159,9 +159,9 @@ func (r *TaskRouterWorkflow) Read(ctx context.Context, req infer.ReadRequest[Tas
 	if cfg := trJSON(&in.Configuration, o.optStr("configuration"), false); cfg != nil {
 		in.Configuration = *cfg
 	}
-	in.AssignmentCallbackUrl = trStr(in.AssignmentCallbackUrl, o.optStr("assignment_callback_url"), "", imported)
-	in.FallbackAssignmentCallbackUrl = trStr(in.FallbackAssignmentCallbackUrl, o.optStr("fallback_assignment_callback_url"), "", imported)
-	in.TaskReservationTimeout = trInt(in.TaskReservationTimeout, o.optInt("task_reservation_timeout"), 120, imported)
+	in.AssignmentCallbackUrl = trStr(in.AssignmentCallbackUrl, o.optStr("assignment_callback_url"), taskrouterWorkflowDefaults.str("assignmentCallbackUrl"), imported)
+	in.FallbackAssignmentCallbackUrl = trStr(in.FallbackAssignmentCallbackUrl, o.optStr("fallback_assignment_callback_url"), taskrouterWorkflowDefaults.str("fallbackAssignmentCallbackUrl"), imported)
+	in.TaskReservationTimeout = trInt(in.TaskReservationTimeout, o.optInt("task_reservation_timeout"), taskrouterWorkflowDefaults.integer("taskReservationTimeout"), imported)
 	st := TaskRouterWorkflowState{TaskRouterWorkflowArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -193,4 +193,11 @@ func (r *TaskRouterWorkflow) Update(ctx context.Context, req infer.UpdateRequest
 
 func (r *TaskRouterWorkflow) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterWorkflowState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, trDelete(ctx, "workflow", "Workflows", req.ID)
+}
+
+// taskrouterWorkflowDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var taskrouterWorkflowDefaults = trDefaults{
+	"assignmentCallbackUrl":         "",
+	"fallbackAssignmentCallbackUrl": "",
+	"taskReservationTimeout":        120,
 }

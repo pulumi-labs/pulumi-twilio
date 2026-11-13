@@ -69,6 +69,20 @@ var (
 		{"DefaultChatServiceRoleSid", "default_chat_service_role_sid", "u"},
 		{"ReachabilityEnabled", "reachability_enabled", "b"},
 	}
+	cvNotificationFields = []fakeField{
+		{"LogEnabled", "log_enabled", "b"},
+		{"NewMessage.Enabled", "new_message.enabled", "b"}, {"NewMessage.Template", "new_message.template", "s"}, {"NewMessage.Sound", "new_message.sound", "s"},
+		{"NewMessage.BadgeCountEnabled", "new_message.badge_count_enabled", "b"},
+		{"NewMessage.WithMedia.Enabled", "new_message.with_media.enabled", "b"}, {"NewMessage.WithMedia.Template", "new_message.with_media.template", "s"},
+		{"AddedToConversation.Enabled", "added_to_conversation.enabled", "b"}, {"AddedToConversation.Template", "added_to_conversation.template", "s"},
+		{"AddedToConversation.Sound", "added_to_conversation.sound", "s"},
+		{"RemovedFromConversation.Enabled", "removed_from_conversation.enabled", "b"}, {"RemovedFromConversation.Template", "removed_from_conversation.template", "s"},
+		{"RemovedFromConversation.Sound", "removed_from_conversation.sound", "s"},
+	}
+	cvAccountConfigFields = []fakeField{
+		{"DefaultChatServiceSid", "default_chat_service_sid", "u"}, {"DefaultMessagingServiceSid", "default_messaging_service_sid", "u"},
+		{"DefaultInactiveTimer", "default_inactive_timer", "s"}, {"DefaultClosedTimer", "default_closed_timer", "s"},
+	}
 	cvWebhookFields = []fakeField{
 		{"Method", "method", "m"}, {"PreWebhookUrl", "pre_webhook_url", "u"}, {"PostWebhookUrl", "post_webhook_url", "u"},
 		{"Target", "target", "u"},
@@ -100,6 +114,8 @@ func (f *fakeTwilio) handleConversations(w http.ResponseWriter, r *http.Request,
 		switch {
 		case len(parts) == 3:
 			f.cvSingleton(w, r, form, "svccfg", parts[1], cvServiceConfigFields, notFound)
+		case len(parts) == 4 && parts[3] == "Notifications":
+			f.cvSingleton(w, r, form, "svcnotif", parts[1], cvNotificationFields, notFound)
 		case len(parts) == 4 && parts[3] == "Webhooks":
 			f.cvSingleton(w, r, form, "svcwh", parts[1], cvWebhookFields, notFound)
 		default:
@@ -115,6 +131,8 @@ func (f *fakeTwilio) handleConversations(w http.ResponseWriter, r *http.Request,
 			sid = parts[3]
 		}
 		f.cvCollection(w, r, form, "Roles", parts[1], sid, notFound)
+	case len(parts) == 1 && parts[0] == "Configuration":
+		f.cvSingleton(w, r, form, "acctcfg", "", cvAccountConfigFields, notFound)
 	case parts[0] == "Configuration" && len(parts) >= 2 && parts[1] == "Webhooks" && len(parts) == 2:
 		f.cvSingleton(w, r, form, "acctwh", "", cvWebhookFields, notFound)
 	default:
@@ -228,6 +246,13 @@ func (f *fakeTwilio) cvSingleton(w http.ResponseWriter, r *http.Request, form ur
 		case "svccfg":
 			o["default_conversation_creator_role_sid"], o["default_conversation_role_sid"], o["default_chat_service_role_sid"] = nil, nil, nil
 			o["reachability_enabled"] = false
+		case "svcnotif":
+			o["log_enabled"] = false
+			o["new_message"] = map[string]any{"enabled": false, "template": nil, "sound": nil, "badge_count_enabled": false, "with_media": map[string]any{"enabled": false, "template": nil}}
+			o["added_to_conversation"] = map[string]any{"enabled": false, "template": nil, "sound": nil}
+			o["removed_from_conversation"] = map[string]any{"enabled": false, "template": nil, "sound": nil}
+		case "acctcfg":
+			o["default_chat_service_sid"], o["default_messaging_service_sid"], o["default_inactive_timer"], o["default_closed_timer"] = nil, nil, nil, nil
 		default:
 			o["method"], o["pre_webhook_url"], o["post_webhook_url"], o["filters"] = "POST", nil, nil, []any{}
 			if scope == "" {

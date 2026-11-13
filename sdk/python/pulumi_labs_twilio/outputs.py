@@ -21,12 +21,41 @@ __all__ = [
     'AuthorizedConnectApp',
     'AvailablePhoneNumber',
     'ConnectAppEffective',
+    'ContentAuthenticationAction',
+    'ContentCallToAction',
+    'ContentCallToActionAction',
+    'ContentCard',
+    'ContentCardAction',
+    'ContentCarousel',
+    'ContentCarouselAction',
+    'ContentCarouselCard',
+    'ContentCatalog',
+    'ContentCatalogItem',
+    'ContentFlows',
+    'ContentFlowsPage',
+    'ContentFlowsPageComponent',
+    'ContentListItem',
+    'ContentListPicker',
+    'ContentLocation',
+    'ContentMedia',
+    'ContentQuickReply',
+    'ContentQuickReplyAction',
+    'ContentSchedule',
+    'ContentText',
+    'ContentTypes',
+    'ContentWhatsappAuthentication',
+    'ContentWhatsappCard',
+    'ContentWhatsappFlows',
     'ConversationsAutoCreation',
+    'ConversationsMediaNotification',
+    'ConversationsNewMessageNotification',
+    'ConversationsNotification',
     'DialingCountry',
     'EventSchemaVersion',
     'EventSubscriptionType',
     'EventType',
     'IncomingPhoneNumberEffective',
+    'MessagingGeoPermission',
     'MessagingServiceEffective',
     'OutgoingCallerIdEffective',
     'PhoneNumberCapabilities',
@@ -768,6 +797,1674 @@ class ConnectAppEffective(dict):
 
 
 @pulumi.output_type
+class ContentAuthenticationAction(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "copyCodeText":
+            suggest = "copy_code_text"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentAuthenticationAction. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentAuthenticationAction.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentAuthenticationAction.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 copy_code_text: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str copy_code_text: Label of the copy-code button.
+        :param _builtins.str type: The button type. Only COPY_CODE exists.
+        """
+        pulumi.set(__self__, "copy_code_text", copy_code_text)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="copyCodeText")
+    def copy_code_text(self) -> _builtins.str:
+        """
+        Label of the copy-code button.
+        """
+        return pulumi.get(self, "copy_code_text")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The button type. Only COPY_CODE exists.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class ContentCallToAction(dict):
+    def __init__(__self__, *,
+                 actions: Sequence['outputs.ContentCallToActionAction'],
+                 body: _builtins.str):
+        """
+        :param Sequence['ContentCallToActionAction'] actions: The buttons.
+        :param _builtins.str body: The text of the message.
+        """
+        pulumi.set(__self__, "actions", actions)
+        pulumi.set(__self__, "body", body)
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Sequence['outputs.ContentCallToActionAction']:
+        """
+        The buttons.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+
+@pulumi.output_type
+class ContentCallToActionAction(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 code: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 phone: Optional[_builtins.str] = None,
+                 title: Optional[_builtins.str] = None,
+                 url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+        :param _builtins.str code: Code the button copies (type COPY_CODE).
+        :param _builtins.str id: Identifier of the button.
+        :param _builtins.str phone: Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+        :param _builtins.str title: Label of the button.
+        :param _builtins.str url: URL the button opens (type URL).
+        """
+        pulumi.set(__self__, "type", type)
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if phone is not None:
+            pulumi.set(__self__, "phone", phone)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def code(self) -> Optional[_builtins.str]:
+        """
+        Code the button copies (type COPY_CODE).
+        """
+        return pulumi.get(self, "code")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the button.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def phone(self) -> Optional[_builtins.str]:
+        """
+        Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+        """
+        return pulumi.get(self, "phone")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[_builtins.str]:
+        """
+        Label of the button.
+        """
+        return pulumi.get(self, "title")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[_builtins.str]:
+        """
+        URL the button opens (type URL).
+        """
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class ContentCard(dict):
+    def __init__(__self__, *,
+                 actions: Optional[Sequence['outputs.ContentCardAction']] = None,
+                 media: Optional[Sequence[_builtins.str]] = None,
+                 subtitle: Optional[_builtins.str] = None,
+                 title: Optional[_builtins.str] = None):
+        """
+        :param Sequence['ContentCardAction'] actions: Buttons of the card.
+        :param Sequence[_builtins.str] media: URLs of the card's media.
+        :param _builtins.str subtitle: Subtitle of the card.
+        :param _builtins.str title: Title of the card.
+        """
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
+        if media is not None:
+            pulumi.set(__self__, "media", media)
+        if subtitle is not None:
+            pulumi.set(__self__, "subtitle", subtitle)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Optional[Sequence['outputs.ContentCardAction']]:
+        """
+        Buttons of the card.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter
+    def media(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        URLs of the card's media.
+        """
+        return pulumi.get(self, "media")
+
+    @_builtins.property
+    @pulumi.getter
+    def subtitle(self) -> Optional[_builtins.str]:
+        """
+        Subtitle of the card.
+        """
+        return pulumi.get(self, "subtitle")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[_builtins.str]:
+        """
+        Title of the card.
+        """
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
+class ContentCardAction(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "digitableLine":
+            suggest = "digitable_line"
+        elif key == "webviewSize":
+            suggest = "webview_size"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentCardAction. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentCardAction.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentCardAction.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 code: Optional[_builtins.str] = None,
+                 digitable_line: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 phone: Optional[_builtins.str] = None,
+                 title: Optional[_builtins.str] = None,
+                 url: Optional[_builtins.str] = None,
+                 webview_size: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+        :param _builtins.str code: Code the button copies (type COPY_CODE).
+        :param _builtins.str digitable_line: Digitable line of a BOLETO payment.
+        :param _builtins.str id: Identifier of the button.
+        :param _builtins.str phone: Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+        :param _builtins.str title: Label of the button.
+        :param _builtins.str url: URL the button opens (type URL).
+        :param _builtins.str webview_size: Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+        """
+        pulumi.set(__self__, "type", type)
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if digitable_line is not None:
+            pulumi.set(__self__, "digitable_line", digitable_line)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if phone is not None:
+            pulumi.set(__self__, "phone", phone)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+        if webview_size is not None:
+            pulumi.set(__self__, "webview_size", webview_size)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def code(self) -> Optional[_builtins.str]:
+        """
+        Code the button copies (type COPY_CODE).
+        """
+        return pulumi.get(self, "code")
+
+    @_builtins.property
+    @pulumi.getter(name="digitableLine")
+    def digitable_line(self) -> Optional[_builtins.str]:
+        """
+        Digitable line of a BOLETO payment.
+        """
+        return pulumi.get(self, "digitable_line")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the button.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def phone(self) -> Optional[_builtins.str]:
+        """
+        Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+        """
+        return pulumi.get(self, "phone")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[_builtins.str]:
+        """
+        Label of the button.
+        """
+        return pulumi.get(self, "title")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[_builtins.str]:
+        """
+        URL the button opens (type URL).
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter(name="webviewSize")
+    def webview_size(self) -> Optional[_builtins.str]:
+        """
+        Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+        """
+        return pulumi.get(self, "webview_size")
+
+
+@pulumi.output_type
+class ContentCarousel(dict):
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 cards: Sequence['outputs.ContentCarouselCard']):
+        """
+        :param _builtins.str body: The text of the message.
+        :param Sequence['ContentCarouselCard'] cards: The cards.
+        """
+        pulumi.set(__self__, "body", body)
+        pulumi.set(__self__, "cards", cards)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter
+    def cards(self) -> Sequence['outputs.ContentCarouselCard']:
+        """
+        The cards.
+        """
+        return pulumi.get(self, "cards")
+
+
+@pulumi.output_type
+class ContentCarouselAction(dict):
+    def __init__(__self__, *,
+                 title: _builtins.str,
+                 type: _builtins.str,
+                 id: Optional[_builtins.str] = None,
+                 phone: Optional[_builtins.str] = None,
+                 url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str title: Label of the button.
+        :param _builtins.str type: The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+        :param _builtins.str id: Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+        :param _builtins.str phone: Phone number the button dials (type PHONE_NUMBER).
+        :param _builtins.str url: URL the button opens (type URL).
+        """
+        pulumi.set(__self__, "title", title)
+        pulumi.set(__self__, "type", type)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if phone is not None:
+            pulumi.set(__self__, "phone", phone)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> _builtins.str:
+        """
+        Label of the button.
+        """
+        return pulumi.get(self, "title")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def phone(self) -> Optional[_builtins.str]:
+        """
+        Phone number the button dials (type PHONE_NUMBER).
+        """
+        return pulumi.get(self, "phone")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[_builtins.str]:
+        """
+        URL the button opens (type URL).
+        """
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class ContentCarouselCard(dict):
+    def __init__(__self__, *,
+                 actions: Sequence['outputs.ContentCarouselAction'],
+                 body: _builtins.str,
+                 media: _builtins.str,
+                 title: Optional[_builtins.str] = None):
+        """
+        :param Sequence['ContentCarouselAction'] actions: Buttons of the card.
+        :param _builtins.str body: Text of the card.
+        :param _builtins.str media: URL of the card's media.
+        :param _builtins.str title: Title of the card.
+        """
+        pulumi.set(__self__, "actions", actions)
+        pulumi.set(__self__, "body", body)
+        pulumi.set(__self__, "media", media)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Sequence['outputs.ContentCarouselAction']:
+        """
+        Buttons of the card.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        Text of the card.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter
+    def media(self) -> _builtins.str:
+        """
+        URL of the card's media.
+        """
+        return pulumi.get(self, "media")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[_builtins.str]:
+        """
+        Title of the card.
+        """
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
+class ContentCatalog(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dynamicItems":
+            suggest = "dynamic_items"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentCatalog. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentCatalog.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentCatalog.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 dynamic_items: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 items: Optional[Sequence['outputs.ContentCatalogItem']] = None,
+                 subtitle: Optional[_builtins.str] = None,
+                 title: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str body: The text of the message.
+        :param _builtins.str dynamic_items: A variable placeholder that Twilio fills with the products when the message is sent.
+        :param _builtins.str id: Identifier of the catalog.
+        :param Sequence['ContentCatalogItem'] items: The products to show.
+        :param _builtins.str subtitle: Subtitle of the message.
+        :param _builtins.str title: Title of the message.
+        """
+        pulumi.set(__self__, "body", body)
+        if dynamic_items is not None:
+            pulumi.set(__self__, "dynamic_items", dynamic_items)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if subtitle is not None:
+            pulumi.set(__self__, "subtitle", subtitle)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter(name="dynamicItems")
+    def dynamic_items(self) -> Optional[_builtins.str]:
+        """
+        A variable placeholder that Twilio fills with the products when the message is sent.
+        """
+        return pulumi.get(self, "dynamic_items")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the catalog.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.ContentCatalogItem']]:
+        """
+        The products to show.
+        """
+        return pulumi.get(self, "items")
+
+    @_builtins.property
+    @pulumi.getter
+    def subtitle(self) -> Optional[_builtins.str]:
+        """
+        Subtitle of the message.
+        """
+        return pulumi.get(self, "subtitle")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[_builtins.str]:
+        """
+        Title of the message.
+        """
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
+class ContentCatalogItem(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "mediaUrl":
+            suggest = "media_url"
+        elif key == "sectionTitle":
+            suggest = "section_title"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentCatalogItem. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentCatalogItem.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentCatalogItem.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 media_url: Optional[_builtins.str] = None,
+                 name: Optional[_builtins.str] = None,
+                 price: Optional[_builtins.float] = None,
+                 section_title: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str description: Description of the product.
+        :param _builtins.str id: Identifier of the product in the catalog.
+        :param _builtins.str media_url: URL of the product image.
+        :param _builtins.str name: Name of the product.
+        :param _builtins.float price: Price of the product.
+        :param _builtins.str section_title: Title of the section the product is listed in.
+        """
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if media_url is not None:
+            pulumi.set(__self__, "media_url", media_url)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if price is not None:
+            pulumi.set(__self__, "price", price)
+        if section_title is not None:
+            pulumi.set(__self__, "section_title", section_title)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        Description of the product.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the product in the catalog.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter(name="mediaUrl")
+    def media_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the product image.
+        """
+        return pulumi.get(self, "media_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the product.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def price(self) -> Optional[_builtins.float]:
+        """
+        Price of the product.
+        """
+        return pulumi.get(self, "price")
+
+    @_builtins.property
+    @pulumi.getter(name="sectionTitle")
+    def section_title(self) -> Optional[_builtins.str]:
+        """
+        Title of the section the product is listed in.
+        """
+        return pulumi.get(self, "section_title")
+
+
+@pulumi.output_type
+class ContentFlows(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "buttonText":
+            suggest = "button_text"
+        elif key == "mediaUrl":
+            suggest = "media_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentFlows. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentFlows.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentFlows.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 button_text: _builtins.str,
+                 pages: Sequence['outputs.ContentFlowsPage'],
+                 type: _builtins.str,
+                 media_url: Optional[_builtins.str] = None,
+                 subtitle: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str body: The text of the message.
+        :param _builtins.str button_text: Label of the button that opens the flow.
+        :param Sequence['ContentFlowsPage'] pages: The pages of the flow.
+        :param _builtins.str type: The flow type.
+        :param _builtins.str media_url: URL of the media shown with the message.
+        :param _builtins.str subtitle: Subtitle of the message.
+        """
+        pulumi.set(__self__, "body", body)
+        pulumi.set(__self__, "button_text", button_text)
+        pulumi.set(__self__, "pages", pages)
+        pulumi.set(__self__, "type", type)
+        if media_url is not None:
+            pulumi.set(__self__, "media_url", media_url)
+        if subtitle is not None:
+            pulumi.set(__self__, "subtitle", subtitle)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter(name="buttonText")
+    def button_text(self) -> _builtins.str:
+        """
+        Label of the button that opens the flow.
+        """
+        return pulumi.get(self, "button_text")
+
+    @_builtins.property
+    @pulumi.getter
+    def pages(self) -> Sequence['outputs.ContentFlowsPage']:
+        """
+        The pages of the flow.
+        """
+        return pulumi.get(self, "pages")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The flow type.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="mediaUrl")
+    def media_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the media shown with the message.
+        """
+        return pulumi.get(self, "media_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def subtitle(self) -> Optional[_builtins.str]:
+        """
+        Subtitle of the message.
+        """
+        return pulumi.get(self, "subtitle")
+
+
+@pulumi.output_type
+class ContentFlowsPage(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nextPageId":
+            suggest = "next_page_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentFlowsPage. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentFlowsPage.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentFlowsPage.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 layout: Sequence['outputs.ContentFlowsPageComponent'],
+                 title: _builtins.str,
+                 next_page_id: Optional[_builtins.str] = None,
+                 subtitle: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str id: Identifier of the page.
+        :param Sequence['ContentFlowsPageComponent'] layout: Components of the page.
+        :param _builtins.str title: Title of the page.
+        :param _builtins.str next_page_id: Identifier of the page that follows this one.
+        :param _builtins.str subtitle: Subtitle of the page.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "layout", layout)
+        pulumi.set(__self__, "title", title)
+        if next_page_id is not None:
+            pulumi.set(__self__, "next_page_id", next_page_id)
+        if subtitle is not None:
+            pulumi.set(__self__, "subtitle", subtitle)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        Identifier of the page.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def layout(self) -> Sequence['outputs.ContentFlowsPageComponent']:
+        """
+        Components of the page.
+        """
+        return pulumi.get(self, "layout")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> _builtins.str:
+        """
+        Title of the page.
+        """
+        return pulumi.get(self, "title")
+
+    @_builtins.property
+    @pulumi.getter(name="nextPageId")
+    def next_page_id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the page that follows this one.
+        """
+        return pulumi.get(self, "next_page_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def subtitle(self) -> Optional[_builtins.str]:
+        """
+        Subtitle of the page.
+        """
+        return pulumi.get(self, "subtitle")
+
+
+@pulumi.output_type
+class ContentFlowsPageComponent(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str type: The component type.
+        :param _builtins.str label: Label of the component.
+        """
+        pulumi.set(__self__, "type", type)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The component type.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        Label of the component.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ContentListItem(dict):
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 item: _builtins.str,
+                 description: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str id: Identifier of the option, returned to you when the recipient picks it.
+        :param _builtins.str item: Label of the option.
+        :param _builtins.str description: Secondary text shown under the label.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "item", item)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        Identifier of the option, returned to you when the recipient picks it.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def item(self) -> _builtins.str:
+        """
+        Label of the option.
+        """
+        return pulumi.get(self, "item")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        Secondary text shown under the label.
+        """
+        return pulumi.get(self, "description")
+
+
+@pulumi.output_type
+class ContentListPicker(dict):
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 button: _builtins.str,
+                 items: Sequence['outputs.ContentListItem']):
+        """
+        :param _builtins.str body: The text of the message.
+        :param _builtins.str button: Label of the button that opens the menu.
+        :param Sequence['ContentListItem'] items: The options of the menu.
+        """
+        pulumi.set(__self__, "body", body)
+        pulumi.set(__self__, "button", button)
+        pulumi.set(__self__, "items", items)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter
+    def button(self) -> _builtins.str:
+        """
+        Label of the button that opens the menu.
+        """
+        return pulumi.get(self, "button")
+
+    @_builtins.property
+    @pulumi.getter
+    def items(self) -> Sequence['outputs.ContentListItem']:
+        """
+        The options of the menu.
+        """
+        return pulumi.get(self, "items")
+
+
+@pulumi.output_type
+class ContentLocation(dict):
+    def __init__(__self__, *,
+                 latitude: _builtins.float,
+                 longitude: _builtins.float,
+                 address: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.float latitude: Latitude of the pin.
+        :param _builtins.float longitude: Longitude of the pin.
+        :param _builtins.str address: Address shown with the pin.
+        :param _builtins.str id: Identifier of the location.
+        :param _builtins.str label: Label shown with the pin.
+        """
+        pulumi.set(__self__, "latitude", latitude)
+        pulumi.set(__self__, "longitude", longitude)
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def latitude(self) -> _builtins.float:
+        """
+        Latitude of the pin.
+        """
+        return pulumi.get(self, "latitude")
+
+    @_builtins.property
+    @pulumi.getter
+    def longitude(self) -> _builtins.float:
+        """
+        Longitude of the pin.
+        """
+        return pulumi.get(self, "longitude")
+
+    @_builtins.property
+    @pulumi.getter
+    def address(self) -> Optional[_builtins.str]:
+        """
+        Address shown with the pin.
+        """
+        return pulumi.get(self, "address")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier of the location.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        Label shown with the pin.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ContentMedia(dict):
+    def __init__(__self__, *,
+                 media: Sequence[_builtins.str],
+                 body: Optional[_builtins.str] = None):
+        """
+        :param Sequence[_builtins.str] media: URLs of the media to send.
+        :param _builtins.str body: Text sent with the media.
+        """
+        pulumi.set(__self__, "media", media)
+        if body is not None:
+            pulumi.set(__self__, "body", body)
+
+    @_builtins.property
+    @pulumi.getter
+    def media(self) -> Sequence[_builtins.str]:
+        """
+        URLs of the media to send.
+        """
+        return pulumi.get(self, "media")
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> Optional[_builtins.str]:
+        """
+        Text sent with the media.
+        """
+        return pulumi.get(self, "body")
+
+
+@pulumi.output_type
+class ContentQuickReply(dict):
+    def __init__(__self__, *,
+                 actions: Sequence['outputs.ContentQuickReplyAction'],
+                 body: _builtins.str):
+        """
+        :param Sequence['ContentQuickReplyAction'] actions: The reply buttons.
+        :param _builtins.str body: The text of the message.
+        """
+        pulumi.set(__self__, "actions", actions)
+        pulumi.set(__self__, "body", body)
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Sequence['outputs.ContentQuickReplyAction']:
+        """
+        The reply buttons.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+
+@pulumi.output_type
+class ContentQuickReplyAction(dict):
+    def __init__(__self__, *,
+                 title: _builtins.str,
+                 id: Optional[_builtins.str] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str title: Label of the button.
+        :param _builtins.str id: Identifier returned to you when the recipient taps the button.
+        :param _builtins.str type: The button type. Only QUICK_REPLY exists.
+        """
+        pulumi.set(__self__, "title", title)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> _builtins.str:
+        """
+        Label of the button.
+        """
+        return pulumi.get(self, "title")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        Identifier returned to you when the recipient taps the button.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        The button type. Only QUICK_REPLY exists.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class ContentSchedule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeSlots":
+            suggest = "time_slots"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentSchedule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentSchedule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentSchedule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 time_slots: _builtins.str,
+                 title: _builtins.str):
+        """
+        :param _builtins.str id: Identifier of the schedule.
+        :param _builtins.str time_slots: The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+        :param _builtins.str title: Title of the message.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "time_slots", time_slots)
+        pulumi.set(__self__, "title", title)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        Identifier of the schedule.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter(name="timeSlots")
+    def time_slots(self) -> _builtins.str:
+        """
+        The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+        """
+        return pulumi.get(self, "time_slots")
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> _builtins.str:
+        """
+        Title of the message.
+        """
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
+class ContentText(dict):
+    def __init__(__self__, *,
+                 body: _builtins.str):
+        """
+        :param _builtins.str body: The text of the message.
+        """
+        pulumi.set(__self__, "body", body)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+
+@pulumi.output_type
+class ContentTypes(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "callToAction":
+            suggest = "call_to_action"
+        elif key == "listPicker":
+            suggest = "list_picker"
+        elif key == "quickReply":
+            suggest = "quick_reply"
+        elif key == "whatsappAuthentication":
+            suggest = "whatsapp_authentication"
+        elif key == "whatsappCard":
+            suggest = "whatsapp_card"
+        elif key == "whatsappFlows":
+            suggest = "whatsapp_flows"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentTypes. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentTypes.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentTypes.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 call_to_action: Optional['outputs.ContentCallToAction'] = None,
+                 card: Optional['outputs.ContentCard'] = None,
+                 carousel: Optional['outputs.ContentCarousel'] = None,
+                 catalog: Optional['outputs.ContentCatalog'] = None,
+                 flows: Optional['outputs.ContentFlows'] = None,
+                 list_picker: Optional['outputs.ContentListPicker'] = None,
+                 location: Optional['outputs.ContentLocation'] = None,
+                 media: Optional['outputs.ContentMedia'] = None,
+                 quick_reply: Optional['outputs.ContentQuickReply'] = None,
+                 schedule: Optional['outputs.ContentSchedule'] = None,
+                 text: Optional['outputs.ContentText'] = None,
+                 whatsapp_authentication: Optional['outputs.ContentWhatsappAuthentication'] = None,
+                 whatsapp_card: Optional['outputs.ContentWhatsappCard'] = None,
+                 whatsapp_flows: Optional['outputs.ContentWhatsappFlows'] = None):
+        """
+        :param 'ContentCallToAction' call_to_action: twilio/call-to-action: buttons that open a URL or dial a number.
+        :param 'ContentCard' card: twilio/card: a structured message with media and buttons.
+        :param 'ContentCarousel' carousel: twilio/carousel: a message with up to 10 cards.
+        :param 'ContentCatalog' catalog: twilio/catalog: a list of catalog products.
+        :param 'ContentFlows' flows: twilio/flows: a multi-page flow.
+        :param 'ContentListPicker' list_picker: twilio/list-picker: a menu of up to 10 options.
+        :param 'ContentLocation' location: twilio/location: a location pin with an optional label.
+        :param 'ContentMedia' media: twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+        :param 'ContentQuickReply' quick_reply: twilio/quick-reply: buttons the recipient taps to answer.
+        :param 'ContentSchedule' schedule: twilio/schedule: a message offering time slots.
+        :param 'ContentText' text: twilio/text: plain text.
+        :param 'ContentWhatsappAuthentication' whatsapp_authentication: whatsapp/authentication: a WhatsApp one-time-password message.
+        :param 'ContentWhatsappCard' whatsapp_card: whatsapp/card: a WhatsApp card with header, footer and buttons.
+        :param 'ContentWhatsappFlows' whatsapp_flows: whatsapp/flows: a message that opens a WhatsApp Flow.
+        """
+        if call_to_action is not None:
+            pulumi.set(__self__, "call_to_action", call_to_action)
+        if card is not None:
+            pulumi.set(__self__, "card", card)
+        if carousel is not None:
+            pulumi.set(__self__, "carousel", carousel)
+        if catalog is not None:
+            pulumi.set(__self__, "catalog", catalog)
+        if flows is not None:
+            pulumi.set(__self__, "flows", flows)
+        if list_picker is not None:
+            pulumi.set(__self__, "list_picker", list_picker)
+        if location is not None:
+            pulumi.set(__self__, "location", location)
+        if media is not None:
+            pulumi.set(__self__, "media", media)
+        if quick_reply is not None:
+            pulumi.set(__self__, "quick_reply", quick_reply)
+        if schedule is not None:
+            pulumi.set(__self__, "schedule", schedule)
+        if text is not None:
+            pulumi.set(__self__, "text", text)
+        if whatsapp_authentication is not None:
+            pulumi.set(__self__, "whatsapp_authentication", whatsapp_authentication)
+        if whatsapp_card is not None:
+            pulumi.set(__self__, "whatsapp_card", whatsapp_card)
+        if whatsapp_flows is not None:
+            pulumi.set(__self__, "whatsapp_flows", whatsapp_flows)
+
+    @_builtins.property
+    @pulumi.getter(name="callToAction")
+    def call_to_action(self) -> Optional['outputs.ContentCallToAction']:
+        """
+        twilio/call-to-action: buttons that open a URL or dial a number.
+        """
+        return pulumi.get(self, "call_to_action")
+
+    @_builtins.property
+    @pulumi.getter
+    def card(self) -> Optional['outputs.ContentCard']:
+        """
+        twilio/card: a structured message with media and buttons.
+        """
+        return pulumi.get(self, "card")
+
+    @_builtins.property
+    @pulumi.getter
+    def carousel(self) -> Optional['outputs.ContentCarousel']:
+        """
+        twilio/carousel: a message with up to 10 cards.
+        """
+        return pulumi.get(self, "carousel")
+
+    @_builtins.property
+    @pulumi.getter
+    def catalog(self) -> Optional['outputs.ContentCatalog']:
+        """
+        twilio/catalog: a list of catalog products.
+        """
+        return pulumi.get(self, "catalog")
+
+    @_builtins.property
+    @pulumi.getter
+    def flows(self) -> Optional['outputs.ContentFlows']:
+        """
+        twilio/flows: a multi-page flow.
+        """
+        return pulumi.get(self, "flows")
+
+    @_builtins.property
+    @pulumi.getter(name="listPicker")
+    def list_picker(self) -> Optional['outputs.ContentListPicker']:
+        """
+        twilio/list-picker: a menu of up to 10 options.
+        """
+        return pulumi.get(self, "list_picker")
+
+    @_builtins.property
+    @pulumi.getter
+    def location(self) -> Optional['outputs.ContentLocation']:
+        """
+        twilio/location: a location pin with an optional label.
+        """
+        return pulumi.get(self, "location")
+
+    @_builtins.property
+    @pulumi.getter
+    def media(self) -> Optional['outputs.ContentMedia']:
+        """
+        twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+        """
+        return pulumi.get(self, "media")
+
+    @_builtins.property
+    @pulumi.getter(name="quickReply")
+    def quick_reply(self) -> Optional['outputs.ContentQuickReply']:
+        """
+        twilio/quick-reply: buttons the recipient taps to answer.
+        """
+        return pulumi.get(self, "quick_reply")
+
+    @_builtins.property
+    @pulumi.getter
+    def schedule(self) -> Optional['outputs.ContentSchedule']:
+        """
+        twilio/schedule: a message offering time slots.
+        """
+        return pulumi.get(self, "schedule")
+
+    @_builtins.property
+    @pulumi.getter
+    def text(self) -> Optional['outputs.ContentText']:
+        """
+        twilio/text: plain text.
+        """
+        return pulumi.get(self, "text")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappAuthentication")
+    def whatsapp_authentication(self) -> Optional['outputs.ContentWhatsappAuthentication']:
+        """
+        whatsapp/authentication: a WhatsApp one-time-password message.
+        """
+        return pulumi.get(self, "whatsapp_authentication")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappCard")
+    def whatsapp_card(self) -> Optional['outputs.ContentWhatsappCard']:
+        """
+        whatsapp/card: a WhatsApp card with header, footer and buttons.
+        """
+        return pulumi.get(self, "whatsapp_card")
+
+    @_builtins.property
+    @pulumi.getter(name="whatsappFlows")
+    def whatsapp_flows(self) -> Optional['outputs.ContentWhatsappFlows']:
+        """
+        whatsapp/flows: a message that opens a WhatsApp Flow.
+        """
+        return pulumi.get(self, "whatsapp_flows")
+
+
+@pulumi.output_type
+class ContentWhatsappAuthentication(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "addSecurityRecommendation":
+            suggest = "add_security_recommendation"
+        elif key == "codeExpirationMinutes":
+            suggest = "code_expiration_minutes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentWhatsappAuthentication. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentWhatsappAuthentication.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentWhatsappAuthentication.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 actions: Sequence['outputs.ContentAuthenticationAction'],
+                 add_security_recommendation: Optional[_builtins.bool] = None,
+                 code_expiration_minutes: Optional[_builtins.float] = None):
+        """
+        :param Sequence['ContentAuthenticationAction'] actions: The copy-code button.
+        :param _builtins.bool add_security_recommendation: Whether WhatsApp adds its security recommendation to the message.
+        :param _builtins.float code_expiration_minutes: Minutes until the code expires.
+        """
+        pulumi.set(__self__, "actions", actions)
+        if add_security_recommendation is not None:
+            pulumi.set(__self__, "add_security_recommendation", add_security_recommendation)
+        if code_expiration_minutes is not None:
+            pulumi.set(__self__, "code_expiration_minutes", code_expiration_minutes)
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Sequence['outputs.ContentAuthenticationAction']:
+        """
+        The copy-code button.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter(name="addSecurityRecommendation")
+    def add_security_recommendation(self) -> Optional[_builtins.bool]:
+        """
+        Whether WhatsApp adds its security recommendation to the message.
+        """
+        return pulumi.get(self, "add_security_recommendation")
+
+    @_builtins.property
+    @pulumi.getter(name="codeExpirationMinutes")
+    def code_expiration_minutes(self) -> Optional[_builtins.float]:
+        """
+        Minutes until the code expires.
+        """
+        return pulumi.get(self, "code_expiration_minutes")
+
+
+@pulumi.output_type
+class ContentWhatsappCard(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "headerText":
+            suggest = "header_text"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentWhatsappCard. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentWhatsappCard.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentWhatsappCard.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 actions: Optional[Sequence['outputs.ContentCardAction']] = None,
+                 footer: Optional[_builtins.str] = None,
+                 header_text: Optional[_builtins.str] = None,
+                 media: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str body: The text of the message.
+        :param Sequence['ContentCardAction'] actions: Buttons of the card.
+        :param _builtins.str footer: Footer text.
+        :param _builtins.str header_text: Header text.
+        :param Sequence[_builtins.str] media: URLs of the card's media.
+        """
+        pulumi.set(__self__, "body", body)
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
+        if footer is not None:
+            pulumi.set(__self__, "footer", footer)
+        if header_text is not None:
+            pulumi.set(__self__, "header_text", header_text)
+        if media is not None:
+            pulumi.set(__self__, "media", media)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter
+    def actions(self) -> Optional[Sequence['outputs.ContentCardAction']]:
+        """
+        Buttons of the card.
+        """
+        return pulumi.get(self, "actions")
+
+    @_builtins.property
+    @pulumi.getter
+    def footer(self) -> Optional[_builtins.str]:
+        """
+        Footer text.
+        """
+        return pulumi.get(self, "footer")
+
+    @_builtins.property
+    @pulumi.getter(name="headerText")
+    def header_text(self) -> Optional[_builtins.str]:
+        """
+        Header text.
+        """
+        return pulumi.get(self, "header_text")
+
+    @_builtins.property
+    @pulumi.getter
+    def media(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        URLs of the card's media.
+        """
+        return pulumi.get(self, "media")
+
+
+@pulumi.output_type
+class ContentWhatsappFlows(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "buttonText":
+            suggest = "button_text"
+        elif key == "flowId":
+            suggest = "flow_id"
+        elif key == "flowFirstPageId":
+            suggest = "flow_first_page_id"
+        elif key == "flowToken":
+            suggest = "flow_token"
+        elif key == "isFlowFirstPageEndpoint":
+            suggest = "is_flow_first_page_endpoint"
+        elif key == "mediaUrl":
+            suggest = "media_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContentWhatsappFlows. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContentWhatsappFlows.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContentWhatsappFlows.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body: _builtins.str,
+                 button_text: _builtins.str,
+                 flow_id: _builtins.str,
+                 flow_first_page_id: Optional[_builtins.str] = None,
+                 flow_token: Optional[_builtins.str] = None,
+                 is_flow_first_page_endpoint: Optional[_builtins.bool] = None,
+                 media_url: Optional[_builtins.str] = None,
+                 subtitle: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str body: The text of the message.
+        :param _builtins.str button_text: Label of the button that opens the flow.
+        :param _builtins.str flow_id: ID of the WhatsApp Flow to open.
+        :param _builtins.str flow_first_page_id: ID of the first page of the flow.
+        :param _builtins.str flow_token: Token passed to the flow.
+        :param _builtins.bool is_flow_first_page_endpoint: Whether the first page of the flow is served by an endpoint.
+        :param _builtins.str media_url: URL of the media shown with the message.
+        :param _builtins.str subtitle: Subtitle of the message.
+        """
+        pulumi.set(__self__, "body", body)
+        pulumi.set(__self__, "button_text", button_text)
+        pulumi.set(__self__, "flow_id", flow_id)
+        if flow_first_page_id is not None:
+            pulumi.set(__self__, "flow_first_page_id", flow_first_page_id)
+        if flow_token is not None:
+            pulumi.set(__self__, "flow_token", flow_token)
+        if is_flow_first_page_endpoint is not None:
+            pulumi.set(__self__, "is_flow_first_page_endpoint", is_flow_first_page_endpoint)
+        if media_url is not None:
+            pulumi.set(__self__, "media_url", media_url)
+        if subtitle is not None:
+            pulumi.set(__self__, "subtitle", subtitle)
+
+    @_builtins.property
+    @pulumi.getter
+    def body(self) -> _builtins.str:
+        """
+        The text of the message.
+        """
+        return pulumi.get(self, "body")
+
+    @_builtins.property
+    @pulumi.getter(name="buttonText")
+    def button_text(self) -> _builtins.str:
+        """
+        Label of the button that opens the flow.
+        """
+        return pulumi.get(self, "button_text")
+
+    @_builtins.property
+    @pulumi.getter(name="flowId")
+    def flow_id(self) -> _builtins.str:
+        """
+        ID of the WhatsApp Flow to open.
+        """
+        return pulumi.get(self, "flow_id")
+
+    @_builtins.property
+    @pulumi.getter(name="flowFirstPageId")
+    def flow_first_page_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the first page of the flow.
+        """
+        return pulumi.get(self, "flow_first_page_id")
+
+    @_builtins.property
+    @pulumi.getter(name="flowToken")
+    def flow_token(self) -> Optional[_builtins.str]:
+        """
+        Token passed to the flow.
+        """
+        return pulumi.get(self, "flow_token")
+
+    @_builtins.property
+    @pulumi.getter(name="isFlowFirstPageEndpoint")
+    def is_flow_first_page_endpoint(self) -> Optional[_builtins.bool]:
+        """
+        Whether the first page of the flow is served by an endpoint.
+        """
+        return pulumi.get(self, "is_flow_first_page_endpoint")
+
+    @_builtins.property
+    @pulumi.getter(name="mediaUrl")
+    def media_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the media shown with the message.
+        """
+        return pulumi.get(self, "media_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def subtitle(self) -> Optional[_builtins.str]:
+        """
+        Subtitle of the message.
+        """
+        return pulumi.get(self, "subtitle")
+
+
+@pulumi.output_type
 class ConversationsAutoCreation(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -894,6 +2591,166 @@ class ConversationsAutoCreation(dict):
         For type webhook, the URL the webhook request is sent to.
         """
         return pulumi.get(self, "webhook_url")
+
+
+@pulumi.output_type
+class ConversationsMediaNotification(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 template: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool enabled: Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+        :param _builtins.str template: Template of the notification text for a message with media.
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> Optional[_builtins.str]:
+        """
+        Template of the notification text for a message with media.
+        """
+        return pulumi.get(self, "template")
+
+
+@pulumi.output_type
+class ConversationsNewMessageNotification(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "badgeCountEnabled":
+            suggest = "badge_count_enabled"
+        elif key == "withMedia":
+            suggest = "with_media"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConversationsNewMessageNotification. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConversationsNewMessageNotification.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConversationsNewMessageNotification.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 badge_count_enabled: Optional[_builtins.bool] = None,
+                 enabled: Optional[_builtins.bool] = None,
+                 sound: Optional[_builtins.str] = None,
+                 template: Optional[_builtins.str] = None,
+                 with_media: Optional['outputs.ConversationsMediaNotification'] = None):
+        """
+        :param _builtins.bool badge_count_enabled: Whether the badge count is enabled (Twilio default false).
+        :param _builtins.bool enabled: Whether a notification is sent when a message is added to a conversation (Twilio default false).
+        :param _builtins.str sound: Name of the sound played with the notification.
+        :param _builtins.str template: Template of the notification text.
+        :param 'ConversationsMediaNotification' with_media: The notification for a message with media or file attachments.
+        """
+        if badge_count_enabled is not None:
+            pulumi.set(__self__, "badge_count_enabled", badge_count_enabled)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if sound is not None:
+            pulumi.set(__self__, "sound", sound)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+        if with_media is not None:
+            pulumi.set(__self__, "with_media", with_media)
+
+    @_builtins.property
+    @pulumi.getter(name="badgeCountEnabled")
+    def badge_count_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the badge count is enabled (Twilio default false).
+        """
+        return pulumi.get(self, "badge_count_enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether a notification is sent when a message is added to a conversation (Twilio default false).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def sound(self) -> Optional[_builtins.str]:
+        """
+        Name of the sound played with the notification.
+        """
+        return pulumi.get(self, "sound")
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> Optional[_builtins.str]:
+        """
+        Template of the notification text.
+        """
+        return pulumi.get(self, "template")
+
+    @_builtins.property
+    @pulumi.getter(name="withMedia")
+    def with_media(self) -> Optional['outputs.ConversationsMediaNotification']:
+        """
+        The notification for a message with media or file attachments.
+        """
+        return pulumi.get(self, "with_media")
+
+
+@pulumi.output_type
+class ConversationsNotification(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 sound: Optional[_builtins.str] = None,
+                 template: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool enabled: Whether the notification is sent (Twilio default false).
+        :param _builtins.str sound: Name of the sound played with the notification.
+        :param _builtins.str template: Template of the notification text.
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if sound is not None:
+            pulumi.set(__self__, "sound", sound)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the notification is sent (Twilio default false).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def sound(self) -> Optional[_builtins.str]:
+        """
+        Name of the sound played with the notification.
+        """
+        return pulumi.get(self, "sound")
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> Optional[_builtins.str]:
+        """
+        Template of the notification text.
+        """
+        return pulumi.get(self, "template")
 
 
 @pulumi.output_type
@@ -1521,6 +3378,72 @@ class IncomingPhoneNumberEffective(dict):
         URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         """
         return pulumi.get(self, "voice_url")
+
+
+@pulumi.output_type
+class MessagingGeoPermission(dict):
+    def __init__(__self__, *,
+                 country_code: _builtins.str,
+                 enabled: Optional[_builtins.bool] = None,
+                 message: Optional[_builtins.str] = None,
+                 prefix: Optional[_builtins.str] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str country_code: The ISO country code.
+        :param _builtins.bool enabled: Whether the account may send messages to the country.
+        :param _builtins.str message: A note Twilio attaches to the country, for example a risk warning.
+        :param _builtins.str prefix: The international dialing prefix of the country.
+        :param _builtins.str type: The kind of permission, for example country.
+        """
+        pulumi.set(__self__, "country_code", country_code)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="countryCode")
+    def country_code(self) -> _builtins.str:
+        """
+        The ISO country code.
+        """
+        return pulumi.get(self, "country_code")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the account may send messages to the country.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def message(self) -> Optional[_builtins.str]:
+        """
+        A note Twilio attaches to the country, for example a risk warning.
+        """
+        return pulumi.get(self, "message")
+
+    @_builtins.property
+    @pulumi.getter
+    def prefix(self) -> Optional[_builtins.str]:
+        """
+        The international dialing prefix of the country.
+        """
+        return pulumi.get(self, "prefix")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        The kind of permission, for example country.
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type

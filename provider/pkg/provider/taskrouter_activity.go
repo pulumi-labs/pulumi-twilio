@@ -83,7 +83,8 @@ func (r *TaskRouterActivity) Diff(_ context.Context, req infer.DiffRequest[TaskR
 	d := trDiffSet{}
 	d.replace("workspaceSid", o.WorkspaceSid, n.WorkspaceSid)
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
-	if n.Available != nil && (o.Available == nil || *o.Available != *n.Available) {
+	// An import leaves Available unset when Twilio's value is the default (true), so nil means true.
+	if n.Available != nil && *n.Available != (o.Available == nil || *o.Available) {
 		d["available"] = p.PropertyDiff{Kind: p.UpdateReplace}
 	}
 	return d.response(), nil
@@ -134,7 +135,7 @@ func (r *TaskRouterActivity) Read(ctx context.Context, req infer.ReadRequest[Tas
 	imported := in.WorkspaceSid == ""
 	in.WorkspaceSid = ws
 	in.FriendlyName = o.str("friendly_name")
-	in.Available = trBool(in.Available, o.optBool("available"), true, imported)
+	in.Available = trBool(in.Available, o.optBool("available"), taskrouterActivityDefaults.boolean("available"), imported)
 	st := TaskRouterActivityState{TaskRouterActivityArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -165,4 +166,9 @@ func (r *TaskRouterActivity) Update(ctx context.Context, req infer.UpdateRequest
 
 func (r *TaskRouterActivity) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterActivityState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, trDelete(ctx, "activity", "Activities", req.ID)
+}
+
+// taskrouterActivityDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var taskrouterActivityDefaults = trDefaults{
+	"available": true,
 }

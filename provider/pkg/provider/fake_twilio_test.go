@@ -319,6 +319,20 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleVoice(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/voice/v2/"):
 		f.handleVoiceV2(w, r, body, strings.Split(strings.Trim(strings.TrimPrefix(path, "/voice/v2/"), "/"), "/"))
+	case strings.HasPrefix(path, "/notify/v1/"):
+		f.handleNotify(w, r, form, strings.Trim(strings.TrimPrefix(path, "/notify/v1/"), "/"))
+	case strings.HasPrefix(path, "/accounts/v1/"):
+		f.handleAccounts(w, r, form, strings.Trim(strings.TrimPrefix(path, "/accounts/v1/"), "/"))
+	case strings.HasPrefix(path, "/proxy/v1/"):
+		f.handleProxy(w, r, form, strings.Trim(strings.TrimPrefix(path, "/proxy/v1/"), "/"))
+	case strings.HasPrefix(path, "/content/v1/"):
+		f.handleContent(w, r, body, strings.Trim(strings.TrimPrefix(path, "/content/v1/"), "/"))
+	case strings.HasPrefix(path, "/video/v1/"):
+		f.handleVideo(w, r, form, strings.Trim(strings.TrimPrefix(path, "/video/v1/"), "/"))
+	case strings.HasPrefix(path, "/intelligence/v2/"):
+		f.handleIntelligence(w, r, form, strings.Trim(strings.TrimPrefix(path, "/intelligence/v2/"), "/"))
+	case strings.HasPrefix(path, "/sync/v1/Services"):
+		f.handleSync(w, r, form, strings.Trim(strings.TrimPrefix(path, "/sync/v1/Services"), "/"))
 	case strings.HasPrefix(path, "/conversations/v1/"):
 		f.handleConversations(w, r, form, strings.Trim(strings.TrimPrefix(path, "/conversations/v1/"), "/"))
 	case strings.HasPrefix(path, "/taskrouter/v1/Workspaces"):
@@ -700,6 +714,14 @@ func (f *fakeTwilio) handleMessaging(w http.ResponseWriter, r *http.Request, for
 		default:
 			ferr(w, 405, "method not allowed")
 		}
+		return
+	}
+	if parts[1] == "ShortCodes" || parts[1] == "ChannelSenders" || parts[1] == "AlphaSenders" || parts[1] == "DestinationAlphaSenders" {
+		sid := ""
+		if len(parts) == 3 {
+			sid = parts[2]
+		}
+		f.messagingPoolMember(w, r, form, svc, parts[1], sid)
 		return
 	}
 	if parts[1] != "PhoneNumbers" {

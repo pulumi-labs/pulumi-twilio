@@ -102,10 +102,10 @@ func (r *ConversationsCredential) Diff(_ context.Context, req infer.DiffRequest[
 	o, n := req.State.ConversationsCredentialArgs, req.Inputs
 	d := trDiffSet{}
 	d.replace("credentialType", o.CredentialType, n.CredentialType)
-	d.str("friendlyName", o.FriendlyName, n.FriendlyName)
+	d.strDef(conversationsCredentialDefaults, "friendlyName", o.FriendlyName, n.FriendlyName)
 	d.str("certificate", o.Certificate, n.Certificate)
 	d.str("privateKey", o.PrivateKey, n.PrivateKey)
-	d.boolean("sandbox", o.Sandbox, n.Sandbox)
+	d.boolDef(conversationsCredentialDefaults, "sandbox", o.Sandbox, n.Sandbox)
 	d.str("apiKey", o.ApiKey, n.ApiKey)
 	d.str("secret", o.Secret, n.Secret)
 	return d.response(), nil
@@ -162,10 +162,10 @@ func (r *ConversationsCredential) Read(ctx context.Context, req infer.ReadReques
 	in := req.Inputs
 	imported := in.CredentialType == ""
 	in.CredentialType = o.str("type")
-	in.FriendlyName = trStr(in.FriendlyName, o.optStr("friendly_name"), "", imported)
+	in.FriendlyName = trStr(in.FriendlyName, o.optStr("friendly_name"), conversationsCredentialDefaults.str("friendlyName"), imported)
 	// The certificate, keys and secret are never returned; Twilio reports the sandbox flag for APNs only.
 	if in.CredentialType == "apn" {
-		in.Sandbox = trBool(in.Sandbox, o.optBool("sandbox"), false, imported)
+		in.Sandbox = trBool(in.Sandbox, o.optBool("sandbox"), conversationsCredentialDefaults.boolean("sandbox"), imported)
 	}
 	st := ConversationsCredentialState{ConversationsCredentialArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
@@ -200,4 +200,10 @@ func (r *ConversationsCredential) Delete(ctx context.Context, req infer.DeleteRe
 		return infer.DeleteResponse{}, fmt.Errorf("delete Conversations credential %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil
+}
+
+// conversationsCredentialDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var conversationsCredentialDefaults = trDefaults{
+	"friendlyName": "",
+	"sandbox":      false,
 }

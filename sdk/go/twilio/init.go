@@ -21,12 +21,16 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "twilio:index:AccountSafeListNumber":
+		r = &AccountSafeListNumber{}
 	case "twilio:index:Address":
 		r = &Address{}
 	case "twilio:index:ApiKey":
 		r = &ApiKey{}
 	case "twilio:index:Application":
 		r = &Application{}
+	case "twilio:index:AwsCredential":
+		r = &AwsCredential{}
 	case "twilio:index:ByocTrunk":
 		r = &ByocTrunk{}
 	case "twilio:index:ConnectApp":
@@ -35,8 +39,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ConnectionPolicy{}
 	case "twilio:index:ConnectionPolicyTarget":
 		r = &ConnectionPolicyTarget{}
+	case "twilio:index:ContentTemplate":
+		r = &ContentTemplate{}
 	case "twilio:index:ConversationsAddressConfiguration":
 		r = &ConversationsAddressConfiguration{}
+	case "twilio:index:ConversationsConfiguration":
+		r = &ConversationsConfiguration{}
 	case "twilio:index:ConversationsCredential":
 		r = &ConversationsCredential{}
 	case "twilio:index:ConversationsRole":
@@ -45,6 +53,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ConversationsService{}
 	case "twilio:index:ConversationsServiceConfiguration":
 		r = &ConversationsServiceConfiguration{}
+	case "twilio:index:ConversationsServiceNotificationConfiguration":
+		r = &ConversationsServiceNotificationConfiguration{}
 	case "twilio:index:ConversationsWebhookConfiguration":
 		r = &ConversationsWebhookConfiguration{}
 	case "twilio:index:EventSink":
@@ -55,14 +65,36 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IncomingPhoneNumber{}
 	case "twilio:index:IncomingPhoneNumberAssignedAddOn":
 		r = &IncomingPhoneNumberAssignedAddOn{}
+	case "twilio:index:IntelligenceCustomOperator":
+		r = &IntelligenceCustomOperator{}
+	case "twilio:index:IntelligenceService":
+		r = &IntelligenceService{}
 	case "twilio:index:IpRecord":
 		r = &IpRecord{}
 	case "twilio:index:MessagingService":
 		r = &MessagingService{}
+	case "twilio:index:MessagingServiceAlphaSender":
+		r = &MessagingServiceAlphaSender{}
+	case "twilio:index:MessagingServiceChannelSender":
+		r = &MessagingServiceChannelSender{}
+	case "twilio:index:MessagingServiceDestinationAlphaSender":
+		r = &MessagingServiceDestinationAlphaSender{}
 	case "twilio:index:MessagingServicePhoneNumber":
 		r = &MessagingServicePhoneNumber{}
+	case "twilio:index:MessagingServiceShortCode":
+		r = &MessagingServiceShortCode{}
+	case "twilio:index:NotifyCredential":
+		r = &NotifyCredential{}
+	case "twilio:index:NotifyService":
+		r = &NotifyService{}
 	case "twilio:index:OutgoingCallerId":
 		r = &OutgoingCallerId{}
+	case "twilio:index:ProxyPhoneNumber":
+		r = &ProxyPhoneNumber{}
+	case "twilio:index:ProxyService":
+		r = &ProxyService{}
+	case "twilio:index:PublicKeyCredential":
+		r = &PublicKeyCredential{}
 	case "twilio:index:Queue":
 		r = &Queue{}
 	case "twilio:index:RoutesPhoneNumber":
@@ -113,6 +145,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SourceIpMapping{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
+	case "twilio:index:SyncService":
+		r = &SyncService{}
 	case "twilio:index:TaskRouterActivity":
 		r = &TaskRouterActivity{}
 	case "twilio:index:TaskRouterTaskChannel":
@@ -147,6 +181,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &VerifyService{}
 	case "twilio:index:VerifyWebhook":
 		r = &VerifyWebhook{}
+	case "twilio:index:VideoCompositionHook":
+		r = &VideoCompositionHook{}
+	case "twilio:index:VideoCompositionSettings":
+		r = &VideoCompositionSettings{}
+	case "twilio:index:VideoRecordingSettings":
+		r = &VideoRecordingSettings{}
 	case "twilio:index:VoiceAccountDefaultRecordingConfiguration":
 		r = &VoiceAccountDefaultRecordingConfiguration{}
 	case "twilio:index:VoiceDefaultRecordingConfiguration":

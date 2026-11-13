@@ -37,6 +37,22 @@ resources:
     test: true
     update: null
     cost: none
+  - type: twilio:index:MessagingServiceShortCode
+    test: false
+    reason: it needs a short code of the account, which is leased from the carriers and cannot be created by a test
+    cost: none for the entry; destroy removes the short code from the pool and keeps it
+  - type: twilio:index:MessagingServiceChannelSender
+    test: false
+    reason: it needs a channel sender (for example a registered WhatsApp sender) of the account, which needs a Meta business registration
+    cost: none for the entry; destroy removes the sender from the pool and keeps it
+  - type: twilio:index:MessagingServiceAlphaSender
+    test: true
+    update: null
+    cost: none; the sender ID is not used until a message is sent. Twilio has no update call, so a change replaces it
+  - type: twilio:index:MessagingServiceDestinationAlphaSender
+    test: true
+    update: null
+    cost: none; leave isoCountryCode out for a default sender ID. Twilio has no update call, so a change replaces it
   - type: twilio:index:Queue
     test: true
     update: maxSize
@@ -278,6 +294,70 @@ resources:
     test: false
     reason: the account-level configuration is a single object shared with everything else in the account and has no delete, so a test would leave the account changed
     cost: none; with chatServiceSid it configures one ConversationsService. Destroy forgets it
+  - type: twilio:index:ConversationsServiceNotificationConfiguration
+    test: true
+    update: logEnabled
+    cost: none; create it on a ConversationsService made in the same program. Destroy forgets it
+  - type: twilio:index:ConversationsConfiguration
+    test: false
+    reason: the account-level defaults are a single object shared with everything else in the account and have no delete, so a test would leave the account changed
+    cost: none. Destroy forgets it
+  - type: twilio:index:SyncService
+    test: true
+    update: friendlyName
+    cost: none; a Sync service is free until it is used. Destroy deletes it
+  - type: twilio:index:NotifyService
+    test: true
+    update: friendlyName
+    cost: none; a Notify service is free until it sends. Destroy deletes it
+  - type: twilio:index:NotifyCredential
+    test: false
+    reason: a credential needs a real APNs certificate and key or a Firebase server key from the account owner, and Twilio validates it when it is created
+    cost: none; destroy deletes it
+  - type: twilio:index:IntelligenceService
+    test: true
+    update: friendlyName
+    cost: none; a Voice Intelligence service is free until it transcribes. Destroy deletes it
+  - type: twilio:index:IntelligenceCustomOperator
+    test: false
+    reason: the config must follow the schema of a real operator type of the account, which the account owner has to supply
+    cost: none; destroy deletes it
+  - type: twilio:index:ProxyService
+    test: true
+    update: uniqueName
+    cost: none; a Proxy service is free until a session runs. Destroy deletes it
+  - type: twilio:index:ContentTemplate
+    test: true
+    update: friendlyName
+    cost: none; a Content template is free to create and store. Destroy deletes it
+  - type: twilio:index:ProxyPhoneNumber
+    test: false
+    reason: it needs a phone number of the account, which is billed and has to be supplied by the account owner, and Proxy allows a number in only one service
+    cost: none for the entry; the number is billed as usual. Destroy removes it from the pool and keeps the number
+  - type: twilio:index:AwsCredential
+    test: false
+    reason: it needs real AWS access keys of the account owner, which Twilio may validate when they are stored
+    cost: none. Destroy deletes it
+  - type: twilio:index:PublicKeyCredential
+    test: true
+    update: friendlyName
+    cost: none; generate a throwaway RSA public key (openssl rsa -pubout). Destroy deletes it
+  - type: twilio:index:AccountSafeListNumber
+    test: true
+    update: null
+    cost: none; use a number you own and destroy it again (an entry exempts the number from Twilio's SMS fraud blocks). Twilio has no update call, so a change replaces it
+  - type: twilio:index:VideoCompositionHook
+    test: true
+    update: friendlyName
+    cost: none while no group room completes; create it with enabled false so a room cannot trigger a billed composition. Destroy deletes it
+  - type: twilio:index:VideoCompositionSettings
+    test: false
+    reason: the settings are a single account-wide object that decides where all compositions are stored and have no delete, so a test would leave the account changed
+    cost: none. Destroy forgets it
+  - type: twilio:index:VideoRecordingSettings
+    test: false
+    reason: the settings are a single account-wide object that decides where all recordings are stored and have no delete, so a test would leave the account changed
+    cost: none. Destroy forgets it
 functions:
   - name: getAccount
     test: true
@@ -294,6 +374,16 @@ functions:
   - name: getMessagingService
     test: true
   - name: getMessagingServicePhoneNumber
+    test: true
+  - name: getMessagingServiceShortCode
+    test: false
+    reason: needs a MessagingServiceShortCode, which needs a short code of the account
+  - name: getMessagingServiceChannelSender
+    test: false
+    reason: needs a MessagingServiceChannelSender, which needs a channel sender of the account
+  - name: getMessagingServiceAlphaSender
+    test: true
+  - name: getMessagingServiceDestinationAlphaSender
     test: true
   - name: getQueue
     test: true
@@ -374,6 +464,46 @@ functions:
   - name: getConversationsAddressConfiguration
     test: true
   - name: getConversationsWebhookConfiguration
+    test: true
+  - name: getConversationsServiceNotificationConfiguration
+    test: true
+  - name: getConversationsConfiguration
+    test: true
+  - name: getSyncService
+    test: true
+  - name: getNotifyService
+    test: true
+  - name: getNotifyCredential
+    test: false
+    reason: needs a NotifyCredential, which needs a real push key
+  - name: getIntelligenceService
+    test: true
+  - name: getIntelligenceCustomOperator
+    test: false
+    reason: needs an IntelligenceCustomOperator, which needs a real operator type configuration
+  - name: getContentTemplate
+    test: true
+  - name: getContentApprovalStatus
+    test: true
+  - name: getProxyService
+    test: true
+  - name: getProxyPhoneNumber
+    test: false
+    reason: needs a ProxyPhoneNumber, which needs a phone number of the account
+  - name: getAwsCredential
+    test: false
+    reason: needs an AwsCredential, which needs real AWS access keys
+  - name: getPublicKeyCredential
+    test: true
+  - name: getAccountSafeListNumber
+    test: true
+  - name: getMessagingGeoPermissions
+    test: true
+  - name: getVideoCompositionHook
+    test: true
+  - name: getVideoCompositionSettings
+    test: true
+  - name: getVideoRecordingSettings
     test: true
   - name: getVerifyTemplates
     test: true
@@ -494,6 +624,16 @@ regressions:
   - "Serverless (#1431 part 10): create a ServerlessService, a ServerlessEnvironment with a domainSuffix, a ServerlessVariable, a ServerlessFunction and a ServerlessAsset; refresh and preview show no change. Changing the service friendlyName, the variable key and value, and the function friendlyName updates in place (no replacement); changing the environment domainSuffix or uniqueName replaces it. The variable value never appears in plaintext in the state. Import each (<serviceSid>, <serviceSid>/<sid>, <serviceSid>/<environmentSid>/<sid>) and the first preview plans no change, also when the program omits includeCredentials and uiEditable. Destroying the service removes the children and destroying a child afterwards is a no-op. Not verified against a live account: the defaults of includeCredentials and uiEditable, the limit of 16 characters on domainSuffix and whether Twilio returns the variable value on read."
   - "Serverless deploy plane (#1664): in one program create a ServerlessService, ServerlessEnvironment, ServerlessFunction (+ ServerlessFunctionVersion with a handler that returns a fixed string, visibility public), ServerlessAsset (+ ServerlessAssetVersion, path /hello.txt), a ServerlessBuild over both versions and a ServerlessDeployment of it to the environment; curl https://<domainName>/<function path> returns the string and the asset path serves the text. Regression checks: (1) the upload host works as coded (multipart POST to serverless-upload.twilio.com; try also with a configured edge/region and report whether it still resolves); (2) build creation waits for completed and a deliberately broken dependency name fails the create with the build removed; (3) refresh and preview show no change after the first up, also for the version resources and the build when the program omits runtime; (4) changing the function code replaces the version, then the build and deployment replace in the same up when they reference the new SIDs, and the old deployment is not an error; (5) pulumi destroy of the whole program succeeds (#1856): the deployment and versions are forgotten, a deployed build and a function or asset whose version a build holds answer 400/20001 and are forgotten with a warning, and the service delete removes what is left; confirm on a live account that the exact 20001 messages still contain 'active Deployment' and 'referenced in a Build' and that nothing is left after the service is gone; (6) import each of <serviceSid>/<functionSid>/<sid>, <serviceSid>/<assetSid>/<sid>, <serviceSid>/<sid> (build) and <serviceSid>/<environmentSid>/<sid> and preview plans no change (function version imports read the code back through /Content; asset version imports plan no change when the program sets content)."
   - "Conversations (#1864, part of #1667): create a ConversationsService, a ConversationsServiceConfiguration naming a service role made with ConversationsRole (roleType service, chatServiceSid set), a ConversationsRole with no chatServiceSid and a ConversationsAddressConfiguration for an sms number the account owns with autoCreation enabled and type default; refresh and preview show no change. Changing the service friendlyName replaces it, changing role permissions, the address friendlyName and autoCreation, and reachabilityEnabled updates in place. A ConversationsWebhookConfiguration with a chatServiceSid sets pre and post URLs and filters, and the order of the filters is not drift. Import each (<sid>, <chatServiceSid>/<sid> for a service role, the service SID for the configurations, account for the account-level webhook configuration) and the first preview plans no change. Not verified against a live account: that a configuration POST with no parameters is accepted (the provider does a GET instead when nothing is set), the default autoCreation values Twilio reports, whether the account-level webhook configuration needs method and URLs together, and the exact APNs certificate validation."
+  - "Video settings (#1902, part of #1667): VideoCompositionSettings and VideoRecordingSettings are not run automatically (they change where every composition or recording of the account is stored). Read them with getVideoCompositionSettings and getVideoRecordingSettings. On a throwaway account create each with friendlyName only, then add awsCredentialsSid, awsS3Url and awsStorageEnabled for a bucket the owner controls; refresh and preview show no change, changing friendlyName updates in place. Import as default and the first preview plans no change when the program states only what differs from Twilio defaults (awsStorageEnabled and encryptionEnabled false). Destroy leaves the settings on Twilio. Not verified against a live account: whether Twilio validates the bucket and credential when they are saved, and what it reports for friendlyName on an account that never set it."
+  - "Video composition hook (#1901, part of #1667): create a VideoCompositionHook with enabled false, a videoLayout, audioSources, resolution 1280x720 and format mp4; refresh and preview show no change. Changing friendlyName and the status callback updates in place; setting audioSourcesExcluded to an empty list clears it. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (resolution 640x480, trim true, statusCallbackMethod POST). Not verified against a live account: the defaults Twilio reports for enabled and format, how it takes an empty list, and whether it accepts a hook with no layout or audio sources."
+  - "Content templates (part of #1667): create a ContentTemplate with language en, a friendlyName, variables {\"1\": \"Ada\"} and types text (\"Hello {{1}}\") plus quickReply with two buttons; refresh and preview show no change; changing friendlyName and the text updates in place (no replacement). Read it with getContentTemplate and getContentApprovalStatus (whatsappStatus and whatsappJson are null for a template never submitted to WhatsApp). Import the HX SID and the first preview plans no change. Deleting it in the console makes the next refresh drop it. Not verified against a live account: that Twilio returns the types exactly as sent (no defaulted or empty sub-fields that would show as drift), the keys inside the untyped whatsapp approval object (status, rejection_reason and category are read from the Twilio docs), and which of the WhatsApp-only types a non-WhatsApp-enabled account accepts."
+  - "Proxy (#1905, part of #1667): create a ProxyService with uniqueName, defaultTtl and geoMatchLevel area-code; refresh and preview show no change; changing uniqueName updates in place. Read it with getProxyService. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (defaultTtl 0, geoMatchLevel country, numberSelectionBehavior prefer-sticky). With a spare number of the account add a ProxyPhoneNumber by phoneNumber, then by phoneNumberSid in a second program: the second preview plans no change; toggling isReserved updates in place, changing the number replaces; import <serviceSid>/<sid> (the import names the number by phoneNumberSid) and the first preview plans no change when the program names the number by phoneNumberSid or by phoneNumber and states isReserved only if it is true. Destroy removes the number from the pool and the number stays in the account. Not verified against a live account: the geoMatchLevel values Twilio accepts (the spec lists area-code, overlay, radius and country, the docs also name extended-area-code), and whether it reports defaultTtl as 0 or null for a new service."
+  - "Messaging Service senders (#1913, part of #1667): on a MessagingService add a MessagingServiceAlphaSender with a short name and a MessagingServiceDestinationAlphaSender with and without isoCountryCode; refresh and preview show no change, any changed input replaces. Import <serviceSid>/<sid> and the first preview plans no change; read each with getMessagingServiceAlphaSender and getMessagingServiceDestinationAlphaSender. With a short code or channel sender of the account add a MessagingServiceShortCode (shortCodeSid) or MessagingServiceChannelSender (channelSenderSid); destroy removes it from the pool and keeps the sender. Not verified against a live account: whether Twilio refuses an alpha sender ID that is already in another Messaging Service, whether it reports iso_country_code null or empty for a default destination sender, the casing it reports for the country, and whether a sender can be added before the service is registered for the country."
+  - "Accounts v1 (#1910, part of #1667): create a PublicKeyCredential with a throwaway public key and a friendlyName; refresh and preview show no change; changing friendlyName updates in place, changing publicKey replaces. Import the SID: the key is not returned, so the first preview plans no change when the program states it. Read it with getPublicKeyCredential. Add a number you own with AccountSafeListNumber (the plus sign must be escaped as %2B in the query), read it with getAccountSafeListNumber, destroy it; this is the Global SafeList of accounts.twilio.com, a different API from VerifySafeListNumber. getMessagingGeoPermissions lists every country, or the countries named in countryCodes. AwsCredential is not run automatically (real AWS keys); with a test IAM user create one, check preview is clean and that changing credentials replaces it. Not verified against a live account: whether Twilio validates the keys or the public key when they are stored, what a GET of a number that is not on the Global SafeList answers (the provider reads 404 and a reply without a phone_number as not on the list), whether the Global SafeList is enabled on every account, and what friendly_name Twilio reports for a credential created without one."
+  - "Voice Intelligence (#1897, part of #1667): create an IntelligenceService with uniqueName, friendlyName, languageCode and autoTranscribe false; refresh and preview show no change. Changing friendlyName and webhookUrl updates in place; changing languageCode replaces the service. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (languageCode en-US, the redaction and transcription flags false). With a valid operator type and config create an IntelligenceCustomOperator; reformatting or reordering the config JSON plans no change, changing it updates in place, changing operatorType replaces it. Not verified against a live account: the defaults Twilio reports for a new service, whether it reports operator_type by name or SID, whether it accepts a service with no webhook, and which operator type configs it validates."
+  - "Notify (#1872, part of #1667): create a NotifyService with friendlyName, logEnabled false and a messagingServiceSid; refresh and preview show no change. With a real FCM server key create a NotifyCredential (credentialType fcm, secret) and name it as fcmCredentialSid on the service; changing friendlyName and the callback URL updates in place, changing credentialType replaces the credential. Import each SID and the first preview plans no change when the program states only what differs from Twilio defaults (logEnabled true, deliveryCallbackEnabled false). The secret inputs never appear in plaintext in the state. Not verified against a live account: that Twilio accepts a service with no credential, how it reports the sandbox flag, and the default protocol versions it reports."
+  - "Sync (#1870, part of #1667): create a SyncService with friendlyName, aclEnabled and reachabilityDebouncingWindow 2000; refresh and preview show no change. Changing friendlyName, webhookUrl and the flags updates in place. Import the service SID and the first preview plans no change when the program states only what differs from Twilio defaults (reachabilityDebouncingWindow 5000, every flag false). getSyncService reports the same settings. Not verified against a live account."
+  - "Conversations notifications and defaults (#1866, part of #1667): on a ConversationsService create a ConversationsServiceNotificationConfiguration with logEnabled, newMessage (enabled, template, badgeCountEnabled, withMedia) and addedToConversation; refresh and preview show no change. Changing a template or flag updates in place; changing chatServiceSid replaces. A notification the program does not state is left as it is and is not drift. Import the service SID and the first preview plans no change. ConversationsConfiguration (not run automatically, it changes the whole account) sets defaultChatServiceSid and the inactive and closed timers and imports as account. Not verified against a live account: that a POST with a partial notification leaves the other notifications alone, the default template and sound values Twilio reports, and the minimum timer values."
   - "TaskRouter (#1861, part of #1667): create a TaskRouterWorkspace, a TaskRouterActivity, a TaskRouterTaskChannel, a TaskRouterTaskQueue, a TaskRouterWorkflow whose configuration routes to the queue (written with different spacing from what Twilio returns) and a TaskRouterWorker, refresh and preview show no change; changing each friendlyName updates in place, changing the workflow configuration updates in place, changing the activity available flag or the channel uniqueName replaces. Add the worker to a different activity in the program and confirm the worker moves; then move it in the console and confirm preview shows no drift for activitySid. Import each (<workspaceSid>, <workspaceSid>/<sid>) and the first preview plans no change. Not verified against a live account: that Twilio accepts the configuration document exactly as the provider sends it, and whether a worker created with no activitySid reports the workspace default activity."
   - "Verify extras (#1431 part 9): on a fresh VerifyService create a VerifyRateLimit with a bucket, a VerifyMessagingConfiguration for one country and a VerifyWebhook, refresh and preview show no change; changing the bucket max, the webhook url and eventTypes (in a different order) updates in place; removing webhook status and webhookVersion resets them to enabled and v2 and a re-preview is clean; import each (<serviceSid>/<sid>, <serviceSid>/<rateLimitSid>/<sid>, <serviceSid>/<country>) and the first preview plans no change. Add a number to the SafeList (the plus sign must be escaped as %2B in the path), read it back with getVerifySafeListNumber, destroy it. getVerifyTemplates lists the templates; use one SID as VerifyService.defaultTemplateSid. Not verified against a live account: that Twilio accepts the Version parameter name webhookVersion maps to, and the casing of the country in the response."
   - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."

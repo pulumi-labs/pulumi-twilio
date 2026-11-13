@@ -83,10 +83,10 @@ func (r *ConversationsServiceConfiguration) Diff(_ context.Context, req infer.Di
 	o, n := req.State.ConversationsServiceConfigurationArgs, req.Inputs
 	d := trDiffSet{}
 	d.replace("chatServiceSid", o.ChatServiceSid, n.ChatServiceSid)
-	d.str("defaultConversationCreatorRoleSid", o.DefaultConversationCreatorRole, n.DefaultConversationCreatorRole)
-	d.str("defaultConversationRoleSid", o.DefaultConversationRole, n.DefaultConversationRole)
-	d.str("defaultChatServiceRoleSid", o.DefaultChatServiceRole, n.DefaultChatServiceRole)
-	d.boolean("reachabilityEnabled", o.ReachabilityEnabled, n.ReachabilityEnabled)
+	d.strDef(conversationsServiceConfigurationDefaults, "defaultConversationCreatorRoleSid", o.DefaultConversationCreatorRole, n.DefaultConversationCreatorRole)
+	d.strDef(conversationsServiceConfigurationDefaults, "defaultConversationRoleSid", o.DefaultConversationRole, n.DefaultConversationRole)
+	d.strDef(conversationsServiceConfigurationDefaults, "defaultChatServiceRoleSid", o.DefaultChatServiceRole, n.DefaultChatServiceRole)
+	d.boolDef(conversationsServiceConfigurationDefaults, "reachabilityEnabled", o.ReachabilityEnabled, n.ReachabilityEnabled)
 	return d.response(), nil
 }
 
@@ -147,10 +147,10 @@ func (r *ConversationsServiceConfiguration) Read(ctx context.Context, req infer.
 	in := req.Inputs
 	imported := in.ChatServiceSid == ""
 	in.ChatServiceSid = req.ID
-	in.DefaultConversationCreatorRole = trStr(in.DefaultConversationCreatorRole, o.optStr("default_conversation_creator_role_sid"), "", imported)
-	in.DefaultConversationRole = trStr(in.DefaultConversationRole, o.optStr("default_conversation_role_sid"), "", imported)
-	in.DefaultChatServiceRole = trStr(in.DefaultChatServiceRole, o.optStr("default_chat_service_role_sid"), "", imported)
-	in.ReachabilityEnabled = trBool(in.ReachabilityEnabled, o.optBool("reachability_enabled"), false, imported)
+	in.DefaultConversationCreatorRole = trStr(in.DefaultConversationCreatorRole, o.optStr("default_conversation_creator_role_sid"), conversationsServiceConfigurationDefaults.str("defaultConversationCreatorRoleSid"), imported)
+	in.DefaultConversationRole = trStr(in.DefaultConversationRole, o.optStr("default_conversation_role_sid"), conversationsServiceConfigurationDefaults.str("defaultConversationRoleSid"), imported)
+	in.DefaultChatServiceRole = trStr(in.DefaultChatServiceRole, o.optStr("default_chat_service_role_sid"), conversationsServiceConfigurationDefaults.str("defaultChatServiceRoleSid"), imported)
+	in.ReachabilityEnabled = trBool(in.ReachabilityEnabled, o.optBool("reachability_enabled"), conversationsServiceConfigurationDefaults.boolean("reachabilityEnabled"), imported)
 	return resp{ID: req.ID, Inputs: in, State: ConversationsServiceConfigurationState{ConversationsServiceConfigurationArgs: in}}, nil
 }
 
@@ -168,4 +168,12 @@ func (r *ConversationsServiceConfiguration) Update(ctx context.Context, req infe
 // Delete forgets the configuration: a service always has one and the spec offers no way to remove it.
 func (r *ConversationsServiceConfiguration) Delete(_ context.Context, _ infer.DeleteRequest[ConversationsServiceConfigurationState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, nil
+}
+
+// conversationsServiceConfigurationDefaults are the Twilio defaults of this resource, shared by Read (import adoption) and Diff.
+var conversationsServiceConfigurationDefaults = trDefaults{
+	"defaultConversationCreatorRoleSid": "",
+	"defaultConversationRoleSid":        "",
+	"defaultChatServiceRoleSid":         "",
+	"reachabilityEnabled":               false,
 }

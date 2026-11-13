@@ -48,14 +48,14 @@ public class ServerlessAssetVersion extends com.pulumi.resources.CustomResource 
         return this.assetSid;
     }
     /**
-     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      * 
      */
     @Export(name="content", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> content;
 
     /**
-     * @return The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * @return The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      * 
      */
     public Output<Optional<String>> content() {

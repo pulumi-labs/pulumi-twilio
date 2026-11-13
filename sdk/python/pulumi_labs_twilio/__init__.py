@@ -6,38 +6,49 @@ import builtins as _builtins
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .account_safe_list_number import *
 from .address import *
 from .api_key import *
 from .application import *
+from .aws_credential import *
 from .byoc_trunk import *
 from .connect_app import *
 from .connection_policy import *
 from .connection_policy_target import *
+from .content_template import *
 from .conversations_address_configuration import *
+from .conversations_configuration import *
 from .conversations_credential import *
 from .conversations_role import *
 from .conversations_service import *
 from .conversations_service_configuration import *
+from .conversations_service_notification_configuration import *
 from .conversations_webhook_configuration import *
 from .event_sink import *
 from .event_subscription import *
 from .get_account import *
+from .get_account_safe_list_number import *
 from .get_address import *
 from .get_api_key import *
 from .get_application import *
 from .get_authorized_connect_app import *
 from .get_authorized_connect_apps import *
 from .get_available_phone_numbers import *
+from .get_aws_credential import *
 from .get_balance import *
 from .get_byoc_trunk import *
 from .get_connect_app import *
 from .get_connection_policy import *
 from .get_connection_policy_target import *
+from .get_content_approval_status import *
+from .get_content_template import *
 from .get_conversations_address_configuration import *
+from .get_conversations_configuration import *
 from .get_conversations_credential import *
 from .get_conversations_role import *
 from .get_conversations_service import *
 from .get_conversations_service_configuration import *
+from .get_conversations_service_notification_configuration import *
 from .get_conversations_webhook_configuration import *
 from .get_dialing_permissions_countries import *
 from .get_dialing_permissions_country import *
@@ -49,9 +60,18 @@ from .get_event_type import *
 from .get_event_types import *
 from .get_incoming_phone_number import *
 from .get_incoming_phone_number_assigned_add_on import *
+from .get_intelligence_custom_operator import *
+from .get_intelligence_service import *
 from .get_ip_record import *
+from .get_messaging_geo_permissions import *
 from .get_messaging_service import *
+from .get_messaging_service_alpha_sender import *
+from .get_messaging_service_channel_sender import *
+from .get_messaging_service_destination_alpha_sender import *
 from .get_messaging_service_phone_number import *
+from .get_messaging_service_short_code import *
+from .get_notify_credential import *
+from .get_notify_service import *
 from .get_outgoing_caller_id import *
 from .get_pricing_messaging_countries import *
 from .get_pricing_messaging_country import *
@@ -63,6 +83,9 @@ from .get_pricing_trunking_number import *
 from .get_pricing_voice_countries import *
 from .get_pricing_voice_country import *
 from .get_pricing_voice_number import *
+from .get_proxy_phone_number import *
+from .get_proxy_service import *
+from .get_public_key_credential import *
 from .get_queue import *
 from .get_routes_phone_number import *
 from .get_routes_short_code import *
@@ -88,6 +111,7 @@ from .get_sip_ip_access_control_list import *
 from .get_sip_ip_address import *
 from .get_source_ip_mapping import *
 from .get_subaccount import *
+from .get_sync_service import *
 from .get_task_router_activity import *
 from .get_task_router_task_channel import *
 from .get_task_router_task_queue import *
@@ -107,6 +131,9 @@ from .get_verify_safe_list_number import *
 from .get_verify_service import *
 from .get_verify_templates import *
 from .get_verify_webhook import *
+from .get_video_composition_hook import *
+from .get_video_composition_settings import *
+from .get_video_recording_settings import *
 from .get_voice_account_default_recording_configuration import *
 from .get_voice_default_recording_configuration import *
 from .get_voice_default_transcription_configuration import *
@@ -114,11 +141,22 @@ from .get_voice_recording_configuration import *
 from .get_voice_transcription_configuration import *
 from .incoming_phone_number import *
 from .incoming_phone_number_assigned_add_on import *
+from .intelligence_custom_operator import *
+from .intelligence_service import *
 from .ip_record import *
 from .messaging_service import *
+from .messaging_service_alpha_sender import *
+from .messaging_service_channel_sender import *
+from .messaging_service_destination_alpha_sender import *
 from .messaging_service_phone_number import *
+from .messaging_service_short_code import *
+from .notify_credential import *
+from .notify_service import *
 from .outgoing_caller_id import *
 from .provider import *
+from .proxy_phone_number import *
+from .proxy_service import *
+from .public_key_credential import *
 from .queue import *
 from .routes_phone_number import *
 from .routes_short_code import *
@@ -144,6 +182,7 @@ from .sip_ip_access_control_list import *
 from .sip_ip_address import *
 from .source_ip_mapping import *
 from .subaccount import *
+from .sync_service import *
 from .task_router_activity import *
 from .task_router_task_channel import *
 from .task_router_task_queue import *
@@ -161,6 +200,9 @@ from .verify_rate_limit_bucket import *
 from .verify_safe_list_number import *
 from .verify_service import *
 from .verify_webhook import *
+from .video_composition_hook import *
+from .video_composition_settings import *
+from .video_recording_settings import *
 from .voice_account_default_recording_configuration import *
 from .voice_default_recording_configuration import *
 from .voice_default_transcription_configuration import *
@@ -184,27 +226,43 @@ _utilities.register(
   "mod": "index",
   "fqn": "pulumi_labs_twilio",
   "classes": {
+   "twilio:index:AccountSafeListNumber": "AccountSafeListNumber",
    "twilio:index:Address": "Address",
    "twilio:index:ApiKey": "ApiKey",
    "twilio:index:Application": "Application",
+   "twilio:index:AwsCredential": "AwsCredential",
    "twilio:index:ByocTrunk": "ByocTrunk",
    "twilio:index:ConnectApp": "ConnectApp",
    "twilio:index:ConnectionPolicy": "ConnectionPolicy",
    "twilio:index:ConnectionPolicyTarget": "ConnectionPolicyTarget",
+   "twilio:index:ContentTemplate": "ContentTemplate",
    "twilio:index:ConversationsAddressConfiguration": "ConversationsAddressConfiguration",
+   "twilio:index:ConversationsConfiguration": "ConversationsConfiguration",
    "twilio:index:ConversationsCredential": "ConversationsCredential",
    "twilio:index:ConversationsRole": "ConversationsRole",
    "twilio:index:ConversationsService": "ConversationsService",
    "twilio:index:ConversationsServiceConfiguration": "ConversationsServiceConfiguration",
+   "twilio:index:ConversationsServiceNotificationConfiguration": "ConversationsServiceNotificationConfiguration",
    "twilio:index:ConversationsWebhookConfiguration": "ConversationsWebhookConfiguration",
    "twilio:index:EventSink": "EventSink",
    "twilio:index:EventSubscription": "EventSubscription",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
    "twilio:index:IncomingPhoneNumberAssignedAddOn": "IncomingPhoneNumberAssignedAddOn",
+   "twilio:index:IntelligenceCustomOperator": "IntelligenceCustomOperator",
+   "twilio:index:IntelligenceService": "IntelligenceService",
    "twilio:index:IpRecord": "IpRecord",
    "twilio:index:MessagingService": "MessagingService",
+   "twilio:index:MessagingServiceAlphaSender": "MessagingServiceAlphaSender",
+   "twilio:index:MessagingServiceChannelSender": "MessagingServiceChannelSender",
+   "twilio:index:MessagingServiceDestinationAlphaSender": "MessagingServiceDestinationAlphaSender",
    "twilio:index:MessagingServicePhoneNumber": "MessagingServicePhoneNumber",
+   "twilio:index:MessagingServiceShortCode": "MessagingServiceShortCode",
+   "twilio:index:NotifyCredential": "NotifyCredential",
+   "twilio:index:NotifyService": "NotifyService",
    "twilio:index:OutgoingCallerId": "OutgoingCallerId",
+   "twilio:index:ProxyPhoneNumber": "ProxyPhoneNumber",
+   "twilio:index:ProxyService": "ProxyService",
+   "twilio:index:PublicKeyCredential": "PublicKeyCredential",
    "twilio:index:Queue": "Queue",
    "twilio:index:RoutesPhoneNumber": "RoutesPhoneNumber",
    "twilio:index:RoutesShortCode": "RoutesShortCode",
@@ -230,6 +288,7 @@ _utilities.register(
    "twilio:index:SipIpAddress": "SipIpAddress",
    "twilio:index:SourceIpMapping": "SourceIpMapping",
    "twilio:index:Subaccount": "Subaccount",
+   "twilio:index:SyncService": "SyncService",
    "twilio:index:TaskRouterActivity": "TaskRouterActivity",
    "twilio:index:TaskRouterTaskChannel": "TaskRouterTaskChannel",
    "twilio:index:TaskRouterTaskQueue": "TaskRouterTaskQueue",
@@ -247,6 +306,9 @@ _utilities.register(
    "twilio:index:VerifySafeListNumber": "VerifySafeListNumber",
    "twilio:index:VerifyService": "VerifyService",
    "twilio:index:VerifyWebhook": "VerifyWebhook",
+   "twilio:index:VideoCompositionHook": "VideoCompositionHook",
+   "twilio:index:VideoCompositionSettings": "VideoCompositionSettings",
+   "twilio:index:VideoRecordingSettings": "VideoRecordingSettings",
    "twilio:index:VoiceAccountDefaultRecordingConfiguration": "VoiceAccountDefaultRecordingConfiguration",
    "twilio:index:VoiceDefaultRecordingConfiguration": "VoiceDefaultRecordingConfiguration",
    "twilio:index:VoiceDefaultTranscriptionConfiguration": "VoiceDefaultTranscriptionConfiguration",

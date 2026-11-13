@@ -89,6 +89,7 @@ func (r *TaskRouterWorker) Diff(_ context.Context, req infer.DiffRequest[TaskRou
 	d := trDiffSet{}
 	d.replace("workspaceSid", o.WorkspaceSid, n.WorkspaceSid)
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
+	o.Attributes = trAttributesOrDefault(o.Attributes, n.Attributes)
 	d.jsonDoc("attributes", o.Attributes, n.Attributes)
 	d.str("activitySid", o.ActivitySid, n.ActivitySid)
 	return d.response(), nil
@@ -181,4 +182,14 @@ func (r *TaskRouterWorker) Update(ctx context.Context, req infer.UpdateRequest[T
 
 func (r *TaskRouterWorker) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterWorkerState]) (infer.DeleteResponse, error) {
 	return infer.DeleteResponse{}, trDelete(ctx, "worker", "Workers", req.ID)
+}
+
+// trAttributesOrDefault returns the stored attributes, or Twilio's default {} when an import left
+// them unset (#1880) and the program sets some.
+func trAttributesOrDefault(o, n *string) *string {
+	if o == nil && n != nil {
+		def := "{}"
+		return &def
+	}
+	return o
 }

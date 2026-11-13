@@ -228,6 +228,521 @@ export interface ConnectAppEffective {
     permissions?: string[];
 }
 
+export interface ContentAuthenticationAction {
+    /**
+     * Label of the copy-code button.
+     */
+    copyCodeText: string;
+    /**
+     * The button type. Only COPY_CODE exists.
+     */
+    type: string;
+}
+
+export interface ContentCallToAction {
+    /**
+     * The buttons.
+     */
+    actions: outputs.ContentCallToActionAction[];
+    /**
+     * The text of the message.
+     */
+    body: string;
+}
+
+export interface ContentCallToActionAction {
+    /**
+     * Code the button copies (type COPY_CODE).
+     */
+    code?: string;
+    /**
+     * Identifier of the button.
+     */
+    id?: string;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+     */
+    phone?: string;
+    /**
+     * Label of the button.
+     */
+    title?: string;
+    /**
+     * The button type: URL, PHONE_NUMBER, COPY_CODE, VOICE_CALL, VOICE_CALL_REQUEST or REQUEST_CONTACT_INFO.
+     */
+    type: string;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: string;
+}
+
+export interface ContentCard {
+    /**
+     * Buttons of the card.
+     */
+    actions?: outputs.ContentCardAction[];
+    /**
+     * URLs of the card's media.
+     */
+    media?: string[];
+    /**
+     * Subtitle of the card.
+     */
+    subtitle?: string;
+    /**
+     * Title of the card.
+     */
+    title?: string;
+}
+
+export interface ContentCardAction {
+    /**
+     * Code the button copies (type COPY_CODE).
+     */
+    code?: string;
+    /**
+     * Digitable line of a BOLETO payment.
+     */
+    digitableLine?: string;
+    /**
+     * Identifier of the button.
+     */
+    id?: string;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER or VOICE_CALL).
+     */
+    phone?: string;
+    /**
+     * Label of the button.
+     */
+    title?: string;
+    /**
+     * The button type: URL, PHONE_NUMBER, QUICK_REPLY, COPY_CODE, VOICE_CALL, PIX, BOLETO or PAYMENT_LINK.
+     */
+    type: string;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: string;
+    /**
+     * Size of the in-app web view a URL button opens: TALL, FULL, HALF or NONE.
+     */
+    webviewSize?: string;
+}
+
+export interface ContentCarousel {
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * The cards.
+     */
+    cards: outputs.ContentCarouselCard[];
+}
+
+export interface ContentCarouselAction {
+    /**
+     * Identifier returned to you when the recipient taps the button (type QUICK_REPLY).
+     */
+    id?: string;
+    /**
+     * Phone number the button dials (type PHONE_NUMBER).
+     */
+    phone?: string;
+    /**
+     * Label of the button.
+     */
+    title: string;
+    /**
+     * The button type: URL, PHONE_NUMBER or QUICK_REPLY.
+     */
+    type: string;
+    /**
+     * URL the button opens (type URL).
+     */
+    url?: string;
+}
+
+export interface ContentCarouselCard {
+    /**
+     * Buttons of the card.
+     */
+    actions: outputs.ContentCarouselAction[];
+    /**
+     * Text of the card.
+     */
+    body: string;
+    /**
+     * URL of the card's media.
+     */
+    media: string;
+    /**
+     * Title of the card.
+     */
+    title?: string;
+}
+
+export interface ContentCatalog {
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * A variable placeholder that Twilio fills with the products when the message is sent.
+     */
+    dynamicItems?: string;
+    /**
+     * Identifier of the catalog.
+     */
+    id?: string;
+    /**
+     * The products to show.
+     */
+    items?: outputs.ContentCatalogItem[];
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: string;
+    /**
+     * Title of the message.
+     */
+    title?: string;
+}
+
+export interface ContentCatalogItem {
+    /**
+     * Description of the product.
+     */
+    description?: string;
+    /**
+     * Identifier of the product in the catalog.
+     */
+    id?: string;
+    /**
+     * URL of the product image.
+     */
+    mediaUrl?: string;
+    /**
+     * Name of the product.
+     */
+    name?: string;
+    /**
+     * Price of the product.
+     */
+    price?: number;
+    /**
+     * Title of the section the product is listed in.
+     */
+    sectionTitle?: string;
+}
+
+export interface ContentFlows {
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * Label of the button that opens the flow.
+     */
+    buttonText: string;
+    /**
+     * URL of the media shown with the message.
+     */
+    mediaUrl?: string;
+    /**
+     * The pages of the flow.
+     */
+    pages: outputs.ContentFlowsPage[];
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: string;
+    /**
+     * The flow type.
+     */
+    type: string;
+}
+
+export interface ContentFlowsPage {
+    /**
+     * Identifier of the page.
+     */
+    id: string;
+    /**
+     * Components of the page.
+     */
+    layout: outputs.ContentFlowsPageComponent[];
+    /**
+     * Identifier of the page that follows this one.
+     */
+    nextPageId?: string;
+    /**
+     * Subtitle of the page.
+     */
+    subtitle?: string;
+    /**
+     * Title of the page.
+     */
+    title: string;
+}
+
+export interface ContentFlowsPageComponent {
+    /**
+     * Label of the component.
+     */
+    label?: string;
+    /**
+     * The component type.
+     */
+    type: string;
+}
+
+export interface ContentListItem {
+    /**
+     * Secondary text shown under the label.
+     */
+    description?: string;
+    /**
+     * Identifier of the option, returned to you when the recipient picks it.
+     */
+    id: string;
+    /**
+     * Label of the option.
+     */
+    item: string;
+}
+
+export interface ContentListPicker {
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * Label of the button that opens the menu.
+     */
+    button: string;
+    /**
+     * The options of the menu.
+     */
+    items: outputs.ContentListItem[];
+}
+
+export interface ContentLocation {
+    /**
+     * Address shown with the pin.
+     */
+    address?: string;
+    /**
+     * Identifier of the location.
+     */
+    id?: string;
+    /**
+     * Label shown with the pin.
+     */
+    label?: string;
+    /**
+     * Latitude of the pin.
+     */
+    latitude: number;
+    /**
+     * Longitude of the pin.
+     */
+    longitude: number;
+}
+
+export interface ContentMedia {
+    /**
+     * Text sent with the media.
+     */
+    body?: string;
+    /**
+     * URLs of the media to send.
+     */
+    media: string[];
+}
+
+export interface ContentQuickReply {
+    /**
+     * The reply buttons.
+     */
+    actions: outputs.ContentQuickReplyAction[];
+    /**
+     * The text of the message.
+     */
+    body: string;
+}
+
+export interface ContentQuickReplyAction {
+    /**
+     * Identifier returned to you when the recipient taps the button.
+     */
+    id?: string;
+    /**
+     * Label of the button.
+     */
+    title: string;
+    /**
+     * The button type. Only QUICK_REPLY exists.
+     */
+    type?: string;
+}
+
+export interface ContentSchedule {
+    /**
+     * Identifier of the schedule.
+     */
+    id: string;
+    /**
+     * The time slots, as Twilio's time_slots string (usually a variable placeholder filled when the message is sent).
+     */
+    timeSlots: string;
+    /**
+     * Title of the message.
+     */
+    title: string;
+}
+
+export interface ContentText {
+    /**
+     * The text of the message.
+     */
+    body: string;
+}
+
+export interface ContentTypes {
+    /**
+     * twilio/call-to-action: buttons that open a URL or dial a number.
+     */
+    callToAction?: outputs.ContentCallToAction;
+    /**
+     * twilio/card: a structured message with media and buttons.
+     */
+    card?: outputs.ContentCard;
+    /**
+     * twilio/carousel: a message with up to 10 cards.
+     */
+    carousel?: outputs.ContentCarousel;
+    /**
+     * twilio/catalog: a list of catalog products.
+     */
+    catalog?: outputs.ContentCatalog;
+    /**
+     * twilio/flows: a multi-page flow.
+     */
+    flows?: outputs.ContentFlows;
+    /**
+     * twilio/list-picker: a menu of up to 10 options.
+     */
+    listPicker?: outputs.ContentListPicker;
+    /**
+     * twilio/location: a location pin with an optional label.
+     */
+    location?: outputs.ContentLocation;
+    /**
+     * twilio/media: file attachments, or long text sent by MMS in the US and Canada.
+     */
+    media?: outputs.ContentMedia;
+    /**
+     * twilio/quick-reply: buttons the recipient taps to answer.
+     */
+    quickReply?: outputs.ContentQuickReply;
+    /**
+     * twilio/schedule: a message offering time slots.
+     */
+    schedule?: outputs.ContentSchedule;
+    /**
+     * twilio/text: plain text.
+     */
+    text?: outputs.ContentText;
+    /**
+     * whatsapp/authentication: a WhatsApp one-time-password message.
+     */
+    whatsappAuthentication?: outputs.ContentWhatsappAuthentication;
+    /**
+     * whatsapp/card: a WhatsApp card with header, footer and buttons.
+     */
+    whatsappCard?: outputs.ContentWhatsappCard;
+    /**
+     * whatsapp/flows: a message that opens a WhatsApp Flow.
+     */
+    whatsappFlows?: outputs.ContentWhatsappFlows;
+}
+
+export interface ContentWhatsappAuthentication {
+    /**
+     * The copy-code button.
+     */
+    actions: outputs.ContentAuthenticationAction[];
+    /**
+     * Whether WhatsApp adds its security recommendation to the message.
+     */
+    addSecurityRecommendation?: boolean;
+    /**
+     * Minutes until the code expires.
+     */
+    codeExpirationMinutes?: number;
+}
+
+export interface ContentWhatsappCard {
+    /**
+     * Buttons of the card.
+     */
+    actions?: outputs.ContentCardAction[];
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * Footer text.
+     */
+    footer?: string;
+    /**
+     * Header text.
+     */
+    headerText?: string;
+    /**
+     * URLs of the card's media.
+     */
+    media?: string[];
+}
+
+export interface ContentWhatsappFlows {
+    /**
+     * The text of the message.
+     */
+    body: string;
+    /**
+     * Label of the button that opens the flow.
+     */
+    buttonText: string;
+    /**
+     * ID of the first page of the flow.
+     */
+    flowFirstPageId?: string;
+    /**
+     * ID of the WhatsApp Flow to open.
+     */
+    flowId: string;
+    /**
+     * Token passed to the flow.
+     */
+    flowToken?: string;
+    /**
+     * Whether the first page of the flow is served by an endpoint.
+     */
+    isFlowFirstPageEndpoint?: boolean;
+    /**
+     * URL of the media shown with the message.
+     */
+    mediaUrl?: string;
+    /**
+     * Subtitle of the message.
+     */
+    subtitle?: string;
+}
+
 export interface ConversationsAutoCreation {
     /**
      * SID (IS...) of the service the conversation is created in; the default service when not set.
@@ -261,6 +776,55 @@ export interface ConversationsAutoCreation {
      * For type webhook, the URL the webhook request is sent to.
      */
     webhookUrl?: string;
+}
+
+export interface ConversationsMediaNotification {
+    /**
+     * Whether a notification is sent for a new message with media or file attachments (Twilio default false).
+     */
+    enabled?: boolean;
+    /**
+     * Template of the notification text for a message with media.
+     */
+    template?: string;
+}
+
+export interface ConversationsNewMessageNotification {
+    /**
+     * Whether the badge count is enabled (Twilio default false).
+     */
+    badgeCountEnabled?: boolean;
+    /**
+     * Whether a notification is sent when a message is added to a conversation (Twilio default false).
+     */
+    enabled?: boolean;
+    /**
+     * Name of the sound played with the notification.
+     */
+    sound?: string;
+    /**
+     * Template of the notification text.
+     */
+    template?: string;
+    /**
+     * The notification for a message with media or file attachments.
+     */
+    withMedia?: outputs.ConversationsMediaNotification;
+}
+
+export interface ConversationsNotification {
+    /**
+     * Whether the notification is sent (Twilio default false).
+     */
+    enabled?: boolean;
+    /**
+     * Name of the sound played with the notification.
+     */
+    sound?: string;
+    /**
+     * Template of the notification text.
+     */
+    template?: string;
 }
 
 export interface DialingCountry {
@@ -452,6 +1016,29 @@ export interface IncomingPhoneNumberEffective {
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
      */
     voiceUrl?: string;
+}
+
+export interface MessagingGeoPermission {
+    /**
+     * The ISO country code.
+     */
+    countryCode: string;
+    /**
+     * Whether the account may send messages to the country.
+     */
+    enabled?: boolean;
+    /**
+     * A note Twilio attaches to the country, for example a risk warning.
+     */
+    message?: string;
+    /**
+     * The international dialing prefix of the country.
+     */
+    prefix?: string;
+    /**
+     * The kind of permission, for example country.
+     */
+    type?: string;
 }
 
 export interface MessagingServiceEffective {

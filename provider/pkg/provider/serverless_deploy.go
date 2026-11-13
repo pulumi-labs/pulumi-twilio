@@ -292,7 +292,7 @@ func (a *ServerlessAssetVersionArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.AssetSid, "SID (ZH...) of the Asset (a ServerlessAsset) the version belongs to. Changing it replaces the resource.")
 	an.Describe(&a.Path, "URL path the asset is served on, starting with /, at most 255 characters, for example /logo.svg. Changing it replaces the resource.")
 	an.Describe(&a.Visibility, "Who may fetch the asset: public (anyone), protected (requests signed by Twilio) or private (only Functions of the service). Changing it replaces the resource.")
-	an.Describe(&a.Content, "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.")
+	an.Describe(&a.Content, "The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.")
 	an.Describe(&a.ContentBase64, "The file as base64, for binary content such as images. Set exactly one of content and contentBase64.")
 	an.Describe(&a.ContentType, "Content type of the uploaded file. Defaults to application/octet-stream; set it (for example text/html) so Twilio serves the asset with the right type.")
 }
@@ -336,7 +336,10 @@ func (r *ServerlessAssetVersion) Check(ctx context.Context, req infer.CheckReque
 	c.pathProp("path", args.Path)
 	c.oneOf("visibility", args.Visibility, serverlessVisibilities)
 	if !c.unk("content", "contentBase64") {
-		if (args.Content == nil) == (args.ContentBase64 == nil) {
+		// Neither is allowed here: Twilio never returns asset bytes, so an imported
+		// asset version has neither and Check of the imported inputs must pass
+		// (#1879). Create still refuses a version with no bytes.
+		if args.Content != nil && args.ContentBase64 != nil {
 			c.fail("content", "set exactly one of content and contentBase64")
 		} else if args.ContentBase64 != nil {
 			if _, err := base64.StdEncoding.DecodeString(*args.ContentBase64); err != nil {
@@ -366,6 +369,9 @@ func (r *ServerlessAssetVersion) Create(ctx context.Context, req infer.CreateReq
 	a := req.Inputs
 	if req.DryRun {
 		return infer.CreateResponse[ServerlessAssetVersionState]{Output: ServerlessAssetVersionState{ServerlessAssetVersionArgs: a}}, nil
+	}
+	if a.Content == nil && a.ContentBase64 == nil {
+		return infer.CreateResponse[ServerlessAssetVersionState]{}, fmt.Errorf("serverless asset version: set exactly one of content and contentBase64 (an imported asset version has neither, but a new one needs the bytes to upload)")
 	}
 	var content []byte
 	if a.ContentBase64 != nil {
@@ -553,6 +559,16 @@ func sameList(a, b *[]string) bool {
 	return true
 }
 
+// twilioDefaultDependencies are the packages Twilio adds to every build on top
+// of the requested ones, so an imported build lists them although no program
+// asked for them (#1878).
+var twilioDefaultDependencies = map[string]bool{
+	"util": true, "xmldom": true, "lodash": true, "@twilio/runtime-handler": true,
+}
+
+// sameDeps reports whether the dependencies in the state (a) match those the
+// program asks for (b), ignoring order and ignoring Twilio's default packages
+// when the program does not list them.
 func sameDeps(a, b *[]ServerlessBuildDependency) bool {
 	var x, y []ServerlessBuildDependency
 	if a != nil {
@@ -561,11 +577,21 @@ func sameDeps(a, b *[]ServerlessBuildDependency) bool {
 	if b != nil {
 		y = *b
 	}
-	if len(x) != len(y) {
-		return false
+	have := map[ServerlessBuildDependency]bool{}
+	for _, d := range x {
+		have[d] = true
 	}
-	for i := range x {
-		if x[i] != y[i] {
+	want := map[ServerlessBuildDependency]bool{}
+	wantName := map[string]bool{}
+	for _, d := range y {
+		want[d] = true
+		wantName[d.Name] = true
+		if !have[d] {
+			return false
+		}
+	}
+	for _, d := range x {
+		if !want[d] && !(twilioDefaultDependencies[d.Name] && !wantName[d.Name]) {
 			return false
 		}
 	}
@@ -666,7 +692,28 @@ func (r *ServerlessBuild) Create(ctx context.Context, req infer.CreateRequest[Se
 	return infer.CreateResponse[ServerlessBuildState]{ID: a.ServiceSid + "/" + sid, Output: st}, nil
 }
 
-func versionList(o obj, k string) *[]string { return o.optList(k) }
+// versionList reads the version SIDs a build holds. Twilio returns them as
+// objects (function_versions[].sid, asset_versions[].sid), which optList would
+// drop (it keeps strings only), so an import or lookup saw none (#1878). Plain
+// SID strings are accepted too.
+func versionList(o obj, k string) *[]string {
+	raw, ok := o.get(k).([]any)
+	if !ok {
+		return o.optList(k)
+	}
+	out := []string{}
+	for _, it := range raw {
+		switch v := it.(type) {
+		case string:
+			out = append(out, v)
+		case map[string]any:
+			if sid := obj(v).str("sid"); sid != "" {
+				out = append(out, sid)
+			}
+		}
+	}
+	return &out
+}
 
 func buildDeps(o obj) *[]ServerlessBuildDependency {
 	raw, ok := o.get("dependencies").([]any)

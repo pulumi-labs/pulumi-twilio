@@ -43,7 +43,7 @@ export class ServerlessAssetVersion extends pulumi.CustomResource {
      */
     declare public readonly assetSid: pulumi.Output<string>;
     /**
-     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      */
     declare public readonly content: pulumi.Output<string | undefined>;
     /**
@@ -140,7 +140,7 @@ export interface ServerlessAssetVersionArgs {
      */
     assetSid: pulumi.Input<string>;
     /**
-     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64. Twilio does not return asset bytes, so after an import this stays unset and a program that sets it plans no change.
+     * The file as text, for HTML, CSS, JSON or SVG. Set exactly one of content and contentBase64 when creating a version. Twilio does not return asset bytes, so after an import both stay unset (that is accepted) and a program that sets one plans no change.
      */
     content?: pulumi.Input<string | undefined>;
     /**

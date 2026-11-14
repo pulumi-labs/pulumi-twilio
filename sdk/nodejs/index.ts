@@ -40,6 +40,11 @@ export type ByocTrunk = import("./byocTrunk").ByocTrunk;
 export const ByocTrunk: typeof import("./byocTrunk").ByocTrunk = null as any;
 utilities.lazyLoad(exports, ["ByocTrunk"], () => require("./byocTrunk"));
 
+export { ChannelsSenderArgs } from "./channelsSender";
+export type ChannelsSender = import("./channelsSender").ChannelsSender;
+export const ChannelsSender: typeof import("./channelsSender").ChannelsSender = null as any;
+utilities.lazyLoad(exports, ["ChannelsSender"], () => require("./channelsSender"));
+
 export { ConnectAppArgs } from "./connectApp";
 export type ConnectApp = import("./connectApp").ConnectApp;
 export const ConnectApp: typeof import("./connectApp").ConnectApp = null as any;
@@ -199,6 +204,16 @@ export { GetByocTrunkArgs, GetByocTrunkResult, GetByocTrunkOutputArgs } from "./
 export const getByocTrunk: typeof import("./getByocTrunk").getByocTrunk = null as any;
 export const getByocTrunkOutput: typeof import("./getByocTrunk").getByocTrunkOutput = null as any;
 utilities.lazyLoad(exports, ["getByocTrunk","getByocTrunkOutput"], () => require("./getByocTrunk"));
+
+export { GetChannelsSenderArgs, GetChannelsSenderResult, GetChannelsSenderOutputArgs } from "./getChannelsSender";
+export const getChannelsSender: typeof import("./getChannelsSender").getChannelsSender = null as any;
+export const getChannelsSenderOutput: typeof import("./getChannelsSender").getChannelsSenderOutput = null as any;
+utilities.lazyLoad(exports, ["getChannelsSender","getChannelsSenderOutput"], () => require("./getChannelsSender"));
+
+export { GetChannelsSendersArgs, GetChannelsSendersResult, GetChannelsSendersOutputArgs } from "./getChannelsSenders";
+export const getChannelsSenders: typeof import("./getChannelsSenders").getChannelsSenders = null as any;
+export const getChannelsSendersOutput: typeof import("./getChannelsSenders").getChannelsSendersOutput = null as any;
+utilities.lazyLoad(exports, ["getChannelsSenders","getChannelsSendersOutput"], () => require("./getChannelsSenders"));
 
 export { GetConnectAppArgs, GetConnectAppResult, GetConnectAppOutputArgs } from "./getConnectApp";
 export const getConnectApp: typeof import("./getConnectApp").getConnectApp = null as any;
@@ -750,6 +765,56 @@ export const getTrunkOriginationUrl: typeof import("./getTrunkOriginationUrl").g
 export const getTrunkOriginationUrlOutput: typeof import("./getTrunkOriginationUrl").getTrunkOriginationUrlOutput = null as any;
 utilities.lazyLoad(exports, ["getTrunkOriginationUrl","getTrunkOriginationUrlOutput"], () => require("./getTrunkOriginationUrl"));
 
+export { GetTrustHubEndUserArgs, GetTrustHubEndUserResult, GetTrustHubEndUserOutputArgs } from "./getTrustHubEndUser";
+export const getTrustHubEndUser: typeof import("./getTrustHubEndUser").getTrustHubEndUser = null as any;
+export const getTrustHubEndUserOutput: typeof import("./getTrustHubEndUser").getTrustHubEndUserOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubEndUser","getTrustHubEndUserOutput"], () => require("./getTrustHubEndUser"));
+
+export { GetTrustHubEndUserTypeArgs, GetTrustHubEndUserTypeResult, GetTrustHubEndUserTypeOutputArgs } from "./getTrustHubEndUserType";
+export const getTrustHubEndUserType: typeof import("./getTrustHubEndUserType").getTrustHubEndUserType = null as any;
+export const getTrustHubEndUserTypeOutput: typeof import("./getTrustHubEndUserType").getTrustHubEndUserTypeOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubEndUserType","getTrustHubEndUserTypeOutput"], () => require("./getTrustHubEndUserType"));
+
+export { GetTrustHubEndUserTypesArgs, GetTrustHubEndUserTypesResult } from "./getTrustHubEndUserTypes";
+export const getTrustHubEndUserTypes: typeof import("./getTrustHubEndUserTypes").getTrustHubEndUserTypes = null as any;
+export const getTrustHubEndUserTypesOutput: typeof import("./getTrustHubEndUserTypes").getTrustHubEndUserTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubEndUserTypes","getTrustHubEndUserTypesOutput"], () => require("./getTrustHubEndUserTypes"));
+
+export { GetTrustHubEndUsersArgs, GetTrustHubEndUsersResult } from "./getTrustHubEndUsers";
+export const getTrustHubEndUsers: typeof import("./getTrustHubEndUsers").getTrustHubEndUsers = null as any;
+export const getTrustHubEndUsersOutput: typeof import("./getTrustHubEndUsers").getTrustHubEndUsersOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubEndUsers","getTrustHubEndUsersOutput"], () => require("./getTrustHubEndUsers"));
+
+export { GetTrustHubPoliciesArgs, GetTrustHubPoliciesResult } from "./getTrustHubPolicies";
+export const getTrustHubPolicies: typeof import("./getTrustHubPolicies").getTrustHubPolicies = null as any;
+export const getTrustHubPoliciesOutput: typeof import("./getTrustHubPolicies").getTrustHubPoliciesOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubPolicies","getTrustHubPoliciesOutput"], () => require("./getTrustHubPolicies"));
+
+export { GetTrustHubPolicyArgs, GetTrustHubPolicyResult, GetTrustHubPolicyOutputArgs } from "./getTrustHubPolicy";
+export const getTrustHubPolicy: typeof import("./getTrustHubPolicy").getTrustHubPolicy = null as any;
+export const getTrustHubPolicyOutput: typeof import("./getTrustHubPolicy").getTrustHubPolicyOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubPolicy","getTrustHubPolicyOutput"], () => require("./getTrustHubPolicy"));
+
+export { GetTrustHubSupportingDocumentArgs, GetTrustHubSupportingDocumentResult, GetTrustHubSupportingDocumentOutputArgs } from "./getTrustHubSupportingDocument";
+export const getTrustHubSupportingDocument: typeof import("./getTrustHubSupportingDocument").getTrustHubSupportingDocument = null as any;
+export const getTrustHubSupportingDocumentOutput: typeof import("./getTrustHubSupportingDocument").getTrustHubSupportingDocumentOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubSupportingDocument","getTrustHubSupportingDocumentOutput"], () => require("./getTrustHubSupportingDocument"));
+
+export { GetTrustHubSupportingDocumentTypeArgs, GetTrustHubSupportingDocumentTypeResult, GetTrustHubSupportingDocumentTypeOutputArgs } from "./getTrustHubSupportingDocumentType";
+export const getTrustHubSupportingDocumentType: typeof import("./getTrustHubSupportingDocumentType").getTrustHubSupportingDocumentType = null as any;
+export const getTrustHubSupportingDocumentTypeOutput: typeof import("./getTrustHubSupportingDocumentType").getTrustHubSupportingDocumentTypeOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubSupportingDocumentType","getTrustHubSupportingDocumentTypeOutput"], () => require("./getTrustHubSupportingDocumentType"));
+
+export { GetTrustHubSupportingDocumentTypesArgs, GetTrustHubSupportingDocumentTypesResult } from "./getTrustHubSupportingDocumentTypes";
+export const getTrustHubSupportingDocumentTypes: typeof import("./getTrustHubSupportingDocumentTypes").getTrustHubSupportingDocumentTypes = null as any;
+export const getTrustHubSupportingDocumentTypesOutput: typeof import("./getTrustHubSupportingDocumentTypes").getTrustHubSupportingDocumentTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubSupportingDocumentTypes","getTrustHubSupportingDocumentTypesOutput"], () => require("./getTrustHubSupportingDocumentTypes"));
+
+export { GetTrustHubSupportingDocumentsArgs, GetTrustHubSupportingDocumentsResult } from "./getTrustHubSupportingDocuments";
+export const getTrustHubSupportingDocuments: typeof import("./getTrustHubSupportingDocuments").getTrustHubSupportingDocuments = null as any;
+export const getTrustHubSupportingDocumentsOutput: typeof import("./getTrustHubSupportingDocuments").getTrustHubSupportingDocumentsOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustHubSupportingDocuments","getTrustHubSupportingDocumentsOutput"], () => require("./getTrustHubSupportingDocuments"));
+
 export { GetUsAppToPersonArgs, GetUsAppToPersonResult, GetUsAppToPersonOutputArgs } from "./getUsAppToPerson";
 export const getUsAppToPerson: typeof import("./getUsAppToPerson").getUsAppToPerson = null as any;
 export const getUsAppToPersonOutput: typeof import("./getUsAppToPerson").getUsAppToPersonOutput = null as any;
@@ -1160,6 +1225,16 @@ export type TrunkOriginationUrl = import("./trunkOriginationUrl").TrunkOriginati
 export const TrunkOriginationUrl: typeof import("./trunkOriginationUrl").TrunkOriginationUrl = null as any;
 utilities.lazyLoad(exports, ["TrunkOriginationUrl"], () => require("./trunkOriginationUrl"));
 
+export { TrustHubEndUserArgs } from "./trustHubEndUser";
+export type TrustHubEndUser = import("./trustHubEndUser").TrustHubEndUser;
+export const TrustHubEndUser: typeof import("./trustHubEndUser").TrustHubEndUser = null as any;
+utilities.lazyLoad(exports, ["TrustHubEndUser"], () => require("./trustHubEndUser"));
+
+export { TrustHubSupportingDocumentArgs } from "./trustHubSupportingDocument";
+export type TrustHubSupportingDocument = import("./trustHubSupportingDocument").TrustHubSupportingDocument;
+export const TrustHubSupportingDocument: typeof import("./trustHubSupportingDocument").TrustHubSupportingDocument = null as any;
+utilities.lazyLoad(exports, ["TrustHubSupportingDocument"], () => require("./trustHubSupportingDocument"));
+
 export { UsAppToPersonArgs } from "./usAppToPerson";
 export type UsAppToPerson = import("./usAppToPerson").UsAppToPerson;
 export const UsAppToPerson: typeof import("./usAppToPerson").UsAppToPerson = null as any;
@@ -1273,6 +1348,8 @@ const _module = {
                 return new BrandRegistration(name, <any>undefined, { urn })
             case "twilio:index:ByocTrunk":
                 return new ByocTrunk(name, <any>undefined, { urn })
+            case "twilio:index:ChannelsSender":
+                return new ChannelsSender(name, <any>undefined, { urn })
             case "twilio:index:ConnectApp":
                 return new ConnectApp(name, <any>undefined, { urn })
             case "twilio:index:ConnectionPolicy":
@@ -1431,6 +1508,10 @@ const _module = {
                 return new TrunkIpAccessControlList(name, <any>undefined, { urn })
             case "twilio:index:TrunkOriginationUrl":
                 return new TrunkOriginationUrl(name, <any>undefined, { urn })
+            case "twilio:index:TrustHubEndUser":
+                return new TrustHubEndUser(name, <any>undefined, { urn })
+            case "twilio:index:TrustHubSupportingDocument":
+                return new TrustHubSupportingDocument(name, <any>undefined, { urn })
             case "twilio:index:UsAppToPerson":
                 return new UsAppToPerson(name, <any>undefined, { urn })
             case "twilio:index:UsageTrigger":

@@ -21,6 +21,18 @@ __all__ = [
     'AuthorizedConnectApp',
     'AvailablePhoneNumber',
     'BrandRegistrationInfo',
+    'ChannelsSenderCarrier',
+    'ChannelsSenderCompliance',
+    'ChannelsSenderComplianceCountry',
+    'ChannelsSenderConfiguration',
+    'ChannelsSenderInfo',
+    'ChannelsSenderLabeledEmail',
+    'ChannelsSenderLabeledPhone',
+    'ChannelsSenderLabeledWebsite',
+    'ChannelsSenderOfflineReason',
+    'ChannelsSenderProfile',
+    'ChannelsSenderProperties',
+    'ChannelsSenderWebhook',
     'ConnectAppEffective',
     'ContentAuthenticationAction',
     'ContentCallToAction',
@@ -84,6 +96,10 @@ __all__ = [
     'TranscriptionParticipantDefault',
     'TranscriptionStatusCallback',
     'TrunkEffective',
+    'TrustHubEndUserInfo',
+    'TrustHubPolicyInfo',
+    'TrustHubSupportingDocumentInfo',
+    'TrustHubTypeInfo',
     'UsAppToPersonInfo',
     'UsAppToPersonUsecaseInfo',
     'UsageRecord',
@@ -845,6 +861,908 @@ class BrandRegistrationInfo(dict):
         The Campaign Registry (TCR) brand ID (empty until assigned).
         """
         return pulumi.get(self, "tcr_id")
+
+
+@pulumi.output_type
+class ChannelsSenderCarrier(dict):
+    def __init__(__self__, *,
+                 name: Optional[_builtins.str] = None,
+                 status: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str name: Name of the carrier, for example Verizon.
+        :param _builtins.str status: Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the carrier, for example Verizon.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.str]:
+        """
+        Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED.
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class ChannelsSenderCompliance(dict):
+    def __init__(__self__, *,
+                 registration_sid: _builtins.str,
+                 countries: Optional[Sequence['outputs.ChannelsSenderComplianceCountry']] = None):
+        """
+        :param _builtins.str registration_sid: Default compliance registration SID, which applies to every country without its own.
+        :param Sequence['ChannelsSenderComplianceCountry'] countries: Country-specific compliance details.
+        """
+        pulumi.set(__self__, "registration_sid", registration_sid)
+        if countries is not None:
+            pulumi.set(__self__, "countries", countries)
+
+    @_builtins.property
+    @pulumi.getter(name="registrationSid")
+    def registration_sid(self) -> _builtins.str:
+        """
+        Default compliance registration SID, which applies to every country without its own.
+        """
+        return pulumi.get(self, "registration_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def countries(self) -> Optional[Sequence['outputs.ChannelsSenderComplianceCountry']]:
+        """
+        Country-specific compliance details.
+        """
+        return pulumi.get(self, "countries")
+
+
+@pulumi.output_type
+class ChannelsSenderComplianceCountry(dict):
+    def __init__(__self__, *,
+                 country: _builtins.str,
+                 carriers: Optional[Sequence['outputs.ChannelsSenderCarrier']] = None,
+                 registration_sid: Optional[_builtins.str] = None,
+                 status: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str country: ISO 3166-1 alpha-2 country code.
+        :param Sequence['ChannelsSenderCarrier'] carriers: Status per carrier.
+        :param _builtins.str registration_sid: Compliance registration SID for the country.
+        :param _builtins.str status: Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION.
+        """
+        pulumi.set(__self__, "country", country)
+        if carriers is not None:
+            pulumi.set(__self__, "carriers", carriers)
+        if registration_sid is not None:
+            pulumi.set(__self__, "registration_sid", registration_sid)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def country(self) -> _builtins.str:
+        """
+        ISO 3166-1 alpha-2 country code.
+        """
+        return pulumi.get(self, "country")
+
+    @_builtins.property
+    @pulumi.getter
+    def carriers(self) -> Optional[Sequence['outputs.ChannelsSenderCarrier']]:
+        """
+        Status per carrier.
+        """
+        return pulumi.get(self, "carriers")
+
+    @_builtins.property
+    @pulumi.getter(name="registrationSid")
+    def registration_sid(self) -> Optional[_builtins.str]:
+        """
+        Compliance registration SID for the country.
+        """
+        return pulumi.get(self, "registration_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.str]:
+        """
+        Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION.
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class ChannelsSenderConfiguration(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accountType":
+            suggest = "account_type"
+        elif key == "verificationCode":
+            suggest = "verification_code"
+        elif key == "verificationMethod":
+            suggest = "verification_method"
+        elif key == "voiceApplicationSid":
+            suggest = "voice_application_sid"
+        elif key == "wabaId":
+            suggest = "waba_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderConfiguration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 account_type: Optional[_builtins.str] = None,
+                 verification_code: Optional[_builtins.str] = None,
+                 verification_method: Optional[_builtins.str] = None,
+                 voice_application_sid: Optional[_builtins.str] = None,
+                 waba_id: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str account_type: The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+        :param _builtins.str verification_code: The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+        :param _builtins.str verification_method: How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+        :param _builtins.str voice_application_sid: SID (AP...) of the Twilio Voice application for the sender.
+        :param _builtins.str waba_id: ID of the WhatsApp Business Account (WABA) the sender belongs to.
+        """
+        if account_type is not None:
+            pulumi.set(__self__, "account_type", account_type)
+        if verification_code is not None:
+            pulumi.set(__self__, "verification_code", verification_code)
+        if verification_method is not None:
+            pulumi.set(__self__, "verification_method", verification_method)
+        if voice_application_sid is not None:
+            pulumi.set(__self__, "voice_application_sid", voice_application_sid)
+        if waba_id is not None:
+            pulumi.set(__self__, "waba_id", waba_id)
+
+    @_builtins.property
+    @pulumi.getter(name="accountType")
+    def account_type(self) -> Optional[_builtins.str]:
+        """
+        The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+        """
+        return pulumi.get(self, "account_type")
+
+    @_builtins.property
+    @pulumi.getter(name="verificationCode")
+    def verification_code(self) -> Optional[_builtins.str]:
+        """
+        The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+        """
+        return pulumi.get(self, "verification_code")
+
+    @_builtins.property
+    @pulumi.getter(name="verificationMethod")
+    def verification_method(self) -> Optional[_builtins.str]:
+        """
+        How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+        """
+        return pulumi.get(self, "verification_method")
+
+    @_builtins.property
+    @pulumi.getter(name="voiceApplicationSid")
+    def voice_application_sid(self) -> Optional[_builtins.str]:
+        """
+        SID (AP...) of the Twilio Voice application for the sender.
+        """
+        return pulumi.get(self, "voice_application_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="wabaId")
+    def waba_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the WhatsApp Business Account (WABA) the sender belongs to.
+        """
+        return pulumi.get(self, "waba_id")
+
+
+@pulumi.output_type
+class ChannelsSenderInfo(dict):
+    def __init__(__self__, *,
+                 sender_id: _builtins.str,
+                 sid: _builtins.str,
+                 status: _builtins.str,
+                 url: _builtins.str,
+                 compliance: Optional['outputs.ChannelsSenderCompliance'] = None,
+                 configuration: Optional['outputs.ChannelsSenderConfiguration'] = None,
+                 friendly_name: Optional[_builtins.str] = None,
+                 offline_reasons: Optional[Sequence['outputs.ChannelsSenderOfflineReason']] = None,
+                 pending_display_name: Optional[_builtins.str] = None,
+                 pending_display_name_status: Optional[_builtins.str] = None,
+                 pending_display_name_status_date: Optional[_builtins.str] = None,
+                 profile: Optional['outputs.ChannelsSenderProfile'] = None,
+                 profile_use_case: Optional[_builtins.str] = None,
+                 properties: Optional['outputs.ChannelsSenderProperties'] = None,
+                 webhook: Optional['outputs.ChannelsSenderWebhook'] = None):
+        """
+        :param _builtins.str sender_id: The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.
+        :param _builtins.str sid: The sender SID (XE...).
+        :param _builtins.str status: Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.
+        :param _builtins.str url: The URL of the sender.
+        :param 'ChannelsSenderCompliance' compliance: RCS only: compliance registration and carrier status per country.
+        :param 'ChannelsSenderConfiguration' configuration: Configuration of the sender. The verification code is never returned.
+        :param _builtins.str friendly_name: Label of the sender in the Twilio Console.
+        :param Sequence['ChannelsSenderOfflineReason'] offline_reasons: Why the sender is offline, when it is.
+        :param _builtins.str pending_display_name: WhatsApp only: the display name the latest name change applies to. Null when there was no name change.
+        :param _builtins.str pending_display_name_status: WhatsApp only: status of the latest display name change.
+        :param _builtins.str pending_display_name_status_date: WhatsApp only: when that status last changed.
+        :param 'ChannelsSenderProfile' profile: Business profile of the sender.
+        :param _builtins.str profile_use_case: The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.
+        :param 'ChannelsSenderProperties' properties: Quality rating and messaging limit of the sender.
+        :param 'ChannelsSenderWebhook' webhook: Webhooks of the sender.
+        """
+        pulumi.set(__self__, "sender_id", sender_id)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "url", url)
+        if compliance is not None:
+            pulumi.set(__self__, "compliance", compliance)
+        if configuration is not None:
+            pulumi.set(__self__, "configuration", configuration)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if offline_reasons is not None:
+            pulumi.set(__self__, "offline_reasons", offline_reasons)
+        if pending_display_name is not None:
+            pulumi.set(__self__, "pending_display_name", pending_display_name)
+        if pending_display_name_status is not None:
+            pulumi.set(__self__, "pending_display_name_status", pending_display_name_status)
+        if pending_display_name_status_date is not None:
+            pulumi.set(__self__, "pending_display_name_status_date", pending_display_name_status_date)
+        if profile is not None:
+            pulumi.set(__self__, "profile", profile)
+        if profile_use_case is not None:
+            pulumi.set(__self__, "profile_use_case", profile_use_case)
+        if properties is not None:
+            pulumi.set(__self__, "properties", properties)
+        if webhook is not None:
+            pulumi.set(__self__, "webhook", webhook)
+
+    @_builtins.property
+    @pulumi.getter(name="senderId")
+    def sender_id(self) -> _builtins.str:
+        """
+        The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.
+        """
+        return pulumi.get(self, "sender_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The sender SID (XE...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        The URL of the sender.
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter
+    def compliance(self) -> Optional['outputs.ChannelsSenderCompliance']:
+        """
+        RCS only: compliance registration and carrier status per country.
+        """
+        return pulumi.get(self, "compliance")
+
+    @_builtins.property
+    @pulumi.getter
+    def configuration(self) -> Optional['outputs.ChannelsSenderConfiguration']:
+        """
+        Configuration of the sender. The verification code is never returned.
+        """
+        return pulumi.get(self, "configuration")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        Label of the sender in the Twilio Console.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="offlineReasons")
+    def offline_reasons(self) -> Optional[Sequence['outputs.ChannelsSenderOfflineReason']]:
+        """
+        Why the sender is offline, when it is.
+        """
+        return pulumi.get(self, "offline_reasons")
+
+    @_builtins.property
+    @pulumi.getter(name="pendingDisplayName")
+    def pending_display_name(self) -> Optional[_builtins.str]:
+        """
+        WhatsApp only: the display name the latest name change applies to. Null when there was no name change.
+        """
+        return pulumi.get(self, "pending_display_name")
+
+    @_builtins.property
+    @pulumi.getter(name="pendingDisplayNameStatus")
+    def pending_display_name_status(self) -> Optional[_builtins.str]:
+        """
+        WhatsApp only: status of the latest display name change.
+        """
+        return pulumi.get(self, "pending_display_name_status")
+
+    @_builtins.property
+    @pulumi.getter(name="pendingDisplayNameStatusDate")
+    def pending_display_name_status_date(self) -> Optional[_builtins.str]:
+        """
+        WhatsApp only: when that status last changed.
+        """
+        return pulumi.get(self, "pending_display_name_status_date")
+
+    @_builtins.property
+    @pulumi.getter
+    def profile(self) -> Optional['outputs.ChannelsSenderProfile']:
+        """
+        Business profile of the sender.
+        """
+        return pulumi.get(self, "profile")
+
+    @_builtins.property
+    @pulumi.getter(name="profileUseCase")
+    def profile_use_case(self) -> Optional[_builtins.str]:
+        """
+        The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.
+        """
+        return pulumi.get(self, "profile_use_case")
+
+    @_builtins.property
+    @pulumi.getter
+    def properties(self) -> Optional['outputs.ChannelsSenderProperties']:
+        """
+        Quality rating and messaging limit of the sender.
+        """
+        return pulumi.get(self, "properties")
+
+    @_builtins.property
+    @pulumi.getter
+    def webhook(self) -> Optional['outputs.ChannelsSenderWebhook']:
+        """
+        Webhooks of the sender.
+        """
+        return pulumi.get(self, "webhook")
+
+
+@pulumi.output_type
+class ChannelsSenderLabeledEmail(dict):
+    def __init__(__self__, *,
+                 email: _builtins.str,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str email: The email address.
+        :param _builtins.str label: Label of the email address.
+        """
+        pulumi.set(__self__, "email", email)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def email(self) -> _builtins.str:
+        """
+        The email address.
+        """
+        return pulumi.get(self, "email")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        Label of the email address.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ChannelsSenderLabeledPhone(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "phoneNumber":
+            suggest = "phone_number"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderLabeledPhone. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderLabeledPhone.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderLabeledPhone.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 phone_number: _builtins.str,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str phone_number: The phone number.
+        :param _builtins.str label: Label of the phone number.
+        """
+        pulumi.set(__self__, "phone_number", phone_number)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumber")
+    def phone_number(self) -> _builtins.str:
+        """
+        The phone number.
+        """
+        return pulumi.get(self, "phone_number")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        Label of the phone number.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ChannelsSenderLabeledWebsite(dict):
+    def __init__(__self__, *,
+                 website: _builtins.str,
+                 label: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str website: The website URL.
+        :param _builtins.str label: Label of the website.
+        """
+        pulumi.set(__self__, "website", website)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def website(self) -> _builtins.str:
+        """
+        The website URL.
+        """
+        return pulumi.get(self, "website")
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[_builtins.str]:
+        """
+        Label of the website.
+        """
+        return pulumi.get(self, "label")
+
+
+@pulumi.output_type
+class ChannelsSenderOfflineReason(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "moreInfo":
+            suggest = "more_info"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderOfflineReason. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderOfflineReason.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderOfflineReason.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 code: Optional[_builtins.str] = None,
+                 message: Optional[_builtins.str] = None,
+                 more_info: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str code: The error code.
+        :param _builtins.str message: The error message.
+        :param _builtins.str more_info: URL with more information about the error.
+        """
+        if code is not None:
+            pulumi.set(__self__, "code", code)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if more_info is not None:
+            pulumi.set(__self__, "more_info", more_info)
+
+    @_builtins.property
+    @pulumi.getter
+    def code(self) -> Optional[_builtins.str]:
+        """
+        The error code.
+        """
+        return pulumi.get(self, "code")
+
+    @_builtins.property
+    @pulumi.getter
+    def message(self) -> Optional[_builtins.str]:
+        """
+        The error message.
+        """
+        return pulumi.get(self, "message")
+
+    @_builtins.property
+    @pulumi.getter(name="moreInfo")
+    def more_info(self) -> Optional[_builtins.str]:
+        """
+        URL with more information about the error.
+        """
+        return pulumi.get(self, "more_info")
+
+
+@pulumi.output_type
+class ChannelsSenderProfile(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accentColor":
+            suggest = "accent_color"
+        elif key == "bannerUrl":
+            suggest = "banner_url"
+        elif key == "logoUrl":
+            suggest = "logo_url"
+        elif key == "phoneNumbers":
+            suggest = "phone_numbers"
+        elif key == "privacyUrl":
+            suggest = "privacy_url"
+        elif key == "termsOfServiceUrl":
+            suggest = "terms_of_service_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderProfile. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderProfile.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderProfile.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 about: Optional[_builtins.str] = None,
+                 accent_color: Optional[_builtins.str] = None,
+                 address: Optional[_builtins.str] = None,
+                 banner_url: Optional[_builtins.str] = None,
+                 description: Optional[_builtins.str] = None,
+                 emails: Optional[Sequence['outputs.ChannelsSenderLabeledEmail']] = None,
+                 logo_url: Optional[_builtins.str] = None,
+                 phone_numbers: Optional[Sequence['outputs.ChannelsSenderLabeledPhone']] = None,
+                 privacy_url: Optional[_builtins.str] = None,
+                 terms_of_service_url: Optional[_builtins.str] = None,
+                 vertical: Optional[_builtins.str] = None,
+                 websites: Optional[Sequence['outputs.ChannelsSenderLabeledWebsite']] = None):
+        """
+        :param _builtins.str name: The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+        :param _builtins.str about: The about text of the profile.
+        :param _builtins.str accent_color: Color theme of the profile, in hex format.
+        :param _builtins.str address: The address of the business.
+        :param _builtins.str banner_url: URL of the banner image.
+        :param _builtins.str description: The description of the business.
+        :param Sequence['ChannelsSenderLabeledEmail'] emails: Email addresses of the business.
+        :param _builtins.str logo_url: URL of the logo.
+        :param Sequence['ChannelsSenderLabeledPhone'] phone_numbers: Phone numbers of the business.
+        :param _builtins.str privacy_url: Publicly accessible HTTP or HTTPS URL of the privacy policy.
+        :param _builtins.str terms_of_service_url: URL of the terms of service.
+        :param _builtins.str vertical: The industry vertical of the business, for example Retail.
+        :param Sequence['ChannelsSenderLabeledWebsite'] websites: Websites of the business.
+        """
+        pulumi.set(__self__, "name", name)
+        if about is not None:
+            pulumi.set(__self__, "about", about)
+        if accent_color is not None:
+            pulumi.set(__self__, "accent_color", accent_color)
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if banner_url is not None:
+            pulumi.set(__self__, "banner_url", banner_url)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if emails is not None:
+            pulumi.set(__self__, "emails", emails)
+        if logo_url is not None:
+            pulumi.set(__self__, "logo_url", logo_url)
+        if phone_numbers is not None:
+            pulumi.set(__self__, "phone_numbers", phone_numbers)
+        if privacy_url is not None:
+            pulumi.set(__self__, "privacy_url", privacy_url)
+        if terms_of_service_url is not None:
+            pulumi.set(__self__, "terms_of_service_url", terms_of_service_url)
+        if vertical is not None:
+            pulumi.set(__self__, "vertical", vertical)
+        if websites is not None:
+            pulumi.set(__self__, "websites", websites)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def about(self) -> Optional[_builtins.str]:
+        """
+        The about text of the profile.
+        """
+        return pulumi.get(self, "about")
+
+    @_builtins.property
+    @pulumi.getter(name="accentColor")
+    def accent_color(self) -> Optional[_builtins.str]:
+        """
+        Color theme of the profile, in hex format.
+        """
+        return pulumi.get(self, "accent_color")
+
+    @_builtins.property
+    @pulumi.getter
+    def address(self) -> Optional[_builtins.str]:
+        """
+        The address of the business.
+        """
+        return pulumi.get(self, "address")
+
+    @_builtins.property
+    @pulumi.getter(name="bannerUrl")
+    def banner_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the banner image.
+        """
+        return pulumi.get(self, "banner_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        The description of the business.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def emails(self) -> Optional[Sequence['outputs.ChannelsSenderLabeledEmail']]:
+        """
+        Email addresses of the business.
+        """
+        return pulumi.get(self, "emails")
+
+    @_builtins.property
+    @pulumi.getter(name="logoUrl")
+    def logo_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the logo.
+        """
+        return pulumi.get(self, "logo_url")
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumbers")
+    def phone_numbers(self) -> Optional[Sequence['outputs.ChannelsSenderLabeledPhone']]:
+        """
+        Phone numbers of the business.
+        """
+        return pulumi.get(self, "phone_numbers")
+
+    @_builtins.property
+    @pulumi.getter(name="privacyUrl")
+    def privacy_url(self) -> Optional[_builtins.str]:
+        """
+        Publicly accessible HTTP or HTTPS URL of the privacy policy.
+        """
+        return pulumi.get(self, "privacy_url")
+
+    @_builtins.property
+    @pulumi.getter(name="termsOfServiceUrl")
+    def terms_of_service_url(self) -> Optional[_builtins.str]:
+        """
+        URL of the terms of service.
+        """
+        return pulumi.get(self, "terms_of_service_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def vertical(self) -> Optional[_builtins.str]:
+        """
+        The industry vertical of the business, for example Retail.
+        """
+        return pulumi.get(self, "vertical")
+
+    @_builtins.property
+    @pulumi.getter
+    def websites(self) -> Optional[Sequence['outputs.ChannelsSenderLabeledWebsite']]:
+        """
+        Websites of the business.
+        """
+        return pulumi.get(self, "websites")
+
+
+@pulumi.output_type
+class ChannelsSenderProperties(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "messagingLimit":
+            suggest = "messaging_limit"
+        elif key == "qualityRating":
+            suggest = "quality_rating"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderProperties. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderProperties.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderProperties.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 messaging_limit: Optional[_builtins.str] = None,
+                 quality_rating: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str messaging_limit: The messaging limit of the sender.
+        :param _builtins.str quality_rating: The quality rating of the sender.
+        """
+        if messaging_limit is not None:
+            pulumi.set(__self__, "messaging_limit", messaging_limit)
+        if quality_rating is not None:
+            pulumi.set(__self__, "quality_rating", quality_rating)
+
+    @_builtins.property
+    @pulumi.getter(name="messagingLimit")
+    def messaging_limit(self) -> Optional[_builtins.str]:
+        """
+        The messaging limit of the sender.
+        """
+        return pulumi.get(self, "messaging_limit")
+
+    @_builtins.property
+    @pulumi.getter(name="qualityRating")
+    def quality_rating(self) -> Optional[_builtins.str]:
+        """
+        The quality rating of the sender.
+        """
+        return pulumi.get(self, "quality_rating")
+
+
+@pulumi.output_type
+class ChannelsSenderWebhook(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "callbackMethod":
+            suggest = "callback_method"
+        elif key == "callbackUrl":
+            suggest = "callback_url"
+        elif key == "fallbackMethod":
+            suggest = "fallback_method"
+        elif key == "fallbackUrl":
+            suggest = "fallback_url"
+        elif key == "statusCallbackMethod":
+            suggest = "status_callback_method"
+        elif key == "statusCallbackUrl":
+            suggest = "status_callback_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ChannelsSenderWebhook. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ChannelsSenderWebhook.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ChannelsSenderWebhook.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 callback_method: Optional[_builtins.str] = None,
+                 callback_url: Optional[_builtins.str] = None,
+                 fallback_method: Optional[_builtins.str] = None,
+                 fallback_url: Optional[_builtins.str] = None,
+                 status_callback_method: Optional[_builtins.str] = None,
+                 status_callback_url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str callback_method: HTTP method of the callback: POST or PUT.
+        :param _builtins.str callback_url: URL Twilio sends incoming messages to.
+        :param _builtins.str fallback_method: HTTP method of the fallback: POST or PUT.
+        :param _builtins.str fallback_url: URL Twilio sends to when the callback URL fails.
+        :param _builtins.str status_callback_method: HTTP method of the status callback.
+        :param _builtins.str status_callback_url: URL Twilio sends message status updates to.
+        """
+        if callback_method is not None:
+            pulumi.set(__self__, "callback_method", callback_method)
+        if callback_url is not None:
+            pulumi.set(__self__, "callback_url", callback_url)
+        if fallback_method is not None:
+            pulumi.set(__self__, "fallback_method", fallback_method)
+        if fallback_url is not None:
+            pulumi.set(__self__, "fallback_url", fallback_url)
+        if status_callback_method is not None:
+            pulumi.set(__self__, "status_callback_method", status_callback_method)
+        if status_callback_url is not None:
+            pulumi.set(__self__, "status_callback_url", status_callback_url)
+
+    @_builtins.property
+    @pulumi.getter(name="callbackMethod")
+    def callback_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method of the callback: POST or PUT.
+        """
+        return pulumi.get(self, "callback_method")
+
+    @_builtins.property
+    @pulumi.getter(name="callbackUrl")
+    def callback_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio sends incoming messages to.
+        """
+        return pulumi.get(self, "callback_url")
+
+    @_builtins.property
+    @pulumi.getter(name="fallbackMethod")
+    def fallback_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method of the fallback: POST or PUT.
+        """
+        return pulumi.get(self, "fallback_method")
+
+    @_builtins.property
+    @pulumi.getter(name="fallbackUrl")
+    def fallback_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio sends to when the callback URL fails.
+        """
+        return pulumi.get(self, "fallback_url")
+
+    @_builtins.property
+    @pulumi.getter(name="statusCallbackMethod")
+    def status_callback_method(self) -> Optional[_builtins.str]:
+        """
+        HTTP method of the status callback.
+        """
+        return pulumi.get(self, "status_callback_method")
+
+    @_builtins.property
+    @pulumi.getter(name="statusCallbackUrl")
+    def status_callback_url(self) -> Optional[_builtins.str]:
+        """
+        URL Twilio sends message status updates to.
+        """
+        return pulumi.get(self, "status_callback_url")
 
 
 @pulumi.output_type
@@ -6178,6 +7096,287 @@ class TrunkEffective(dict):
         Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
         """
         return pulumi.get(self, "transfer_mode")
+
+
+@pulumi.output_type
+class TrustHubEndUserInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 attributes: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 friendly_name: _builtins.str,
+                 sid: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str account_sid: SID (AC...) of the owning account.
+        :param _builtins.str attributes: The attributes as a JSON object (empty when Twilio reports none).
+        :param _builtins.str date_created: When the end user was created (ISO 8601).
+        :param _builtins.str date_updated: When the end user was last updated (ISO 8601).
+        :param _builtins.str friendly_name: Human-readable name of the end user.
+        :param _builtins.str sid: The end user SID (IT...).
+        :param _builtins.str type: Machine name of the end user type.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "attributes", attributes)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID (AC...) of the owning account.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def attributes(self) -> _builtins.str:
+        """
+        The attributes as a JSON object (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the end user was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the end user was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the end user.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The end user SID (IT...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Machine name of the end user type.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class TrustHubPolicyInfo(dict):
+    def __init__(__self__, *,
+                 friendly_name: _builtins.str,
+                 requirements: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param _builtins.str friendly_name: Human-readable name of the policy.
+        :param _builtins.str requirements: The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).
+        :param _builtins.str sid: The policy SID (RN...).
+        """
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "requirements", requirements)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the policy.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def requirements(self) -> _builtins.str:
+        """
+        The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "requirements")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The policy SID (RN...).
+        """
+        return pulumi.get(self, "sid")
+
+
+@pulumi.output_type
+class TrustHubSupportingDocumentInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 attributes: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 friendly_name: _builtins.str,
+                 mime_type: _builtins.str,
+                 sid: _builtins.str,
+                 status: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str account_sid: SID (AC...) of the owning account.
+        :param _builtins.str attributes: The attributes as a JSON object (empty when Twilio reports none).
+        :param _builtins.str date_created: When the document was created (ISO 8601).
+        :param _builtins.str date_updated: When the document was last updated (ISO 8601).
+        :param _builtins.str friendly_name: Human-readable name of the document.
+        :param _builtins.str mime_type: The MIME type of the document (empty when none).
+        :param _builtins.str sid: The supporting document SID (RD...).
+        :param _builtins.str status: The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.
+        :param _builtins.str type: Machine name of the supporting document type.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "attributes", attributes)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "mime_type", mime_type)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID (AC...) of the owning account.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def attributes(self) -> _builtins.str:
+        """
+        The attributes as a JSON object (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the document was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the document was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the document.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="mimeType")
+    def mime_type(self) -> _builtins.str:
+        """
+        The MIME type of the document (empty when none).
+        """
+        return pulumi.get(self, "mime_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The supporting document SID (RD...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Machine name of the supporting document type.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class TrustHubTypeInfo(dict):
+    def __init__(__self__, *,
+                 fields: _builtins.str,
+                 friendly_name: _builtins.str,
+                 machine_name: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param _builtins.str fields: The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+        :param _builtins.str friendly_name: Human-readable name of the type.
+        :param _builtins.str machine_name: The machine name, which is what the type input of the resource takes.
+        :param _builtins.str sid: The SID of the type.
+        """
+        pulumi.set(__self__, "fields", fields)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "machine_name", machine_name)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter
+    def fields(self) -> _builtins.str:
+        """
+        The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+        """
+        return pulumi.get(self, "fields")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the type.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="machineName")
+    def machine_name(self) -> _builtins.str:
+        """
+        The machine name, which is what the type input of the resource takes.
+        """
+        return pulumi.get(self, "machine_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The SID of the type.
+        """
+        return pulumi.get(self, "sid")
 
 
 @pulumi.output_type

@@ -35,7 +35,7 @@ export class TaskRouterWorker extends pulumi.CustomResource {
     }
 
     /**
-     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
      */
     declare public readonly activitySid: pulumi.Output<string | undefined>;
     /**
@@ -108,7 +108,7 @@ export class TaskRouterWorker extends pulumi.CustomResource {
  */
 export interface TaskRouterWorkerArgs {
     /**
-     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
      */
     activitySid?: pulumi.Input<string | undefined>;
     /**

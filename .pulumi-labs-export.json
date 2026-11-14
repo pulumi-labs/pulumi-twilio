@@ -4,8 +4,8 @@
   "display_name": "Twilio",
   "exclude_platforms": [],
   "provider": "twilio",
-  "skill_commit": "313e2f3fe5b0b958c02919e9841e55cefa72a086",
+  "skill_commit": "b09931120ec7d905283082338584ca5e52b674bf",
   "source_repo": "pulumi/autoregistry",
-  "source_sha": "01b4cb0cc12e49e30d970464206281451afe364c",
-  "source_version": "0.6.0"
+  "source_sha": "f718651d64895e025f467b9d42f7bfa2cd3efe5b",
+  "source_version": "0.7.0"
 }

@@ -51,7 +51,9 @@ func TestOAuthAppLC_Lifecycle(t *testing.T) {
 	require.Equal(t, float64(3600), b["access_token_ttl"])
 	require.Equal(t, "client_secret_basic", b["token_endpoint_auth_method"])
 	require.Equal(t, map[string]any{"allow": []any{"/twilio/iam/api-keys/create"}, "deny": []any{"/twilio/iam/roles/delete"}}, b["policy"])
-	require.NotContains(t, b, "owner_sid")
+	// #1980: Twilio refuses a create without the one accepted type, and wants the owning account.
+	require.Equal(t, "Client Credential", b["type"])
+	require.Equal(t, testAccount, b["owner_sid"])
 	require.NotContains(t, b, "client_sid")
 
 	// Idempotent Diff, and a refresh keeps the stored state without calling Twilio (there is no GET).
@@ -173,4 +175,21 @@ func TestLookup_MessagingAccount(t *testing.T) {
 	l.f.failNext("GET", "/messaging/v1/Deactivations", 403)
 	_, err = invoke(t, l, "getMessagingDeactivations", map[string]property.Value{"date": sv("2026-11-12")})
 	require.ErrorContains(t, err, "HTTP 403")
+}
+
+// #1980: a minimal program (no type) creates the app with Twilio's one accepted type, a later
+// preview plans no change, and an explicit unsupported type is refused by Twilio, not hidden.
+func TestOAuthAppLC_DefaultType(t *testing.T) {
+	l := newTL(t, "OAuthApp", "app")
+	in := pv(map[string]property.Value{"friendlyName": sv("minimal"),
+		"policy": objv(map[string]property.Value{"allow": arrv(sv("/twilio/iam/api-keys/create"))})})
+	c := l.create(in)
+	require.Len(t, l.f.oauthBodies, 1)
+	require.Equal(t, "Client Credential", l.f.oauthBodies[0]["type"])
+	require.Equal(t, "Client Credential", getS(t, c.Properties, "type"))
+	requireNoChanges(t, l.diff(c.ID, c.Properties, in, in))
+
+	bad := pv(map[string]property.Value{"friendlyName": sv("bad"), "type": sv("confidential")})
+	_, err := l.s.Create(pgp.CreateRequest{Urn: l.urn, Properties: l.checked(bad)})
+	require.ErrorContains(t, err, "oauth app type is invalid")
 }

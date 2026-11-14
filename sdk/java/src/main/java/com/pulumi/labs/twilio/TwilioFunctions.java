@@ -35,6 +35,10 @@ import com.pulumi.labs.twilio.inputs.GetBrandRegistrationsArgs;
 import com.pulumi.labs.twilio.inputs.GetBrandRegistrationsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetByocTrunkArgs;
 import com.pulumi.labs.twilio.inputs.GetByocTrunkPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetChannelsSenderArgs;
+import com.pulumi.labs.twilio.inputs.GetChannelsSenderPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetChannelsSendersArgs;
+import com.pulumi.labs.twilio.inputs.GetChannelsSendersPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectAppArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectAppPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
@@ -255,6 +259,26 @@ import com.pulumi.labs.twilio.inputs.GetTrunkIpAccessControlListPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkOriginationUrlPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrunkPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserTypeArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserTypePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserTypesArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUserTypesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUsersArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubEndUsersPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubPoliciesArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubPoliciesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubPolicyArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubPolicyPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypeArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypesArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentsArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonUsecasesArgs;
@@ -310,6 +334,8 @@ import com.pulumi.labs.twilio.outputs.GetBalanceResult;
 import com.pulumi.labs.twilio.outputs.GetBrandRegistrationResult;
 import com.pulumi.labs.twilio.outputs.GetBrandRegistrationsResult;
 import com.pulumi.labs.twilio.outputs.GetByocTrunkResult;
+import com.pulumi.labs.twilio.outputs.GetChannelsSenderResult;
+import com.pulumi.labs.twilio.outputs.GetChannelsSendersResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
@@ -420,6 +446,16 @@ import com.pulumi.labs.twilio.outputs.GetTrunkCredentialListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkIpAccessControlListResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkOriginationUrlResult;
 import com.pulumi.labs.twilio.outputs.GetTrunkResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubEndUserResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubEndUserTypeResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubEndUserTypesResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubEndUsersResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubPoliciesResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubPolicyResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentTypeResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentTypesResult;
+import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentsResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonUsecasesResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonsResult;
@@ -954,6 +990,76 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetByocTrunkResult> getByocTrunkPlain(GetByocTrunkPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getByocTrunk", TypeShape.of(GetByocTrunkResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).
+     * 
+     */
+    public static Output<GetChannelsSenderResult> getChannelsSender(GetChannelsSenderArgs args) {
+        return getChannelsSender(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).
+     * 
+     */
+    public static CompletableFuture<GetChannelsSenderResult> getChannelsSenderPlain(GetChannelsSenderPlainArgs args) {
+        return getChannelsSenderPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).
+     * 
+     */
+    public static Output<GetChannelsSenderResult> getChannelsSender(GetChannelsSenderArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getChannelsSender", TypeShape.of(GetChannelsSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).
+     * 
+     */
+    public static Output<GetChannelsSenderResult> getChannelsSender(GetChannelsSenderArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getChannelsSender", TypeShape.of(GetChannelsSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).
+     * 
+     */
+    public static CompletableFuture<GetChannelsSenderResult> getChannelsSenderPlain(GetChannelsSenderPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getChannelsSender", TypeShape.of(GetChannelsSenderResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.
+     * 
+     */
+    public static Output<GetChannelsSendersResult> getChannelsSenders(GetChannelsSendersArgs args) {
+        return getChannelsSenders(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.
+     * 
+     */
+    public static CompletableFuture<GetChannelsSendersResult> getChannelsSendersPlain(GetChannelsSendersPlainArgs args) {
+        return getChannelsSendersPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.
+     * 
+     */
+    public static Output<GetChannelsSendersResult> getChannelsSenders(GetChannelsSendersArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getChannelsSenders", TypeShape.of(GetChannelsSendersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.
+     * 
+     */
+    public static Output<GetChannelsSendersResult> getChannelsSenders(GetChannelsSendersArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getChannelsSenders", TypeShape.of(GetChannelsSendersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.
+     * 
+     */
+    public static CompletableFuture<GetChannelsSendersResult> getChannelsSendersPlain(GetChannelsSendersPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getChannelsSenders", TypeShape.of(GetChannelsSendersResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Twilio Connect app by SID.
@@ -5070,6 +5176,426 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetTrunkOriginationUrlResult> getTrunkOriginationUrlPlain(GetTrunkOriginationUrlPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getTrunkOriginationUrl", TypeShape.of(GetTrunkOriginationUrlResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserResult> getTrustHubEndUser(GetTrustHubEndUserArgs args) {
+        return getTrustHubEndUser(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserResult> getTrustHubEndUserPlain(GetTrustHubEndUserPlainArgs args) {
+        return getTrustHubEndUserPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserResult> getTrustHubEndUser(GetTrustHubEndUserArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUser", TypeShape.of(GetTrustHubEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserResult> getTrustHubEndUser(GetTrustHubEndUserArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUser", TypeShape.of(GetTrustHubEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserResult> getTrustHubEndUserPlain(GetTrustHubEndUserPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubEndUser", TypeShape.of(GetTrustHubEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypeResult> getTrustHubEndUserType(GetTrustHubEndUserTypeArgs args) {
+        return getTrustHubEndUserType(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserTypeResult> getTrustHubEndUserTypePlain(GetTrustHubEndUserTypePlainArgs args) {
+        return getTrustHubEndUserTypePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypeResult> getTrustHubEndUserType(GetTrustHubEndUserTypeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUserType", TypeShape.of(GetTrustHubEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypeResult> getTrustHubEndUserType(GetTrustHubEndUserTypeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUserType", TypeShape.of(GetTrustHubEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserTypeResult> getTrustHubEndUserTypePlain(GetTrustHubEndUserTypePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubEndUserType", TypeShape.of(GetTrustHubEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypes() {
+        return getTrustHubEndUserTypes(GetTrustHubEndUserTypesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypesPlain() {
+        return getTrustHubEndUserTypesPlain(GetTrustHubEndUserTypesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypes(GetTrustHubEndUserTypesArgs args) {
+        return getTrustHubEndUserTypes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypesPlain(GetTrustHubEndUserTypesPlainArgs args) {
+        return getTrustHubEndUserTypesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypes(GetTrustHubEndUserTypesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUserTypes", TypeShape.of(GetTrustHubEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypes(GetTrustHubEndUserTypesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUserTypes", TypeShape.of(GetTrustHubEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUserTypesResult> getTrustHubEndUserTypesPlain(GetTrustHubEndUserTypesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubEndUserTypes", TypeShape.of(GetTrustHubEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUsersResult> getTrustHubEndUsers() {
+        return getTrustHubEndUsers(GetTrustHubEndUsersArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUsersResult> getTrustHubEndUsersPlain() {
+        return getTrustHubEndUsersPlain(GetTrustHubEndUsersPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUsersResult> getTrustHubEndUsers(GetTrustHubEndUsersArgs args) {
+        return getTrustHubEndUsers(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUsersResult> getTrustHubEndUsersPlain(GetTrustHubEndUsersPlainArgs args) {
+        return getTrustHubEndUsersPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUsersResult> getTrustHubEndUsers(GetTrustHubEndUsersArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUsers", TypeShape.of(GetTrustHubEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubEndUsersResult> getTrustHubEndUsers(GetTrustHubEndUsersArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubEndUsers", TypeShape.of(GetTrustHubEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubEndUsersResult> getTrustHubEndUsersPlain(GetTrustHubEndUsersPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubEndUsers", TypeShape.of(GetTrustHubEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPoliciesResult> getTrustHubPolicies() {
+        return getTrustHubPolicies(GetTrustHubPoliciesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubPoliciesResult> getTrustHubPoliciesPlain() {
+        return getTrustHubPoliciesPlain(GetTrustHubPoliciesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPoliciesResult> getTrustHubPolicies(GetTrustHubPoliciesArgs args) {
+        return getTrustHubPolicies(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubPoliciesResult> getTrustHubPoliciesPlain(GetTrustHubPoliciesPlainArgs args) {
+        return getTrustHubPoliciesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPoliciesResult> getTrustHubPolicies(GetTrustHubPoliciesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubPolicies", TypeShape.of(GetTrustHubPoliciesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPoliciesResult> getTrustHubPolicies(GetTrustHubPoliciesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubPolicies", TypeShape.of(GetTrustHubPoliciesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubPoliciesResult> getTrustHubPoliciesPlain(GetTrustHubPoliciesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubPolicies", TypeShape.of(GetTrustHubPoliciesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPolicyResult> getTrustHubPolicy(GetTrustHubPolicyArgs args) {
+        return getTrustHubPolicy(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubPolicyResult> getTrustHubPolicyPlain(GetTrustHubPolicyPlainArgs args) {
+        return getTrustHubPolicyPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPolicyResult> getTrustHubPolicy(GetTrustHubPolicyArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubPolicy", TypeShape.of(GetTrustHubPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubPolicyResult> getTrustHubPolicy(GetTrustHubPolicyArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubPolicy", TypeShape.of(GetTrustHubPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubPolicyResult> getTrustHubPolicyPlain(GetTrustHubPolicyPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubPolicy", TypeShape.of(GetTrustHubPolicyResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentResult> getTrustHubSupportingDocument(GetTrustHubSupportingDocumentArgs args) {
+        return getTrustHubSupportingDocument(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentResult> getTrustHubSupportingDocumentPlain(GetTrustHubSupportingDocumentPlainArgs args) {
+        return getTrustHubSupportingDocumentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentResult> getTrustHubSupportingDocument(GetTrustHubSupportingDocumentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocument", TypeShape.of(GetTrustHubSupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentResult> getTrustHubSupportingDocument(GetTrustHubSupportingDocumentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocument", TypeShape.of(GetTrustHubSupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentResult> getTrustHubSupportingDocumentPlain(GetTrustHubSupportingDocumentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubSupportingDocument", TypeShape.of(GetTrustHubSupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypeResult> getTrustHubSupportingDocumentType(GetTrustHubSupportingDocumentTypeArgs args) {
+        return getTrustHubSupportingDocumentType(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentTypeResult> getTrustHubSupportingDocumentTypePlain(GetTrustHubSupportingDocumentTypePlainArgs args) {
+        return getTrustHubSupportingDocumentTypePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypeResult> getTrustHubSupportingDocumentType(GetTrustHubSupportingDocumentTypeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocumentType", TypeShape.of(GetTrustHubSupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypeResult> getTrustHubSupportingDocumentType(GetTrustHubSupportingDocumentTypeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocumentType", TypeShape.of(GetTrustHubSupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentTypeResult> getTrustHubSupportingDocumentTypePlain(GetTrustHubSupportingDocumentTypePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubSupportingDocumentType", TypeShape.of(GetTrustHubSupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypes() {
+        return getTrustHubSupportingDocumentTypes(GetTrustHubSupportingDocumentTypesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypesPlain() {
+        return getTrustHubSupportingDocumentTypesPlain(GetTrustHubSupportingDocumentTypesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypes(GetTrustHubSupportingDocumentTypesArgs args) {
+        return getTrustHubSupportingDocumentTypes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypesPlain(GetTrustHubSupportingDocumentTypesPlainArgs args) {
+        return getTrustHubSupportingDocumentTypesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypes(GetTrustHubSupportingDocumentTypesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocumentTypes", TypeShape.of(GetTrustHubSupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypes(GetTrustHubSupportingDocumentTypesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocumentTypes", TypeShape.of(GetTrustHubSupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentTypesResult> getTrustHubSupportingDocumentTypesPlain(GetTrustHubSupportingDocumentTypesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubSupportingDocumentTypes", TypeShape.of(GetTrustHubSupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocuments() {
+        return getTrustHubSupportingDocuments(GetTrustHubSupportingDocumentsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocumentsPlain() {
+        return getTrustHubSupportingDocumentsPlain(GetTrustHubSupportingDocumentsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocuments(GetTrustHubSupportingDocumentsArgs args) {
+        return getTrustHubSupportingDocuments(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocumentsPlain(GetTrustHubSupportingDocumentsPlainArgs args) {
+        return getTrustHubSupportingDocumentsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocuments(GetTrustHubSupportingDocumentsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocuments", TypeShape.of(GetTrustHubSupportingDocumentsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static Output<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocuments(GetTrustHubSupportingDocumentsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustHubSupportingDocuments", TypeShape.of(GetTrustHubSupportingDocumentsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocumentsPlain(GetTrustHubSupportingDocumentsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubSupportingDocuments", TypeShape.of(GetTrustHubSupportingDocumentsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up an A2P 10DLC campaign (GET /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} on messaging.twilio.com).

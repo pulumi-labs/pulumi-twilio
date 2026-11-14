@@ -300,10 +300,16 @@ func TestTaskRouterWorkerLC_Lifecycle(t *testing.T) {
 	u = l.update(c.ID, u.Properties, moved, next)
 	require.Equal(t, "WA"+strings.Repeat("a", 32), l.f.callsMatching("POST", "/Workers/")[0].Form.Get("ActivitySid"))
 
-	// Import adopts attributes unless they are the default empty object.
+	// Import adopts attributes unless they are the default empty object, and the activity (#1981), so
+	// a program that states the activity the worker is in plans no change after the import.
 	imp := l.read(c.ID, empty(), empty())
 	require.Equal(t, `{"skills":["support"]}`, getS(t, imp.Inputs, "attributes"))
-	require.False(t, hasProp(imp.Inputs, "activitySid"))
+	require.Equal(t, "WA"+strings.Repeat("a", 32), getS(t, imp.Inputs, "activitySid"))
+	requireNoChanges(t, l.diff(c.ID, imp.Properties, moved, imp.Inputs))
+	// A later refresh keeps the activity the program stated even when the worker moved.
+	l.f.mutate("trchild", testAccount, c.ID, func(o map[string]any) { o["activity_sid"] = "WA" + strings.Repeat("7", 32) })
+	rf := l.read(c.ID, imp.Properties, imp.Inputs)
+	require.Equal(t, "WA"+strings.Repeat("a", 32), getS(t, rf.Inputs, "activitySid"))
 	l.f.mutate("trchild", testAccount, c.ID, func(o map[string]any) { o["attributes"] = "{}" })
 	require.False(t, hasProp(l.read(c.ID, empty(), empty()).Inputs, "attributes"))
 
@@ -426,4 +432,41 @@ func TestTaskRouterImportThenExplicitDefaultsPlansNothing(t *testing.T) {
 		"multiTaskEnabled": boolV(false), "prioritizeQueueOrder": sv("FIFO")})
 	requireNoChanges(t, wl.diff(imp.ID, imp.Properties, explicit, imp.Inputs))
 	require.True(t, wl.diff(imp.ID, imp.Properties, with(explicit, map[string]property.Value{"multiTaskEnabled": boolV(true)}), imp.Inputs).HasChanges)
+}
+
+// #1982: Twilio refuses (20001) to delete a worker in an available activity; Delete moves it to
+// the Offline activity (an unavailable one) first and then deletes it.
+func TestTaskRouterWorkerLC_DeleteMovesAvailableWorkerOffline(t *testing.T) {
+	l := newTL(t, "TaskRouterWorker", "wk")
+	ws := trWS(l)
+	acts := l.other("TaskRouterActivity", "act")
+	on := acts.create(pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Idle"), "available": bv(true)}))
+	acts.create(pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Break"), "available": bv(false)}))
+	off := acts.create(pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Offline"), "available": bv(false)}))
+	in := pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("alice"), "activitySid": sv(getS(t, on.Properties, "sid"))})
+	c := l.create(in)
+
+	l.f.resetCalls()
+	l.del(c.ID, c.Properties)
+	workerPath := "/Workers/" + strings.SplitN(c.ID, "/", 2)[1]
+	var seq []string
+	for _, call := range l.f.calls {
+		if strings.Contains(call.Path, workerPath) {
+			seq = append(seq, call.Method)
+		}
+	}
+	require.Equal(t, []string{"DELETE", "POST", "DELETE"}, seq, "refused delete, move, delete")
+	post := l.f.callsMatching("POST", workerPath)[0].Form
+	require.Equal(t, getS(t, off.Properties, "sid"), post.Get("ActivitySid"), "moved to Offline, not the first unavailable activity")
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID, "the worker is gone")
+}
+
+// With no unavailable activity the error names the problem instead of a bare 20001.
+func TestTaskRouterWorkerLC_DeleteNoUnavailableActivity(t *testing.T) {
+	l := newTL(t, "TaskRouterWorker", "wk")
+	ws := trWS(l)
+	on := l.other("TaskRouterActivity", "act").create(pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("Idle"), "available": bv(true)}))
+	c := l.create(pv(map[string]property.Value{"workspaceSid": sv(ws), "friendlyName": sv("bob"), "activitySid": sv(getS(t, on.Properties, "sid"))}))
+	err := l.s.Delete(pgp.DeleteRequest{ID: c.ID, Urn: l.urn, Properties: c.Properties})
+	require.ErrorContains(t, err, "no activity with available false")
 }

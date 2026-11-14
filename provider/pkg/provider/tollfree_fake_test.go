@@ -17,6 +17,7 @@ package provider
 import (
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -84,6 +85,11 @@ func (f *fakeTwilio) handleTollfree(w http.ResponseWriter, r *http.Request, form
 	case len(parts) == 1 && r.Method == "GET":
 		items := []map[string]any{}
 		q := r.URL.Query()
+		// The real API caps PageSize at 50 (#1979).
+		if ps, _ := strconv.Atoi(q.Get("PageSize")); ps > 50 {
+			ferr(w, 400, "Invalid value for PageSize: "+q.Get("PageSize")+" exceeds the maximum of 50")
+			return
+		}
 		for _, fk := range f.order {
 			o, ok := f.objs[fk]
 			if !ok || !strings.HasPrefix(fk, "tfv/"+testAccount+"/") {

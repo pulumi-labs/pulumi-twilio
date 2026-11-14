@@ -785,6 +785,1549 @@ func (o BrandRegistrationInfoArrayOutput) Index(i pulumi.IntInput) BrandRegistra
 	}).(BrandRegistrationInfoOutput)
 }
 
+type ChannelsSenderCarrier struct {
+	// Name of the carrier, for example Verizon.
+	Name *string `pulumi:"name"`
+	// Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED.
+	Status *string `pulumi:"status"`
+}
+
+type ChannelsSenderCarrierOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderCarrierOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderCarrier)(nil)).Elem()
+}
+
+func (o ChannelsSenderCarrierOutput) ToChannelsSenderCarrierOutput() ChannelsSenderCarrierOutput {
+	return o
+}
+
+func (o ChannelsSenderCarrierOutput) ToChannelsSenderCarrierOutputWithContext(ctx context.Context) ChannelsSenderCarrierOutput {
+	return o
+}
+
+// Name of the carrier, for example Verizon.
+func (o ChannelsSenderCarrierOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderCarrier) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED.
+func (o ChannelsSenderCarrierOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderCarrier) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderCarrierArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderCarrierArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderCarrier)(nil)).Elem()
+}
+
+func (o ChannelsSenderCarrierArrayOutput) ToChannelsSenderCarrierArrayOutput() ChannelsSenderCarrierArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderCarrierArrayOutput) ToChannelsSenderCarrierArrayOutputWithContext(ctx context.Context) ChannelsSenderCarrierArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderCarrierArrayOutput) Index(i pulumi.IntInput) ChannelsSenderCarrierOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderCarrier {
+		return vs[0].([]ChannelsSenderCarrier)[vs[1].(int)]
+	}).(ChannelsSenderCarrierOutput)
+}
+
+type ChannelsSenderCompliance struct {
+	// Country-specific compliance details.
+	Countries []ChannelsSenderComplianceCountry `pulumi:"countries"`
+	// Default compliance registration SID, which applies to every country without its own.
+	RegistrationSid string `pulumi:"registrationSid"`
+}
+
+type ChannelsSenderComplianceOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderComplianceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderCompliance)(nil)).Elem()
+}
+
+func (o ChannelsSenderComplianceOutput) ToChannelsSenderComplianceOutput() ChannelsSenderComplianceOutput {
+	return o
+}
+
+func (o ChannelsSenderComplianceOutput) ToChannelsSenderComplianceOutputWithContext(ctx context.Context) ChannelsSenderComplianceOutput {
+	return o
+}
+
+// Country-specific compliance details.
+func (o ChannelsSenderComplianceOutput) Countries() ChannelsSenderComplianceCountryArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderCompliance) []ChannelsSenderComplianceCountry { return v.Countries }).(ChannelsSenderComplianceCountryArrayOutput)
+}
+
+// Default compliance registration SID, which applies to every country without its own.
+func (o ChannelsSenderComplianceOutput) RegistrationSid() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderCompliance) string { return v.RegistrationSid }).(pulumi.StringOutput)
+}
+
+type ChannelsSenderCompliancePtrOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderCompliancePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderCompliance)(nil)).Elem()
+}
+
+func (o ChannelsSenderCompliancePtrOutput) ToChannelsSenderCompliancePtrOutput() ChannelsSenderCompliancePtrOutput {
+	return o
+}
+
+func (o ChannelsSenderCompliancePtrOutput) ToChannelsSenderCompliancePtrOutputWithContext(ctx context.Context) ChannelsSenderCompliancePtrOutput {
+	return o
+}
+
+func (o ChannelsSenderCompliancePtrOutput) Elem() ChannelsSenderComplianceOutput {
+	return o.ApplyT(func(v *ChannelsSenderCompliance) ChannelsSenderCompliance {
+		if v != nil {
+			return *v
+		}
+		var ret ChannelsSenderCompliance
+		return ret
+	}).(ChannelsSenderComplianceOutput)
+}
+
+// Country-specific compliance details.
+func (o ChannelsSenderCompliancePtrOutput) Countries() ChannelsSenderComplianceCountryArrayOutput {
+	return o.ApplyT(func(v *ChannelsSenderCompliance) []ChannelsSenderComplianceCountry {
+		if v == nil {
+			return nil
+		}
+		return v.Countries
+	}).(ChannelsSenderComplianceCountryArrayOutput)
+}
+
+// Default compliance registration SID, which applies to every country without its own.
+func (o ChannelsSenderCompliancePtrOutput) RegistrationSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderCompliance) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RegistrationSid
+	}).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderComplianceCountry struct {
+	// Status per carrier.
+	Carriers []ChannelsSenderCarrier `pulumi:"carriers"`
+	// ISO 3166-1 alpha-2 country code.
+	Country string `pulumi:"country"`
+	// Compliance registration SID for the country.
+	RegistrationSid *string `pulumi:"registrationSid"`
+	// Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION.
+	Status *string `pulumi:"status"`
+}
+
+type ChannelsSenderComplianceCountryOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderComplianceCountryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderComplianceCountry)(nil)).Elem()
+}
+
+func (o ChannelsSenderComplianceCountryOutput) ToChannelsSenderComplianceCountryOutput() ChannelsSenderComplianceCountryOutput {
+	return o
+}
+
+func (o ChannelsSenderComplianceCountryOutput) ToChannelsSenderComplianceCountryOutputWithContext(ctx context.Context) ChannelsSenderComplianceCountryOutput {
+	return o
+}
+
+// Status per carrier.
+func (o ChannelsSenderComplianceCountryOutput) Carriers() ChannelsSenderCarrierArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderComplianceCountry) []ChannelsSenderCarrier { return v.Carriers }).(ChannelsSenderCarrierArrayOutput)
+}
+
+// ISO 3166-1 alpha-2 country code.
+func (o ChannelsSenderComplianceCountryOutput) Country() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderComplianceCountry) string { return v.Country }).(pulumi.StringOutput)
+}
+
+// Compliance registration SID for the country.
+func (o ChannelsSenderComplianceCountryOutput) RegistrationSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderComplianceCountry) *string { return v.RegistrationSid }).(pulumi.StringPtrOutput)
+}
+
+// Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION.
+func (o ChannelsSenderComplianceCountryOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderComplianceCountry) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderComplianceCountryArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderComplianceCountryArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderComplianceCountry)(nil)).Elem()
+}
+
+func (o ChannelsSenderComplianceCountryArrayOutput) ToChannelsSenderComplianceCountryArrayOutput() ChannelsSenderComplianceCountryArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderComplianceCountryArrayOutput) ToChannelsSenderComplianceCountryArrayOutputWithContext(ctx context.Context) ChannelsSenderComplianceCountryArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderComplianceCountryArrayOutput) Index(i pulumi.IntInput) ChannelsSenderComplianceCountryOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderComplianceCountry {
+		return vs[0].([]ChannelsSenderComplianceCountry)[vs[1].(int)]
+	}).(ChannelsSenderComplianceCountryOutput)
+}
+
+type ChannelsSenderConfiguration struct {
+	// The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+	AccountType *string `pulumi:"accountType"`
+	// The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+	VerificationCode *string `pulumi:"verificationCode"`
+	// How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+	VerificationMethod *string `pulumi:"verificationMethod"`
+	// SID (AP...) of the Twilio Voice application for the sender.
+	VoiceApplicationSid *string `pulumi:"voiceApplicationSid"`
+	// ID of the WhatsApp Business Account (WABA) the sender belongs to.
+	WabaId *string `pulumi:"wabaId"`
+}
+
+// ChannelsSenderConfigurationInput is an input type that accepts ChannelsSenderConfigurationArgs and ChannelsSenderConfigurationOutput values.
+// You can construct a concrete instance of `ChannelsSenderConfigurationInput` via:
+//
+//	ChannelsSenderConfigurationArgs{...}
+type ChannelsSenderConfigurationInput interface {
+	pulumi.Input
+
+	ToChannelsSenderConfigurationOutput() ChannelsSenderConfigurationOutput
+	ToChannelsSenderConfigurationOutputWithContext(context.Context) ChannelsSenderConfigurationOutput
+}
+
+type ChannelsSenderConfigurationArgs struct {
+	// The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+	AccountType pulumi.StringPtrInput `pulumi:"accountType"`
+	// The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+	VerificationCode pulumi.StringPtrInput `pulumi:"verificationCode"`
+	// How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+	VerificationMethod pulumi.StringPtrInput `pulumi:"verificationMethod"`
+	// SID (AP...) of the Twilio Voice application for the sender.
+	VoiceApplicationSid pulumi.StringPtrInput `pulumi:"voiceApplicationSid"`
+	// ID of the WhatsApp Business Account (WABA) the sender belongs to.
+	WabaId pulumi.StringPtrInput `pulumi:"wabaId"`
+}
+
+func (ChannelsSenderConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderConfiguration)(nil)).Elem()
+}
+
+func (i ChannelsSenderConfigurationArgs) ToChannelsSenderConfigurationOutput() ChannelsSenderConfigurationOutput {
+	return i.ToChannelsSenderConfigurationOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderConfigurationArgs) ToChannelsSenderConfigurationOutputWithContext(ctx context.Context) ChannelsSenderConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderConfigurationOutput)
+}
+
+func (i ChannelsSenderConfigurationArgs) ToChannelsSenderConfigurationPtrOutput() ChannelsSenderConfigurationPtrOutput {
+	return i.ToChannelsSenderConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderConfigurationArgs) ToChannelsSenderConfigurationPtrOutputWithContext(ctx context.Context) ChannelsSenderConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderConfigurationOutput).ToChannelsSenderConfigurationPtrOutputWithContext(ctx)
+}
+
+// ChannelsSenderConfigurationPtrInput is an input type that accepts ChannelsSenderConfigurationArgs, ChannelsSenderConfigurationPtr and ChannelsSenderConfigurationPtrOutput values.
+// You can construct a concrete instance of `ChannelsSenderConfigurationPtrInput` via:
+//
+//	        ChannelsSenderConfigurationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ChannelsSenderConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToChannelsSenderConfigurationPtrOutput() ChannelsSenderConfigurationPtrOutput
+	ToChannelsSenderConfigurationPtrOutputWithContext(context.Context) ChannelsSenderConfigurationPtrOutput
+}
+
+type channelsSenderConfigurationPtrType ChannelsSenderConfigurationArgs
+
+func ChannelsSenderConfigurationPtr(v *ChannelsSenderConfigurationArgs) ChannelsSenderConfigurationPtrInput {
+	return (*channelsSenderConfigurationPtrType)(v)
+}
+
+func (*channelsSenderConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderConfiguration)(nil)).Elem()
+}
+
+func (i *channelsSenderConfigurationPtrType) ToChannelsSenderConfigurationPtrOutput() ChannelsSenderConfigurationPtrOutput {
+	return i.ToChannelsSenderConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *channelsSenderConfigurationPtrType) ToChannelsSenderConfigurationPtrOutputWithContext(ctx context.Context) ChannelsSenderConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderConfigurationPtrOutput)
+}
+
+type ChannelsSenderConfigurationOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderConfiguration)(nil)).Elem()
+}
+
+func (o ChannelsSenderConfigurationOutput) ToChannelsSenderConfigurationOutput() ChannelsSenderConfigurationOutput {
+	return o
+}
+
+func (o ChannelsSenderConfigurationOutput) ToChannelsSenderConfigurationOutputWithContext(ctx context.Context) ChannelsSenderConfigurationOutput {
+	return o
+}
+
+func (o ChannelsSenderConfigurationOutput) ToChannelsSenderConfigurationPtrOutput() ChannelsSenderConfigurationPtrOutput {
+	return o.ToChannelsSenderConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o ChannelsSenderConfigurationOutput) ToChannelsSenderConfigurationPtrOutputWithContext(ctx context.Context) ChannelsSenderConfigurationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ChannelsSenderConfiguration) *ChannelsSenderConfiguration {
+		return &v
+	}).(ChannelsSenderConfigurationPtrOutput)
+}
+
+// The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+func (o ChannelsSenderConfigurationOutput) AccountType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderConfiguration) *string { return v.AccountType }).(pulumi.StringPtrOutput)
+}
+
+// The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+func (o ChannelsSenderConfigurationOutput) VerificationCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderConfiguration) *string { return v.VerificationCode }).(pulumi.StringPtrOutput)
+}
+
+// How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+func (o ChannelsSenderConfigurationOutput) VerificationMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderConfiguration) *string { return v.VerificationMethod }).(pulumi.StringPtrOutput)
+}
+
+// SID (AP...) of the Twilio Voice application for the sender.
+func (o ChannelsSenderConfigurationOutput) VoiceApplicationSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderConfiguration) *string { return v.VoiceApplicationSid }).(pulumi.StringPtrOutput)
+}
+
+// ID of the WhatsApp Business Account (WABA) the sender belongs to.
+func (o ChannelsSenderConfigurationOutput) WabaId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderConfiguration) *string { return v.WabaId }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderConfigurationPtrOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderConfiguration)(nil)).Elem()
+}
+
+func (o ChannelsSenderConfigurationPtrOutput) ToChannelsSenderConfigurationPtrOutput() ChannelsSenderConfigurationPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderConfigurationPtrOutput) ToChannelsSenderConfigurationPtrOutputWithContext(ctx context.Context) ChannelsSenderConfigurationPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderConfigurationPtrOutput) Elem() ChannelsSenderConfigurationOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) ChannelsSenderConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret ChannelsSenderConfiguration
+		return ret
+	}).(ChannelsSenderConfigurationOutput)
+}
+
+// The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+func (o ChannelsSenderConfigurationPtrOutput) AccountType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccountType
+	}).(pulumi.StringPtrOutput)
+}
+
+// The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+func (o ChannelsSenderConfigurationPtrOutput) VerificationCode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VerificationCode
+	}).(pulumi.StringPtrOutput)
+}
+
+// How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+func (o ChannelsSenderConfigurationPtrOutput) VerificationMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VerificationMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// SID (AP...) of the Twilio Voice application for the sender.
+func (o ChannelsSenderConfigurationPtrOutput) VoiceApplicationSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VoiceApplicationSid
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the WhatsApp Business Account (WABA) the sender belongs to.
+func (o ChannelsSenderConfigurationPtrOutput) WabaId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WabaId
+	}).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderInfo struct {
+	// RCS only: compliance registration and carrier status per country.
+	Compliance *ChannelsSenderCompliance `pulumi:"compliance"`
+	// Configuration of the sender. The verification code is never returned.
+	Configuration *ChannelsSenderConfiguration `pulumi:"configuration"`
+	// Label of the sender in the Twilio Console.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// Why the sender is offline, when it is.
+	OfflineReasons []ChannelsSenderOfflineReason `pulumi:"offlineReasons"`
+	// WhatsApp only: the display name the latest name change applies to. Null when there was no name change.
+	PendingDisplayName *string `pulumi:"pendingDisplayName"`
+	// WhatsApp only: status of the latest display name change.
+	PendingDisplayNameStatus *string `pulumi:"pendingDisplayNameStatus"`
+	// WhatsApp only: when that status last changed.
+	PendingDisplayNameStatusDate *string `pulumi:"pendingDisplayNameStatusDate"`
+	// Business profile of the sender.
+	Profile *ChannelsSenderProfile `pulumi:"profile"`
+	// The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.
+	ProfileUseCase *string `pulumi:"profileUseCase"`
+	// Quality rating and messaging limit of the sender.
+	Properties *ChannelsSenderProperties `pulumi:"properties"`
+	// The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.
+	SenderId string `pulumi:"senderId"`
+	// The sender SID (XE...).
+	Sid string `pulumi:"sid"`
+	// Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.
+	Status string `pulumi:"status"`
+	// The URL of the sender.
+	Url string `pulumi:"url"`
+	// Webhooks of the sender.
+	Webhook *ChannelsSenderWebhook `pulumi:"webhook"`
+}
+
+type ChannelsSenderInfoOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderInfo)(nil)).Elem()
+}
+
+func (o ChannelsSenderInfoOutput) ToChannelsSenderInfoOutput() ChannelsSenderInfoOutput {
+	return o
+}
+
+func (o ChannelsSenderInfoOutput) ToChannelsSenderInfoOutputWithContext(ctx context.Context) ChannelsSenderInfoOutput {
+	return o
+}
+
+// RCS only: compliance registration and carrier status per country.
+func (o ChannelsSenderInfoOutput) Compliance() ChannelsSenderCompliancePtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *ChannelsSenderCompliance { return v.Compliance }).(ChannelsSenderCompliancePtrOutput)
+}
+
+// Configuration of the sender. The verification code is never returned.
+func (o ChannelsSenderInfoOutput) Configuration() ChannelsSenderConfigurationPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *ChannelsSenderConfiguration { return v.Configuration }).(ChannelsSenderConfigurationPtrOutput)
+}
+
+// Label of the sender in the Twilio Console.
+func (o ChannelsSenderInfoOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// Why the sender is offline, when it is.
+func (o ChannelsSenderInfoOutput) OfflineReasons() ChannelsSenderOfflineReasonArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) []ChannelsSenderOfflineReason { return v.OfflineReasons }).(ChannelsSenderOfflineReasonArrayOutput)
+}
+
+// WhatsApp only: the display name the latest name change applies to. Null when there was no name change.
+func (o ChannelsSenderInfoOutput) PendingDisplayName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *string { return v.PendingDisplayName }).(pulumi.StringPtrOutput)
+}
+
+// WhatsApp only: status of the latest display name change.
+func (o ChannelsSenderInfoOutput) PendingDisplayNameStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *string { return v.PendingDisplayNameStatus }).(pulumi.StringPtrOutput)
+}
+
+// WhatsApp only: when that status last changed.
+func (o ChannelsSenderInfoOutput) PendingDisplayNameStatusDate() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *string { return v.PendingDisplayNameStatusDate }).(pulumi.StringPtrOutput)
+}
+
+// Business profile of the sender.
+func (o ChannelsSenderInfoOutput) Profile() ChannelsSenderProfilePtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *ChannelsSenderProfile { return v.Profile }).(ChannelsSenderProfilePtrOutput)
+}
+
+// The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.
+func (o ChannelsSenderInfoOutput) ProfileUseCase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *string { return v.ProfileUseCase }).(pulumi.StringPtrOutput)
+}
+
+// Quality rating and messaging limit of the sender.
+func (o ChannelsSenderInfoOutput) Properties() ChannelsSenderPropertiesPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *ChannelsSenderProperties { return v.Properties }).(ChannelsSenderPropertiesPtrOutput)
+}
+
+// The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.
+func (o ChannelsSenderInfoOutput) SenderId() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) string { return v.SenderId }).(pulumi.StringOutput)
+}
+
+// The sender SID (XE...).
+func (o ChannelsSenderInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.
+func (o ChannelsSenderInfoOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The URL of the sender.
+func (o ChannelsSenderInfoOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) string { return v.Url }).(pulumi.StringOutput)
+}
+
+// Webhooks of the sender.
+func (o ChannelsSenderInfoOutput) Webhook() ChannelsSenderWebhookPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderInfo) *ChannelsSenderWebhook { return v.Webhook }).(ChannelsSenderWebhookPtrOutput)
+}
+
+type ChannelsSenderInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderInfo)(nil)).Elem()
+}
+
+func (o ChannelsSenderInfoArrayOutput) ToChannelsSenderInfoArrayOutput() ChannelsSenderInfoArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderInfoArrayOutput) ToChannelsSenderInfoArrayOutputWithContext(ctx context.Context) ChannelsSenderInfoArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderInfoArrayOutput) Index(i pulumi.IntInput) ChannelsSenderInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderInfo {
+		return vs[0].([]ChannelsSenderInfo)[vs[1].(int)]
+	}).(ChannelsSenderInfoOutput)
+}
+
+type ChannelsSenderLabeledEmail struct {
+	// The email address.
+	Email string `pulumi:"email"`
+	// Label of the email address.
+	Label *string `pulumi:"label"`
+}
+
+// ChannelsSenderLabeledEmailInput is an input type that accepts ChannelsSenderLabeledEmailArgs and ChannelsSenderLabeledEmailOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledEmailInput` via:
+//
+//	ChannelsSenderLabeledEmailArgs{...}
+type ChannelsSenderLabeledEmailInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledEmailOutput() ChannelsSenderLabeledEmailOutput
+	ToChannelsSenderLabeledEmailOutputWithContext(context.Context) ChannelsSenderLabeledEmailOutput
+}
+
+type ChannelsSenderLabeledEmailArgs struct {
+	// The email address.
+	Email pulumi.StringInput `pulumi:"email"`
+	// Label of the email address.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+}
+
+func (ChannelsSenderLabeledEmailArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledEmail)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledEmailArgs) ToChannelsSenderLabeledEmailOutput() ChannelsSenderLabeledEmailOutput {
+	return i.ToChannelsSenderLabeledEmailOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledEmailArgs) ToChannelsSenderLabeledEmailOutputWithContext(ctx context.Context) ChannelsSenderLabeledEmailOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledEmailOutput)
+}
+
+// ChannelsSenderLabeledEmailArrayInput is an input type that accepts ChannelsSenderLabeledEmailArray and ChannelsSenderLabeledEmailArrayOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledEmailArrayInput` via:
+//
+//	ChannelsSenderLabeledEmailArray{ ChannelsSenderLabeledEmailArgs{...} }
+type ChannelsSenderLabeledEmailArrayInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledEmailArrayOutput() ChannelsSenderLabeledEmailArrayOutput
+	ToChannelsSenderLabeledEmailArrayOutputWithContext(context.Context) ChannelsSenderLabeledEmailArrayOutput
+}
+
+type ChannelsSenderLabeledEmailArray []ChannelsSenderLabeledEmailInput
+
+func (ChannelsSenderLabeledEmailArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledEmail)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledEmailArray) ToChannelsSenderLabeledEmailArrayOutput() ChannelsSenderLabeledEmailArrayOutput {
+	return i.ToChannelsSenderLabeledEmailArrayOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledEmailArray) ToChannelsSenderLabeledEmailArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledEmailArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledEmailArrayOutput)
+}
+
+type ChannelsSenderLabeledEmailOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledEmailOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledEmail)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledEmailOutput) ToChannelsSenderLabeledEmailOutput() ChannelsSenderLabeledEmailOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledEmailOutput) ToChannelsSenderLabeledEmailOutputWithContext(ctx context.Context) ChannelsSenderLabeledEmailOutput {
+	return o
+}
+
+// The email address.
+func (o ChannelsSenderLabeledEmailOutput) Email() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledEmail) string { return v.Email }).(pulumi.StringOutput)
+}
+
+// Label of the email address.
+func (o ChannelsSenderLabeledEmailOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledEmail) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderLabeledEmailArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledEmailArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledEmail)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledEmailArrayOutput) ToChannelsSenderLabeledEmailArrayOutput() ChannelsSenderLabeledEmailArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledEmailArrayOutput) ToChannelsSenderLabeledEmailArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledEmailArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledEmailArrayOutput) Index(i pulumi.IntInput) ChannelsSenderLabeledEmailOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderLabeledEmail {
+		return vs[0].([]ChannelsSenderLabeledEmail)[vs[1].(int)]
+	}).(ChannelsSenderLabeledEmailOutput)
+}
+
+type ChannelsSenderLabeledPhone struct {
+	// Label of the phone number.
+	Label *string `pulumi:"label"`
+	// The phone number.
+	PhoneNumber string `pulumi:"phoneNumber"`
+}
+
+// ChannelsSenderLabeledPhoneInput is an input type that accepts ChannelsSenderLabeledPhoneArgs and ChannelsSenderLabeledPhoneOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledPhoneInput` via:
+//
+//	ChannelsSenderLabeledPhoneArgs{...}
+type ChannelsSenderLabeledPhoneInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledPhoneOutput() ChannelsSenderLabeledPhoneOutput
+	ToChannelsSenderLabeledPhoneOutputWithContext(context.Context) ChannelsSenderLabeledPhoneOutput
+}
+
+type ChannelsSenderLabeledPhoneArgs struct {
+	// Label of the phone number.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The phone number.
+	PhoneNumber pulumi.StringInput `pulumi:"phoneNumber"`
+}
+
+func (ChannelsSenderLabeledPhoneArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledPhone)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledPhoneArgs) ToChannelsSenderLabeledPhoneOutput() ChannelsSenderLabeledPhoneOutput {
+	return i.ToChannelsSenderLabeledPhoneOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledPhoneArgs) ToChannelsSenderLabeledPhoneOutputWithContext(ctx context.Context) ChannelsSenderLabeledPhoneOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledPhoneOutput)
+}
+
+// ChannelsSenderLabeledPhoneArrayInput is an input type that accepts ChannelsSenderLabeledPhoneArray and ChannelsSenderLabeledPhoneArrayOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledPhoneArrayInput` via:
+//
+//	ChannelsSenderLabeledPhoneArray{ ChannelsSenderLabeledPhoneArgs{...} }
+type ChannelsSenderLabeledPhoneArrayInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledPhoneArrayOutput() ChannelsSenderLabeledPhoneArrayOutput
+	ToChannelsSenderLabeledPhoneArrayOutputWithContext(context.Context) ChannelsSenderLabeledPhoneArrayOutput
+}
+
+type ChannelsSenderLabeledPhoneArray []ChannelsSenderLabeledPhoneInput
+
+func (ChannelsSenderLabeledPhoneArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledPhone)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledPhoneArray) ToChannelsSenderLabeledPhoneArrayOutput() ChannelsSenderLabeledPhoneArrayOutput {
+	return i.ToChannelsSenderLabeledPhoneArrayOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledPhoneArray) ToChannelsSenderLabeledPhoneArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledPhoneArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledPhoneArrayOutput)
+}
+
+type ChannelsSenderLabeledPhoneOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledPhoneOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledPhone)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledPhoneOutput) ToChannelsSenderLabeledPhoneOutput() ChannelsSenderLabeledPhoneOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledPhoneOutput) ToChannelsSenderLabeledPhoneOutputWithContext(ctx context.Context) ChannelsSenderLabeledPhoneOutput {
+	return o
+}
+
+// Label of the phone number.
+func (o ChannelsSenderLabeledPhoneOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledPhone) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The phone number.
+func (o ChannelsSenderLabeledPhoneOutput) PhoneNumber() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledPhone) string { return v.PhoneNumber }).(pulumi.StringOutput)
+}
+
+type ChannelsSenderLabeledPhoneArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledPhoneArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledPhone)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledPhoneArrayOutput) ToChannelsSenderLabeledPhoneArrayOutput() ChannelsSenderLabeledPhoneArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledPhoneArrayOutput) ToChannelsSenderLabeledPhoneArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledPhoneArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledPhoneArrayOutput) Index(i pulumi.IntInput) ChannelsSenderLabeledPhoneOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderLabeledPhone {
+		return vs[0].([]ChannelsSenderLabeledPhone)[vs[1].(int)]
+	}).(ChannelsSenderLabeledPhoneOutput)
+}
+
+type ChannelsSenderLabeledWebsite struct {
+	// Label of the website.
+	Label *string `pulumi:"label"`
+	// The website URL.
+	Website string `pulumi:"website"`
+}
+
+// ChannelsSenderLabeledWebsiteInput is an input type that accepts ChannelsSenderLabeledWebsiteArgs and ChannelsSenderLabeledWebsiteOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledWebsiteInput` via:
+//
+//	ChannelsSenderLabeledWebsiteArgs{...}
+type ChannelsSenderLabeledWebsiteInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledWebsiteOutput() ChannelsSenderLabeledWebsiteOutput
+	ToChannelsSenderLabeledWebsiteOutputWithContext(context.Context) ChannelsSenderLabeledWebsiteOutput
+}
+
+type ChannelsSenderLabeledWebsiteArgs struct {
+	// Label of the website.
+	Label pulumi.StringPtrInput `pulumi:"label"`
+	// The website URL.
+	Website pulumi.StringInput `pulumi:"website"`
+}
+
+func (ChannelsSenderLabeledWebsiteArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledWebsite)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledWebsiteArgs) ToChannelsSenderLabeledWebsiteOutput() ChannelsSenderLabeledWebsiteOutput {
+	return i.ToChannelsSenderLabeledWebsiteOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledWebsiteArgs) ToChannelsSenderLabeledWebsiteOutputWithContext(ctx context.Context) ChannelsSenderLabeledWebsiteOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledWebsiteOutput)
+}
+
+// ChannelsSenderLabeledWebsiteArrayInput is an input type that accepts ChannelsSenderLabeledWebsiteArray and ChannelsSenderLabeledWebsiteArrayOutput values.
+// You can construct a concrete instance of `ChannelsSenderLabeledWebsiteArrayInput` via:
+//
+//	ChannelsSenderLabeledWebsiteArray{ ChannelsSenderLabeledWebsiteArgs{...} }
+type ChannelsSenderLabeledWebsiteArrayInput interface {
+	pulumi.Input
+
+	ToChannelsSenderLabeledWebsiteArrayOutput() ChannelsSenderLabeledWebsiteArrayOutput
+	ToChannelsSenderLabeledWebsiteArrayOutputWithContext(context.Context) ChannelsSenderLabeledWebsiteArrayOutput
+}
+
+type ChannelsSenderLabeledWebsiteArray []ChannelsSenderLabeledWebsiteInput
+
+func (ChannelsSenderLabeledWebsiteArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledWebsite)(nil)).Elem()
+}
+
+func (i ChannelsSenderLabeledWebsiteArray) ToChannelsSenderLabeledWebsiteArrayOutput() ChannelsSenderLabeledWebsiteArrayOutput {
+	return i.ToChannelsSenderLabeledWebsiteArrayOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderLabeledWebsiteArray) ToChannelsSenderLabeledWebsiteArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledWebsiteArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderLabeledWebsiteArrayOutput)
+}
+
+type ChannelsSenderLabeledWebsiteOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledWebsiteOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderLabeledWebsite)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledWebsiteOutput) ToChannelsSenderLabeledWebsiteOutput() ChannelsSenderLabeledWebsiteOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledWebsiteOutput) ToChannelsSenderLabeledWebsiteOutputWithContext(ctx context.Context) ChannelsSenderLabeledWebsiteOutput {
+	return o
+}
+
+// Label of the website.
+func (o ChannelsSenderLabeledWebsiteOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledWebsite) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// The website URL.
+func (o ChannelsSenderLabeledWebsiteOutput) Website() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderLabeledWebsite) string { return v.Website }).(pulumi.StringOutput)
+}
+
+type ChannelsSenderLabeledWebsiteArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderLabeledWebsiteArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderLabeledWebsite)(nil)).Elem()
+}
+
+func (o ChannelsSenderLabeledWebsiteArrayOutput) ToChannelsSenderLabeledWebsiteArrayOutput() ChannelsSenderLabeledWebsiteArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledWebsiteArrayOutput) ToChannelsSenderLabeledWebsiteArrayOutputWithContext(ctx context.Context) ChannelsSenderLabeledWebsiteArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderLabeledWebsiteArrayOutput) Index(i pulumi.IntInput) ChannelsSenderLabeledWebsiteOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderLabeledWebsite {
+		return vs[0].([]ChannelsSenderLabeledWebsite)[vs[1].(int)]
+	}).(ChannelsSenderLabeledWebsiteOutput)
+}
+
+type ChannelsSenderOfflineReason struct {
+	// The error code.
+	Code *string `pulumi:"code"`
+	// The error message.
+	Message *string `pulumi:"message"`
+	// URL with more information about the error.
+	MoreInfo *string `pulumi:"moreInfo"`
+}
+
+type ChannelsSenderOfflineReasonOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderOfflineReasonOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderOfflineReason)(nil)).Elem()
+}
+
+func (o ChannelsSenderOfflineReasonOutput) ToChannelsSenderOfflineReasonOutput() ChannelsSenderOfflineReasonOutput {
+	return o
+}
+
+func (o ChannelsSenderOfflineReasonOutput) ToChannelsSenderOfflineReasonOutputWithContext(ctx context.Context) ChannelsSenderOfflineReasonOutput {
+	return o
+}
+
+// The error code.
+func (o ChannelsSenderOfflineReasonOutput) Code() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderOfflineReason) *string { return v.Code }).(pulumi.StringPtrOutput)
+}
+
+// The error message.
+func (o ChannelsSenderOfflineReasonOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderOfflineReason) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// URL with more information about the error.
+func (o ChannelsSenderOfflineReasonOutput) MoreInfo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderOfflineReason) *string { return v.MoreInfo }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderOfflineReasonArrayOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderOfflineReasonArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ChannelsSenderOfflineReason)(nil)).Elem()
+}
+
+func (o ChannelsSenderOfflineReasonArrayOutput) ToChannelsSenderOfflineReasonArrayOutput() ChannelsSenderOfflineReasonArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderOfflineReasonArrayOutput) ToChannelsSenderOfflineReasonArrayOutputWithContext(ctx context.Context) ChannelsSenderOfflineReasonArrayOutput {
+	return o
+}
+
+func (o ChannelsSenderOfflineReasonArrayOutput) Index(i pulumi.IntInput) ChannelsSenderOfflineReasonOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ChannelsSenderOfflineReason {
+		return vs[0].([]ChannelsSenderOfflineReason)[vs[1].(int)]
+	}).(ChannelsSenderOfflineReasonOutput)
+}
+
+type ChannelsSenderProfile struct {
+	// The about text of the profile.
+	About *string `pulumi:"about"`
+	// Color theme of the profile, in hex format.
+	AccentColor *string `pulumi:"accentColor"`
+	// The address of the business.
+	Address *string `pulumi:"address"`
+	// URL of the banner image.
+	BannerUrl *string `pulumi:"bannerUrl"`
+	// The description of the business.
+	Description *string `pulumi:"description"`
+	// Email addresses of the business.
+	Emails []ChannelsSenderLabeledEmail `pulumi:"emails"`
+	// URL of the logo.
+	LogoUrl *string `pulumi:"logoUrl"`
+	// The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+	Name string `pulumi:"name"`
+	// Phone numbers of the business.
+	PhoneNumbers []ChannelsSenderLabeledPhone `pulumi:"phoneNumbers"`
+	// Publicly accessible HTTP or HTTPS URL of the privacy policy.
+	PrivacyUrl *string `pulumi:"privacyUrl"`
+	// URL of the terms of service.
+	TermsOfServiceUrl *string `pulumi:"termsOfServiceUrl"`
+	// The industry vertical of the business, for example Retail.
+	Vertical *string `pulumi:"vertical"`
+	// Websites of the business.
+	Websites []ChannelsSenderLabeledWebsite `pulumi:"websites"`
+}
+
+// ChannelsSenderProfileInput is an input type that accepts ChannelsSenderProfileArgs and ChannelsSenderProfileOutput values.
+// You can construct a concrete instance of `ChannelsSenderProfileInput` via:
+//
+//	ChannelsSenderProfileArgs{...}
+type ChannelsSenderProfileInput interface {
+	pulumi.Input
+
+	ToChannelsSenderProfileOutput() ChannelsSenderProfileOutput
+	ToChannelsSenderProfileOutputWithContext(context.Context) ChannelsSenderProfileOutput
+}
+
+type ChannelsSenderProfileArgs struct {
+	// The about text of the profile.
+	About pulumi.StringPtrInput `pulumi:"about"`
+	// Color theme of the profile, in hex format.
+	AccentColor pulumi.StringPtrInput `pulumi:"accentColor"`
+	// The address of the business.
+	Address pulumi.StringPtrInput `pulumi:"address"`
+	// URL of the banner image.
+	BannerUrl pulumi.StringPtrInput `pulumi:"bannerUrl"`
+	// The description of the business.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// Email addresses of the business.
+	Emails ChannelsSenderLabeledEmailArrayInput `pulumi:"emails"`
+	// URL of the logo.
+	LogoUrl pulumi.StringPtrInput `pulumi:"logoUrl"`
+	// The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Phone numbers of the business.
+	PhoneNumbers ChannelsSenderLabeledPhoneArrayInput `pulumi:"phoneNumbers"`
+	// Publicly accessible HTTP or HTTPS URL of the privacy policy.
+	PrivacyUrl pulumi.StringPtrInput `pulumi:"privacyUrl"`
+	// URL of the terms of service.
+	TermsOfServiceUrl pulumi.StringPtrInput `pulumi:"termsOfServiceUrl"`
+	// The industry vertical of the business, for example Retail.
+	Vertical pulumi.StringPtrInput `pulumi:"vertical"`
+	// Websites of the business.
+	Websites ChannelsSenderLabeledWebsiteArrayInput `pulumi:"websites"`
+}
+
+func (ChannelsSenderProfileArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderProfile)(nil)).Elem()
+}
+
+func (i ChannelsSenderProfileArgs) ToChannelsSenderProfileOutput() ChannelsSenderProfileOutput {
+	return i.ToChannelsSenderProfileOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderProfileArgs) ToChannelsSenderProfileOutputWithContext(ctx context.Context) ChannelsSenderProfileOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderProfileOutput)
+}
+
+type ChannelsSenderProfileOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderProfileOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderProfile)(nil)).Elem()
+}
+
+func (o ChannelsSenderProfileOutput) ToChannelsSenderProfileOutput() ChannelsSenderProfileOutput {
+	return o
+}
+
+func (o ChannelsSenderProfileOutput) ToChannelsSenderProfileOutputWithContext(ctx context.Context) ChannelsSenderProfileOutput {
+	return o
+}
+
+// The about text of the profile.
+func (o ChannelsSenderProfileOutput) About() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.About }).(pulumi.StringPtrOutput)
+}
+
+// Color theme of the profile, in hex format.
+func (o ChannelsSenderProfileOutput) AccentColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.AccentColor }).(pulumi.StringPtrOutput)
+}
+
+// The address of the business.
+func (o ChannelsSenderProfileOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.Address }).(pulumi.StringPtrOutput)
+}
+
+// URL of the banner image.
+func (o ChannelsSenderProfileOutput) BannerUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.BannerUrl }).(pulumi.StringPtrOutput)
+}
+
+// The description of the business.
+func (o ChannelsSenderProfileOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Email addresses of the business.
+func (o ChannelsSenderProfileOutput) Emails() ChannelsSenderLabeledEmailArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) []ChannelsSenderLabeledEmail { return v.Emails }).(ChannelsSenderLabeledEmailArrayOutput)
+}
+
+// URL of the logo.
+func (o ChannelsSenderProfileOutput) LogoUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.LogoUrl }).(pulumi.StringPtrOutput)
+}
+
+// The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+func (o ChannelsSenderProfileOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Phone numbers of the business.
+func (o ChannelsSenderProfileOutput) PhoneNumbers() ChannelsSenderLabeledPhoneArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) []ChannelsSenderLabeledPhone { return v.PhoneNumbers }).(ChannelsSenderLabeledPhoneArrayOutput)
+}
+
+// Publicly accessible HTTP or HTTPS URL of the privacy policy.
+func (o ChannelsSenderProfileOutput) PrivacyUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.PrivacyUrl }).(pulumi.StringPtrOutput)
+}
+
+// URL of the terms of service.
+func (o ChannelsSenderProfileOutput) TermsOfServiceUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.TermsOfServiceUrl }).(pulumi.StringPtrOutput)
+}
+
+// The industry vertical of the business, for example Retail.
+func (o ChannelsSenderProfileOutput) Vertical() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) *string { return v.Vertical }).(pulumi.StringPtrOutput)
+}
+
+// Websites of the business.
+func (o ChannelsSenderProfileOutput) Websites() ChannelsSenderLabeledWebsiteArrayOutput {
+	return o.ApplyT(func(v ChannelsSenderProfile) []ChannelsSenderLabeledWebsite { return v.Websites }).(ChannelsSenderLabeledWebsiteArrayOutput)
+}
+
+type ChannelsSenderProfilePtrOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderProfilePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderProfile)(nil)).Elem()
+}
+
+func (o ChannelsSenderProfilePtrOutput) ToChannelsSenderProfilePtrOutput() ChannelsSenderProfilePtrOutput {
+	return o
+}
+
+func (o ChannelsSenderProfilePtrOutput) ToChannelsSenderProfilePtrOutputWithContext(ctx context.Context) ChannelsSenderProfilePtrOutput {
+	return o
+}
+
+func (o ChannelsSenderProfilePtrOutput) Elem() ChannelsSenderProfileOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) ChannelsSenderProfile {
+		if v != nil {
+			return *v
+		}
+		var ret ChannelsSenderProfile
+		return ret
+	}).(ChannelsSenderProfileOutput)
+}
+
+// The about text of the profile.
+func (o ChannelsSenderProfilePtrOutput) About() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.About
+	}).(pulumi.StringPtrOutput)
+}
+
+// Color theme of the profile, in hex format.
+func (o ChannelsSenderProfilePtrOutput) AccentColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccentColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The address of the business.
+func (o ChannelsSenderProfilePtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL of the banner image.
+func (o ChannelsSenderProfilePtrOutput) BannerUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BannerUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The description of the business.
+func (o ChannelsSenderProfilePtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// Email addresses of the business.
+func (o ChannelsSenderProfilePtrOutput) Emails() ChannelsSenderLabeledEmailArrayOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) []ChannelsSenderLabeledEmail {
+		if v == nil {
+			return nil
+		}
+		return v.Emails
+	}).(ChannelsSenderLabeledEmailArrayOutput)
+}
+
+// URL of the logo.
+func (o ChannelsSenderProfilePtrOutput) LogoUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LogoUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+func (o ChannelsSenderProfilePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Phone numbers of the business.
+func (o ChannelsSenderProfilePtrOutput) PhoneNumbers() ChannelsSenderLabeledPhoneArrayOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) []ChannelsSenderLabeledPhone {
+		if v == nil {
+			return nil
+		}
+		return v.PhoneNumbers
+	}).(ChannelsSenderLabeledPhoneArrayOutput)
+}
+
+// Publicly accessible HTTP or HTTPS URL of the privacy policy.
+func (o ChannelsSenderProfilePtrOutput) PrivacyUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PrivacyUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL of the terms of service.
+func (o ChannelsSenderProfilePtrOutput) TermsOfServiceUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TermsOfServiceUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// The industry vertical of the business, for example Retail.
+func (o ChannelsSenderProfilePtrOutput) Vertical() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Vertical
+	}).(pulumi.StringPtrOutput)
+}
+
+// Websites of the business.
+func (o ChannelsSenderProfilePtrOutput) Websites() ChannelsSenderLabeledWebsiteArrayOutput {
+	return o.ApplyT(func(v *ChannelsSenderProfile) []ChannelsSenderLabeledWebsite {
+		if v == nil {
+			return nil
+		}
+		return v.Websites
+	}).(ChannelsSenderLabeledWebsiteArrayOutput)
+}
+
+type ChannelsSenderProperties struct {
+	// The messaging limit of the sender.
+	MessagingLimit *string `pulumi:"messagingLimit"`
+	// The quality rating of the sender.
+	QualityRating *string `pulumi:"qualityRating"`
+}
+
+type ChannelsSenderPropertiesOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderPropertiesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderProperties)(nil)).Elem()
+}
+
+func (o ChannelsSenderPropertiesOutput) ToChannelsSenderPropertiesOutput() ChannelsSenderPropertiesOutput {
+	return o
+}
+
+func (o ChannelsSenderPropertiesOutput) ToChannelsSenderPropertiesOutputWithContext(ctx context.Context) ChannelsSenderPropertiesOutput {
+	return o
+}
+
+// The messaging limit of the sender.
+func (o ChannelsSenderPropertiesOutput) MessagingLimit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProperties) *string { return v.MessagingLimit }).(pulumi.StringPtrOutput)
+}
+
+// The quality rating of the sender.
+func (o ChannelsSenderPropertiesOutput) QualityRating() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderProperties) *string { return v.QualityRating }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderPropertiesPtrOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderPropertiesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderProperties)(nil)).Elem()
+}
+
+func (o ChannelsSenderPropertiesPtrOutput) ToChannelsSenderPropertiesPtrOutput() ChannelsSenderPropertiesPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderPropertiesPtrOutput) ToChannelsSenderPropertiesPtrOutputWithContext(ctx context.Context) ChannelsSenderPropertiesPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderPropertiesPtrOutput) Elem() ChannelsSenderPropertiesOutput {
+	return o.ApplyT(func(v *ChannelsSenderProperties) ChannelsSenderProperties {
+		if v != nil {
+			return *v
+		}
+		var ret ChannelsSenderProperties
+		return ret
+	}).(ChannelsSenderPropertiesOutput)
+}
+
+// The messaging limit of the sender.
+func (o ChannelsSenderPropertiesPtrOutput) MessagingLimit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProperties) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MessagingLimit
+	}).(pulumi.StringPtrOutput)
+}
+
+// The quality rating of the sender.
+func (o ChannelsSenderPropertiesPtrOutput) QualityRating() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderProperties) *string {
+		if v == nil {
+			return nil
+		}
+		return v.QualityRating
+	}).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderWebhook struct {
+	// HTTP method of the callback: POST or PUT.
+	CallbackMethod *string `pulumi:"callbackMethod"`
+	// URL Twilio sends incoming messages to.
+	CallbackUrl *string `pulumi:"callbackUrl"`
+	// HTTP method of the fallback: POST or PUT.
+	FallbackMethod *string `pulumi:"fallbackMethod"`
+	// URL Twilio sends to when the callback URL fails.
+	FallbackUrl *string `pulumi:"fallbackUrl"`
+	// HTTP method of the status callback.
+	StatusCallbackMethod *string `pulumi:"statusCallbackMethod"`
+	// URL Twilio sends message status updates to.
+	StatusCallbackUrl *string `pulumi:"statusCallbackUrl"`
+}
+
+// ChannelsSenderWebhookInput is an input type that accepts ChannelsSenderWebhookArgs and ChannelsSenderWebhookOutput values.
+// You can construct a concrete instance of `ChannelsSenderWebhookInput` via:
+//
+//	ChannelsSenderWebhookArgs{...}
+type ChannelsSenderWebhookInput interface {
+	pulumi.Input
+
+	ToChannelsSenderWebhookOutput() ChannelsSenderWebhookOutput
+	ToChannelsSenderWebhookOutputWithContext(context.Context) ChannelsSenderWebhookOutput
+}
+
+type ChannelsSenderWebhookArgs struct {
+	// HTTP method of the callback: POST or PUT.
+	CallbackMethod pulumi.StringPtrInput `pulumi:"callbackMethod"`
+	// URL Twilio sends incoming messages to.
+	CallbackUrl pulumi.StringPtrInput `pulumi:"callbackUrl"`
+	// HTTP method of the fallback: POST or PUT.
+	FallbackMethod pulumi.StringPtrInput `pulumi:"fallbackMethod"`
+	// URL Twilio sends to when the callback URL fails.
+	FallbackUrl pulumi.StringPtrInput `pulumi:"fallbackUrl"`
+	// HTTP method of the status callback.
+	StatusCallbackMethod pulumi.StringPtrInput `pulumi:"statusCallbackMethod"`
+	// URL Twilio sends message status updates to.
+	StatusCallbackUrl pulumi.StringPtrInput `pulumi:"statusCallbackUrl"`
+}
+
+func (ChannelsSenderWebhookArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderWebhook)(nil)).Elem()
+}
+
+func (i ChannelsSenderWebhookArgs) ToChannelsSenderWebhookOutput() ChannelsSenderWebhookOutput {
+	return i.ToChannelsSenderWebhookOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderWebhookArgs) ToChannelsSenderWebhookOutputWithContext(ctx context.Context) ChannelsSenderWebhookOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderWebhookOutput)
+}
+
+func (i ChannelsSenderWebhookArgs) ToChannelsSenderWebhookPtrOutput() ChannelsSenderWebhookPtrOutput {
+	return i.ToChannelsSenderWebhookPtrOutputWithContext(context.Background())
+}
+
+func (i ChannelsSenderWebhookArgs) ToChannelsSenderWebhookPtrOutputWithContext(ctx context.Context) ChannelsSenderWebhookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderWebhookOutput).ToChannelsSenderWebhookPtrOutputWithContext(ctx)
+}
+
+// ChannelsSenderWebhookPtrInput is an input type that accepts ChannelsSenderWebhookArgs, ChannelsSenderWebhookPtr and ChannelsSenderWebhookPtrOutput values.
+// You can construct a concrete instance of `ChannelsSenderWebhookPtrInput` via:
+//
+//	        ChannelsSenderWebhookArgs{...}
+//
+//	or:
+//
+//	        nil
+type ChannelsSenderWebhookPtrInput interface {
+	pulumi.Input
+
+	ToChannelsSenderWebhookPtrOutput() ChannelsSenderWebhookPtrOutput
+	ToChannelsSenderWebhookPtrOutputWithContext(context.Context) ChannelsSenderWebhookPtrOutput
+}
+
+type channelsSenderWebhookPtrType ChannelsSenderWebhookArgs
+
+func ChannelsSenderWebhookPtr(v *ChannelsSenderWebhookArgs) ChannelsSenderWebhookPtrInput {
+	return (*channelsSenderWebhookPtrType)(v)
+}
+
+func (*channelsSenderWebhookPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderWebhook)(nil)).Elem()
+}
+
+func (i *channelsSenderWebhookPtrType) ToChannelsSenderWebhookPtrOutput() ChannelsSenderWebhookPtrOutput {
+	return i.ToChannelsSenderWebhookPtrOutputWithContext(context.Background())
+}
+
+func (i *channelsSenderWebhookPtrType) ToChannelsSenderWebhookPtrOutputWithContext(ctx context.Context) ChannelsSenderWebhookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ChannelsSenderWebhookPtrOutput)
+}
+
+type ChannelsSenderWebhookOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderWebhookOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChannelsSenderWebhook)(nil)).Elem()
+}
+
+func (o ChannelsSenderWebhookOutput) ToChannelsSenderWebhookOutput() ChannelsSenderWebhookOutput {
+	return o
+}
+
+func (o ChannelsSenderWebhookOutput) ToChannelsSenderWebhookOutputWithContext(ctx context.Context) ChannelsSenderWebhookOutput {
+	return o
+}
+
+func (o ChannelsSenderWebhookOutput) ToChannelsSenderWebhookPtrOutput() ChannelsSenderWebhookPtrOutput {
+	return o.ToChannelsSenderWebhookPtrOutputWithContext(context.Background())
+}
+
+func (o ChannelsSenderWebhookOutput) ToChannelsSenderWebhookPtrOutputWithContext(ctx context.Context) ChannelsSenderWebhookPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ChannelsSenderWebhook) *ChannelsSenderWebhook {
+		return &v
+	}).(ChannelsSenderWebhookPtrOutput)
+}
+
+// HTTP method of the callback: POST or PUT.
+func (o ChannelsSenderWebhookOutput) CallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.CallbackMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends incoming messages to.
+func (o ChannelsSenderWebhookOutput) CallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.CallbackUrl }).(pulumi.StringPtrOutput)
+}
+
+// HTTP method of the fallback: POST or PUT.
+func (o ChannelsSenderWebhookOutput) FallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.FallbackMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends to when the callback URL fails.
+func (o ChannelsSenderWebhookOutput) FallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.FallbackUrl }).(pulumi.StringPtrOutput)
+}
+
+// HTTP method of the status callback.
+func (o ChannelsSenderWebhookOutput) StatusCallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.StatusCallbackMethod }).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends message status updates to.
+func (o ChannelsSenderWebhookOutput) StatusCallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ChannelsSenderWebhook) *string { return v.StatusCallbackUrl }).(pulumi.StringPtrOutput)
+}
+
+type ChannelsSenderWebhookPtrOutput struct{ *pulumi.OutputState }
+
+func (ChannelsSenderWebhookPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChannelsSenderWebhook)(nil)).Elem()
+}
+
+func (o ChannelsSenderWebhookPtrOutput) ToChannelsSenderWebhookPtrOutput() ChannelsSenderWebhookPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderWebhookPtrOutput) ToChannelsSenderWebhookPtrOutputWithContext(ctx context.Context) ChannelsSenderWebhookPtrOutput {
+	return o
+}
+
+func (o ChannelsSenderWebhookPtrOutput) Elem() ChannelsSenderWebhookOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) ChannelsSenderWebhook {
+		if v != nil {
+			return *v
+		}
+		var ret ChannelsSenderWebhook
+		return ret
+	}).(ChannelsSenderWebhookOutput)
+}
+
+// HTTP method of the callback: POST or PUT.
+func (o ChannelsSenderWebhookPtrOutput) CallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CallbackMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends incoming messages to.
+func (o ChannelsSenderWebhookPtrOutput) CallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CallbackUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// HTTP method of the fallback: POST or PUT.
+func (o ChannelsSenderWebhookPtrOutput) FallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FallbackMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends to when the callback URL fails.
+func (o ChannelsSenderWebhookPtrOutput) FallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FallbackUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// HTTP method of the status callback.
+func (o ChannelsSenderWebhookPtrOutput) StatusCallbackMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StatusCallbackMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL Twilio sends message status updates to.
+func (o ChannelsSenderWebhookPtrOutput) StatusCallbackUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ChannelsSenderWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StatusCallbackUrl
+	}).(pulumi.StringPtrOutput)
+}
+
 type ConnectAppEffective struct {
 	// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -10149,6 +11692,315 @@ func (o TrunkEffectivePtrOutput) TransferMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TrustHubEndUserInfo struct {
+	// SID (AC...) of the owning account.
+	AccountSid string `pulumi:"accountSid"`
+	// The attributes as a JSON object (empty when Twilio reports none).
+	Attributes string `pulumi:"attributes"`
+	// When the end user was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the end user was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// Human-readable name of the end user.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The end user SID (IT...).
+	Sid string `pulumi:"sid"`
+	// Machine name of the end user type.
+	Type string `pulumi:"type"`
+}
+
+type TrustHubEndUserInfoOutput struct{ *pulumi.OutputState }
+
+func (TrustHubEndUserInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TrustHubEndUserInfo)(nil)).Elem()
+}
+
+func (o TrustHubEndUserInfoOutput) ToTrustHubEndUserInfoOutput() TrustHubEndUserInfoOutput {
+	return o
+}
+
+func (o TrustHubEndUserInfoOutput) ToTrustHubEndUserInfoOutputWithContext(ctx context.Context) TrustHubEndUserInfoOutput {
+	return o
+}
+
+// SID (AC...) of the owning account.
+func (o TrustHubEndUserInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// The attributes as a JSON object (empty when Twilio reports none).
+func (o TrustHubEndUserInfoOutput) Attributes() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.Attributes }).(pulumi.StringOutput)
+}
+
+// When the end user was created (ISO 8601).
+func (o TrustHubEndUserInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the end user was last updated (ISO 8601).
+func (o TrustHubEndUserInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the end user.
+func (o TrustHubEndUserInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The end user SID (IT...).
+func (o TrustHubEndUserInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Machine name of the end user type.
+func (o TrustHubEndUserInfoOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubEndUserInfo) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TrustHubEndUserInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (TrustHubEndUserInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TrustHubEndUserInfo)(nil)).Elem()
+}
+
+func (o TrustHubEndUserInfoArrayOutput) ToTrustHubEndUserInfoArrayOutput() TrustHubEndUserInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubEndUserInfoArrayOutput) ToTrustHubEndUserInfoArrayOutputWithContext(ctx context.Context) TrustHubEndUserInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubEndUserInfoArrayOutput) Index(i pulumi.IntInput) TrustHubEndUserInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TrustHubEndUserInfo {
+		return vs[0].([]TrustHubEndUserInfo)[vs[1].(int)]
+	}).(TrustHubEndUserInfoOutput)
+}
+
+type TrustHubPolicyInfo struct {
+	// Human-readable name of the policy.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).
+	Requirements string `pulumi:"requirements"`
+	// The policy SID (RN...).
+	Sid string `pulumi:"sid"`
+}
+
+type TrustHubPolicyInfoOutput struct{ *pulumi.OutputState }
+
+func (TrustHubPolicyInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TrustHubPolicyInfo)(nil)).Elem()
+}
+
+func (o TrustHubPolicyInfoOutput) ToTrustHubPolicyInfoOutput() TrustHubPolicyInfoOutput {
+	return o
+}
+
+func (o TrustHubPolicyInfoOutput) ToTrustHubPolicyInfoOutputWithContext(ctx context.Context) TrustHubPolicyInfoOutput {
+	return o
+}
+
+// Human-readable name of the policy.
+func (o TrustHubPolicyInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubPolicyInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).
+func (o TrustHubPolicyInfoOutput) Requirements() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubPolicyInfo) string { return v.Requirements }).(pulumi.StringOutput)
+}
+
+// The policy SID (RN...).
+func (o TrustHubPolicyInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubPolicyInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type TrustHubPolicyInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (TrustHubPolicyInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TrustHubPolicyInfo)(nil)).Elem()
+}
+
+func (o TrustHubPolicyInfoArrayOutput) ToTrustHubPolicyInfoArrayOutput() TrustHubPolicyInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubPolicyInfoArrayOutput) ToTrustHubPolicyInfoArrayOutputWithContext(ctx context.Context) TrustHubPolicyInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubPolicyInfoArrayOutput) Index(i pulumi.IntInput) TrustHubPolicyInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TrustHubPolicyInfo {
+		return vs[0].([]TrustHubPolicyInfo)[vs[1].(int)]
+	}).(TrustHubPolicyInfoOutput)
+}
+
+type TrustHubSupportingDocumentInfo struct {
+	// SID (AC...) of the owning account.
+	AccountSid string `pulumi:"accountSid"`
+	// The attributes as a JSON object (empty when Twilio reports none).
+	Attributes string `pulumi:"attributes"`
+	// When the document was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the document was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// Human-readable name of the document.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The MIME type of the document (empty when none).
+	MimeType string `pulumi:"mimeType"`
+	// The supporting document SID (RD...).
+	Sid string `pulumi:"sid"`
+	// The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.
+	Status string `pulumi:"status"`
+	// Machine name of the supporting document type.
+	Type string `pulumi:"type"`
+}
+
+type TrustHubSupportingDocumentInfoOutput struct{ *pulumi.OutputState }
+
+func (TrustHubSupportingDocumentInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TrustHubSupportingDocumentInfo)(nil)).Elem()
+}
+
+func (o TrustHubSupportingDocumentInfoOutput) ToTrustHubSupportingDocumentInfoOutput() TrustHubSupportingDocumentInfoOutput {
+	return o
+}
+
+func (o TrustHubSupportingDocumentInfoOutput) ToTrustHubSupportingDocumentInfoOutputWithContext(ctx context.Context) TrustHubSupportingDocumentInfoOutput {
+	return o
+}
+
+// SID (AC...) of the owning account.
+func (o TrustHubSupportingDocumentInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// The attributes as a JSON object (empty when Twilio reports none).
+func (o TrustHubSupportingDocumentInfoOutput) Attributes() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.Attributes }).(pulumi.StringOutput)
+}
+
+// When the document was created (ISO 8601).
+func (o TrustHubSupportingDocumentInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the document was last updated (ISO 8601).
+func (o TrustHubSupportingDocumentInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the document.
+func (o TrustHubSupportingDocumentInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The MIME type of the document (empty when none).
+func (o TrustHubSupportingDocumentInfoOutput) MimeType() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.MimeType }).(pulumi.StringOutput)
+}
+
+// The supporting document SID (RD...).
+func (o TrustHubSupportingDocumentInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.
+func (o TrustHubSupportingDocumentInfoOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// Machine name of the supporting document type.
+func (o TrustHubSupportingDocumentInfoOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubSupportingDocumentInfo) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TrustHubSupportingDocumentInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (TrustHubSupportingDocumentInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TrustHubSupportingDocumentInfo)(nil)).Elem()
+}
+
+func (o TrustHubSupportingDocumentInfoArrayOutput) ToTrustHubSupportingDocumentInfoArrayOutput() TrustHubSupportingDocumentInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubSupportingDocumentInfoArrayOutput) ToTrustHubSupportingDocumentInfoArrayOutputWithContext(ctx context.Context) TrustHubSupportingDocumentInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubSupportingDocumentInfoArrayOutput) Index(i pulumi.IntInput) TrustHubSupportingDocumentInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TrustHubSupportingDocumentInfo {
+		return vs[0].([]TrustHubSupportingDocumentInfo)[vs[1].(int)]
+	}).(TrustHubSupportingDocumentInfoOutput)
+}
+
+type TrustHubTypeInfo struct {
+	// The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+	Fields string `pulumi:"fields"`
+	// Human-readable name of the type.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The machine name, which is what the type input of the resource takes.
+	MachineName string `pulumi:"machineName"`
+	// The SID of the type.
+	Sid string `pulumi:"sid"`
+}
+
+type TrustHubTypeInfoOutput struct{ *pulumi.OutputState }
+
+func (TrustHubTypeInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TrustHubTypeInfo)(nil)).Elem()
+}
+
+func (o TrustHubTypeInfoOutput) ToTrustHubTypeInfoOutput() TrustHubTypeInfoOutput {
+	return o
+}
+
+func (o TrustHubTypeInfoOutput) ToTrustHubTypeInfoOutputWithContext(ctx context.Context) TrustHubTypeInfoOutput {
+	return o
+}
+
+// The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+func (o TrustHubTypeInfoOutput) Fields() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubTypeInfo) string { return v.Fields }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the type.
+func (o TrustHubTypeInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubTypeInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The machine name, which is what the type input of the resource takes.
+func (o TrustHubTypeInfoOutput) MachineName() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubTypeInfo) string { return v.MachineName }).(pulumi.StringOutput)
+}
+
+// The SID of the type.
+func (o TrustHubTypeInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v TrustHubTypeInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type TrustHubTypeInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (TrustHubTypeInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TrustHubTypeInfo)(nil)).Elem()
+}
+
+func (o TrustHubTypeInfoArrayOutput) ToTrustHubTypeInfoArrayOutput() TrustHubTypeInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubTypeInfoArrayOutput) ToTrustHubTypeInfoArrayOutputWithContext(ctx context.Context) TrustHubTypeInfoArrayOutput {
+	return o
+}
+
+func (o TrustHubTypeInfoArrayOutput) Index(i pulumi.IntInput) TrustHubTypeInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TrustHubTypeInfo {
+		return vs[0].([]TrustHubTypeInfo)[vs[1].(int)]
+	}).(TrustHubTypeInfoOutput)
+}
+
 type UsAppToPersonInfo struct {
 	// Whether the campaign requires an age gate.
 	AgeGated bool `pulumi:"ageGated"`
@@ -11110,6 +12962,17 @@ func (o VerifyTemplateArrayOutput) Index(i pulumi.IntInput) VerifyTemplateOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderConfigurationInput)(nil)).Elem(), ChannelsSenderConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderConfigurationPtrInput)(nil)).Elem(), ChannelsSenderConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledEmailInput)(nil)).Elem(), ChannelsSenderLabeledEmailArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledEmailArrayInput)(nil)).Elem(), ChannelsSenderLabeledEmailArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledPhoneInput)(nil)).Elem(), ChannelsSenderLabeledPhoneArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledPhoneArrayInput)(nil)).Elem(), ChannelsSenderLabeledPhoneArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledWebsiteInput)(nil)).Elem(), ChannelsSenderLabeledWebsiteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderLabeledWebsiteArrayInput)(nil)).Elem(), ChannelsSenderLabeledWebsiteArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderProfileInput)(nil)).Elem(), ChannelsSenderProfileArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderWebhookInput)(nil)).Elem(), ChannelsSenderWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ChannelsSenderWebhookPtrInput)(nil)).Elem(), ChannelsSenderWebhookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContentAuthenticationActionInput)(nil)).Elem(), ContentAuthenticationActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContentAuthenticationActionArrayInput)(nil)).Elem(), ContentAuthenticationActionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContentCallToActionInput)(nil)).Elem(), ContentCallToActionArgs{})
@@ -11193,6 +13056,30 @@ func init() {
 	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
 	pulumi.RegisterOutputType(BrandRegistrationInfoOutput{})
 	pulumi.RegisterOutputType(BrandRegistrationInfoArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderCarrierOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderCarrierArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderComplianceOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderCompliancePtrOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderComplianceCountryOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderComplianceCountryArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderConfigurationOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderInfoOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderInfoArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledEmailOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledEmailArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledPhoneOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledPhoneArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledWebsiteOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderLabeledWebsiteArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderOfflineReasonOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderOfflineReasonArrayOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderProfileOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderProfilePtrOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderPropertiesOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderPropertiesPtrOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderWebhookOutput{})
+	pulumi.RegisterOutputType(ChannelsSenderWebhookPtrOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
 	pulumi.RegisterOutputType(ContentAuthenticationActionOutput{})
@@ -11318,6 +13205,14 @@ func init() {
 	pulumi.RegisterOutputType(TranscriptionStatusCallbackPtrOutput{})
 	pulumi.RegisterOutputType(TrunkEffectiveOutput{})
 	pulumi.RegisterOutputType(TrunkEffectivePtrOutput{})
+	pulumi.RegisterOutputType(TrustHubEndUserInfoOutput{})
+	pulumi.RegisterOutputType(TrustHubEndUserInfoArrayOutput{})
+	pulumi.RegisterOutputType(TrustHubPolicyInfoOutput{})
+	pulumi.RegisterOutputType(TrustHubPolicyInfoArrayOutput{})
+	pulumi.RegisterOutputType(TrustHubSupportingDocumentInfoOutput{})
+	pulumi.RegisterOutputType(TrustHubSupportingDocumentInfoArrayOutput{})
+	pulumi.RegisterOutputType(TrustHubTypeInfoOutput{})
+	pulumi.RegisterOutputType(TrustHubTypeInfoArrayOutput{})
 	pulumi.RegisterOutputType(UsAppToPersonInfoOutput{})
 	pulumi.RegisterOutputType(UsAppToPersonInfoArrayOutput{})
 	pulumi.RegisterOutputType(UsAppToPersonUsecaseInfoOutput{})

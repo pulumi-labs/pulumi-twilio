@@ -35,6 +35,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &BrandRegistration{}
 	case "twilio:index:ByocTrunk":
 		r = &ByocTrunk{}
+	case "twilio:index:ChannelsSender":
+		r = &ChannelsSender{}
 	case "twilio:index:ConnectApp":
 		r = &ConnectApp{}
 	case "twilio:index:ConnectionPolicy":
@@ -193,6 +195,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TrunkIpAccessControlList{}
 	case "twilio:index:TrunkOriginationUrl":
 		r = &TrunkOriginationUrl{}
+	case "twilio:index:TrustHubEndUser":
+		r = &TrustHubEndUser{}
+	case "twilio:index:TrustHubSupportingDocument":
+		r = &TrustHubSupportingDocument{}
 	case "twilio:index:UsAppToPerson":
 		r = &UsAppToPerson{}
 	case "twilio:index:UsageTrigger":

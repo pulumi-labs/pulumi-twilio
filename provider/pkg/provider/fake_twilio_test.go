@@ -296,6 +296,10 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleMessagingAccount(w, r, path)
 	case strings.HasPrefix(path, "/iam/v1/Keys"):
 		f.handleIAMKeys(w, r, form, strings.Trim(strings.TrimPrefix(path, "/iam/v1/Keys"), "/"))
+	case strings.HasPrefix(path, "/messaging/v2/Channels/Senders"):
+		f.handleChannelsSenders(w, r, body, strings.Trim(strings.TrimPrefix(path, "/messaging/v2/Channels/Senders"), "/"))
+	case strings.HasPrefix(path, "/trusthub/v1/"):
+		f.handleTrusthub(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trusthub/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/messaging/v1/LinkShortening/"):
 		f.handleLinkShortening(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/LinkShortening/"), "/"), "/"))
 	case strings.HasPrefix(path, "/messaging/v1/Tollfree/"):

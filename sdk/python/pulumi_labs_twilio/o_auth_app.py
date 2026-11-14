@@ -36,10 +36,10 @@ class OAuthAppArgs:
         :param pulumi.Input[_builtins.int] access_token_ttl: Lifetime of the access tokens the app issues, as Twilio takes it (the API specification does not state the unit). Changing it replaces the app.
         :param pulumi.Input[_builtins.str] client_sid: SID (OQ...) to give the app as its client SID. Changing it replaces the app.
         :param pulumi.Input[_builtins.str] description: A description of the OAuth app. Changing it replaces the app.
-        :param pulumi.Input[_builtins.str] owner_sid: SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+        :param pulumi.Input[_builtins.str] owner_sid: SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
         :param pulumi.Input['OAuthAppPolicyArgs'] policy: The permissions the app is allowed and denied. Changing it replaces the app.
         :param pulumi.Input[_builtins.str] token_endpoint_auth_method: How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.
-        :param pulumi.Input[_builtins.str] type: The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+        :param pulumi.Input[_builtins.str] type: The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
         if access_token_ttl is not None:
@@ -109,7 +109,7 @@ class OAuthAppArgs:
     @pulumi.getter(name="ownerSid")
     def owner_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+        SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
         """
         return pulumi.get(self, "owner_sid")
 
@@ -145,7 +145,7 @@ class OAuthAppArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+        The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
         """
         return pulumi.get(self, "type")
 
@@ -179,10 +179,10 @@ class OAuthApp(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] client_sid: SID (OQ...) to give the app as its client SID. Changing it replaces the app.
         :param pulumi.Input[_builtins.str] description: A description of the OAuth app. Changing it replaces the app.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the OAuth app. Changing it replaces the app, because Twilio has no update call for OAuth apps.
-        :param pulumi.Input[_builtins.str] owner_sid: SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+        :param pulumi.Input[_builtins.str] owner_sid: SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
         :param pulumi.Input[Union['OAuthAppPolicyArgs', 'OAuthAppPolicyArgsDict']] policy: The permissions the app is allowed and denied. Changing it replaces the app.
         :param pulumi.Input[_builtins.str] token_endpoint_auth_method: How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.
-        :param pulumi.Input[_builtins.str] type: The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+        :param pulumi.Input[_builtins.str] type: The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
         """
         ...
     @overload
@@ -342,7 +342,7 @@ class OAuthApp(pulumi.CustomResource):
     @pulumi.getter(name="ownerSid")
     def owner_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+        SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
         """
         return pulumi.get(self, "owner_sid")
 
@@ -390,7 +390,7 @@ class OAuthApp(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+        The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
         """
         return pulumi.get(self, "type")
 

@@ -507,6 +507,14 @@ func (r *ContentTemplate) WireDependencies(f infer.FieldSelector, args *ContentT
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
 
+// WireDependencies: the SID and URL are fixed at creation; status, the pending display name, quality figures and offline reasons are what Twilio reports.
+func (r *ChannelsSender) WireDependencies(f infer.FieldSelector, args *ChannelsSenderArgs, state *ChannelsSenderState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.PendingDisplayName, &state.PendingDisplayNameStatus, &state.PendingDisplayNameStatusDate, &state.Properties, &state.OfflineReasons} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
 // WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
 func (r *SuperSimNetworkAccessProfile) WireDependencies(f infer.FieldSelector, args *SuperSimNetworkAccessProfileArgs, state *SuperSimNetworkAccessProfileState) {
 	wireEchoes(f, args, state)
@@ -594,4 +602,18 @@ func (r *LinkShorteningDomainCertificate) WireDependencies(f infer.FieldSelector
 // WireDependencies: an association never changes, so everything Twilio reports is fixed at creation.
 func (r *LinkShorteningMessagingServiceDomain) WireDependencies(f infer.FieldSelector, args *LinkShorteningMessagingServiceDomainArgs, state *LinkShorteningMessagingServiceDomainState) {
 	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID, account and creation time are fixed; the update time is what Twilio reports.
+func (r *TrustHubEndUser) WireDependencies(f infer.FieldSelector, args *TrustHubEndUserArgs, state *TrustHubEndUserState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the status, MIME type and update time are what Twilio reports.
+func (r *TrustHubSupportingDocument) WireDependencies(f infer.FieldSelector, args *TrustHubSupportingDocumentArgs, state *TrustHubSupportingDocumentState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.MimeType).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.Status).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }

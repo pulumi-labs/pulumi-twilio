@@ -65,7 +65,7 @@ export class OAuthApp extends pulumi.CustomResource {
      */
     declare public readonly friendlyName: pulumi.Output<string>;
     /**
-     * SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+     * SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
      */
     declare public readonly ownerSid: pulumi.Output<string | undefined>;
     /**
@@ -89,7 +89,7 @@ export class OAuthApp extends pulumi.CustomResource {
      */
     declare public readonly tokenEndpointAuthMethod: pulumi.Output<string | undefined>;
     /**
-     * The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+     * The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
      */
     declare public readonly type: pulumi.Output<string | undefined>;
 
@@ -165,7 +165,7 @@ export interface OAuthAppArgs {
      */
     friendlyName: pulumi.Input<string>;
     /**
-     * SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+     * SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
      */
     ownerSid?: pulumi.Input<string | undefined>;
     /**
@@ -177,7 +177,7 @@ export interface OAuthAppArgs {
      */
     tokenEndpointAuthMethod?: pulumi.Input<string | undefined>;
     /**
-     * The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+     * The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
      */
     type?: pulumi.Input<string | undefined>;
 }

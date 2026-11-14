@@ -256,6 +256,274 @@ export interface BrandRegistrationInfo {
     tcrId: string;
 }
 
+export interface ChannelsSenderCarrier {
+    /**
+     * Name of the carrier, for example Verizon.
+     */
+    name?: string;
+    /**
+     * Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED.
+     */
+    status?: string;
+}
+
+export interface ChannelsSenderCompliance {
+    /**
+     * Country-specific compliance details.
+     */
+    countries?: outputs.ChannelsSenderComplianceCountry[];
+    /**
+     * Default compliance registration SID, which applies to every country without its own.
+     */
+    registrationSid: string;
+}
+
+export interface ChannelsSenderComplianceCountry {
+    /**
+     * Status per carrier.
+     */
+    carriers?: outputs.ChannelsSenderCarrier[];
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    country: string;
+    /**
+     * Compliance registration SID for the country.
+     */
+    registrationSid?: string;
+    /**
+     * Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION.
+     */
+    status?: string;
+}
+
+export interface ChannelsSenderConfiguration {
+    /**
+     * The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+     */
+    accountType?: string;
+    /**
+     * The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+     */
+    verificationCode?: string;
+    /**
+     * How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+     */
+    verificationMethod?: string;
+    /**
+     * SID (AP...) of the Twilio Voice application for the sender.
+     */
+    voiceApplicationSid?: string;
+    /**
+     * ID of the WhatsApp Business Account (WABA) the sender belongs to.
+     */
+    wabaId?: string;
+}
+
+export interface ChannelsSenderInfo {
+    /**
+     * RCS only: compliance registration and carrier status per country.
+     */
+    compliance?: outputs.ChannelsSenderCompliance;
+    /**
+     * Configuration of the sender. The verification code is never returned.
+     */
+    configuration?: outputs.ChannelsSenderConfiguration;
+    /**
+     * Label of the sender in the Twilio Console.
+     */
+    friendlyName?: string;
+    /**
+     * Why the sender is offline, when it is.
+     */
+    offlineReasons?: outputs.ChannelsSenderOfflineReason[];
+    /**
+     * WhatsApp only: the display name the latest name change applies to. Null when there was no name change.
+     */
+    pendingDisplayName?: string;
+    /**
+     * WhatsApp only: status of the latest display name change.
+     */
+    pendingDisplayNameStatus?: string;
+    /**
+     * WhatsApp only: when that status last changed.
+     */
+    pendingDisplayNameStatusDate?: string;
+    /**
+     * Business profile of the sender.
+     */
+    profile?: outputs.ChannelsSenderProfile;
+    /**
+     * The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.
+     */
+    profileUseCase?: string;
+    /**
+     * Quality rating and messaging limit of the sender.
+     */
+    properties?: outputs.ChannelsSenderProperties;
+    /**
+     * The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.
+     */
+    senderId: string;
+    /**
+     * The sender SID (XE...).
+     */
+    sid: string;
+    /**
+     * Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.
+     */
+    status: string;
+    /**
+     * The URL of the sender.
+     */
+    url: string;
+    /**
+     * Webhooks of the sender.
+     */
+    webhook?: outputs.ChannelsSenderWebhook;
+}
+
+export interface ChannelsSenderLabeledEmail {
+    /**
+     * The email address.
+     */
+    email: string;
+    /**
+     * Label of the email address.
+     */
+    label?: string;
+}
+
+export interface ChannelsSenderLabeledPhone {
+    /**
+     * Label of the phone number.
+     */
+    label?: string;
+    /**
+     * The phone number.
+     */
+    phoneNumber: string;
+}
+
+export interface ChannelsSenderLabeledWebsite {
+    /**
+     * Label of the website.
+     */
+    label?: string;
+    /**
+     * The website URL.
+     */
+    website: string;
+}
+
+export interface ChannelsSenderOfflineReason {
+    /**
+     * The error code.
+     */
+    code?: string;
+    /**
+     * The error message.
+     */
+    message?: string;
+    /**
+     * URL with more information about the error.
+     */
+    moreInfo?: string;
+}
+
+export interface ChannelsSenderProfile {
+    /**
+     * The about text of the profile.
+     */
+    about?: string;
+    /**
+     * Color theme of the profile, in hex format.
+     */
+    accentColor?: string;
+    /**
+     * The address of the business.
+     */
+    address?: string;
+    /**
+     * URL of the banner image.
+     */
+    bannerUrl?: string;
+    /**
+     * The description of the business.
+     */
+    description?: string;
+    /**
+     * Email addresses of the business.
+     */
+    emails?: outputs.ChannelsSenderLabeledEmail[];
+    /**
+     * URL of the logo.
+     */
+    logoUrl?: string;
+    /**
+     * The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+     */
+    name: string;
+    /**
+     * Phone numbers of the business.
+     */
+    phoneNumbers?: outputs.ChannelsSenderLabeledPhone[];
+    /**
+     * Publicly accessible HTTP or HTTPS URL of the privacy policy.
+     */
+    privacyUrl?: string;
+    /**
+     * URL of the terms of service.
+     */
+    termsOfServiceUrl?: string;
+    /**
+     * The industry vertical of the business, for example Retail.
+     */
+    vertical?: string;
+    /**
+     * Websites of the business.
+     */
+    websites?: outputs.ChannelsSenderLabeledWebsite[];
+}
+
+export interface ChannelsSenderProperties {
+    /**
+     * The messaging limit of the sender.
+     */
+    messagingLimit?: string;
+    /**
+     * The quality rating of the sender.
+     */
+    qualityRating?: string;
+}
+
+export interface ChannelsSenderWebhook {
+    /**
+     * HTTP method of the callback: POST or PUT.
+     */
+    callbackMethod?: string;
+    /**
+     * URL Twilio sends incoming messages to.
+     */
+    callbackUrl?: string;
+    /**
+     * HTTP method of the fallback: POST or PUT.
+     */
+    fallbackMethod?: string;
+    /**
+     * URL Twilio sends to when the callback URL fails.
+     */
+    fallbackUrl?: string;
+    /**
+     * HTTP method of the status callback.
+     */
+    statusCallbackMethod?: string;
+    /**
+     * URL Twilio sends message status updates to.
+     */
+    statusCallbackUrl?: string;
+}
+
 export interface ConnectAppEffective {
     /**
      * SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
@@ -1951,6 +2219,110 @@ export interface TrunkEffective {
      * Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
      */
     transferMode?: string;
+}
+
+export interface TrustHubEndUserInfo {
+    /**
+     * SID (AC...) of the owning account.
+     */
+    accountSid: string;
+    /**
+     * The attributes as a JSON object (empty when Twilio reports none).
+     */
+    attributes: string;
+    /**
+     * When the end user was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the end user was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * Human-readable name of the end user.
+     */
+    friendlyName: string;
+    /**
+     * The end user SID (IT...).
+     */
+    sid: string;
+    /**
+     * Machine name of the end user type.
+     */
+    type: string;
+}
+
+export interface TrustHubPolicyInfo {
+    /**
+     * Human-readable name of the policy.
+     */
+    friendlyName: string;
+    /**
+     * The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).
+     */
+    requirements: string;
+    /**
+     * The policy SID (RN...).
+     */
+    sid: string;
+}
+
+export interface TrustHubSupportingDocumentInfo {
+    /**
+     * SID (AC...) of the owning account.
+     */
+    accountSid: string;
+    /**
+     * The attributes as a JSON object (empty when Twilio reports none).
+     */
+    attributes: string;
+    /**
+     * When the document was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the document was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * Human-readable name of the document.
+     */
+    friendlyName: string;
+    /**
+     * The MIME type of the document (empty when none).
+     */
+    mimeType: string;
+    /**
+     * The supporting document SID (RD...).
+     */
+    sid: string;
+    /**
+     * The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.
+     */
+    status: string;
+    /**
+     * Machine name of the supporting document type.
+     */
+    type: string;
+}
+
+export interface TrustHubTypeInfo {
+    /**
+     * The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+     */
+    fields: string;
+    /**
+     * Human-readable name of the type.
+     */
+    friendlyName: string;
+    /**
+     * The machine name, which is what the type input of the resource takes.
+     */
+    machineName: string;
+    /**
+     * The SID of the type.
+     */
+    sid: string;
 }
 
 export interface UsAppToPersonInfo {

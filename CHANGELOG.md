@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-14
+
+### Security
+
+- Security: the Go SDK `go.mod` in the mirror now requires OpenTelemetry `sdk/log` v1.47.0 instead of v0.21.0, fixing GHSA-q7gw-24fr-5p69 (vulnerable >= 0.9.0, < 1.47.0) and clearing the pulumi-labs/pulumi-twilio Dependabot alert once released (fixes #1972). SDK generation change only. Not breaking.
+
+### Fixed
+
+- importing a `TaskRouterWorker` now adopts its `activitySid`, so the first preview after `pulumi import` plans no change for a program that states the activity. A refresh still ignores it, because a running worker changes activity on its own (fixes #1981, mirror pulumi-labs/pulumi-twilio#37). Not breaking.
+- `OAuthApp` can be created again. Twilio refuses a create without a type ("type cannot be null") and accepts only `Client Credential` (confidential and m2m are "invalid"), so `type` now defaults to `Client Credential` and `ownerSid` to the provider's account, as the Twilio docs require; the schema description lists the accepted value (fixes #1980, mirror pulumi-labs/pulumi-twilio#36). Not breaking.
+- `pulumi destroy` of a `TaskRouterWorker` that is in an available activity no longer stops with Twilio's 20001 "cannot be deleted while it is available for work". The provider now moves the worker to the workspace's Offline activity (else the first activity that is not available) and deletes it; if the workspace has no such activity the error says so (fixes #1982, mirror pulumi-labs/pulumi-twilio#38). Not breaking.
+- `getTollfreeVerifications` no longer fails with an HTTP 400 for every call: it asked for `PageSize=1000` but Twilio caps the toll-free verification list at 50. It now requests 50 and follows the next pages (fixes #1979, mirror pulumi-labs/pulumi-twilio#35). Not breaking.
+
+### Added
+
+- `TrustHubEndUser` and `TrustHubSupportingDocument` resources and lookups `getTrustHubEndUser`, `getTrustHubEndUsers`, `getTrustHubSupportingDocument`, `getTrustHubSupportingDocuments`, `getTrustHubEndUserType(s)`, `getTrustHubSupportingDocumentType(s)`, `getTrustHubPolicy` and `getTrustHubPolicies` for the TrustHub API (`trusthub.twilio.com` `/v1`; part of #1933). `friendlyName` and `type` are required; `attributes` is an optional JSON object whose keys depend on the type (see the type lookups); `friendlyName` and `attributes` update in place and `type` replaces. A supporting document also reports `status` (it starts as `DRAFT`) and `mimeType`. Import by SID. Creating either does not submit anything for review; Customer Profiles and Trust Products, which assign them, follow in a later change. Tested against a mocked Twilio API only. Not breaking.
+- `ChannelsSender` resource and lookups `getChannelsSender` and `getChannelsSenders` for WhatsApp senders on the Messaging v2 Channels Senders API (fixes #1929, part of #1667). `senderId` (`whatsapp:+E.164`) replaces; `friendlyName`, `configuration`, `webhook` and `profile` update in place, with `profile.name` required. Create returns at once and `status`, `offlineReasons`, `properties` and `pendingDisplayName*` follow onboarding and Meta review on every refresh. A changed `profile.name` stays pending at Meta, so the state keeps your name while the review runs and reports the active name once it fails, so the next update re-submits it. `configuration.verificationCode` is a write-only secret. The lookups read WhatsApp and RCS senders; RCS senders are not a resource because Twilio documents update and delete for WhatsApp only. Tested against a mocked Twilio API only. Not breaking.
+
 ## [0.6.0] - 2026-11-13
 
 ### Security

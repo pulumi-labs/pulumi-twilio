@@ -5,6 +5,144 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface ChannelsSenderConfigurationArgs {
+    /**
+     * The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+     */
+    accountType?: pulumi.Input<string | undefined>;
+    /**
+     * The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+     */
+    verificationCode?: pulumi.Input<string | undefined>;
+    /**
+     * How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+     */
+    verificationMethod?: pulumi.Input<string | undefined>;
+    /**
+     * SID (AP...) of the Twilio Voice application for the sender.
+     */
+    voiceApplicationSid?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the WhatsApp Business Account (WABA) the sender belongs to.
+     */
+    wabaId?: pulumi.Input<string | undefined>;
+}
+
+export interface ChannelsSenderLabeledEmailArgs {
+    /**
+     * The email address.
+     */
+    email: pulumi.Input<string>;
+    /**
+     * Label of the email address.
+     */
+    label?: pulumi.Input<string | undefined>;
+}
+
+export interface ChannelsSenderLabeledPhoneArgs {
+    /**
+     * Label of the phone number.
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * The phone number.
+     */
+    phoneNumber: pulumi.Input<string>;
+}
+
+export interface ChannelsSenderLabeledWebsiteArgs {
+    /**
+     * Label of the website.
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * The website URL.
+     */
+    website: pulumi.Input<string>;
+}
+
+export interface ChannelsSenderProfileArgs {
+    /**
+     * The about text of the profile.
+     */
+    about?: pulumi.Input<string | undefined>;
+    /**
+     * Color theme of the profile, in hex format.
+     */
+    accentColor?: pulumi.Input<string | undefined>;
+    /**
+     * The address of the business.
+     */
+    address?: pulumi.Input<string | undefined>;
+    /**
+     * URL of the banner image.
+     */
+    bannerUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The description of the business.
+     */
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * Email addresses of the business.
+     */
+    emails?: pulumi.Input<pulumi.Input<inputs.ChannelsSenderLabeledEmailArgs>[] | undefined>;
+    /**
+     * URL of the logo.
+     */
+    logoUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Phone numbers of the business.
+     */
+    phoneNumbers?: pulumi.Input<pulumi.Input<inputs.ChannelsSenderLabeledPhoneArgs>[] | undefined>;
+    /**
+     * Publicly accessible HTTP or HTTPS URL of the privacy policy.
+     */
+    privacyUrl?: pulumi.Input<string | undefined>;
+    /**
+     * URL of the terms of service.
+     */
+    termsOfServiceUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The industry vertical of the business, for example Retail.
+     */
+    vertical?: pulumi.Input<string | undefined>;
+    /**
+     * Websites of the business.
+     */
+    websites?: pulumi.Input<pulumi.Input<inputs.ChannelsSenderLabeledWebsiteArgs>[] | undefined>;
+}
+
+export interface ChannelsSenderWebhookArgs {
+    /**
+     * HTTP method of the callback: POST or PUT.
+     */
+    callbackMethod?: pulumi.Input<string | undefined>;
+    /**
+     * URL Twilio sends incoming messages to.
+     */
+    callbackUrl?: pulumi.Input<string | undefined>;
+    /**
+     * HTTP method of the fallback: POST or PUT.
+     */
+    fallbackMethod?: pulumi.Input<string | undefined>;
+    /**
+     * URL Twilio sends to when the callback URL fails.
+     */
+    fallbackUrl?: pulumi.Input<string | undefined>;
+    /**
+     * HTTP method of the status callback.
+     */
+    statusCallbackMethod?: pulumi.Input<string | undefined>;
+    /**
+     * URL Twilio sends message status updates to.
+     */
+    statusCallbackUrl?: pulumi.Input<string | undefined>;
+}
+
 export interface ContentAuthenticationActionArgs {
     /**
      * Label of the copy-code button.

@@ -47,6 +47,14 @@ func (f *fakeTwilio) handleIAMOther(w http.ResponseWriter, r *http.Request, body
 			ferr(w, 400, "friendly_name is required")
 			return
 		}
+		if in["type"] == nil {
+			ferr(w, 400, "type cannot be null")
+			return
+		}
+		if in["type"] != "Client Credential" {
+			ferr(w, 400, "oauth app type is invalid")
+			return
+		}
 		if m, ok := in["token_endpoint_auth_method"]; ok && m != "client_secret_basic" {
 			ferr(w, 400, "unsupported token_endpoint_auth_method")
 			return

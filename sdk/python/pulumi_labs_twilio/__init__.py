@@ -13,6 +13,7 @@ from .application import *
 from .aws_credential import *
 from .brand_registration import *
 from .byoc_trunk import *
+from .channels_sender import *
 from .connect_app import *
 from .connection_policy import *
 from .connection_policy_target import *
@@ -45,6 +46,8 @@ from .get_balance import *
 from .get_brand_registration import *
 from .get_brand_registrations import *
 from .get_byoc_trunk import *
+from .get_channels_sender import *
+from .get_channels_senders import *
 from .get_connect_app import *
 from .get_connection_policy import *
 from .get_connection_policy_target import *
@@ -155,6 +158,16 @@ from .get_trunk import *
 from .get_trunk_credential_list import *
 from .get_trunk_ip_access_control_list import *
 from .get_trunk_origination_url import *
+from .get_trust_hub_end_user import *
+from .get_trust_hub_end_user_type import *
+from .get_trust_hub_end_user_types import *
+from .get_trust_hub_end_users import *
+from .get_trust_hub_policies import *
+from .get_trust_hub_policy import *
+from .get_trust_hub_supporting_document import *
+from .get_trust_hub_supporting_document_type import *
+from .get_trust_hub_supporting_document_types import *
+from .get_trust_hub_supporting_documents import *
 from .get_us_app_to_person import *
 from .get_us_app_to_person_usecases import *
 from .get_us_app_to_persons import *
@@ -237,6 +250,8 @@ from .trunk import *
 from .trunk_credential_list import *
 from .trunk_ip_access_control_list import *
 from .trunk_origination_url import *
+from .trust_hub_end_user import *
+from .trust_hub_supporting_document import *
 from .us_app_to_person import *
 from .usage_trigger import *
 from .verify_messaging_configuration import *
@@ -279,6 +294,7 @@ _utilities.register(
    "twilio:index:AwsCredential": "AwsCredential",
    "twilio:index:BrandRegistration": "BrandRegistration",
    "twilio:index:ByocTrunk": "ByocTrunk",
+   "twilio:index:ChannelsSender": "ChannelsSender",
    "twilio:index:ConnectApp": "ConnectApp",
    "twilio:index:ConnectionPolicy": "ConnectionPolicy",
    "twilio:index:ConnectionPolicyTarget": "ConnectionPolicyTarget",
@@ -358,6 +374,8 @@ _utilities.register(
    "twilio:index:TrunkCredentialList": "TrunkCredentialList",
    "twilio:index:TrunkIpAccessControlList": "TrunkIpAccessControlList",
    "twilio:index:TrunkOriginationUrl": "TrunkOriginationUrl",
+   "twilio:index:TrustHubEndUser": "TrustHubEndUser",
+   "twilio:index:TrustHubSupportingDocument": "TrustHubSupportingDocument",
    "twilio:index:UsAppToPerson": "UsAppToPerson",
    "twilio:index:UsageTrigger": "UsageTrigger",
    "twilio:index:VerifyMessagingConfiguration": "VerifyMessagingConfiguration",

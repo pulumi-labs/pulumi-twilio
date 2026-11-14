@@ -266,7 +266,8 @@ func (f *GetTollfreeVerifications) Invoke(ctx context.Context, req infer.Functio
 	if err != nil {
 		return none, err
 	}
-	q := url.Values{"PageSize": {"1000"}}
+	// The API caps PageSize at 50 for this resource (a larger value is a 400, #1979); listPages follows the pages.
+	q := url.Values{"PageSize": {"50"}}
 	in := req.Input
 	setS(q, "TollfreePhoneNumberSid", in.TollfreePhoneNumberSid)
 	setS(q, "Status", in.Status)

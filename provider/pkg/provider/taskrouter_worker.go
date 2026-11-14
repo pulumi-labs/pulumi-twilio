@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strings"
 
 	"github.com/pulumi/pulumi-go-provider/infer"
 )
@@ -38,7 +39,7 @@ func (a *TaskRouterWorkerArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.WorkspaceSid, "SID (WS...) of the workspace. Changing it replaces the resource.")
 	an.Describe(&a.FriendlyName, "Human-readable name of the worker.")
 	an.Describe(&a.Attributes, "The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.")
-	an.Describe(&a.ActivitySid, "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.")
+	an.Describe(&a.ActivitySid, "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.")
 }
 
 // TaskRouterWorkerState is the persisted state of a TaskRouterWorker.
@@ -145,7 +146,11 @@ func (r *TaskRouterWorker) Read(ctx context.Context, req infer.ReadRequest[TaskR
 	if imported && in.Attributes != nil && jsonSame(*in.Attributes, "{}") {
 		in.Attributes = nil
 	}
-	// The activity is runtime state and is deliberately left as it was.
+	// The activity is runtime state: a refresh leaves it as the program stated it (a worker that moved
+	// on its own is not drift), but an import adopts it, so a program that states it plans no change (#1981).
+	if imported {
+		in.ActivitySid = o.optStr("activity_sid")
+	}
 	st := TaskRouterWorkerState{TaskRouterWorkerArgs: in}
 	st.Sid, st.DateCreated, st.DateUpdated = trSid(o)
 	return resp{ID: req.ID, Inputs: in, State: st}, nil
@@ -180,8 +185,70 @@ func (r *TaskRouterWorker) Update(ctx context.Context, req infer.UpdateRequest[T
 	return resp{Output: st}, nil
 }
 
+// Delete removes the worker. Twilio refuses (400, error 20001) to delete a worker that is in an
+// available activity, which is where a program usually places it (#1982), so the worker is first
+// moved to an activity that is not available (the workspace's Offline activity, else the first
+// unavailable one) and the delete is retried.
 func (r *TaskRouterWorker) Delete(ctx context.Context, req infer.DeleteRequest[TaskRouterWorkerState]) (infer.DeleteResponse, error) {
-	return infer.DeleteResponse{}, trDelete(ctx, "worker", "Workers", req.ID)
+	ws, sid, err := trSplitID(req.ID)
+	if err != nil {
+		return infer.DeleteResponse{}, err
+	}
+	c, err := clientFor(ctx)
+	if err != nil {
+		return infer.DeleteResponse{}, err
+	}
+	path := trPath(ws, "Workers", sid)
+	_, err = c.do(ctx, "DELETE", trProduct, path, nil, nil)
+	if err == nil || isNotFound(err) {
+		return infer.DeleteResponse{}, nil
+	}
+	if !isRefusal(err, "available") {
+		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter worker %s: %w", req.ID, err)
+	}
+	offline, lerr := trUnavailableActivity(ctx, c, ws)
+	if lerr != nil {
+		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter worker %s: %w; looking for an activity that is not available: %v", req.ID, err, lerr)
+	}
+	if offline == "" {
+		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter worker %s: %w; the workspace has no activity with available false to move the worker to first, so create one (for example Offline) and destroy again", req.ID, err)
+	}
+	if _, uerr := c.do(ctx, "POST", trProduct, path, nil, url.Values{"ActivitySid": {offline}}); uerr != nil {
+		if isNotFound(uerr) {
+			return infer.DeleteResponse{}, nil
+		}
+		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter worker %s: moving it to the unavailable activity %s: %w", req.ID, offline, uerr)
+	}
+	if _, derr := c.do(ctx, "DELETE", trProduct, path, nil, nil); derr != nil && !isNotFound(derr) {
+		return infer.DeleteResponse{}, fmt.Errorf("delete TaskRouter worker %s: %w", req.ID, derr)
+	}
+	return infer.DeleteResponse{}, nil
+}
+
+// trUnavailableActivity returns the SID of the workspace's Offline activity when it is not available,
+// else the first activity that is not available, or "" when there is none.
+func trUnavailableActivity(ctx context.Context, c *Client, ws string) (string, error) {
+	var offline, first string
+	err := listPages(ctx, c, "TaskRouterWorker delete", trProduct, trPath(ws, "Activities", ""), url.Values{"PageSize": {"50"}}, "activities", func(o obj) bool {
+		if b := o.optBool("available"); b == nil || *b {
+			return true
+		}
+		if first == "" {
+			first = o.str("sid")
+		}
+		if strings.EqualFold(o.str("friendly_name"), "Offline") {
+			offline = o.str("sid")
+			return false
+		}
+		return true
+	})
+	if err != nil {
+		return "", err
+	}
+	if offline != "" {
+		return offline, nil
+	}
+	return first, nil
 }
 
 // trAttributesOrDefault returns the stored attributes, or Twilio's default {} when an import left

@@ -28,7 +28,7 @@ class TaskRouterWorkerArgs:
 
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the worker.
         :param pulumi.Input[_builtins.str] workspace_sid: SID (WS...) of the workspace. Changing it replaces the resource.
-        :param pulumi.Input[_builtins.str] activity_sid: SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+        :param pulumi.Input[_builtins.str] activity_sid: SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
         :param pulumi.Input[_builtins.str] attributes: The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
@@ -66,7 +66,7 @@ class TaskRouterWorkerArgs:
     @pulumi.getter(name="activitySid")
     def activity_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+        SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
         """
         return pulumi.get(self, "activity_sid")
 
@@ -104,7 +104,7 @@ class TaskRouterWorker(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] activity_sid: SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+        :param pulumi.Input[_builtins.str] activity_sid: SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
         :param pulumi.Input[_builtins.str] attributes: The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.
         :param pulumi.Input[_builtins.str] friendly_name: Human-readable name of the worker.
         :param pulumi.Input[_builtins.str] workspace_sid: SID (WS...) of the workspace. Changing it replaces the resource.
@@ -195,7 +195,7 @@ class TaskRouterWorker(pulumi.CustomResource):
     @pulumi.getter(name="activitySid")
     def activity_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+        SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
         """
         return pulumi.get(self, "activity_sid")
 

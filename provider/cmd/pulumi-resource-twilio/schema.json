@@ -426,6 +426,341 @@
         "dateUpdated"
       ]
     },
+    "twilio:index:ChannelsSenderCarrier": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the carrier, for example Verizon."
+        },
+        "status": {
+          "type": "string",
+          "description": "Carrier status: UNKNOWN, UNLAUNCHED, CARRIER_REVIEW, APPROVED, REJECTED or SUSPENDED."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ChannelsSenderCompliance": {
+      "properties": {
+        "countries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderComplianceCountry"
+          },
+          "description": "Country-specific compliance details."
+        },
+        "registrationSid": {
+          "type": "string",
+          "description": "Default compliance registration SID, which applies to every country without its own."
+        }
+      },
+      "type": "object",
+      "required": [
+        "registrationSid"
+      ]
+    },
+    "twilio:index:ChannelsSenderComplianceCountry": {
+      "properties": {
+        "carriers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderCarrier"
+          },
+          "description": "Status per carrier."
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code."
+        },
+        "registrationSid": {
+          "type": "string",
+          "description": "Compliance registration SID for the country."
+        },
+        "status": {
+          "type": "string",
+          "description": "Country status, aggregated from the carriers: ONLINE, OFFLINE, TWILIO_REVIEW or PENDING_VERIFICATION."
+        }
+      },
+      "type": "object",
+      "required": [
+        "country"
+      ]
+    },
+    "twilio:index:ChannelsSenderConfiguration": {
+      "properties": {
+        "accountType": {
+          "type": "string",
+          "description": "The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio."
+        },
+        "verificationCode": {
+          "type": "string",
+          "description": "The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.",
+          "secret": true
+        },
+        "verificationMethod": {
+          "type": "string",
+          "description": "How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set."
+        },
+        "voiceApplicationSid": {
+          "type": "string",
+          "description": "SID (AP...) of the Twilio Voice application for the sender."
+        },
+        "wabaId": {
+          "type": "string",
+          "description": "ID of the WhatsApp Business Account (WABA) the sender belongs to."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ChannelsSenderInfo": {
+      "properties": {
+        "compliance": {
+          "$ref": "#/types/twilio:index:ChannelsSenderCompliance",
+          "description": "RCS only: compliance registration and carrier status per country."
+        },
+        "configuration": {
+          "$ref": "#/types/twilio:index:ChannelsSenderConfiguration",
+          "description": "Configuration of the sender. The verification code is never returned."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Label of the sender in the Twilio Console."
+        },
+        "offlineReasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderOfflineReason"
+          },
+          "description": "Why the sender is offline, when it is."
+        },
+        "pendingDisplayName": {
+          "type": "string",
+          "description": "WhatsApp only: the display name the latest name change applies to. Null when there was no name change."
+        },
+        "pendingDisplayNameStatus": {
+          "type": "string",
+          "description": "WhatsApp only: status of the latest display name change."
+        },
+        "pendingDisplayNameStatusDate": {
+          "type": "string",
+          "description": "WhatsApp only: when that status last changed."
+        },
+        "profile": {
+          "$ref": "#/types/twilio:index:ChannelsSenderProfile",
+          "description": "Business profile of the sender."
+        },
+        "profileUseCase": {
+          "type": "string",
+          "description": "The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp."
+        },
+        "properties": {
+          "$ref": "#/types/twilio:index:ChannelsSenderProperties",
+          "description": "Quality rating and messaging limit of the sender."
+        },
+        "senderId": {
+          "type": "string",
+          "description": "The sender ID, as whatsapp:<E.164 number> or the RCS sender ID."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The sender SID (XE...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of the sender."
+        },
+        "webhook": {
+          "$ref": "#/types/twilio:index:ChannelsSenderWebhook",
+          "description": "Webhooks of the sender."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "status",
+        "senderId",
+        "url"
+      ]
+    },
+    "twilio:index:ChannelsSenderLabeledEmail": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "The email address."
+        },
+        "label": {
+          "type": "string",
+          "description": "Label of the email address."
+        }
+      },
+      "type": "object",
+      "required": [
+        "email"
+      ]
+    },
+    "twilio:index:ChannelsSenderLabeledPhone": {
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label of the phone number."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number."
+        }
+      },
+      "type": "object",
+      "required": [
+        "phoneNumber"
+      ]
+    },
+    "twilio:index:ChannelsSenderLabeledWebsite": {
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label of the website."
+        },
+        "website": {
+          "type": "string",
+          "description": "The website URL."
+        }
+      },
+      "type": "object",
+      "required": [
+        "website"
+      ]
+    },
+    "twilio:index:ChannelsSenderOfflineReason": {
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message."
+        },
+        "moreInfo": {
+          "type": "string",
+          "description": "URL with more information about the error."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ChannelsSenderProfile": {
+      "properties": {
+        "about": {
+          "type": "string",
+          "description": "The about text of the profile."
+        },
+        "accentColor": {
+          "type": "string",
+          "description": "Color theme of the profile, in hex format."
+        },
+        "address": {
+          "type": "string",
+          "description": "The address of the business."
+        },
+        "bannerUrl": {
+          "type": "string",
+          "description": "URL of the banner image."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the business."
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderLabeledEmail"
+          },
+          "description": "Email addresses of the business."
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "URL of the logo."
+        },
+        "name": {
+          "type": "string",
+          "description": "The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days."
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderLabeledPhone"
+          },
+          "description": "Phone numbers of the business."
+        },
+        "privacyUrl": {
+          "type": "string",
+          "description": "Publicly accessible HTTP or HTTPS URL of the privacy policy."
+        },
+        "termsOfServiceUrl": {
+          "type": "string",
+          "description": "URL of the terms of service."
+        },
+        "vertical": {
+          "type": "string",
+          "description": "The industry vertical of the business, for example Retail."
+        },
+        "websites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderLabeledWebsite"
+          },
+          "description": "Websites of the business."
+        }
+      },
+      "type": "object",
+      "required": [
+        "name"
+      ]
+    },
+    "twilio:index:ChannelsSenderProperties": {
+      "properties": {
+        "messagingLimit": {
+          "type": "string",
+          "description": "The messaging limit of the sender."
+        },
+        "qualityRating": {
+          "type": "string",
+          "description": "The quality rating of the sender."
+        }
+      },
+      "type": "object"
+    },
+    "twilio:index:ChannelsSenderWebhook": {
+      "properties": {
+        "callbackMethod": {
+          "type": "string",
+          "description": "HTTP method of the callback: POST or PUT."
+        },
+        "callbackUrl": {
+          "type": "string",
+          "description": "URL Twilio sends incoming messages to."
+        },
+        "fallbackMethod": {
+          "type": "string",
+          "description": "HTTP method of the fallback: POST or PUT."
+        },
+        "fallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio sends to when the callback URL fails."
+        },
+        "statusCallbackMethod": {
+          "type": "string",
+          "description": "HTTP method of the status callback."
+        },
+        "statusCallbackUrl": {
+          "type": "string",
+          "description": "URL Twilio sends message status updates to."
+        }
+      },
+      "type": "object"
+    },
     "twilio:index:ConnectAppEffective": {
       "properties": {
         "accountSid": {
@@ -2615,6 +2950,149 @@
       },
       "type": "object"
     },
+    "twilio:index:TrustHubEndUserInfo": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of the owning account."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The attributes as a JSON object (empty when Twilio reports none)."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the end user was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the end user was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the end user."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The end user SID (IT...)."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the end user type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "accountSid",
+        "friendlyName",
+        "type",
+        "attributes",
+        "dateCreated",
+        "dateUpdated"
+      ]
+    },
+    "twilio:index:TrustHubPolicyInfo": {
+      "properties": {
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the policy."
+        },
+        "requirements": {
+          "type": "string",
+          "description": "The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none)."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The policy SID (RN...)."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "friendlyName",
+        "requirements"
+      ]
+    },
+    "twilio:index:TrustHubSupportingDocumentInfo": {
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of the owning account."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The attributes as a JSON object (empty when Twilio reports none)."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the document was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the document was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the document."
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "The MIME type of the document (empty when none)."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The supporting document SID (RD...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the supporting document type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "accountSid",
+        "friendlyName",
+        "type",
+        "mimeType",
+        "status",
+        "attributes",
+        "dateCreated",
+        "dateUpdated"
+      ]
+    },
+    "twilio:index:TrustHubTypeInfo": {
+      "properties": {
+        "fields": {
+          "type": "string",
+          "description": "The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the type."
+        },
+        "machineName": {
+          "type": "string",
+          "description": "The machine name, which is what the type input of the resource takes."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The SID of the type."
+        }
+      },
+      "type": "object",
+      "required": [
+        "sid",
+        "friendlyName",
+        "machineName",
+        "fields"
+      ]
+    },
     "twilio:index:UsAppToPersonInfo": {
       "properties": {
         "ageGated": {
@@ -3848,6 +4326,101 @@
           "description": "URL Twilio requests (with voiceMethod) when a call arrives from the carrier and needs TwiML. Removing it clears the URL."
         }
       }
+    },
+    "twilio:index:ChannelsSender": {
+      "description": "A Twilio WhatsApp sender (Messaging v2 Channels Senders; not a messaging service sender pool member). The resource ID is the sender SID (XE...). Create registers the phone number and returns at once; the sender then goes through verification and Meta review, which can take days. Read `status`, `offlineReasons` and `pendingDisplayNameStatus` to follow it, and set configuration.verificationCode in a later update when Twilio asks for the one-time code (status PENDING_VERIFICATION). A changed profile.name is submitted to Meta for review; until Meta approves it Twilio keeps reporting the old name, and this resource keeps your new name in state so there is no drift while the review is pending. If the review fails (DECLINED, EXPIRED, PIN_MISMATCH, REGISTRATION_FAILED) the active name is reported and the next update re-submits the name. Optional settings that are removed leave the setting as it is on Twilio. RCS senders are not managed here because Twilio documents update and delete for WhatsApp only; read them with getChannelsSenders.",
+      "properties": {
+        "configuration": {
+          "$ref": "#/types/twilio:index:ChannelsSenderConfiguration",
+          "description": "Onboarding configuration of the sender."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Label of the sender in the Twilio Console. Removing it leaves the label as it is on Twilio."
+        },
+        "offlineReasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/twilio:index:ChannelsSenderOfflineReason"
+          },
+          "description": "Why the sender is offline, when it is."
+        },
+        "pendingDisplayName": {
+          "type": "string",
+          "description": "The display name the latest name change applies to: under Meta review, approved and waiting to be applied, or (status COMPLETED) now in effect. Null when no name change was made, or once a completed change is no longer reported."
+        },
+        "pendingDisplayNameStatus": {
+          "type": "string",
+          "description": "Status of the latest display name change: PENDING_REVIEW, APPROVED, DECLINED, PIN_MISMATCH, REGISTRATION_FAILED, EXPIRED or COMPLETED. For PIN_MISMATCH, REGISTRATION_FAILED and EXPIRED, running the program again re-submits the name. A COMPLETED change is reported for 14 days."
+        },
+        "pendingDisplayNameStatusDate": {
+          "type": "string",
+          "description": "When pendingDisplayNameStatus last changed, as Twilio reports it."
+        },
+        "profile": {
+          "$ref": "#/types/twilio:index:ChannelsSenderProfile",
+          "description": "Business profile of the sender. profile.name is required."
+        },
+        "properties": {
+          "$ref": "#/types/twilio:index:ChannelsSenderProperties",
+          "description": "Quality rating and messaging limit WhatsApp reports for the sender."
+        },
+        "senderId": {
+          "type": "string",
+          "description": "The sender, as whatsapp:<phone number in E.164 format>, for example whatsapp:+15017122661. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "sid": {
+          "type": "string",
+          "description": "The sender SID (XE...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "Where the sender is in its life: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED. Onboarding a WhatsApp sender can take from minutes to days, so the resource does not wait for ONLINE; it is refreshed on every read."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of the sender."
+        },
+        "webhook": {
+          "$ref": "#/types/twilio:index:ChannelsSenderWebhook",
+          "description": "Webhooks of the sender."
+        }
+      },
+      "required": [
+        "senderId",
+        "profile",
+        "sid",
+        "status",
+        "url"
+      ],
+      "inputProperties": {
+        "configuration": {
+          "$ref": "#/types/twilio:index:ChannelsSenderConfiguration",
+          "description": "Onboarding configuration of the sender."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Label of the sender in the Twilio Console. Removing it leaves the label as it is on Twilio."
+        },
+        "profile": {
+          "$ref": "#/types/twilio:index:ChannelsSenderProfile",
+          "description": "Business profile of the sender. profile.name is required."
+        },
+        "senderId": {
+          "type": "string",
+          "description": "The sender, as whatsapp:<phone number in E.164 format>, for example whatsapp:+15017122661. Changing it replaces the resource.",
+          "replaceOnChanges": true
+        },
+        "webhook": {
+          "$ref": "#/types/twilio:index:ChannelsSenderWebhook",
+          "description": "Webhooks of the sender."
+        }
+      },
+      "requiredInputs": [
+        "senderId",
+        "profile"
+      ]
     },
     "twilio:index:ConnectApp": {
       "description": "Listing details of a Twilio Connect app that already exists. The resource adopts the app; it never creates one (Twilio offers that only in the Console), and destroying it does NOT delete the app (it only stops managing it).",
@@ -6628,7 +7201,7 @@
         },
         "ownerSid": {
           "type": "string",
-          "description": "SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app."
+          "description": "SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app."
         },
         "policy": {
           "$ref": "#/types/twilio:index:OAuthAppPolicy",
@@ -6653,7 +7226,7 @@
         },
         "type": {
           "type": "string",
-          "description": "The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app."
+          "description": "The OAuth grant type of the app. Twilio's only accepted value is \"Client Credential\" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app."
         }
       },
       "required": [
@@ -6684,7 +7257,7 @@
         },
         "ownerSid": {
           "type": "string",
-          "description": "SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app."
+          "description": "SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app."
         },
         "policy": {
           "$ref": "#/types/twilio:index:OAuthAppPolicy",
@@ -6696,7 +7269,7 @@
         },
         "type": {
           "type": "string",
-          "description": "The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app."
+          "description": "The OAuth grant type of the app. Twilio's only accepted value is \"Client Credential\" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app."
         }
       },
       "requiredInputs": [
@@ -9303,7 +9876,7 @@
       "properties": {
         "activitySid": {
           "type": "string",
-          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
+          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
         },
         "attributes": {
           "type": "string",
@@ -9341,7 +9914,7 @@
       "inputProperties": {
         "activitySid": {
           "type": "string",
-          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
+          "description": "SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged."
         },
         "attributes": {
           "type": "string",
@@ -10266,6 +10839,138 @@
         "trunkSid",
         "friendlyName",
         "sipUrl"
+      ]
+    },
+    "twilio:index:TrustHubEndUser": {
+      "description": "A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a Customer Profile or Trust Product to do that (not yet modelled).",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of the account that owns the end user."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The attributes of the object as a JSON object. Which keys are valid depends on the type (see getTrustHubEndUserTypes and getTrustHubSupportingDocumentTypes). Formatting and key order do not matter. The attributes often hold personal data: Twilio redacts nothing, and the value is stored in Pulumi state as written, so treat state accordingly. Removing the input leaves the attributes unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the end user was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the end user was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the end user."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The end user SID (IT...)."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the end user type, for example customer_profile_business_information or authorized_representative_1 (see getTrustHubEndUserTypes). Changing it replaces the end user.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "friendlyName",
+        "type",
+        "sid",
+        "accountSid",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "attributes": {
+          "type": "string",
+          "description": "The attributes of the object as a JSON object. Which keys are valid depends on the type (see getTrustHubEndUserTypes and getTrustHubSupportingDocumentTypes). Formatting and key order do not matter. The attributes often hold personal data: Twilio redacts nothing, and the value is stored in Pulumi state as written, so treat state accordingly. Removing the input leaves the attributes unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the end user."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the end user type, for example customer_profile_business_information or authorized_representative_1 (see getTrustHubEndUserTypes). Changing it replaces the end user.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "friendlyName",
+        "type"
+      ]
+    },
+    "twilio:index:TrustHubSupportingDocument": {
+      "description": "A Twilio TrustHub supporting document (trusthub.twilio.com /v1/SupportingDocuments), such as a business address, used as evidence in a regulatory bundle. The resource ID is the document SID (RD...). A new document is in the DRAFT status and has no cost. Submitting it for review happens through a Customer Profile or Trust Product (not yet modelled). Twilio may refuse to delete a document that a bundle still uses.",
+      "properties": {
+        "accountSid": {
+          "type": "string",
+          "description": "SID (AC...) of the account that owns the document."
+        },
+        "attributes": {
+          "type": "string",
+          "description": "The attributes of the object as a JSON object. Which keys are valid depends on the type (see getTrustHubEndUserTypes and getTrustHubSupportingDocumentTypes). Formatting and key order do not matter. The attributes often hold personal data: Twilio redacts nothing, and the value is stored in Pulumi state as written, so treat state accordingly. Removing the input leaves the attributes unchanged."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "When the document was created (ISO 8601)."
+        },
+        "dateUpdated": {
+          "type": "string",
+          "description": "When the document was last updated (ISO 8601)."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the supporting document."
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "The MIME type of the document, empty when Twilio reports none."
+        },
+        "sid": {
+          "type": "string",
+          "description": "The supporting document SID (RD...)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED, as Twilio last reported it. It changes when a bundle containing the document is reviewed, not through this resource."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the supporting document type, for example customer_profile_address (see getTrustHubSupportingDocumentTypes). Changing it replaces the document.",
+          "replaceOnChanges": true
+        }
+      },
+      "required": [
+        "friendlyName",
+        "type",
+        "sid",
+        "accountSid",
+        "mimeType",
+        "status",
+        "dateCreated",
+        "dateUpdated"
+      ],
+      "inputProperties": {
+        "attributes": {
+          "type": "string",
+          "description": "The attributes of the object as a JSON object. Which keys are valid depends on the type (see getTrustHubEndUserTypes and getTrustHubSupportingDocumentTypes). Formatting and key order do not matter. The attributes often hold personal data: Twilio redacts nothing, and the value is stored in Pulumi state as written, so treat state accordingly. Removing the input leaves the attributes unchanged."
+        },
+        "friendlyName": {
+          "type": "string",
+          "description": "Human-readable name of the supporting document."
+        },
+        "type": {
+          "type": "string",
+          "description": "Machine name of the supporting document type, for example customer_profile_address (see getTrustHubSupportingDocumentTypes). Changing it replaces the document.",
+          "replaceOnChanges": true
+        }
+      },
+      "requiredInputs": [
+        "friendlyName",
+        "type"
       ]
     },
     "twilio:index:UsAppToPerson": {
@@ -12737,6 +13442,125 @@
           "accountSid",
           "dateCreated",
           "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getChannelsSender": {
+      "description": "Look up a WhatsApp or RCS sender by SID (Messaging v2 Channels Senders).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "SID (XE...) of the sender."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "compliance": {
+            "$ref": "#/types/twilio:index:ChannelsSenderCompliance",
+            "description": "RCS only: compliance registration and carrier status per country."
+          },
+          "configuration": {
+            "$ref": "#/types/twilio:index:ChannelsSenderConfiguration",
+            "description": "Configuration of the sender. The verification code is never returned."
+          },
+          "friendlyName": {
+            "description": "Label of the sender in the Twilio Console.",
+            "type": "string"
+          },
+          "offlineReasons": {
+            "description": "Why the sender is offline, when it is.",
+            "items": {
+              "$ref": "#/types/twilio:index:ChannelsSenderOfflineReason"
+            },
+            "type": "array"
+          },
+          "pendingDisplayName": {
+            "description": "WhatsApp only: the display name the latest name change applies to. Null when there was no name change.",
+            "type": "string"
+          },
+          "pendingDisplayNameStatus": {
+            "description": "WhatsApp only: status of the latest display name change.",
+            "type": "string"
+          },
+          "pendingDisplayNameStatusDate": {
+            "description": "WhatsApp only: when that status last changed.",
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/types/twilio:index:ChannelsSenderProfile",
+            "description": "Business profile of the sender."
+          },
+          "profileUseCase": {
+            "description": "The RCS messaging use case: PROMOTIONAL, TRANSACTIONAL, OTP or MULTI_USE. Null for WhatsApp.",
+            "type": "string"
+          },
+          "properties": {
+            "$ref": "#/types/twilio:index:ChannelsSenderProperties",
+            "description": "Quality rating and messaging limit of the sender."
+          },
+          "senderId": {
+            "description": "The sender ID, as whatsapp:<E.164 number> or the RCS sender ID.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The sender SID (XE...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the sender: CREATING, ONLINE, OFFLINE, PENDING_VERIFICATION, VERIFYING, ONLINE:UPDATING, TWILIO_REVIEW, DRAFT or STUBBED.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of the sender.",
+            "type": "string"
+          },
+          "webhook": {
+            "$ref": "#/types/twilio:index:ChannelsSenderWebhook",
+            "description": "Webhooks of the sender."
+          }
+        },
+        "required": [
+          "sid",
+          "status",
+          "senderId",
+          "url"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getChannelsSenders": {
+      "description": "List the WhatsApp or RCS senders of the account (Messaging v2 Channels Senders). Every page is read.",
+      "inputs": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "The channel to list senders of: whatsapp or rcs."
+          }
+        },
+        "type": "object",
+        "required": [
+          "channel"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "senders": {
+            "description": "The senders of the channel, empty when there are none.",
+            "items": {
+              "$ref": "#/types/twilio:index:ChannelsSenderInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "senders"
         ],
         "type": "object"
       }
@@ -18906,6 +19730,356 @@
           "enabled",
           "dateCreated",
           "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubEndUser": {
+      "description": "Look up a TrustHub end user by SID (GET /v1/EndUsers/{Sid} on trusthub.twilio.com).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "The SID of the object: IT... for an end user, RD... for a supporting document, or the SID of the type or policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID (AC...) of the owning account.",
+            "type": "string"
+          },
+          "attributes": {
+            "description": "The attributes as a JSON object (empty when Twilio reports none).",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the end user was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the end user was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the end user.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The end user SID (IT...).",
+            "type": "string"
+          },
+          "type": {
+            "description": "Machine name of the end user type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "friendlyName",
+          "type",
+          "attributes",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubEndUserType": {
+      "description": "Look up a TrustHub end user type (GET /v1/EndUserTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "The SID of the object: IT... for an end user, RD... for a supporting document, or the SID of the type or policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "fields": {
+            "description": "The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the type.",
+            "type": "string"
+          },
+          "machineName": {
+            "description": "The machine name, which is what the type input of the resource takes.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The SID of the type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "machineName",
+          "fields"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubEndUserTypes": {
+      "description": "List the TrustHub end user types (GET /v1/EndUserTypes on trusthub.twilio.com).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "types": {
+            "description": "The types, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:TrustHubTypeInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "types"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubEndUsers": {
+      "description": "List the TrustHub end users of the account (GET /v1/EndUsers on trusthub.twilio.com).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "endUsers": {
+            "description": "The end users, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:TrustHubEndUserInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "endUsers"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubPolicies": {
+      "description": "List the TrustHub policies (GET /v1/Policies on trusthub.twilio.com).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "policies": {
+            "description": "The policies, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:TrustHubPolicyInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "policies"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubPolicy": {
+      "description": "Look up a TrustHub policy by SID (GET /v1/Policies/{Sid} on trusthub.twilio.com).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "The SID of the object: IT... for an end user, RD... for a supporting document, or the SID of the type or policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "friendlyName": {
+            "description": "Human-readable name of the policy.",
+            "type": "string"
+          },
+          "requirements": {
+            "description": "The requirements of the policy as a JSON document: the end user and supporting document types a bundle needs (empty when Twilio reports none).",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The policy SID (RN...).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "requirements"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubSupportingDocument": {
+      "description": "Look up a TrustHub supporting document by SID (GET /v1/SupportingDocuments/{Sid} on trusthub.twilio.com).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "The SID of the object: IT... for an end user, RD... for a supporting document, or the SID of the type or policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "accountSid": {
+            "description": "SID (AC...) of the owning account.",
+            "type": "string"
+          },
+          "attributes": {
+            "description": "The attributes as a JSON object (empty when Twilio reports none).",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "When the document was created (ISO 8601).",
+            "type": "string"
+          },
+          "dateUpdated": {
+            "description": "When the document was last updated (ISO 8601).",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the document.",
+            "type": "string"
+          },
+          "mimeType": {
+            "description": "The MIME type of the document (empty when none).",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The supporting document SID (RD...).",
+            "type": "string"
+          },
+          "status": {
+            "description": "The verification status: DRAFT, PENDING_REVIEW, REJECTED, APPROVED, EXPIRED or PROVISIONALLY_APPROVED.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Machine name of the supporting document type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "accountSid",
+          "friendlyName",
+          "type",
+          "mimeType",
+          "status",
+          "attributes",
+          "dateCreated",
+          "dateUpdated"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubSupportingDocumentType": {
+      "description": "Look up a TrustHub supporting document type (GET /v1/SupportingDocumentTypes/{Sid} on trusthub.twilio.com). The sid is the type SID (OY...).",
+      "inputs": {
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "The SID of the object: IT... for an end user, RD... for a supporting document, or the SID of the type or policy."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ]
+      },
+      "outputs": {
+        "properties": {
+          "fields": {
+            "description": "The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.",
+            "type": "string"
+          },
+          "friendlyName": {
+            "description": "Human-readable name of the type.",
+            "type": "string"
+          },
+          "machineName": {
+            "description": "The machine name, which is what the type input of the resource takes.",
+            "type": "string"
+          },
+          "sid": {
+            "description": "The SID of the type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sid",
+          "friendlyName",
+          "machineName",
+          "fields"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubSupportingDocumentTypes": {
+      "description": "List the TrustHub supporting document types (GET /v1/SupportingDocumentTypes on trusthub.twilio.com).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "types": {
+            "description": "The types, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:TrustHubTypeInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "types"
+        ],
+        "type": "object"
+      }
+    },
+    "twilio:index:getTrustHubSupportingDocuments": {
+      "description": "List the TrustHub supporting documents of the account (GET /v1/SupportingDocuments on trusthub.twilio.com).",
+      "inputs": {
+        "type": "object"
+      },
+      "outputs": {
+        "properties": {
+          "supportingDocuments": {
+            "description": "The supporting documents, in the order Twilio returns them.",
+            "items": {
+              "$ref": "#/types/twilio:index:TrustHubSupportingDocumentInfo"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "supportingDocuments"
         ],
         "type": "object"
       }

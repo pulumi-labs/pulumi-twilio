@@ -15,6 +15,18 @@ else:
 from . import _utilities
 
 __all__ = [
+    'ChannelsSenderConfigurationArgs',
+    'ChannelsSenderConfigurationArgsDict',
+    'ChannelsSenderLabeledEmailArgs',
+    'ChannelsSenderLabeledEmailArgsDict',
+    'ChannelsSenderLabeledPhoneArgs',
+    'ChannelsSenderLabeledPhoneArgsDict',
+    'ChannelsSenderLabeledWebsiteArgs',
+    'ChannelsSenderLabeledWebsiteArgsDict',
+    'ChannelsSenderProfileArgs',
+    'ChannelsSenderProfileArgsDict',
+    'ChannelsSenderWebhookArgs',
+    'ChannelsSenderWebhookArgsDict',
     'ContentAuthenticationActionArgs',
     'ContentAuthenticationActionArgsDict',
     'ContentCallToActionActionArgs',
@@ -90,6 +102,656 @@ __all__ = [
     'TranscriptionStatusCallbackArgs',
     'TranscriptionStatusCallbackArgsDict',
 ]
+
+class ChannelsSenderConfigurationArgsDict(TypedDict):
+    account_type: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+    """
+    verification_code: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+    """
+    verification_method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+    """
+    voice_application_sid: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    SID (AP...) of the Twilio Voice application for the sender.
+    """
+    waba_id: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    ID of the WhatsApp Business Account (WABA) the sender belongs to.
+    """
+
+@pulumi.input_type
+class ChannelsSenderConfigurationArgs:
+    def __init__(__self__, *,
+                 account_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 verification_code: Optional[pulumi.Input[_builtins.str]] = None,
+                 verification_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_application_sid: Optional[pulumi.Input[_builtins.str]] = None,
+                 waba_id: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] account_type: The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+        :param pulumi.Input[_builtins.str] verification_code: The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+        :param pulumi.Input[_builtins.str] verification_method: How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+        :param pulumi.Input[_builtins.str] voice_application_sid: SID (AP...) of the Twilio Voice application for the sender.
+        :param pulumi.Input[_builtins.str] waba_id: ID of the WhatsApp Business Account (WABA) the sender belongs to.
+        """
+        if account_type is not None:
+            pulumi.set(__self__, "account_type", account_type)
+        if verification_code is not None:
+            pulumi.set(__self__, "verification_code", verification_code)
+        if verification_method is not None:
+            pulumi.set(__self__, "verification_method", verification_method)
+        if voice_application_sid is not None:
+            pulumi.set(__self__, "voice_application_sid", voice_application_sid)
+        if waba_id is not None:
+            pulumi.set(__self__, "waba_id", waba_id)
+
+    @_builtins.property
+    @pulumi.getter(name="accountType")
+    def account_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The account type for an ISV account type migration: ISV or ISVSubAccount. Removing it leaves the value as it is on Twilio.
+        """
+        return pulumi.get(self, "account_type")
+
+    @account_type.setter
+    def account_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "account_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="verificationCode")
+    def verification_code(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The one-time code Twilio delivered, to finish a sender that is in the PENDING_VERIFICATION status. It is write-only: Twilio never returns it, so it is kept from your program and never shows as drift. It is sent on create, and again whenever you change it.
+        """
+        return pulumi.get(self, "verification_code")
+
+    @verification_code.setter
+    def verification_code(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "verification_code", value)
+
+    @_builtins.property
+    @pulumi.getter(name="verificationMethod")
+    def verification_method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        How Twilio delivers the one-time verification code to the phone number: sms or voice. Twilio uses sms when it is not set.
+        """
+        return pulumi.get(self, "verification_method")
+
+    @verification_method.setter
+    def verification_method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "verification_method", value)
+
+    @_builtins.property
+    @pulumi.getter(name="voiceApplicationSid")
+    def voice_application_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        SID (AP...) of the Twilio Voice application for the sender.
+        """
+        return pulumi.get(self, "voice_application_sid")
+
+    @voice_application_sid.setter
+    def voice_application_sid(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "voice_application_sid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wabaId")
+    def waba_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        ID of the WhatsApp Business Account (WABA) the sender belongs to.
+        """
+        return pulumi.get(self, "waba_id")
+
+    @waba_id.setter
+    def waba_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "waba_id", value)
+
+
+class ChannelsSenderLabeledEmailArgsDict(TypedDict):
+    email: pulumi.Input[_builtins.str]
+    """
+    The email address.
+    """
+    label: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Label of the email address.
+    """
+
+@pulumi.input_type
+class ChannelsSenderLabeledEmailArgs:
+    def __init__(__self__, *,
+                 email: pulumi.Input[_builtins.str],
+                 label: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] email: The email address.
+        :param pulumi.Input[_builtins.str] label: Label of the email address.
+        """
+        pulumi.set(__self__, "email", email)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def email(self) -> pulumi.Input[_builtins.str]:
+        """
+        The email address.
+        """
+        return pulumi.get(self, "email")
+
+    @email.setter
+    def email(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "email", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Label of the email address.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+
+class ChannelsSenderLabeledPhoneArgsDict(TypedDict):
+    phone_number: pulumi.Input[_builtins.str]
+    """
+    The phone number.
+    """
+    label: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Label of the phone number.
+    """
+
+@pulumi.input_type
+class ChannelsSenderLabeledPhoneArgs:
+    def __init__(__self__, *,
+                 phone_number: pulumi.Input[_builtins.str],
+                 label: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] phone_number: The phone number.
+        :param pulumi.Input[_builtins.str] label: Label of the phone number.
+        """
+        pulumi.set(__self__, "phone_number", phone_number)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumber")
+    def phone_number(self) -> pulumi.Input[_builtins.str]:
+        """
+        The phone number.
+        """
+        return pulumi.get(self, "phone_number")
+
+    @phone_number.setter
+    def phone_number(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "phone_number", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Label of the phone number.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+
+class ChannelsSenderLabeledWebsiteArgsDict(TypedDict):
+    website: pulumi.Input[_builtins.str]
+    """
+    The website URL.
+    """
+    label: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Label of the website.
+    """
+
+@pulumi.input_type
+class ChannelsSenderLabeledWebsiteArgs:
+    def __init__(__self__, *,
+                 website: pulumi.Input[_builtins.str],
+                 label: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] website: The website URL.
+        :param pulumi.Input[_builtins.str] label: Label of the website.
+        """
+        pulumi.set(__self__, "website", website)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+
+    @_builtins.property
+    @pulumi.getter
+    def website(self) -> pulumi.Input[_builtins.str]:
+        """
+        The website URL.
+        """
+        return pulumi.get(self, "website")
+
+    @website.setter
+    def website(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "website", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Label of the website.
+        """
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+
+class ChannelsSenderProfileArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+    """
+    about: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The about text of the profile.
+    """
+    accent_color: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Color theme of the profile, in hex format.
+    """
+    address: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The address of the business.
+    """
+    banner_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL of the banner image.
+    """
+    description: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The description of the business.
+    """
+    emails: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledEmailArgs']]]]]
+    """
+    Email addresses of the business.
+    """
+    logo_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL of the logo.
+    """
+    phone_numbers: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledPhoneArgs']]]]]
+    """
+    Phone numbers of the business.
+    """
+    privacy_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Publicly accessible HTTP or HTTPS URL of the privacy policy.
+    """
+    terms_of_service_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL of the terms of service.
+    """
+    vertical: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    The industry vertical of the business, for example Retail.
+    """
+    websites: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledWebsiteArgs']]]]]
+    """
+    Websites of the business.
+    """
+
+@pulumi.input_type
+class ChannelsSenderProfileArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 about: Optional[pulumi.Input[_builtins.str]] = None,
+                 accent_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 address: Optional[pulumi.Input[_builtins.str]] = None,
+                 banner_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
+                 emails: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledEmailArgs']]]] = None,
+                 logo_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 phone_numbers: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledPhoneArgs']]]] = None,
+                 privacy_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 terms_of_service_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 vertical: Optional[pulumi.Input[_builtins.str]] = None,
+                 websites: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledWebsiteArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] name: The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+        :param pulumi.Input[_builtins.str] about: The about text of the profile.
+        :param pulumi.Input[_builtins.str] accent_color: Color theme of the profile, in hex format.
+        :param pulumi.Input[_builtins.str] address: The address of the business.
+        :param pulumi.Input[_builtins.str] banner_url: URL of the banner image.
+        :param pulumi.Input[_builtins.str] description: The description of the business.
+        :param pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledEmailArgs']]] emails: Email addresses of the business.
+        :param pulumi.Input[_builtins.str] logo_url: URL of the logo.
+        :param pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledPhoneArgs']]] phone_numbers: Phone numbers of the business.
+        :param pulumi.Input[_builtins.str] privacy_url: Publicly accessible HTTP or HTTPS URL of the privacy policy.
+        :param pulumi.Input[_builtins.str] terms_of_service_url: URL of the terms of service.
+        :param pulumi.Input[_builtins.str] vertical: The industry vertical of the business, for example Retail.
+        :param pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledWebsiteArgs']]] websites: Websites of the business.
+        """
+        pulumi.set(__self__, "name", name)
+        if about is not None:
+            pulumi.set(__self__, "about", about)
+        if accent_color is not None:
+            pulumi.set(__self__, "accent_color", accent_color)
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if banner_url is not None:
+            pulumi.set(__self__, "banner_url", banner_url)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if emails is not None:
+            pulumi.set(__self__, "emails", emails)
+        if logo_url is not None:
+            pulumi.set(__self__, "logo_url", logo_url)
+        if phone_numbers is not None:
+            pulumi.set(__self__, "phone_numbers", phone_numbers)
+        if privacy_url is not None:
+            pulumi.set(__self__, "privacy_url", privacy_url)
+        if terms_of_service_url is not None:
+            pulumi.set(__self__, "terms_of_service_url", terms_of_service_url)
+        if vertical is not None:
+            pulumi.set(__self__, "vertical", vertical)
+        if websites is not None:
+            pulumi.set(__self__, "websites", websites)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The WhatsApp display name. It must follow Meta's display name guidelines. Twilio does not change the name straight away: a new name goes to Meta for review and the sender keeps its current name until Meta approves it and the sender is registered again. Watch pendingDisplayNameStatus. Meta limits the number of display name changes per 30 days.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def about(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The about text of the profile.
+        """
+        return pulumi.get(self, "about")
+
+    @about.setter
+    def about(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "about", value)
+
+    @_builtins.property
+    @pulumi.getter(name="accentColor")
+    def accent_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Color theme of the profile, in hex format.
+        """
+        return pulumi.get(self, "accent_color")
+
+    @accent_color.setter
+    def accent_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "accent_color", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def address(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The address of the business.
+        """
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "address", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bannerUrl")
+    def banner_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL of the banner image.
+        """
+        return pulumi.get(self, "banner_url")
+
+    @banner_url.setter
+    def banner_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "banner_url", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The description of the business.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def emails(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledEmailArgs']]]]:
+        """
+        Email addresses of the business.
+        """
+        return pulumi.get(self, "emails")
+
+    @emails.setter
+    def emails(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledEmailArgs']]]]):
+        pulumi.set(self, "emails", value)
+
+    @_builtins.property
+    @pulumi.getter(name="logoUrl")
+    def logo_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL of the logo.
+        """
+        return pulumi.get(self, "logo_url")
+
+    @logo_url.setter
+    def logo_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "logo_url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="phoneNumbers")
+    def phone_numbers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledPhoneArgs']]]]:
+        """
+        Phone numbers of the business.
+        """
+        return pulumi.get(self, "phone_numbers")
+
+    @phone_numbers.setter
+    def phone_numbers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledPhoneArgs']]]]):
+        pulumi.set(self, "phone_numbers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="privacyUrl")
+    def privacy_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Publicly accessible HTTP or HTTPS URL of the privacy policy.
+        """
+        return pulumi.get(self, "privacy_url")
+
+    @privacy_url.setter
+    def privacy_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "privacy_url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="termsOfServiceUrl")
+    def terms_of_service_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL of the terms of service.
+        """
+        return pulumi.get(self, "terms_of_service_url")
+
+    @terms_of_service_url.setter
+    def terms_of_service_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "terms_of_service_url", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def vertical(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The industry vertical of the business, for example Retail.
+        """
+        return pulumi.get(self, "vertical")
+
+    @vertical.setter
+    def vertical(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "vertical", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def websites(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledWebsiteArgs']]]]:
+        """
+        Websites of the business.
+        """
+        return pulumi.get(self, "websites")
+
+    @websites.setter
+    def websites(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ChannelsSenderLabeledWebsiteArgs']]]]):
+        pulumi.set(self, "websites", value)
+
+
+class ChannelsSenderWebhookArgsDict(TypedDict):
+    callback_method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    HTTP method of the callback: POST or PUT.
+    """
+    callback_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL Twilio sends incoming messages to.
+    """
+    fallback_method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    HTTP method of the fallback: POST or PUT.
+    """
+    fallback_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL Twilio sends to when the callback URL fails.
+    """
+    status_callback_method: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    HTTP method of the status callback.
+    """
+    status_callback_url: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    URL Twilio sends message status updates to.
+    """
+
+@pulumi.input_type
+class ChannelsSenderWebhookArgs:
+    def __init__(__self__, *,
+                 callback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 callback_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 fallback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 fallback_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 status_callback_method: Optional[pulumi.Input[_builtins.str]] = None,
+                 status_callback_url: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] callback_method: HTTP method of the callback: POST or PUT.
+        :param pulumi.Input[_builtins.str] callback_url: URL Twilio sends incoming messages to.
+        :param pulumi.Input[_builtins.str] fallback_method: HTTP method of the fallback: POST or PUT.
+        :param pulumi.Input[_builtins.str] fallback_url: URL Twilio sends to when the callback URL fails.
+        :param pulumi.Input[_builtins.str] status_callback_method: HTTP method of the status callback.
+        :param pulumi.Input[_builtins.str] status_callback_url: URL Twilio sends message status updates to.
+        """
+        if callback_method is not None:
+            pulumi.set(__self__, "callback_method", callback_method)
+        if callback_url is not None:
+            pulumi.set(__self__, "callback_url", callback_url)
+        if fallback_method is not None:
+            pulumi.set(__self__, "fallback_method", fallback_method)
+        if fallback_url is not None:
+            pulumi.set(__self__, "fallback_url", fallback_url)
+        if status_callback_method is not None:
+            pulumi.set(__self__, "status_callback_method", status_callback_method)
+        if status_callback_url is not None:
+            pulumi.set(__self__, "status_callback_url", status_callback_url)
+
+    @_builtins.property
+    @pulumi.getter(name="callbackMethod")
+    def callback_method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HTTP method of the callback: POST or PUT.
+        """
+        return pulumi.get(self, "callback_method")
+
+    @callback_method.setter
+    def callback_method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "callback_method", value)
+
+    @_builtins.property
+    @pulumi.getter(name="callbackUrl")
+    def callback_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL Twilio sends incoming messages to.
+        """
+        return pulumi.get(self, "callback_url")
+
+    @callback_url.setter
+    def callback_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "callback_url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fallbackMethod")
+    def fallback_method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HTTP method of the fallback: POST or PUT.
+        """
+        return pulumi.get(self, "fallback_method")
+
+    @fallback_method.setter
+    def fallback_method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "fallback_method", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fallbackUrl")
+    def fallback_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL Twilio sends to when the callback URL fails.
+        """
+        return pulumi.get(self, "fallback_url")
+
+    @fallback_url.setter
+    def fallback_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "fallback_url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="statusCallbackMethod")
+    def status_callback_method(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HTTP method of the status callback.
+        """
+        return pulumi.get(self, "status_callback_method")
+
+    @status_callback_method.setter
+    def status_callback_method(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "status_callback_method", value)
+
+    @_builtins.property
+    @pulumi.getter(name="statusCallbackUrl")
+    def status_callback_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        URL Twilio sends message status updates to.
+        """
+        return pulumi.get(self, "status_callback_url")
+
+    @status_callback_url.setter
+    def status_callback_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "status_callback_url", value)
+
 
 class ContentAuthenticationActionArgsDict(TypedDict):
     copy_code_text: pulumi.Input[_builtins.str]

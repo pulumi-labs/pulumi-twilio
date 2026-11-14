@@ -16,7 +16,7 @@ import (
 type TaskRouterWorker struct {
 	pulumi.CustomResourceState
 
-	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
 	ActivitySid pulumi.StringPtrOutput `pulumi:"activitySid"`
 	// The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.
 	Attributes pulumi.StringPtrOutput `pulumi:"attributes"`
@@ -82,7 +82,7 @@ func (TaskRouterWorkerState) ElementType() reflect.Type {
 }
 
 type taskRouterWorkerArgs struct {
-	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
 	ActivitySid *string `pulumi:"activitySid"`
 	// The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.
 	Attributes *string `pulumi:"attributes"`
@@ -94,7 +94,7 @@ type taskRouterWorkerArgs struct {
 
 // The set of arguments for constructing a TaskRouterWorker resource.
 type TaskRouterWorkerArgs struct {
-	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+	// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
 	ActivitySid pulumi.StringPtrInput
 	// The worker's attributes as a JSON object, matched by task queue and workflow expressions (Twilio default {}). Formatting and key order do not matter. Removing it leaves the attributes unchanged.
 	Attributes pulumi.StringPtrInput
@@ -191,7 +191,7 @@ func (o TaskRouterWorkerOutput) ToTaskRouterWorkerOutputWithContext(ctx context.
 	return o
 }
 
-// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+// SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
 func (o TaskRouterWorkerOutput) ActivitySid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TaskRouterWorker) pulumi.StringPtrOutput { return v.ActivitySid }).(pulumi.StringPtrOutput)
 }

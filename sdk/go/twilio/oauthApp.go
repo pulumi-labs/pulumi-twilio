@@ -30,7 +30,7 @@ type OAuthApp struct {
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Human-readable name of the OAuth app. Changing it replaces the app, because Twilio has no update call for OAuth apps.
 	FriendlyName pulumi.StringOutput `pulumi:"friendlyName"`
-	// SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+	// SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
 	OwnerSid pulumi.StringPtrOutput `pulumi:"ownerSid"`
 	// The permissions the app is allowed and denied. Changing it replaces the app.
 	Policy OAuthAppPolicyPtrOutput `pulumi:"policy"`
@@ -42,7 +42,7 @@ type OAuthApp struct {
 	Status pulumi.StringOutput `pulumi:"status"`
 	// How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.
 	TokenEndpointAuthMethod pulumi.StringPtrOutput `pulumi:"tokenEndpointAuthMethod"`
-	// The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+	// The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
 	Type pulumi.StringPtrOutput `pulumi:"type"`
 }
 
@@ -101,13 +101,13 @@ type oauthAppArgs struct {
 	Description *string `pulumi:"description"`
 	// Human-readable name of the OAuth app. Changing it replaces the app, because Twilio has no update call for OAuth apps.
 	FriendlyName string `pulumi:"friendlyName"`
-	// SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+	// SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
 	OwnerSid *string `pulumi:"ownerSid"`
 	// The permissions the app is allowed and denied. Changing it replaces the app.
 	Policy *OAuthAppPolicy `pulumi:"policy"`
 	// How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.
 	TokenEndpointAuthMethod *string `pulumi:"tokenEndpointAuthMethod"`
-	// The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+	// The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
 	Type *string `pulumi:"type"`
 }
 
@@ -121,13 +121,13 @@ type OAuthAppArgs struct {
 	Description pulumi.StringPtrInput
 	// Human-readable name of the OAuth app. Changing it replaces the app, because Twilio has no update call for OAuth apps.
 	FriendlyName pulumi.StringInput
-	// SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+	// SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
 	OwnerSid pulumi.StringPtrInput
 	// The permissions the app is allowed and denied. Changing it replaces the app.
 	Policy OAuthAppPolicyPtrInput
 	// How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.
 	TokenEndpointAuthMethod pulumi.StringPtrInput
-	// The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+	// The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
 	Type pulumi.StringPtrInput
 }
 
@@ -253,7 +253,7 @@ func (o OAuthAppOutput) FriendlyName() pulumi.StringOutput {
 	return o.ApplyT(func(v *OAuthApp) pulumi.StringOutput { return v.FriendlyName }).(pulumi.StringOutput)
 }
 
-// SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+// SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
 func (o OAuthAppOutput) OwnerSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OAuthApp) pulumi.StringPtrOutput { return v.OwnerSid }).(pulumi.StringPtrOutput)
 }
@@ -283,7 +283,7 @@ func (o OAuthAppOutput) TokenEndpointAuthMethod() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OAuthApp) pulumi.StringPtrOutput { return v.TokenEndpointAuthMethod }).(pulumi.StringPtrOutput)
 }
 
-// The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.
+// The OAuth grant type of the app. Twilio's only accepted value is "Client Credential" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
 func (o OAuthAppOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OAuthApp) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
 }

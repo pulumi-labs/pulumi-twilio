@@ -79,14 +79,14 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+     * SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
      * 
      */
     @Import(name="ownerSid")
     private @Nullable Output<String> ownerSid;
 
     /**
-     * @return SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+     * @return SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
      * 
      */
     public Optional<Output<String>> ownerSid() {
@@ -124,14 +124,14 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The type of the OAuth app, as Twilio&#39;s create call takes it (the API specification does not list the values). Changing it replaces the app.
+     * The OAuth grant type of the app. Twilio&#39;s only accepted value is &#34;Client Credential&#34; (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
      * 
      */
     @Import(name="type")
     private @Nullable Output<String> type;
 
     /**
-     * @return The type of the OAuth app, as Twilio&#39;s create call takes it (the API specification does not list the values). Changing it replaces the app.
+     * @return The OAuth grant type of the app. Twilio&#39;s only accepted value is &#34;Client Credential&#34; (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
      * 
      */
     public Optional<Output<String>> type() {
@@ -254,7 +254,7 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ownerSid SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+         * @param ownerSid SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
          * 
          * @return builder
          * 
@@ -265,7 +265,7 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ownerSid SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.
+         * @param ownerSid SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.
          * 
          * @return builder
          * 
@@ -317,7 +317,7 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type The type of the OAuth app, as Twilio&#39;s create call takes it (the API specification does not list the values). Changing it replaces the app.
+         * @param type The OAuth grant type of the app. Twilio&#39;s only accepted value is &#34;Client Credential&#34; (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
          * 
          * @return builder
          * 
@@ -328,7 +328,7 @@ public final class OAuthAppArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type The type of the OAuth app, as Twilio&#39;s create call takes it (the API specification does not list the values). Changing it replaces the app.
+         * @param type The OAuth grant type of the app. Twilio&#39;s only accepted value is &#34;Client Credential&#34; (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.
          * 
          * @return builder
          * 

@@ -348,6 +348,8 @@ func TestLookup_TollfreeVerifications(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, r.Get("verifications").AsArray().AsSlice(), 1)
 	require.Equal(t, "true", l.f.callsMatching("GET", "/Tollfree/Verifications")[len(l.f.callsMatching("GET", "/Tollfree/Verifications"))-1].Query.Get("IncludeSubAccounts"))
+	// #1979: the list asks for the API's maximum page size of 50, not 1000.
+	require.Equal(t, "50", l.f.callsMatching("GET", "/Tollfree/Verifications")[len(l.f.callsMatching("GET", "/Tollfree/Verifications"))-1].Query.Get("PageSize"))
 }
 
 func (l *tl) updateErr(id string, state, inputs, oldInputs property.Map) (pgp.UpdateResponse, error) {

@@ -41,6 +41,9 @@ var (
 	oauthAppClientSidRE = regexp.MustCompile(`^OQ[0-9a-fA-F]{32}$`)
 )
 
+// oauthAppGrantType is the only type Twilio's create call accepts for an account OAuth app.
+const oauthAppGrantType = "Client Credential"
+
 // OAuthApp is an OAuth application of the Twilio account. The client secret is returned once, at creation.
 type OAuthApp struct{}
 
@@ -70,8 +73,8 @@ type OAuthAppArgs struct {
 func (a *OAuthAppArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.FriendlyName, "Human-readable name of the OAuth app. Changing it replaces the app, because Twilio has no update call for OAuth apps.")
 	an.Describe(&a.Description, "A description of the OAuth app. Changing it replaces the app.")
-	an.Describe(&a.Type, "The type of the OAuth app, as Twilio's create call takes it (the API specification does not list the values). Changing it replaces the app.")
-	an.Describe(&a.OwnerSid, "SID (two capital letters and 32 hex characters) of the owner of the app. Changing it replaces the app.")
+	an.Describe(&a.Type, "The OAuth grant type of the app. Twilio's only accepted value is \"Client Credential\" (the API specification does not list it, the Twilio docs do), which is the default; any other value, such as confidential or m2m, is refused by Twilio. Changing it replaces the app.")
+	an.Describe(&a.OwnerSid, "SID (two capital letters and 32 hex characters) of the account that owns the app. Twilio requires it to match the account the provider authenticates with, which is the default. Changing it replaces the app.")
 	an.Describe(&a.ClientSid, "SID (OQ...) to give the app as its client SID. Changing it replaces the app.")
 	an.Describe(&a.TokenEndpointAuthMethod, "How the client authenticates at the token endpoint. Account OAuth apps support only client_secret_basic. Changing it replaces the app.")
 	an.Describe(&a.Policy, "The permissions the app is allowed and denied. Changing it replaces the app.")
@@ -182,11 +185,17 @@ func (r *OAuthApp) Create(ctx context.Context, req infer.CreateRequest[OAuthAppA
 	if a.Description != nil {
 		body["description"] = *a.Description
 	}
+	// Twilio refuses a create without a type ("type cannot be null") and accepts only "Client Credential".
+	grant := oauthAppGrantType
 	if a.Type != nil {
-		body["type"] = *a.Type
+		grant = *a.Type
 	}
+	body["type"] = grant
+	st.Type = &grant
 	if a.OwnerSid != nil {
 		body["owner_sid"] = *a.OwnerSid
+	} else if owner := c.acct(nil); owner != "" {
+		body["owner_sid"] = owner
 	}
 	if a.ClientSid != nil {
 		body["client_sid"] = *a.ClientSid

@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -154,6 +155,18 @@ func (f *fakeTwilio) trWorkspace(w http.ResponseWriter, r *http.Request, form ur
 
 func (f *fakeTwilio) trChild(w http.ResponseWriter, r *http.Request, form url.Values, ws, coll string, spec trSpec, sid string, notFound func()) {
 	if sid == "" {
+		if r.Method == "GET" {
+			// The list of a collection (the worker delete looks for an unavailable activity, #1982).
+			prefix := "trchild/" + testAccount + "/" + ws + "/" + spec.prefix
+			items := []map[string]any{}
+			for _, fk := range f.order {
+				if o, ok := f.objs[fk]; ok && strings.HasPrefix(fk, prefix) {
+					items = append(items, o)
+				}
+			}
+			metaPage(w, r, strings.ToLower(coll[:1])+coll[1:], items, 50)
+			return
+		}
 		if r.Method != "POST" {
 			ferr(w, 405, "method not allowed")
 			return
@@ -209,6 +222,14 @@ func (f *fakeTwilio) trChild(w http.ResponseWriter, r *http.Request, form url.Va
 		o["date_updated"] = trUpdatedStamp
 		fwrite(w, 200, o)
 	case "DELETE":
+		// Twilio refuses (400, error 20001) to delete a worker that is in an available activity (#1982).
+		if coll == "Workers" {
+			if act, ok := f.objs[key("trchild", testAccount, ws+"/"+fmt.Sprint(o["activity_sid"]))]; ok && act["available"] == true {
+				fwrite(w, 400, map[string]any{"code": 20001, "status": 400,
+					"message": "Worker " + sid + " cannot be deleted while it is available for work."})
+				return
+			}
+		}
 		f.del("trchild", testAccount, ws+"/"+sid)
 		w.WriteHeader(204)
 	default:

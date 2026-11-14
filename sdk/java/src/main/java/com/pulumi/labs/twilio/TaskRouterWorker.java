@@ -21,14 +21,14 @@ import javax.annotation.Nullable;
 @ResourceType(type="twilio:index:TaskRouterWorker")
 public class TaskRouterWorker extends com.pulumi.resources.CustomResource {
     /**
-     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+     * SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
      * 
      */
     @Export(name="activitySid", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> activitySid;
 
     /**
-     * @return SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is not refreshed, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
+     * @return SID (WA...) of the activity the worker starts in; Twilio uses the workspace default when it is unset. It is applied on create and when it is changed in the program. It is adopted on import but not refreshed afterwards, because a worker changes activity while it works, so a worker that moved on its own is not drift. Removing it leaves the activity unchanged.
      * 
      */
     public Output<Optional<String>> activitySid() {

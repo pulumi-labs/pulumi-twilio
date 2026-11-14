@@ -190,14 +190,14 @@ public class VideoCompositionHook extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.trim);
     }
     /**
-     * The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      * 
      */
     @Export(name="videoLayout", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> videoLayout;
 
     /**
-     * @return The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * @return The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      * 
      */
     public Output<Optional<String>> videoLayout() {

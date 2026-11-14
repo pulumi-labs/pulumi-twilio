@@ -191,3 +191,69 @@ func TestVideoSettingsLC_Lifecycle(t *testing.T) {
 		})
 	}
 }
+
+// Twilio fills in its defaults for every region of a video layout it reports (#1937); a layout the
+// program wrote without them must not read as drift, while a real change must.
+func TestVideoCompositionHookLC_LayoutDefaultsAreNotDrift(t *testing.T) {
+	expanded := func(o map[string]any) {
+		o["video_layout"] = map[string]any{"grid": map[string]any{
+			"video_sources": []any{"*"}, "cells_excluded": []any{}, "reuse": "show_oldest",
+			"video_sources_excluded": []any{}, "x_pos": float64(0), "y_pos": float64(0), "z_pos": float64(0),
+			"height": nil, "width": nil, "max_rows": nil, "max_columns": nil,
+		}}
+	}
+	l := newTL(t, "VideoCompositionHook", "hook")
+	in := pv(map[string]property.Value{"friendlyName": sv("recap"), "enabled": bv(false), "audioSources": strList("*"),
+		"videoLayout": sv(`{"grid":{"video_sources":["*"]}}`), "resolution": sv("1280x720"), "format": sv("mp4")})
+	c := l.create(in)
+
+	l.f.mutate("vd", testAccount, "CompositionHooks/"+c.ID, expanded)
+	rd := l.read(c.ID, c.Properties, in)
+	// The state keeps the program's form, so the next preview plans nothing.
+	require.JSONEq(t, `{"grid":{"video_sources":["*"]}}`, getS(t, rd.Inputs, "videoLayout"))
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
+
+	// State written by an earlier release already holds Twilio's expanded layout; the program is still no change.
+	old := with(c.Properties, map[string]property.Value{"videoLayout": sv(`{"grid":{"video_sources":["*"],"cells_excluded":[],"reuse":"show_oldest","x_pos":0,"y_pos":0,"z_pos":0,"video_sources_excluded":[],"height":null}}`)})
+	requireNoChanges(t, l.diff(c.ID, old, in, old))
+
+	// A program that states the defaults itself is no change against Twilio's report.
+	explicit := with(in, map[string]property.Value{"videoLayout": sv(`{"grid":{"video_sources":["*"],"reuse":"show_oldest","x_pos":0}}`)})
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, explicit, rd.Inputs))
+
+	// Non-default values are real settings: a change shows, in the diff and on refresh.
+	changed := with(in, map[string]property.Value{"videoLayout": sv(`{"grid":{"video_sources":["*"],"reuse":"show_newest"}}`)})
+	require.Equal(t, pgp.Update, l.diff(c.ID, rd.Properties, changed, rd.Inputs).DetailedDiff["videoLayout"].Kind)
+	l.f.mutate("vd", testAccount, "CompositionHooks/"+c.ID, func(o map[string]any) {
+		expanded(o)
+		o["video_layout"].(map[string]any)["grid"].(map[string]any)["x_pos"] = float64(5)
+	})
+	drift := l.read(c.ID, c.Properties, in)
+	require.Contains(t, getS(t, drift.Inputs, "videoLayout"), `"x_pos":5`)
+	require.Equal(t, pgp.Update, l.diff(c.ID, drift.Properties, in, drift.Inputs).DetailedDiff["videoLayout"].Kind)
+
+	// An import adopts the layout without Twilio's defaults.
+	l.f.mutate("vd", testAccount, "CompositionHooks/"+c.ID, expanded)
+	imp := l.read(c.ID, empty(), empty())
+	require.JSONEq(t, `{"grid":{"video_sources":["*"]}}`, getS(t, imp.Inputs, "videoLayout"))
+	requireNoChanges(t, l.diff(c.ID, imp.Properties, in, imp.Inputs))
+}
+
+func TestVideoLayoutSame(t *testing.T) {
+	for _, tc := range []struct {
+		name, a, b string
+		same       bool
+	}{
+		{"identical", `{"grid":{"video_sources":["*"]}}`, `{"grid":{"video_sources":["*"]}}`, true},
+		{"key order", `{"a":{"x_pos":1,"y_pos":2}}`, `{"a":{"y_pos":2,"x_pos":1}}`, true},
+		{"defaults and nulls", `{"grid":{"video_sources":["*"]}}`, `{"grid":{"video_sources":["*"],"cells_excluded":[],"reuse":"show_oldest","z_pos":0,"width":null}}`, true},
+		{"non-default reuse", `{"grid":{"video_sources":["*"]}}`, `{"grid":{"video_sources":["*"],"reuse":"show_newest"}}`, false},
+		{"non-default position", `{"grid":{}}`, `{"grid":{"x_pos":3}}`, false},
+		{"non-empty exclusions", `{"grid":{}}`, `{"grid":{"cells_excluded":[1]}}`, false},
+		{"different sources", `{"grid":{"video_sources":["a"]}}`, `{"grid":{"video_sources":["b"]}}`, false},
+		{"different region", `{"grid":{"video_sources":["*"]}}`, `{"pip":{"video_sources":["*"]}}`, false},
+		{"not an object", `[1]`, `[1,2]`, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) { require.Equal(t, tc.same, videoLayoutSame(tc.a, tc.b)) })
+	}
+}

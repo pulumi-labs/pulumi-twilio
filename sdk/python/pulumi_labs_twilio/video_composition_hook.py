@@ -41,7 +41,7 @@ class VideoCompositionHookArgs:
         :param pulumi.Input[_builtins.str] status_callback: Absolute URL Twilio calls on every composition event. Removing it leaves the setting unchanged.
         :param pulumi.Input[_builtins.str] status_callback_method: HTTP method of the status callback, GET or POST (Twilio default POST).
         :param pulumi.Input[_builtins.bool] trim: Whether to clip the stretches with no active media from the compositions (Twilio default true).
-        :param pulumi.Input[_builtins.str] video_layout: The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        :param pulumi.Input[_builtins.str] video_layout: The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         """
         pulumi.set(__self__, "friendly_name", friendly_name)
         if audio_sources is not None:
@@ -175,7 +175,7 @@ class VideoCompositionHookArgs:
     @pulumi.getter(name="videoLayout")
     def video_layout(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         """
         return pulumi.get(self, "video_layout")
 
@@ -216,7 +216,7 @@ class VideoCompositionHook(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] status_callback: Absolute URL Twilio calls on every composition event. Removing it leaves the setting unchanged.
         :param pulumi.Input[_builtins.str] status_callback_method: HTTP method of the status callback, GET or POST (Twilio default POST).
         :param pulumi.Input[_builtins.bool] trim: Whether to clip the stretches with no active media from the compositions (Twilio default true).
-        :param pulumi.Input[_builtins.str] video_layout: The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        :param pulumi.Input[_builtins.str] video_layout: The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         """
         ...
     @overload
@@ -414,7 +414,7 @@ class VideoCompositionHook(pulumi.CustomResource):
     @pulumi.getter(name="videoLayout")
     def video_layout(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         """
         return pulumi.get(self, "video_layout")
 

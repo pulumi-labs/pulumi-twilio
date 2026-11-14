@@ -55,6 +55,7 @@ type fakeTwilio struct {
 	objs                      map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
 	order                     []string
 	next                      int
+	oauthBodies               []map[string]any // the JSON bodies of the OAuth app creates
 	calls                     []fakeCall
 	failure                   map[string]int        // "METHOD substring" -> status to return once
 	verifyMsgCfgFake200       bool                  // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
@@ -289,8 +290,18 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case strings.HasPrefix(path, "/api/2010-04-01/"):
 		f.handleAPI(w, r, form, strings.Split(strings.TrimPrefix(path, "/api/2010-04-01/"), "/"))
+	case strings.HasPrefix(path, "/iam/v1/Account/OAuthApps"), strings.HasPrefix(path, "/iam/v1/Roles/"):
+		f.handleIAMOther(w, r, body, strings.Trim(strings.TrimPrefix(path, "/iam/v1/"), "/"))
+	case path == "/messaging/v1/Services/Usecases", path == "/messaging/v1/Deactivations":
+		f.handleMessagingAccount(w, r, path)
 	case strings.HasPrefix(path, "/iam/v1/Keys"):
 		f.handleIAMKeys(w, r, form, strings.Trim(strings.TrimPrefix(path, "/iam/v1/Keys"), "/"))
+	case strings.HasPrefix(path, "/messaging/v1/LinkShortening/"):
+		f.handleLinkShortening(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/LinkShortening/"), "/"), "/"))
+	case strings.HasPrefix(path, "/messaging/v1/Tollfree/"):
+		f.handleTollfree(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/Tollfree/"), "/"), "/"))
+	case strings.HasPrefix(path, "/messaging/v1/a2p/"):
+		f.handleA2P(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/a2p/"), "/"), "/"))
 	case strings.HasPrefix(path, "/messaging/v1/Services"):
 		f.handleMessaging(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/messaging/v1/Services"), "/"), "/"))
 	case strings.HasPrefix(path, "/verify/v2/Services"):
@@ -327,6 +338,12 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleProxy(w, r, form, strings.Trim(strings.TrimPrefix(path, "/proxy/v1/"), "/"))
 	case strings.HasPrefix(path, "/content/v1/"):
 		f.handleContent(w, r, body, strings.Trim(strings.TrimPrefix(path, "/content/v1/"), "/"))
+	case strings.HasPrefix(path, "/flex-api/v1/"):
+		f.handleFlex(w, r, form, strings.Trim(strings.TrimPrefix(path, "/flex-api/v1/"), "/"))
+	case strings.HasPrefix(path, "/supersim/v1/"):
+		f.handleSuperSim(w, r, form, strings.Trim(strings.TrimPrefix(path, "/supersim/v1/"), "/"))
+	case strings.HasPrefix(path, "/wireless/v1/"):
+		f.handleWireless(w, r, form, strings.Trim(strings.TrimPrefix(path, "/wireless/v1/"), "/"))
 	case strings.HasPrefix(path, "/video/v1/"):
 		f.handleVideo(w, r, form, strings.Trim(strings.TrimPrefix(path, "/video/v1/"), "/"))
 	case strings.HasPrefix(path, "/intelligence/v2/"):
@@ -714,6 +731,10 @@ func (f *fakeTwilio) handleMessaging(w http.ResponseWriter, r *http.Request, for
 		default:
 			ferr(w, 405, "method not allowed")
 		}
+		return
+	}
+	if parts[1] == "Compliance" {
+		f.messagingCompliance(w, r, form, svc, parts[2:])
 		return
 	}
 	if parts[1] == "ShortCodes" || parts[1] == "ChannelSenders" || parts[1] == "AlphaSenders" || parts[1] == "DestinationAlphaSenders" {

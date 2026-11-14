@@ -11,6 +11,7 @@ from .address import *
 from .api_key import *
 from .application import *
 from .aws_credential import *
+from .brand_registration import *
 from .byoc_trunk import *
 from .connect_app import *
 from .connection_policy import *
@@ -26,6 +27,11 @@ from .conversations_service_notification_configuration import *
 from .conversations_webhook_configuration import *
 from .event_sink import *
 from .event_subscription import *
+from .flex_flow import *
+from .flex_plugin import *
+from .flex_plugin_configuration import *
+from .flex_plugin_release import *
+from .flex_plugin_version import *
 from .get_account import *
 from .get_account_safe_list_number import *
 from .get_address import *
@@ -36,6 +42,8 @@ from .get_authorized_connect_apps import *
 from .get_available_phone_numbers import *
 from .get_aws_credential import *
 from .get_balance import *
+from .get_brand_registration import *
+from .get_brand_registrations import *
 from .get_byoc_trunk import *
 from .get_connect_app import *
 from .get_connection_policy import *
@@ -58,11 +66,27 @@ from .get_event_sink import *
 from .get_event_subscription import *
 from .get_event_type import *
 from .get_event_types import *
+from .get_flex_flow import *
+from .get_flex_flows import *
+from .get_flex_plugin import *
+from .get_flex_plugin_configuration import *
+from .get_flex_plugin_configurations import *
+from .get_flex_plugin_release import *
+from .get_flex_plugin_releases import *
+from .get_flex_plugin_version import *
+from .get_flex_plugin_versions import *
+from .get_flex_plugins import *
 from .get_incoming_phone_number import *
 from .get_incoming_phone_number_assigned_add_on import *
 from .get_intelligence_custom_operator import *
 from .get_intelligence_service import *
 from .get_ip_record import *
+from .get_link_shortening_domain_certificate import *
+from .get_link_shortening_domain_config import *
+from .get_link_shortening_domain_dns_validation import *
+from .get_link_shortening_messaging_service_domain import *
+from .get_link_shortening_messaging_service_domain_config import *
+from .get_messaging_deactivations import *
 from .get_messaging_geo_permissions import *
 from .get_messaging_service import *
 from .get_messaging_service_alpha_sender import *
@@ -70,8 +94,10 @@ from .get_messaging_service_channel_sender import *
 from .get_messaging_service_destination_alpha_sender import *
 from .get_messaging_service_phone_number import *
 from .get_messaging_service_short_code import *
+from .get_messaging_usecases import *
 from .get_notify_credential import *
 from .get_notify_service import *
+from .get_o_auth_app import *
 from .get_outgoing_caller_id import *
 from .get_pricing_messaging_countries import *
 from .get_pricing_messaging_country import *
@@ -87,6 +113,7 @@ from .get_proxy_phone_number import *
 from .get_proxy_service import *
 from .get_public_key_credential import *
 from .get_queue import *
+from .get_role_permissions import *
 from .get_routes_phone_number import *
 from .get_routes_short_code import *
 from .get_routes_sip_domain import *
@@ -111,6 +138,10 @@ from .get_sip_ip_access_control_list import *
 from .get_sip_ip_address import *
 from .get_source_ip_mapping import *
 from .get_subaccount import *
+from .get_super_sim_fleet import *
+from .get_super_sim_network import *
+from .get_super_sim_network_access_profile import *
+from .get_super_sim_networks import *
 from .get_sync_service import *
 from .get_task_router_activity import *
 from .get_task_router_task_channel import *
@@ -118,10 +149,15 @@ from .get_task_router_task_queue import *
 from .get_task_router_worker import *
 from .get_task_router_workflow import *
 from .get_task_router_workspace import *
+from .get_tollfree_verification import *
+from .get_tollfree_verifications import *
 from .get_trunk import *
 from .get_trunk_credential_list import *
 from .get_trunk_ip_access_control_list import *
 from .get_trunk_origination_url import *
+from .get_us_app_to_person import *
+from .get_us_app_to_person_usecases import *
+from .get_us_app_to_persons import *
 from .get_usage_records import *
 from .get_usage_trigger import *
 from .get_verify_messaging_configuration import *
@@ -139,11 +175,15 @@ from .get_voice_default_recording_configuration import *
 from .get_voice_default_transcription_configuration import *
 from .get_voice_recording_configuration import *
 from .get_voice_transcription_configuration import *
+from .get_wireless_rate_plan import *
 from .incoming_phone_number import *
 from .incoming_phone_number_assigned_add_on import *
 from .intelligence_custom_operator import *
 from .intelligence_service import *
 from .ip_record import *
+from .link_shortening_domain_certificate import *
+from .link_shortening_domain_config import *
+from .link_shortening_messaging_service_domain import *
 from .messaging_service import *
 from .messaging_service_alpha_sender import *
 from .messaging_service_channel_sender import *
@@ -152,6 +192,7 @@ from .messaging_service_phone_number import *
 from .messaging_service_short_code import *
 from .notify_credential import *
 from .notify_service import *
+from .o_auth_app import *
 from .outgoing_caller_id import *
 from .provider import *
 from .proxy_phone_number import *
@@ -182,6 +223,8 @@ from .sip_ip_access_control_list import *
 from .sip_ip_address import *
 from .source_ip_mapping import *
 from .subaccount import *
+from .super_sim_fleet import *
+from .super_sim_network_access_profile import *
 from .sync_service import *
 from .task_router_activity import *
 from .task_router_task_channel import *
@@ -189,10 +232,12 @@ from .task_router_task_queue import *
 from .task_router_worker import *
 from .task_router_workflow import *
 from .task_router_workspace import *
+from .tollfree_verification import *
 from .trunk import *
 from .trunk_credential_list import *
 from .trunk_ip_access_control_list import *
 from .trunk_origination_url import *
+from .us_app_to_person import *
 from .usage_trigger import *
 from .verify_messaging_configuration import *
 from .verify_rate_limit import *
@@ -208,6 +253,7 @@ from .voice_default_recording_configuration import *
 from .voice_default_transcription_configuration import *
 from .voice_recording_configuration import *
 from .voice_transcription_configuration import *
+from .wireless_rate_plan import *
 from ._inputs import *
 from . import outputs
 
@@ -231,6 +277,7 @@ _utilities.register(
    "twilio:index:ApiKey": "ApiKey",
    "twilio:index:Application": "Application",
    "twilio:index:AwsCredential": "AwsCredential",
+   "twilio:index:BrandRegistration": "BrandRegistration",
    "twilio:index:ByocTrunk": "ByocTrunk",
    "twilio:index:ConnectApp": "ConnectApp",
    "twilio:index:ConnectionPolicy": "ConnectionPolicy",
@@ -246,11 +293,19 @@ _utilities.register(
    "twilio:index:ConversationsWebhookConfiguration": "ConversationsWebhookConfiguration",
    "twilio:index:EventSink": "EventSink",
    "twilio:index:EventSubscription": "EventSubscription",
+   "twilio:index:FlexFlow": "FlexFlow",
+   "twilio:index:FlexPlugin": "FlexPlugin",
+   "twilio:index:FlexPluginConfiguration": "FlexPluginConfiguration",
+   "twilio:index:FlexPluginRelease": "FlexPluginRelease",
+   "twilio:index:FlexPluginVersion": "FlexPluginVersion",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
    "twilio:index:IncomingPhoneNumberAssignedAddOn": "IncomingPhoneNumberAssignedAddOn",
    "twilio:index:IntelligenceCustomOperator": "IntelligenceCustomOperator",
    "twilio:index:IntelligenceService": "IntelligenceService",
    "twilio:index:IpRecord": "IpRecord",
+   "twilio:index:LinkShorteningDomainCertificate": "LinkShorteningDomainCertificate",
+   "twilio:index:LinkShorteningDomainConfig": "LinkShorteningDomainConfig",
+   "twilio:index:LinkShorteningMessagingServiceDomain": "LinkShorteningMessagingServiceDomain",
    "twilio:index:MessagingService": "MessagingService",
    "twilio:index:MessagingServiceAlphaSender": "MessagingServiceAlphaSender",
    "twilio:index:MessagingServiceChannelSender": "MessagingServiceChannelSender",
@@ -259,6 +314,7 @@ _utilities.register(
    "twilio:index:MessagingServiceShortCode": "MessagingServiceShortCode",
    "twilio:index:NotifyCredential": "NotifyCredential",
    "twilio:index:NotifyService": "NotifyService",
+   "twilio:index:OAuthApp": "OAuthApp",
    "twilio:index:OutgoingCallerId": "OutgoingCallerId",
    "twilio:index:ProxyPhoneNumber": "ProxyPhoneNumber",
    "twilio:index:ProxyService": "ProxyService",
@@ -288,6 +344,8 @@ _utilities.register(
    "twilio:index:SipIpAddress": "SipIpAddress",
    "twilio:index:SourceIpMapping": "SourceIpMapping",
    "twilio:index:Subaccount": "Subaccount",
+   "twilio:index:SuperSimFleet": "SuperSimFleet",
+   "twilio:index:SuperSimNetworkAccessProfile": "SuperSimNetworkAccessProfile",
    "twilio:index:SyncService": "SyncService",
    "twilio:index:TaskRouterActivity": "TaskRouterActivity",
    "twilio:index:TaskRouterTaskChannel": "TaskRouterTaskChannel",
@@ -295,10 +353,12 @@ _utilities.register(
    "twilio:index:TaskRouterWorker": "TaskRouterWorker",
    "twilio:index:TaskRouterWorkflow": "TaskRouterWorkflow",
    "twilio:index:TaskRouterWorkspace": "TaskRouterWorkspace",
+   "twilio:index:TollfreeVerification": "TollfreeVerification",
    "twilio:index:Trunk": "Trunk",
    "twilio:index:TrunkCredentialList": "TrunkCredentialList",
    "twilio:index:TrunkIpAccessControlList": "TrunkIpAccessControlList",
    "twilio:index:TrunkOriginationUrl": "TrunkOriginationUrl",
+   "twilio:index:UsAppToPerson": "UsAppToPerson",
    "twilio:index:UsageTrigger": "UsageTrigger",
    "twilio:index:VerifyMessagingConfiguration": "VerifyMessagingConfiguration",
    "twilio:index:VerifyRateLimit": "VerifyRateLimit",
@@ -313,7 +373,8 @@ _utilities.register(
    "twilio:index:VoiceDefaultRecordingConfiguration": "VoiceDefaultRecordingConfiguration",
    "twilio:index:VoiceDefaultTranscriptionConfiguration": "VoiceDefaultTranscriptionConfiguration",
    "twilio:index:VoiceRecordingConfiguration": "VoiceRecordingConfiguration",
-   "twilio:index:VoiceTranscriptionConfiguration": "VoiceTranscriptionConfiguration"
+   "twilio:index:VoiceTranscriptionConfiguration": "VoiceTranscriptionConfiguration",
+   "twilio:index:WirelessRatePlan": "WirelessRatePlan"
   }
  }
 ]

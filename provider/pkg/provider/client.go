@@ -320,3 +320,69 @@ func notFoundOnImport[A, S any](kind, id string, inputs A, state S) error {
 	}
 	return nil
 }
+
+// redirectTarget performs a GET that Twilio answers with a redirect and returns the target without
+// following it: the Location header of a 3xx, else bodyKey of a JSON body (a 2xx). The target of
+// some redirects is an authenticated URL of a file, so it must reach the caller, not be fetched.
+// Throttled (429) and failing (5xx) requests are retried like any GET.
+func (c *Client) redirectTarget(ctx context.Context, product, path string, query url.Values, bodyKey string) (string, error) {
+	u := c.host(product) + path
+	if len(query) > 0 {
+		u += "?" + query.Encode()
+	}
+	hc := *c.http
+	hc.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	var lastErr error
+	for attempt := 0; attempt < 4; attempt++ {
+		if attempt > 0 {
+			select {
+			case <-ctx.Done():
+				return "", ctx.Err()
+			case <-time.After(retryBaseDelay << (attempt - 1)):
+			}
+		}
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
+		if err != nil {
+			return "", err
+		}
+		req.SetBasicAuth(c.user, c.pass)
+		req.Header.Set("Accept", "application/json")
+		resp, err := hc.Do(req)
+		if err != nil {
+			lastErr = err
+			continue
+		}
+		raw, _ := io.ReadAll(io.LimitReader(resp.Body, 8<<20))
+		_ = resp.Body.Close()
+		var eb obj
+		_ = json.Unmarshal(raw, &eb)
+		switch {
+		case resp.StatusCode >= 300 && resp.StatusCode < 400:
+			if loc := resp.Header.Get("Location"); loc != "" {
+				return loc, nil
+			}
+			if t := eb.str(bodyKey); t != "" {
+				return t, nil
+			}
+			return "", fmt.Errorf("twilio: HTTP %d without a redirect location", resp.StatusCode)
+		case resp.StatusCode >= 200 && resp.StatusCode < 300:
+			if t := eb.str(bodyKey); t != "" {
+				return t, nil
+			}
+			return "", fmt.Errorf("twilio: HTTP %d without a redirect location", resp.StatusCode)
+		}
+		ae := &apiError{Status: resp.StatusCode, Message: strings.TrimSpace(string(raw))}
+		if m := eb.str("message"); m != "" {
+			ae.Message = m
+		}
+		if cd := eb.optInt("code"); cd != nil {
+			ae.Code = *cd
+		}
+		lastErr = ae
+		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
+			continue
+		}
+		return "", ae
+	}
+	return "", lastErr
+}

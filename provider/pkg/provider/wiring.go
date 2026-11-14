@@ -476,6 +476,11 @@ func (r *AccountSafeListNumber) WireDependencies(f infer.FieldSelector, args *Ac
 	wireEchoes(f, args, state)
 }
 
+// WireDependencies: every input replaces the app and every identifier and the secret are fixed at creation.
+func (r *OAuthApp) WireDependencies(f infer.FieldSelector, args *OAuthAppArgs, state *OAuthAppState) {
+	wireEchoes(f, args, state)
+}
+
 // WireDependencies: every input identifies the pool member, so the outputs are fixed once it is added.
 func (r *MessagingServiceShortCode) WireDependencies(f infer.FieldSelector, args *MessagingServiceShortCodeArgs, state *MessagingServiceShortCodeState) {
 	wireEchoes(f, args, state)
@@ -500,4 +505,93 @@ func (r *MessagingServiceDestinationAlphaSender) WireDependencies(f infer.FieldS
 func (r *ContentTemplate) WireDependencies(f infer.FieldSelector, args *ContentTemplateArgs, state *ContentTemplateState) {
 	wireEchoes(f, args, state)
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *SuperSimNetworkAccessProfile) WireDependencies(f infer.FieldSelector, args *SuperSimNetworkAccessProfileArgs, state *SuperSimNetworkAccessProfileState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the profile SID, metering and
+// update time are what Twilio reports for the current inputs.
+func (r *SuperSimFleet) WireDependencies(f infer.FieldSelector, args *SuperSimFleetArgs, state *SuperSimFleetState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.NetworkAccessProfileSid).DependsOn(f.InputField(&args.NetworkAccessProfile).Computed())
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *WirelessRatePlan) WireDependencies(f infer.FieldSelector, args *WirelessRatePlanArgs, state *WirelessRatePlanState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *FlexFlow) WireDependencies(f infer.FieldSelector, args *FlexFlowArgs, state *FlexFlowState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
+func (r *FlexPlugin) WireDependencies(f infer.FieldSelector, args *FlexPluginArgs, state *FlexPluginState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: a Plugin Version never changes, so everything Twilio reports is fixed at creation.
+func (r *FlexPluginVersion) WireDependencies(f infer.FieldSelector, args *FlexPluginVersionArgs, state *FlexPluginVersionState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Validated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: a Configuration never changes, so everything Twilio reports is fixed at creation.
+func (r *FlexPluginConfiguration) WireDependencies(f infer.FieldSelector, args *FlexPluginConfigurationArgs, state *FlexPluginConfigurationState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the Configuration SID Twilio reports follows from the configurationId input.
+func (r *FlexPluginRelease) WireDependencies(f infer.FieldSelector, args *FlexPluginReleaseArgs, state *FlexPluginReleaseState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.ConfigurationSid).DependsOn(f.InputField(&args.ConfigurationId).Computed())
+}
+
+// WireDependencies: the registration status, scores and timestamps are what Twilio and The Campaign Registry report.
+func (r *BrandRegistration) WireDependencies(f infer.FieldSelector, args *BrandRegistrationArgs, state *BrandRegistrationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Status).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the campaign status, rate limits and timestamps are what Twilio and The Campaign Registry report.
+func (r *UsAppToPerson) WireDependencies(f infer.FieldSelector, args *UsAppToPersonArgs, state *UsAppToPersonState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.CampaignStatus).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the status, the rejection details and the timestamps are what Twilio reports during the review.
+func (r *TollfreeVerification) WireDependencies(f infer.FieldSelector, args *TollfreeVerificationArgs, state *TollfreeVerificationState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Status).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the configuration SID and creation time are fixed; the update time is what Twilio reports.
+func (r *LinkShorteningDomainConfig) WireDependencies(f infer.FieldSelector, args *LinkShorteningDomainConfigArgs, state *LinkShorteningDomainConfigState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the expiry, the validation status and the update time follow the uploaded certificate.
+func (r *LinkShorteningDomainCertificate) WireDependencies(f infer.FieldSelector, args *LinkShorteningDomainCertificateArgs, state *LinkShorteningDomainCertificateState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.CertificateSid).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DateExpires).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.CertInValidation).DependsOn(f.InputField(args).Computed())
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: an association never changes, so everything Twilio reports is fixed at creation.
+func (r *LinkShorteningMessagingServiceDomain) WireDependencies(f infer.FieldSelector, args *LinkShorteningMessagingServiceDomainArgs, state *LinkShorteningMessagingServiceDomainState) {
+	wireEchoes(f, args, state)
 }

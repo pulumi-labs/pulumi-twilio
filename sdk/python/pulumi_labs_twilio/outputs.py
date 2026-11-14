@@ -20,6 +20,7 @@ __all__ = [
     'AssignedAddOnExtension',
     'AuthorizedConnectApp',
     'AvailablePhoneNumber',
+    'BrandRegistrationInfo',
     'ConnectAppEffective',
     'ContentAuthenticationAction',
     'ContentCallToAction',
@@ -54,9 +55,16 @@ __all__ = [
     'EventSchemaVersion',
     'EventSubscriptionType',
     'EventType',
+    'FlexFlowInfo',
+    'FlexPluginConfigurationInfo',
+    'FlexPluginInfo',
+    'FlexPluginReleaseInfo',
+    'FlexPluginVersionInfo',
     'IncomingPhoneNumberEffective',
     'MessagingGeoPermission',
     'MessagingServiceEffective',
+    'MessagingUsecase',
+    'OAuthAppPolicy',
     'OutgoingCallerIdEffective',
     'PhoneNumberCapabilities',
     'PricingCountrySummary',
@@ -67,11 +75,17 @@ __all__ = [
     'RecordingCompositionPolicy',
     'RecordingFeature',
     'RecordingStatusCallback',
+    'RolePermission',
     'ServerlessBuildDependency',
     'ShortCodeEffective',
+    'SuperSimNetwork',
+    'SuperSimNetworkIdentifier',
+    'TollfreeVerificationInfo',
     'TranscriptionParticipantDefault',
     'TranscriptionStatusCallback',
     'TrunkEffective',
+    'UsAppToPersonInfo',
+    'UsAppToPersonUsecaseInfo',
     'UsageRecord',
     'VerifyServiceEffective',
     'VerifyTemplate',
@@ -637,6 +651,200 @@ class AvailablePhoneNumber(dict):
         State or province abbreviation of the number, when Twilio reports one.
         """
         return pulumi.get(self, "region")
+
+
+@pulumi.output_type
+class BrandRegistrationInfo(dict):
+    def __init__(__self__, *,
+                 a2p_profile_bundle_sid: _builtins.str,
+                 brand_score: _builtins.int,
+                 brand_type: _builtins.str,
+                 customer_profile_bundle_sid: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 errors: Sequence[_builtins.str],
+                 failure_reason: _builtins.str,
+                 government_entity: _builtins.bool,
+                 identity_status: _builtins.str,
+                 mock: _builtins.bool,
+                 russell3000: _builtins.bool,
+                 sid: _builtins.str,
+                 skip_automatic_sec_vet: _builtins.bool,
+                 status: _builtins.str,
+                 tax_exempt_status: _builtins.str,
+                 tcr_id: _builtins.str):
+        """
+        :param _builtins.str a2p_profile_bundle_sid: SID (BU...) of the A2P Messaging Profile bundle the brand was registered with.
+        :param _builtins.int brand_score: The secondary vetting score, else the brand score (0 when there is none).
+        :param _builtins.str brand_type: The brand type: STANDARD or SOLE_PROPRIETOR (empty when Twilio does not say).
+        :param _builtins.str customer_profile_bundle_sid: SID (BU...) of the Customer Profile bundle the brand was registered with.
+        :param _builtins.str date_created: When the Brand Registration was created (ISO 8601).
+        :param _builtins.str date_updated: When the Brand Registration was last updated (ISO 8601).
+        :param Sequence[_builtins.str] errors: The errors of the registration process, each as a JSON document.
+        :param _builtins.str failure_reason: Deprecated Twilio field: why the registration failed.
+        :param _builtins.bool government_entity: Whether the brand was identified as a government entity.
+        :param _builtins.str identity_status: The identity verification status: SELF_DECLARED, UNVERIFIED, VERIFIED or VETTED_VERIFIED (empty when none).
+        :param _builtins.bool mock: Whether the brand is a mock brand.
+        :param _builtins.bool russell3000: Whether the brand is a publicly traded company in the Russell 3000 index.
+        :param _builtins.str sid: The Brand Registration SID (BN...).
+        :param _builtins.bool skip_automatic_sec_vet: Whether automatic secondary vetting was disabled for the brand.
+        :param _builtins.str status: The registration status: PENDING, APPROVED, FAILED, IN_REVIEW, DELETION_PENDING, DELETION_FAILED or SUSPENDED.
+        :param _builtins.str tax_exempt_status: The nonprofit tax-exempt status of the brand (empty when none).
+        :param _builtins.str tcr_id: The Campaign Registry (TCR) brand ID (empty until assigned).
+        """
+        pulumi.set(__self__, "a2p_profile_bundle_sid", a2p_profile_bundle_sid)
+        pulumi.set(__self__, "brand_score", brand_score)
+        pulumi.set(__self__, "brand_type", brand_type)
+        pulumi.set(__self__, "customer_profile_bundle_sid", customer_profile_bundle_sid)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "errors", errors)
+        pulumi.set(__self__, "failure_reason", failure_reason)
+        pulumi.set(__self__, "government_entity", government_entity)
+        pulumi.set(__self__, "identity_status", identity_status)
+        pulumi.set(__self__, "mock", mock)
+        pulumi.set(__self__, "russell3000", russell3000)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "skip_automatic_sec_vet", skip_automatic_sec_vet)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "tax_exempt_status", tax_exempt_status)
+        pulumi.set(__self__, "tcr_id", tcr_id)
+
+    @_builtins.property
+    @pulumi.getter(name="a2pProfileBundleSid")
+    def a2p_profile_bundle_sid(self) -> _builtins.str:
+        """
+        SID (BU...) of the A2P Messaging Profile bundle the brand was registered with.
+        """
+        return pulumi.get(self, "a2p_profile_bundle_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="brandScore")
+    def brand_score(self) -> _builtins.int:
+        """
+        The secondary vetting score, else the brand score (0 when there is none).
+        """
+        return pulumi.get(self, "brand_score")
+
+    @_builtins.property
+    @pulumi.getter(name="brandType")
+    def brand_type(self) -> _builtins.str:
+        """
+        The brand type: STANDARD or SOLE_PROPRIETOR (empty when Twilio does not say).
+        """
+        return pulumi.get(self, "brand_type")
+
+    @_builtins.property
+    @pulumi.getter(name="customerProfileBundleSid")
+    def customer_profile_bundle_sid(self) -> _builtins.str:
+        """
+        SID (BU...) of the Customer Profile bundle the brand was registered with.
+        """
+        return pulumi.get(self, "customer_profile_bundle_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the Brand Registration was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the Brand Registration was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter
+    def errors(self) -> Sequence[_builtins.str]:
+        """
+        The errors of the registration process, each as a JSON document.
+        """
+        return pulumi.get(self, "errors")
+
+    @_builtins.property
+    @pulumi.getter(name="failureReason")
+    def failure_reason(self) -> _builtins.str:
+        """
+        Deprecated Twilio field: why the registration failed.
+        """
+        return pulumi.get(self, "failure_reason")
+
+    @_builtins.property
+    @pulumi.getter(name="governmentEntity")
+    def government_entity(self) -> _builtins.bool:
+        """
+        Whether the brand was identified as a government entity.
+        """
+        return pulumi.get(self, "government_entity")
+
+    @_builtins.property
+    @pulumi.getter(name="identityStatus")
+    def identity_status(self) -> _builtins.str:
+        """
+        The identity verification status: SELF_DECLARED, UNVERIFIED, VERIFIED or VETTED_VERIFIED (empty when none).
+        """
+        return pulumi.get(self, "identity_status")
+
+    @_builtins.property
+    @pulumi.getter
+    def mock(self) -> _builtins.bool:
+        """
+        Whether the brand is a mock brand.
+        """
+        return pulumi.get(self, "mock")
+
+    @_builtins.property
+    @pulumi.getter
+    def russell3000(self) -> _builtins.bool:
+        """
+        Whether the brand is a publicly traded company in the Russell 3000 index.
+        """
+        return pulumi.get(self, "russell3000")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Brand Registration SID (BN...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="skipAutomaticSecVet")
+    def skip_automatic_sec_vet(self) -> _builtins.bool:
+        """
+        Whether automatic secondary vetting was disabled for the brand.
+        """
+        return pulumi.get(self, "skip_automatic_sec_vet")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The registration status: PENDING, APPROVED, FAILED, IN_REVIEW, DELETION_PENDING, DELETION_FAILED or SUSPENDED.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="taxExemptStatus")
+    def tax_exempt_status(self) -> _builtins.str:
+        """
+        The nonprofit tax-exempt status of the brand (empty when none).
+        """
+        return pulumi.get(self, "tax_exempt_status")
+
+    @_builtins.property
+    @pulumi.getter(name="tcrId")
+    def tcr_id(self) -> _builtins.str:
+        """
+        The Campaign Registry (TCR) brand ID (empty until assigned).
+        """
+        return pulumi.get(self, "tcr_id")
 
 
 @pulumi.output_type
@@ -3009,6 +3217,557 @@ class EventType(dict):
 
 
 @pulumi.output_type
+class FlexFlowInfo(dict):
+    def __init__(__self__, *,
+                 channel_type: _builtins.str,
+                 chat_service_sid: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 friendly_name: _builtins.str,
+                 sid: _builtins.str,
+                 contact_identity: Optional[_builtins.str] = None,
+                 enabled: Optional[_builtins.bool] = None,
+                 integration_channel: Optional[_builtins.str] = None,
+                 integration_creation_on_message: Optional[_builtins.bool] = None,
+                 integration_flow_sid: Optional[_builtins.str] = None,
+                 integration_priority: Optional[_builtins.int] = None,
+                 integration_retry_count: Optional[_builtins.int] = None,
+                 integration_timeout: Optional[_builtins.int] = None,
+                 integration_type: Optional[_builtins.str] = None,
+                 integration_url: Optional[_builtins.str] = None,
+                 integration_workflow_sid: Optional[_builtins.str] = None,
+                 integration_workspace_sid: Optional[_builtins.str] = None,
+                 janitor_enabled: Optional[_builtins.bool] = None,
+                 long_lived: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str channel_type: The messaging channel: web, sms, facebook, whatsapp, line or custom.
+        :param _builtins.str chat_service_sid: The SID (IS...) of the Chat service.
+        :param _builtins.str date_created: When the Flex Flow was created (ISO 8601).
+        :param _builtins.str date_updated: When the Flex Flow was last updated (ISO 8601).
+        :param _builtins.str friendly_name: The name of the Flex Flow.
+        :param _builtins.str sid: The Flex Flow SID (FO...).
+        :param _builtins.str contact_identity: The identity of the channel contact.
+        :param _builtins.bool enabled: Whether the Flex Flow is enabled.
+        :param _builtins.str integration_channel: The Task Channel SID or unique name (task integrations).
+        :param _builtins.bool integration_creation_on_message: Whether Task creation waits for the first customer reply (task integrations, outbound messaging).
+        :param _builtins.str integration_flow_sid: The SID of the Studio flow (studio integrations).
+        :param _builtins.int integration_priority: The Task priority (task integrations).
+        :param _builtins.int integration_retry_count: How many times the Studio flow or webhook is retried on failure.
+        :param _builtins.int integration_timeout: The Task timeout in seconds (task integrations).
+        :param _builtins.str integration_type: Where inbound messages go: studio, external or task.
+        :param _builtins.str integration_url: The URL of the external webhook (external integrations).
+        :param _builtins.str integration_workflow_sid: The TaskRouter workflow SID (task integrations).
+        :param _builtins.str integration_workspace_sid: The TaskRouter workspace SID (task integrations).
+        :param _builtins.bool janitor_enabled: Whether the Messaging Channel Janitor is enabled.
+        :param _builtins.bool long_lived: Whether Flex keeps the chat channel active for later interactions.
+        """
+        pulumi.set(__self__, "channel_type", channel_type)
+        pulumi.set(__self__, "chat_service_sid", chat_service_sid)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "sid", sid)
+        if contact_identity is not None:
+            pulumi.set(__self__, "contact_identity", contact_identity)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if integration_channel is not None:
+            pulumi.set(__self__, "integration_channel", integration_channel)
+        if integration_creation_on_message is not None:
+            pulumi.set(__self__, "integration_creation_on_message", integration_creation_on_message)
+        if integration_flow_sid is not None:
+            pulumi.set(__self__, "integration_flow_sid", integration_flow_sid)
+        if integration_priority is not None:
+            pulumi.set(__self__, "integration_priority", integration_priority)
+        if integration_retry_count is not None:
+            pulumi.set(__self__, "integration_retry_count", integration_retry_count)
+        if integration_timeout is not None:
+            pulumi.set(__self__, "integration_timeout", integration_timeout)
+        if integration_type is not None:
+            pulumi.set(__self__, "integration_type", integration_type)
+        if integration_url is not None:
+            pulumi.set(__self__, "integration_url", integration_url)
+        if integration_workflow_sid is not None:
+            pulumi.set(__self__, "integration_workflow_sid", integration_workflow_sid)
+        if integration_workspace_sid is not None:
+            pulumi.set(__self__, "integration_workspace_sid", integration_workspace_sid)
+        if janitor_enabled is not None:
+            pulumi.set(__self__, "janitor_enabled", janitor_enabled)
+        if long_lived is not None:
+            pulumi.set(__self__, "long_lived", long_lived)
+
+    @_builtins.property
+    @pulumi.getter(name="channelType")
+    def channel_type(self) -> _builtins.str:
+        """
+        The messaging channel: web, sms, facebook, whatsapp, line or custom.
+        """
+        return pulumi.get(self, "channel_type")
+
+    @_builtins.property
+    @pulumi.getter(name="chatServiceSid")
+    def chat_service_sid(self) -> _builtins.str:
+        """
+        The SID (IS...) of the Chat service.
+        """
+        return pulumi.get(self, "chat_service_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the Flex Flow was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the Flex Flow was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        The name of the Flex Flow.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Flex Flow SID (FO...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="contactIdentity")
+    def contact_identity(self) -> Optional[_builtins.str]:
+        """
+        The identity of the channel contact.
+        """
+        return pulumi.get(self, "contact_identity")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the Flex Flow is enabled.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationChannel")
+    def integration_channel(self) -> Optional[_builtins.str]:
+        """
+        The Task Channel SID or unique name (task integrations).
+        """
+        return pulumi.get(self, "integration_channel")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationCreationOnMessage")
+    def integration_creation_on_message(self) -> Optional[_builtins.bool]:
+        """
+        Whether Task creation waits for the first customer reply (task integrations, outbound messaging).
+        """
+        return pulumi.get(self, "integration_creation_on_message")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationFlowSid")
+    def integration_flow_sid(self) -> Optional[_builtins.str]:
+        """
+        The SID of the Studio flow (studio integrations).
+        """
+        return pulumi.get(self, "integration_flow_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationPriority")
+    def integration_priority(self) -> Optional[_builtins.int]:
+        """
+        The Task priority (task integrations).
+        """
+        return pulumi.get(self, "integration_priority")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationRetryCount")
+    def integration_retry_count(self) -> Optional[_builtins.int]:
+        """
+        How many times the Studio flow or webhook is retried on failure.
+        """
+        return pulumi.get(self, "integration_retry_count")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationTimeout")
+    def integration_timeout(self) -> Optional[_builtins.int]:
+        """
+        The Task timeout in seconds (task integrations).
+        """
+        return pulumi.get(self, "integration_timeout")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationType")
+    def integration_type(self) -> Optional[_builtins.str]:
+        """
+        Where inbound messages go: studio, external or task.
+        """
+        return pulumi.get(self, "integration_type")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationUrl")
+    def integration_url(self) -> Optional[_builtins.str]:
+        """
+        The URL of the external webhook (external integrations).
+        """
+        return pulumi.get(self, "integration_url")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationWorkflowSid")
+    def integration_workflow_sid(self) -> Optional[_builtins.str]:
+        """
+        The TaskRouter workflow SID (task integrations).
+        """
+        return pulumi.get(self, "integration_workflow_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="integrationWorkspaceSid")
+    def integration_workspace_sid(self) -> Optional[_builtins.str]:
+        """
+        The TaskRouter workspace SID (task integrations).
+        """
+        return pulumi.get(self, "integration_workspace_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="janitorEnabled")
+    def janitor_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the Messaging Channel Janitor is enabled.
+        """
+        return pulumi.get(self, "janitor_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="longLived")
+    def long_lived(self) -> Optional[_builtins.bool]:
+        """
+        Whether Flex keeps the chat channel active for later interactions.
+        """
+        return pulumi.get(self, "long_lived")
+
+
+@pulumi.output_type
+class FlexPluginConfigurationInfo(dict):
+    def __init__(__self__, *,
+                 archived: _builtins.bool,
+                 date_created: _builtins.str,
+                 name: _builtins.str,
+                 sid: _builtins.str,
+                 description: Optional[_builtins.str] = None,
+                 plugin_version_sids: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.bool archived: Whether the Configuration is archived.
+        :param _builtins.str date_created: When the Configuration was created (ISO 8601).
+        :param _builtins.str name: The name of the Configuration.
+        :param _builtins.str sid: The Configuration SID (FJ...).
+        :param _builtins.str description: The description of the Configuration.
+        :param Sequence[_builtins.str] plugin_version_sids: The SIDs (FV...) of the Plugin Versions the Configuration loads, in order. Only the single lookup fills it.
+        """
+        pulumi.set(__self__, "archived", archived)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "sid", sid)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if plugin_version_sids is not None:
+            pulumi.set(__self__, "plugin_version_sids", plugin_version_sids)
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> _builtins.bool:
+        """
+        Whether the Configuration is archived.
+        """
+        return pulumi.get(self, "archived")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the Configuration was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the Configuration.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Configuration SID (FJ...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        The description of the Configuration.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="pluginVersionSids")
+    def plugin_version_sids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        The SIDs (FV...) of the Plugin Versions the Configuration loads, in order. Only the single lookup fills it.
+        """
+        return pulumi.get(self, "plugin_version_sids")
+
+
+@pulumi.output_type
+class FlexPluginInfo(dict):
+    def __init__(__self__, *,
+                 archived: _builtins.bool,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 sid: _builtins.str,
+                 unique_name: _builtins.str,
+                 description: Optional[_builtins.str] = None,
+                 friendly_name: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool archived: Whether the Flex Plugin is archived.
+        :param _builtins.str date_created: When the Flex Plugin was created (ISO 8601).
+        :param _builtins.str date_updated: When the Flex Plugin was last updated (ISO 8601).
+        :param _builtins.str sid: The Flex Plugin SID (FP...).
+        :param _builtins.str unique_name: The unique name of the Flex Plugin.
+        :param _builtins.str description: The description of the Flex Plugin.
+        :param _builtins.str friendly_name: The descriptive name of the Flex Plugin.
+        """
+        pulumi.set(__self__, "archived", archived)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "unique_name", unique_name)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> _builtins.bool:
+        """
+        Whether the Flex Plugin is archived.
+        """
+        return pulumi.get(self, "archived")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the Flex Plugin was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the Flex Plugin was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Flex Plugin SID (FP...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="uniqueName")
+    def unique_name(self) -> _builtins.str:
+        """
+        The unique name of the Flex Plugin.
+        """
+        return pulumi.get(self, "unique_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        The description of the Flex Plugin.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        The descriptive name of the Flex Plugin.
+        """
+        return pulumi.get(self, "friendly_name")
+
+
+@pulumi.output_type
+class FlexPluginReleaseInfo(dict):
+    def __init__(__self__, *,
+                 configuration_sid: _builtins.str,
+                 date_created: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param _builtins.str configuration_sid: The SID (FJ...) of the Configuration the Release made live.
+        :param _builtins.str date_created: When the Release was created (ISO 8601).
+        :param _builtins.str sid: The Release SID (FK...).
+        """
+        pulumi.set(__self__, "configuration_sid", configuration_sid)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter(name="configurationSid")
+    def configuration_sid(self) -> _builtins.str:
+        """
+        The SID (FJ...) of the Configuration the Release made live.
+        """
+        return pulumi.get(self, "configuration_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the Release was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Release SID (FK...).
+        """
+        return pulumi.get(self, "sid")
+
+
+@pulumi.output_type
+class FlexPluginVersionInfo(dict):
+    def __init__(__self__, *,
+                 archived: _builtins.bool,
+                 date_created: _builtins.str,
+                 plugin_sid: _builtins.str,
+                 plugin_url: _builtins.str,
+                 plugin_version: _builtins.str,
+                 sid: _builtins.str,
+                 changelog: Optional[_builtins.str] = None,
+                 private: Optional[_builtins.bool] = None,
+                 validated: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool archived: Whether the version is archived.
+        :param _builtins.str date_created: When the version was created (ISO 8601).
+        :param _builtins.str plugin_sid: The SID (FP...) of the Flex Plugin.
+        :param _builtins.str plugin_url: The URL of the plugin bundle.
+        :param _builtins.str plugin_version: The version label of the bundle.
+        :param _builtins.str sid: The Flex Plugin Version SID (FV...).
+        :param _builtins.str changelog: The changelog of the version.
+        :param _builtins.bool private: Whether the bundle requires authorization to load.
+        :param _builtins.bool validated: Whether Twilio has validated the bundle.
+        """
+        pulumi.set(__self__, "archived", archived)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "plugin_sid", plugin_sid)
+        pulumi.set(__self__, "plugin_url", plugin_url)
+        pulumi.set(__self__, "plugin_version", plugin_version)
+        pulumi.set(__self__, "sid", sid)
+        if changelog is not None:
+            pulumi.set(__self__, "changelog", changelog)
+        if private is not None:
+            pulumi.set(__self__, "private", private)
+        if validated is not None:
+            pulumi.set(__self__, "validated", validated)
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> _builtins.bool:
+        """
+        Whether the version is archived.
+        """
+        return pulumi.get(self, "archived")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the version was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="pluginSid")
+    def plugin_sid(self) -> _builtins.str:
+        """
+        The SID (FP...) of the Flex Plugin.
+        """
+        return pulumi.get(self, "plugin_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="pluginUrl")
+    def plugin_url(self) -> _builtins.str:
+        """
+        The URL of the plugin bundle.
+        """
+        return pulumi.get(self, "plugin_url")
+
+    @_builtins.property
+    @pulumi.getter(name="pluginVersion")
+    def plugin_version(self) -> _builtins.str:
+        """
+        The version label of the bundle.
+        """
+        return pulumi.get(self, "plugin_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The Flex Plugin Version SID (FV...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def changelog(self) -> Optional[_builtins.str]:
+        """
+        The changelog of the version.
+        """
+        return pulumi.get(self, "changelog")
+
+    @_builtins.property
+    @pulumi.getter
+    def private(self) -> Optional[_builtins.bool]:
+        """
+        Whether the bundle requires authorization to load.
+        """
+        return pulumi.get(self, "private")
+
+    @_builtins.property
+    @pulumi.getter
+    def validated(self) -> Optional[_builtins.bool]:
+        """
+        Whether Twilio has validated the bundle.
+        """
+        return pulumi.get(self, "validated")
+
+
+@pulumi.output_type
 class IncomingPhoneNumberEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -3690,6 +4449,80 @@ class MessagingServiceEffective(dict):
 
 
 @pulumi.output_type
+class MessagingUsecase(dict):
+    def __init__(__self__, *,
+                 description: Optional[_builtins.str] = None,
+                 purpose: Optional[_builtins.str] = None,
+                 usecase: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str description: A human-readable description of the use case.
+        :param _builtins.str purpose: The purpose of the use case.
+        :param _builtins.str usecase: The use case identifier, the value for the usecase of a Messaging Service.
+        """
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if purpose is not None:
+            pulumi.set(__self__, "purpose", purpose)
+        if usecase is not None:
+            pulumi.set(__self__, "usecase", usecase)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        A human-readable description of the use case.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def purpose(self) -> Optional[_builtins.str]:
+        """
+        The purpose of the use case.
+        """
+        return pulumi.get(self, "purpose")
+
+    @_builtins.property
+    @pulumi.getter
+    def usecase(self) -> Optional[_builtins.str]:
+        """
+        The use case identifier, the value for the usecase of a Messaging Service.
+        """
+        return pulumi.get(self, "usecase")
+
+
+@pulumi.output_type
+class OAuthAppPolicy(dict):
+    def __init__(__self__, *,
+                 allow: Optional[Sequence[_builtins.str]] = None,
+                 deny: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Sequence[_builtins.str] allow: Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+        :param Sequence[_builtins.str] deny: Permissions explicitly denied.
+        """
+        if allow is not None:
+            pulumi.set(__self__, "allow", allow)
+        if deny is not None:
+            pulumi.set(__self__, "deny", deny)
+
+    @_builtins.property
+    @pulumi.getter
+    def allow(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+        """
+        return pulumi.get(self, "allow")
+
+    @_builtins.property
+    @pulumi.getter
+    def deny(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Permissions explicitly denied.
+        """
+        return pulumi.get(self, "deny")
+
+
+@pulumi.output_type
 class OutgoingCallerIdEffective(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -4185,6 +5018,85 @@ class RecordingStatusCallback(dict):
 
 
 @pulumi.output_type
+class RolePermission(dict):
+    def __init__(__self__, *,
+                 action: Optional[_builtins.str] = None,
+                 external_description: Optional[_builtins.str] = None,
+                 namespace: Optional[_builtins.str] = None,
+                 product: Optional[_builtins.str] = None,
+                 resource: Optional[_builtins.str] = None,
+                 sid: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str action: The action the permission grants, for example read.
+        :param _builtins.str external_description: The external description of the permission.
+        :param _builtins.str namespace: The namespace of the permission, for example twilio.
+        :param _builtins.str product: The product the permission belongs to, for example iam.
+        :param _builtins.str resource: The resource the permission applies to, for example roles.
+        :param _builtins.str sid: SID (IZ...) of the permission.
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if external_description is not None:
+            pulumi.set(__self__, "external_description", external_description)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+        if product is not None:
+            pulumi.set(__self__, "product", product)
+        if resource is not None:
+            pulumi.set(__self__, "resource", resource)
+        if sid is not None:
+            pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> Optional[_builtins.str]:
+        """
+        The action the permission grants, for example read.
+        """
+        return pulumi.get(self, "action")
+
+    @_builtins.property
+    @pulumi.getter(name="externalDescription")
+    def external_description(self) -> Optional[_builtins.str]:
+        """
+        The external description of the permission.
+        """
+        return pulumi.get(self, "external_description")
+
+    @_builtins.property
+    @pulumi.getter
+    def namespace(self) -> Optional[_builtins.str]:
+        """
+        The namespace of the permission, for example twilio.
+        """
+        return pulumi.get(self, "namespace")
+
+    @_builtins.property
+    @pulumi.getter
+    def product(self) -> Optional[_builtins.str]:
+        """
+        The product the permission belongs to, for example iam.
+        """
+        return pulumi.get(self, "product")
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> Optional[_builtins.str]:
+        """
+        The resource the permission applies to, for example roles.
+        """
+        return pulumi.get(self, "resource")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> Optional[_builtins.str]:
+        """
+        SID (IZ...) of the permission.
+        """
+        return pulumi.get(self, "sid")
+
+
+@pulumi.output_type
 class ServerlessBuildDependency(dict):
     def __init__(__self__, *,
                  name: _builtins.str,
@@ -4357,6 +5269,678 @@ class ShortCodeEffective(dict):
         URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
         """
         return pulumi.get(self, "sms_url")
+
+
+@pulumi.output_type
+class SuperSimNetwork(dict):
+    def __init__(__self__, *,
+                 identifiers: Sequence['outputs.SuperSimNetworkIdentifier'],
+                 sid: _builtins.str,
+                 friendly_name: Optional[_builtins.str] = None,
+                 iso_country: Optional[_builtins.str] = None):
+        """
+        :param Sequence['SuperSimNetworkIdentifier'] identifiers: The MCC-MNC pairs the network covers; empty when Twilio reports none.
+        :param _builtins.str sid: The network SID (HW...), the value networks of a SuperSimNetworkAccessProfile takes.
+        :param _builtins.str friendly_name: A human readable name of the network.
+        :param _builtins.str iso_country: The ISO 3166-1 alpha-2 country code of the network.
+        """
+        pulumi.set(__self__, "identifiers", identifiers)
+        pulumi.set(__self__, "sid", sid)
+        if friendly_name is not None:
+            pulumi.set(__self__, "friendly_name", friendly_name)
+        if iso_country is not None:
+            pulumi.set(__self__, "iso_country", iso_country)
+
+    @_builtins.property
+    @pulumi.getter
+    def identifiers(self) -> Sequence['outputs.SuperSimNetworkIdentifier']:
+        """
+        The MCC-MNC pairs the network covers; empty when Twilio reports none.
+        """
+        return pulumi.get(self, "identifiers")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The network SID (HW...), the value networks of a SuperSimNetworkAccessProfile takes.
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> Optional[_builtins.str]:
+        """
+        A human readable name of the network.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="isoCountry")
+    def iso_country(self) -> Optional[_builtins.str]:
+        """
+        The ISO 3166-1 alpha-2 country code of the network.
+        """
+        return pulumi.get(self, "iso_country")
+
+
+@pulumi.output_type
+class SuperSimNetworkIdentifier(dict):
+    def __init__(__self__, *,
+                 mcc: _builtins.str,
+                 mnc: _builtins.str):
+        """
+        :param _builtins.str mcc: The mobile country code.
+        :param _builtins.str mnc: The mobile network code of the operator network.
+        """
+        pulumi.set(__self__, "mcc", mcc)
+        pulumi.set(__self__, "mnc", mnc)
+
+    @_builtins.property
+    @pulumi.getter
+    def mcc(self) -> _builtins.str:
+        """
+        The mobile country code.
+        """
+        return pulumi.get(self, "mcc")
+
+    @_builtins.property
+    @pulumi.getter
+    def mnc(self) -> _builtins.str:
+        """
+        The mobile network code of the operator network.
+        """
+        return pulumi.get(self, "mnc")
+
+
+@pulumi.output_type
+class TollfreeVerificationInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 additional_information: _builtins.str,
+                 age_gated_content: _builtins.bool,
+                 business_city: _builtins.str,
+                 business_contact_email: _builtins.str,
+                 business_contact_first_name: _builtins.str,
+                 business_contact_last_name: _builtins.str,
+                 business_contact_phone: _builtins.str,
+                 business_country: _builtins.str,
+                 business_name: _builtins.str,
+                 business_postal_code: _builtins.str,
+                 business_registration_authority: _builtins.str,
+                 business_registration_country: _builtins.str,
+                 business_registration_number: _builtins.str,
+                 business_registration_phone_number: _builtins.str,
+                 business_state_province_region: _builtins.str,
+                 business_street_address: _builtins.str,
+                 business_street_address2: _builtins.str,
+                 business_type: _builtins.str,
+                 business_website: _builtins.str,
+                 customer_profile_sid: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 doing_business_as: _builtins.str,
+                 edit_allowed: _builtins.bool,
+                 edit_expiration: _builtins.str,
+                 error_code: _builtins.int,
+                 external_reference_id: _builtins.str,
+                 help_message_sample: _builtins.str,
+                 message_volume: _builtins.str,
+                 notification_email: _builtins.str,
+                 opt_in_confirmation_message: _builtins.str,
+                 opt_in_image_urls: Sequence[_builtins.str],
+                 opt_in_keywords: Sequence[_builtins.str],
+                 opt_in_type: _builtins.str,
+                 privacy_policy_url: _builtins.str,
+                 production_message_sample: _builtins.str,
+                 regulated_item_sid: _builtins.str,
+                 rejection_reason: _builtins.str,
+                 rejection_reasons: Sequence[_builtins.str],
+                 resource_links: _builtins.str,
+                 sid: _builtins.str,
+                 status: _builtins.str,
+                 terms_and_conditions_url: _builtins.str,
+                 tollfree_phone_number: _builtins.str,
+                 tollfree_phone_number_sid: _builtins.str,
+                 trust_product_sid: _builtins.str,
+                 url: _builtins.str,
+                 use_case_categories: Sequence[_builtins.str],
+                 use_case_summary: _builtins.str,
+                 vetting_id: _builtins.str,
+                 vetting_id_expiration: _builtins.str,
+                 vetting_provider: _builtins.str):
+        """
+        :param _builtins.str account_sid: The SID of the account that created the verification.
+        :param _builtins.str additional_information: Additional information for the reviewer (empty when none).
+        :param _builtins.bool age_gated_content: Whether the content is age gated.
+        :param _builtins.str business_city: The business city (empty when none).
+        :param _builtins.str business_contact_email: The email address of the business contact (empty when none).
+        :param _builtins.str business_contact_first_name: The first name of the business contact (empty when none).
+        :param _builtins.str business_contact_last_name: The last name of the business contact (empty when none).
+        :param _builtins.str business_contact_phone: The phone number of the business contact (empty when none).
+        :param _builtins.str business_country: The business country (empty when none).
+        :param _builtins.str business_name: The business name.
+        :param _builtins.str business_postal_code: The business postal code (empty when none).
+        :param _builtins.str business_registration_authority: The registration authority (empty when none).
+        :param _builtins.str business_registration_country: The registration country (empty when none).
+        :param _builtins.str business_registration_number: The business registration number (empty when none).
+        :param _builtins.str business_registration_phone_number: The phone number registered with the business (empty when none).
+        :param _builtins.str business_state_province_region: The business state, province or region (empty when none).
+        :param _builtins.str business_street_address: The business street address (empty when none).
+        :param _builtins.str business_street_address2: The second address line (empty when none).
+        :param _builtins.str business_type: The business type (empty when none).
+        :param _builtins.str business_website: The business website.
+        :param _builtins.str customer_profile_sid: SID (BU...) of the Customer Profile bundle (empty when none).
+        :param _builtins.str date_created: When the verification was created (ISO 8601).
+        :param _builtins.str date_updated: When the verification was last updated (ISO 8601).
+        :param _builtins.str doing_business_as: The trade name (empty when none).
+        :param _builtins.bool edit_allowed: Whether a rejected verification can be edited and resubmitted.
+        :param _builtins.str edit_expiration: When the ability to edit a rejected verification ends (ISO 8601, empty when none).
+        :param _builtins.int error_code: The error code of a rejection (0 when none).
+        :param _builtins.str external_reference_id: Your external reference ID (empty when none).
+        :param _builtins.str help_message_sample: A sample help message (empty when none).
+        :param _builtins.str message_volume: The estimated monthly message volume.
+        :param _builtins.str notification_email: The email address that receives the verification result.
+        :param _builtins.str opt_in_confirmation_message: The opt-in confirmation message (empty when none).
+        :param Sequence[_builtins.str] opt_in_image_urls: The opt-in workflow image URLs.
+        :param Sequence[_builtins.str] opt_in_keywords: The opt-in keywords.
+        :param _builtins.str opt_in_type: How end users opt in.
+        :param _builtins.str privacy_policy_url: The privacy policy URL (empty when none).
+        :param _builtins.str production_message_sample: The production message sample.
+        :param _builtins.str regulated_item_sid: SID of the regulated item (empty when none).
+        :param _builtins.str rejection_reason: Why the verification was rejected (empty unless it was).
+        :param Sequence[_builtins.str] rejection_reasons: The rejection reasons and codes, each as a JSON document.
+        :param _builtins.str resource_links: The document URLs of the verification as a JSON document (empty when none).
+        :param _builtins.str sid: The verification SID (HH...).
+        :param _builtins.str status: The review status: PENDING_REVIEW, IN_REVIEW, TWILIO_APPROVED or TWILIO_REJECTED.
+        :param _builtins.str terms_and_conditions_url: The terms and conditions URL (empty when none).
+        :param _builtins.str tollfree_phone_number: The E.164 toll-free number.
+        :param _builtins.str tollfree_phone_number_sid: SID (PN...) of the toll-free phone number.
+        :param _builtins.str trust_product_sid: SID of the toll-free Trust Product bundle (empty when none).
+        :param _builtins.str url: The absolute URL of the verification.
+        :param Sequence[_builtins.str] use_case_categories: The use case categories.
+        :param _builtins.str use_case_summary: The use case summary.
+        :param _builtins.str vetting_id: The vetting ID (empty when none).
+        :param _builtins.str vetting_id_expiration: When the vetting ID expires (ISO 8601, empty when none).
+        :param _builtins.str vetting_provider: The third party vetting provider (empty when none).
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "additional_information", additional_information)
+        pulumi.set(__self__, "age_gated_content", age_gated_content)
+        pulumi.set(__self__, "business_city", business_city)
+        pulumi.set(__self__, "business_contact_email", business_contact_email)
+        pulumi.set(__self__, "business_contact_first_name", business_contact_first_name)
+        pulumi.set(__self__, "business_contact_last_name", business_contact_last_name)
+        pulumi.set(__self__, "business_contact_phone", business_contact_phone)
+        pulumi.set(__self__, "business_country", business_country)
+        pulumi.set(__self__, "business_name", business_name)
+        pulumi.set(__self__, "business_postal_code", business_postal_code)
+        pulumi.set(__self__, "business_registration_authority", business_registration_authority)
+        pulumi.set(__self__, "business_registration_country", business_registration_country)
+        pulumi.set(__self__, "business_registration_number", business_registration_number)
+        pulumi.set(__self__, "business_registration_phone_number", business_registration_phone_number)
+        pulumi.set(__self__, "business_state_province_region", business_state_province_region)
+        pulumi.set(__self__, "business_street_address", business_street_address)
+        pulumi.set(__self__, "business_street_address2", business_street_address2)
+        pulumi.set(__self__, "business_type", business_type)
+        pulumi.set(__self__, "business_website", business_website)
+        pulumi.set(__self__, "customer_profile_sid", customer_profile_sid)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "doing_business_as", doing_business_as)
+        pulumi.set(__self__, "edit_allowed", edit_allowed)
+        pulumi.set(__self__, "edit_expiration", edit_expiration)
+        pulumi.set(__self__, "error_code", error_code)
+        pulumi.set(__self__, "external_reference_id", external_reference_id)
+        pulumi.set(__self__, "help_message_sample", help_message_sample)
+        pulumi.set(__self__, "message_volume", message_volume)
+        pulumi.set(__self__, "notification_email", notification_email)
+        pulumi.set(__self__, "opt_in_confirmation_message", opt_in_confirmation_message)
+        pulumi.set(__self__, "opt_in_image_urls", opt_in_image_urls)
+        pulumi.set(__self__, "opt_in_keywords", opt_in_keywords)
+        pulumi.set(__self__, "opt_in_type", opt_in_type)
+        pulumi.set(__self__, "privacy_policy_url", privacy_policy_url)
+        pulumi.set(__self__, "production_message_sample", production_message_sample)
+        pulumi.set(__self__, "regulated_item_sid", regulated_item_sid)
+        pulumi.set(__self__, "rejection_reason", rejection_reason)
+        pulumi.set(__self__, "rejection_reasons", rejection_reasons)
+        pulumi.set(__self__, "resource_links", resource_links)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "terms_and_conditions_url", terms_and_conditions_url)
+        pulumi.set(__self__, "tollfree_phone_number", tollfree_phone_number)
+        pulumi.set(__self__, "tollfree_phone_number_sid", tollfree_phone_number_sid)
+        pulumi.set(__self__, "trust_product_sid", trust_product_sid)
+        pulumi.set(__self__, "url", url)
+        pulumi.set(__self__, "use_case_categories", use_case_categories)
+        pulumi.set(__self__, "use_case_summary", use_case_summary)
+        pulumi.set(__self__, "vetting_id", vetting_id)
+        pulumi.set(__self__, "vetting_id_expiration", vetting_id_expiration)
+        pulumi.set(__self__, "vetting_provider", vetting_provider)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        The SID of the account that created the verification.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="additionalInformation")
+    def additional_information(self) -> _builtins.str:
+        """
+        Additional information for the reviewer (empty when none).
+        """
+        return pulumi.get(self, "additional_information")
+
+    @_builtins.property
+    @pulumi.getter(name="ageGatedContent")
+    def age_gated_content(self) -> _builtins.bool:
+        """
+        Whether the content is age gated.
+        """
+        return pulumi.get(self, "age_gated_content")
+
+    @_builtins.property
+    @pulumi.getter(name="businessCity")
+    def business_city(self) -> _builtins.str:
+        """
+        The business city (empty when none).
+        """
+        return pulumi.get(self, "business_city")
+
+    @_builtins.property
+    @pulumi.getter(name="businessContactEmail")
+    def business_contact_email(self) -> _builtins.str:
+        """
+        The email address of the business contact (empty when none).
+        """
+        return pulumi.get(self, "business_contact_email")
+
+    @_builtins.property
+    @pulumi.getter(name="businessContactFirstName")
+    def business_contact_first_name(self) -> _builtins.str:
+        """
+        The first name of the business contact (empty when none).
+        """
+        return pulumi.get(self, "business_contact_first_name")
+
+    @_builtins.property
+    @pulumi.getter(name="businessContactLastName")
+    def business_contact_last_name(self) -> _builtins.str:
+        """
+        The last name of the business contact (empty when none).
+        """
+        return pulumi.get(self, "business_contact_last_name")
+
+    @_builtins.property
+    @pulumi.getter(name="businessContactPhone")
+    def business_contact_phone(self) -> _builtins.str:
+        """
+        The phone number of the business contact (empty when none).
+        """
+        return pulumi.get(self, "business_contact_phone")
+
+    @_builtins.property
+    @pulumi.getter(name="businessCountry")
+    def business_country(self) -> _builtins.str:
+        """
+        The business country (empty when none).
+        """
+        return pulumi.get(self, "business_country")
+
+    @_builtins.property
+    @pulumi.getter(name="businessName")
+    def business_name(self) -> _builtins.str:
+        """
+        The business name.
+        """
+        return pulumi.get(self, "business_name")
+
+    @_builtins.property
+    @pulumi.getter(name="businessPostalCode")
+    def business_postal_code(self) -> _builtins.str:
+        """
+        The business postal code (empty when none).
+        """
+        return pulumi.get(self, "business_postal_code")
+
+    @_builtins.property
+    @pulumi.getter(name="businessRegistrationAuthority")
+    def business_registration_authority(self) -> _builtins.str:
+        """
+        The registration authority (empty when none).
+        """
+        return pulumi.get(self, "business_registration_authority")
+
+    @_builtins.property
+    @pulumi.getter(name="businessRegistrationCountry")
+    def business_registration_country(self) -> _builtins.str:
+        """
+        The registration country (empty when none).
+        """
+        return pulumi.get(self, "business_registration_country")
+
+    @_builtins.property
+    @pulumi.getter(name="businessRegistrationNumber")
+    def business_registration_number(self) -> _builtins.str:
+        """
+        The business registration number (empty when none).
+        """
+        return pulumi.get(self, "business_registration_number")
+
+    @_builtins.property
+    @pulumi.getter(name="businessRegistrationPhoneNumber")
+    def business_registration_phone_number(self) -> _builtins.str:
+        """
+        The phone number registered with the business (empty when none).
+        """
+        return pulumi.get(self, "business_registration_phone_number")
+
+    @_builtins.property
+    @pulumi.getter(name="businessStateProvinceRegion")
+    def business_state_province_region(self) -> _builtins.str:
+        """
+        The business state, province or region (empty when none).
+        """
+        return pulumi.get(self, "business_state_province_region")
+
+    @_builtins.property
+    @pulumi.getter(name="businessStreetAddress")
+    def business_street_address(self) -> _builtins.str:
+        """
+        The business street address (empty when none).
+        """
+        return pulumi.get(self, "business_street_address")
+
+    @_builtins.property
+    @pulumi.getter(name="businessStreetAddress2")
+    def business_street_address2(self) -> _builtins.str:
+        """
+        The second address line (empty when none).
+        """
+        return pulumi.get(self, "business_street_address2")
+
+    @_builtins.property
+    @pulumi.getter(name="businessType")
+    def business_type(self) -> _builtins.str:
+        """
+        The business type (empty when none).
+        """
+        return pulumi.get(self, "business_type")
+
+    @_builtins.property
+    @pulumi.getter(name="businessWebsite")
+    def business_website(self) -> _builtins.str:
+        """
+        The business website.
+        """
+        return pulumi.get(self, "business_website")
+
+    @_builtins.property
+    @pulumi.getter(name="customerProfileSid")
+    def customer_profile_sid(self) -> _builtins.str:
+        """
+        SID (BU...) of the Customer Profile bundle (empty when none).
+        """
+        return pulumi.get(self, "customer_profile_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the verification was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the verification was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter(name="doingBusinessAs")
+    def doing_business_as(self) -> _builtins.str:
+        """
+        The trade name (empty when none).
+        """
+        return pulumi.get(self, "doing_business_as")
+
+    @_builtins.property
+    @pulumi.getter(name="editAllowed")
+    def edit_allowed(self) -> _builtins.bool:
+        """
+        Whether a rejected verification can be edited and resubmitted.
+        """
+        return pulumi.get(self, "edit_allowed")
+
+    @_builtins.property
+    @pulumi.getter(name="editExpiration")
+    def edit_expiration(self) -> _builtins.str:
+        """
+        When the ability to edit a rejected verification ends (ISO 8601, empty when none).
+        """
+        return pulumi.get(self, "edit_expiration")
+
+    @_builtins.property
+    @pulumi.getter(name="errorCode")
+    def error_code(self) -> _builtins.int:
+        """
+        The error code of a rejection (0 when none).
+        """
+        return pulumi.get(self, "error_code")
+
+    @_builtins.property
+    @pulumi.getter(name="externalReferenceId")
+    def external_reference_id(self) -> _builtins.str:
+        """
+        Your external reference ID (empty when none).
+        """
+        return pulumi.get(self, "external_reference_id")
+
+    @_builtins.property
+    @pulumi.getter(name="helpMessageSample")
+    def help_message_sample(self) -> _builtins.str:
+        """
+        A sample help message (empty when none).
+        """
+        return pulumi.get(self, "help_message_sample")
+
+    @_builtins.property
+    @pulumi.getter(name="messageVolume")
+    def message_volume(self) -> _builtins.str:
+        """
+        The estimated monthly message volume.
+        """
+        return pulumi.get(self, "message_volume")
+
+    @_builtins.property
+    @pulumi.getter(name="notificationEmail")
+    def notification_email(self) -> _builtins.str:
+        """
+        The email address that receives the verification result.
+        """
+        return pulumi.get(self, "notification_email")
+
+    @_builtins.property
+    @pulumi.getter(name="optInConfirmationMessage")
+    def opt_in_confirmation_message(self) -> _builtins.str:
+        """
+        The opt-in confirmation message (empty when none).
+        """
+        return pulumi.get(self, "opt_in_confirmation_message")
+
+    @_builtins.property
+    @pulumi.getter(name="optInImageUrls")
+    def opt_in_image_urls(self) -> Sequence[_builtins.str]:
+        """
+        The opt-in workflow image URLs.
+        """
+        return pulumi.get(self, "opt_in_image_urls")
+
+    @_builtins.property
+    @pulumi.getter(name="optInKeywords")
+    def opt_in_keywords(self) -> Sequence[_builtins.str]:
+        """
+        The opt-in keywords.
+        """
+        return pulumi.get(self, "opt_in_keywords")
+
+    @_builtins.property
+    @pulumi.getter(name="optInType")
+    def opt_in_type(self) -> _builtins.str:
+        """
+        How end users opt in.
+        """
+        return pulumi.get(self, "opt_in_type")
+
+    @_builtins.property
+    @pulumi.getter(name="privacyPolicyUrl")
+    def privacy_policy_url(self) -> _builtins.str:
+        """
+        The privacy policy URL (empty when none).
+        """
+        return pulumi.get(self, "privacy_policy_url")
+
+    @_builtins.property
+    @pulumi.getter(name="productionMessageSample")
+    def production_message_sample(self) -> _builtins.str:
+        """
+        The production message sample.
+        """
+        return pulumi.get(self, "production_message_sample")
+
+    @_builtins.property
+    @pulumi.getter(name="regulatedItemSid")
+    def regulated_item_sid(self) -> _builtins.str:
+        """
+        SID of the regulated item (empty when none).
+        """
+        return pulumi.get(self, "regulated_item_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="rejectionReason")
+    def rejection_reason(self) -> _builtins.str:
+        """
+        Why the verification was rejected (empty unless it was).
+        """
+        return pulumi.get(self, "rejection_reason")
+
+    @_builtins.property
+    @pulumi.getter(name="rejectionReasons")
+    def rejection_reasons(self) -> Sequence[_builtins.str]:
+        """
+        The rejection reasons and codes, each as a JSON document.
+        """
+        return pulumi.get(self, "rejection_reasons")
+
+    @_builtins.property
+    @pulumi.getter(name="resourceLinks")
+    def resource_links(self) -> _builtins.str:
+        """
+        The document URLs of the verification as a JSON document (empty when none).
+        """
+        return pulumi.get(self, "resource_links")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The verification SID (HH...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The review status: PENDING_REVIEW, IN_REVIEW, TWILIO_APPROVED or TWILIO_REJECTED.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="termsAndConditionsUrl")
+    def terms_and_conditions_url(self) -> _builtins.str:
+        """
+        The terms and conditions URL (empty when none).
+        """
+        return pulumi.get(self, "terms_and_conditions_url")
+
+    @_builtins.property
+    @pulumi.getter(name="tollfreePhoneNumber")
+    def tollfree_phone_number(self) -> _builtins.str:
+        """
+        The E.164 toll-free number.
+        """
+        return pulumi.get(self, "tollfree_phone_number")
+
+    @_builtins.property
+    @pulumi.getter(name="tollfreePhoneNumberSid")
+    def tollfree_phone_number_sid(self) -> _builtins.str:
+        """
+        SID (PN...) of the toll-free phone number.
+        """
+        return pulumi.get(self, "tollfree_phone_number_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="trustProductSid")
+    def trust_product_sid(self) -> _builtins.str:
+        """
+        SID of the toll-free Trust Product bundle (empty when none).
+        """
+        return pulumi.get(self, "trust_product_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        The absolute URL of the verification.
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter(name="useCaseCategories")
+    def use_case_categories(self) -> Sequence[_builtins.str]:
+        """
+        The use case categories.
+        """
+        return pulumi.get(self, "use_case_categories")
+
+    @_builtins.property
+    @pulumi.getter(name="useCaseSummary")
+    def use_case_summary(self) -> _builtins.str:
+        """
+        The use case summary.
+        """
+        return pulumi.get(self, "use_case_summary")
+
+    @_builtins.property
+    @pulumi.getter(name="vettingId")
+    def vetting_id(self) -> _builtins.str:
+        """
+        The vetting ID (empty when none).
+        """
+        return pulumi.get(self, "vetting_id")
+
+    @_builtins.property
+    @pulumi.getter(name="vettingIdExpiration")
+    def vetting_id_expiration(self) -> _builtins.str:
+        """
+        When the vetting ID expires (ISO 8601, empty when none).
+        """
+        return pulumi.get(self, "vetting_id_expiration")
+
+    @_builtins.property
+    @pulumi.getter(name="vettingProvider")
+    def vetting_provider(self) -> _builtins.str:
+        """
+        The third party vetting provider (empty when none).
+        """
+        return pulumi.get(self, "vetting_provider")
 
 
 @pulumi.output_type
@@ -4594,6 +6178,372 @@ class TrunkEffective(dict):
         Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
         """
         return pulumi.get(self, "transfer_mode")
+
+
+@pulumi.output_type
+class UsAppToPersonInfo(dict):
+    def __init__(__self__, *,
+                 age_gated: _builtins.bool,
+                 brand_registration_sid: _builtins.str,
+                 campaign_id: _builtins.str,
+                 campaign_status: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 description: _builtins.str,
+                 direct_lending: _builtins.bool,
+                 errors: Sequence[_builtins.str],
+                 has_embedded_links: _builtins.bool,
+                 has_embedded_phone: _builtins.bool,
+                 help_keywords: Sequence[_builtins.str],
+                 help_message: _builtins.str,
+                 is_externally_registered: _builtins.bool,
+                 message_flow: _builtins.str,
+                 message_samples: Sequence[_builtins.str],
+                 messaging_service_sid: _builtins.str,
+                 mock: _builtins.bool,
+                 opt_in_keywords: Sequence[_builtins.str],
+                 opt_in_message: _builtins.str,
+                 opt_out_keywords: Sequence[_builtins.str],
+                 opt_out_message: _builtins.str,
+                 privacy_policy_url: _builtins.str,
+                 rate_limits: _builtins.str,
+                 sid: _builtins.str,
+                 subscriber_opt_in: _builtins.bool,
+                 terms_and_conditions_url: _builtins.str,
+                 us_app_to_person_usecase: _builtins.str):
+        """
+        :param _builtins.bool age_gated: Whether the campaign requires an age gate.
+        :param _builtins.str brand_registration_sid: SID (BN...) of the Brand Registration the campaign is registered under.
+        :param _builtins.str campaign_id: The Campaign Registry (TCR) campaign ID (empty until assigned).
+        :param _builtins.str campaign_status: The campaign status, for example IN_PROGRESS, VERIFIED or FAILED.
+        :param _builtins.str date_created: When the campaign was created (ISO 8601).
+        :param _builtins.str date_updated: When the campaign was last updated (ISO 8601).
+        :param _builtins.str description: What the campaign does.
+        :param _builtins.bool direct_lending: Whether the campaign allows direct lending.
+        :param Sequence[_builtins.str] errors: Why the registration failed, each error as a JSON document.
+        :param _builtins.bool has_embedded_links: Whether the campaign's messages contain links.
+        :param _builtins.bool has_embedded_phone: Whether the campaign's messages contain phone numbers.
+        :param Sequence[_builtins.str] help_keywords: The help keywords.
+        :param _builtins.str help_message: The help auto-reply (empty when none).
+        :param _builtins.bool is_externally_registered: Whether the campaign was registered outside Twilio.
+        :param _builtins.str message_flow: How a consumer opts in to the campaign.
+        :param Sequence[_builtins.str] message_samples: The sample messages of the campaign.
+        :param _builtins.str messaging_service_sid: SID (MG...) of the Messaging Service the campaign belongs to.
+        :param _builtins.bool mock: Whether the campaign is a mock campaign.
+        :param Sequence[_builtins.str] opt_in_keywords: The opt-in keywords.
+        :param _builtins.str opt_in_message: The opt-in auto-reply (empty when none).
+        :param Sequence[_builtins.str] opt_out_keywords: The opt-out keywords.
+        :param _builtins.str opt_out_message: The opt-out auto-reply (empty when none).
+        :param _builtins.str privacy_policy_url: The privacy policy URL (empty when none).
+        :param _builtins.str rate_limits: The per carrier rate limits as a JSON document (empty when none).
+        :param _builtins.str sid: The campaign SID (QE...).
+        :param _builtins.bool subscriber_opt_in: Whether the campaign has subscriber opt-in.
+        :param _builtins.str terms_and_conditions_url: The terms and conditions URL (empty when none).
+        :param _builtins.str us_app_to_person_usecase: The A2P campaign use case.
+        """
+        pulumi.set(__self__, "age_gated", age_gated)
+        pulumi.set(__self__, "brand_registration_sid", brand_registration_sid)
+        pulumi.set(__self__, "campaign_id", campaign_id)
+        pulumi.set(__self__, "campaign_status", campaign_status)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "direct_lending", direct_lending)
+        pulumi.set(__self__, "errors", errors)
+        pulumi.set(__self__, "has_embedded_links", has_embedded_links)
+        pulumi.set(__self__, "has_embedded_phone", has_embedded_phone)
+        pulumi.set(__self__, "help_keywords", help_keywords)
+        pulumi.set(__self__, "help_message", help_message)
+        pulumi.set(__self__, "is_externally_registered", is_externally_registered)
+        pulumi.set(__self__, "message_flow", message_flow)
+        pulumi.set(__self__, "message_samples", message_samples)
+        pulumi.set(__self__, "messaging_service_sid", messaging_service_sid)
+        pulumi.set(__self__, "mock", mock)
+        pulumi.set(__self__, "opt_in_keywords", opt_in_keywords)
+        pulumi.set(__self__, "opt_in_message", opt_in_message)
+        pulumi.set(__self__, "opt_out_keywords", opt_out_keywords)
+        pulumi.set(__self__, "opt_out_message", opt_out_message)
+        pulumi.set(__self__, "privacy_policy_url", privacy_policy_url)
+        pulumi.set(__self__, "rate_limits", rate_limits)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "subscriber_opt_in", subscriber_opt_in)
+        pulumi.set(__self__, "terms_and_conditions_url", terms_and_conditions_url)
+        pulumi.set(__self__, "us_app_to_person_usecase", us_app_to_person_usecase)
+
+    @_builtins.property
+    @pulumi.getter(name="ageGated")
+    def age_gated(self) -> _builtins.bool:
+        """
+        Whether the campaign requires an age gate.
+        """
+        return pulumi.get(self, "age_gated")
+
+    @_builtins.property
+    @pulumi.getter(name="brandRegistrationSid")
+    def brand_registration_sid(self) -> _builtins.str:
+        """
+        SID (BN...) of the Brand Registration the campaign is registered under.
+        """
+        return pulumi.get(self, "brand_registration_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="campaignId")
+    def campaign_id(self) -> _builtins.str:
+        """
+        The Campaign Registry (TCR) campaign ID (empty until assigned).
+        """
+        return pulumi.get(self, "campaign_id")
+
+    @_builtins.property
+    @pulumi.getter(name="campaignStatus")
+    def campaign_status(self) -> _builtins.str:
+        """
+        The campaign status, for example IN_PROGRESS, VERIFIED or FAILED.
+        """
+        return pulumi.get(self, "campaign_status")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the campaign was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the campaign was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        What the campaign does.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="directLending")
+    def direct_lending(self) -> _builtins.bool:
+        """
+        Whether the campaign allows direct lending.
+        """
+        return pulumi.get(self, "direct_lending")
+
+    @_builtins.property
+    @pulumi.getter
+    def errors(self) -> Sequence[_builtins.str]:
+        """
+        Why the registration failed, each error as a JSON document.
+        """
+        return pulumi.get(self, "errors")
+
+    @_builtins.property
+    @pulumi.getter(name="hasEmbeddedLinks")
+    def has_embedded_links(self) -> _builtins.bool:
+        """
+        Whether the campaign's messages contain links.
+        """
+        return pulumi.get(self, "has_embedded_links")
+
+    @_builtins.property
+    @pulumi.getter(name="hasEmbeddedPhone")
+    def has_embedded_phone(self) -> _builtins.bool:
+        """
+        Whether the campaign's messages contain phone numbers.
+        """
+        return pulumi.get(self, "has_embedded_phone")
+
+    @_builtins.property
+    @pulumi.getter(name="helpKeywords")
+    def help_keywords(self) -> Sequence[_builtins.str]:
+        """
+        The help keywords.
+        """
+        return pulumi.get(self, "help_keywords")
+
+    @_builtins.property
+    @pulumi.getter(name="helpMessage")
+    def help_message(self) -> _builtins.str:
+        """
+        The help auto-reply (empty when none).
+        """
+        return pulumi.get(self, "help_message")
+
+    @_builtins.property
+    @pulumi.getter(name="isExternallyRegistered")
+    def is_externally_registered(self) -> _builtins.bool:
+        """
+        Whether the campaign was registered outside Twilio.
+        """
+        return pulumi.get(self, "is_externally_registered")
+
+    @_builtins.property
+    @pulumi.getter(name="messageFlow")
+    def message_flow(self) -> _builtins.str:
+        """
+        How a consumer opts in to the campaign.
+        """
+        return pulumi.get(self, "message_flow")
+
+    @_builtins.property
+    @pulumi.getter(name="messageSamples")
+    def message_samples(self) -> Sequence[_builtins.str]:
+        """
+        The sample messages of the campaign.
+        """
+        return pulumi.get(self, "message_samples")
+
+    @_builtins.property
+    @pulumi.getter(name="messagingServiceSid")
+    def messaging_service_sid(self) -> _builtins.str:
+        """
+        SID (MG...) of the Messaging Service the campaign belongs to.
+        """
+        return pulumi.get(self, "messaging_service_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def mock(self) -> _builtins.bool:
+        """
+        Whether the campaign is a mock campaign.
+        """
+        return pulumi.get(self, "mock")
+
+    @_builtins.property
+    @pulumi.getter(name="optInKeywords")
+    def opt_in_keywords(self) -> Sequence[_builtins.str]:
+        """
+        The opt-in keywords.
+        """
+        return pulumi.get(self, "opt_in_keywords")
+
+    @_builtins.property
+    @pulumi.getter(name="optInMessage")
+    def opt_in_message(self) -> _builtins.str:
+        """
+        The opt-in auto-reply (empty when none).
+        """
+        return pulumi.get(self, "opt_in_message")
+
+    @_builtins.property
+    @pulumi.getter(name="optOutKeywords")
+    def opt_out_keywords(self) -> Sequence[_builtins.str]:
+        """
+        The opt-out keywords.
+        """
+        return pulumi.get(self, "opt_out_keywords")
+
+    @_builtins.property
+    @pulumi.getter(name="optOutMessage")
+    def opt_out_message(self) -> _builtins.str:
+        """
+        The opt-out auto-reply (empty when none).
+        """
+        return pulumi.get(self, "opt_out_message")
+
+    @_builtins.property
+    @pulumi.getter(name="privacyPolicyUrl")
+    def privacy_policy_url(self) -> _builtins.str:
+        """
+        The privacy policy URL (empty when none).
+        """
+        return pulumi.get(self, "privacy_policy_url")
+
+    @_builtins.property
+    @pulumi.getter(name="rateLimits")
+    def rate_limits(self) -> _builtins.str:
+        """
+        The per carrier rate limits as a JSON document (empty when none).
+        """
+        return pulumi.get(self, "rate_limits")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The campaign SID (QE...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter(name="subscriberOptIn")
+    def subscriber_opt_in(self) -> _builtins.bool:
+        """
+        Whether the campaign has subscriber opt-in.
+        """
+        return pulumi.get(self, "subscriber_opt_in")
+
+    @_builtins.property
+    @pulumi.getter(name="termsAndConditionsUrl")
+    def terms_and_conditions_url(self) -> _builtins.str:
+        """
+        The terms and conditions URL (empty when none).
+        """
+        return pulumi.get(self, "terms_and_conditions_url")
+
+    @_builtins.property
+    @pulumi.getter(name="usAppToPersonUsecase")
+    def us_app_to_person_usecase(self) -> _builtins.str:
+        """
+        The A2P campaign use case.
+        """
+        return pulumi.get(self, "us_app_to_person_usecase")
+
+
+@pulumi.output_type
+class UsAppToPersonUsecaseInfo(dict):
+    def __init__(__self__, *,
+                 code: _builtins.str,
+                 description: _builtins.str,
+                 name: _builtins.str,
+                 post_approval_required: _builtins.bool):
+        """
+        :param _builtins.str code: The use case code to pass as usAppToPersonUsecase, for example 2FA.
+        :param _builtins.str description: What the use case is for.
+        :param _builtins.str name: The human readable name of the use case.
+        :param _builtins.bool post_approval_required: Whether the use case needs a post approval step.
+        """
+        pulumi.set(__self__, "code", code)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "post_approval_required", post_approval_required)
+
+    @_builtins.property
+    @pulumi.getter
+    def code(self) -> _builtins.str:
+        """
+        The use case code to pass as usAppToPersonUsecase, for example 2FA.
+        """
+        return pulumi.get(self, "code")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        What the use case is for.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The human readable name of the use case.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="postApprovalRequired")
+    def post_approval_required(self) -> _builtins.bool:
+        """
+        Whether the use case needs a post approval step.
+        """
+        return pulumi.get(self, "post_approval_required")
 
 
 @pulumi.output_type

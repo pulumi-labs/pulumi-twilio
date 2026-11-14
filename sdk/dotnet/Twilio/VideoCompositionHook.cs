@@ -89,7 +89,7 @@ namespace Pulumi.Labs.Twilio
         public Output<bool?> Trim { get; private set; } = null!;
 
         /// <summary>
-        /// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        /// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         /// </summary>
         [Output("videoLayout")]
         public Output<string?> VideoLayout { get; private set; } = null!;
@@ -207,7 +207,7 @@ namespace Pulumi.Labs.Twilio
         public Input<bool>? Trim { get; set; }
 
         /// <summary>
-        /// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+        /// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
         /// </summary>
         [Input("videoLayout")]
         public Input<string>? VideoLayout { get; set; }

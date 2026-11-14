@@ -346,6 +346,10 @@ resources:
     test: true
     update: null
     cost: none; use a number you own and destroy it again (an entry exempts the number from Twilio's SMS fraud blocks). Twilio has no update call, so a change replaces it
+  - type: twilio:index:OAuthApp
+    test: true
+    update: null
+    cost: none; an OAuth app is free. Twilio has no read or update call, so every input replaces the app, a refresh keeps the stored state and an import fails by design. The client secret is returned only on create
   - type: twilio:index:VideoCompositionHook
     test: true
     update: friendlyName
@@ -358,6 +362,55 @@ resources:
     test: false
     reason: the settings are a single account-wide object that decides where all recordings are stored and have no delete, so a test would leave the account changed
     cost: none. Destroy forgets it
+  - type: twilio:index:SuperSimNetworkAccessProfile
+    test: true
+    update: uniqueName
+    cost: none; a Network Access Profile is free. Destroy forgets it (Twilio has no delete), so its unique name stays taken
+  - type: twilio:index:SuperSimFleet
+    test: true
+    update: dataLimit
+    cost: none until SIMs are added to the Fleet. Destroy forgets it (Twilio has no delete), so its unique name stays taken
+  - type: twilio:index:WirelessRatePlan
+    test: true
+    update: friendlyName
+    cost: none; a Rate Plan is free until SIMs use it. Destroy deletes it
+  - type: twilio:index:FlexFlow
+    test: true
+    update: friendlyName
+    cost: none; a Flex Flow is free (it needs a Chat service of the account, which is also free). Destroy deletes it
+  - type: twilio:index:FlexPlugin
+    test: true
+    update: friendlyName
+    cost: none; a Flex Plugin is free but needs a Flex-enabled account. Destroy archives it (Twilio has no delete), so its unique name stays taken
+  - type: twilio:index:FlexPluginVersion
+    test: true
+    update: null
+    cost: none; needs a FlexPlugin and a bundle URL (any https URL Twilio accepts). Every input replaces it. Destroy archives it
+  - type: twilio:index:FlexPluginConfiguration
+    test: true
+    update: null
+    cost: none; needs FlexPluginVersions. Every input replaces it. Destroy archives it
+  - type: twilio:index:BrandRegistration
+    test: false
+    reason: a non-mock brand registration is billed by Twilio and The Campaign Registry, needs approved Customer Profile and A2P Messaging Profile bundles and cannot be deleted, so it must not run against a shared account; the mock brand (mock true) is covered by the fake-server tests and by the manual check below
+  - type: twilio:index:UsAppToPerson
+    test: false
+    reason: an A2P campaign needs an approved (non-mock) BrandRegistration and a Messaging Service, is reviewed by The Campaign Registry and billed (a one-time vetting fee and a monthly fee), so it must not run against a shared account
+  - type: twilio:index:TollfreeVerification
+    test: false
+    reason: a toll-free verification needs a toll-free number of the account and a real business, is reviewed by Twilio and applies to a number of the account (unverified whether it can be redone after approval), so it must not run against a shared account
+  - type: twilio:index:LinkShorteningDomainConfig
+    test: false
+    reason: needs a link shortening domain, which Twilio sets up for the account (the spec has no call to create one), and the spec has no call to remove a domain configuration, so it must not run against a shared account
+  - type: twilio:index:LinkShorteningDomainCertificate
+    test: false
+    reason: needs a link shortening domain set up with Twilio and a certificate and private key for it
+  - type: twilio:index:LinkShorteningMessagingServiceDomain
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - type: twilio:index:FlexPluginRelease
+    test: false
+    reason: releasing a Configuration changes what every Flex user of the account loads and cannot be undone or deleted, so it must not run against a shared or production Flex account
 functions:
   - name: getAccount
     test: true
@@ -485,6 +538,70 @@ functions:
     test: true
   - name: getContentApprovalStatus
     test: true
+  - name: getFlexFlow
+    test: true
+  - name: getFlexFlows
+    test: true
+  - name: getFlexPlugin
+    test: true
+  - name: getFlexPlugins
+    test: true
+  - name: getFlexPluginVersion
+    test: true
+  - name: getFlexPluginVersions
+    test: true
+  - name: getFlexPluginConfiguration
+    test: true
+  - name: getFlexPluginConfigurations
+    test: true
+  - name: getFlexPluginRelease
+    test: false
+    reason: needs a FlexPluginRelease, which is not tested live because a Release changes what Flex loads for the whole account
+  - name: getFlexPluginReleases
+    test: false
+    reason: needs a FlexPluginRelease, which is not tested live because a Release changes what Flex loads for the whole account
+  - name: getBrandRegistration
+    test: false
+    reason: needs a BrandRegistration, which is not tested live because a registration is billed and cannot be deleted
+  - name: getBrandRegistrations
+    test: true
+  - name: getUsAppToPerson
+    test: false
+    reason: needs a UsAppToPerson, which is not tested live because a campaign is billed and needs an approved brand
+  - name: getUsAppToPersons
+    test: true
+  - name: getUsAppToPersonUsecases
+    test: true
+  - name: getTollfreeVerification
+    test: false
+    reason: needs a TollfreeVerification, which is not tested live because it needs a toll-free number and a real business review
+  - name: getTollfreeVerifications
+    test: true
+  - name: getLinkShorteningDomainConfig
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getLinkShorteningMessagingServiceDomainConfig
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getLinkShorteningDomainCertificate
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getLinkShorteningDomainDnsValidation
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getLinkShorteningMessagingServiceDomain
+    test: false
+    reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getSuperSimFleet
+    test: true
+  - name: getSuperSimNetworkAccessProfile
+    test: true
+  - name: getSuperSimNetwork
+    test: true
+  - name: getSuperSimNetworks
+    test: true
+  - name: getWirelessRatePlan
+    test: true
   - name: getProxyService
     test: true
   - name: getProxyPhoneNumber
@@ -498,6 +615,15 @@ functions:
   - name: getAccountSafeListNumber
     test: true
   - name: getMessagingGeoPermissions
+    test: true
+  - name: getOAuthApp
+    test: true
+  - name: getRolePermissions
+    test: false
+    reason: needs the SID of an IAM role of the account, which only exists on accounts with IAM roles enabled
+  - name: getMessagingUsecases
+    test: true
+  - name: getMessagingDeactivations
     test: true
   - name: getVideoCompositionHook
     test: true
@@ -626,10 +752,12 @@ regressions:
   - "Conversations (#1864, part of #1667): create a ConversationsService, a ConversationsServiceConfiguration naming a service role made with ConversationsRole (roleType service, chatServiceSid set), a ConversationsRole with no chatServiceSid and a ConversationsAddressConfiguration for an sms number the account owns with autoCreation enabled and type default; refresh and preview show no change. Changing the service friendlyName replaces it, changing role permissions, the address friendlyName and autoCreation, and reachabilityEnabled updates in place. A ConversationsWebhookConfiguration with a chatServiceSid sets pre and post URLs and filters, and the order of the filters is not drift. Import each (<sid>, <chatServiceSid>/<sid> for a service role, the service SID for the configurations, account for the account-level webhook configuration) and the first preview plans no change. Not verified against a live account: that a configuration POST with no parameters is accepted (the provider does a GET instead when nothing is set), the default autoCreation values Twilio reports, whether the account-level webhook configuration needs method and URLs together, and the exact APNs certificate validation."
   - "Video settings (#1902, part of #1667): VideoCompositionSettings and VideoRecordingSettings are not run automatically (they change where every composition or recording of the account is stored). Read them with getVideoCompositionSettings and getVideoRecordingSettings. On a throwaway account create each with friendlyName only, then add awsCredentialsSid, awsS3Url and awsStorageEnabled for a bucket the owner controls; refresh and preview show no change, changing friendlyName updates in place. Import as default and the first preview plans no change when the program states only what differs from Twilio defaults (awsStorageEnabled and encryptionEnabled false). Destroy leaves the settings on Twilio. Not verified against a live account: whether Twilio validates the bucket and credential when they are saved, and what it reports for friendlyName on an account that never set it."
   - "Video composition hook (#1901, part of #1667): create a VideoCompositionHook with enabled false, a videoLayout, audioSources, resolution 1280x720 and format mp4; refresh and preview show no change. Changing friendlyName and the status callback updates in place; setting audioSourcesExcluded to an empty list clears it. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (resolution 640x480, trim true, statusCallbackMethod POST). Not verified against a live account: the defaults Twilio reports for enabled and format, how it takes an empty list, and whether it accepts a hook with no layout or audio sources."
+  - "Super SIM and Wireless (#1923, part of #1667): list the catalog with getSuperSimNetworks (isoCountry US, or mcc and mnc), create a SuperSimNetworkAccessProfile with uniqueName and networks holding two of the returned SIDs, then a SuperSimFleet naming it by SID and then by unique name in a second program; refresh and preview show no change. Changing the profile uniqueName and swapping a network updates in place; changing the Fleet dataLimit, uniqueName, networkAccessProfile and the commands URLs updates in place, changing dataEnabled or smsCommandsEnabled replaces the Fleet (Twilio cannot update them). Destroy forgets both (Twilio has no delete for either), so use a fresh uniqueName on the next run. Import the SIDs and the first preview plans no change. A WirelessRatePlan with uniqueName, dataLimit and internationalRoaming updates uniqueName and friendlyName in place and replaces on any other change; read it with getWirelessRatePlan; destroy deletes it unless SIMs still use it. Not verified against a live account: whether Twilio accepts a profile with no networks, the smsCommandsEnabled default it applies (the spec says true on create and false on read), whether it reports international_roaming as an empty list or null for a plan without roaming, whether the Rate Plan create needs a Programmable Wireless enabled account, and whether the unique name of a Fleet or profile can be looked up in place of its SID."
   - "Content templates (part of #1667): create a ContentTemplate with language en, a friendlyName, variables {\"1\": \"Ada\"} and types text (\"Hello {{1}}\") plus quickReply with two buttons; refresh and preview show no change; changing friendlyName and the text updates in place (no replacement). Read it with getContentTemplate and getContentApprovalStatus (whatsappStatus and whatsappJson are null for a template never submitted to WhatsApp). Import the HX SID and the first preview plans no change. Deleting it in the console makes the next refresh drop it. Not verified against a live account: that Twilio returns the types exactly as sent (no defaulted or empty sub-fields that would show as drift), the keys inside the untyped whatsapp approval object (status, rejection_reason and category are read from the Twilio docs), and which of the WhatsApp-only types a non-WhatsApp-enabled account accepts."
   - "Proxy (#1905, part of #1667): create a ProxyService with uniqueName, defaultTtl and geoMatchLevel area-code; refresh and preview show no change; changing uniqueName updates in place. Read it with getProxyService. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (defaultTtl 0, geoMatchLevel country, numberSelectionBehavior prefer-sticky). With a spare number of the account add a ProxyPhoneNumber by phoneNumber, then by phoneNumberSid in a second program: the second preview plans no change; toggling isReserved updates in place, changing the number replaces; import <serviceSid>/<sid> (the import names the number by phoneNumberSid) and the first preview plans no change when the program names the number by phoneNumberSid or by phoneNumber and states isReserved only if it is true. Destroy removes the number from the pool and the number stays in the account. Not verified against a live account: the geoMatchLevel values Twilio accepts (the spec lists area-code, overlay, radius and country, the docs also name extended-area-code), and whether it reports defaultTtl as 0 or null for a new service."
   - "Messaging Service senders (#1913, part of #1667): on a MessagingService add a MessagingServiceAlphaSender with a short name and a MessagingServiceDestinationAlphaSender with and without isoCountryCode; refresh and preview show no change, any changed input replaces. Import <serviceSid>/<sid> and the first preview plans no change; read each with getMessagingServiceAlphaSender and getMessagingServiceDestinationAlphaSender. With a short code or channel sender of the account add a MessagingServiceShortCode (shortCodeSid) or MessagingServiceChannelSender (channelSenderSid); destroy removes it from the pool and keeps the sender. Not verified against a live account: whether Twilio refuses an alpha sender ID that is already in another Messaging Service, whether it reports iso_country_code null or empty for a default destination sender, the casing it reports for the country, and whether a sender can be added before the service is registered for the country."
   - "Accounts v1 (#1910, part of #1667): create a PublicKeyCredential with a throwaway public key and a friendlyName; refresh and preview show no change; changing friendlyName updates in place, changing publicKey replaces. Import the SID: the key is not returned, so the first preview plans no change when the program states it. Read it with getPublicKeyCredential. Add a number you own with AccountSafeListNumber (the plus sign must be escaped as %2B in the query), read it with getAccountSafeListNumber, destroy it; this is the Global SafeList of accounts.twilio.com, a different API from VerifySafeListNumber. getMessagingGeoPermissions lists every country, or the countries named in countryCodes. AwsCredential is not run automatically (real AWS keys); with a test IAM user create one, check preview is clean and that changing credentials replaces it. Not verified against a live account: whether Twilio validates the keys or the public key when they are stored, what a GET of a number that is not on the Global SafeList answers (the provider reads 404 and a reply without a phone_number as not on the list), whether the Global SafeList is enabled on every account, and what friendly_name Twilio reports for a credential created without one."
+  - "IAM and messaging lookups (part of #1667): create an OAuthApp with a friendlyName and a policy allowing /twilio/iam/api-keys/create; the output has a sid (OQ...) and a secret that is marked secret in state, and the secret is never shown again. Preview and refresh show no change (Twilio has no read call), changing any input replaces the app, destroy deletes it, and importing an OAuth app fails with \"the Twilio API does not support reading OAuth apps\". getOAuthApp fails with exactly that message. getMessagingUsecases returns the use cases; getMessagingDeactivations for yesterday (date YYYY-MM-DD) returns a redirectUrl that is a secret output and downloads a file within about two minutes. getRolePermissions for an IX... role (accounts with IAM roles) lists its permissions."
   - "Voice Intelligence (#1897, part of #1667): create an IntelligenceService with uniqueName, friendlyName, languageCode and autoTranscribe false; refresh and preview show no change. Changing friendlyName and webhookUrl updates in place; changing languageCode replaces the service. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (languageCode en-US, the redaction and transcription flags false). With a valid operator type and config create an IntelligenceCustomOperator; reformatting or reordering the config JSON plans no change, changing it updates in place, changing operatorType replaces it. Not verified against a live account: the defaults Twilio reports for a new service, whether it reports operator_type by name or SID, whether it accepts a service with no webhook, and which operator type configs it validates."
   - "Notify (#1872, part of #1667): create a NotifyService with friendlyName, logEnabled false and a messagingServiceSid; refresh and preview show no change. With a real FCM server key create a NotifyCredential (credentialType fcm, secret) and name it as fcmCredentialSid on the service; changing friendlyName and the callback URL updates in place, changing credentialType replaces the credential. Import each SID and the first preview plans no change when the program states only what differs from Twilio defaults (logEnabled true, deliveryCallbackEnabled false). The secret inputs never appear in plaintext in the state. Not verified against a live account: that Twilio accepts a service with no credential, how it reports the sandbox flag, and the default protocol versions it reports."
   - "Sync (#1870, part of #1667): create a SyncService with friendlyName, aclEnabled and reachabilityDebouncingWindow 2000; refresh and preview show no change. Changing friendlyName, webhookUrl and the flags updates in place. Import the service SID and the first preview plans no change when the program states only what differs from Twilio defaults (reachabilityDebouncingWindow 5000, every flag false). getSyncService reports the same settings. Not verified against a live account."
@@ -658,5 +786,12 @@ regressions:
   - "Address with autoCorrectAddress unset must not show a permanent diff when Twilio normalizes the street; with autoCorrectAddress false, drift in the address lines must show. isoCountry change must replace."
   - "UsageTrigger: only callbackUrl, callbackMethod and friendlyName update in place; triggerValue, usageCategory, recurring and triggerBy replace. A triggerValue given as an offset (+30) must not show a diff after refresh."
   - "Queue removing maxSize must reset it to 1000; a queue's live currentSize must not show as a diff."
+  - "Video composition hook layout (#1937): create a VideoCompositionHook with a videoLayout that states only video_sources (for example {\"grid\":{\"video_sources\":[\"*\"]}}); refresh and the next preview show no change although Twilio reports its defaults for the region (cells_excluded, reuse show_oldest, x_pos, y_pos, z_pos 0, null height, width, max_rows, max_columns). Changing reuse or a position to a non-default value in the program is an in-place update, and a layout edited outside Pulumi to a non-default value shows as drift on refresh."
+  - "Flex Flows (#1931, part of #1667): with a Chat service of the account create a FlexFlow with channelType custom, integrationType external, integrationUrl and a contactIdentity; refresh and preview show no change; changing friendlyName and integrationRetryCount updates in place. Read it with getFlexFlow and list it with getFlexFlows (friendlyName filter). A second FlexFlow with integrationType task (a TaskRouter workspace and workflow of the account) shows no change after a refresh when the program states only workspace and workflow. Import the SID and the first preview plans no change. Not verified against a live account: the default Twilio gives enabled and integrationCreationOnMessage (the provider never adopts them on import), whether Twilio accepts channelType custom without a Studio or Flex setup, whether the integration object is returned with only the keys of the chosen integrationType, and whether an update replaces the whole integration object (the provider always sends every integration input that is set)."
+  - "Flex Plugins (#1931, part of #1667), on a Flex-enabled account: create a FlexPlugin with a uniqueName and friendlyName, then a FlexPluginVersion (pluginVersion 1.0.0 and a pluginUrl of a Twilio Asset or any https URL) and a FlexPluginConfiguration whose pluginVersionSids lists that version. Refresh and preview show no change; changing the plugin friendlyName updates in place; changing the version or the configuration replaces it. Read them with getFlexPlugin, getFlexPluginVersion(s) and getFlexPluginConfiguration(s) (pluginVersionSids). Import <pluginSid>/<versionSid> and the configuration SID and the first preview plans no change. Do not create a FlexPluginRelease on a shared account: it changes the plugins every Flex user loads and Twilio has no way to delete it. Not verified against a live account: the Plugins parameter encoding (one parameter per version, each the JSON object {\"plugin_version\": \"FV...\"}), whether a refresh of an archived object returns 404 or archived true (both read as deleted), whether the Configuration plugin list is returned in the order it was created, whether Twilio refuses to archive the released Configuration, and the default of private."
+  - "BrandRegistration (#1928), manual: with approved Customer Profile and A2P Messaging Profile bundles create a BrandRegistration with mock true; refresh and preview show no change and status, tcrId and brandScore are filled in. Changing any input replaces it. Destroy removes it from state only: confirm in the console that the brand is still there. getBrandRegistration and getBrandRegistrations return it. Not verified against a live account: whether the mock brand reports brandType STANDARD when the input is omitted, the identityStatus values for a mock brand, and the shape of the errors entries."
+  - "UsAppToPerson (#1928), manual, with an approved BrandRegistration and a Messaging Service you can spend on: create a campaign (use case LOW_VOLUME or 2FA, two message samples, a description of 40 or more characters); refresh and preview show no change while campaignStatus moves from IN_PROGRESS. Changing the description or the samples updates in place and the update succeeds without ageGated or directLending in the program. Changing the use case replaces it. Import <messagingServiceSid>/<sid> and the first preview plans no change. getUsAppToPersonUsecases with the brandRegistrationSid lists the use cases of that brand. Not verified against a live account: the shape of the use case entries (code, name, description, post_approval_required are taken from the spec text), whether an update that omits the opt-in and opt-out fields keeps them, whether a campaign can be deleted while its status is IN_PROGRESS, and the default of subscriberOptIn."
+  - "TollfreeVerification (#1928), manual, with a toll-free number of the account and details of a real business: create a verification (2FA, a WEB_FORM opt-in image URL that Twilio can fetch); refresh and preview show no change while status moves from PENDING_REVIEW. After a rejection with editAllowed true, change businessWebsite and set editReason: the update succeeds and the status returns to PENDING_REVIEW; an edit when editAllowed is false fails. Changing the number replaces it. Import the SID and the first preview plans no change. getTollfreeVerifications with a status filter lists it. Not verified against a live account: how Twilio normalizes messageVolume and the phone and URL fields (a normalized value would show as drift), whether use_case_categories and opt_in_image_urls come back in the order sent, whether an edit may resend every field, and whether an approved verification can be deleted."
+  - "Link shortening (#1928), manual, on an account with a link shortening domain set up by Twilio: adopt the domain with LinkShorteningDomainConfig (callbackUrl, continueOnFailure); refresh and preview show no change and an import of the domain SID plans no change. Upload a certificate with LinkShorteningDomainCertificate and a Messaging Service association with LinkShorteningMessagingServiceDomain; getLinkShorteningDomainDnsValidation and the other lookups return them. Replacing the tlsCert uploads again and certInValidation shows the pending validation. Destroy the association and the certificate; the domain configuration stays. Not verified against a live account: whether a new certificate needs the old one deleted first, whether Twilio answers a certificate read of a domain without one with 404, the default of continueOnFailure and disableHttps (the provider adopts what Twilio reports on import), and the shape of cert_in_validation."
 notes: >-
   Never create a resource that sends an SMS or places a call; none of the shipped surface does, so no test is skipped. ApiKey returns its secret only on create. Subaccounts cannot be deleted, only closed, so use a unique friendlyName per run and expect leftovers. Cleanup order: MessagingServicePhoneNumber before MessagingService, and release nothing: IncomingPhoneNumber destroy never releases the number, it only drops it from state. Twilio is eventually consistent for new services and subaccounts, so retry reads briefly. MessagingServicePhoneNumber has no update (serviceSid and phoneNumberSid replace). The update properties are verified in the Go source as non-replace inputs; the API behaviour itself is unverified. Many products are deferred (A2P, Verify rate limits and others). Address delete fails while the address is in use. UsageTrigger fires a webhook, so point it at a url you control.

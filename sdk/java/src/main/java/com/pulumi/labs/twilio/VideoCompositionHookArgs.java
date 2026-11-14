@@ -154,14 +154,14 @@ public final class VideoCompositionHookArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      * 
      */
     @Import(name="videoLayout")
     private @Nullable Output<String> videoLayout;
 
     /**
-     * @return The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * @return The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      * 
      */
     public Optional<Output<String>> videoLayout() {
@@ -411,7 +411,7 @@ public final class VideoCompositionHookArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param videoLayout The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+         * @param videoLayout The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
          * 
          * @return builder
          * 
@@ -422,7 +422,7 @@ public final class VideoCompositionHookArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param videoLayout The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+         * @param videoLayout The video layout as a JSON object of regions (see Twilio&#39;s Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
          * 
          * @return builder
          * 

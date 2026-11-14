@@ -40,7 +40,7 @@ type VideoCompositionHook struct {
 	StatusCallbackMethod pulumi.StringPtrOutput `pulumi:"statusCallbackMethod"`
 	// Whether to clip the stretches with no active media from the compositions (Twilio default true).
 	Trim pulumi.BoolPtrOutput `pulumi:"trim"`
-	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
 	VideoLayout pulumi.StringPtrOutput `pulumi:"videoLayout"`
 }
 
@@ -105,7 +105,7 @@ type videoCompositionHookArgs struct {
 	StatusCallbackMethod *string `pulumi:"statusCallbackMethod"`
 	// Whether to clip the stretches with no active media from the compositions (Twilio default true).
 	Trim *bool `pulumi:"trim"`
-	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
 	VideoLayout *string `pulumi:"videoLayout"`
 }
 
@@ -129,7 +129,7 @@ type VideoCompositionHookArgs struct {
 	StatusCallbackMethod pulumi.StringPtrInput
 	// Whether to clip the stretches with no active media from the compositions (Twilio default true).
 	Trim pulumi.BoolPtrInput
-	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+	// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
 	VideoLayout pulumi.StringPtrInput
 }
 
@@ -280,7 +280,7 @@ func (o VideoCompositionHookOutput) Trim() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VideoCompositionHook) pulumi.BoolPtrOutput { return v.Trim }).(pulumi.BoolPtrOutput)
 }
 
-// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+// The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
 func (o VideoCompositionHookOutput) VideoLayout() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VideoCompositionHook) pulumi.StringPtrOutput { return v.VideoLayout }).(pulumi.StringPtrOutput)
 }

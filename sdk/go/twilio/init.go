@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Application{}
 	case "twilio:index:AwsCredential":
 		r = &AwsCredential{}
+	case "twilio:index:BrandRegistration":
+		r = &BrandRegistration{}
 	case "twilio:index:ByocTrunk":
 		r = &ByocTrunk{}
 	case "twilio:index:ConnectApp":
@@ -61,6 +63,16 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EventSink{}
 	case "twilio:index:EventSubscription":
 		r = &EventSubscription{}
+	case "twilio:index:FlexFlow":
+		r = &FlexFlow{}
+	case "twilio:index:FlexPlugin":
+		r = &FlexPlugin{}
+	case "twilio:index:FlexPluginConfiguration":
+		r = &FlexPluginConfiguration{}
+	case "twilio:index:FlexPluginRelease":
+		r = &FlexPluginRelease{}
+	case "twilio:index:FlexPluginVersion":
+		r = &FlexPluginVersion{}
 	case "twilio:index:IncomingPhoneNumber":
 		r = &IncomingPhoneNumber{}
 	case "twilio:index:IncomingPhoneNumberAssignedAddOn":
@@ -71,6 +83,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IntelligenceService{}
 	case "twilio:index:IpRecord":
 		r = &IpRecord{}
+	case "twilio:index:LinkShorteningDomainCertificate":
+		r = &LinkShorteningDomainCertificate{}
+	case "twilio:index:LinkShorteningDomainConfig":
+		r = &LinkShorteningDomainConfig{}
+	case "twilio:index:LinkShorteningMessagingServiceDomain":
+		r = &LinkShorteningMessagingServiceDomain{}
 	case "twilio:index:MessagingService":
 		r = &MessagingService{}
 	case "twilio:index:MessagingServiceAlphaSender":
@@ -87,6 +105,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &NotifyCredential{}
 	case "twilio:index:NotifyService":
 		r = &NotifyService{}
+	case "twilio:index:OAuthApp":
+		r = &OAuthApp{}
 	case "twilio:index:OutgoingCallerId":
 		r = &OutgoingCallerId{}
 	case "twilio:index:ProxyPhoneNumber":
@@ -145,6 +165,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SourceIpMapping{}
 	case "twilio:index:Subaccount":
 		r = &Subaccount{}
+	case "twilio:index:SuperSimFleet":
+		r = &SuperSimFleet{}
+	case "twilio:index:SuperSimNetworkAccessProfile":
+		r = &SuperSimNetworkAccessProfile{}
 	case "twilio:index:SyncService":
 		r = &SyncService{}
 	case "twilio:index:TaskRouterActivity":
@@ -159,6 +183,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TaskRouterWorkflow{}
 	case "twilio:index:TaskRouterWorkspace":
 		r = &TaskRouterWorkspace{}
+	case "twilio:index:TollfreeVerification":
+		r = &TollfreeVerification{}
 	case "twilio:index:Trunk":
 		r = &Trunk{}
 	case "twilio:index:TrunkCredentialList":
@@ -167,6 +193,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TrunkIpAccessControlList{}
 	case "twilio:index:TrunkOriginationUrl":
 		r = &TrunkOriginationUrl{}
+	case "twilio:index:UsAppToPerson":
+		r = &UsAppToPerson{}
 	case "twilio:index:UsageTrigger":
 		r = &UsageTrigger{}
 	case "twilio:index:VerifyMessagingConfiguration":
@@ -197,6 +225,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &VoiceRecordingConfiguration{}
 	case "twilio:index:VoiceTranscriptionConfiguration":
 		r = &VoiceTranscriptionConfiguration{}
+	case "twilio:index:WirelessRatePlan":
+		r = &WirelessRatePlan{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

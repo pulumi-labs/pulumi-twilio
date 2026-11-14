@@ -49,7 +49,7 @@ type VideoCompositionHookArgs struct {
 func (a *VideoCompositionHookArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.FriendlyName, "Name of the hook, up to 100 characters, unique within the account.")
 	an.Describe(&a.Enabled, "Whether the hook is active: when true it is triggered for every completed group room in the account. Removing it leaves the setting unchanged.")
-	an.Describe(&a.VideoLayout, "The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.")
+	an.Describe(&a.VideoLayout, "The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.")
 	an.Describe(&a.AudioSources, "Track names (a * matches any characters) whose audio is merged into the compositions. Order is not significant. Removing it leaves the setting unchanged.")
 	an.Describe(&a.AudioSourcesExcluded, "Track names to leave out of the merged audio. Order is not significant. Removing it leaves the setting unchanged.")
 	an.Describe(&a.Resolution, "Size of the composed video as {width}x{height} pixels, each from 16 to 1280 and at most 921,600 pixels in all (Twilio default 640x480).")
@@ -113,7 +113,7 @@ func (r *VideoCompositionHook) Diff(_ context.Context, req infer.DiffRequest[Vid
 	d := trDiffSet{}
 	d.requiredStr("friendlyName", o.FriendlyName, n.FriendlyName)
 	d.boolean("enabled", o.Enabled, n.Enabled)
-	d.jsonDoc("videoLayout", o.VideoLayout, n.VideoLayout)
+	d.videoLayoutDoc("videoLayout", o.VideoLayout, n.VideoLayout)
 	d.videoListDiff("audioSources", o.AudioSources, n.AudioSources)
 	d.videoListDiff("audioSourcesExcluded", o.AudioSourcesExcluded, n.AudioSourcesExcluded)
 	d.strDef(videoCompositionHookDefaults, "resolution", o.Resolution, n.Resolution)
@@ -191,7 +191,7 @@ func (r *VideoCompositionHook) Read(ctx context.Context, req infer.ReadRequest[V
 	imported := req.State.Sid == ""
 	in.FriendlyName = o.str("friendly_name")
 	in.Enabled = videoAdoptBool(in.Enabled, o.optBool("enabled"), imported)
-	in.VideoLayout = trJSON(in.VideoLayout, videoLayoutJSON(o, "video_layout"), imported)
+	in.VideoLayout = videoLayoutRead(in.VideoLayout, videoLayoutJSON(o, "video_layout"), imported)
 	in.AudioSources = cvList(in.AudioSources, o.optList("audio_sources"), imported)
 	in.AudioSourcesExcluded = cvList(in.AudioSourcesExcluded, o.optList("audio_sources_excluded"), imported)
 	in.Resolution = trStr(in.Resolution, o.optStr("resolution"), videoCompositionHookDefaults.str("resolution"), imported)

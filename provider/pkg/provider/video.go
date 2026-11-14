@@ -17,6 +17,7 @@ package provider
 import (
 	"encoding/json"
 	"net/url"
+	"reflect"
 	"regexp"
 	"slices"
 	"strconv"
@@ -73,6 +74,83 @@ func videoLayoutJSON(o obj, k string) *string {
 	}
 	s := string(raw)
 	return &s
+}
+
+// videoLayoutRegionDefaults are the values Twilio fills in for a region of a video layout that the
+// program leaves out (#1937). They live in one table so Read and Diff cannot disagree (#1896).
+// The geometry and grid-size fields (height, width, max_rows, max_columns) come back as null.
+var videoLayoutRegionDefaults = map[string]any{
+	"cells_excluded":         []any{},
+	"video_sources_excluded": []any{},
+	"reuse":                  "show_oldest",
+	"x_pos":                  float64(0),
+	"y_pos":                  float64(0),
+	"z_pos":                  float64(0),
+}
+
+// videoLayoutNormal parses a video layout and removes, from every region, each field that holds
+// Twilio's default or null, so a layout and the one Twilio reports for it compare equal. A field
+// set to anything else stays, so a real change still differs. ok is false when s is not a JSON object.
+func videoLayoutNormal(s string) (m map[string]any, ok bool) {
+	if json.Unmarshal([]byte(s), &m) != nil || m == nil {
+		return nil, false
+	}
+	for name, region := range m {
+		fields, isMap := region.(map[string]any)
+		if !isMap {
+			continue
+		}
+		for k, v := range fields {
+			if v == nil {
+				delete(fields, k)
+				continue
+			}
+			if def, has := videoLayoutRegionDefaults[k]; has && reflect.DeepEqual(v, def) {
+				delete(fields, k)
+			}
+		}
+		m[name] = fields
+	}
+	return m, true
+}
+
+// videoLayoutSame reports whether two video layouts mean the same thing: equal JSON once Twilio's
+// per-region defaults are removed from both sides.
+func videoLayoutSame(a, b string) bool {
+	if jsonSame(a, b) {
+		return true
+	}
+	x, okx := videoLayoutNormal(a)
+	y, oky := videoLayoutNormal(b)
+	return okx && oky && reflect.DeepEqual(x, y)
+}
+
+// videoLayoutRead is the refreshed video layout. A program's layout that Twilio's report matches
+// (with Twilio's defaults filled in) is kept as written; an import adopts Twilio's layout without
+// the defaults; anything else is drift and shows as Twilio reports it.
+func videoLayoutRead(in, api *string, imported bool) *string {
+	if api == nil {
+		return trStr(in, api, "", imported)
+	}
+	if !imported && in != nil && videoLayoutSame(*in, *api) {
+		return in
+	}
+	if imported {
+		if m, ok := videoLayoutNormal(*api); ok {
+			if raw, err := json.Marshal(m); err == nil {
+				s := string(raw)
+				return &s
+			}
+		}
+	}
+	return trStr(in, api, "", imported)
+}
+
+// videoLayoutDoc records an update of the video layout when the new one means something else.
+func (d trDiffSet) videoLayoutDoc(name string, o, n *string) {
+	if n != nil && (o == nil || !videoLayoutSame(*o, *n)) {
+		d[name] = p.PropertyDiff{Kind: p.Update}
+	}
 }
 
 // videoListDiff records an update of an optional list. An unset stored list is an empty one, so a

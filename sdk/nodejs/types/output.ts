@@ -185,6 +185,77 @@ export interface AvailablePhoneNumber {
     region?: string;
 }
 
+export interface BrandRegistrationInfo {
+    /**
+     * SID (BU...) of the A2P Messaging Profile bundle the brand was registered with.
+     */
+    a2pProfileBundleSid: string;
+    /**
+     * The secondary vetting score, else the brand score (0 when there is none).
+     */
+    brandScore: number;
+    /**
+     * The brand type: STANDARD or SOLE_PROPRIETOR (empty when Twilio does not say).
+     */
+    brandType: string;
+    /**
+     * SID (BU...) of the Customer Profile bundle the brand was registered with.
+     */
+    customerProfileBundleSid: string;
+    /**
+     * When the Brand Registration was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the Brand Registration was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * The errors of the registration process, each as a JSON document.
+     */
+    errors: string[];
+    /**
+     * Deprecated Twilio field: why the registration failed.
+     */
+    failureReason: string;
+    /**
+     * Whether the brand was identified as a government entity.
+     */
+    governmentEntity: boolean;
+    /**
+     * The identity verification status: SELF_DECLARED, UNVERIFIED, VERIFIED or VETTED_VERIFIED (empty when none).
+     */
+    identityStatus: string;
+    /**
+     * Whether the brand is a mock brand.
+     */
+    mock: boolean;
+    /**
+     * Whether the brand is a publicly traded company in the Russell 3000 index.
+     */
+    russell3000: boolean;
+    /**
+     * The Brand Registration SID (BN...).
+     */
+    sid: string;
+    /**
+     * Whether automatic secondary vetting was disabled for the brand.
+     */
+    skipAutomaticSecVet: boolean;
+    /**
+     * The registration status: PENDING, APPROVED, FAILED, IN_REVIEW, DELETION_PENDING, DELETION_FAILED or SUSPENDED.
+     */
+    status: string;
+    /**
+     * The nonprofit tax-exempt status of the brand (empty when none).
+     */
+    taxExemptStatus: string;
+    /**
+     * The Campaign Registry (TCR) brand ID (empty until assigned).
+     */
+    tcrId: string;
+}
+
 export interface ConnectAppEffective {
     /**
      * SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
@@ -915,6 +986,201 @@ export interface EventType {
     type: string;
 }
 
+export interface FlexFlowInfo {
+    /**
+     * The messaging channel: web, sms, facebook, whatsapp, line or custom.
+     */
+    channelType: string;
+    /**
+     * The SID (IS...) of the Chat service.
+     */
+    chatServiceSid: string;
+    /**
+     * The identity of the channel contact.
+     */
+    contactIdentity?: string;
+    /**
+     * When the Flex Flow was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the Flex Flow was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * Whether the Flex Flow is enabled.
+     */
+    enabled?: boolean;
+    /**
+     * The name of the Flex Flow.
+     */
+    friendlyName: string;
+    /**
+     * The Task Channel SID or unique name (task integrations).
+     */
+    integrationChannel?: string;
+    /**
+     * Whether Task creation waits for the first customer reply (task integrations, outbound messaging).
+     */
+    integrationCreationOnMessage?: boolean;
+    /**
+     * The SID of the Studio flow (studio integrations).
+     */
+    integrationFlowSid?: string;
+    /**
+     * The Task priority (task integrations).
+     */
+    integrationPriority?: number;
+    /**
+     * How many times the Studio flow or webhook is retried on failure.
+     */
+    integrationRetryCount?: number;
+    /**
+     * The Task timeout in seconds (task integrations).
+     */
+    integrationTimeout?: number;
+    /**
+     * Where inbound messages go: studio, external or task.
+     */
+    integrationType?: string;
+    /**
+     * The URL of the external webhook (external integrations).
+     */
+    integrationUrl?: string;
+    /**
+     * The TaskRouter workflow SID (task integrations).
+     */
+    integrationWorkflowSid?: string;
+    /**
+     * The TaskRouter workspace SID (task integrations).
+     */
+    integrationWorkspaceSid?: string;
+    /**
+     * Whether the Messaging Channel Janitor is enabled.
+     */
+    janitorEnabled?: boolean;
+    /**
+     * Whether Flex keeps the chat channel active for later interactions.
+     */
+    longLived?: boolean;
+    /**
+     * The Flex Flow SID (FO...).
+     */
+    sid: string;
+}
+
+export interface FlexPluginConfigurationInfo {
+    /**
+     * Whether the Configuration is archived.
+     */
+    archived: boolean;
+    /**
+     * When the Configuration was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * The description of the Configuration.
+     */
+    description?: string;
+    /**
+     * The name of the Configuration.
+     */
+    name: string;
+    /**
+     * The SIDs (FV...) of the Plugin Versions the Configuration loads, in order. Only the single lookup fills it.
+     */
+    pluginVersionSids?: string[];
+    /**
+     * The Configuration SID (FJ...).
+     */
+    sid: string;
+}
+
+export interface FlexPluginInfo {
+    /**
+     * Whether the Flex Plugin is archived.
+     */
+    archived: boolean;
+    /**
+     * When the Flex Plugin was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the Flex Plugin was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * The description of the Flex Plugin.
+     */
+    description?: string;
+    /**
+     * The descriptive name of the Flex Plugin.
+     */
+    friendlyName?: string;
+    /**
+     * The Flex Plugin SID (FP...).
+     */
+    sid: string;
+    /**
+     * The unique name of the Flex Plugin.
+     */
+    uniqueName: string;
+}
+
+export interface FlexPluginReleaseInfo {
+    /**
+     * The SID (FJ...) of the Configuration the Release made live.
+     */
+    configurationSid: string;
+    /**
+     * When the Release was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * The Release SID (FK...).
+     */
+    sid: string;
+}
+
+export interface FlexPluginVersionInfo {
+    /**
+     * Whether the version is archived.
+     */
+    archived: boolean;
+    /**
+     * The changelog of the version.
+     */
+    changelog?: string;
+    /**
+     * When the version was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * The SID (FP...) of the Flex Plugin.
+     */
+    pluginSid: string;
+    /**
+     * The URL of the plugin bundle.
+     */
+    pluginUrl: string;
+    /**
+     * The version label of the bundle.
+     */
+    pluginVersion: string;
+    /**
+     * Whether the bundle requires authorization to load.
+     */
+    private?: boolean;
+    /**
+     * The Flex Plugin Version SID (FV...).
+     */
+    sid: string;
+    /**
+     * Whether Twilio has validated the bundle.
+     */
+    validated?: boolean;
+}
+
 export interface IncomingPhoneNumberEffective {
     /**
      * SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
@@ -1108,6 +1374,32 @@ export interface MessagingServiceEffective {
     validityPeriod?: number;
 }
 
+export interface MessagingUsecase {
+    /**
+     * A human-readable description of the use case.
+     */
+    description?: string;
+    /**
+     * The purpose of the use case.
+     */
+    purpose?: string;
+    /**
+     * The use case identifier, the value for the usecase of a Messaging Service.
+     */
+    usecase?: string;
+}
+
+export interface OAuthAppPolicy {
+    /**
+     * Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+     */
+    allow?: string[];
+    /**
+     * Permissions explicitly denied.
+     */
+    deny?: string[];
+}
+
 export interface OutgoingCallerIdEffective {
     /**
      * SID of the account or subaccount that verified the number. Defaults to the provider account. Changing it replaces the resource. To import a caller ID of a subaccount use the ID <accountSid>/<outgoingCallerIdSid>.
@@ -1274,6 +1566,33 @@ export interface RecordingStatusCallback {
     url?: string;
 }
 
+export interface RolePermission {
+    /**
+     * The action the permission grants, for example read.
+     */
+    action?: string;
+    /**
+     * The external description of the permission.
+     */
+    externalDescription?: string;
+    /**
+     * The namespace of the permission, for example twilio.
+     */
+    namespace?: string;
+    /**
+     * The product the permission belongs to, for example iam.
+     */
+    product?: string;
+    /**
+     * The resource the permission applies to, for example roles.
+     */
+    resource?: string;
+    /**
+     * SID (IZ...) of the permission.
+     */
+    sid?: string;
+}
+
 export interface ServerlessBuildDependency {
     /**
      * npm package name, for example twilio.
@@ -1322,6 +1641,251 @@ export interface ShortCodeEffective {
      * URL Twilio requests for incoming SMS to the short code. Removing it clears the URL.
      */
     smsUrl?: string;
+}
+
+export interface SuperSimNetwork {
+    /**
+     * A human readable name of the network.
+     */
+    friendlyName?: string;
+    /**
+     * The MCC-MNC pairs the network covers; empty when Twilio reports none.
+     */
+    identifiers: outputs.SuperSimNetworkIdentifier[];
+    /**
+     * The ISO 3166-1 alpha-2 country code of the network.
+     */
+    isoCountry?: string;
+    /**
+     * The network SID (HW...), the value networks of a SuperSimNetworkAccessProfile takes.
+     */
+    sid: string;
+}
+
+export interface SuperSimNetworkIdentifier {
+    /**
+     * The mobile country code.
+     */
+    mcc: string;
+    /**
+     * The mobile network code of the operator network.
+     */
+    mnc: string;
+}
+
+export interface TollfreeVerificationInfo {
+    /**
+     * The SID of the account that created the verification.
+     */
+    accountSid: string;
+    /**
+     * Additional information for the reviewer (empty when none).
+     */
+    additionalInformation: string;
+    /**
+     * Whether the content is age gated.
+     */
+    ageGatedContent: boolean;
+    /**
+     * The business city (empty when none).
+     */
+    businessCity: string;
+    /**
+     * The email address of the business contact (empty when none).
+     */
+    businessContactEmail: string;
+    /**
+     * The first name of the business contact (empty when none).
+     */
+    businessContactFirstName: string;
+    /**
+     * The last name of the business contact (empty when none).
+     */
+    businessContactLastName: string;
+    /**
+     * The phone number of the business contact (empty when none).
+     */
+    businessContactPhone: string;
+    /**
+     * The business country (empty when none).
+     */
+    businessCountry: string;
+    /**
+     * The business name.
+     */
+    businessName: string;
+    /**
+     * The business postal code (empty when none).
+     */
+    businessPostalCode: string;
+    /**
+     * The registration authority (empty when none).
+     */
+    businessRegistrationAuthority: string;
+    /**
+     * The registration country (empty when none).
+     */
+    businessRegistrationCountry: string;
+    /**
+     * The business registration number (empty when none).
+     */
+    businessRegistrationNumber: string;
+    /**
+     * The phone number registered with the business (empty when none).
+     */
+    businessRegistrationPhoneNumber: string;
+    /**
+     * The business state, province or region (empty when none).
+     */
+    businessStateProvinceRegion: string;
+    /**
+     * The business street address (empty when none).
+     */
+    businessStreetAddress: string;
+    /**
+     * The second address line (empty when none).
+     */
+    businessStreetAddress2: string;
+    /**
+     * The business type (empty when none).
+     */
+    businessType: string;
+    /**
+     * The business website.
+     */
+    businessWebsite: string;
+    /**
+     * SID (BU...) of the Customer Profile bundle (empty when none).
+     */
+    customerProfileSid: string;
+    /**
+     * When the verification was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the verification was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * The trade name (empty when none).
+     */
+    doingBusinessAs: string;
+    /**
+     * Whether a rejected verification can be edited and resubmitted.
+     */
+    editAllowed: boolean;
+    /**
+     * When the ability to edit a rejected verification ends (ISO 8601, empty when none).
+     */
+    editExpiration: string;
+    /**
+     * The error code of a rejection (0 when none).
+     */
+    errorCode: number;
+    /**
+     * Your external reference ID (empty when none).
+     */
+    externalReferenceId: string;
+    /**
+     * A sample help message (empty when none).
+     */
+    helpMessageSample: string;
+    /**
+     * The estimated monthly message volume.
+     */
+    messageVolume: string;
+    /**
+     * The email address that receives the verification result.
+     */
+    notificationEmail: string;
+    /**
+     * The opt-in confirmation message (empty when none).
+     */
+    optInConfirmationMessage: string;
+    /**
+     * The opt-in workflow image URLs.
+     */
+    optInImageUrls: string[];
+    /**
+     * The opt-in keywords.
+     */
+    optInKeywords: string[];
+    /**
+     * How end users opt in.
+     */
+    optInType: string;
+    /**
+     * The privacy policy URL (empty when none).
+     */
+    privacyPolicyUrl: string;
+    /**
+     * The production message sample.
+     */
+    productionMessageSample: string;
+    /**
+     * SID of the regulated item (empty when none).
+     */
+    regulatedItemSid: string;
+    /**
+     * Why the verification was rejected (empty unless it was).
+     */
+    rejectionReason: string;
+    /**
+     * The rejection reasons and codes, each as a JSON document.
+     */
+    rejectionReasons: string[];
+    /**
+     * The document URLs of the verification as a JSON document (empty when none).
+     */
+    resourceLinks: string;
+    /**
+     * The verification SID (HH...).
+     */
+    sid: string;
+    /**
+     * The review status: PENDING_REVIEW, IN_REVIEW, TWILIO_APPROVED or TWILIO_REJECTED.
+     */
+    status: string;
+    /**
+     * The terms and conditions URL (empty when none).
+     */
+    termsAndConditionsUrl: string;
+    /**
+     * The E.164 toll-free number.
+     */
+    tollfreePhoneNumber: string;
+    /**
+     * SID (PN...) of the toll-free phone number.
+     */
+    tollfreePhoneNumberSid: string;
+    /**
+     * SID of the toll-free Trust Product bundle (empty when none).
+     */
+    trustProductSid: string;
+    /**
+     * The absolute URL of the verification.
+     */
+    url: string;
+    /**
+     * The use case categories.
+     */
+    useCaseCategories: string[];
+    /**
+     * The use case summary.
+     */
+    useCaseSummary: string;
+    /**
+     * The vetting ID (empty when none).
+     */
+    vettingId: string;
+    /**
+     * When the vetting ID expires (ISO 8601, empty when none).
+     */
+    vettingIdExpiration: string;
+    /**
+     * The third party vetting provider (empty when none).
+     */
+    vettingProvider: string;
 }
 
 export interface TranscriptionParticipantDefault {
@@ -1387,6 +1951,140 @@ export interface TrunkEffective {
      * Call transfer setting: disable-all (Twilio default), enable-all or sip-only. Removing the input leaves the setting unchanged on Twilio.
      */
     transferMode?: string;
+}
+
+export interface UsAppToPersonInfo {
+    /**
+     * Whether the campaign requires an age gate.
+     */
+    ageGated: boolean;
+    /**
+     * SID (BN...) of the Brand Registration the campaign is registered under.
+     */
+    brandRegistrationSid: string;
+    /**
+     * The Campaign Registry (TCR) campaign ID (empty until assigned).
+     */
+    campaignId: string;
+    /**
+     * The campaign status, for example IN_PROGRESS, VERIFIED or FAILED.
+     */
+    campaignStatus: string;
+    /**
+     * When the campaign was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the campaign was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * What the campaign does.
+     */
+    description: string;
+    /**
+     * Whether the campaign allows direct lending.
+     */
+    directLending: boolean;
+    /**
+     * Why the registration failed, each error as a JSON document.
+     */
+    errors: string[];
+    /**
+     * Whether the campaign's messages contain links.
+     */
+    hasEmbeddedLinks: boolean;
+    /**
+     * Whether the campaign's messages contain phone numbers.
+     */
+    hasEmbeddedPhone: boolean;
+    /**
+     * The help keywords.
+     */
+    helpKeywords: string[];
+    /**
+     * The help auto-reply (empty when none).
+     */
+    helpMessage: string;
+    /**
+     * Whether the campaign was registered outside Twilio.
+     */
+    isExternallyRegistered: boolean;
+    /**
+     * How a consumer opts in to the campaign.
+     */
+    messageFlow: string;
+    /**
+     * The sample messages of the campaign.
+     */
+    messageSamples: string[];
+    /**
+     * SID (MG...) of the Messaging Service the campaign belongs to.
+     */
+    messagingServiceSid: string;
+    /**
+     * Whether the campaign is a mock campaign.
+     */
+    mock: boolean;
+    /**
+     * The opt-in keywords.
+     */
+    optInKeywords: string[];
+    /**
+     * The opt-in auto-reply (empty when none).
+     */
+    optInMessage: string;
+    /**
+     * The opt-out keywords.
+     */
+    optOutKeywords: string[];
+    /**
+     * The opt-out auto-reply (empty when none).
+     */
+    optOutMessage: string;
+    /**
+     * The privacy policy URL (empty when none).
+     */
+    privacyPolicyUrl: string;
+    /**
+     * The per carrier rate limits as a JSON document (empty when none).
+     */
+    rateLimits: string;
+    /**
+     * The campaign SID (QE...).
+     */
+    sid: string;
+    /**
+     * Whether the campaign has subscriber opt-in.
+     */
+    subscriberOptIn: boolean;
+    /**
+     * The terms and conditions URL (empty when none).
+     */
+    termsAndConditionsUrl: string;
+    /**
+     * The A2P campaign use case.
+     */
+    usAppToPersonUsecase: string;
+}
+
+export interface UsAppToPersonUsecaseInfo {
+    /**
+     * The use case code to pass as usAppToPersonUsecase, for example 2FA.
+     */
+    code: string;
+    /**
+     * What the use case is for.
+     */
+    description: string;
+    /**
+     * The human readable name of the use case.
+     */
+    name: string;
+    /**
+     * Whether the use case needs a post approval step.
+     */
+    postApprovalRequired: boolean;
 }
 
 export interface UsageRecord {

@@ -629,6 +629,162 @@ func (o AvailablePhoneNumberArrayOutput) Index(i pulumi.IntInput) AvailablePhone
 	}).(AvailablePhoneNumberOutput)
 }
 
+type BrandRegistrationInfo struct {
+	// SID (BU...) of the A2P Messaging Profile bundle the brand was registered with.
+	A2pProfileBundleSid string `pulumi:"a2pProfileBundleSid"`
+	// The secondary vetting score, else the brand score (0 when there is none).
+	BrandScore int `pulumi:"brandScore"`
+	// The brand type: STANDARD or SOLE_PROPRIETOR (empty when Twilio does not say).
+	BrandType string `pulumi:"brandType"`
+	// SID (BU...) of the Customer Profile bundle the brand was registered with.
+	CustomerProfileBundleSid string `pulumi:"customerProfileBundleSid"`
+	// When the Brand Registration was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the Brand Registration was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// The errors of the registration process, each as a JSON document.
+	Errors []string `pulumi:"errors"`
+	// Deprecated Twilio field: why the registration failed.
+	FailureReason string `pulumi:"failureReason"`
+	// Whether the brand was identified as a government entity.
+	GovernmentEntity bool `pulumi:"governmentEntity"`
+	// The identity verification status: SELF_DECLARED, UNVERIFIED, VERIFIED or VETTED_VERIFIED (empty when none).
+	IdentityStatus string `pulumi:"identityStatus"`
+	// Whether the brand is a mock brand.
+	Mock bool `pulumi:"mock"`
+	// Whether the brand is a publicly traded company in the Russell 3000 index.
+	Russell3000 bool `pulumi:"russell3000"`
+	// The Brand Registration SID (BN...).
+	Sid string `pulumi:"sid"`
+	// Whether automatic secondary vetting was disabled for the brand.
+	SkipAutomaticSecVet bool `pulumi:"skipAutomaticSecVet"`
+	// The registration status: PENDING, APPROVED, FAILED, IN_REVIEW, DELETION_PENDING, DELETION_FAILED or SUSPENDED.
+	Status string `pulumi:"status"`
+	// The nonprofit tax-exempt status of the brand (empty when none).
+	TaxExemptStatus string `pulumi:"taxExemptStatus"`
+	// The Campaign Registry (TCR) brand ID (empty until assigned).
+	TcrId string `pulumi:"tcrId"`
+}
+
+type BrandRegistrationInfoOutput struct{ *pulumi.OutputState }
+
+func (BrandRegistrationInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BrandRegistrationInfo)(nil)).Elem()
+}
+
+func (o BrandRegistrationInfoOutput) ToBrandRegistrationInfoOutput() BrandRegistrationInfoOutput {
+	return o
+}
+
+func (o BrandRegistrationInfoOutput) ToBrandRegistrationInfoOutputWithContext(ctx context.Context) BrandRegistrationInfoOutput {
+	return o
+}
+
+// SID (BU...) of the A2P Messaging Profile bundle the brand was registered with.
+func (o BrandRegistrationInfoOutput) A2pProfileBundleSid() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.A2pProfileBundleSid }).(pulumi.StringOutput)
+}
+
+// The secondary vetting score, else the brand score (0 when there is none).
+func (o BrandRegistrationInfoOutput) BrandScore() pulumi.IntOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) int { return v.BrandScore }).(pulumi.IntOutput)
+}
+
+// The brand type: STANDARD or SOLE_PROPRIETOR (empty when Twilio does not say).
+func (o BrandRegistrationInfoOutput) BrandType() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.BrandType }).(pulumi.StringOutput)
+}
+
+// SID (BU...) of the Customer Profile bundle the brand was registered with.
+func (o BrandRegistrationInfoOutput) CustomerProfileBundleSid() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.CustomerProfileBundleSid }).(pulumi.StringOutput)
+}
+
+// When the Brand Registration was created (ISO 8601).
+func (o BrandRegistrationInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the Brand Registration was last updated (ISO 8601).
+func (o BrandRegistrationInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// The errors of the registration process, each as a JSON document.
+func (o BrandRegistrationInfoOutput) Errors() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) []string { return v.Errors }).(pulumi.StringArrayOutput)
+}
+
+// Deprecated Twilio field: why the registration failed.
+func (o BrandRegistrationInfoOutput) FailureReason() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.FailureReason }).(pulumi.StringOutput)
+}
+
+// Whether the brand was identified as a government entity.
+func (o BrandRegistrationInfoOutput) GovernmentEntity() pulumi.BoolOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) bool { return v.GovernmentEntity }).(pulumi.BoolOutput)
+}
+
+// The identity verification status: SELF_DECLARED, UNVERIFIED, VERIFIED or VETTED_VERIFIED (empty when none).
+func (o BrandRegistrationInfoOutput) IdentityStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.IdentityStatus }).(pulumi.StringOutput)
+}
+
+// Whether the brand is a mock brand.
+func (o BrandRegistrationInfoOutput) Mock() pulumi.BoolOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) bool { return v.Mock }).(pulumi.BoolOutput)
+}
+
+// Whether the brand is a publicly traded company in the Russell 3000 index.
+func (o BrandRegistrationInfoOutput) Russell3000() pulumi.BoolOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) bool { return v.Russell3000 }).(pulumi.BoolOutput)
+}
+
+// The Brand Registration SID (BN...).
+func (o BrandRegistrationInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Whether automatic secondary vetting was disabled for the brand.
+func (o BrandRegistrationInfoOutput) SkipAutomaticSecVet() pulumi.BoolOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) bool { return v.SkipAutomaticSecVet }).(pulumi.BoolOutput)
+}
+
+// The registration status: PENDING, APPROVED, FAILED, IN_REVIEW, DELETION_PENDING, DELETION_FAILED or SUSPENDED.
+func (o BrandRegistrationInfoOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The nonprofit tax-exempt status of the brand (empty when none).
+func (o BrandRegistrationInfoOutput) TaxExemptStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.TaxExemptStatus }).(pulumi.StringOutput)
+}
+
+// The Campaign Registry (TCR) brand ID (empty until assigned).
+func (o BrandRegistrationInfoOutput) TcrId() pulumi.StringOutput {
+	return o.ApplyT(func(v BrandRegistrationInfo) string { return v.TcrId }).(pulumi.StringOutput)
+}
+
+type BrandRegistrationInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (BrandRegistrationInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BrandRegistrationInfo)(nil)).Elem()
+}
+
+func (o BrandRegistrationInfoArrayOutput) ToBrandRegistrationInfoArrayOutput() BrandRegistrationInfoArrayOutput {
+	return o
+}
+
+func (o BrandRegistrationInfoArrayOutput) ToBrandRegistrationInfoArrayOutputWithContext(ctx context.Context) BrandRegistrationInfoArrayOutput {
+	return o
+}
+
+func (o BrandRegistrationInfoArrayOutput) Index(i pulumi.IntInput) BrandRegistrationInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BrandRegistrationInfo {
+		return vs[0].([]BrandRegistrationInfo)[vs[1].(int)]
+	}).(BrandRegistrationInfoOutput)
+}
+
 type ConnectAppEffective struct {
 	// SID of the account or subaccount that owns the Connect app. Defaults to the provider account. Changing it replaces the resource. To import an app owned by a subaccount use the ID <accountSid>/<connectAppSid>.
 	AccountSid *string `pulumi:"accountSid"`
@@ -6075,6 +6231,506 @@ func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
 	}).(EventTypeOutput)
 }
 
+type FlexFlowInfo struct {
+	// The messaging channel: web, sms, facebook, whatsapp, line or custom.
+	ChannelType string `pulumi:"channelType"`
+	// The SID (IS...) of the Chat service.
+	ChatServiceSid string `pulumi:"chatServiceSid"`
+	// The identity of the channel contact.
+	ContactIdentity *string `pulumi:"contactIdentity"`
+	// When the Flex Flow was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the Flex Flow was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// Whether the Flex Flow is enabled.
+	Enabled *bool `pulumi:"enabled"`
+	// The name of the Flex Flow.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The Task Channel SID or unique name (task integrations).
+	IntegrationChannel *string `pulumi:"integrationChannel"`
+	// Whether Task creation waits for the first customer reply (task integrations, outbound messaging).
+	IntegrationCreationOnMessage *bool `pulumi:"integrationCreationOnMessage"`
+	// The SID of the Studio flow (studio integrations).
+	IntegrationFlowSid *string `pulumi:"integrationFlowSid"`
+	// The Task priority (task integrations).
+	IntegrationPriority *int `pulumi:"integrationPriority"`
+	// How many times the Studio flow or webhook is retried on failure.
+	IntegrationRetryCount *int `pulumi:"integrationRetryCount"`
+	// The Task timeout in seconds (task integrations).
+	IntegrationTimeout *int `pulumi:"integrationTimeout"`
+	// Where inbound messages go: studio, external or task.
+	IntegrationType *string `pulumi:"integrationType"`
+	// The URL of the external webhook (external integrations).
+	IntegrationUrl *string `pulumi:"integrationUrl"`
+	// The TaskRouter workflow SID (task integrations).
+	IntegrationWorkflowSid *string `pulumi:"integrationWorkflowSid"`
+	// The TaskRouter workspace SID (task integrations).
+	IntegrationWorkspaceSid *string `pulumi:"integrationWorkspaceSid"`
+	// Whether the Messaging Channel Janitor is enabled.
+	JanitorEnabled *bool `pulumi:"janitorEnabled"`
+	// Whether Flex keeps the chat channel active for later interactions.
+	LongLived *bool `pulumi:"longLived"`
+	// The Flex Flow SID (FO...).
+	Sid string `pulumi:"sid"`
+}
+
+type FlexFlowInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexFlowInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexFlowInfo)(nil)).Elem()
+}
+
+func (o FlexFlowInfoOutput) ToFlexFlowInfoOutput() FlexFlowInfoOutput {
+	return o
+}
+
+func (o FlexFlowInfoOutput) ToFlexFlowInfoOutputWithContext(ctx context.Context) FlexFlowInfoOutput {
+	return o
+}
+
+// The messaging channel: web, sms, facebook, whatsapp, line or custom.
+func (o FlexFlowInfoOutput) ChannelType() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.ChannelType }).(pulumi.StringOutput)
+}
+
+// The SID (IS...) of the Chat service.
+func (o FlexFlowInfoOutput) ChatServiceSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.ChatServiceSid }).(pulumi.StringOutput)
+}
+
+// The identity of the channel contact.
+func (o FlexFlowInfoOutput) ContactIdentity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.ContactIdentity }).(pulumi.StringPtrOutput)
+}
+
+// When the Flex Flow was created (ISO 8601).
+func (o FlexFlowInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the Flex Flow was last updated (ISO 8601).
+func (o FlexFlowInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// Whether the Flex Flow is enabled.
+func (o FlexFlowInfoOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the Flex Flow.
+func (o FlexFlowInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The Task Channel SID or unique name (task integrations).
+func (o FlexFlowInfoOutput) IntegrationChannel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationChannel }).(pulumi.StringPtrOutput)
+}
+
+// Whether Task creation waits for the first customer reply (task integrations, outbound messaging).
+func (o FlexFlowInfoOutput) IntegrationCreationOnMessage() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *bool { return v.IntegrationCreationOnMessage }).(pulumi.BoolPtrOutput)
+}
+
+// The SID of the Studio flow (studio integrations).
+func (o FlexFlowInfoOutput) IntegrationFlowSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationFlowSid }).(pulumi.StringPtrOutput)
+}
+
+// The Task priority (task integrations).
+func (o FlexFlowInfoOutput) IntegrationPriority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *int { return v.IntegrationPriority }).(pulumi.IntPtrOutput)
+}
+
+// How many times the Studio flow or webhook is retried on failure.
+func (o FlexFlowInfoOutput) IntegrationRetryCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *int { return v.IntegrationRetryCount }).(pulumi.IntPtrOutput)
+}
+
+// The Task timeout in seconds (task integrations).
+func (o FlexFlowInfoOutput) IntegrationTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *int { return v.IntegrationTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Where inbound messages go: studio, external or task.
+func (o FlexFlowInfoOutput) IntegrationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationType }).(pulumi.StringPtrOutput)
+}
+
+// The URL of the external webhook (external integrations).
+func (o FlexFlowInfoOutput) IntegrationUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationUrl }).(pulumi.StringPtrOutput)
+}
+
+// The TaskRouter workflow SID (task integrations).
+func (o FlexFlowInfoOutput) IntegrationWorkflowSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationWorkflowSid }).(pulumi.StringPtrOutput)
+}
+
+// The TaskRouter workspace SID (task integrations).
+func (o FlexFlowInfoOutput) IntegrationWorkspaceSid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *string { return v.IntegrationWorkspaceSid }).(pulumi.StringPtrOutput)
+}
+
+// Whether the Messaging Channel Janitor is enabled.
+func (o FlexFlowInfoOutput) JanitorEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *bool { return v.JanitorEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Whether Flex keeps the chat channel active for later interactions.
+func (o FlexFlowInfoOutput) LongLived() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexFlowInfo) *bool { return v.LongLived }).(pulumi.BoolPtrOutput)
+}
+
+// The Flex Flow SID (FO...).
+func (o FlexFlowInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexFlowInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type FlexFlowInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexFlowInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexFlowInfo)(nil)).Elem()
+}
+
+func (o FlexFlowInfoArrayOutput) ToFlexFlowInfoArrayOutput() FlexFlowInfoArrayOutput {
+	return o
+}
+
+func (o FlexFlowInfoArrayOutput) ToFlexFlowInfoArrayOutputWithContext(ctx context.Context) FlexFlowInfoArrayOutput {
+	return o
+}
+
+func (o FlexFlowInfoArrayOutput) Index(i pulumi.IntInput) FlexFlowInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexFlowInfo {
+		return vs[0].([]FlexFlowInfo)[vs[1].(int)]
+	}).(FlexFlowInfoOutput)
+}
+
+type FlexPluginConfigurationInfo struct {
+	// Whether the Configuration is archived.
+	Archived bool `pulumi:"archived"`
+	// When the Configuration was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// The description of the Configuration.
+	Description *string `pulumi:"description"`
+	// The name of the Configuration.
+	Name string `pulumi:"name"`
+	// The SIDs (FV...) of the Plugin Versions the Configuration loads, in order. Only the single lookup fills it.
+	PluginVersionSids []string `pulumi:"pluginVersionSids"`
+	// The Configuration SID (FJ...).
+	Sid string `pulumi:"sid"`
+}
+
+type FlexPluginConfigurationInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginConfigurationInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexPluginConfigurationInfo)(nil)).Elem()
+}
+
+func (o FlexPluginConfigurationInfoOutput) ToFlexPluginConfigurationInfoOutput() FlexPluginConfigurationInfoOutput {
+	return o
+}
+
+func (o FlexPluginConfigurationInfoOutput) ToFlexPluginConfigurationInfoOutputWithContext(ctx context.Context) FlexPluginConfigurationInfoOutput {
+	return o
+}
+
+// Whether the Configuration is archived.
+func (o FlexPluginConfigurationInfoOutput) Archived() pulumi.BoolOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) bool { return v.Archived }).(pulumi.BoolOutput)
+}
+
+// When the Configuration was created (ISO 8601).
+func (o FlexPluginConfigurationInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// The description of the Configuration.
+func (o FlexPluginConfigurationInfoOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The name of the Configuration.
+func (o FlexPluginConfigurationInfoOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The SIDs (FV...) of the Plugin Versions the Configuration loads, in order. Only the single lookup fills it.
+func (o FlexPluginConfigurationInfoOutput) PluginVersionSids() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) []string { return v.PluginVersionSids }).(pulumi.StringArrayOutput)
+}
+
+// The Configuration SID (FJ...).
+func (o FlexPluginConfigurationInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginConfigurationInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type FlexPluginConfigurationInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginConfigurationInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexPluginConfigurationInfo)(nil)).Elem()
+}
+
+func (o FlexPluginConfigurationInfoArrayOutput) ToFlexPluginConfigurationInfoArrayOutput() FlexPluginConfigurationInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginConfigurationInfoArrayOutput) ToFlexPluginConfigurationInfoArrayOutputWithContext(ctx context.Context) FlexPluginConfigurationInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginConfigurationInfoArrayOutput) Index(i pulumi.IntInput) FlexPluginConfigurationInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexPluginConfigurationInfo {
+		return vs[0].([]FlexPluginConfigurationInfo)[vs[1].(int)]
+	}).(FlexPluginConfigurationInfoOutput)
+}
+
+type FlexPluginInfo struct {
+	// Whether the Flex Plugin is archived.
+	Archived bool `pulumi:"archived"`
+	// When the Flex Plugin was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the Flex Plugin was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// The description of the Flex Plugin.
+	Description *string `pulumi:"description"`
+	// The descriptive name of the Flex Plugin.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// The Flex Plugin SID (FP...).
+	Sid string `pulumi:"sid"`
+	// The unique name of the Flex Plugin.
+	UniqueName string `pulumi:"uniqueName"`
+}
+
+type FlexPluginInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexPluginInfo)(nil)).Elem()
+}
+
+func (o FlexPluginInfoOutput) ToFlexPluginInfoOutput() FlexPluginInfoOutput {
+	return o
+}
+
+func (o FlexPluginInfoOutput) ToFlexPluginInfoOutputWithContext(ctx context.Context) FlexPluginInfoOutput {
+	return o
+}
+
+// Whether the Flex Plugin is archived.
+func (o FlexPluginInfoOutput) Archived() pulumi.BoolOutput {
+	return o.ApplyT(func(v FlexPluginInfo) bool { return v.Archived }).(pulumi.BoolOutput)
+}
+
+// When the Flex Plugin was created (ISO 8601).
+func (o FlexPluginInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the Flex Plugin was last updated (ISO 8601).
+func (o FlexPluginInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// The description of the Flex Plugin.
+func (o FlexPluginInfoOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexPluginInfo) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The descriptive name of the Flex Plugin.
+func (o FlexPluginInfoOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexPluginInfo) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// The Flex Plugin SID (FP...).
+func (o FlexPluginInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The unique name of the Flex Plugin.
+func (o FlexPluginInfoOutput) UniqueName() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginInfo) string { return v.UniqueName }).(pulumi.StringOutput)
+}
+
+type FlexPluginInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexPluginInfo)(nil)).Elem()
+}
+
+func (o FlexPluginInfoArrayOutput) ToFlexPluginInfoArrayOutput() FlexPluginInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginInfoArrayOutput) ToFlexPluginInfoArrayOutputWithContext(ctx context.Context) FlexPluginInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginInfoArrayOutput) Index(i pulumi.IntInput) FlexPluginInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexPluginInfo {
+		return vs[0].([]FlexPluginInfo)[vs[1].(int)]
+	}).(FlexPluginInfoOutput)
+}
+
+type FlexPluginReleaseInfo struct {
+	// The SID (FJ...) of the Configuration the Release made live.
+	ConfigurationSid string `pulumi:"configurationSid"`
+	// When the Release was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// The Release SID (FK...).
+	Sid string `pulumi:"sid"`
+}
+
+type FlexPluginReleaseInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginReleaseInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexPluginReleaseInfo)(nil)).Elem()
+}
+
+func (o FlexPluginReleaseInfoOutput) ToFlexPluginReleaseInfoOutput() FlexPluginReleaseInfoOutput {
+	return o
+}
+
+func (o FlexPluginReleaseInfoOutput) ToFlexPluginReleaseInfoOutputWithContext(ctx context.Context) FlexPluginReleaseInfoOutput {
+	return o
+}
+
+// The SID (FJ...) of the Configuration the Release made live.
+func (o FlexPluginReleaseInfoOutput) ConfigurationSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginReleaseInfo) string { return v.ConfigurationSid }).(pulumi.StringOutput)
+}
+
+// When the Release was created (ISO 8601).
+func (o FlexPluginReleaseInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginReleaseInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// The Release SID (FK...).
+func (o FlexPluginReleaseInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginReleaseInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type FlexPluginReleaseInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginReleaseInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexPluginReleaseInfo)(nil)).Elem()
+}
+
+func (o FlexPluginReleaseInfoArrayOutput) ToFlexPluginReleaseInfoArrayOutput() FlexPluginReleaseInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginReleaseInfoArrayOutput) ToFlexPluginReleaseInfoArrayOutputWithContext(ctx context.Context) FlexPluginReleaseInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginReleaseInfoArrayOutput) Index(i pulumi.IntInput) FlexPluginReleaseInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexPluginReleaseInfo {
+		return vs[0].([]FlexPluginReleaseInfo)[vs[1].(int)]
+	}).(FlexPluginReleaseInfoOutput)
+}
+
+type FlexPluginVersionInfo struct {
+	// Whether the version is archived.
+	Archived bool `pulumi:"archived"`
+	// The changelog of the version.
+	Changelog *string `pulumi:"changelog"`
+	// When the version was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// The SID (FP...) of the Flex Plugin.
+	PluginSid string `pulumi:"pluginSid"`
+	// The URL of the plugin bundle.
+	PluginUrl string `pulumi:"pluginUrl"`
+	// The version label of the bundle.
+	PluginVersion string `pulumi:"pluginVersion"`
+	// Whether the bundle requires authorization to load.
+	Private *bool `pulumi:"private"`
+	// The Flex Plugin Version SID (FV...).
+	Sid string `pulumi:"sid"`
+	// Whether Twilio has validated the bundle.
+	Validated *bool `pulumi:"validated"`
+}
+
+type FlexPluginVersionInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginVersionInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexPluginVersionInfo)(nil)).Elem()
+}
+
+func (o FlexPluginVersionInfoOutput) ToFlexPluginVersionInfoOutput() FlexPluginVersionInfoOutput {
+	return o
+}
+
+func (o FlexPluginVersionInfoOutput) ToFlexPluginVersionInfoOutputWithContext(ctx context.Context) FlexPluginVersionInfoOutput {
+	return o
+}
+
+// Whether the version is archived.
+func (o FlexPluginVersionInfoOutput) Archived() pulumi.BoolOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) bool { return v.Archived }).(pulumi.BoolOutput)
+}
+
+// The changelog of the version.
+func (o FlexPluginVersionInfoOutput) Changelog() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) *string { return v.Changelog }).(pulumi.StringPtrOutput)
+}
+
+// When the version was created (ISO 8601).
+func (o FlexPluginVersionInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// The SID (FP...) of the Flex Plugin.
+func (o FlexPluginVersionInfoOutput) PluginSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) string { return v.PluginSid }).(pulumi.StringOutput)
+}
+
+// The URL of the plugin bundle.
+func (o FlexPluginVersionInfoOutput) PluginUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) string { return v.PluginUrl }).(pulumi.StringOutput)
+}
+
+// The version label of the bundle.
+func (o FlexPluginVersionInfoOutput) PluginVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) string { return v.PluginVersion }).(pulumi.StringOutput)
+}
+
+// Whether the bundle requires authorization to load.
+func (o FlexPluginVersionInfoOutput) Private() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) *bool { return v.Private }).(pulumi.BoolPtrOutput)
+}
+
+// The Flex Plugin Version SID (FV...).
+func (o FlexPluginVersionInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Whether Twilio has validated the bundle.
+func (o FlexPluginVersionInfoOutput) Validated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlexPluginVersionInfo) *bool { return v.Validated }).(pulumi.BoolPtrOutput)
+}
+
+type FlexPluginVersionInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexPluginVersionInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexPluginVersionInfo)(nil)).Elem()
+}
+
+func (o FlexPluginVersionInfoArrayOutput) ToFlexPluginVersionInfoArrayOutput() FlexPluginVersionInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginVersionInfoArrayOutput) ToFlexPluginVersionInfoArrayOutputWithContext(ctx context.Context) FlexPluginVersionInfoArrayOutput {
+	return o
+}
+
+func (o FlexPluginVersionInfoArrayOutput) Index(i pulumi.IntInput) FlexPluginVersionInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexPluginVersionInfo {
+		return vs[0].([]FlexPluginVersionInfo)[vs[1].(int)]
+	}).(FlexPluginVersionInfoOutput)
+}
+
 type IncomingPhoneNumberEffective struct {
 	// SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
 	AccountSid *string `pulumi:"accountSid"`
@@ -6924,6 +7580,220 @@ func (o MessagingServiceEffectivePtrOutput) ValidityPeriod() pulumi.IntPtrOutput
 		}
 		return v.ValidityPeriod
 	}).(pulumi.IntPtrOutput)
+}
+
+type MessagingUsecase struct {
+	// A human-readable description of the use case.
+	Description *string `pulumi:"description"`
+	// The purpose of the use case.
+	Purpose *string `pulumi:"purpose"`
+	// The use case identifier, the value for the usecase of a Messaging Service.
+	Usecase *string `pulumi:"usecase"`
+}
+
+type MessagingUsecaseOutput struct{ *pulumi.OutputState }
+
+func (MessagingUsecaseOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MessagingUsecase)(nil)).Elem()
+}
+
+func (o MessagingUsecaseOutput) ToMessagingUsecaseOutput() MessagingUsecaseOutput {
+	return o
+}
+
+func (o MessagingUsecaseOutput) ToMessagingUsecaseOutputWithContext(ctx context.Context) MessagingUsecaseOutput {
+	return o
+}
+
+// A human-readable description of the use case.
+func (o MessagingUsecaseOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingUsecase) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The purpose of the use case.
+func (o MessagingUsecaseOutput) Purpose() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingUsecase) *string { return v.Purpose }).(pulumi.StringPtrOutput)
+}
+
+// The use case identifier, the value for the usecase of a Messaging Service.
+func (o MessagingUsecaseOutput) Usecase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MessagingUsecase) *string { return v.Usecase }).(pulumi.StringPtrOutput)
+}
+
+type MessagingUsecaseArrayOutput struct{ *pulumi.OutputState }
+
+func (MessagingUsecaseArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MessagingUsecase)(nil)).Elem()
+}
+
+func (o MessagingUsecaseArrayOutput) ToMessagingUsecaseArrayOutput() MessagingUsecaseArrayOutput {
+	return o
+}
+
+func (o MessagingUsecaseArrayOutput) ToMessagingUsecaseArrayOutputWithContext(ctx context.Context) MessagingUsecaseArrayOutput {
+	return o
+}
+
+func (o MessagingUsecaseArrayOutput) Index(i pulumi.IntInput) MessagingUsecaseOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MessagingUsecase {
+		return vs[0].([]MessagingUsecase)[vs[1].(int)]
+	}).(MessagingUsecaseOutput)
+}
+
+type OAuthAppPolicy struct {
+	// Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+	Allow []string `pulumi:"allow"`
+	// Permissions explicitly denied.
+	Deny []string `pulumi:"deny"`
+}
+
+// OAuthAppPolicyInput is an input type that accepts OAuthAppPolicyArgs and OAuthAppPolicyOutput values.
+// You can construct a concrete instance of `OAuthAppPolicyInput` via:
+//
+//	OAuthAppPolicyArgs{...}
+type OAuthAppPolicyInput interface {
+	pulumi.Input
+
+	ToOAuthAppPolicyOutput() OAuthAppPolicyOutput
+	ToOAuthAppPolicyOutputWithContext(context.Context) OAuthAppPolicyOutput
+}
+
+type OAuthAppPolicyArgs struct {
+	// Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+	Allow pulumi.StringArrayInput `pulumi:"allow"`
+	// Permissions explicitly denied.
+	Deny pulumi.StringArrayInput `pulumi:"deny"`
+}
+
+func (OAuthAppPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OAuthAppPolicy)(nil)).Elem()
+}
+
+func (i OAuthAppPolicyArgs) ToOAuthAppPolicyOutput() OAuthAppPolicyOutput {
+	return i.ToOAuthAppPolicyOutputWithContext(context.Background())
+}
+
+func (i OAuthAppPolicyArgs) ToOAuthAppPolicyOutputWithContext(ctx context.Context) OAuthAppPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OAuthAppPolicyOutput)
+}
+
+func (i OAuthAppPolicyArgs) ToOAuthAppPolicyPtrOutput() OAuthAppPolicyPtrOutput {
+	return i.ToOAuthAppPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i OAuthAppPolicyArgs) ToOAuthAppPolicyPtrOutputWithContext(ctx context.Context) OAuthAppPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OAuthAppPolicyOutput).ToOAuthAppPolicyPtrOutputWithContext(ctx)
+}
+
+// OAuthAppPolicyPtrInput is an input type that accepts OAuthAppPolicyArgs, OAuthAppPolicyPtr and OAuthAppPolicyPtrOutput values.
+// You can construct a concrete instance of `OAuthAppPolicyPtrInput` via:
+//
+//	        OAuthAppPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type OAuthAppPolicyPtrInput interface {
+	pulumi.Input
+
+	ToOAuthAppPolicyPtrOutput() OAuthAppPolicyPtrOutput
+	ToOAuthAppPolicyPtrOutputWithContext(context.Context) OAuthAppPolicyPtrOutput
+}
+
+type oauthAppPolicyPtrType OAuthAppPolicyArgs
+
+func OAuthAppPolicyPtr(v *OAuthAppPolicyArgs) OAuthAppPolicyPtrInput {
+	return (*oauthAppPolicyPtrType)(v)
+}
+
+func (*oauthAppPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**OAuthAppPolicy)(nil)).Elem()
+}
+
+func (i *oauthAppPolicyPtrType) ToOAuthAppPolicyPtrOutput() OAuthAppPolicyPtrOutput {
+	return i.ToOAuthAppPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *oauthAppPolicyPtrType) ToOAuthAppPolicyPtrOutputWithContext(ctx context.Context) OAuthAppPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OAuthAppPolicyPtrOutput)
+}
+
+type OAuthAppPolicyOutput struct{ *pulumi.OutputState }
+
+func (OAuthAppPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OAuthAppPolicy)(nil)).Elem()
+}
+
+func (o OAuthAppPolicyOutput) ToOAuthAppPolicyOutput() OAuthAppPolicyOutput {
+	return o
+}
+
+func (o OAuthAppPolicyOutput) ToOAuthAppPolicyOutputWithContext(ctx context.Context) OAuthAppPolicyOutput {
+	return o
+}
+
+func (o OAuthAppPolicyOutput) ToOAuthAppPolicyPtrOutput() OAuthAppPolicyPtrOutput {
+	return o.ToOAuthAppPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o OAuthAppPolicyOutput) ToOAuthAppPolicyPtrOutputWithContext(ctx context.Context) OAuthAppPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v OAuthAppPolicy) *OAuthAppPolicy {
+		return &v
+	}).(OAuthAppPolicyPtrOutput)
+}
+
+// Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+func (o OAuthAppPolicyOutput) Allow() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v OAuthAppPolicy) []string { return v.Allow }).(pulumi.StringArrayOutput)
+}
+
+// Permissions explicitly denied.
+func (o OAuthAppPolicyOutput) Deny() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v OAuthAppPolicy) []string { return v.Deny }).(pulumi.StringArrayOutput)
+}
+
+type OAuthAppPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (OAuthAppPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**OAuthAppPolicy)(nil)).Elem()
+}
+
+func (o OAuthAppPolicyPtrOutput) ToOAuthAppPolicyPtrOutput() OAuthAppPolicyPtrOutput {
+	return o
+}
+
+func (o OAuthAppPolicyPtrOutput) ToOAuthAppPolicyPtrOutputWithContext(ctx context.Context) OAuthAppPolicyPtrOutput {
+	return o
+}
+
+func (o OAuthAppPolicyPtrOutput) Elem() OAuthAppPolicyOutput {
+	return o.ApplyT(func(v *OAuthAppPolicy) OAuthAppPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret OAuthAppPolicy
+		return ret
+	}).(OAuthAppPolicyOutput)
+}
+
+// Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+func (o OAuthAppPolicyPtrOutput) Allow() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *OAuthAppPolicy) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Allow
+	}).(pulumi.StringArrayOutput)
+}
+
+// Permissions explicitly denied.
+func (o OAuthAppPolicyPtrOutput) Deny() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *OAuthAppPolicy) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Deny
+	}).(pulumi.StringArrayOutput)
 }
 
 type OutgoingCallerIdEffective struct {
@@ -7903,6 +8773,85 @@ func (o RecordingStatusCallbackPtrOutput) Url() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type RolePermission struct {
+	// The action the permission grants, for example read.
+	Action *string `pulumi:"action"`
+	// The external description of the permission.
+	ExternalDescription *string `pulumi:"externalDescription"`
+	// The namespace of the permission, for example twilio.
+	Namespace *string `pulumi:"namespace"`
+	// The product the permission belongs to, for example iam.
+	Product *string `pulumi:"product"`
+	// The resource the permission applies to, for example roles.
+	Resource *string `pulumi:"resource"`
+	// SID (IZ...) of the permission.
+	Sid *string `pulumi:"sid"`
+}
+
+type RolePermissionOutput struct{ *pulumi.OutputState }
+
+func (RolePermissionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RolePermission)(nil)).Elem()
+}
+
+func (o RolePermissionOutput) ToRolePermissionOutput() RolePermissionOutput {
+	return o
+}
+
+func (o RolePermissionOutput) ToRolePermissionOutputWithContext(ctx context.Context) RolePermissionOutput {
+	return o
+}
+
+// The action the permission grants, for example read.
+func (o RolePermissionOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+// The external description of the permission.
+func (o RolePermissionOutput) ExternalDescription() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.ExternalDescription }).(pulumi.StringPtrOutput)
+}
+
+// The namespace of the permission, for example twilio.
+func (o RolePermissionOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// The product the permission belongs to, for example iam.
+func (o RolePermissionOutput) Product() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.Product }).(pulumi.StringPtrOutput)
+}
+
+// The resource the permission applies to, for example roles.
+func (o RolePermissionOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+// SID (IZ...) of the permission.
+func (o RolePermissionOutput) Sid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RolePermission) *string { return v.Sid }).(pulumi.StringPtrOutput)
+}
+
+type RolePermissionArrayOutput struct{ *pulumi.OutputState }
+
+func (RolePermissionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RolePermission)(nil)).Elem()
+}
+
+func (o RolePermissionArrayOutput) ToRolePermissionArrayOutput() RolePermissionArrayOutput {
+	return o
+}
+
+func (o RolePermissionArrayOutput) ToRolePermissionArrayOutputWithContext(ctx context.Context) RolePermissionArrayOutput {
+	return o
+}
+
+func (o RolePermissionArrayOutput) Index(i pulumi.IntInput) RolePermissionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RolePermission {
+		return vs[0].([]RolePermission)[vs[1].(int)]
+	}).(RolePermissionOutput)
+}
+
 type ServerlessBuildDependency struct {
 	// npm package name, for example twilio.
 	Name string `pulumi:"name"`
@@ -8201,6 +9150,530 @@ func (o ShortCodeEffectivePtrOutput) SmsUrl() pulumi.StringPtrOutput {
 		}
 		return v.SmsUrl
 	}).(pulumi.StringPtrOutput)
+}
+
+type SuperSimNetwork struct {
+	// A human readable name of the network.
+	FriendlyName *string `pulumi:"friendlyName"`
+	// The MCC-MNC pairs the network covers; empty when Twilio reports none.
+	Identifiers []SuperSimNetworkIdentifier `pulumi:"identifiers"`
+	// The ISO 3166-1 alpha-2 country code of the network.
+	IsoCountry *string `pulumi:"isoCountry"`
+	// The network SID (HW...), the value networks of a SuperSimNetworkAccessProfile takes.
+	Sid string `pulumi:"sid"`
+}
+
+type SuperSimNetworkOutput struct{ *pulumi.OutputState }
+
+func (SuperSimNetworkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SuperSimNetwork)(nil)).Elem()
+}
+
+func (o SuperSimNetworkOutput) ToSuperSimNetworkOutput() SuperSimNetworkOutput {
+	return o
+}
+
+func (o SuperSimNetworkOutput) ToSuperSimNetworkOutputWithContext(ctx context.Context) SuperSimNetworkOutput {
+	return o
+}
+
+// A human readable name of the network.
+func (o SuperSimNetworkOutput) FriendlyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SuperSimNetwork) *string { return v.FriendlyName }).(pulumi.StringPtrOutput)
+}
+
+// The MCC-MNC pairs the network covers; empty when Twilio reports none.
+func (o SuperSimNetworkOutput) Identifiers() SuperSimNetworkIdentifierArrayOutput {
+	return o.ApplyT(func(v SuperSimNetwork) []SuperSimNetworkIdentifier { return v.Identifiers }).(SuperSimNetworkIdentifierArrayOutput)
+}
+
+// The ISO 3166-1 alpha-2 country code of the network.
+func (o SuperSimNetworkOutput) IsoCountry() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SuperSimNetwork) *string { return v.IsoCountry }).(pulumi.StringPtrOutput)
+}
+
+// The network SID (HW...), the value networks of a SuperSimNetworkAccessProfile takes.
+func (o SuperSimNetworkOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v SuperSimNetwork) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type SuperSimNetworkArrayOutput struct{ *pulumi.OutputState }
+
+func (SuperSimNetworkArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SuperSimNetwork)(nil)).Elem()
+}
+
+func (o SuperSimNetworkArrayOutput) ToSuperSimNetworkArrayOutput() SuperSimNetworkArrayOutput {
+	return o
+}
+
+func (o SuperSimNetworkArrayOutput) ToSuperSimNetworkArrayOutputWithContext(ctx context.Context) SuperSimNetworkArrayOutput {
+	return o
+}
+
+func (o SuperSimNetworkArrayOutput) Index(i pulumi.IntInput) SuperSimNetworkOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SuperSimNetwork {
+		return vs[0].([]SuperSimNetwork)[vs[1].(int)]
+	}).(SuperSimNetworkOutput)
+}
+
+type SuperSimNetworkIdentifier struct {
+	// The mobile country code.
+	Mcc string `pulumi:"mcc"`
+	// The mobile network code of the operator network.
+	Mnc string `pulumi:"mnc"`
+}
+
+type SuperSimNetworkIdentifierOutput struct{ *pulumi.OutputState }
+
+func (SuperSimNetworkIdentifierOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SuperSimNetworkIdentifier)(nil)).Elem()
+}
+
+func (o SuperSimNetworkIdentifierOutput) ToSuperSimNetworkIdentifierOutput() SuperSimNetworkIdentifierOutput {
+	return o
+}
+
+func (o SuperSimNetworkIdentifierOutput) ToSuperSimNetworkIdentifierOutputWithContext(ctx context.Context) SuperSimNetworkIdentifierOutput {
+	return o
+}
+
+// The mobile country code.
+func (o SuperSimNetworkIdentifierOutput) Mcc() pulumi.StringOutput {
+	return o.ApplyT(func(v SuperSimNetworkIdentifier) string { return v.Mcc }).(pulumi.StringOutput)
+}
+
+// The mobile network code of the operator network.
+func (o SuperSimNetworkIdentifierOutput) Mnc() pulumi.StringOutput {
+	return o.ApplyT(func(v SuperSimNetworkIdentifier) string { return v.Mnc }).(pulumi.StringOutput)
+}
+
+type SuperSimNetworkIdentifierArrayOutput struct{ *pulumi.OutputState }
+
+func (SuperSimNetworkIdentifierArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SuperSimNetworkIdentifier)(nil)).Elem()
+}
+
+func (o SuperSimNetworkIdentifierArrayOutput) ToSuperSimNetworkIdentifierArrayOutput() SuperSimNetworkIdentifierArrayOutput {
+	return o
+}
+
+func (o SuperSimNetworkIdentifierArrayOutput) ToSuperSimNetworkIdentifierArrayOutputWithContext(ctx context.Context) SuperSimNetworkIdentifierArrayOutput {
+	return o
+}
+
+func (o SuperSimNetworkIdentifierArrayOutput) Index(i pulumi.IntInput) SuperSimNetworkIdentifierOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SuperSimNetworkIdentifier {
+		return vs[0].([]SuperSimNetworkIdentifier)[vs[1].(int)]
+	}).(SuperSimNetworkIdentifierOutput)
+}
+
+type TollfreeVerificationInfo struct {
+	// The SID of the account that created the verification.
+	AccountSid string `pulumi:"accountSid"`
+	// Additional information for the reviewer (empty when none).
+	AdditionalInformation string `pulumi:"additionalInformation"`
+	// Whether the content is age gated.
+	AgeGatedContent bool `pulumi:"ageGatedContent"`
+	// The business city (empty when none).
+	BusinessCity string `pulumi:"businessCity"`
+	// The email address of the business contact (empty when none).
+	BusinessContactEmail string `pulumi:"businessContactEmail"`
+	// The first name of the business contact (empty when none).
+	BusinessContactFirstName string `pulumi:"businessContactFirstName"`
+	// The last name of the business contact (empty when none).
+	BusinessContactLastName string `pulumi:"businessContactLastName"`
+	// The phone number of the business contact (empty when none).
+	BusinessContactPhone string `pulumi:"businessContactPhone"`
+	// The business country (empty when none).
+	BusinessCountry string `pulumi:"businessCountry"`
+	// The business name.
+	BusinessName string `pulumi:"businessName"`
+	// The business postal code (empty when none).
+	BusinessPostalCode string `pulumi:"businessPostalCode"`
+	// The registration authority (empty when none).
+	BusinessRegistrationAuthority string `pulumi:"businessRegistrationAuthority"`
+	// The registration country (empty when none).
+	BusinessRegistrationCountry string `pulumi:"businessRegistrationCountry"`
+	// The business registration number (empty when none).
+	BusinessRegistrationNumber string `pulumi:"businessRegistrationNumber"`
+	// The phone number registered with the business (empty when none).
+	BusinessRegistrationPhoneNumber string `pulumi:"businessRegistrationPhoneNumber"`
+	// The business state, province or region (empty when none).
+	BusinessStateProvinceRegion string `pulumi:"businessStateProvinceRegion"`
+	// The business street address (empty when none).
+	BusinessStreetAddress string `pulumi:"businessStreetAddress"`
+	// The second address line (empty when none).
+	BusinessStreetAddress2 string `pulumi:"businessStreetAddress2"`
+	// The business type (empty when none).
+	BusinessType string `pulumi:"businessType"`
+	// The business website.
+	BusinessWebsite string `pulumi:"businessWebsite"`
+	// SID (BU...) of the Customer Profile bundle (empty when none).
+	CustomerProfileSid string `pulumi:"customerProfileSid"`
+	// When the verification was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the verification was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// The trade name (empty when none).
+	DoingBusinessAs string `pulumi:"doingBusinessAs"`
+	// Whether a rejected verification can be edited and resubmitted.
+	EditAllowed bool `pulumi:"editAllowed"`
+	// When the ability to edit a rejected verification ends (ISO 8601, empty when none).
+	EditExpiration string `pulumi:"editExpiration"`
+	// The error code of a rejection (0 when none).
+	ErrorCode int `pulumi:"errorCode"`
+	// Your external reference ID (empty when none).
+	ExternalReferenceId string `pulumi:"externalReferenceId"`
+	// A sample help message (empty when none).
+	HelpMessageSample string `pulumi:"helpMessageSample"`
+	// The estimated monthly message volume.
+	MessageVolume string `pulumi:"messageVolume"`
+	// The email address that receives the verification result.
+	NotificationEmail string `pulumi:"notificationEmail"`
+	// The opt-in confirmation message (empty when none).
+	OptInConfirmationMessage string `pulumi:"optInConfirmationMessage"`
+	// The opt-in workflow image URLs.
+	OptInImageUrls []string `pulumi:"optInImageUrls"`
+	// The opt-in keywords.
+	OptInKeywords []string `pulumi:"optInKeywords"`
+	// How end users opt in.
+	OptInType string `pulumi:"optInType"`
+	// The privacy policy URL (empty when none).
+	PrivacyPolicyUrl string `pulumi:"privacyPolicyUrl"`
+	// The production message sample.
+	ProductionMessageSample string `pulumi:"productionMessageSample"`
+	// SID of the regulated item (empty when none).
+	RegulatedItemSid string `pulumi:"regulatedItemSid"`
+	// Why the verification was rejected (empty unless it was).
+	RejectionReason string `pulumi:"rejectionReason"`
+	// The rejection reasons and codes, each as a JSON document.
+	RejectionReasons []string `pulumi:"rejectionReasons"`
+	// The document URLs of the verification as a JSON document (empty when none).
+	ResourceLinks string `pulumi:"resourceLinks"`
+	// The verification SID (HH...).
+	Sid string `pulumi:"sid"`
+	// The review status: PENDING_REVIEW, IN_REVIEW, TWILIO_APPROVED or TWILIO_REJECTED.
+	Status string `pulumi:"status"`
+	// The terms and conditions URL (empty when none).
+	TermsAndConditionsUrl string `pulumi:"termsAndConditionsUrl"`
+	// The E.164 toll-free number.
+	TollfreePhoneNumber string `pulumi:"tollfreePhoneNumber"`
+	// SID (PN...) of the toll-free phone number.
+	TollfreePhoneNumberSid string `pulumi:"tollfreePhoneNumberSid"`
+	// SID of the toll-free Trust Product bundle (empty when none).
+	TrustProductSid string `pulumi:"trustProductSid"`
+	// The absolute URL of the verification.
+	Url string `pulumi:"url"`
+	// The use case categories.
+	UseCaseCategories []string `pulumi:"useCaseCategories"`
+	// The use case summary.
+	UseCaseSummary string `pulumi:"useCaseSummary"`
+	// The vetting ID (empty when none).
+	VettingId string `pulumi:"vettingId"`
+	// When the vetting ID expires (ISO 8601, empty when none).
+	VettingIdExpiration string `pulumi:"vettingIdExpiration"`
+	// The third party vetting provider (empty when none).
+	VettingProvider string `pulumi:"vettingProvider"`
+}
+
+type TollfreeVerificationInfoOutput struct{ *pulumi.OutputState }
+
+func (TollfreeVerificationInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TollfreeVerificationInfo)(nil)).Elem()
+}
+
+func (o TollfreeVerificationInfoOutput) ToTollfreeVerificationInfoOutput() TollfreeVerificationInfoOutput {
+	return o
+}
+
+func (o TollfreeVerificationInfoOutput) ToTollfreeVerificationInfoOutputWithContext(ctx context.Context) TollfreeVerificationInfoOutput {
+	return o
+}
+
+// The SID of the account that created the verification.
+func (o TollfreeVerificationInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// Additional information for the reviewer (empty when none).
+func (o TollfreeVerificationInfoOutput) AdditionalInformation() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.AdditionalInformation }).(pulumi.StringOutput)
+}
+
+// Whether the content is age gated.
+func (o TollfreeVerificationInfoOutput) AgeGatedContent() pulumi.BoolOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) bool { return v.AgeGatedContent }).(pulumi.BoolOutput)
+}
+
+// The business city (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessCity() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessCity }).(pulumi.StringOutput)
+}
+
+// The email address of the business contact (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessContactEmail() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessContactEmail }).(pulumi.StringOutput)
+}
+
+// The first name of the business contact (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessContactFirstName() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessContactFirstName }).(pulumi.StringOutput)
+}
+
+// The last name of the business contact (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessContactLastName() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessContactLastName }).(pulumi.StringOutput)
+}
+
+// The phone number of the business contact (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessContactPhone() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessContactPhone }).(pulumi.StringOutput)
+}
+
+// The business country (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessCountry() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessCountry }).(pulumi.StringOutput)
+}
+
+// The business name.
+func (o TollfreeVerificationInfoOutput) BusinessName() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessName }).(pulumi.StringOutput)
+}
+
+// The business postal code (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessPostalCode() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessPostalCode }).(pulumi.StringOutput)
+}
+
+// The registration authority (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessRegistrationAuthority() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessRegistrationAuthority }).(pulumi.StringOutput)
+}
+
+// The registration country (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessRegistrationCountry() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessRegistrationCountry }).(pulumi.StringOutput)
+}
+
+// The business registration number (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessRegistrationNumber() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessRegistrationNumber }).(pulumi.StringOutput)
+}
+
+// The phone number registered with the business (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessRegistrationPhoneNumber() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessRegistrationPhoneNumber }).(pulumi.StringOutput)
+}
+
+// The business state, province or region (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessStateProvinceRegion() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessStateProvinceRegion }).(pulumi.StringOutput)
+}
+
+// The business street address (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessStreetAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessStreetAddress }).(pulumi.StringOutput)
+}
+
+// The second address line (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessStreetAddress2() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessStreetAddress2 }).(pulumi.StringOutput)
+}
+
+// The business type (empty when none).
+func (o TollfreeVerificationInfoOutput) BusinessType() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessType }).(pulumi.StringOutput)
+}
+
+// The business website.
+func (o TollfreeVerificationInfoOutput) BusinessWebsite() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.BusinessWebsite }).(pulumi.StringOutput)
+}
+
+// SID (BU...) of the Customer Profile bundle (empty when none).
+func (o TollfreeVerificationInfoOutput) CustomerProfileSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.CustomerProfileSid }).(pulumi.StringOutput)
+}
+
+// When the verification was created (ISO 8601).
+func (o TollfreeVerificationInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the verification was last updated (ISO 8601).
+func (o TollfreeVerificationInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// The trade name (empty when none).
+func (o TollfreeVerificationInfoOutput) DoingBusinessAs() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.DoingBusinessAs }).(pulumi.StringOutput)
+}
+
+// Whether a rejected verification can be edited and resubmitted.
+func (o TollfreeVerificationInfoOutput) EditAllowed() pulumi.BoolOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) bool { return v.EditAllowed }).(pulumi.BoolOutput)
+}
+
+// When the ability to edit a rejected verification ends (ISO 8601, empty when none).
+func (o TollfreeVerificationInfoOutput) EditExpiration() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.EditExpiration }).(pulumi.StringOutput)
+}
+
+// The error code of a rejection (0 when none).
+func (o TollfreeVerificationInfoOutput) ErrorCode() pulumi.IntOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) int { return v.ErrorCode }).(pulumi.IntOutput)
+}
+
+// Your external reference ID (empty when none).
+func (o TollfreeVerificationInfoOutput) ExternalReferenceId() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.ExternalReferenceId }).(pulumi.StringOutput)
+}
+
+// A sample help message (empty when none).
+func (o TollfreeVerificationInfoOutput) HelpMessageSample() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.HelpMessageSample }).(pulumi.StringOutput)
+}
+
+// The estimated monthly message volume.
+func (o TollfreeVerificationInfoOutput) MessageVolume() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.MessageVolume }).(pulumi.StringOutput)
+}
+
+// The email address that receives the verification result.
+func (o TollfreeVerificationInfoOutput) NotificationEmail() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.NotificationEmail }).(pulumi.StringOutput)
+}
+
+// The opt-in confirmation message (empty when none).
+func (o TollfreeVerificationInfoOutput) OptInConfirmationMessage() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.OptInConfirmationMessage }).(pulumi.StringOutput)
+}
+
+// The opt-in workflow image URLs.
+func (o TollfreeVerificationInfoOutput) OptInImageUrls() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) []string { return v.OptInImageUrls }).(pulumi.StringArrayOutput)
+}
+
+// The opt-in keywords.
+func (o TollfreeVerificationInfoOutput) OptInKeywords() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) []string { return v.OptInKeywords }).(pulumi.StringArrayOutput)
+}
+
+// How end users opt in.
+func (o TollfreeVerificationInfoOutput) OptInType() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.OptInType }).(pulumi.StringOutput)
+}
+
+// The privacy policy URL (empty when none).
+func (o TollfreeVerificationInfoOutput) PrivacyPolicyUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.PrivacyPolicyUrl }).(pulumi.StringOutput)
+}
+
+// The production message sample.
+func (o TollfreeVerificationInfoOutput) ProductionMessageSample() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.ProductionMessageSample }).(pulumi.StringOutput)
+}
+
+// SID of the regulated item (empty when none).
+func (o TollfreeVerificationInfoOutput) RegulatedItemSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.RegulatedItemSid }).(pulumi.StringOutput)
+}
+
+// Why the verification was rejected (empty unless it was).
+func (o TollfreeVerificationInfoOutput) RejectionReason() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.RejectionReason }).(pulumi.StringOutput)
+}
+
+// The rejection reasons and codes, each as a JSON document.
+func (o TollfreeVerificationInfoOutput) RejectionReasons() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) []string { return v.RejectionReasons }).(pulumi.StringArrayOutput)
+}
+
+// The document URLs of the verification as a JSON document (empty when none).
+func (o TollfreeVerificationInfoOutput) ResourceLinks() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.ResourceLinks }).(pulumi.StringOutput)
+}
+
+// The verification SID (HH...).
+func (o TollfreeVerificationInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The review status: PENDING_REVIEW, IN_REVIEW, TWILIO_APPROVED or TWILIO_REJECTED.
+func (o TollfreeVerificationInfoOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// The terms and conditions URL (empty when none).
+func (o TollfreeVerificationInfoOutput) TermsAndConditionsUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.TermsAndConditionsUrl }).(pulumi.StringOutput)
+}
+
+// The E.164 toll-free number.
+func (o TollfreeVerificationInfoOutput) TollfreePhoneNumber() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.TollfreePhoneNumber }).(pulumi.StringOutput)
+}
+
+// SID (PN...) of the toll-free phone number.
+func (o TollfreeVerificationInfoOutput) TollfreePhoneNumberSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.TollfreePhoneNumberSid }).(pulumi.StringOutput)
+}
+
+// SID of the toll-free Trust Product bundle (empty when none).
+func (o TollfreeVerificationInfoOutput) TrustProductSid() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.TrustProductSid }).(pulumi.StringOutput)
+}
+
+// The absolute URL of the verification.
+func (o TollfreeVerificationInfoOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.Url }).(pulumi.StringOutput)
+}
+
+// The use case categories.
+func (o TollfreeVerificationInfoOutput) UseCaseCategories() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) []string { return v.UseCaseCategories }).(pulumi.StringArrayOutput)
+}
+
+// The use case summary.
+func (o TollfreeVerificationInfoOutput) UseCaseSummary() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.UseCaseSummary }).(pulumi.StringOutput)
+}
+
+// The vetting ID (empty when none).
+func (o TollfreeVerificationInfoOutput) VettingId() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.VettingId }).(pulumi.StringOutput)
+}
+
+// When the vetting ID expires (ISO 8601, empty when none).
+func (o TollfreeVerificationInfoOutput) VettingIdExpiration() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.VettingIdExpiration }).(pulumi.StringOutput)
+}
+
+// The third party vetting provider (empty when none).
+func (o TollfreeVerificationInfoOutput) VettingProvider() pulumi.StringOutput {
+	return o.ApplyT(func(v TollfreeVerificationInfo) string { return v.VettingProvider }).(pulumi.StringOutput)
+}
+
+type TollfreeVerificationInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (TollfreeVerificationInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TollfreeVerificationInfo)(nil)).Elem()
+}
+
+func (o TollfreeVerificationInfoArrayOutput) ToTollfreeVerificationInfoArrayOutput() TollfreeVerificationInfoArrayOutput {
+	return o
+}
+
+func (o TollfreeVerificationInfoArrayOutput) ToTollfreeVerificationInfoArrayOutputWithContext(ctx context.Context) TollfreeVerificationInfoArrayOutput {
+	return o
+}
+
+func (o TollfreeVerificationInfoArrayOutput) Index(i pulumi.IntInput) TollfreeVerificationInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TollfreeVerificationInfo {
+		return vs[0].([]TollfreeVerificationInfo)[vs[1].(int)]
+	}).(TollfreeVerificationInfoOutput)
 }
 
 type TranscriptionParticipantDefault struct {
@@ -8674,6 +10147,304 @@ func (o TrunkEffectivePtrOutput) TransferMode() pulumi.StringPtrOutput {
 		}
 		return v.TransferMode
 	}).(pulumi.StringPtrOutput)
+}
+
+type UsAppToPersonInfo struct {
+	// Whether the campaign requires an age gate.
+	AgeGated bool `pulumi:"ageGated"`
+	// SID (BN...) of the Brand Registration the campaign is registered under.
+	BrandRegistrationSid string `pulumi:"brandRegistrationSid"`
+	// The Campaign Registry (TCR) campaign ID (empty until assigned).
+	CampaignId string `pulumi:"campaignId"`
+	// The campaign status, for example IN_PROGRESS, VERIFIED or FAILED.
+	CampaignStatus string `pulumi:"campaignStatus"`
+	// When the campaign was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the campaign was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// What the campaign does.
+	Description string `pulumi:"description"`
+	// Whether the campaign allows direct lending.
+	DirectLending bool `pulumi:"directLending"`
+	// Why the registration failed, each error as a JSON document.
+	Errors []string `pulumi:"errors"`
+	// Whether the campaign's messages contain links.
+	HasEmbeddedLinks bool `pulumi:"hasEmbeddedLinks"`
+	// Whether the campaign's messages contain phone numbers.
+	HasEmbeddedPhone bool `pulumi:"hasEmbeddedPhone"`
+	// The help keywords.
+	HelpKeywords []string `pulumi:"helpKeywords"`
+	// The help auto-reply (empty when none).
+	HelpMessage string `pulumi:"helpMessage"`
+	// Whether the campaign was registered outside Twilio.
+	IsExternallyRegistered bool `pulumi:"isExternallyRegistered"`
+	// How a consumer opts in to the campaign.
+	MessageFlow string `pulumi:"messageFlow"`
+	// The sample messages of the campaign.
+	MessageSamples []string `pulumi:"messageSamples"`
+	// SID (MG...) of the Messaging Service the campaign belongs to.
+	MessagingServiceSid string `pulumi:"messagingServiceSid"`
+	// Whether the campaign is a mock campaign.
+	Mock bool `pulumi:"mock"`
+	// The opt-in keywords.
+	OptInKeywords []string `pulumi:"optInKeywords"`
+	// The opt-in auto-reply (empty when none).
+	OptInMessage string `pulumi:"optInMessage"`
+	// The opt-out keywords.
+	OptOutKeywords []string `pulumi:"optOutKeywords"`
+	// The opt-out auto-reply (empty when none).
+	OptOutMessage string `pulumi:"optOutMessage"`
+	// The privacy policy URL (empty when none).
+	PrivacyPolicyUrl string `pulumi:"privacyPolicyUrl"`
+	// The per carrier rate limits as a JSON document (empty when none).
+	RateLimits string `pulumi:"rateLimits"`
+	// The campaign SID (QE...).
+	Sid string `pulumi:"sid"`
+	// Whether the campaign has subscriber opt-in.
+	SubscriberOptIn bool `pulumi:"subscriberOptIn"`
+	// The terms and conditions URL (empty when none).
+	TermsAndConditionsUrl string `pulumi:"termsAndConditionsUrl"`
+	// The A2P campaign use case.
+	UsAppToPersonUsecase string `pulumi:"usAppToPersonUsecase"`
+}
+
+type UsAppToPersonInfoOutput struct{ *pulumi.OutputState }
+
+func (UsAppToPersonInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UsAppToPersonInfo)(nil)).Elem()
+}
+
+func (o UsAppToPersonInfoOutput) ToUsAppToPersonInfoOutput() UsAppToPersonInfoOutput {
+	return o
+}
+
+func (o UsAppToPersonInfoOutput) ToUsAppToPersonInfoOutputWithContext(ctx context.Context) UsAppToPersonInfoOutput {
+	return o
+}
+
+// Whether the campaign requires an age gate.
+func (o UsAppToPersonInfoOutput) AgeGated() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.AgeGated }).(pulumi.BoolOutput)
+}
+
+// SID (BN...) of the Brand Registration the campaign is registered under.
+func (o UsAppToPersonInfoOutput) BrandRegistrationSid() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.BrandRegistrationSid }).(pulumi.StringOutput)
+}
+
+// The Campaign Registry (TCR) campaign ID (empty until assigned).
+func (o UsAppToPersonInfoOutput) CampaignId() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.CampaignId }).(pulumi.StringOutput)
+}
+
+// The campaign status, for example IN_PROGRESS, VERIFIED or FAILED.
+func (o UsAppToPersonInfoOutput) CampaignStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.CampaignStatus }).(pulumi.StringOutput)
+}
+
+// When the campaign was created (ISO 8601).
+func (o UsAppToPersonInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the campaign was last updated (ISO 8601).
+func (o UsAppToPersonInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// What the campaign does.
+func (o UsAppToPersonInfoOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Whether the campaign allows direct lending.
+func (o UsAppToPersonInfoOutput) DirectLending() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.DirectLending }).(pulumi.BoolOutput)
+}
+
+// Why the registration failed, each error as a JSON document.
+func (o UsAppToPersonInfoOutput) Errors() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) []string { return v.Errors }).(pulumi.StringArrayOutput)
+}
+
+// Whether the campaign's messages contain links.
+func (o UsAppToPersonInfoOutput) HasEmbeddedLinks() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.HasEmbeddedLinks }).(pulumi.BoolOutput)
+}
+
+// Whether the campaign's messages contain phone numbers.
+func (o UsAppToPersonInfoOutput) HasEmbeddedPhone() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.HasEmbeddedPhone }).(pulumi.BoolOutput)
+}
+
+// The help keywords.
+func (o UsAppToPersonInfoOutput) HelpKeywords() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) []string { return v.HelpKeywords }).(pulumi.StringArrayOutput)
+}
+
+// The help auto-reply (empty when none).
+func (o UsAppToPersonInfoOutput) HelpMessage() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.HelpMessage }).(pulumi.StringOutput)
+}
+
+// Whether the campaign was registered outside Twilio.
+func (o UsAppToPersonInfoOutput) IsExternallyRegistered() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.IsExternallyRegistered }).(pulumi.BoolOutput)
+}
+
+// How a consumer opts in to the campaign.
+func (o UsAppToPersonInfoOutput) MessageFlow() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.MessageFlow }).(pulumi.StringOutput)
+}
+
+// The sample messages of the campaign.
+func (o UsAppToPersonInfoOutput) MessageSamples() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) []string { return v.MessageSamples }).(pulumi.StringArrayOutput)
+}
+
+// SID (MG...) of the Messaging Service the campaign belongs to.
+func (o UsAppToPersonInfoOutput) MessagingServiceSid() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.MessagingServiceSid }).(pulumi.StringOutput)
+}
+
+// Whether the campaign is a mock campaign.
+func (o UsAppToPersonInfoOutput) Mock() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.Mock }).(pulumi.BoolOutput)
+}
+
+// The opt-in keywords.
+func (o UsAppToPersonInfoOutput) OptInKeywords() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) []string { return v.OptInKeywords }).(pulumi.StringArrayOutput)
+}
+
+// The opt-in auto-reply (empty when none).
+func (o UsAppToPersonInfoOutput) OptInMessage() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.OptInMessage }).(pulumi.StringOutput)
+}
+
+// The opt-out keywords.
+func (o UsAppToPersonInfoOutput) OptOutKeywords() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) []string { return v.OptOutKeywords }).(pulumi.StringArrayOutput)
+}
+
+// The opt-out auto-reply (empty when none).
+func (o UsAppToPersonInfoOutput) OptOutMessage() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.OptOutMessage }).(pulumi.StringOutput)
+}
+
+// The privacy policy URL (empty when none).
+func (o UsAppToPersonInfoOutput) PrivacyPolicyUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.PrivacyPolicyUrl }).(pulumi.StringOutput)
+}
+
+// The per carrier rate limits as a JSON document (empty when none).
+func (o UsAppToPersonInfoOutput) RateLimits() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.RateLimits }).(pulumi.StringOutput)
+}
+
+// The campaign SID (QE...).
+func (o UsAppToPersonInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Whether the campaign has subscriber opt-in.
+func (o UsAppToPersonInfoOutput) SubscriberOptIn() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) bool { return v.SubscriberOptIn }).(pulumi.BoolOutput)
+}
+
+// The terms and conditions URL (empty when none).
+func (o UsAppToPersonInfoOutput) TermsAndConditionsUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.TermsAndConditionsUrl }).(pulumi.StringOutput)
+}
+
+// The A2P campaign use case.
+func (o UsAppToPersonInfoOutput) UsAppToPersonUsecase() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonInfo) string { return v.UsAppToPersonUsecase }).(pulumi.StringOutput)
+}
+
+type UsAppToPersonInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (UsAppToPersonInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UsAppToPersonInfo)(nil)).Elem()
+}
+
+func (o UsAppToPersonInfoArrayOutput) ToUsAppToPersonInfoArrayOutput() UsAppToPersonInfoArrayOutput {
+	return o
+}
+
+func (o UsAppToPersonInfoArrayOutput) ToUsAppToPersonInfoArrayOutputWithContext(ctx context.Context) UsAppToPersonInfoArrayOutput {
+	return o
+}
+
+func (o UsAppToPersonInfoArrayOutput) Index(i pulumi.IntInput) UsAppToPersonInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UsAppToPersonInfo {
+		return vs[0].([]UsAppToPersonInfo)[vs[1].(int)]
+	}).(UsAppToPersonInfoOutput)
+}
+
+type UsAppToPersonUsecaseInfo struct {
+	// The use case code to pass as usAppToPersonUsecase, for example 2FA.
+	Code string `pulumi:"code"`
+	// What the use case is for.
+	Description string `pulumi:"description"`
+	// The human readable name of the use case.
+	Name string `pulumi:"name"`
+	// Whether the use case needs a post approval step.
+	PostApprovalRequired bool `pulumi:"postApprovalRequired"`
+}
+
+type UsAppToPersonUsecaseInfoOutput struct{ *pulumi.OutputState }
+
+func (UsAppToPersonUsecaseInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UsAppToPersonUsecaseInfo)(nil)).Elem()
+}
+
+func (o UsAppToPersonUsecaseInfoOutput) ToUsAppToPersonUsecaseInfoOutput() UsAppToPersonUsecaseInfoOutput {
+	return o
+}
+
+func (o UsAppToPersonUsecaseInfoOutput) ToUsAppToPersonUsecaseInfoOutputWithContext(ctx context.Context) UsAppToPersonUsecaseInfoOutput {
+	return o
+}
+
+// The use case code to pass as usAppToPersonUsecase, for example 2FA.
+func (o UsAppToPersonUsecaseInfoOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonUsecaseInfo) string { return v.Code }).(pulumi.StringOutput)
+}
+
+// What the use case is for.
+func (o UsAppToPersonUsecaseInfoOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonUsecaseInfo) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The human readable name of the use case.
+func (o UsAppToPersonUsecaseInfoOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v UsAppToPersonUsecaseInfo) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether the use case needs a post approval step.
+func (o UsAppToPersonUsecaseInfoOutput) PostApprovalRequired() pulumi.BoolOutput {
+	return o.ApplyT(func(v UsAppToPersonUsecaseInfo) bool { return v.PostApprovalRequired }).(pulumi.BoolOutput)
+}
+
+type UsAppToPersonUsecaseInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (UsAppToPersonUsecaseInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UsAppToPersonUsecaseInfo)(nil)).Elem()
+}
+
+func (o UsAppToPersonUsecaseInfoArrayOutput) ToUsAppToPersonUsecaseInfoArrayOutput() UsAppToPersonUsecaseInfoArrayOutput {
+	return o
+}
+
+func (o UsAppToPersonUsecaseInfoArrayOutput) ToUsAppToPersonUsecaseInfoArrayOutputWithContext(ctx context.Context) UsAppToPersonUsecaseInfoArrayOutput {
+	return o
+}
+
+func (o UsAppToPersonUsecaseInfoArrayOutput) Index(i pulumi.IntInput) UsAppToPersonUsecaseInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UsAppToPersonUsecaseInfo {
+		return vs[0].([]UsAppToPersonUsecaseInfo)[vs[1].(int)]
+	}).(UsAppToPersonUsecaseInfoOutput)
 }
 
 type UsageRecord struct {
@@ -9398,6 +11169,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNotificationPtrInput)(nil)).Elem(), ConversationsNotificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OAuthAppPolicyInput)(nil)).Elem(), OAuthAppPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OAuthAppPolicyPtrInput)(nil)).Elem(), OAuthAppPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyPtrInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingFeatureInput)(nil)).Elem(), RecordingFeatureArgs{})
@@ -9418,6 +11191,8 @@ func init() {
 	pulumi.RegisterOutputType(AuthorizedConnectAppArrayOutput{})
 	pulumi.RegisterOutputType(AvailablePhoneNumberOutput{})
 	pulumi.RegisterOutputType(AvailablePhoneNumberArrayOutput{})
+	pulumi.RegisterOutputType(BrandRegistrationInfoOutput{})
+	pulumi.RegisterOutputType(BrandRegistrationInfoArrayOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectiveOutput{})
 	pulumi.RegisterOutputType(ConnectAppEffectivePtrOutput{})
 	pulumi.RegisterOutputType(ContentAuthenticationActionOutput{})
@@ -9485,12 +11260,26 @@ func init() {
 	pulumi.RegisterOutputType(EventSubscriptionTypeArrayOutput{})
 	pulumi.RegisterOutputType(EventTypeOutput{})
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
+	pulumi.RegisterOutputType(FlexFlowInfoOutput{})
+	pulumi.RegisterOutputType(FlexFlowInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexPluginConfigurationInfoOutput{})
+	pulumi.RegisterOutputType(FlexPluginConfigurationInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexPluginInfoOutput{})
+	pulumi.RegisterOutputType(FlexPluginInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexPluginReleaseInfoOutput{})
+	pulumi.RegisterOutputType(FlexPluginReleaseInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexPluginVersionInfoOutput{})
+	pulumi.RegisterOutputType(FlexPluginVersionInfoArrayOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectiveOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectivePtrOutput{})
 	pulumi.RegisterOutputType(MessagingGeoPermissionOutput{})
 	pulumi.RegisterOutputType(MessagingGeoPermissionArrayOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectiveOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectivePtrOutput{})
+	pulumi.RegisterOutputType(MessagingUsecaseOutput{})
+	pulumi.RegisterOutputType(MessagingUsecaseArrayOutput{})
+	pulumi.RegisterOutputType(OAuthAppPolicyOutput{})
+	pulumi.RegisterOutputType(OAuthAppPolicyPtrOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectiveOutput{})
 	pulumi.RegisterOutputType(OutgoingCallerIdEffectivePtrOutput{})
 	pulumi.RegisterOutputType(PhoneNumberCapabilitiesOutput{})
@@ -9511,16 +11300,28 @@ func init() {
 	pulumi.RegisterOutputType(RecordingFeatureArrayOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackPtrOutput{})
+	pulumi.RegisterOutputType(RolePermissionOutput{})
+	pulumi.RegisterOutputType(RolePermissionArrayOutput{})
 	pulumi.RegisterOutputType(ServerlessBuildDependencyOutput{})
 	pulumi.RegisterOutputType(ServerlessBuildDependencyArrayOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectiveOutput{})
 	pulumi.RegisterOutputType(ShortCodeEffectivePtrOutput{})
+	pulumi.RegisterOutputType(SuperSimNetworkOutput{})
+	pulumi.RegisterOutputType(SuperSimNetworkArrayOutput{})
+	pulumi.RegisterOutputType(SuperSimNetworkIdentifierOutput{})
+	pulumi.RegisterOutputType(SuperSimNetworkIdentifierArrayOutput{})
+	pulumi.RegisterOutputType(TollfreeVerificationInfoOutput{})
+	pulumi.RegisterOutputType(TollfreeVerificationInfoArrayOutput{})
 	pulumi.RegisterOutputType(TranscriptionParticipantDefaultOutput{})
 	pulumi.RegisterOutputType(TranscriptionParticipantDefaultArrayOutput{})
 	pulumi.RegisterOutputType(TranscriptionStatusCallbackOutput{})
 	pulumi.RegisterOutputType(TranscriptionStatusCallbackPtrOutput{})
 	pulumi.RegisterOutputType(TrunkEffectiveOutput{})
 	pulumi.RegisterOutputType(TrunkEffectivePtrOutput{})
+	pulumi.RegisterOutputType(UsAppToPersonInfoOutput{})
+	pulumi.RegisterOutputType(UsAppToPersonInfoArrayOutput{})
+	pulumi.RegisterOutputType(UsAppToPersonUsecaseInfoOutput{})
+	pulumi.RegisterOutputType(UsAppToPersonUsecaseInfoArrayOutput{})
 	pulumi.RegisterOutputType(UsageRecordOutput{})
 	pulumi.RegisterOutputType(UsageRecordArrayOutput{})
 	pulumi.RegisterOutputType(VerifyServiceEffectiveOutput{})

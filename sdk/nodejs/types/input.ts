@@ -615,6 +615,17 @@ export interface EventSubscriptionTypeArgs {
     type: pulumi.Input<string>;
 }
 
+export interface OAuthAppPolicyArgs {
+    /**
+     * Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+     */
+    allow?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Permissions explicitly denied.
+     */
+    deny?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
 export interface RecordingCompositionPolicyArgs {
     /**
      * Number of channels to compose: dual or mono.

@@ -75,6 +75,8 @@ __all__ = [
     'ConversationsNotificationArgsDict',
     'EventSubscriptionTypeArgs',
     'EventSubscriptionTypeArgsDict',
+    'OAuthAppPolicyArgs',
+    'OAuthAppPolicyArgsDict',
     'RecordingCompositionPolicyArgs',
     'RecordingCompositionPolicyArgsDict',
     'RecordingFeatureArgs',
@@ -2913,6 +2915,55 @@ class EventSubscriptionTypeArgs:
     @schema_version.setter
     def schema_version(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "schema_version", value)
+
+
+class OAuthAppPolicyArgsDict(TypedDict):
+    allow: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+    """
+    deny: NotRequired[Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Permissions explicitly denied.
+    """
+
+@pulumi.input_type
+class OAuthAppPolicyArgs:
+    def __init__(__self__, *,
+                 allow: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 deny: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allow: Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] deny: Permissions explicitly denied.
+        """
+        if allow is not None:
+            pulumi.set(__self__, "allow", allow)
+        if deny is not None:
+            pulumi.set(__self__, "deny", deny)
+
+    @_builtins.property
+    @pulumi.getter
+    def allow(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Permissions explicitly allowed, for example /twilio/iam/api-keys/create.
+        """
+        return pulumi.get(self, "allow")
+
+    @allow.setter
+    def allow(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allow", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def deny(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Permissions explicitly denied.
+        """
+        return pulumi.get(self, "deny")
+
+    @deny.setter
+    def deny(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "deny", value)
 
 
 class RecordingCompositionPolicyArgsDict(TypedDict):

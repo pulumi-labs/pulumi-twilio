@@ -131,6 +131,7 @@ func TestWiring_EveryStateEmbedsItsArgsFirst(t *testing.T) {
 		"IncomingPhoneNumber":                    {IncomingPhoneNumberArgs{}, IncomingPhoneNumberState{}},
 		"MessagingService":                       {MessagingServiceArgs{}, MessagingServiceState{}},
 		"MessagingServicePhoneNumber":            {MessagingServicePhoneNumberArgs{}, MessagingServicePhoneNumberState{}},
+		"OAuthApp":                               {OAuthAppArgs{}, OAuthAppState{}},
 		"MessagingServiceShortCode":              {MessagingServiceShortCodeArgs{}, MessagingServiceShortCodeState{}},
 		"MessagingServiceChannelSender":          {MessagingServiceChannelSenderArgs{}, MessagingServiceChannelSenderState{}},
 		"MessagingServiceAlphaSender":            {MessagingServiceAlphaSenderArgs{}, MessagingServiceAlphaSenderState{}},
@@ -164,6 +165,20 @@ func TestWiring_EveryStateEmbedsItsArgsFirst(t *testing.T) {
 		"RoutesShortCode":                           {RoutesShortCodeArgs{}, RoutesShortCodeState{}},
 		"SourceIpMapping":                           {SourceIpMappingArgs{}, SourceIpMappingState{}},
 		"ContentTemplate":                           {ContentTemplateArgs{}, ContentTemplateState{}},
+		"SuperSimNetworkAccessProfile":              {SuperSimNetworkAccessProfileArgs{}, SuperSimNetworkAccessProfileState{}},
+		"FlexFlow":                                  {FlexFlowArgs{}, FlexFlowState{}},
+		"FlexPlugin":                                {FlexPluginArgs{}, FlexPluginState{}},
+		"FlexPluginVersion":                         {FlexPluginVersionArgs{}, FlexPluginVersionState{}},
+		"FlexPluginConfiguration":                   {FlexPluginConfigurationArgs{}, FlexPluginConfigurationState{}},
+		"FlexPluginRelease":                         {FlexPluginReleaseArgs{}, FlexPluginReleaseState{}},
+		"LinkShorteningDomainConfig":                {LinkShorteningDomainConfigArgs{}, LinkShorteningDomainConfigState{}},
+		"LinkShorteningDomainCertificate":           {LinkShorteningDomainCertificateArgs{}, LinkShorteningDomainCertificateState{}},
+		"LinkShorteningMessagingServiceDomain":      {LinkShorteningMessagingServiceDomainArgs{}, LinkShorteningMessagingServiceDomainState{}},
+		"TollfreeVerification":                      {TollfreeVerificationArgs{}, TollfreeVerificationState{}},
+		"UsAppToPerson":                             {UsAppToPersonArgs{}, UsAppToPersonState{}},
+		"BrandRegistration":                         {BrandRegistrationArgs{}, BrandRegistrationState{}},
+		"SuperSimFleet":                             {SuperSimFleetArgs{}, SuperSimFleetState{}},
+		"WirelessRatePlan":                          {WirelessRatePlanArgs{}, WirelessRatePlanState{}},
 	}
 	for name, p := range pairs {
 		args, state := reflect.TypeOf(p[0]), reflect.TypeOf(p[1])

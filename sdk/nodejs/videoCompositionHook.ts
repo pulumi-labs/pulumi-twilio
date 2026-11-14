@@ -83,7 +83,7 @@ export class VideoCompositionHook extends pulumi.CustomResource {
      */
     declare public readonly trim: pulumi.Output<boolean | undefined>;
     /**
-     * The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      */
     declare public readonly videoLayout: pulumi.Output<string | undefined>;
 
@@ -175,7 +175,7 @@ export interface VideoCompositionHookArgs {
      */
     trim?: pulumi.Input<boolean | undefined>;
     /**
-     * The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order and formatting are not significant. Removing it leaves the layout unchanged.
+     * The video layout as a JSON object of regions (see Twilio's Specifying Video Layouts). Key order, formatting and the defaults Twilio fills in for a region (an empty cells_excluded or video_sources_excluded, reuse show_oldest, x_pos, y_pos and z_pos 0) are not significant. Removing it leaves the layout unchanged.
      */
     videoLayout?: pulumi.Input<string | undefined>;
 }

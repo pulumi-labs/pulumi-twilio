@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumi.Labs.Twilio
 {
     /// <summary>
-    /// A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. Submitting the template to WhatsApp for approval is not managed here; read the result with the getContentApprovalStatus function.
+    /// A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. Submit it to WhatsApp for approval with the ContentApprovalRequest resource.
     /// </summary>
     [TwilioResourceType("twilio:index:ContentTemplate")]
     public partial class ContentTemplate : global::Pulumi.CustomResource

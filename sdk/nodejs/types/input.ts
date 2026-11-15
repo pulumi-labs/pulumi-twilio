@@ -753,6 +753,71 @@ export interface EventSubscriptionTypeArgs {
     type: pulumi.Input<string>;
 }
 
+export interface IdentifierConfigArgs {
+    /**
+     * When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+     */
+    enforceUnique?: pulumi.Input<boolean | undefined>;
+    /**
+     * Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+     */
+    idType: pulumi.Input<string>;
+    /**
+     * Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+     */
+    limit?: pulumi.Input<number | undefined>;
+    /**
+     * What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+     */
+    limitPolicy?: pulumi.Input<string | undefined>;
+    /**
+     * How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+     */
+    matchingAlgo?: pulumi.Input<string | undefined>;
+    /**
+     * The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+     */
+    matchingThreshold?: pulumi.Input<number | undefined>;
+    /**
+     * Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+     */
+    normalization?: pulumi.Input<string | undefined>;
+}
+
+export interface MemoryTraitArgs {
+    /**
+     * Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+     */
+    dataType: pulumi.Input<string>;
+    /**
+     * What the trait holds, up to 1024 characters.
+     */
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+     */
+    idTypePromotion?: pulumi.Input<string | undefined>;
+    /**
+     * Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+     */
+    validationRule?: pulumi.Input<string | undefined>;
+}
+
+export interface MemoryTraitMappingArgs {
+    /**
+     * The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+     */
+    expression: pulumi.Input<string>;
+    /**
+     * Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+     */
+    traitGroup: pulumi.Input<string>;
+    /**
+     * Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+     */
+    traitName: pulumi.Input<string>;
+}
+
 export interface OAuthAppPolicyArgs {
     /**
      * Permissions explicitly allowed, for example /twilio/iam/api-keys/create.

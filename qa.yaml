@@ -81,6 +81,30 @@ resources:
     test: true
     update: description
     cost: "none; a webhook sink to any reachable test URL. Twilio leaves it initialized until the URL answers the sink test"
+  - type: twilio:index:KnowledgeBase
+    test: false
+    update: description
+    reason: needs Enterprise Knowledge enabled on the account (new Twilio Console only), which is not confirmed for the QA account; the API is new and unverified against a live account
+  - type: twilio:index:Knowledge
+    test: false
+    update: description
+    reason: needs a KnowledgeBase, so it waits on Enterprise Knowledge being enabled on the QA account; the API is new and unverified against a live account. File sources (filePath) are mocked only; unverified live - whether the create answer carries importUrl (the provider re-reads the source when it does not), whether the presigned S3 PUT accepts the plain Content-Type header the provider sends, and what an expired upload URL (uploadExpiration) returns
+  - type: twilio:index:MemoryStore
+    test: false
+    update: description
+    reason: needs Conversation Memory enabled on the account (new Twilio Console only), which is not confirmed for the QA account; each store also provisions a Conversational Intelligence service and an account holds at most 15; the API is new and unverified against a live account
+  - type: twilio:index:MemoryTraitGroup
+    test: false
+    update: description
+    reason: needs a MemoryStore, so it waits on Conversation Memory being enabled on the QA account; the API is new and unverified against a live account
+  - type: twilio:index:MemoryDataMapping
+    test: false
+    update: description
+    reason: needs a MemoryStore, so it waits on Conversation Memory being enabled on the QA account; the API is new and unverified against a live account. Unverified live - whether the operation result carries the data mapping ID (the provider fails clearly when it does not), whether an INGRESS mapping to a trait group that does not exist is accepted, and that mappingFrom cannot be changed by PATCH (the spec's PATCH body has no mappingFrom)
+  - type: twilio:index:MemoryIdentityResolutionSettings
+    test: false
+    update: matchingRules
+    reason: needs a MemoryStore, so it waits on Conversation Memory being enabled on the QA account; the API is new and unverified against a live account. Unverified live - whether a fresh store already has settings (GET before the first PUT), which settings Twilio rejects because they "can only take their default values" for now, and the optional If-Match ETag, which the provider does not send (last write wins)
   - type: twilio:index:EventSubscription
     test: false
     update: description
@@ -330,6 +354,10 @@ resources:
     test: true
     update: friendlyName
     cost: none; a Content template is free to create and store. Destroy deletes it
+  - type: twilio:index:ContentApprovalRequest
+    test: false
+    reason: it submits the template to WhatsApp (Meta) for review, which is externally visible, takes hours to days and cannot be withdrawn through Twilio, and it needs a WhatsApp-enabled account
+    cost: none from Twilio for the submission; WhatsApp template message fees apply once approved templates are sent. Destroy only forgets the request, delete the ContentTemplate to remove the template
   - type: twilio:index:ChannelsSender
     test: false
     reason: it needs a WhatsApp Business Account linked to Twilio and a phone number the account owner can verify by SMS or voice, then Meta review (minutes to days), none of which an automated run can supply
@@ -382,6 +410,30 @@ resources:
     test: true
     update: friendlyName
     cost: none; a Flex Flow is free (it needs a Chat service of the account, which is also free). Destroy deletes it
+  - type: twilio:index:FlexConfiguration
+    test: true
+    update: uiLanguage
+    cost: none; the account-wide Flex settings need a Flex-enabled account. Adopts the existing configuration (resource ID account); only settings the program states are written. Destroy forgets it and leaves the settings as they are. Update is a JSON body whose shape is not in the spec (unverified)
+  - type: twilio:index:FlexUser
+    test: true
+    update: locale
+    cost: none; adopts an existing Flex user of a Flex-enabled account (it cannot create one). Destroy forgets it and leaves the user as it is
+  - type: twilio:index:FrontlineUser
+    test: true
+    update: friendlyName
+    cost: none; adopts an existing Frontline user (it cannot create one). Destroy forgets it and leaves the user as it is
+  - type: twilio:index:FlexInsightsCategory
+    test: true
+    update: name
+    cost: none; a quality management category is free but needs a Flex Insights-enabled account (unverified whether the account credentials work instead of a Flex Insights token). Destroy deletes it
+  - type: twilio:index:FlexInsightsQuestion
+    test: true
+    update: question
+    cost: none; needs a Flex Insights-enabled account and a FlexInsightsCategory. Destroy deletes it
+  - type: twilio:index:FlexInsightsQuestionnaire
+    test: true
+    update: name
+    cost: none; needs a Flex Insights-enabled account. Destroy deletes it
   - type: twilio:index:FlexPlugin
     test: true
     update: friendlyName
@@ -420,6 +472,44 @@ resources:
     test: true
     update: friendlyName
     cost: "none; a draft end user or supporting document is not billed (unverified against a live account). Delete may fail once a bundle uses it"
+  - type: twilio:index:RegulatoryEndUser
+    test: true
+    update: friendlyName
+    cost: "none; a draft end user is not billed (unverified against a live account). Delete may fail once a bundle uses it"
+  - type: twilio:index:RegulatorySupportingDocument
+    test: true
+    update: friendlyName
+    cost: "none; a draft supporting document is not billed (unverified against a live account). Delete may fail once a bundle uses it"
+  - type: twilio:index:RegulatoryBundle
+    test: true
+    update: friendlyName
+    cost: "none; a draft bundle is not billed (unverified against a live account). Never set submit: it sends the bundle for Twilio review. Needs a regulation SID from getRegulatoryRegulations (use isTest for any bundle that could be submitted by hand). Delete may fail once the bundle is in review"
+  - type: twilio:index:RegulatoryBundleItemAssignment
+    test: true
+    update: null
+    cost: "none; assigns a RegulatoryEndUser to a draft RegulatoryBundle (unverified against a live account)"
+  - type: twilio:index:CustomerProfile
+    test: true
+    update: friendlyName
+    cost: "none; a draft bundle is not billed (unverified against a live account). Never set submit: it sends the bundle for Twilio review. Needs a policy SID from getTrustHubPolicies. Delete may fail once the bundle is in review"
+  - type: twilio:index:CustomerProfileEntityAssignment
+    test: true
+    update: null
+    cost: "none; assigns a TrustHubEndUser to a draft CustomerProfile (unverified against a live account)"
+  - type: twilio:index:TrustProduct
+    test: true
+    update: friendlyName
+    cost: "none; a draft bundle is not billed (unverified against a live account). Never set submit: it sends the bundle for Twilio review. Needs a policy SID from getTrustHubPolicies"
+  - type: twilio:index:TrustProductEntityAssignment
+    test: true
+    update: null
+    cost: "none; assigns a TrustHubEndUser to a draft TrustProduct (unverified against a live account)"
+  - type: twilio:index:CustomerProfileChannelEndpointAssignment
+    test: false
+    reason: needs a phone number the QA account owns and that Twilio accepts for a customer profile; assigning it can change how the number is treated, so it is not run against the shared QA numbers. Unverified live - whether a phone number is accepted on a draft bundle, whether ChannelEndpointType must be exactly phone-number, and the error for removing an assignment from a bundle in review
+  - type: twilio:index:TrustProductChannelEndpointAssignment
+    test: false
+    reason: needs a phone number the QA account owns and that Twilio accepts for a trust product; the same live questions as for the customer profile assignment are unverified
   - type: twilio:index:FlexPluginRelease
     test: false
     reason: releasing a Configuration changes what every Flex user of the account loads and cannot be undone or deleted, so it must not run against a shared or production Flex account
@@ -465,6 +555,24 @@ functions:
     reason: needs a number the account has already verified as a caller ID
   - name: getEventSink
     test: true
+  - name: getKnowledgeBase
+    test: false
+    reason: needs a KnowledgeBase, which needs Enterprise Knowledge enabled on the account
+  - name: getKnowledge
+    test: false
+    reason: needs a Knowledge source, which needs Enterprise Knowledge enabled on the account
+  - name: getMemoryStore
+    test: false
+    reason: needs a MemoryStore, which needs Conversation Memory enabled on the account
+  - name: getMemoryTraitGroup
+    test: false
+    reason: needs a MemoryTraitGroup, which needs Conversation Memory enabled on the account
+  - name: getMemoryDataMapping
+    test: false
+    reason: needs a MemoryDataMapping, which needs Conversation Memory enabled on the account
+  - name: getMemoryIdentityResolutionSettings
+    test: false
+    reason: needs a MemoryStore with identity resolution settings, which needs Conversation Memory enabled on the account
   - name: getEventSubscription
     test: false
     reason: needs a subscription, which needs an active sink
@@ -550,10 +658,35 @@ functions:
     test: true
   - name: getContentApprovalStatus
     test: true
+  - name: getContentApprovalRequest
+    test: false
+    reason: it needs a template that was submitted to WhatsApp, which a ContentApprovalRequest does and the QA run cannot do (Meta review)
   - name: getChannelsSender
     test: false
     reason: needs a ChannelsSender SID, and a ChannelsSender needs a WhatsApp Business Account the account owner has to supply
   - name: getChannelsSenders
+    test: true
+  - name: getFlexConfiguration
+    test: true
+  - name: getFlexUser
+    test: true
+  - name: getFrontlineUser
+    test: true
+  - name: getFlexInsightsCategory
+    test: true
+  - name: getFlexInsightsCategories
+    test: true
+  - name: getFlexInsightsQuestion
+    test: true
+  - name: getFlexInsightsQuestions
+    test: true
+  - name: getFlexInsightsQuestionnaire
+    test: true
+  - name: getFlexInsightsQuestionnaires
+    test: true
+  - name: getFlexInsightsAnswerSets
+    test: true
+  - name: getFlexInsightsCommentTags
     test: true
   - name: getFlexFlow
     test: true
@@ -609,6 +742,44 @@ functions:
   - name: getLinkShorteningMessagingServiceDomain
     test: false
     reason: needs a link shortening domain set up with Twilio, which the account may not have
+  - name: getRegulatoryEndUser
+    test: true
+  - name: getRegulatoryEndUsers
+    test: true
+  - name: getRegulatorySupportingDocument
+    test: true
+  - name: getRegulatorySupportingDocuments
+    test: true
+  - name: getRegulatoryEndUserType
+    test: true
+  - name: getRegulatoryEndUserTypes
+    test: true
+  - name: getRegulatorySupportingDocumentType
+    test: true
+  - name: getRegulatorySupportingDocumentTypes
+    test: true
+  - name: getRegulatoryBundle
+    test: true
+  - name: getRegulatoryBundleItemAssignment
+    test: true
+  - name: getRegulatoryRegulation
+    test: true
+  - name: getRegulatoryRegulations
+    test: true
+  - name: getCustomerProfile
+    test: true
+  - name: getCustomerProfileEntityAssignment
+    test: true
+  - name: getTrustProduct
+    test: true
+  - name: getTrustProductEntityAssignment
+    test: true
+  - name: getCustomerProfileChannelEndpointAssignment
+    test: false
+    reason: needs a channel endpoint assignment, which needs an owned phone number (see the resource entry)
+  - name: getTrustProductChannelEndpointAssignment
+    test: false
+    reason: needs a channel endpoint assignment, which needs an owned phone number (see the resource entry)
   - name: getTrustHubEndUser
     test: true
   - name: getTrustHubEndUsers
@@ -791,6 +962,7 @@ regressions:
   - "Video composition hook (#1901, part of #1667): create a VideoCompositionHook with enabled false, a videoLayout, audioSources, resolution 1280x720 and format mp4; refresh and preview show no change. Changing friendlyName and the status callback updates in place; setting audioSourcesExcluded to an empty list clears it. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (resolution 640x480, trim true, statusCallbackMethod POST). Not verified against a live account: the defaults Twilio reports for enabled and format, how it takes an empty list, and whether it accepts a hook with no layout or audio sources."
   - "Super SIM and Wireless (#1923, part of #1667): list the catalog with getSuperSimNetworks (isoCountry US, or mcc and mnc), create a SuperSimNetworkAccessProfile with uniqueName and networks holding two of the returned SIDs, then a SuperSimFleet naming it by SID and then by unique name in a second program; refresh and preview show no change. Changing the profile uniqueName and swapping a network updates in place; changing the Fleet dataLimit, uniqueName, networkAccessProfile and the commands URLs updates in place, changing dataEnabled or smsCommandsEnabled replaces the Fleet (Twilio cannot update them). Destroy forgets both (Twilio has no delete for either), so use a fresh uniqueName on the next run. Import the SIDs and the first preview plans no change. A WirelessRatePlan with uniqueName, dataLimit and internationalRoaming updates uniqueName and friendlyName in place and replaces on any other change; read it with getWirelessRatePlan; destroy deletes it unless SIMs still use it. Not verified against a live account: whether Twilio accepts a profile with no networks, the smsCommandsEnabled default it applies (the spec says true on create and false on read), whether it reports international_roaming as an empty list or null for a plan without roaming, whether the Rate Plan create needs a Programmable Wireless enabled account, and whether the unique name of a Fleet or profile can be looked up in place of its SID."
   - "Channels senders (#1929, part of #1667): getChannelsSenders with channel whatsapp (and rcs) works on any account and returns an empty list when there are none; every page is read and no PageSize is sent. With a WhatsApp Business Account linked and an owned number, create a ChannelsSender with senderId whatsapp:+E164, a friendlyName, configuration.wabaId, a webhook callbackUrl and profile.name; it returns at once with status CREATING and the sender then moves through PENDING_VERIFICATION (set configuration.verificationCode in a later update with the SMS or voice code) to ONLINE. Refresh and preview show no change at every status. Changing friendlyName or webhook.callbackUrl updates in place; changing senderId replaces. Changing profile.name submits the name to Meta: pendingDisplayNameStatus is PENDING_REVIEW, the next preview still plans no change, and when Meta declines it the next preview plans the name again. Import the XE SID. Destroy deletes the sender. Not verified against a live account: which configuration and profile fields Twilio returns exactly as sent (a field it drops or reshapes would show as drift, see the keep-what-the-program-wrote rule in channels_sender.go), whether profile fields beyond name, about, address, description, vertical, websites, emails and phoneNumbers are accepted for WhatsApp (logoUrl, bannerUrl, privacyUrl, termsOfServiceUrl and accentColor are in the spec profile but described for RCS), and that a retry of a failed display name needs only the same name sent again."
+  - "Content approval request (#1930, part of #1667): on a WhatsApp-enabled account create a ContentTemplate that follows the WhatsApp rules (for a UTILITY template a text body) and a ContentApprovalRequest with its contentSid, a lowercase name and category UTILITY; it returns at once with status received or pending, refresh and preview show no change at every status, and getContentApprovalRequest reports the same. When Meta approves or rejects it, the next refresh shows status and rejectionReason; a category Meta changed shows in reviewedCategory and preview plans no change. Changing name, category or sendTtlSeconds replaces and fails at Twilio (one submission per template), so use a new ContentTemplate; adding bidAmount to a MARKETING template under Max Pricing PATCHes in place. Import the HX SID and the first preview plans no change. Destroy removes it from state and leaves the approval at Twilio. Not verified against a live account: the status values Twilio reports, that the whatsapp object of GET ApprovalRequests carries name, category, status, rejection_reason, content_type, allow_category_change, send_ttl_seconds and bid_amount (only the POST response is typed in the spec), whether a never-submitted template reports status unsubmitted or a null whatsapp object, and whether the POST of a template that already has a request fails with a 4xx."
   - "Content templates (part of #1667): create a ContentTemplate with language en, a friendlyName, variables {\"1\": \"Ada\"} and types text (\"Hello {{1}}\") plus quickReply with two buttons; refresh and preview show no change; changing friendlyName and the text updates in place (no replacement). Read it with getContentTemplate and getContentApprovalStatus (whatsappStatus and whatsappJson are null for a template never submitted to WhatsApp). Import the HX SID and the first preview plans no change. Deleting it in the console makes the next refresh drop it. Not verified against a live account: that Twilio returns the types exactly as sent (no defaulted or empty sub-fields that would show as drift), the keys inside the untyped whatsapp approval object (status, rejection_reason and category are read from the Twilio docs), and which of the WhatsApp-only types a non-WhatsApp-enabled account accepts."
   - "Proxy (#1905, part of #1667): create a ProxyService with uniqueName, defaultTtl and geoMatchLevel area-code; refresh and preview show no change; changing uniqueName updates in place. Read it with getProxyService. Import the SID and the first preview plans no change when the program states only what differs from Twilio defaults (defaultTtl 0, geoMatchLevel country, numberSelectionBehavior prefer-sticky). With a spare number of the account add a ProxyPhoneNumber by phoneNumber, then by phoneNumberSid in a second program: the second preview plans no change; toggling isReserved updates in place, changing the number replaces; import <serviceSid>/<sid> (the import names the number by phoneNumberSid) and the first preview plans no change when the program names the number by phoneNumberSid or by phoneNumber and states isReserved only if it is true. Destroy removes the number from the pool and the number stays in the account. Not verified against a live account: the geoMatchLevel values Twilio accepts (the spec lists area-code, overlay, radius and country, the docs also name extended-area-code), and whether it reports defaultTtl as 0 or null for a new service."
   - "Messaging Service senders (#1913, part of #1667): on a MessagingService add a MessagingServiceAlphaSender with a short name and a MessagingServiceDestinationAlphaSender with and without isoCountryCode; refresh and preview show no change, any changed input replaces. Import <serviceSid>/<sid> and the first preview plans no change; read each with getMessagingServiceAlphaSender and getMessagingServiceDestinationAlphaSender. With a short code or channel sender of the account add a MessagingServiceShortCode (shortCodeSid) or MessagingServiceChannelSender (channelSenderSid); destroy removes it from the pool and keeps the sender. Not verified against a live account: whether Twilio refuses an alpha sender ID that is already in another Messaging Service, whether it reports iso_country_code null or empty for a default destination sender, the casing it reports for the country, and whether a sender can be added before the service is registered for the country."
@@ -803,7 +975,7 @@ regressions:
   - "TaskRouter (#1861, part of #1667): create a TaskRouterWorkspace, a TaskRouterActivity, a TaskRouterTaskChannel, a TaskRouterTaskQueue, a TaskRouterWorkflow whose configuration routes to the queue (written with different spacing from what Twilio returns) and a TaskRouterWorker, refresh and preview show no change; changing each friendlyName updates in place, changing the workflow configuration updates in place, changing the activity available flag or the channel uniqueName replaces. Destroy the stack while the worker is in an available activity: the worker is moved to Offline and deleted with no 20001 error (#1982). Add the worker to a different activity in the program and confirm the worker moves; then move it in the console and confirm preview shows no drift for activitySid. Import each (<workspaceSid>, <workspaceSid>/<sid>) and the first preview plans no change. Not verified against a live account: that Twilio accepts the configuration document exactly as the provider sends it, and whether a worker created with no activitySid reports the workspace default activity."
   - "Verify extras (#1431 part 9): on a fresh VerifyService create a VerifyRateLimit with a bucket, a VerifyMessagingConfiguration for one country and a VerifyWebhook, refresh and preview show no change; changing the bucket max, the webhook url and eventTypes (in a different order) updates in place; removing webhook status and webhookVersion resets them to enabled and v2 and a re-preview is clean; import each (<serviceSid>/<sid>, <serviceSid>/<rateLimitSid>/<sid>, <serviceSid>/<country>) and the first preview plans no change. Add a number to the SafeList (the plus sign must be escaped as %2B in the path), read it back with getVerifySafeListNumber, destroy it. getVerifyTemplates lists the templates; use one SID as VerifyService.defaultTemplateSid. Not verified against a live account: that Twilio accepts the Version parameter name webhookVersion maps to, and the casing of the country in the response."
   - "Elastic SIP trunks: create a Trunk with recordingMode record-from-answer and recordingTrim trim-silence, refresh and preview show no change, getTrunk reports the same settings and the assigned domainName; changing recordingMode and friendlyName updates in place (no replacement); removing disasterRecoveryUrl clears it. Import a trunk, a TrunkOriginationUrl (<trunkSid>/<sid>) and an attachment (<trunkSid>/<listSid>): the first preview plans no change when the program states Twilio's defaults (transferMode disable-all, secure false, weight 10, priority 10, enabled true). Destroying an attachment must leave the credential list or IP access control list in place."
-  - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces."
+  - "EventSink: description updates in place (one POST), a changed destination, method, ARN or write key replaces; the Segment write key never appears in plaintext in the state. ApiKey: import a restricted key whose program writes the policy with whitespace or another key order; the first preview after import plans no change (#2011). EventSubscription: with an active sink, adding, dropping and re-versioning a type changes only that type (no replacement), a type added in the Console shows up as drift on refresh, and a changed sinkSid replaces. KnowledgeBase and Knowledge (unverified live, mocked API only): create returns only after the operation is COMPLETED and the base is ACTIVE (or the source COMPLETED), a Web source with an unreachable URL fails create and leaves no source, a displayName change updates in place, dropping a description replaces, and the crawlDepth 2 and crawlPeriod NEVER defaults plan no change. MemoryStore and MemoryTraitGroup (unverified live, mocked API only): create returns only after the operation is COMPLETED and the store is ACTIVE (the group readable), a failed operation surfaces Twilio's reason, adding, changing and dropping a trait is one PATCH with a deletion marker (dataType empty) for the dropped one, whether Twilio accepts changing the dataType of an existing trait and clearing a trait group description with an empty string is unverified, and a locked trait group fails delete with Twilio's 409."
   - "ShortCode, ConnectApp and OutgoingCallerId only adopt: destroy must leave the short code, the Connect app and the verified caller ID in place and make no API call; a removed friendlyName, companyName, description, homepageUrl, authorizeRedirectUrl or permissions input must leave the value on Twilio; accountSid changes replace (Twilio cannot move these between accounts)."
   - "#1595 import adopts non-default flags and numbers: for Application, IncomingPhoneNumber, MessagingService and VerifyService create from a minimal program, import, preview shows no change; then set a non-default value out of band (stickySender false, codeLength 4, voiceCallerIdLookup true), import, and the value appears in the imported inputs. Also re-probe a freshly created resource per type and confirm the import-only default map in props.go (importBoolDefaults, importIntDefaults) matches it"
   - "#1577 import then inspect the stack state (pulumi stack export --show-secrets off): every property the schema marks secret on an imported resource is a secret, never plaintext; a refresh of a resource created by the program keeps them secret"
@@ -826,11 +998,14 @@ regressions:
   - "Queue removing maxSize must reset it to 1000; a queue's live currentSize must not show as a diff."
   - "Video composition hook layout (#1937): create a VideoCompositionHook with a videoLayout that states only video_sources (for example {\"grid\":{\"video_sources\":[\"*\"]}}); refresh and the next preview show no change although Twilio reports its defaults for the region (cells_excluded, reuse show_oldest, x_pos, y_pos, z_pos 0, null height, width, max_rows, max_columns). Changing reuse or a position to a non-default value in the program is an in-place update, and a layout edited outside Pulumi to a non-default value shows as drift on refresh."
   - "Flex Flows (#1931, part of #1667): with a Chat service of the account create a FlexFlow with channelType custom, integrationType external, integrationUrl and a contactIdentity; refresh and preview show no change; changing friendlyName and integrationRetryCount updates in place. Read it with getFlexFlow and list it with getFlexFlows (friendlyName filter). A second FlexFlow with integrationType task (a TaskRouter workspace and workflow of the account) shows no change after a refresh when the program states only workspace and workflow. Import the SID and the first preview plans no change. Not verified against a live account: the default Twilio gives enabled and integrationCreationOnMessage (the provider never adopts them on import), whether Twilio accepts channelType custom without a Studio or Flex setup, whether the integration object is returned with only the keys of the chosen integrationType, and whether an update replaces the whole integration object (the provider always sends every integration input that is set)."
+  - "Flex Configuration (#1931 PR C, part of #1667): on a Flex-enabled account read the settings with getFlexConfiguration first. Create a FlexConfiguration (resource ID account) stating only uiLanguage set to the language already there; preview shows no change after refresh. Change uiLanguage and uiAttributes (a JSON object) and the update applies in place; reordering the keys of uiAttributes plans no change. Import with ID account and the first preview plans at most one harmless update for the settings the program states (Twilio documents no defaults, so nothing is adopted). Destroy leaves every setting on Twilio. Not verified against a live account: the update wire format (the spec gives the JSON request body an empty schema; the provider sends application/json with account_sid plus snake_case keys of only the stated settings, as Twilio documents), whether Twilio accepts a partial body, whether account_sid is required, and that an empty serverlessServiceSids list clears the list."
+  - "Flex and Frontline users (#1931 PR C2, part of #1667): neither API can create or delete a user, so both resources adopt one. With an invited Flex user read it with getFlexUser, create a FlexUser (instanceSid, flexUserSid) stating only locale as it is; the resource ID is <instanceSid>/<flexUserSid>; preview shows no change. Change locale and email and the update applies in place; destroy leaves the user. A FrontlineUser (sid) works the same with friendlyName, avatar, state (active or deactivated) and isAvailable; importing by SID adopts state and isAvailable only when they differ from the defaults. Not verified against a live account: that Flex v2 returns the fields the provider reads back (email, user_sid, locale, version), the Flex user SID prefix (not validated), whether Email and UserSid are accepted without Locale, and the Frontline defaults the spec states (state active, isAvailable false for new users)."
+  - "Flex Insights quality management (#2007, part of #1667), on a Flex Insights-enabled account: read the answer sets with getFlexInsightsAnswerSets first. Create a FlexInsightsCategory, then a FlexInsightsQuestion (categorySid, question, answerSetId from the answer sets, allowNa), then a FlexInsightsQuestionnaire (name, active, questionSids). Refresh and preview show no change; changing the category name, the question text or allowNa, and the questionnaire name, active or questionSids updates in place. Import by SID: a category or question is found by scanning the list. Read them with getFlexInsightsCategory(ies), getFlexInsightsQuestion(s) and getFlexInsightsQuestionnaire(s). Not verified against a live account: whether the account credentials are accepted instead of the optional Flex Insights token (Authorization header) every operation lists, the SID prefix of a questionnaire (not validated), whether the category object of a question carries category_sid, whether an update with questionSids replaces the whole set, the default of active on create, and the shape of the answer sets and comment tags (returned as JSON documents)."
   - "Flex Plugins (#1931, part of #1667), on a Flex-enabled account: create a FlexPlugin with a uniqueName and friendlyName, then a FlexPluginVersion (pluginVersion 1.0.0 and a pluginUrl of a Twilio Asset or any https URL) and a FlexPluginConfiguration whose pluginVersionSids lists that version. Refresh and preview show no change; changing the plugin friendlyName updates in place; changing the version or the configuration replaces it. Read them with getFlexPlugin, getFlexPluginVersion(s) and getFlexPluginConfiguration(s) (pluginVersionSids). Import <pluginSid>/<versionSid> and the configuration SID and the first preview plans no change. Do not create a FlexPluginRelease on a shared account: it changes the plugins every Flex user loads and Twilio has no way to delete it. Not verified against a live account: the Plugins parameter encoding (one parameter per version, each the JSON object {\"plugin_version\": \"FV...\"}), whether a refresh of an archived object returns 404 or archived true (both read as deleted), whether the Configuration plugin list is returned in the order it was created, whether Twilio refuses to archive the released Configuration, and the default of private."
   - "BrandRegistration (#1928), manual: with approved Customer Profile and A2P Messaging Profile bundles create a BrandRegistration with mock true; refresh and preview show no change and status, tcrId and brandScore are filled in. Changing any input replaces it. Destroy removes it from state only: confirm in the console that the brand is still there. getBrandRegistration and getBrandRegistrations return it. Not verified against a live account: whether the mock brand reports brandType STANDARD when the input is omitted, the identityStatus values for a mock brand, and the shape of the errors entries."
   - "UsAppToPerson (#1928), manual, with an approved BrandRegistration and a Messaging Service you can spend on: create a campaign (use case LOW_VOLUME or 2FA, two message samples, a description of 40 or more characters); refresh and preview show no change while campaignStatus moves from IN_PROGRESS. Changing the description or the samples updates in place and the update succeeds without ageGated or directLending in the program. Changing the use case replaces it. Import <messagingServiceSid>/<sid> and the first preview plans no change. getUsAppToPersonUsecases with the brandRegistrationSid lists the use cases of that brand. Not verified against a live account: the shape of the use case entries (code, name, description, post_approval_required are taken from the spec text), whether an update that omits the opt-in and opt-out fields keeps them, whether a campaign can be deleted while its status is IN_PROGRESS, and the default of subscriberOptIn."
   - "TollfreeVerification (#1928), manual, with a toll-free number of the account and details of a real business: create a verification (2FA, a WEB_FORM opt-in image URL that Twilio can fetch); refresh and preview show no change while status moves from PENDING_REVIEW. After a rejection with editAllowed true, change businessWebsite and set editReason: the update succeeds and the status returns to PENDING_REVIEW; an edit when editAllowed is false fails. Changing the number replaces it. Import the SID and the first preview plans no change. getTollfreeVerifications with a status filter lists it. Not verified against a live account: how Twilio normalizes messageVolume and the phone and URL fields (a normalized value would show as drift), whether use_case_categories and opt_in_image_urls come back in the order sent, whether an edit may resend every field, and whether an approved verification can be deleted."
   - "Link shortening (#1928), manual, on an account with a link shortening domain set up by Twilio: adopt the domain with LinkShorteningDomainConfig (callbackUrl, continueOnFailure); refresh and preview show no change and an import of the domain SID plans no change. Upload a certificate with LinkShorteningDomainCertificate and a Messaging Service association with LinkShorteningMessagingServiceDomain; getLinkShorteningDomainDnsValidation and the other lookups return them. Replacing the tlsCert uploads again and certInValidation shows the pending validation. Destroy the association and the certificate; the domain configuration stays. Not verified against a live account: whether a new certificate needs the old one deleted first, whether Twilio answers a certificate read of a domain without one with 404, the default of continueOnFailure and disableHttps (the provider adopts what Twilio reports on import), and the shape of cert_in_validation."
-  - "TrustHub end users and supporting documents (#1933), manual: create a TrustHubEndUser (type customer_profile_business_information or authorized_representative_1, attributes per getTrustHubEndUserTypes) and a TrustHubSupportingDocument (type customer_profile_address, attributes per getTrustHubSupportingDocumentTypes); refresh and preview show no change and the document status is DRAFT. Changing friendlyName or attributes updates in place; changing type replaces. Import the SID and the first preview plans no change. The type, policy and list lookups return Twilio's current catalog. Not verified against a live account: whether Twilio normalizes attribute values (a normalized value would show as drift), whether a document created without attributes reports null or {}, whether an end user or document in use by a bundle can be deleted, and the page size cap of the lists."
+  - "TrustHub end users and supporting documents (#1933), manual: create a TrustHubEndUser (type customer_profile_business_information or authorized_representative_1, attributes per getTrustHubEndUserTypes) and a TrustHubSupportingDocument (type customer_profile_address, attributes per getTrustHubSupportingDocumentTypes); refresh and preview show no change and the document status is DRAFT. Changing friendlyName or attributes updates in place; changing type replaces. Import the SID and the first preview plans no change. The type, policy and list lookups return Twilio's current catalog. Not verified against a live account: whether Twilio normalizes attribute values (a normalized value would show as drift), whether a document created without attributes reports null or {}, whether an end user or document in use by a bundle can be deleted, and the page size cap of the lists. CustomerProfile and TrustProduct (#1933 part 2, manual, never with submit): create a draft with a policySid from getTrustHubPolicies, assign the end user to it with the matching EntityAssignment resource, refresh and preview show no change, status is draft; friendlyName, email and statusCallback update in place and the policy replaces; import the BU SID and the first preview plans no change. Not verified against a live account: whether a draft can be edited and deleted freely, what Twilio returns for status_callback when none is set, and the SID prefix of the assignments (BV is assumed from the docs examples). RegulatoryBundle with its end user, supporting document and assignment (#1933 part 3, manual, never with submit): pick a regulation with getRegulatoryRegulations, create a draft bundle, an end user and a document of the types the regulation requires (getRegulatoryEndUserTypes, getRegulatorySupportingDocumentTypes), assign them with RegulatoryBundleItemAssignment; refresh and preview show no change and the bundle status is draft; friendlyName, email and statusCallback update in place; import the BU SID and the first preview plans no change even when the program states isoCountry, numberType and endUserType. Not verified against a live account: whether a draft can be edited and deleted freely, whether a bundle created from isoCountry, numberType and endUserType reports the resolved regulation_sid, and the status values (lowercase, hyphenated for bundles and documents)."
 notes: >-
   Never create a resource that sends an SMS or places a call; none of the shipped surface does, so no test is skipped. ApiKey returns its secret only on create. Subaccounts cannot be deleted, only closed, so use a unique friendlyName per run and expect leftovers. Cleanup order: MessagingServicePhoneNumber before MessagingService, and release nothing: IncomingPhoneNumber destroy never releases the number, it only drops it from state. Twilio is eventually consistent for new services and subaccounts, so retry reads briefly. MessagingServicePhoneNumber has no update (serviceSid and phoneNumberSid replace). The update properties are verified in the Go source as non-replace inputs; the API behaviour itself is unverified. Many products are deferred (A2P, Verify rate limits and others). Address delete fails while the address is in use. UsageTrigger fires a webhook, so point it at a url you control.

@@ -52,6 +52,7 @@ type fakeTwilio struct {
 	mu                        sync.Mutex
 	endlessKeyPages           bool                      // the account-explicit key list never ends (a truncation probe)
 	templatePageSize          int                       // when set, /v2/Templates pages hold this many items
+	memoryApply               map[string]func()         // pending Memory operation effects, by operation ID
 	objs                      map[string]map[string]any // "kind/account/sid" -> object; ordered by seq
 	order                     []string
 	next                      int
@@ -166,7 +167,7 @@ var (
 
 func startFakeTwilio(t *testing.T) *fakeTwilio {
 	t.Helper()
-	f := &fakeTwilio{t: t, objs: map[string]map[string]any{}, failure: map[string]int{}}
+	f := &fakeTwilio{t: t, objs: map[string]map[string]any{}, failure: map[string]int{}, memoryApply: map[string]func(){}}
 	f.server = httptest.NewServer(http.HandlerFunc(f.handle))
 	t.Cleanup(f.server.Close)
 	return f
@@ -271,6 +272,11 @@ func applyForm(o map[string]any, form url.Values, fields []fakeField) string {
 func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	if strings.HasPrefix(r.URL.Path, "/knowledge-upload/") {
+		// A presigned URL on another host: it is checked by its own handler, not by Basic auth.
+		f.handleKnowledgeUpload(w, r, strings.TrimPrefix(r.URL.Path, "/knowledge-upload/"))
+		return
+	}
 	if u, p, ok := r.BasicAuth(); !ok || u != fakeUser || p != fakePass {
 		ferr(w, 401, "Authenticate")
 		return
@@ -298,6 +304,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleIAMKeys(w, r, form, strings.Trim(strings.TrimPrefix(path, "/iam/v1/Keys"), "/"))
 	case strings.HasPrefix(path, "/messaging/v2/Channels/Senders"):
 		f.handleChannelsSenders(w, r, body, strings.Trim(strings.TrimPrefix(path, "/messaging/v2/Channels/Senders"), "/"))
+	case strings.HasPrefix(path, "/numbers/v2/RegulatoryCompliance/"):
+		f.handleNumbersReg(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/numbers/v2/RegulatoryCompliance/"), "/"), "/"))
 	case strings.HasPrefix(path, "/trusthub/v1/"):
 		f.handleTrusthub(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/trusthub/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/messaging/v1/LinkShortening/"):
@@ -328,6 +336,10 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		f.handleServerless(w, r, form, strings.Split(rest, "/"))
+	case strings.HasPrefix(path, "/memory/v1/"):
+		f.handleMemory(w, r, body, strings.TrimPrefix(path, "/memory/v1/"))
+	case strings.HasPrefix(path, "/knowledge/v2/"):
+		f.handleKnowledge(w, r, body, strings.TrimPrefix(path, "/knowledge/v2/"))
 	case strings.HasPrefix(path, "/events/v1/"):
 		f.handleEvents(w, r, form, strings.Split(strings.Trim(strings.TrimPrefix(path, "/events/v1/"), "/"), "/"))
 	case strings.HasPrefix(path, "/voice/v1/"):
@@ -342,6 +354,8 @@ func (f *fakeTwilio) handle(w http.ResponseWriter, r *http.Request) {
 		f.handleProxy(w, r, form, strings.Trim(strings.TrimPrefix(path, "/proxy/v1/"), "/"))
 	case strings.HasPrefix(path, "/content/v1/"):
 		f.handleContent(w, r, body, strings.Trim(strings.TrimPrefix(path, "/content/v1/"), "/"))
+	case strings.HasPrefix(path, "/flex-api/v2/Instances/"), strings.HasPrefix(path, "/frontline-api/v1/Users/"):
+		f.handleUsers(w, r, form, body)
 	case strings.HasPrefix(path, "/flex-api/v1/"):
 		f.handleFlex(w, r, form, strings.Trim(strings.TrimPrefix(path, "/flex-api/v1/"), "/"))
 	case strings.HasPrefix(path, "/supersim/v1/"):

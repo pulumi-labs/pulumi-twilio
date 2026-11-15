@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+// Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
 func GetContentApprovalStatus(ctx *pulumi.Context, args *GetContentApprovalStatusArgs, opts ...pulumi.InvokeOption) (*GetContentApprovalStatusResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetContentApprovalStatusResult

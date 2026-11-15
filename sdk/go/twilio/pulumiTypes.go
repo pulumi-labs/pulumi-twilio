@@ -7951,6 +7951,257 @@ func (o FlexFlowInfoArrayOutput) Index(i pulumi.IntInput) FlexFlowInfoOutput {
 	}).(FlexFlowInfoOutput)
 }
 
+type FlexInsightsCategoryInfo struct {
+	// The SID (AC...) of the account that owns the category.
+	AccountSid string `pulumi:"accountSid"`
+	// The name of the category.
+	Name string `pulumi:"name"`
+	// The category SID (FY...).
+	Sid string `pulumi:"sid"`
+	// The URL of the category resource.
+	Url string `pulumi:"url"`
+}
+
+type FlexInsightsCategoryInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsCategoryInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexInsightsCategoryInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsCategoryInfoOutput) ToFlexInsightsCategoryInfoOutput() FlexInsightsCategoryInfoOutput {
+	return o
+}
+
+func (o FlexInsightsCategoryInfoOutput) ToFlexInsightsCategoryInfoOutputWithContext(ctx context.Context) FlexInsightsCategoryInfoOutput {
+	return o
+}
+
+// The SID (AC...) of the account that owns the category.
+func (o FlexInsightsCategoryInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsCategoryInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// The name of the category.
+func (o FlexInsightsCategoryInfoOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsCategoryInfo) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The category SID (FY...).
+func (o FlexInsightsCategoryInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsCategoryInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The URL of the category resource.
+func (o FlexInsightsCategoryInfoOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsCategoryInfo) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type FlexInsightsCategoryInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsCategoryInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexInsightsCategoryInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsCategoryInfoArrayOutput) ToFlexInsightsCategoryInfoArrayOutput() FlexInsightsCategoryInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsCategoryInfoArrayOutput) ToFlexInsightsCategoryInfoArrayOutputWithContext(ctx context.Context) FlexInsightsCategoryInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsCategoryInfoArrayOutput) Index(i pulumi.IntInput) FlexInsightsCategoryInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexInsightsCategoryInfo {
+		return vs[0].([]FlexInsightsCategoryInfo)[vs[1].(int)]
+	}).(FlexInsightsCategoryInfoOutput)
+}
+
+type FlexInsightsQuestionInfo struct {
+	// The SID (AC...) of the account that owns the question.
+	AccountSid string `pulumi:"accountSid"`
+	// Whether an evaluator may answer not applicable.
+	AllowNa bool `pulumi:"allowNa"`
+	// The ID of the answer set of the question.
+	AnswerSetId string `pulumi:"answerSetId"`
+	// The SID (FY...) of the category of the question.
+	CategorySid string `pulumi:"categorySid"`
+	// The description of the question.
+	Description *string `pulumi:"description"`
+	// The text of the question.
+	Question string `pulumi:"question"`
+	// The question SID (GE...).
+	Sid string `pulumi:"sid"`
+	// The URL of the question resource.
+	Url string `pulumi:"url"`
+	// How many questionnaires use the question.
+	Usage int `pulumi:"usage"`
+}
+
+type FlexInsightsQuestionInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsQuestionInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexInsightsQuestionInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsQuestionInfoOutput) ToFlexInsightsQuestionInfoOutput() FlexInsightsQuestionInfoOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionInfoOutput) ToFlexInsightsQuestionInfoOutputWithContext(ctx context.Context) FlexInsightsQuestionInfoOutput {
+	return o
+}
+
+// The SID (AC...) of the account that owns the question.
+func (o FlexInsightsQuestionInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// Whether an evaluator may answer not applicable.
+func (o FlexInsightsQuestionInfoOutput) AllowNa() pulumi.BoolOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) bool { return v.AllowNa }).(pulumi.BoolOutput)
+}
+
+// The ID of the answer set of the question.
+func (o FlexInsightsQuestionInfoOutput) AnswerSetId() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.AnswerSetId }).(pulumi.StringOutput)
+}
+
+// The SID (FY...) of the category of the question.
+func (o FlexInsightsQuestionInfoOutput) CategorySid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.CategorySid }).(pulumi.StringOutput)
+}
+
+// The description of the question.
+func (o FlexInsightsQuestionInfoOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The text of the question.
+func (o FlexInsightsQuestionInfoOutput) Question() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.Question }).(pulumi.StringOutput)
+}
+
+// The question SID (GE...).
+func (o FlexInsightsQuestionInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The URL of the question resource.
+func (o FlexInsightsQuestionInfoOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) string { return v.Url }).(pulumi.StringOutput)
+}
+
+// How many questionnaires use the question.
+func (o FlexInsightsQuestionInfoOutput) Usage() pulumi.IntOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionInfo) int { return v.Usage }).(pulumi.IntOutput)
+}
+
+type FlexInsightsQuestionInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsQuestionInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexInsightsQuestionInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsQuestionInfoArrayOutput) ToFlexInsightsQuestionInfoArrayOutput() FlexInsightsQuestionInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionInfoArrayOutput) ToFlexInsightsQuestionInfoArrayOutputWithContext(ctx context.Context) FlexInsightsQuestionInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionInfoArrayOutput) Index(i pulumi.IntInput) FlexInsightsQuestionInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexInsightsQuestionInfo {
+		return vs[0].([]FlexInsightsQuestionInfo)[vs[1].(int)]
+	}).(FlexInsightsQuestionInfoOutput)
+}
+
+type FlexInsightsQuestionnaireInfo struct {
+	// The SID (AC...) of the account that owns the questionnaire.
+	AccountSid string `pulumi:"accountSid"`
+	// Whether the questionnaire is active.
+	Active bool `pulumi:"active"`
+	// The description of the questionnaire.
+	Description *string `pulumi:"description"`
+	// The name of the questionnaire.
+	Name string `pulumi:"name"`
+	// The SIDs (GE...) of the questions in the questionnaire.
+	QuestionSids []string `pulumi:"questionSids"`
+	// The questionnaire SID.
+	Sid string `pulumi:"sid"`
+	// The URL of the questionnaire resource.
+	Url string `pulumi:"url"`
+}
+
+type FlexInsightsQuestionnaireInfoOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsQuestionnaireInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlexInsightsQuestionnaireInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsQuestionnaireInfoOutput) ToFlexInsightsQuestionnaireInfoOutput() FlexInsightsQuestionnaireInfoOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionnaireInfoOutput) ToFlexInsightsQuestionnaireInfoOutputWithContext(ctx context.Context) FlexInsightsQuestionnaireInfoOutput {
+	return o
+}
+
+// The SID (AC...) of the account that owns the questionnaire.
+func (o FlexInsightsQuestionnaireInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// Whether the questionnaire is active.
+func (o FlexInsightsQuestionnaireInfoOutput) Active() pulumi.BoolOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) bool { return v.Active }).(pulumi.BoolOutput)
+}
+
+// The description of the questionnaire.
+func (o FlexInsightsQuestionnaireInfoOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The name of the questionnaire.
+func (o FlexInsightsQuestionnaireInfoOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The SIDs (GE...) of the questions in the questionnaire.
+func (o FlexInsightsQuestionnaireInfoOutput) QuestionSids() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) []string { return v.QuestionSids }).(pulumi.StringArrayOutput)
+}
+
+// The questionnaire SID.
+func (o FlexInsightsQuestionnaireInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The URL of the questionnaire resource.
+func (o FlexInsightsQuestionnaireInfoOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v FlexInsightsQuestionnaireInfo) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type FlexInsightsQuestionnaireInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (FlexInsightsQuestionnaireInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlexInsightsQuestionnaireInfo)(nil)).Elem()
+}
+
+func (o FlexInsightsQuestionnaireInfoArrayOutput) ToFlexInsightsQuestionnaireInfoArrayOutput() FlexInsightsQuestionnaireInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionnaireInfoArrayOutput) ToFlexInsightsQuestionnaireInfoArrayOutputWithContext(ctx context.Context) FlexInsightsQuestionnaireInfoArrayOutput {
+	return o
+}
+
+func (o FlexInsightsQuestionnaireInfoArrayOutput) Index(i pulumi.IntInput) FlexInsightsQuestionnaireInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexInsightsQuestionnaireInfo {
+		return vs[0].([]FlexInsightsQuestionnaireInfo)[vs[1].(int)]
+	}).(FlexInsightsQuestionnaireInfoOutput)
+}
+
 type FlexPluginConfigurationInfo struct {
 	// Whether the Configuration is archived.
 	Archived bool `pulumi:"archived"`
@@ -8272,6 +8523,157 @@ func (o FlexPluginVersionInfoArrayOutput) Index(i pulumi.IntInput) FlexPluginVer
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlexPluginVersionInfo {
 		return vs[0].([]FlexPluginVersionInfo)[vs[1].(int)]
 	}).(FlexPluginVersionInfoOutput)
+}
+
+type IdentifierConfig struct {
+	// When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+	EnforceUnique *bool `pulumi:"enforceUnique"`
+	// Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+	IdType string `pulumi:"idType"`
+	// Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+	Limit *int `pulumi:"limit"`
+	// What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+	LimitPolicy *string `pulumi:"limitPolicy"`
+	// How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+	MatchingAlgo *string `pulumi:"matchingAlgo"`
+	// The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+	MatchingThreshold *int `pulumi:"matchingThreshold"`
+	// Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+	Normalization *string `pulumi:"normalization"`
+}
+
+// IdentifierConfigInput is an input type that accepts IdentifierConfigArgs and IdentifierConfigOutput values.
+// You can construct a concrete instance of `IdentifierConfigInput` via:
+//
+//	IdentifierConfigArgs{...}
+type IdentifierConfigInput interface {
+	pulumi.Input
+
+	ToIdentifierConfigOutput() IdentifierConfigOutput
+	ToIdentifierConfigOutputWithContext(context.Context) IdentifierConfigOutput
+}
+
+type IdentifierConfigArgs struct {
+	// When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+	EnforceUnique pulumi.BoolPtrInput `pulumi:"enforceUnique"`
+	// Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+	IdType pulumi.StringInput `pulumi:"idType"`
+	// Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
+	// What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+	LimitPolicy pulumi.StringPtrInput `pulumi:"limitPolicy"`
+	// How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+	MatchingAlgo pulumi.StringPtrInput `pulumi:"matchingAlgo"`
+	// The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+	MatchingThreshold pulumi.IntPtrInput `pulumi:"matchingThreshold"`
+	// Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+	Normalization pulumi.StringPtrInput `pulumi:"normalization"`
+}
+
+func (IdentifierConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IdentifierConfig)(nil)).Elem()
+}
+
+func (i IdentifierConfigArgs) ToIdentifierConfigOutput() IdentifierConfigOutput {
+	return i.ToIdentifierConfigOutputWithContext(context.Background())
+}
+
+func (i IdentifierConfigArgs) ToIdentifierConfigOutputWithContext(ctx context.Context) IdentifierConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IdentifierConfigOutput)
+}
+
+// IdentifierConfigArrayInput is an input type that accepts IdentifierConfigArray and IdentifierConfigArrayOutput values.
+// You can construct a concrete instance of `IdentifierConfigArrayInput` via:
+//
+//	IdentifierConfigArray{ IdentifierConfigArgs{...} }
+type IdentifierConfigArrayInput interface {
+	pulumi.Input
+
+	ToIdentifierConfigArrayOutput() IdentifierConfigArrayOutput
+	ToIdentifierConfigArrayOutputWithContext(context.Context) IdentifierConfigArrayOutput
+}
+
+type IdentifierConfigArray []IdentifierConfigInput
+
+func (IdentifierConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IdentifierConfig)(nil)).Elem()
+}
+
+func (i IdentifierConfigArray) ToIdentifierConfigArrayOutput() IdentifierConfigArrayOutput {
+	return i.ToIdentifierConfigArrayOutputWithContext(context.Background())
+}
+
+func (i IdentifierConfigArray) ToIdentifierConfigArrayOutputWithContext(ctx context.Context) IdentifierConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IdentifierConfigArrayOutput)
+}
+
+type IdentifierConfigOutput struct{ *pulumi.OutputState }
+
+func (IdentifierConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IdentifierConfig)(nil)).Elem()
+}
+
+func (o IdentifierConfigOutput) ToIdentifierConfigOutput() IdentifierConfigOutput {
+	return o
+}
+
+func (o IdentifierConfigOutput) ToIdentifierConfigOutputWithContext(ctx context.Context) IdentifierConfigOutput {
+	return o
+}
+
+// When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+func (o IdentifierConfigOutput) EnforceUnique() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *bool { return v.EnforceUnique }).(pulumi.BoolPtrOutput)
+}
+
+// Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+func (o IdentifierConfigOutput) IdType() pulumi.StringOutput {
+	return o.ApplyT(func(v IdentifierConfig) string { return v.IdType }).(pulumi.StringOutput)
+}
+
+// Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+func (o IdentifierConfigOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
+// What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+func (o IdentifierConfigOutput) LimitPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *string { return v.LimitPolicy }).(pulumi.StringPtrOutput)
+}
+
+// How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+func (o IdentifierConfigOutput) MatchingAlgo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *string { return v.MatchingAlgo }).(pulumi.StringPtrOutput)
+}
+
+// The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+func (o IdentifierConfigOutput) MatchingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *int { return v.MatchingThreshold }).(pulumi.IntPtrOutput)
+}
+
+// Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+func (o IdentifierConfigOutput) Normalization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IdentifierConfig) *string { return v.Normalization }).(pulumi.StringPtrOutput)
+}
+
+type IdentifierConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (IdentifierConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IdentifierConfig)(nil)).Elem()
+}
+
+func (o IdentifierConfigArrayOutput) ToIdentifierConfigArrayOutput() IdentifierConfigArrayOutput {
+	return o
+}
+
+func (o IdentifierConfigArrayOutput) ToIdentifierConfigArrayOutputWithContext(ctx context.Context) IdentifierConfigArrayOutput {
+	return o
+}
+
+func (o IdentifierConfigArrayOutput) Index(i pulumi.IntInput) IdentifierConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IdentifierConfig {
+		return vs[0].([]IdentifierConfig)[vs[1].(int)]
+	}).(IdentifierConfigOutput)
 }
 
 type IncomingPhoneNumberEffective struct {
@@ -8738,6 +9140,245 @@ func (o IncomingPhoneNumberEffectivePtrOutput) VoiceUrl() pulumi.StringPtrOutput
 		}
 		return v.VoiceUrl
 	}).(pulumi.StringPtrOutput)
+}
+
+type MemoryTrait struct {
+	// Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+	DataType string `pulumi:"dataType"`
+	// What the trait holds, up to 1024 characters.
+	Description *string `pulumi:"description"`
+	// Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+	IdTypePromotion *string `pulumi:"idTypePromotion"`
+	// Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+	ValidationRule *string `pulumi:"validationRule"`
+}
+
+// MemoryTraitInput is an input type that accepts MemoryTraitArgs and MemoryTraitOutput values.
+// You can construct a concrete instance of `MemoryTraitInput` via:
+//
+//	MemoryTraitArgs{...}
+type MemoryTraitInput interface {
+	pulumi.Input
+
+	ToMemoryTraitOutput() MemoryTraitOutput
+	ToMemoryTraitOutputWithContext(context.Context) MemoryTraitOutput
+}
+
+type MemoryTraitArgs struct {
+	// Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+	DataType pulumi.StringInput `pulumi:"dataType"`
+	// What the trait holds, up to 1024 characters.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+	IdTypePromotion pulumi.StringPtrInput `pulumi:"idTypePromotion"`
+	// Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+	ValidationRule pulumi.StringPtrInput `pulumi:"validationRule"`
+}
+
+func (MemoryTraitArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MemoryTrait)(nil)).Elem()
+}
+
+func (i MemoryTraitArgs) ToMemoryTraitOutput() MemoryTraitOutput {
+	return i.ToMemoryTraitOutputWithContext(context.Background())
+}
+
+func (i MemoryTraitArgs) ToMemoryTraitOutputWithContext(ctx context.Context) MemoryTraitOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MemoryTraitOutput)
+}
+
+// MemoryTraitMapInput is an input type that accepts MemoryTraitMap and MemoryTraitMapOutput values.
+// You can construct a concrete instance of `MemoryTraitMapInput` via:
+//
+//	MemoryTraitMap{ "key": MemoryTraitArgs{...} }
+type MemoryTraitMapInput interface {
+	pulumi.Input
+
+	ToMemoryTraitMapOutput() MemoryTraitMapOutput
+	ToMemoryTraitMapOutputWithContext(context.Context) MemoryTraitMapOutput
+}
+
+type MemoryTraitMap map[string]MemoryTraitInput
+
+func (MemoryTraitMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]MemoryTrait)(nil)).Elem()
+}
+
+func (i MemoryTraitMap) ToMemoryTraitMapOutput() MemoryTraitMapOutput {
+	return i.ToMemoryTraitMapOutputWithContext(context.Background())
+}
+
+func (i MemoryTraitMap) ToMemoryTraitMapOutputWithContext(ctx context.Context) MemoryTraitMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MemoryTraitMapOutput)
+}
+
+type MemoryTraitOutput struct{ *pulumi.OutputState }
+
+func (MemoryTraitOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MemoryTrait)(nil)).Elem()
+}
+
+func (o MemoryTraitOutput) ToMemoryTraitOutput() MemoryTraitOutput {
+	return o
+}
+
+func (o MemoryTraitOutput) ToMemoryTraitOutputWithContext(ctx context.Context) MemoryTraitOutput {
+	return o
+}
+
+// Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+func (o MemoryTraitOutput) DataType() pulumi.StringOutput {
+	return o.ApplyT(func(v MemoryTrait) string { return v.DataType }).(pulumi.StringOutput)
+}
+
+// What the trait holds, up to 1024 characters.
+func (o MemoryTraitOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MemoryTrait) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+func (o MemoryTraitOutput) IdTypePromotion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MemoryTrait) *string { return v.IdTypePromotion }).(pulumi.StringPtrOutput)
+}
+
+// Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+func (o MemoryTraitOutput) ValidationRule() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MemoryTrait) *string { return v.ValidationRule }).(pulumi.StringPtrOutput)
+}
+
+type MemoryTraitMapOutput struct{ *pulumi.OutputState }
+
+func (MemoryTraitMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]MemoryTrait)(nil)).Elem()
+}
+
+func (o MemoryTraitMapOutput) ToMemoryTraitMapOutput() MemoryTraitMapOutput {
+	return o
+}
+
+func (o MemoryTraitMapOutput) ToMemoryTraitMapOutputWithContext(ctx context.Context) MemoryTraitMapOutput {
+	return o
+}
+
+func (o MemoryTraitMapOutput) MapIndex(k pulumi.StringInput) MemoryTraitOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) MemoryTrait {
+		return vs[0].(map[string]MemoryTrait)[vs[1].(string)]
+	}).(MemoryTraitOutput)
+}
+
+type MemoryTraitMapping struct {
+	// The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+	Expression string `pulumi:"expression"`
+	// Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+	TraitGroup string `pulumi:"traitGroup"`
+	// Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+	TraitName string `pulumi:"traitName"`
+}
+
+// MemoryTraitMappingInput is an input type that accepts MemoryTraitMappingArgs and MemoryTraitMappingOutput values.
+// You can construct a concrete instance of `MemoryTraitMappingInput` via:
+//
+//	MemoryTraitMappingArgs{...}
+type MemoryTraitMappingInput interface {
+	pulumi.Input
+
+	ToMemoryTraitMappingOutput() MemoryTraitMappingOutput
+	ToMemoryTraitMappingOutputWithContext(context.Context) MemoryTraitMappingOutput
+}
+
+type MemoryTraitMappingArgs struct {
+	// The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+	Expression pulumi.StringInput `pulumi:"expression"`
+	// Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+	TraitGroup pulumi.StringInput `pulumi:"traitGroup"`
+	// Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+	TraitName pulumi.StringInput `pulumi:"traitName"`
+}
+
+func (MemoryTraitMappingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MemoryTraitMapping)(nil)).Elem()
+}
+
+func (i MemoryTraitMappingArgs) ToMemoryTraitMappingOutput() MemoryTraitMappingOutput {
+	return i.ToMemoryTraitMappingOutputWithContext(context.Background())
+}
+
+func (i MemoryTraitMappingArgs) ToMemoryTraitMappingOutputWithContext(ctx context.Context) MemoryTraitMappingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MemoryTraitMappingOutput)
+}
+
+// MemoryTraitMappingArrayInput is an input type that accepts MemoryTraitMappingArray and MemoryTraitMappingArrayOutput values.
+// You can construct a concrete instance of `MemoryTraitMappingArrayInput` via:
+//
+//	MemoryTraitMappingArray{ MemoryTraitMappingArgs{...} }
+type MemoryTraitMappingArrayInput interface {
+	pulumi.Input
+
+	ToMemoryTraitMappingArrayOutput() MemoryTraitMappingArrayOutput
+	ToMemoryTraitMappingArrayOutputWithContext(context.Context) MemoryTraitMappingArrayOutput
+}
+
+type MemoryTraitMappingArray []MemoryTraitMappingInput
+
+func (MemoryTraitMappingArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MemoryTraitMapping)(nil)).Elem()
+}
+
+func (i MemoryTraitMappingArray) ToMemoryTraitMappingArrayOutput() MemoryTraitMappingArrayOutput {
+	return i.ToMemoryTraitMappingArrayOutputWithContext(context.Background())
+}
+
+func (i MemoryTraitMappingArray) ToMemoryTraitMappingArrayOutputWithContext(ctx context.Context) MemoryTraitMappingArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MemoryTraitMappingArrayOutput)
+}
+
+type MemoryTraitMappingOutput struct{ *pulumi.OutputState }
+
+func (MemoryTraitMappingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MemoryTraitMapping)(nil)).Elem()
+}
+
+func (o MemoryTraitMappingOutput) ToMemoryTraitMappingOutput() MemoryTraitMappingOutput {
+	return o
+}
+
+func (o MemoryTraitMappingOutput) ToMemoryTraitMappingOutputWithContext(ctx context.Context) MemoryTraitMappingOutput {
+	return o
+}
+
+// The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+func (o MemoryTraitMappingOutput) Expression() pulumi.StringOutput {
+	return o.ApplyT(func(v MemoryTraitMapping) string { return v.Expression }).(pulumi.StringOutput)
+}
+
+// Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+func (o MemoryTraitMappingOutput) TraitGroup() pulumi.StringOutput {
+	return o.ApplyT(func(v MemoryTraitMapping) string { return v.TraitGroup }).(pulumi.StringOutput)
+}
+
+// Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+func (o MemoryTraitMappingOutput) TraitName() pulumi.StringOutput {
+	return o.ApplyT(func(v MemoryTraitMapping) string { return v.TraitName }).(pulumi.StringOutput)
+}
+
+type MemoryTraitMappingArrayOutput struct{ *pulumi.OutputState }
+
+func (MemoryTraitMappingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MemoryTraitMapping)(nil)).Elem()
+}
+
+func (o MemoryTraitMappingArrayOutput) ToMemoryTraitMappingArrayOutput() MemoryTraitMappingArrayOutput {
+	return o
+}
+
+func (o MemoryTraitMappingArrayOutput) ToMemoryTraitMappingArrayOutputWithContext(ctx context.Context) MemoryTraitMappingArrayOutput {
+	return o
+}
+
+func (o MemoryTraitMappingArrayOutput) Index(i pulumi.IntInput) MemoryTraitMappingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MemoryTraitMapping {
+		return vs[0].([]MemoryTraitMapping)[vs[1].(int)]
+	}).(MemoryTraitMappingOutput)
 }
 
 type MessagingGeoPermission struct {
@@ -10314,6 +10955,350 @@ func (o RecordingStatusCallbackPtrOutput) Url() pulumi.StringPtrOutput {
 		}
 		return v.Url
 	}).(pulumi.StringPtrOutput)
+}
+
+type RegulatoryEndUserInfo struct {
+	// SID (AC...) of the owning account.
+	AccountSid string `pulumi:"accountSid"`
+	// The attributes as a JSON object (empty when Twilio reports none).
+	Attributes string `pulumi:"attributes"`
+	// When the end user was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the end user was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// Human-readable name of the end user.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The end user SID (IT...).
+	Sid string `pulumi:"sid"`
+	// Machine name of the end user type.
+	Type string `pulumi:"type"`
+}
+
+type RegulatoryEndUserInfoOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryEndUserInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RegulatoryEndUserInfo)(nil)).Elem()
+}
+
+func (o RegulatoryEndUserInfoOutput) ToRegulatoryEndUserInfoOutput() RegulatoryEndUserInfoOutput {
+	return o
+}
+
+func (o RegulatoryEndUserInfoOutput) ToRegulatoryEndUserInfoOutputWithContext(ctx context.Context) RegulatoryEndUserInfoOutput {
+	return o
+}
+
+// SID (AC...) of the owning account.
+func (o RegulatoryEndUserInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// The attributes as a JSON object (empty when Twilio reports none).
+func (o RegulatoryEndUserInfoOutput) Attributes() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.Attributes }).(pulumi.StringOutput)
+}
+
+// When the end user was created (ISO 8601).
+func (o RegulatoryEndUserInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the end user was last updated (ISO 8601).
+func (o RegulatoryEndUserInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the end user.
+func (o RegulatoryEndUserInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The end user SID (IT...).
+func (o RegulatoryEndUserInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// Machine name of the end user type.
+func (o RegulatoryEndUserInfoOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryEndUserInfo) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type RegulatoryEndUserInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryEndUserInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RegulatoryEndUserInfo)(nil)).Elem()
+}
+
+func (o RegulatoryEndUserInfoArrayOutput) ToRegulatoryEndUserInfoArrayOutput() RegulatoryEndUserInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryEndUserInfoArrayOutput) ToRegulatoryEndUserInfoArrayOutputWithContext(ctx context.Context) RegulatoryEndUserInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryEndUserInfoArrayOutput) Index(i pulumi.IntInput) RegulatoryEndUserInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RegulatoryEndUserInfo {
+		return vs[0].([]RegulatoryEndUserInfo)[vs[1].(int)]
+	}).(RegulatoryEndUserInfoOutput)
+}
+
+type RegulatoryRegulationInfo struct {
+	// Who the regulation applies to: individual or business.
+	EndUserType string `pulumi:"endUserType"`
+	// Human-readable name of the regulation.
+	FriendlyName string `pulumi:"friendlyName"`
+	// ISO country code of the phone numbers the regulation covers.
+	IsoCountry string `pulumi:"isoCountry"`
+	// Type of the phone numbers the regulation covers.
+	NumberType string `pulumi:"numberType"`
+	// The end user and supporting document requirements as a JSON document (empty when Twilio reports none).
+	Requirements string `pulumi:"requirements"`
+	// The regulation SID (RN...), which is what RegulatoryBundle.regulationSid takes.
+	Sid string `pulumi:"sid"`
+}
+
+type RegulatoryRegulationInfoOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryRegulationInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RegulatoryRegulationInfo)(nil)).Elem()
+}
+
+func (o RegulatoryRegulationInfoOutput) ToRegulatoryRegulationInfoOutput() RegulatoryRegulationInfoOutput {
+	return o
+}
+
+func (o RegulatoryRegulationInfoOutput) ToRegulatoryRegulationInfoOutputWithContext(ctx context.Context) RegulatoryRegulationInfoOutput {
+	return o
+}
+
+// Who the regulation applies to: individual or business.
+func (o RegulatoryRegulationInfoOutput) EndUserType() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.EndUserType }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the regulation.
+func (o RegulatoryRegulationInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// ISO country code of the phone numbers the regulation covers.
+func (o RegulatoryRegulationInfoOutput) IsoCountry() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.IsoCountry }).(pulumi.StringOutput)
+}
+
+// Type of the phone numbers the regulation covers.
+func (o RegulatoryRegulationInfoOutput) NumberType() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.NumberType }).(pulumi.StringOutput)
+}
+
+// The end user and supporting document requirements as a JSON document (empty when Twilio reports none).
+func (o RegulatoryRegulationInfoOutput) Requirements() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.Requirements }).(pulumi.StringOutput)
+}
+
+// The regulation SID (RN...), which is what RegulatoryBundle.regulationSid takes.
+func (o RegulatoryRegulationInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryRegulationInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type RegulatoryRegulationInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryRegulationInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RegulatoryRegulationInfo)(nil)).Elem()
+}
+
+func (o RegulatoryRegulationInfoArrayOutput) ToRegulatoryRegulationInfoArrayOutput() RegulatoryRegulationInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryRegulationInfoArrayOutput) ToRegulatoryRegulationInfoArrayOutputWithContext(ctx context.Context) RegulatoryRegulationInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryRegulationInfoArrayOutput) Index(i pulumi.IntInput) RegulatoryRegulationInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RegulatoryRegulationInfo {
+		return vs[0].([]RegulatoryRegulationInfo)[vs[1].(int)]
+	}).(RegulatoryRegulationInfoOutput)
+}
+
+type RegulatorySupportingDocumentInfo struct {
+	// SID (AC...) of the owning account.
+	AccountSid string `pulumi:"accountSid"`
+	// The attributes as a JSON object (empty when Twilio reports none).
+	Attributes string `pulumi:"attributes"`
+	// When the document was created (ISO 8601).
+	DateCreated string `pulumi:"dateCreated"`
+	// When the document was last updated (ISO 8601).
+	DateUpdated string `pulumi:"dateUpdated"`
+	// The errors of a rejected document as a JSON document (empty when there are none).
+	Errors string `pulumi:"errors"`
+	// Why Twilio rejected the document, empty when it was not rejected.
+	FailureReason string `pulumi:"failureReason"`
+	// Human-readable name of the document.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The MIME type of the document (empty when none).
+	MimeType string `pulumi:"mimeType"`
+	// The supporting document SID (RD...).
+	Sid string `pulumi:"sid"`
+	// The verification status: draft, pending-review, rejected, approved, expired or provisionally-approved.
+	Status string `pulumi:"status"`
+	// Machine name of the supporting document type.
+	Type string `pulumi:"type"`
+}
+
+type RegulatorySupportingDocumentInfoOutput struct{ *pulumi.OutputState }
+
+func (RegulatorySupportingDocumentInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RegulatorySupportingDocumentInfo)(nil)).Elem()
+}
+
+func (o RegulatorySupportingDocumentInfoOutput) ToRegulatorySupportingDocumentInfoOutput() RegulatorySupportingDocumentInfoOutput {
+	return o
+}
+
+func (o RegulatorySupportingDocumentInfoOutput) ToRegulatorySupportingDocumentInfoOutputWithContext(ctx context.Context) RegulatorySupportingDocumentInfoOutput {
+	return o
+}
+
+// SID (AC...) of the owning account.
+func (o RegulatorySupportingDocumentInfoOutput) AccountSid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.AccountSid }).(pulumi.StringOutput)
+}
+
+// The attributes as a JSON object (empty when Twilio reports none).
+func (o RegulatorySupportingDocumentInfoOutput) Attributes() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.Attributes }).(pulumi.StringOutput)
+}
+
+// When the document was created (ISO 8601).
+func (o RegulatorySupportingDocumentInfoOutput) DateCreated() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.DateCreated }).(pulumi.StringOutput)
+}
+
+// When the document was last updated (ISO 8601).
+func (o RegulatorySupportingDocumentInfoOutput) DateUpdated() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.DateUpdated }).(pulumi.StringOutput)
+}
+
+// The errors of a rejected document as a JSON document (empty when there are none).
+func (o RegulatorySupportingDocumentInfoOutput) Errors() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.Errors }).(pulumi.StringOutput)
+}
+
+// Why Twilio rejected the document, empty when it was not rejected.
+func (o RegulatorySupportingDocumentInfoOutput) FailureReason() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.FailureReason }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the document.
+func (o RegulatorySupportingDocumentInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The MIME type of the document (empty when none).
+func (o RegulatorySupportingDocumentInfoOutput) MimeType() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.MimeType }).(pulumi.StringOutput)
+}
+
+// The supporting document SID (RD...).
+func (o RegulatorySupportingDocumentInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+// The verification status: draft, pending-review, rejected, approved, expired or provisionally-approved.
+func (o RegulatorySupportingDocumentInfoOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// Machine name of the supporting document type.
+func (o RegulatorySupportingDocumentInfoOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatorySupportingDocumentInfo) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type RegulatorySupportingDocumentInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (RegulatorySupportingDocumentInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RegulatorySupportingDocumentInfo)(nil)).Elem()
+}
+
+func (o RegulatorySupportingDocumentInfoArrayOutput) ToRegulatorySupportingDocumentInfoArrayOutput() RegulatorySupportingDocumentInfoArrayOutput {
+	return o
+}
+
+func (o RegulatorySupportingDocumentInfoArrayOutput) ToRegulatorySupportingDocumentInfoArrayOutputWithContext(ctx context.Context) RegulatorySupportingDocumentInfoArrayOutput {
+	return o
+}
+
+func (o RegulatorySupportingDocumentInfoArrayOutput) Index(i pulumi.IntInput) RegulatorySupportingDocumentInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RegulatorySupportingDocumentInfo {
+		return vs[0].([]RegulatorySupportingDocumentInfo)[vs[1].(int)]
+	}).(RegulatorySupportingDocumentInfoOutput)
+}
+
+type RegulatoryTypeInfo struct {
+	// The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+	Fields string `pulumi:"fields"`
+	// Human-readable name of the type.
+	FriendlyName string `pulumi:"friendlyName"`
+	// The machine name, which is what the type input of the resource takes.
+	MachineName string `pulumi:"machineName"`
+	// The SID of the type.
+	Sid string `pulumi:"sid"`
+}
+
+type RegulatoryTypeInfoOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryTypeInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RegulatoryTypeInfo)(nil)).Elem()
+}
+
+func (o RegulatoryTypeInfoOutput) ToRegulatoryTypeInfoOutput() RegulatoryTypeInfoOutput {
+	return o
+}
+
+func (o RegulatoryTypeInfoOutput) ToRegulatoryTypeInfoOutputWithContext(ctx context.Context) RegulatoryTypeInfoOutput {
+	return o
+}
+
+// The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+func (o RegulatoryTypeInfoOutput) Fields() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryTypeInfo) string { return v.Fields }).(pulumi.StringOutput)
+}
+
+// Human-readable name of the type.
+func (o RegulatoryTypeInfoOutput) FriendlyName() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryTypeInfo) string { return v.FriendlyName }).(pulumi.StringOutput)
+}
+
+// The machine name, which is what the type input of the resource takes.
+func (o RegulatoryTypeInfoOutput) MachineName() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryTypeInfo) string { return v.MachineName }).(pulumi.StringOutput)
+}
+
+// The SID of the type.
+func (o RegulatoryTypeInfoOutput) Sid() pulumi.StringOutput {
+	return o.ApplyT(func(v RegulatoryTypeInfo) string { return v.Sid }).(pulumi.StringOutput)
+}
+
+type RegulatoryTypeInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (RegulatoryTypeInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RegulatoryTypeInfo)(nil)).Elem()
+}
+
+func (o RegulatoryTypeInfoArrayOutput) ToRegulatoryTypeInfoArrayOutput() RegulatoryTypeInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryTypeInfoArrayOutput) ToRegulatoryTypeInfoArrayOutputWithContext(ctx context.Context) RegulatoryTypeInfoArrayOutput {
+	return o
+}
+
+func (o RegulatoryTypeInfoArrayOutput) Index(i pulumi.IntInput) RegulatoryTypeInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RegulatoryTypeInfo {
+		return vs[0].([]RegulatoryTypeInfo)[vs[1].(int)]
+	}).(RegulatoryTypeInfoOutput)
 }
 
 type RolePermission struct {
@@ -13032,6 +14017,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ConversationsNotificationPtrInput)(nil)).Elem(), ConversationsNotificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeInput)(nil)).Elem(), EventSubscriptionTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSubscriptionTypeArrayInput)(nil)).Elem(), EventSubscriptionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IdentifierConfigInput)(nil)).Elem(), IdentifierConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IdentifierConfigArrayInput)(nil)).Elem(), IdentifierConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MemoryTraitInput)(nil)).Elem(), MemoryTraitArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MemoryTraitMapInput)(nil)).Elem(), MemoryTraitMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MemoryTraitMappingInput)(nil)).Elem(), MemoryTraitMappingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MemoryTraitMappingArrayInput)(nil)).Elem(), MemoryTraitMappingArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OAuthAppPolicyInput)(nil)).Elem(), OAuthAppPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OAuthAppPolicyPtrInput)(nil)).Elem(), OAuthAppPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RecordingCompositionPolicyInput)(nil)).Elem(), RecordingCompositionPolicyArgs{})
@@ -13149,6 +14140,12 @@ func init() {
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(FlexFlowInfoOutput{})
 	pulumi.RegisterOutputType(FlexFlowInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexInsightsCategoryInfoOutput{})
+	pulumi.RegisterOutputType(FlexInsightsCategoryInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexInsightsQuestionInfoOutput{})
+	pulumi.RegisterOutputType(FlexInsightsQuestionInfoArrayOutput{})
+	pulumi.RegisterOutputType(FlexInsightsQuestionnaireInfoOutput{})
+	pulumi.RegisterOutputType(FlexInsightsQuestionnaireInfoArrayOutput{})
 	pulumi.RegisterOutputType(FlexPluginConfigurationInfoOutput{})
 	pulumi.RegisterOutputType(FlexPluginConfigurationInfoArrayOutput{})
 	pulumi.RegisterOutputType(FlexPluginInfoOutput{})
@@ -13157,8 +14154,14 @@ func init() {
 	pulumi.RegisterOutputType(FlexPluginReleaseInfoArrayOutput{})
 	pulumi.RegisterOutputType(FlexPluginVersionInfoOutput{})
 	pulumi.RegisterOutputType(FlexPluginVersionInfoArrayOutput{})
+	pulumi.RegisterOutputType(IdentifierConfigOutput{})
+	pulumi.RegisterOutputType(IdentifierConfigArrayOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectiveOutput{})
 	pulumi.RegisterOutputType(IncomingPhoneNumberEffectivePtrOutput{})
+	pulumi.RegisterOutputType(MemoryTraitOutput{})
+	pulumi.RegisterOutputType(MemoryTraitMapOutput{})
+	pulumi.RegisterOutputType(MemoryTraitMappingOutput{})
+	pulumi.RegisterOutputType(MemoryTraitMappingArrayOutput{})
 	pulumi.RegisterOutputType(MessagingGeoPermissionOutput{})
 	pulumi.RegisterOutputType(MessagingGeoPermissionArrayOutput{})
 	pulumi.RegisterOutputType(MessagingServiceEffectiveOutput{})
@@ -13187,6 +14190,14 @@ func init() {
 	pulumi.RegisterOutputType(RecordingFeatureArrayOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackOutput{})
 	pulumi.RegisterOutputType(RecordingStatusCallbackPtrOutput{})
+	pulumi.RegisterOutputType(RegulatoryEndUserInfoOutput{})
+	pulumi.RegisterOutputType(RegulatoryEndUserInfoArrayOutput{})
+	pulumi.RegisterOutputType(RegulatoryRegulationInfoOutput{})
+	pulumi.RegisterOutputType(RegulatoryRegulationInfoArrayOutput{})
+	pulumi.RegisterOutputType(RegulatorySupportingDocumentInfoOutput{})
+	pulumi.RegisterOutputType(RegulatorySupportingDocumentInfoArrayOutput{})
+	pulumi.RegisterOutputType(RegulatoryTypeInfoOutput{})
+	pulumi.RegisterOutputType(RegulatoryTypeInfoArrayOutput{})
 	pulumi.RegisterOutputType(RolePermissionOutput{})
 	pulumi.RegisterOutputType(RolePermissionArrayOutput{})
 	pulumi.RegisterOutputType(ServerlessBuildDependencyOutput{})

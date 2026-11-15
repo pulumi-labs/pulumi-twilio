@@ -126,7 +126,7 @@ func (a *GetContentApprovalStatusResult) Annotate(an infer.Annotator) {
 }
 
 func (f *GetContentApprovalStatus) Annotate(a infer.Annotator) {
-	a.Describe(&f, "Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.")
+	a.Describe(&f, "Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.")
 }
 
 func (f *GetContentApprovalStatus) Invoke(ctx context.Context, req infer.FunctionRequest[GetContentApprovalStatusArgs]) (infer.FunctionResponse[GetContentApprovalStatusResult], error) {

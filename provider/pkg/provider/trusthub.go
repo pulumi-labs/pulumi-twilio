@@ -26,18 +26,30 @@ import (
 // TrustHub end users and supporting documents (trusthub.twilio.com v1, twilio-oai
 // spec/json/twilio_trusthub_v1.json 1.0.0, read 2026-11-14; not checked against a live account).
 // Both are plain CRUD objects with an immutable type and updatable friendlyName and attributes.
-// They are the building blocks of regulatory bundles (Customer Profiles, Trust Products), which are
-// not modelled here: the bundles carry the review workflow and assignments.
+// They are the building blocks of the regulatory bundles (CustomerProfile, TrustProduct in trusthub_bundles.go),
+// which carry the review workflow and the assignments.
 
 const trusthubProduct = "trusthub"
 
-func thPath(coll, sid string) string {
-	p := "/v1/" + coll
+// thAPI names one of the two Twilio APIs that serve the same end user and supporting document objects:
+// TrustHub (trusthub.twilio.com /v1) and the Numbers regulatory compliance API (numbers.twilio.com
+// /v2/RegulatoryCompliance).
+type thAPI struct{ product, prefix, name string }
+
+var (
+	trustHubAPI   = thAPI{trusthubProduct, "/v1/", "TrustHub"}
+	numbersRegAPI = thAPI{"numbers", "/v2/RegulatoryCompliance/", "Numbers regulatory"}
+)
+
+func (a thAPI) path(coll, sid string) string {
+	p := a.prefix + coll
 	if sid != "" {
 		p += "/" + url.PathEscape(sid)
 	}
 	return p
 }
+
+func thPath(coll, sid string) string { return trustHubAPI.path(coll, sid) }
 
 // thCheck validates the inputs both resources share.
 func thCheck(c *checker, friendlyName, typ string, attrs *string) {
@@ -55,60 +67,60 @@ func thCheck(c *checker, friendlyName, typ string, attrs *string) {
 	}
 }
 
-func thCreate(ctx context.Context, kind, coll, friendlyName, typ string, attrs *string) (obj, error) {
+func thCreate(ctx context.Context, api thAPI, kind, coll, friendlyName, typ string, attrs *string) (obj, error) {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return nil, err
 	}
 	form := url.Values{"FriendlyName": {friendlyName}, "Type": {typ}}
 	setS(form, "Attributes", attrs)
-	o, err := c.do(ctx, "POST", trusthubProduct, thPath(coll, ""), nil, form)
+	o, err := c.do(ctx, "POST", api.product, api.path(coll, ""), nil, form)
 	if err != nil {
-		return nil, fmt.Errorf("create TrustHub %s: %w", kind, err)
+		return nil, fmt.Errorf("create %s %s: %w", api.name, kind, err)
 	}
 	if o.str("sid") == "" {
-		return nil, fmt.Errorf("create TrustHub %s: Twilio returned no SID", kind)
+		return nil, fmt.Errorf("create %s %s: Twilio returned no SID", api.name, kind)
 	}
 	return o, nil
 }
 
-func thUpdate(ctx context.Context, kind, coll, id, friendlyName string, attrs *string) (obj, error) {
+func thUpdate(ctx context.Context, api thAPI, kind, coll, id, friendlyName string, attrs *string) (obj, error) {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return nil, err
 	}
 	form := url.Values{"FriendlyName": {friendlyName}}
 	setS(form, "Attributes", attrs)
-	o, err := c.do(ctx, "POST", trusthubProduct, thPath(coll, id), nil, form)
+	o, err := c.do(ctx, "POST", api.product, api.path(coll, id), nil, form)
 	if err != nil {
-		return nil, fmt.Errorf("update TrustHub %s %s: %w", kind, id, err)
+		return nil, fmt.Errorf("update %s %s %s: %w", api.name, kind, id, err)
 	}
 	return o, nil
 }
 
-func thDelete(ctx context.Context, kind, coll, id string) error {
+func thDelete(ctx context.Context, api thAPI, kind, coll, id string) error {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return err
 	}
-	if _, err := c.do(ctx, "DELETE", trusthubProduct, thPath(coll, id), nil, nil); err != nil && !isNotFound(err) {
-		return fmt.Errorf("delete TrustHub %s %s: %w", kind, id, err)
+	if _, err := c.do(ctx, "DELETE", api.product, api.path(coll, id), nil, nil); err != nil && !isNotFound(err) {
+		return fmt.Errorf("delete %s %s %s: %w", api.name, kind, id, err)
 	}
 	return nil
 }
 
 // thFetch reads one object; found is false when it does not exist.
-func thFetch(ctx context.Context, kind, coll, id string) (o obj, found bool, err error) {
+func thFetch(ctx context.Context, api thAPI, kind, coll, id string) (o obj, found bool, err error) {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return nil, false, err
 	}
-	o, err = c.do(ctx, "GET", trusthubProduct, thPath(coll, id), nil, nil)
+	o, err = c.do(ctx, "GET", api.product, api.path(coll, id), nil, nil)
 	if err != nil {
 		if isNotFound(err) {
 			return nil, false, nil
 		}
-		return nil, false, fmt.Errorf("read TrustHub %s %s: %w", kind, id, err)
+		return nil, false, fmt.Errorf("read %s %s %s: %w", api.name, kind, id, err)
 	}
 	return o, true, nil
 }
@@ -176,7 +188,7 @@ func (s *TrustHubEndUserState) fill(o obj) {
 }
 
 func (r *TrustHubEndUser) Annotate(a infer.Annotator) {
-	a.Describe(&r, "A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a Customer Profile or Trust Product to do that (not yet modelled).")
+	a.Describe(&r, "A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a CustomerProfile or TrustProduct (CustomerProfileEntityAssignment, TrustProductEntityAssignment) to do that.")
 }
 
 var _ infer.CustomResource[TrustHubEndUserArgs, TrustHubEndUserState] = (*TrustHubEndUser)(nil)
@@ -212,7 +224,7 @@ func (r *TrustHubEndUser) Create(ctx context.Context, req infer.CreateRequest[Tr
 	if req.DryRun {
 		return resp{Output: st}, nil
 	}
-	o, err := thCreate(ctx, "end user", "EndUsers", a.FriendlyName, a.Type, a.Attributes)
+	o, err := thCreate(ctx, trustHubAPI, "end user", "EndUsers", a.FriendlyName, a.Type, a.Attributes)
 	if err != nil {
 		return resp{}, err
 	}
@@ -222,7 +234,7 @@ func (r *TrustHubEndUser) Create(ctx context.Context, req infer.CreateRequest[Tr
 
 func (r *TrustHubEndUser) Read(ctx context.Context, req infer.ReadRequest[TrustHubEndUserArgs, TrustHubEndUserState]) (infer.ReadResponse[TrustHubEndUserArgs, TrustHubEndUserState], error) {
 	type resp = infer.ReadResponse[TrustHubEndUserArgs, TrustHubEndUserState]
-	o, found, err := thFetch(ctx, "end user", "EndUsers", req.ID)
+	o, found, err := thFetch(ctx, trustHubAPI, "end user", "EndUsers", req.ID)
 	if err != nil {
 		return resp{}, err
 	}
@@ -248,7 +260,7 @@ func (r *TrustHubEndUser) Update(ctx context.Context, req infer.UpdateRequest[Tr
 	if req.DryRun {
 		return resp{Output: st}, nil
 	}
-	o, err := thUpdate(ctx, "end user", "EndUsers", req.ID, req.Inputs.FriendlyName, req.Inputs.Attributes)
+	o, err := thUpdate(ctx, trustHubAPI, "end user", "EndUsers", req.ID, req.Inputs.FriendlyName, req.Inputs.Attributes)
 	if err != nil {
 		return resp{}, err
 	}
@@ -257,7 +269,7 @@ func (r *TrustHubEndUser) Update(ctx context.Context, req infer.UpdateRequest[Tr
 }
 
 func (r *TrustHubEndUser) Delete(ctx context.Context, req infer.DeleteRequest[TrustHubEndUserState]) (infer.DeleteResponse, error) {
-	return infer.DeleteResponse{}, thDelete(ctx, "end user", "EndUsers", req.ID)
+	return infer.DeleteResponse{}, thDelete(ctx, trustHubAPI, "end user", "EndUsers", req.ID)
 }
 
 // ------------------------------------------------------------ TrustHubSupportingDocument
@@ -305,7 +317,7 @@ func (s *TrustHubSupportingDocumentState) fill(o obj) {
 }
 
 func (r *TrustHubSupportingDocument) Annotate(a infer.Annotator) {
-	a.Describe(&r, "A Twilio TrustHub supporting document (trusthub.twilio.com /v1/SupportingDocuments), such as a business address, used as evidence in a regulatory bundle. The resource ID is the document SID (RD...). A new document is in the DRAFT status and has no cost. Submitting it for review happens through a Customer Profile or Trust Product (not yet modelled). Twilio may refuse to delete a document that a bundle still uses.")
+	a.Describe(&r, "A Twilio TrustHub supporting document (trusthub.twilio.com /v1/SupportingDocuments), such as a business address, used as evidence in a regulatory bundle. The resource ID is the document SID (RD...). A new document is in the DRAFT status and has no cost. Submitting it for review happens through a CustomerProfile or TrustProduct that it is assigned to. Twilio may refuse to delete a document that a bundle still uses.")
 }
 
 var _ infer.CustomResource[TrustHubSupportingDocumentArgs, TrustHubSupportingDocumentState] = (*TrustHubSupportingDocument)(nil)
@@ -341,7 +353,7 @@ func (r *TrustHubSupportingDocument) Create(ctx context.Context, req infer.Creat
 	if req.DryRun {
 		return resp{Output: st}, nil
 	}
-	o, err := thCreate(ctx, "supporting document", "SupportingDocuments", a.FriendlyName, a.Type, a.Attributes)
+	o, err := thCreate(ctx, trustHubAPI, "supporting document", "SupportingDocuments", a.FriendlyName, a.Type, a.Attributes)
 	if err != nil {
 		return resp{}, err
 	}
@@ -351,7 +363,7 @@ func (r *TrustHubSupportingDocument) Create(ctx context.Context, req infer.Creat
 
 func (r *TrustHubSupportingDocument) Read(ctx context.Context, req infer.ReadRequest[TrustHubSupportingDocumentArgs, TrustHubSupportingDocumentState]) (infer.ReadResponse[TrustHubSupportingDocumentArgs, TrustHubSupportingDocumentState], error) {
 	type resp = infer.ReadResponse[TrustHubSupportingDocumentArgs, TrustHubSupportingDocumentState]
-	o, found, err := thFetch(ctx, "supporting document", "SupportingDocuments", req.ID)
+	o, found, err := thFetch(ctx, trustHubAPI, "supporting document", "SupportingDocuments", req.ID)
 	if err != nil {
 		return resp{}, err
 	}
@@ -377,7 +389,7 @@ func (r *TrustHubSupportingDocument) Update(ctx context.Context, req infer.Updat
 	if req.DryRun {
 		return resp{Output: st}, nil
 	}
-	o, err := thUpdate(ctx, "supporting document", "SupportingDocuments", req.ID, req.Inputs.FriendlyName, req.Inputs.Attributes)
+	o, err := thUpdate(ctx, trustHubAPI, "supporting document", "SupportingDocuments", req.ID, req.Inputs.FriendlyName, req.Inputs.Attributes)
 	if err != nil {
 		return resp{}, err
 	}
@@ -387,5 +399,5 @@ func (r *TrustHubSupportingDocument) Update(ctx context.Context, req infer.Updat
 }
 
 func (r *TrustHubSupportingDocument) Delete(ctx context.Context, req infer.DeleteRequest[TrustHubSupportingDocumentState]) (infer.DeleteResponse, error) {
-	return infer.DeleteResponse{}, thDelete(ctx, "supporting document", "SupportingDocuments", req.ID)
+	return infer.DeleteResponse{}, thDelete(ctx, trustHubAPI, "supporting document", "SupportingDocuments", req.ID)
 }

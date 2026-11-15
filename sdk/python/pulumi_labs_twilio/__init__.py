@@ -17,6 +17,7 @@ from .channels_sender import *
 from .connect_app import *
 from .connection_policy import *
 from .connection_policy_target import *
+from .content_approval_request import *
 from .content_template import *
 from .conversations_address_configuration import *
 from .conversations_configuration import *
@@ -26,13 +27,22 @@ from .conversations_service import *
 from .conversations_service_configuration import *
 from .conversations_service_notification_configuration import *
 from .conversations_webhook_configuration import *
+from .customer_profile import *
+from .customer_profile_channel_endpoint_assignment import *
+from .customer_profile_entity_assignment import *
 from .event_sink import *
 from .event_subscription import *
+from .flex_configuration import *
 from .flex_flow import *
+from .flex_insights_category import *
+from .flex_insights_question import *
+from .flex_insights_questionnaire import *
 from .flex_plugin import *
 from .flex_plugin_configuration import *
 from .flex_plugin_release import *
 from .flex_plugin_version import *
+from .flex_user import *
+from .frontline_user import *
 from .get_account import *
 from .get_account_safe_list_number import *
 from .get_address import *
@@ -51,6 +61,7 @@ from .get_channels_senders import *
 from .get_connect_app import *
 from .get_connection_policy import *
 from .get_connection_policy_target import *
+from .get_content_approval_request import *
 from .get_content_approval_status import *
 from .get_content_template import *
 from .get_conversations_address_configuration import *
@@ -61,6 +72,9 @@ from .get_conversations_service import *
 from .get_conversations_service_configuration import *
 from .get_conversations_service_notification_configuration import *
 from .get_conversations_webhook_configuration import *
+from .get_customer_profile import *
+from .get_customer_profile_channel_endpoint_assignment import *
+from .get_customer_profile_entity_assignment import *
 from .get_dialing_permissions_countries import *
 from .get_dialing_permissions_country import *
 from .get_dialing_permissions_high_risk_special_prefixes import *
@@ -69,8 +83,17 @@ from .get_event_sink import *
 from .get_event_subscription import *
 from .get_event_type import *
 from .get_event_types import *
+from .get_flex_configuration import *
 from .get_flex_flow import *
 from .get_flex_flows import *
+from .get_flex_insights_answer_sets import *
+from .get_flex_insights_categories import *
+from .get_flex_insights_category import *
+from .get_flex_insights_comment_tags import *
+from .get_flex_insights_question import *
+from .get_flex_insights_questionnaire import *
+from .get_flex_insights_questionnaires import *
+from .get_flex_insights_questions import *
 from .get_flex_plugin import *
 from .get_flex_plugin_configuration import *
 from .get_flex_plugin_configurations import *
@@ -79,16 +102,24 @@ from .get_flex_plugin_releases import *
 from .get_flex_plugin_version import *
 from .get_flex_plugin_versions import *
 from .get_flex_plugins import *
+from .get_flex_user import *
+from .get_frontline_user import *
 from .get_incoming_phone_number import *
 from .get_incoming_phone_number_assigned_add_on import *
 from .get_intelligence_custom_operator import *
 from .get_intelligence_service import *
 from .get_ip_record import *
+from .get_knowledge import *
+from .get_knowledge_base import *
 from .get_link_shortening_domain_certificate import *
 from .get_link_shortening_domain_config import *
 from .get_link_shortening_domain_dns_validation import *
 from .get_link_shortening_messaging_service_domain import *
 from .get_link_shortening_messaging_service_domain_config import *
+from .get_memory_data_mapping import *
+from .get_memory_identity_resolution_settings import *
+from .get_memory_store import *
+from .get_memory_trait_group import *
 from .get_messaging_deactivations import *
 from .get_messaging_geo_permissions import *
 from .get_messaging_service import *
@@ -116,6 +147,18 @@ from .get_proxy_phone_number import *
 from .get_proxy_service import *
 from .get_public_key_credential import *
 from .get_queue import *
+from .get_regulatory_bundle import *
+from .get_regulatory_bundle_item_assignment import *
+from .get_regulatory_end_user import *
+from .get_regulatory_end_user_type import *
+from .get_regulatory_end_user_types import *
+from .get_regulatory_end_users import *
+from .get_regulatory_regulation import *
+from .get_regulatory_regulations import *
+from .get_regulatory_supporting_document import *
+from .get_regulatory_supporting_document_type import *
+from .get_regulatory_supporting_document_types import *
+from .get_regulatory_supporting_documents import *
 from .get_role_permissions import *
 from .get_routes_phone_number import *
 from .get_routes_short_code import *
@@ -168,6 +211,9 @@ from .get_trust_hub_supporting_document import *
 from .get_trust_hub_supporting_document_type import *
 from .get_trust_hub_supporting_document_types import *
 from .get_trust_hub_supporting_documents import *
+from .get_trust_product import *
+from .get_trust_product_channel_endpoint_assignment import *
+from .get_trust_product_entity_assignment import *
 from .get_us_app_to_person import *
 from .get_us_app_to_person_usecases import *
 from .get_us_app_to_persons import *
@@ -194,9 +240,15 @@ from .incoming_phone_number_assigned_add_on import *
 from .intelligence_custom_operator import *
 from .intelligence_service import *
 from .ip_record import *
+from .knowledge import *
+from .knowledge_base import *
 from .link_shortening_domain_certificate import *
 from .link_shortening_domain_config import *
 from .link_shortening_messaging_service_domain import *
+from .memory_data_mapping import *
+from .memory_identity_resolution_settings import *
+from .memory_store import *
+from .memory_trait_group import *
 from .messaging_service import *
 from .messaging_service_alpha_sender import *
 from .messaging_service_channel_sender import *
@@ -212,6 +264,10 @@ from .proxy_phone_number import *
 from .proxy_service import *
 from .public_key_credential import *
 from .queue import *
+from .regulatory_bundle import *
+from .regulatory_bundle_item_assignment import *
+from .regulatory_end_user import *
+from .regulatory_supporting_document import *
 from .routes_phone_number import *
 from .routes_short_code import *
 from .routes_sip_domain import *
@@ -252,6 +308,9 @@ from .trunk_ip_access_control_list import *
 from .trunk_origination_url import *
 from .trust_hub_end_user import *
 from .trust_hub_supporting_document import *
+from .trust_product import *
+from .trust_product_channel_endpoint_assignment import *
+from .trust_product_entity_assignment import *
 from .us_app_to_person import *
 from .usage_trigger import *
 from .verify_messaging_configuration import *
@@ -298,6 +357,7 @@ _utilities.register(
    "twilio:index:ConnectApp": "ConnectApp",
    "twilio:index:ConnectionPolicy": "ConnectionPolicy",
    "twilio:index:ConnectionPolicyTarget": "ConnectionPolicyTarget",
+   "twilio:index:ContentApprovalRequest": "ContentApprovalRequest",
    "twilio:index:ContentTemplate": "ContentTemplate",
    "twilio:index:ConversationsAddressConfiguration": "ConversationsAddressConfiguration",
    "twilio:index:ConversationsConfiguration": "ConversationsConfiguration",
@@ -307,21 +367,36 @@ _utilities.register(
    "twilio:index:ConversationsServiceConfiguration": "ConversationsServiceConfiguration",
    "twilio:index:ConversationsServiceNotificationConfiguration": "ConversationsServiceNotificationConfiguration",
    "twilio:index:ConversationsWebhookConfiguration": "ConversationsWebhookConfiguration",
+   "twilio:index:CustomerProfile": "CustomerProfile",
+   "twilio:index:CustomerProfileChannelEndpointAssignment": "CustomerProfileChannelEndpointAssignment",
+   "twilio:index:CustomerProfileEntityAssignment": "CustomerProfileEntityAssignment",
    "twilio:index:EventSink": "EventSink",
    "twilio:index:EventSubscription": "EventSubscription",
+   "twilio:index:FlexConfiguration": "FlexConfiguration",
    "twilio:index:FlexFlow": "FlexFlow",
+   "twilio:index:FlexInsightsCategory": "FlexInsightsCategory",
+   "twilio:index:FlexInsightsQuestion": "FlexInsightsQuestion",
+   "twilio:index:FlexInsightsQuestionnaire": "FlexInsightsQuestionnaire",
    "twilio:index:FlexPlugin": "FlexPlugin",
    "twilio:index:FlexPluginConfiguration": "FlexPluginConfiguration",
    "twilio:index:FlexPluginRelease": "FlexPluginRelease",
    "twilio:index:FlexPluginVersion": "FlexPluginVersion",
+   "twilio:index:FlexUser": "FlexUser",
+   "twilio:index:FrontlineUser": "FrontlineUser",
    "twilio:index:IncomingPhoneNumber": "IncomingPhoneNumber",
    "twilio:index:IncomingPhoneNumberAssignedAddOn": "IncomingPhoneNumberAssignedAddOn",
    "twilio:index:IntelligenceCustomOperator": "IntelligenceCustomOperator",
    "twilio:index:IntelligenceService": "IntelligenceService",
    "twilio:index:IpRecord": "IpRecord",
+   "twilio:index:Knowledge": "Knowledge",
+   "twilio:index:KnowledgeBase": "KnowledgeBase",
    "twilio:index:LinkShorteningDomainCertificate": "LinkShorteningDomainCertificate",
    "twilio:index:LinkShorteningDomainConfig": "LinkShorteningDomainConfig",
    "twilio:index:LinkShorteningMessagingServiceDomain": "LinkShorteningMessagingServiceDomain",
+   "twilio:index:MemoryDataMapping": "MemoryDataMapping",
+   "twilio:index:MemoryIdentityResolutionSettings": "MemoryIdentityResolutionSettings",
+   "twilio:index:MemoryStore": "MemoryStore",
+   "twilio:index:MemoryTraitGroup": "MemoryTraitGroup",
    "twilio:index:MessagingService": "MessagingService",
    "twilio:index:MessagingServiceAlphaSender": "MessagingServiceAlphaSender",
    "twilio:index:MessagingServiceChannelSender": "MessagingServiceChannelSender",
@@ -336,6 +411,10 @@ _utilities.register(
    "twilio:index:ProxyService": "ProxyService",
    "twilio:index:PublicKeyCredential": "PublicKeyCredential",
    "twilio:index:Queue": "Queue",
+   "twilio:index:RegulatoryBundle": "RegulatoryBundle",
+   "twilio:index:RegulatoryBundleItemAssignment": "RegulatoryBundleItemAssignment",
+   "twilio:index:RegulatoryEndUser": "RegulatoryEndUser",
+   "twilio:index:RegulatorySupportingDocument": "RegulatorySupportingDocument",
    "twilio:index:RoutesPhoneNumber": "RoutesPhoneNumber",
    "twilio:index:RoutesShortCode": "RoutesShortCode",
    "twilio:index:RoutesSipDomain": "RoutesSipDomain",
@@ -376,6 +455,9 @@ _utilities.register(
    "twilio:index:TrunkOriginationUrl": "TrunkOriginationUrl",
    "twilio:index:TrustHubEndUser": "TrustHubEndUser",
    "twilio:index:TrustHubSupportingDocument": "TrustHubSupportingDocument",
+   "twilio:index:TrustProduct": "TrustProduct",
+   "twilio:index:TrustProductChannelEndpointAssignment": "TrustProductChannelEndpointAssignment",
+   "twilio:index:TrustProductEntityAssignment": "TrustProductEntityAssignment",
    "twilio:index:UsAppToPerson": "UsAppToPerson",
    "twilio:index:UsageTrigger": "UsageTrigger",
    "twilio:index:VerifyMessagingConfiguration": "VerifyMessagingConfiguration",

@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/url"
 	"strings"
@@ -23,6 +24,8 @@ import (
 // The Flex v1 routes, served for the Flex tests:
 //
 //	/flex-api/v1/FlexFlows[/{sid}]
+//	/flex-api/v1/Insights/QualityManagement/... (see flex_insights_fake_test.go)
+//	/flex-api/v1/Configuration (GET, POST with a JSON body)
 //	/flex-api/v1/PluginService/{Plugins,Configurations,Releases}[/{sid}[/Archive]]
 //	/flex-api/v1/PluginService/Plugins/{sid}/Versions[/{sid}[/Archive]]
 //	/flex-api/v1/PluginService/Configurations/{sid}/Plugins
@@ -62,6 +65,14 @@ func (f *fakeTwilio) handleFlex(w http.ResponseWriter, r *http.Request, form url
 	parts := strings.Split(rest, "/")
 	if parts[0] == "PluginService" {
 		f.flexPlugins(w, r, form, parts[1:])
+		return
+	}
+	if len(parts) >= 3 && parts[0] == "Insights" && parts[1] == "QualityManagement" {
+		f.flexInsights(w, r, form, parts[2:])
+		return
+	}
+	if parts[0] == "Configuration" && len(parts) == 1 {
+		f.flexConfiguration(w, r)
 		return
 	}
 	if parts[0] != "FlexFlows" || len(parts) > 2 {
@@ -154,6 +165,45 @@ func (f *fakeTwilio) flexFlows(w http.ResponseWriter, r *http.Request, form url.
 	case "DELETE":
 		f.del("flex", testAccount, "FlexFlows/"+parts[1])
 		w.WriteHeader(204)
+	default:
+		ferr(w, 405, "method not allowed")
+	}
+}
+
+// flexConfiguration serves the account's single Flex configuration. The update is a JSON body of
+// snake_case keys that must carry account_sid; the spec leaves its schema empty, so this follows
+// Twilio's documentation.
+func (f *fakeTwilio) flexConfiguration(w http.ResponseWriter, r *http.Request) {
+	o, ok := f.objs[key("flex", testAccount, "Configuration")]
+	if !ok {
+		o = map[string]any{"account_sid": testAccount, "status": "ok", "flex_instance_sid": "GO" + strings.Repeat("1", 32),
+			"flex_service_instance_sid": "KC" + strings.Repeat("2", 32), "chat_service_instance_sid": "IS" + strings.Repeat("3", 32),
+			"messaging_service_instance_sid": "MG" + strings.Repeat("4", 32), "taskrouter_workspace_sid": "WS" + strings.Repeat("5", 32),
+			"runtime_domain": "example.twil.io", "flex_url": "https://flex.twilio.com", "ui_version": "2.0.0", "service_version": "1.0.0",
+			"url": "https://flex-api.twilio.com/v1/Configuration", "date_updated": cvStamp,
+			"ui_attributes": map[string]any{}, "ui_language": "en-US", "call_recording_enabled": false}
+		f.put("flex", testAccount, "Configuration", o)
+	}
+	switch r.Method {
+	case "GET":
+		fwrite(w, 200, o)
+	case "POST":
+		if r.Header.Get("Content-Type") != "application/json" {
+			ferr(w, 415, "Unsupported content type")
+			return
+		}
+		var body map[string]any
+		if err := json.Unmarshal([]byte(f.calls[len(f.calls)-1].Body), &body); err != nil || body["account_sid"] != testAccount {
+			ferr(w, 400, "account_sid is required")
+			return
+		}
+		for k, v := range body {
+			if k != "account_sid" {
+				o[k] = v
+			}
+		}
+		o["date_updated"] = cvUpdatedStamp
+		fwrite(w, 200, o)
 	default:
 		ferr(w, 405, "method not allowed")
 	}

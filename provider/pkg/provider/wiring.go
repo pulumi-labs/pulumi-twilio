@@ -541,6 +541,27 @@ func (r *FlexFlow) WireDependencies(f infer.FieldSelector, args *FlexFlowArgs, s
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
 }
 
+// WireDependencies: the identity fields are fixed; the versions, status and update time follow every input.
+func (r *FlexConfiguration) WireDependencies(f infer.FieldSelector, args *FlexConfigurationArgs, state *FlexConfigurationState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.UiVersion, &state.ServiceVersion, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the identity fields are fixed; the update time and version follow every input.
+func (r *FlexUser) WireDependencies(f infer.FieldSelector, args *FlexUserArgs, state *FlexUserState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.UpdatedDate, &state.UserVersion} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the identity and URL are fixed.
+func (r *FrontlineUser) WireDependencies(f infer.FieldSelector, args *FrontlineUserArgs, state *FrontlineUserState) {
+	wireEchoes(f, args, state)
+}
+
 // WireDependencies: the SID and creation time are fixed at creation; the update time is what Twilio reports.
 func (r *FlexPlugin) WireDependencies(f infer.FieldSelector, args *FlexPluginArgs, state *FlexPluginState) {
 	wireEchoes(f, args, state)
@@ -616,4 +637,127 @@ func (r *TrustHubSupportingDocument) WireDependencies(f infer.FieldSelector, arg
 	f.OutputField(&state.MimeType).DependsOn(f.InputField(args).Computed())
 	f.OutputField(&state.Status).DependsOn(f.InputField(args).Computed())
 	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the status, version and update time follow what Twilio reports; the creation time is fixed.
+func (r *KnowledgeBase) WireDependencies(f infer.FieldSelector, args *KnowledgeBaseArgs, state *KnowledgeBaseState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.Revision, &state.UpdatedAt} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the source ID and creation time are fixed; the status and update time follow what Twilio reports.
+func (r *Knowledge) WireDependencies(f infer.FieldSelector, args *KnowledgeArgs, state *KnowledgeState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.UpdatedAt} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the status, version, intelligence service and data time follow what Twilio reports.
+func (r *MemoryStore) WireDependencies(f infer.FieldSelector, args *MemoryStoreArgs, state *MemoryStoreState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.Revision, &state.IntelligenceServiceId, &state.DataAsOf} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the version follows what Twilio reports.
+func (r *MemoryTraitGroup) WireDependencies(f infer.FieldSelector, args *MemoryTraitGroupArgs, state *MemoryTraitGroupState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Revision).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the ID is fixed at creation; the version and update time follow what Twilio reports.
+func (r *MemoryDataMapping) WireDependencies(f infer.FieldSelector, args *MemoryDataMappingArgs, state *MemoryDataMappingState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Revision, &state.UpdatedAt} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the version follows what Twilio reports.
+func (r *MemoryIdentityResolutionSettings) WireDependencies(f infer.FieldSelector, args *MemoryIdentityResolutionSettingsArgs, state *MemoryIdentityResolutionSettingsState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Revision).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the status, expiry, errors and update time follow Twilio's review.
+func (r *CustomerProfile) WireDependencies(f infer.FieldSelector, args *CustomerProfileArgs, state *CustomerProfileState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.ValidUntil, &state.Errors, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: every input replaces and every output is fixed at creation.
+func (r *CustomerProfileEntityAssignment) WireDependencies(f infer.FieldSelector, args *CustomerProfileEntityAssignmentArgs, state *CustomerProfileEntityAssignmentState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input replaces and every output is fixed at creation.
+func (r *CustomerProfileChannelEndpointAssignment) WireDependencies(f infer.FieldSelector, args *CustomerProfileChannelEndpointAssignmentArgs, state *CustomerProfileChannelEndpointAssignmentState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the status, expiry, errors and update time follow Twilio's review.
+func (r *TrustProduct) WireDependencies(f infer.FieldSelector, args *TrustProductArgs, state *TrustProductState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.Status, &state.ValidUntil, &state.Errors, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: every input replaces and every output is fixed at creation.
+func (r *TrustProductEntityAssignment) WireDependencies(f infer.FieldSelector, args *TrustProductEntityAssignmentArgs, state *TrustProductEntityAssignmentState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: every input replaces and every output is fixed at creation.
+func (r *TrustProductChannelEndpointAssignment) WireDependencies(f infer.FieldSelector, args *TrustProductChannelEndpointAssignmentArgs, state *TrustProductChannelEndpointAssignmentState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation.
+func (r *RegulatoryEndUser) WireDependencies(f infer.FieldSelector, args *RegulatoryEndUserArgs, state *RegulatoryEndUserState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.DateUpdated).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the status, review result and update time follow Twilio.
+func (r *RegulatorySupportingDocument) WireDependencies(f infer.FieldSelector, args *RegulatorySupportingDocumentArgs, state *RegulatorySupportingDocumentState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.MimeType, &state.Status, &state.FailureReason, &state.Errors, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: the SID, owner and creation time are fixed at creation; the status, expiry and update time follow Twilio's review.
+func (r *RegulatoryBundle) WireDependencies(f infer.FieldSelector, args *RegulatoryBundleArgs, state *RegulatoryBundleState) {
+	wireEchoes(f, args, state)
+	for _, o := range []any{&state.EffectiveRegulationSid, &state.Status, &state.ValidUntil, &state.DateUpdated} {
+		f.OutputField(o).DependsOn(f.InputField(args).Computed())
+	}
+}
+
+// WireDependencies: every input replaces and every output is fixed at creation.
+func (r *RegulatoryBundleItemAssignment) WireDependencies(f infer.FieldSelector, args *RegulatoryBundleItemAssignmentArgs, state *RegulatoryBundleItemAssignmentState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and URL are fixed at creation.
+func (r *FlexInsightsCategory) WireDependencies(f infer.FieldSelector, args *FlexInsightsCategoryArgs, state *FlexInsightsCategoryState) {
+	wireEchoes(f, args, state)
+}
+
+// WireDependencies: the SID and URL are fixed at creation; the usage count follows Twilio.
+func (r *FlexInsightsQuestion) WireDependencies(f infer.FieldSelector, args *FlexInsightsQuestionArgs, state *FlexInsightsQuestionState) {
+	wireEchoes(f, args, state)
+	f.OutputField(&state.Usage).DependsOn(f.InputField(args).Computed())
+}
+
+// WireDependencies: the SID and URL are fixed at creation.
+func (r *FlexInsightsQuestionnaire) WireDependencies(f infer.FieldSelector, args *FlexInsightsQuestionnaireArgs, state *FlexInsightsQuestionnaireState) {
+	wireEchoes(f, args, state)
 }

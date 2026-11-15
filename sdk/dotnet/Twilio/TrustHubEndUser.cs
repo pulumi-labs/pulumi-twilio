@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumi.Labs.Twilio
 {
     /// <summary>
-    /// A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a Customer Profile or Trust Product to do that (not yet modelled).
+    /// A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a CustomerProfile or TrustProduct (CustomerProfileEntityAssignment, TrustProductEntityAssignment) to do that.
     /// </summary>
     [TwilioResourceType("twilio:index:TrustHubEndUser")]
     public partial class TrustHubEndUser : global::Pulumi.CustomResource

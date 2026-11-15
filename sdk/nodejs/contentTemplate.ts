@@ -7,7 +7,7 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. Submitting the template to WhatsApp for approval is not managed here; read the result with the getContentApprovalStatus function.
+ * A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. Submit it to WhatsApp for approval with the ContentApprovalRequest resource.
  */
 export class ContentTemplate extends pulumi.CustomResource {
     /**

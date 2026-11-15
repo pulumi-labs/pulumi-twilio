@@ -1,1 +1,0 @@
-Experimental: manage Twilio as infrastructure with Pulumi: subaccounts, API keys, phone-number webhooks, TwiML applications, messaging and Verify services, SIP trunking and BYOC, Event Streams, Serverless services and more.

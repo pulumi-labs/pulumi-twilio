@@ -1,3 +1,0 @@
-name: twilio-messaging-csharp
-runtime: dotnet
-description: Route SMS and voice webhooks with a Twilio application and messaging service (C#)

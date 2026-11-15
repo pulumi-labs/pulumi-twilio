@@ -25,7 +25,7 @@ import (
 // (trusthub.twilio.com v1).
 
 // thGet reads one object of a collection for a lookup.
-func thGet(ctx context.Context, fn, what, coll, sid string) (obj, error) {
+func thGet(ctx context.Context, api thAPI, fn, what, coll, sid string) (obj, error) {
 	if err := requireArg(fn, "sid", sid); err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func thGet(ctx context.Context, fn, what, coll, sid string) (obj, error) {
 	if err != nil {
 		return nil, err
 	}
-	o, err := c.do(ctx, "GET", trusthubProduct, thPath(coll, sid), nil, nil)
+	o, err := c.do(ctx, "GET", api.product, api.path(coll, sid), nil, nil)
 	if err != nil {
 		return nil, lookupFailure(fn, what+" "+sid, err)
 	}
@@ -41,7 +41,7 @@ func thGet(ctx context.Context, fn, what, coll, sid string) (obj, error) {
 }
 
 // thList reads every page of a collection for a lookup; itemsKey is the array of the page.
-func thList[T any](ctx context.Context, fn, what, coll, itemsKey string, conv func(obj) T) ([]T, error) {
+func thList[T any](ctx context.Context, api thAPI, fn, what, coll, itemsKey string, conv func(obj) T) ([]T, error) {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func thList[T any](ctx context.Context, fn, what, coll, itemsKey string, conv fu
 	out := []T{}
 	// The specification states no maximum PageSize; 50 is the cap of the other Twilio list APIs
 	// that state one, and listPages follows the pages either way.
-	err = listPages(ctx, c, fn, trusthubProduct, thPath(coll, ""), url.Values{"PageSize": {"50"}}, itemsKey, func(o obj) bool {
+	err = listPages(ctx, c, fn, api.product, api.path(coll, ""), url.Values{"PageSize": {"50"}}, itemsKey, func(o obj) bool {
 		out = append(out, conv(o))
 		return true
 	})
@@ -104,7 +104,7 @@ func (f *GetTrustHubEndUser) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubEndUser) Invoke(ctx context.Context, req infer.FunctionRequest[GetTrustHubArgs]) (infer.FunctionResponse[TrustHubEndUserInfo], error) {
-	o, err := thGet(ctx, "getTrustHubEndUser", "TrustHub end user", "EndUsers", req.Input.Sid)
+	o, err := thGet(ctx, trustHubAPI, "getTrustHubEndUser", "TrustHub end user", "EndUsers", req.Input.Sid)
 	if err != nil {
 		return infer.FunctionResponse[TrustHubEndUserInfo]{}, err
 	}
@@ -128,7 +128,7 @@ func (f *GetTrustHubEndUsers) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubEndUsers) Invoke(ctx context.Context, _ infer.FunctionRequest[struct{}]) (infer.FunctionResponse[GetTrustHubEndUsersResult], error) {
-	l, err := thList(ctx, "getTrustHubEndUsers", "TrustHub end users", "EndUsers", "results", thEndUserInfo)
+	l, err := thList(ctx, trustHubAPI, "getTrustHubEndUsers", "TrustHub end users", "EndUsers", "results", thEndUserInfo)
 	return infer.FunctionResponse[GetTrustHubEndUsersResult]{Output: GetTrustHubEndUsersResult{EndUsers: l}}, err
 }
 
@@ -172,7 +172,7 @@ func (f *GetTrustHubSupportingDocument) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubSupportingDocument) Invoke(ctx context.Context, req infer.FunctionRequest[GetTrustHubArgs]) (infer.FunctionResponse[TrustHubSupportingDocumentInfo], error) {
-	o, err := thGet(ctx, "getTrustHubSupportingDocument", "TrustHub supporting document", "SupportingDocuments", req.Input.Sid)
+	o, err := thGet(ctx, trustHubAPI, "getTrustHubSupportingDocument", "TrustHub supporting document", "SupportingDocuments", req.Input.Sid)
 	if err != nil {
 		return infer.FunctionResponse[TrustHubSupportingDocumentInfo]{}, err
 	}
@@ -196,7 +196,7 @@ func (f *GetTrustHubSupportingDocuments) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubSupportingDocuments) Invoke(ctx context.Context, _ infer.FunctionRequest[struct{}]) (infer.FunctionResponse[GetTrustHubSupportingDocumentsResult], error) {
-	l, err := thList(ctx, "getTrustHubSupportingDocuments", "TrustHub supporting documents", "SupportingDocuments", "results", thDocInfo)
+	l, err := thList(ctx, trustHubAPI, "getTrustHubSupportingDocuments", "TrustHub supporting documents", "SupportingDocuments", "results", thDocInfo)
 	return infer.FunctionResponse[GetTrustHubSupportingDocumentsResult]{Output: GetTrustHubSupportingDocumentsResult{SupportingDocuments: l}}, err
 }
 
@@ -230,7 +230,7 @@ func (f *GetTrustHubEndUserType) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubEndUserType) Invoke(ctx context.Context, req infer.FunctionRequest[GetTrustHubArgs]) (infer.FunctionResponse[TrustHubTypeInfo], error) {
-	o, err := thGet(ctx, "getTrustHubEndUserType", "TrustHub end user type", "EndUserTypes", req.Input.Sid)
+	o, err := thGet(ctx, trustHubAPI, "getTrustHubEndUserType", "TrustHub end user type", "EndUserTypes", req.Input.Sid)
 	if err != nil {
 		return infer.FunctionResponse[TrustHubTypeInfo]{}, err
 	}
@@ -254,7 +254,7 @@ func (f *GetTrustHubEndUserTypes) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubEndUserTypes) Invoke(ctx context.Context, _ infer.FunctionRequest[struct{}]) (infer.FunctionResponse[GetTrustHubTypesResult], error) {
-	l, err := thList(ctx, "getTrustHubEndUserTypes", "TrustHub end user types", "EndUserTypes", "end_user_types", thTypeInfo)
+	l, err := thList(ctx, trustHubAPI, "getTrustHubEndUserTypes", "TrustHub end user types", "EndUserTypes", "end_user_types", thTypeInfo)
 	return infer.FunctionResponse[GetTrustHubTypesResult]{Output: GetTrustHubTypesResult{Types: l}}, err
 }
 
@@ -266,7 +266,7 @@ func (f *GetTrustHubSupportingDocumentType) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubSupportingDocumentType) Invoke(ctx context.Context, req infer.FunctionRequest[GetTrustHubArgs]) (infer.FunctionResponse[TrustHubTypeInfo], error) {
-	o, err := thGet(ctx, "getTrustHubSupportingDocumentType", "TrustHub supporting document type", "SupportingDocumentTypes", req.Input.Sid)
+	o, err := thGet(ctx, trustHubAPI, "getTrustHubSupportingDocumentType", "TrustHub supporting document type", "SupportingDocumentTypes", req.Input.Sid)
 	if err != nil {
 		return infer.FunctionResponse[TrustHubTypeInfo]{}, err
 	}
@@ -281,7 +281,7 @@ func (f *GetTrustHubSupportingDocumentTypes) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubSupportingDocumentTypes) Invoke(ctx context.Context, _ infer.FunctionRequest[struct{}]) (infer.FunctionResponse[GetTrustHubTypesResult], error) {
-	l, err := thList(ctx, "getTrustHubSupportingDocumentTypes", "TrustHub supporting document types", "SupportingDocumentTypes", "supporting_document_types", thTypeInfo)
+	l, err := thList(ctx, trustHubAPI, "getTrustHubSupportingDocumentTypes", "TrustHub supporting document types", "SupportingDocumentTypes", "supporting_document_types", thTypeInfo)
 	return infer.FunctionResponse[GetTrustHubTypesResult]{Output: GetTrustHubTypesResult{Types: l}}, err
 }
 
@@ -312,7 +312,7 @@ func (f *GetTrustHubPolicy) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubPolicy) Invoke(ctx context.Context, req infer.FunctionRequest[GetTrustHubArgs]) (infer.FunctionResponse[TrustHubPolicyInfo], error) {
-	o, err := thGet(ctx, "getTrustHubPolicy", "TrustHub policy", "Policies", req.Input.Sid)
+	o, err := thGet(ctx, trustHubAPI, "getTrustHubPolicy", "TrustHub policy", "Policies", req.Input.Sid)
 	if err != nil {
 		return infer.FunctionResponse[TrustHubPolicyInfo]{}, err
 	}
@@ -336,6 +336,6 @@ func (f *GetTrustHubPolicies) Annotate(a infer.Annotator) {
 }
 
 func (f *GetTrustHubPolicies) Invoke(ctx context.Context, _ infer.FunctionRequest[struct{}]) (infer.FunctionResponse[GetTrustHubPoliciesResult], error) {
-	l, err := thList(ctx, "getTrustHubPolicies", "TrustHub policies", "Policies", "results", thPolicyInfo)
+	l, err := thList(ctx, trustHubAPI, "getTrustHubPolicies", "TrustHub policies", "Policies", "results", thPolicyInfo)
 	return infer.FunctionResponse[GetTrustHubPoliciesResult]{Output: GetTrustHubPoliciesResult{Policies: l}}, err
 }

@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+ * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
  */
 export function getContentApprovalStatus(args: GetContentApprovalStatusArgs, opts?: pulumi.InvokeOptions): Promise<GetContentApprovalStatusResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -52,7 +52,7 @@ export interface GetContentApprovalStatusResult {
     readonly whatsappStatus?: string;
 }
 /**
- * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+ * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
  */
 export function getContentApprovalStatusOutput(args: GetContentApprovalStatusOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetContentApprovalStatusResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});

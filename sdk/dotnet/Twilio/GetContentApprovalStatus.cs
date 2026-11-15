@@ -13,19 +13,19 @@ namespace Pulumi.Labs.Twilio
     public static class GetContentApprovalStatus
     {
         /// <summary>
-        /// Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+        /// Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
         /// </summary>
         public static Task<GetContentApprovalStatusResult> InvokeAsync(GetContentApprovalStatusArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetContentApprovalStatusResult>("twilio:index:getContentApprovalStatus", args ?? new GetContentApprovalStatusArgs(), options.WithDefaults());
 
         /// <summary>
-        /// Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+        /// Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
         /// </summary>
         public static Output<GetContentApprovalStatusResult> Invoke(GetContentApprovalStatusInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetContentApprovalStatusResult>("twilio:index:getContentApprovalStatus", args ?? new GetContentApprovalStatusInvokeArgs(), options.WithDefaults());
 
         /// <summary>
-        /// Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+        /// Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
         /// </summary>
         public static Output<GetContentApprovalStatusResult> Invoke(GetContentApprovalStatusInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetContentApprovalStatusResult>("twilio:index:getContentApprovalStatus", args ?? new GetContentApprovalStatusInvokeArgs(), options.WithDefaults());

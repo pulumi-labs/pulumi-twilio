@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumi.Labs.Twilio
 {
     /// <summary>
-    /// A Twilio TrustHub supporting document (trusthub.twilio.com /v1/SupportingDocuments), such as a business address, used as evidence in a regulatory bundle. The resource ID is the document SID (RD...). A new document is in the DRAFT status and has no cost. Submitting it for review happens through a Customer Profile or Trust Product (not yet modelled). Twilio may refuse to delete a document that a bundle still uses.
+    /// A Twilio TrustHub supporting document (trusthub.twilio.com /v1/SupportingDocuments), such as a business address, used as evidence in a regulatory bundle. The resource ID is the document SID (RD...). A new document is in the DRAFT status and has no cost. Submitting it for review happens through a CustomerProfile or TrustProduct that it is assigned to. Twilio may refuse to delete a document that a bundle still uses.
     /// </summary>
     [TwilioResourceType("twilio:index:TrustHubSupportingDocument")]
     public partial class TrustHubSupportingDocument : global::Pulumi.CustomResource

@@ -45,6 +45,8 @@ import com.pulumi.labs.twilio.inputs.GetConnectionPolicyArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetArgs;
 import com.pulumi.labs.twilio.inputs.GetConnectionPolicyTargetPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetContentApprovalRequestArgs;
+import com.pulumi.labs.twilio.inputs.GetContentApprovalRequestPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetContentApprovalStatusArgs;
 import com.pulumi.labs.twilio.inputs.GetContentApprovalStatusPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetContentTemplateArgs;
@@ -65,6 +67,12 @@ import com.pulumi.labs.twilio.inputs.GetConversationsServiceNotificationConfigur
 import com.pulumi.labs.twilio.inputs.GetConversationsServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetConversationsWebhookConfigurationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfileArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfileChannelEndpointAssignmentArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfileChannelEndpointAssignmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfileEntityAssignmentArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfileEntityAssignmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetCustomerProfilePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountriesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetDialingPermissionsCountryArgs;
@@ -81,10 +89,28 @@ import com.pulumi.labs.twilio.inputs.GetEventTypeArgs;
 import com.pulumi.labs.twilio.inputs.GetEventTypePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetEventTypesArgs;
 import com.pulumi.labs.twilio.inputs.GetEventTypesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexConfigurationArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexConfigurationPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexFlowArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexFlowPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexFlowsArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexFlowsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsAnswerSetsArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsAnswerSetsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCategoriesArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCategoriesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCategoryArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCategoryPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCommentTagsArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsCommentTagsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionnaireArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionnairePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionnairesArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionnairesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionsArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexInsightsQuestionsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginConfigurationArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginConfigurationPlainArgs;
@@ -101,6 +127,10 @@ import com.pulumi.labs.twilio.inputs.GetFlexPluginVersionsArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginVersionsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginsArgs;
 import com.pulumi.labs.twilio.inputs.GetFlexPluginsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexUserArgs;
+import com.pulumi.labs.twilio.inputs.GetFlexUserPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetFrontlineUserArgs;
+import com.pulumi.labs.twilio.inputs.GetFrontlineUserPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnArgs;
 import com.pulumi.labs.twilio.inputs.GetIncomingPhoneNumberAssignedAddOnPlainArgs;
@@ -111,6 +141,10 @@ import com.pulumi.labs.twilio.inputs.GetIntelligenceServiceArgs;
 import com.pulumi.labs.twilio.inputs.GetIntelligenceServicePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetIpRecordArgs;
 import com.pulumi.labs.twilio.inputs.GetIpRecordPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetKnowledgeArgs;
+import com.pulumi.labs.twilio.inputs.GetKnowledgeBaseArgs;
+import com.pulumi.labs.twilio.inputs.GetKnowledgeBasePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetKnowledgePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningDomainCertificateArgs;
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningDomainCertificatePlainArgs;
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningDomainConfigArgs;
@@ -121,6 +155,14 @@ import com.pulumi.labs.twilio.inputs.GetLinkShorteningMessagingServiceDomainArgs
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningMessagingServiceDomainConfigArgs;
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningMessagingServiceDomainConfigPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetLinkShorteningMessagingServiceDomainPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryDataMappingArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryDataMappingPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryIdentityResolutionSettingsArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryIdentityResolutionSettingsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryStoreArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryStorePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryTraitGroupArgs;
+import com.pulumi.labs.twilio.inputs.GetMemoryTraitGroupPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingDeactivationsArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingDeactivationsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetMessagingGeoPermissionsArgs;
@@ -175,6 +217,30 @@ import com.pulumi.labs.twilio.inputs.GetPublicKeyCredentialArgs;
 import com.pulumi.labs.twilio.inputs.GetPublicKeyCredentialPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetQueueArgs;
 import com.pulumi.labs.twilio.inputs.GetQueuePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryBundleArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryBundleItemAssignmentArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryBundleItemAssignmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryBundlePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserTypeArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserTypePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserTypesArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUserTypesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUsersArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryEndUsersPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryRegulationArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryRegulationPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryRegulationsArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatoryRegulationsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentTypeArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentTypePlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentTypesArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentTypesPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentsArgs;
+import com.pulumi.labs.twilio.inputs.GetRegulatorySupportingDocumentsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetRolePermissionsArgs;
 import com.pulumi.labs.twilio.inputs.GetRolePermissionsPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetRoutesPhoneNumberArgs;
@@ -279,6 +345,12 @@ import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypesArgs;
 import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentTypesPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentsArgs;
 import com.pulumi.labs.twilio.inputs.GetTrustHubSupportingDocumentsPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductChannelEndpointAssignmentArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductChannelEndpointAssignmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductEntityAssignmentArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductEntityAssignmentPlainArgs;
+import com.pulumi.labs.twilio.inputs.GetTrustProductPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonPlainArgs;
 import com.pulumi.labs.twilio.inputs.GetUsAppToPersonUsecasesArgs;
@@ -339,6 +411,7 @@ import com.pulumi.labs.twilio.outputs.GetChannelsSendersResult;
 import com.pulumi.labs.twilio.outputs.GetConnectAppResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyResult;
 import com.pulumi.labs.twilio.outputs.GetConnectionPolicyTargetResult;
+import com.pulumi.labs.twilio.outputs.GetContentApprovalRequestResult;
 import com.pulumi.labs.twilio.outputs.GetContentApprovalStatusResult;
 import com.pulumi.labs.twilio.outputs.GetContentTemplateResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsAddressConfigurationResult;
@@ -349,6 +422,9 @@ import com.pulumi.labs.twilio.outputs.GetConversationsServiceConfigurationResult
 import com.pulumi.labs.twilio.outputs.GetConversationsServiceNotificationConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsServiceResult;
 import com.pulumi.labs.twilio.outputs.GetConversationsWebhookConfigurationResult;
+import com.pulumi.labs.twilio.outputs.GetCustomerProfileChannelEndpointAssignmentResult;
+import com.pulumi.labs.twilio.outputs.GetCustomerProfileEntityAssignmentResult;
+import com.pulumi.labs.twilio.outputs.GetCustomerProfileResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountriesResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsCountryResult;
 import com.pulumi.labs.twilio.outputs.GetDialingPermissionsHighRiskSpecialPrefixesResult;
@@ -357,8 +433,17 @@ import com.pulumi.labs.twilio.outputs.GetEventSinkResult;
 import com.pulumi.labs.twilio.outputs.GetEventSubscriptionResult;
 import com.pulumi.labs.twilio.outputs.GetEventTypeResult;
 import com.pulumi.labs.twilio.outputs.GetEventTypesResult;
+import com.pulumi.labs.twilio.outputs.GetFlexConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetFlexFlowResult;
 import com.pulumi.labs.twilio.outputs.GetFlexFlowsResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsAnswerSetsResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsCategoriesResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsCategoryResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsCommentTagsResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsQuestionResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsQuestionnaireResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsQuestionnairesResult;
+import com.pulumi.labs.twilio.outputs.GetFlexInsightsQuestionsResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginConfigurationResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginConfigurationsResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginReleaseResult;
@@ -367,16 +452,24 @@ import com.pulumi.labs.twilio.outputs.GetFlexPluginResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginVersionResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginVersionsResult;
 import com.pulumi.labs.twilio.outputs.GetFlexPluginsResult;
+import com.pulumi.labs.twilio.outputs.GetFlexUserResult;
+import com.pulumi.labs.twilio.outputs.GetFrontlineUserResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberAssignedAddOnResult;
 import com.pulumi.labs.twilio.outputs.GetIncomingPhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetIntelligenceCustomOperatorResult;
 import com.pulumi.labs.twilio.outputs.GetIntelligenceServiceResult;
 import com.pulumi.labs.twilio.outputs.GetIpRecordResult;
+import com.pulumi.labs.twilio.outputs.GetKnowledgeBaseResult;
+import com.pulumi.labs.twilio.outputs.GetKnowledgeResult;
 import com.pulumi.labs.twilio.outputs.GetLinkShorteningDomainCertificateResult;
 import com.pulumi.labs.twilio.outputs.GetLinkShorteningDomainConfigResult;
 import com.pulumi.labs.twilio.outputs.GetLinkShorteningDomainDnsValidationResult;
 import com.pulumi.labs.twilio.outputs.GetLinkShorteningMessagingServiceDomainConfigResult;
 import com.pulumi.labs.twilio.outputs.GetLinkShorteningMessagingServiceDomainResult;
+import com.pulumi.labs.twilio.outputs.GetMemoryDataMappingResult;
+import com.pulumi.labs.twilio.outputs.GetMemoryIdentityResolutionSettingsResult;
+import com.pulumi.labs.twilio.outputs.GetMemoryStoreResult;
+import com.pulumi.labs.twilio.outputs.GetMemoryTraitGroupResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingDeactivationsResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingGeoPermissionsResult;
 import com.pulumi.labs.twilio.outputs.GetMessagingServiceAlphaSenderResult;
@@ -404,6 +497,18 @@ import com.pulumi.labs.twilio.outputs.GetProxyPhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetProxyServiceResult;
 import com.pulumi.labs.twilio.outputs.GetPublicKeyCredentialResult;
 import com.pulumi.labs.twilio.outputs.GetQueueResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryBundleItemAssignmentResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryBundleResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryEndUserResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryEndUserTypeResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryEndUserTypesResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryEndUsersResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryRegulationResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatoryRegulationsResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatorySupportingDocumentResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatorySupportingDocumentTypeResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatorySupportingDocumentTypesResult;
+import com.pulumi.labs.twilio.outputs.GetRegulatorySupportingDocumentsResult;
 import com.pulumi.labs.twilio.outputs.GetRolePermissionsResult;
 import com.pulumi.labs.twilio.outputs.GetRoutesPhoneNumberResult;
 import com.pulumi.labs.twilio.outputs.GetRoutesShortCodeResult;
@@ -456,6 +561,9 @@ import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentResult;
 import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentTypeResult;
 import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentTypesResult;
 import com.pulumi.labs.twilio.outputs.GetTrustHubSupportingDocumentsResult;
+import com.pulumi.labs.twilio.outputs.GetTrustProductChannelEndpointAssignmentResult;
+import com.pulumi.labs.twilio.outputs.GetTrustProductEntityAssignmentResult;
+import com.pulumi.labs.twilio.outputs.GetTrustProductResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonUsecasesResult;
 import com.pulumi.labs.twilio.outputs.GetUsAppToPersonsResult;
@@ -1167,35 +1275,70 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getConnectionPolicyTarget", TypeShape.of(GetConnectionPolicyTargetResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * Read the WhatsApp approval request of a Content template. Fails when the template was never submitted; getContentApprovalStatus reports that case as nulls instead.
+     * 
+     */
+    public static Output<GetContentApprovalRequestResult> getContentApprovalRequest(GetContentApprovalRequestArgs args) {
+        return getContentApprovalRequest(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the WhatsApp approval request of a Content template. Fails when the template was never submitted; getContentApprovalStatus reports that case as nulls instead.
+     * 
+     */
+    public static CompletableFuture<GetContentApprovalRequestResult> getContentApprovalRequestPlain(GetContentApprovalRequestPlainArgs args) {
+        return getContentApprovalRequestPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the WhatsApp approval request of a Content template. Fails when the template was never submitted; getContentApprovalStatus reports that case as nulls instead.
+     * 
+     */
+    public static Output<GetContentApprovalRequestResult> getContentApprovalRequest(GetContentApprovalRequestArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentApprovalRequest", TypeShape.of(GetContentApprovalRequestResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the WhatsApp approval request of a Content template. Fails when the template was never submitted; getContentApprovalStatus reports that case as nulls instead.
+     * 
+     */
+    public static Output<GetContentApprovalRequestResult> getContentApprovalRequest(GetContentApprovalRequestArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getContentApprovalRequest", TypeShape.of(GetContentApprovalRequestResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the WhatsApp approval request of a Content template. Fails when the template was never submitted; getContentApprovalStatus reports that case as nulls instead.
+     * 
+     */
+    public static CompletableFuture<GetContentApprovalRequestResult> getContentApprovalRequestPlain(GetContentApprovalRequestPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getContentApprovalRequest", TypeShape.of(GetContentApprovalRequestResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
      * 
      */
     public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args) {
         return getContentApprovalStatus(args, InvokeOptions.Empty);
     }
     /**
-     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
      * 
      */
     public static CompletableFuture<GetContentApprovalStatusResult> getContentApprovalStatusPlain(GetContentApprovalStatusPlainArgs args) {
         return getContentApprovalStatusPlain(args, InvokeOptions.Empty);
     }
     /**
-     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
      * 
      */
     public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("twilio:index:getContentApprovalStatus", TypeShape.of(GetContentApprovalStatusResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
      * 
      */
     public static Output<GetContentApprovalStatusResult> getContentApprovalStatus(GetContentApprovalStatusArgs args, InvokeOutputOptions options) {
         return Deployment.getInstance().invoke("twilio:index:getContentApprovalStatus", TypeShape.of(GetContentApprovalStatusResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+     * Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
      * 
      */
     public static CompletableFuture<GetContentApprovalStatusResult> getContentApprovalStatusPlain(GetContentApprovalStatusPlainArgs args, InvokeOptions options) {
@@ -1545,6 +1688,111 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getConversationsWebhookConfiguration", TypeShape.of(GetConversationsWebhookConfigurationResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a TrustHub customer profile by SID.
+     * 
+     */
+    public static Output<GetCustomerProfileResult> getCustomerProfile(GetCustomerProfileArgs args) {
+        return getCustomerProfile(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub customer profile by SID.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileResult> getCustomerProfilePlain(GetCustomerProfilePlainArgs args) {
+        return getCustomerProfilePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub customer profile by SID.
+     * 
+     */
+    public static Output<GetCustomerProfileResult> getCustomerProfile(GetCustomerProfileArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfile", TypeShape.of(GetCustomerProfileResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub customer profile by SID.
+     * 
+     */
+    public static Output<GetCustomerProfileResult> getCustomerProfile(GetCustomerProfileArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfile", TypeShape.of(GetCustomerProfileResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub customer profile by SID.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileResult> getCustomerProfilePlain(GetCustomerProfilePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getCustomerProfile", TypeShape.of(GetCustomerProfileResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub customer profile. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetCustomerProfileChannelEndpointAssignmentResult> getCustomerProfileChannelEndpointAssignment(GetCustomerProfileChannelEndpointAssignmentArgs args) {
+        return getCustomerProfileChannelEndpointAssignment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub customer profile. Experimental, unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileChannelEndpointAssignmentResult> getCustomerProfileChannelEndpointAssignmentPlain(GetCustomerProfileChannelEndpointAssignmentPlainArgs args) {
+        return getCustomerProfileChannelEndpointAssignmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub customer profile. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetCustomerProfileChannelEndpointAssignmentResult> getCustomerProfileChannelEndpointAssignment(GetCustomerProfileChannelEndpointAssignmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfileChannelEndpointAssignment", TypeShape.of(GetCustomerProfileChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub customer profile. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetCustomerProfileChannelEndpointAssignmentResult> getCustomerProfileChannelEndpointAssignment(GetCustomerProfileChannelEndpointAssignmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfileChannelEndpointAssignment", TypeShape.of(GetCustomerProfileChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub customer profile. Experimental, unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileChannelEndpointAssignmentResult> getCustomerProfileChannelEndpointAssignmentPlain(GetCustomerProfileChannelEndpointAssignmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getCustomerProfileChannelEndpointAssignment", TypeShape.of(GetCustomerProfileChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub customer profile.
+     * 
+     */
+    public static Output<GetCustomerProfileEntityAssignmentResult> getCustomerProfileEntityAssignment(GetCustomerProfileEntityAssignmentArgs args) {
+        return getCustomerProfileEntityAssignment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub customer profile.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileEntityAssignmentResult> getCustomerProfileEntityAssignmentPlain(GetCustomerProfileEntityAssignmentPlainArgs args) {
+        return getCustomerProfileEntityAssignmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub customer profile.
+     * 
+     */
+    public static Output<GetCustomerProfileEntityAssignmentResult> getCustomerProfileEntityAssignment(GetCustomerProfileEntityAssignmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfileEntityAssignment", TypeShape.of(GetCustomerProfileEntityAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub customer profile.
+     * 
+     */
+    public static Output<GetCustomerProfileEntityAssignmentResult> getCustomerProfileEntityAssignment(GetCustomerProfileEntityAssignmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getCustomerProfileEntityAssignment", TypeShape.of(GetCustomerProfileEntityAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub customer profile.
+     * 
+     */
+    public static CompletableFuture<GetCustomerProfileEntityAssignmentResult> getCustomerProfileEntityAssignmentPlain(GetCustomerProfileEntityAssignmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getCustomerProfileEntityAssignment", TypeShape.of(GetCustomerProfileEntityAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * List the Voice dialing permissions per country, optionally narrowed by country, continent, calling code or permission (GET /v1/DialingPermissions/Countries on voice.twilio.com). Read-only.
      * 
      */
@@ -1853,6 +2101,55 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getEventTypes", TypeShape.of(GetEventTypesResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexConfigurationResult> getFlexConfiguration() {
+        return getFlexConfiguration(GetFlexConfigurationArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexConfigurationResult> getFlexConfigurationPlain() {
+        return getFlexConfigurationPlain(GetFlexConfigurationPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexConfigurationResult> getFlexConfiguration(GetFlexConfigurationArgs args) {
+        return getFlexConfiguration(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexConfigurationResult> getFlexConfigurationPlain(GetFlexConfigurationPlainArgs args) {
+        return getFlexConfigurationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexConfigurationResult> getFlexConfiguration(GetFlexConfigurationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexConfiguration", TypeShape.of(GetFlexConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexConfigurationResult> getFlexConfiguration(GetFlexConfigurationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexConfiguration", TypeShape.of(GetFlexConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the Flex configuration of the account (GET /v1/Configuration on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexConfigurationResult> getFlexConfigurationPlain(GetFlexConfigurationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexConfiguration", TypeShape.of(GetFlexConfigurationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a Flex Flow by SID (GET /v1/FlexFlows/{Sid} on flex-api.twilio.com).
      * 
      */
@@ -1935,6 +2232,356 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetFlexFlowsResult> getFlexFlowsPlain(GetFlexFlowsPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getFlexFlows", TypeShape.of(GetFlexFlowsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSets() {
+        return getFlexInsightsAnswerSets(GetFlexInsightsAnswerSetsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSetsPlain() {
+        return getFlexInsightsAnswerSetsPlain(GetFlexInsightsAnswerSetsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSets(GetFlexInsightsAnswerSetsArgs args) {
+        return getFlexInsightsAnswerSets(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSetsPlain(GetFlexInsightsAnswerSetsPlainArgs args) {
+        return getFlexInsightsAnswerSetsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSets(GetFlexInsightsAnswerSetsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsAnswerSets", TypeShape.of(GetFlexInsightsAnswerSetsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSets(GetFlexInsightsAnswerSetsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsAnswerSets", TypeShape.of(GetFlexInsightsAnswerSetsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management answer sets (GET /v1/Insights/QualityManagement/Settings/AnswerSets on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsAnswerSetsResult> getFlexInsightsAnswerSetsPlain(GetFlexInsightsAnswerSetsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsAnswerSets", TypeShape.of(GetFlexInsightsAnswerSetsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoriesResult> getFlexInsightsCategories() {
+        return getFlexInsightsCategories(GetFlexInsightsCategoriesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCategoriesResult> getFlexInsightsCategoriesPlain() {
+        return getFlexInsightsCategoriesPlain(GetFlexInsightsCategoriesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoriesResult> getFlexInsightsCategories(GetFlexInsightsCategoriesArgs args) {
+        return getFlexInsightsCategories(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCategoriesResult> getFlexInsightsCategoriesPlain(GetFlexInsightsCategoriesPlainArgs args) {
+        return getFlexInsightsCategoriesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoriesResult> getFlexInsightsCategories(GetFlexInsightsCategoriesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCategories", TypeShape.of(GetFlexInsightsCategoriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoriesResult> getFlexInsightsCategories(GetFlexInsightsCategoriesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCategories", TypeShape.of(GetFlexInsightsCategoriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management categories (GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCategoriesResult> getFlexInsightsCategoriesPlain(GetFlexInsightsCategoriesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsCategories", TypeShape.of(GetFlexInsightsCategoriesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management category by SID (found in GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoryResult> getFlexInsightsCategory(GetFlexInsightsCategoryArgs args) {
+        return getFlexInsightsCategory(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management category by SID (found in GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCategoryResult> getFlexInsightsCategoryPlain(GetFlexInsightsCategoryPlainArgs args) {
+        return getFlexInsightsCategoryPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management category by SID (found in GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoryResult> getFlexInsightsCategory(GetFlexInsightsCategoryArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCategory", TypeShape.of(GetFlexInsightsCategoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management category by SID (found in GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsCategoryResult> getFlexInsightsCategory(GetFlexInsightsCategoryArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCategory", TypeShape.of(GetFlexInsightsCategoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management category by SID (found in GET /v1/Insights/QualityManagement/Categories on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCategoryResult> getFlexInsightsCategoryPlain(GetFlexInsightsCategoryPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsCategory", TypeShape.of(GetFlexInsightsCategoryResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTags() {
+        return getFlexInsightsCommentTags(GetFlexInsightsCommentTagsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTagsPlain() {
+        return getFlexInsightsCommentTagsPlain(GetFlexInsightsCommentTagsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTags(GetFlexInsightsCommentTagsArgs args) {
+        return getFlexInsightsCommentTags(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTagsPlain(GetFlexInsightsCommentTagsPlainArgs args) {
+        return getFlexInsightsCommentTagsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTags(GetFlexInsightsCommentTagsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCommentTags", TypeShape.of(GetFlexInsightsCommentTagsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTags(GetFlexInsightsCommentTagsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsCommentTags", TypeShape.of(GetFlexInsightsCommentTagsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Read the Flex Insights quality management comment tags (GET /v1/Insights/QualityManagement/Settings/CommentTags on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsCommentTagsResult> getFlexInsightsCommentTagsPlain(GetFlexInsightsCommentTagsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsCommentTags", TypeShape.of(GetFlexInsightsCommentTagsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management question by SID (found in GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionResult> getFlexInsightsQuestion(GetFlexInsightsQuestionArgs args) {
+        return getFlexInsightsQuestion(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management question by SID (found in GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionResult> getFlexInsightsQuestionPlain(GetFlexInsightsQuestionPlainArgs args) {
+        return getFlexInsightsQuestionPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management question by SID (found in GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionResult> getFlexInsightsQuestion(GetFlexInsightsQuestionArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestion", TypeShape.of(GetFlexInsightsQuestionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management question by SID (found in GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionResult> getFlexInsightsQuestion(GetFlexInsightsQuestionArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestion", TypeShape.of(GetFlexInsightsQuestionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management question by SID (found in GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com, which has no fetch by SID).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionResult> getFlexInsightsQuestionPlain(GetFlexInsightsQuestionPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsQuestion", TypeShape.of(GetFlexInsightsQuestionResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management questionnaire by SID (GET /v1/Insights/QualityManagement/Questionnaires/{Sid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnaireResult> getFlexInsightsQuestionnaire(GetFlexInsightsQuestionnaireArgs args) {
+        return getFlexInsightsQuestionnaire(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management questionnaire by SID (GET /v1/Insights/QualityManagement/Questionnaires/{Sid} on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionnaireResult> getFlexInsightsQuestionnairePlain(GetFlexInsightsQuestionnairePlainArgs args) {
+        return getFlexInsightsQuestionnairePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex Insights quality management questionnaire by SID (GET /v1/Insights/QualityManagement/Questionnaires/{Sid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnaireResult> getFlexInsightsQuestionnaire(GetFlexInsightsQuestionnaireArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestionnaire", TypeShape.of(GetFlexInsightsQuestionnaireResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management questionnaire by SID (GET /v1/Insights/QualityManagement/Questionnaires/{Sid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnaireResult> getFlexInsightsQuestionnaire(GetFlexInsightsQuestionnaireArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestionnaire", TypeShape.of(GetFlexInsightsQuestionnaireResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex Insights quality management questionnaire by SID (GET /v1/Insights/QualityManagement/Questionnaires/{Sid} on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionnaireResult> getFlexInsightsQuestionnairePlain(GetFlexInsightsQuestionnairePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsQuestionnaire", TypeShape.of(GetFlexInsightsQuestionnaireResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnaires() {
+        return getFlexInsightsQuestionnaires(GetFlexInsightsQuestionnairesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnairesPlain() {
+        return getFlexInsightsQuestionnairesPlain(GetFlexInsightsQuestionnairesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnaires(GetFlexInsightsQuestionnairesArgs args) {
+        return getFlexInsightsQuestionnaires(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnairesPlain(GetFlexInsightsQuestionnairesPlainArgs args) {
+        return getFlexInsightsQuestionnairesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnaires(GetFlexInsightsQuestionnairesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestionnaires", TypeShape.of(GetFlexInsightsQuestionnairesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnaires(GetFlexInsightsQuestionnairesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestionnaires", TypeShape.of(GetFlexInsightsQuestionnairesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questionnaires (GET /v1/Insights/QualityManagement/Questionnaires on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionnairesResult> getFlexInsightsQuestionnairesPlain(GetFlexInsightsQuestionnairesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsQuestionnaires", TypeShape.of(GetFlexInsightsQuestionnairesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionsResult> getFlexInsightsQuestions() {
+        return getFlexInsightsQuestions(GetFlexInsightsQuestionsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionsResult> getFlexInsightsQuestionsPlain() {
+        return getFlexInsightsQuestionsPlain(GetFlexInsightsQuestionsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionsResult> getFlexInsightsQuestions(GetFlexInsightsQuestionsArgs args) {
+        return getFlexInsightsQuestions(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionsResult> getFlexInsightsQuestionsPlain(GetFlexInsightsQuestionsPlainArgs args) {
+        return getFlexInsightsQuestionsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionsResult> getFlexInsightsQuestions(GetFlexInsightsQuestionsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestions", TypeShape.of(GetFlexInsightsQuestionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexInsightsQuestionsResult> getFlexInsightsQuestions(GetFlexInsightsQuestionsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexInsightsQuestions", TypeShape.of(GetFlexInsightsQuestionsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Flex Insights quality management questions, optionally of one category (GET /v1/Insights/QualityManagement/Questions on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexInsightsQuestionsResult> getFlexInsightsQuestionsPlain(GetFlexInsightsQuestionsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexInsightsQuestions", TypeShape.of(GetFlexInsightsQuestionsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up a Flex Plugin by SID (GET /v1/PluginService/Plugins/{Sid} on flex-api.twilio.com).
@@ -2259,6 +2906,76 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getFlexPlugins", TypeShape.of(GetFlexPluginsResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a Flex user (GET /v2/Instances/{InstanceSid}/Users/{FlexUserSid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexUserResult> getFlexUser(GetFlexUserArgs args) {
+        return getFlexUser(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex user (GET /v2/Instances/{InstanceSid}/Users/{FlexUserSid} on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexUserResult> getFlexUserPlain(GetFlexUserPlainArgs args) {
+        return getFlexUserPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Flex user (GET /v2/Instances/{InstanceSid}/Users/{FlexUserSid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexUserResult> getFlexUser(GetFlexUserArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexUser", TypeShape.of(GetFlexUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex user (GET /v2/Instances/{InstanceSid}/Users/{FlexUserSid} on flex-api.twilio.com).
+     * 
+     */
+    public static Output<GetFlexUserResult> getFlexUser(GetFlexUserArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFlexUser", TypeShape.of(GetFlexUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Flex user (GET /v2/Instances/{InstanceSid}/Users/{FlexUserSid} on flex-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFlexUserResult> getFlexUserPlain(GetFlexUserPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFlexUser", TypeShape.of(GetFlexUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Frontline user by SID (GET /v1/Users/{Sid} on frontline-api.twilio.com).
+     * 
+     */
+    public static Output<GetFrontlineUserResult> getFrontlineUser(GetFrontlineUserArgs args) {
+        return getFrontlineUser(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Frontline user by SID (GET /v1/Users/{Sid} on frontline-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFrontlineUserResult> getFrontlineUserPlain(GetFrontlineUserPlainArgs args) {
+        return getFrontlineUserPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Frontline user by SID (GET /v1/Users/{Sid} on frontline-api.twilio.com).
+     * 
+     */
+    public static Output<GetFrontlineUserResult> getFrontlineUser(GetFrontlineUserArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFrontlineUser", TypeShape.of(GetFrontlineUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Frontline user by SID (GET /v1/Users/{Sid} on frontline-api.twilio.com).
+     * 
+     */
+    public static Output<GetFrontlineUserResult> getFrontlineUser(GetFrontlineUserArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getFrontlineUser", TypeShape.of(GetFrontlineUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Frontline user by SID (GET /v1/Users/{Sid} on frontline-api.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetFrontlineUserResult> getFrontlineUserPlain(GetFrontlineUserPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getFrontlineUser", TypeShape.of(GetFrontlineUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up a phone number owned by the account by E.164 number or SID.
      * 
      */
@@ -2448,6 +3165,76 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getIpRecord", TypeShape.of(GetIpRecordResult.class), args, Utilities.withVersion(options));
     }
     /**
+     * Look up a source in a Twilio Enterprise Knowledge base. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeResult> getKnowledge(GetKnowledgeArgs args) {
+        return getKnowledge(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a source in a Twilio Enterprise Knowledge base. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetKnowledgeResult> getKnowledgePlain(GetKnowledgePlainArgs args) {
+        return getKnowledgePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a source in a Twilio Enterprise Knowledge base. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeResult> getKnowledge(GetKnowledgeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getKnowledge", TypeShape.of(GetKnowledgeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a source in a Twilio Enterprise Knowledge base. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeResult> getKnowledge(GetKnowledgeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getKnowledge", TypeShape.of(GetKnowledgeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a source in a Twilio Enterprise Knowledge base. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetKnowledgeResult> getKnowledgePlain(GetKnowledgePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getKnowledge", TypeShape.of(GetKnowledgeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Enterprise Knowledge base by ID. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeBaseResult> getKnowledgeBase(GetKnowledgeBaseArgs args) {
+        return getKnowledgeBase(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Enterprise Knowledge base by ID. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetKnowledgeBaseResult> getKnowledgeBasePlain(GetKnowledgeBasePlainArgs args) {
+        return getKnowledgeBasePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Enterprise Knowledge base by ID. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeBaseResult> getKnowledgeBase(GetKnowledgeBaseArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getKnowledgeBase", TypeShape.of(GetKnowledgeBaseResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Enterprise Knowledge base by ID. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetKnowledgeBaseResult> getKnowledgeBase(GetKnowledgeBaseArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getKnowledgeBase", TypeShape.of(GetKnowledgeBaseResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Enterprise Knowledge base by ID. Experimental: needs Enterprise Knowledge on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetKnowledgeBaseResult> getKnowledgeBasePlain(GetKnowledgeBasePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getKnowledgeBase", TypeShape.of(GetKnowledgeBaseResult.class), args, Utilities.withVersion(options));
+    }
+    /**
      * Look up the certificate of a link shortening domain, without the certificate itself (GET /v1/LinkShortening/Domains/{DomainSid}/Certificate on messaging.twilio.com).
      * 
      */
@@ -2621,6 +3408,146 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetLinkShorteningMessagingServiceDomainConfigResult> getLinkShorteningMessagingServiceDomainConfigPlain(GetLinkShorteningMessagingServiceDomainConfigPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getLinkShorteningMessagingServiceDomainConfig", TypeShape.of(GetLinkShorteningMessagingServiceDomainConfigResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a data mapping of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryDataMappingResult> getMemoryDataMapping(GetMemoryDataMappingArgs args) {
+        return getMemoryDataMapping(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a data mapping of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryDataMappingResult> getMemoryDataMappingPlain(GetMemoryDataMappingPlainArgs args) {
+        return getMemoryDataMappingPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a data mapping of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryDataMappingResult> getMemoryDataMapping(GetMemoryDataMappingArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryDataMapping", TypeShape.of(GetMemoryDataMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a data mapping of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryDataMappingResult> getMemoryDataMapping(GetMemoryDataMappingArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryDataMapping", TypeShape.of(GetMemoryDataMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a data mapping of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryDataMappingResult> getMemoryDataMappingPlain(GetMemoryDataMappingPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMemoryDataMapping", TypeShape.of(GetMemoryDataMappingResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the identity resolution settings of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryIdentityResolutionSettingsResult> getMemoryIdentityResolutionSettings(GetMemoryIdentityResolutionSettingsArgs args) {
+        return getMemoryIdentityResolutionSettings(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the identity resolution settings of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryIdentityResolutionSettingsResult> getMemoryIdentityResolutionSettingsPlain(GetMemoryIdentityResolutionSettingsPlainArgs args) {
+        return getMemoryIdentityResolutionSettingsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up the identity resolution settings of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryIdentityResolutionSettingsResult> getMemoryIdentityResolutionSettings(GetMemoryIdentityResolutionSettingsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryIdentityResolutionSettings", TypeShape.of(GetMemoryIdentityResolutionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the identity resolution settings of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryIdentityResolutionSettingsResult> getMemoryIdentityResolutionSettings(GetMemoryIdentityResolutionSettingsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryIdentityResolutionSettings", TypeShape.of(GetMemoryIdentityResolutionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up the identity resolution settings of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryIdentityResolutionSettingsResult> getMemoryIdentityResolutionSettingsPlain(GetMemoryIdentityResolutionSettingsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMemoryIdentityResolutionSettings", TypeShape.of(GetMemoryIdentityResolutionSettingsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Conversation Memory store by ID. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryStoreResult> getMemoryStore(GetMemoryStoreArgs args) {
+        return getMemoryStore(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Conversation Memory store by ID. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryStoreResult> getMemoryStorePlain(GetMemoryStorePlainArgs args) {
+        return getMemoryStorePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Twilio Conversation Memory store by ID. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryStoreResult> getMemoryStore(GetMemoryStoreArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryStore", TypeShape.of(GetMemoryStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Conversation Memory store by ID. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryStoreResult> getMemoryStore(GetMemoryStoreArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryStore", TypeShape.of(GetMemoryStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Twilio Conversation Memory store by ID. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryStoreResult> getMemoryStorePlain(GetMemoryStorePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMemoryStore", TypeShape.of(GetMemoryStoreResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a trait group of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryTraitGroupResult> getMemoryTraitGroup(GetMemoryTraitGroupArgs args) {
+        return getMemoryTraitGroup(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a trait group of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryTraitGroupResult> getMemoryTraitGroupPlain(GetMemoryTraitGroupPlainArgs args) {
+        return getMemoryTraitGroupPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a trait group of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryTraitGroupResult> getMemoryTraitGroup(GetMemoryTraitGroupArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryTraitGroup", TypeShape.of(GetMemoryTraitGroupResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a trait group of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static Output<GetMemoryTraitGroupResult> getMemoryTraitGroup(GetMemoryTraitGroupArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getMemoryTraitGroup", TypeShape.of(GetMemoryTraitGroupResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a trait group of a Twilio Conversation Memory store. Experimental: needs Conversation Memory on the account and is unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetMemoryTraitGroupResult> getMemoryTraitGroupPlain(GetMemoryTraitGroupPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getMemoryTraitGroup", TypeShape.of(GetMemoryTraitGroupResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Get the URL of the list of United States numbers deactivated on a day (messaging.twilio.com /v1/Deactivations). Twilio answers with a redirect to the file; the lookup returns that URL without following it. The URL is short-lived and carries its own credentials, so the output is a Pulumi secret.
@@ -3664,6 +4591,496 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetQueueResult> getQueuePlain(GetQueuePlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getQueue", TypeShape.of(GetQueueResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory bundle by SID (GET /v2/RegulatoryCompliance/Bundles/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryBundleResult> getRegulatoryBundle(GetRegulatoryBundleArgs args) {
+        return getRegulatoryBundle(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory bundle by SID (GET /v2/RegulatoryCompliance/Bundles/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryBundleResult> getRegulatoryBundlePlain(GetRegulatoryBundlePlainArgs args) {
+        return getRegulatoryBundlePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory bundle by SID (GET /v2/RegulatoryCompliance/Bundles/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryBundleResult> getRegulatoryBundle(GetRegulatoryBundleArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryBundle", TypeShape.of(GetRegulatoryBundleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory bundle by SID (GET /v2/RegulatoryCompliance/Bundles/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryBundleResult> getRegulatoryBundle(GetRegulatoryBundleArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryBundle", TypeShape.of(GetRegulatoryBundleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory bundle by SID (GET /v2/RegulatoryCompliance/Bundles/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryBundleResult> getRegulatoryBundlePlain(GetRegulatoryBundlePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryBundle", TypeShape.of(GetRegulatoryBundleResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a Numbers regulatory bundle.
+     * 
+     */
+    public static Output<GetRegulatoryBundleItemAssignmentResult> getRegulatoryBundleItemAssignment(GetRegulatoryBundleItemAssignmentArgs args) {
+        return getRegulatoryBundleItemAssignment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a Numbers regulatory bundle.
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryBundleItemAssignmentResult> getRegulatoryBundleItemAssignmentPlain(GetRegulatoryBundleItemAssignmentPlainArgs args) {
+        return getRegulatoryBundleItemAssignmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a Numbers regulatory bundle.
+     * 
+     */
+    public static Output<GetRegulatoryBundleItemAssignmentResult> getRegulatoryBundleItemAssignment(GetRegulatoryBundleItemAssignmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryBundleItemAssignment", TypeShape.of(GetRegulatoryBundleItemAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a Numbers regulatory bundle.
+     * 
+     */
+    public static Output<GetRegulatoryBundleItemAssignmentResult> getRegulatoryBundleItemAssignment(GetRegulatoryBundleItemAssignmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryBundleItemAssignment", TypeShape.of(GetRegulatoryBundleItemAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a Numbers regulatory bundle.
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryBundleItemAssignmentResult> getRegulatoryBundleItemAssignmentPlain(GetRegulatoryBundleItemAssignmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryBundleItemAssignment", TypeShape.of(GetRegulatoryBundleItemAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user by SID (GET /v2/RegulatoryCompliance/EndUsers/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserResult> getRegulatoryEndUser(GetRegulatoryEndUserArgs args) {
+        return getRegulatoryEndUser(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory end user by SID (GET /v2/RegulatoryCompliance/EndUsers/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserResult> getRegulatoryEndUserPlain(GetRegulatoryEndUserPlainArgs args) {
+        return getRegulatoryEndUserPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory end user by SID (GET /v2/RegulatoryCompliance/EndUsers/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserResult> getRegulatoryEndUser(GetRegulatoryEndUserArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUser", TypeShape.of(GetRegulatoryEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user by SID (GET /v2/RegulatoryCompliance/EndUsers/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserResult> getRegulatoryEndUser(GetRegulatoryEndUserArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUser", TypeShape.of(GetRegulatoryEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user by SID (GET /v2/RegulatoryCompliance/EndUsers/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserResult> getRegulatoryEndUserPlain(GetRegulatoryEndUserPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryEndUser", TypeShape.of(GetRegulatoryEndUserResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user type (GET /v2/RegulatoryCompliance/EndUserTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypeResult> getRegulatoryEndUserType(GetRegulatoryEndUserTypeArgs args) {
+        return getRegulatoryEndUserType(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory end user type (GET /v2/RegulatoryCompliance/EndUserTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserTypeResult> getRegulatoryEndUserTypePlain(GetRegulatoryEndUserTypePlainArgs args) {
+        return getRegulatoryEndUserTypePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory end user type (GET /v2/RegulatoryCompliance/EndUserTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypeResult> getRegulatoryEndUserType(GetRegulatoryEndUserTypeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUserType", TypeShape.of(GetRegulatoryEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user type (GET /v2/RegulatoryCompliance/EndUserTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypeResult> getRegulatoryEndUserType(GetRegulatoryEndUserTypeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUserType", TypeShape.of(GetRegulatoryEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory end user type (GET /v2/RegulatoryCompliance/EndUserTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserTypeResult> getRegulatoryEndUserTypePlain(GetRegulatoryEndUserTypePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryEndUserType", TypeShape.of(GetRegulatoryEndUserTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypes() {
+        return getRegulatoryEndUserTypes(GetRegulatoryEndUserTypesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypesPlain() {
+        return getRegulatoryEndUserTypesPlain(GetRegulatoryEndUserTypesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypes(GetRegulatoryEndUserTypesArgs args) {
+        return getRegulatoryEndUserTypes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypesPlain(GetRegulatoryEndUserTypesPlainArgs args) {
+        return getRegulatoryEndUserTypesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypes(GetRegulatoryEndUserTypesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUserTypes", TypeShape.of(GetRegulatoryEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypes(GetRegulatoryEndUserTypesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUserTypes", TypeShape.of(GetRegulatoryEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end user types (GET /v2/RegulatoryCompliance/EndUserTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUserTypesResult> getRegulatoryEndUserTypesPlain(GetRegulatoryEndUserTypesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryEndUserTypes", TypeShape.of(GetRegulatoryEndUserTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUsersResult> getRegulatoryEndUsers() {
+        return getRegulatoryEndUsers(GetRegulatoryEndUsersArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUsersResult> getRegulatoryEndUsersPlain() {
+        return getRegulatoryEndUsersPlain(GetRegulatoryEndUsersPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUsersResult> getRegulatoryEndUsers(GetRegulatoryEndUsersArgs args) {
+        return getRegulatoryEndUsers(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUsersResult> getRegulatoryEndUsersPlain(GetRegulatoryEndUsersPlainArgs args) {
+        return getRegulatoryEndUsersPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUsersResult> getRegulatoryEndUsers(GetRegulatoryEndUsersArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUsers", TypeShape.of(GetRegulatoryEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryEndUsersResult> getRegulatoryEndUsers(GetRegulatoryEndUsersArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryEndUsers", TypeShape.of(GetRegulatoryEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory end users of the account (GET /v2/RegulatoryCompliance/EndUsers on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryEndUsersResult> getRegulatoryEndUsersPlain(GetRegulatoryEndUsersPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryEndUsers", TypeShape.of(GetRegulatoryEndUsersResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulation by SID (GET /v2/RegulatoryCompliance/Regulations/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryRegulationResult> getRegulatoryRegulation(GetRegulatoryRegulationArgs args) {
+        return getRegulatoryRegulation(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulation by SID (GET /v2/RegulatoryCompliance/Regulations/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryRegulationResult> getRegulatoryRegulationPlain(GetRegulatoryRegulationPlainArgs args) {
+        return getRegulatoryRegulationPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulation by SID (GET /v2/RegulatoryCompliance/Regulations/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryRegulationResult> getRegulatoryRegulation(GetRegulatoryRegulationArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryRegulation", TypeShape.of(GetRegulatoryRegulationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulation by SID (GET /v2/RegulatoryCompliance/Regulations/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatoryRegulationResult> getRegulatoryRegulation(GetRegulatoryRegulationArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryRegulation", TypeShape.of(GetRegulatoryRegulationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulation by SID (GET /v2/RegulatoryCompliance/Regulations/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryRegulationResult> getRegulatoryRegulationPlain(GetRegulatoryRegulationPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryRegulation", TypeShape.of(GetRegulatoryRegulationResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static Output<GetRegulatoryRegulationsResult> getRegulatoryRegulations() {
+        return getRegulatoryRegulations(GetRegulatoryRegulationsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryRegulationsResult> getRegulatoryRegulationsPlain() {
+        return getRegulatoryRegulationsPlain(GetRegulatoryRegulationsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static Output<GetRegulatoryRegulationsResult> getRegulatoryRegulations(GetRegulatoryRegulationsArgs args) {
+        return getRegulatoryRegulations(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryRegulationsResult> getRegulatoryRegulationsPlain(GetRegulatoryRegulationsPlainArgs args) {
+        return getRegulatoryRegulationsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static Output<GetRegulatoryRegulationsResult> getRegulatoryRegulations(GetRegulatoryRegulationsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryRegulations", TypeShape.of(GetRegulatoryRegulationsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static Output<GetRegulatoryRegulationsResult> getRegulatoryRegulations(GetRegulatoryRegulationsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatoryRegulations", TypeShape.of(GetRegulatoryRegulationsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulations (GET /v2/RegulatoryCompliance/Regulations on numbers.twilio.com), optionally for one country, number type or end user type. Use a returned sid as RegulatoryBundle.regulationSid.
+     * 
+     */
+    public static CompletableFuture<GetRegulatoryRegulationsResult> getRegulatoryRegulationsPlain(GetRegulatoryRegulationsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatoryRegulations", TypeShape.of(GetRegulatoryRegulationsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document by SID (GET /v2/RegulatoryCompliance/SupportingDocuments/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentResult> getRegulatorySupportingDocument(GetRegulatorySupportingDocumentArgs args) {
+        return getRegulatorySupportingDocument(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory supporting document by SID (GET /v2/RegulatoryCompliance/SupportingDocuments/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentResult> getRegulatorySupportingDocumentPlain(GetRegulatorySupportingDocumentPlainArgs args) {
+        return getRegulatorySupportingDocumentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory supporting document by SID (GET /v2/RegulatoryCompliance/SupportingDocuments/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentResult> getRegulatorySupportingDocument(GetRegulatorySupportingDocumentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocument", TypeShape.of(GetRegulatorySupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document by SID (GET /v2/RegulatoryCompliance/SupportingDocuments/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentResult> getRegulatorySupportingDocument(GetRegulatorySupportingDocumentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocument", TypeShape.of(GetRegulatorySupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document by SID (GET /v2/RegulatoryCompliance/SupportingDocuments/{Sid} on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentResult> getRegulatorySupportingDocumentPlain(GetRegulatorySupportingDocumentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatorySupportingDocument", TypeShape.of(GetRegulatorySupportingDocumentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document type (GET /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypeResult> getRegulatorySupportingDocumentType(GetRegulatorySupportingDocumentTypeArgs args) {
+        return getRegulatorySupportingDocumentType(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory supporting document type (GET /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentTypeResult> getRegulatorySupportingDocumentTypePlain(GetRegulatorySupportingDocumentTypePlainArgs args) {
+        return getRegulatorySupportingDocumentTypePlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a Numbers regulatory supporting document type (GET /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypeResult> getRegulatorySupportingDocumentType(GetRegulatorySupportingDocumentTypeArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocumentType", TypeShape.of(GetRegulatorySupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document type (GET /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypeResult> getRegulatorySupportingDocumentType(GetRegulatorySupportingDocumentTypeArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocumentType", TypeShape.of(GetRegulatorySupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a Numbers regulatory supporting document type (GET /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} on numbers.twilio.com). The sid is the type SID (OY...).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentTypeResult> getRegulatorySupportingDocumentTypePlain(GetRegulatorySupportingDocumentTypePlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatorySupportingDocumentType", TypeShape.of(GetRegulatorySupportingDocumentTypeResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypes() {
+        return getRegulatorySupportingDocumentTypes(GetRegulatorySupportingDocumentTypesArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypesPlain() {
+        return getRegulatorySupportingDocumentTypesPlain(GetRegulatorySupportingDocumentTypesPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypes(GetRegulatorySupportingDocumentTypesArgs args) {
+        return getRegulatorySupportingDocumentTypes(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypesPlain(GetRegulatorySupportingDocumentTypesPlainArgs args) {
+        return getRegulatorySupportingDocumentTypesPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypes(GetRegulatorySupportingDocumentTypesArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocumentTypes", TypeShape.of(GetRegulatorySupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypes(GetRegulatorySupportingDocumentTypesArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocumentTypes", TypeShape.of(GetRegulatorySupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting document types (GET /v2/RegulatoryCompliance/SupportingDocumentTypes on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentTypesResult> getRegulatorySupportingDocumentTypesPlain(GetRegulatorySupportingDocumentTypesPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatorySupportingDocumentTypes", TypeShape.of(GetRegulatorySupportingDocumentTypesResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocuments() {
+        return getRegulatorySupportingDocuments(GetRegulatorySupportingDocumentsArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocumentsPlain() {
+        return getRegulatorySupportingDocumentsPlain(GetRegulatorySupportingDocumentsPlainArgs.Empty, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocuments(GetRegulatorySupportingDocumentsArgs args) {
+        return getRegulatorySupportingDocuments(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocumentsPlain(GetRegulatorySupportingDocumentsPlainArgs args) {
+        return getRegulatorySupportingDocumentsPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocuments(GetRegulatorySupportingDocumentsArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocuments", TypeShape.of(GetRegulatorySupportingDocumentsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static Output<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocuments(GetRegulatorySupportingDocumentsArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getRegulatorySupportingDocuments", TypeShape.of(GetRegulatorySupportingDocumentsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * List the Numbers regulatory supporting documents of the account (GET /v2/RegulatoryCompliance/SupportingDocuments on numbers.twilio.com).
+     * 
+     */
+    public static CompletableFuture<GetRegulatorySupportingDocumentsResult> getRegulatorySupportingDocumentsPlain(GetRegulatorySupportingDocumentsPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getRegulatorySupportingDocuments", TypeShape.of(GetRegulatorySupportingDocumentsResult.class), args, Utilities.withVersion(options));
     }
     /**
      * List the resolved permissions of an IAM role (iam.twilio.com /v1/Roles/{RoleSid}/Permissions). Read-only; every page is read.
@@ -5596,6 +7013,111 @@ public final class TwilioFunctions {
      */
     public static CompletableFuture<GetTrustHubSupportingDocumentsResult> getTrustHubSupportingDocumentsPlain(GetTrustHubSupportingDocumentsPlainArgs args, InvokeOptions options) {
         return Deployment.getInstance().invokeAsync("twilio:index:getTrustHubSupportingDocuments", TypeShape.of(GetTrustHubSupportingDocumentsResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub trust product by SID.
+     * 
+     */
+    public static Output<GetTrustProductResult> getTrustProduct(GetTrustProductArgs args) {
+        return getTrustProduct(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub trust product by SID.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductResult> getTrustProductPlain(GetTrustProductPlainArgs args) {
+        return getTrustProductPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a TrustHub trust product by SID.
+     * 
+     */
+    public static Output<GetTrustProductResult> getTrustProduct(GetTrustProductArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProduct", TypeShape.of(GetTrustProductResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub trust product by SID.
+     * 
+     */
+    public static Output<GetTrustProductResult> getTrustProduct(GetTrustProductArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProduct", TypeShape.of(GetTrustProductResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a TrustHub trust product by SID.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductResult> getTrustProductPlain(GetTrustProductPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustProduct", TypeShape.of(GetTrustProductResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub trust product. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetTrustProductChannelEndpointAssignmentResult> getTrustProductChannelEndpointAssignment(GetTrustProductChannelEndpointAssignmentArgs args) {
+        return getTrustProductChannelEndpointAssignment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub trust product. Experimental, unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductChannelEndpointAssignmentResult> getTrustProductChannelEndpointAssignmentPlain(GetTrustProductChannelEndpointAssignmentPlainArgs args) {
+        return getTrustProductChannelEndpointAssignmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub trust product. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetTrustProductChannelEndpointAssignmentResult> getTrustProductChannelEndpointAssignment(GetTrustProductChannelEndpointAssignmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProductChannelEndpointAssignment", TypeShape.of(GetTrustProductChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub trust product. Experimental, unverified against a live account.
+     * 
+     */
+    public static Output<GetTrustProductChannelEndpointAssignmentResult> getTrustProductChannelEndpointAssignment(GetTrustProductChannelEndpointAssignmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProductChannelEndpointAssignment", TypeShape.of(GetTrustProductChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up a channel endpoint (phone number) assignment of a TrustHub trust product. Experimental, unverified against a live account.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductChannelEndpointAssignmentResult> getTrustProductChannelEndpointAssignmentPlain(GetTrustProductChannelEndpointAssignmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustProductChannelEndpointAssignment", TypeShape.of(GetTrustProductChannelEndpointAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub trust product.
+     * 
+     */
+    public static Output<GetTrustProductEntityAssignmentResult> getTrustProductEntityAssignment(GetTrustProductEntityAssignmentArgs args) {
+        return getTrustProductEntityAssignment(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub trust product.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductEntityAssignmentResult> getTrustProductEntityAssignmentPlain(GetTrustProductEntityAssignmentPlainArgs args) {
+        return getTrustProductEntityAssignmentPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub trust product.
+     * 
+     */
+    public static Output<GetTrustProductEntityAssignmentResult> getTrustProductEntityAssignment(GetTrustProductEntityAssignmentArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProductEntityAssignment", TypeShape.of(GetTrustProductEntityAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub trust product.
+     * 
+     */
+    public static Output<GetTrustProductEntityAssignmentResult> getTrustProductEntityAssignment(GetTrustProductEntityAssignmentArgs args, InvokeOutputOptions options) {
+        return Deployment.getInstance().invoke("twilio:index:getTrustProductEntityAssignment", TypeShape.of(GetTrustProductEntityAssignmentResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * Look up an end user or supporting document assignment of a TrustHub trust product.
+     * 
+     */
+    public static CompletableFuture<GetTrustProductEntityAssignmentResult> getTrustProductEntityAssignmentPlain(GetTrustProductEntityAssignmentPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("twilio:index:getTrustProductEntityAssignment", TypeShape.of(GetTrustProductEntityAssignmentResult.class), args, Utilities.withVersion(options));
     }
     /**
      * Look up an A2P 10DLC campaign (GET /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} on messaging.twilio.com).

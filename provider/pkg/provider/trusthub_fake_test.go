@@ -35,6 +35,10 @@ func (f *fakeTwilio) addTrusthubItem(coll string, o map[string]any) {
 }
 
 func (f *fakeTwilio) handleTrusthub(w http.ResponseWriter, r *http.Request, form url.Values, parts []string) {
+	if _, ok := bundleKinds[parts[0]]; ok {
+		f.handleBundles(w, r, form, parts)
+		return
+	}
 	coll, sid := parts[0], ""
 	if len(parts) > 1 {
 		sid = parts[1]

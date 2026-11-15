@@ -87,6 +87,12 @@ __all__ = [
     'ConversationsNotificationArgsDict',
     'EventSubscriptionTypeArgs',
     'EventSubscriptionTypeArgsDict',
+    'IdentifierConfigArgs',
+    'IdentifierConfigArgsDict',
+    'MemoryTraitMappingArgs',
+    'MemoryTraitMappingArgsDict',
+    'MemoryTraitArgs',
+    'MemoryTraitArgsDict',
     'OAuthAppPolicyArgs',
     'OAuthAppPolicyArgsDict',
     'RecordingCompositionPolicyArgs',
@@ -3577,6 +3583,308 @@ class EventSubscriptionTypeArgs:
     @schema_version.setter
     def schema_version(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "schema_version", value)
+
+
+class IdentifierConfigArgsDict(TypedDict):
+    id_type: pulumi.Input[_builtins.str]
+    """
+    Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+    """
+    enforce_unique: NotRequired[Optional[pulumi.Input[_builtins.bool]]]
+    """
+    When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+    """
+    limit: NotRequired[Optional[pulumi.Input[_builtins.int]]]
+    """
+    Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+    """
+    limit_policy: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+    """
+    matching_algo: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+    """
+    matching_threshold: NotRequired[Optional[pulumi.Input[_builtins.int]]]
+    """
+    The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+    """
+    normalization: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+    """
+
+@pulumi.input_type
+class IdentifierConfigArgs:
+    def __init__(__self__, *,
+                 id_type: pulumi.Input[_builtins.str],
+                 enforce_unique: Optional[pulumi.Input[_builtins.bool]] = None,
+                 limit: Optional[pulumi.Input[_builtins.int]] = None,
+                 limit_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 matching_algo: Optional[pulumi.Input[_builtins.str]] = None,
+                 matching_threshold: Optional[pulumi.Input[_builtins.int]] = None,
+                 normalization: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id_type: Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+        :param pulumi.Input[_builtins.bool] enforce_unique: When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+        :param pulumi.Input[_builtins.int] limit: Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+        :param pulumi.Input[_builtins.str] limit_policy: What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+        :param pulumi.Input[_builtins.str] matching_algo: How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+        :param pulumi.Input[_builtins.int] matching_threshold: The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+        :param pulumi.Input[_builtins.str] normalization: Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+        """
+        pulumi.set(__self__, "id_type", id_type)
+        if enforce_unique is not None:
+            pulumi.set(__self__, "enforce_unique", enforce_unique)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+        if limit_policy is not None:
+            pulumi.set(__self__, "limit_policy", limit_policy)
+        if matching_algo is not None:
+            pulumi.set(__self__, "matching_algo", matching_algo)
+        if matching_threshold is not None:
+            pulumi.set(__self__, "matching_threshold", matching_threshold)
+        if normalization is not None:
+            pulumi.set(__self__, "normalization", normalization)
+
+    @_builtins.property
+    @pulumi.getter(name="idType")
+    def id_type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+        """
+        return pulumi.get(self, "id_type")
+
+    @id_type.setter
+    def id_type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "id_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceUnique")
+    def enforce_unique(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+        """
+        return pulumi.get(self, "enforce_unique")
+
+    @enforce_unique.setter
+    def enforce_unique(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enforce_unique", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "limit", value)
+
+    @_builtins.property
+    @pulumi.getter(name="limitPolicy")
+    def limit_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+        """
+        return pulumi.get(self, "limit_policy")
+
+    @limit_policy.setter
+    def limit_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "limit_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="matchingAlgo")
+    def matching_algo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+        """
+        return pulumi.get(self, "matching_algo")
+
+    @matching_algo.setter
+    def matching_algo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "matching_algo", value)
+
+    @_builtins.property
+    @pulumi.getter(name="matchingThreshold")
+    def matching_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+        """
+        return pulumi.get(self, "matching_threshold")
+
+    @matching_threshold.setter
+    def matching_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "matching_threshold", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def normalization(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+        """
+        return pulumi.get(self, "normalization")
+
+    @normalization.setter
+    def normalization(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "normalization", value)
+
+
+class MemoryTraitMappingArgsDict(TypedDict):
+    expression: pulumi.Input[_builtins.str]
+    """
+    The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+    """
+    trait_group: pulumi.Input[_builtins.str]
+    """
+    Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+    """
+    trait_name: pulumi.Input[_builtins.str]
+    """
+    Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+    """
+
+@pulumi.input_type
+class MemoryTraitMappingArgs:
+    def __init__(__self__, *,
+                 expression: pulumi.Input[_builtins.str],
+                 trait_group: pulumi.Input[_builtins.str],
+                 trait_name: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] expression: The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+        :param pulumi.Input[_builtins.str] trait_group: Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+        :param pulumi.Input[_builtins.str] trait_name: Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "trait_group", trait_group)
+        pulumi.set(__self__, "trait_name", trait_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def expression(self) -> pulumi.Input[_builtins.str]:
+        """
+        The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "expression", value)
+
+    @_builtins.property
+    @pulumi.getter(name="traitGroup")
+    def trait_group(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+        """
+        return pulumi.get(self, "trait_group")
+
+    @trait_group.setter
+    def trait_group(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "trait_group", value)
+
+    @_builtins.property
+    @pulumi.getter(name="traitName")
+    def trait_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+        """
+        return pulumi.get(self, "trait_name")
+
+    @trait_name.setter
+    def trait_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "trait_name", value)
+
+
+class MemoryTraitArgsDict(TypedDict):
+    data_type: pulumi.Input[_builtins.str]
+    """
+    Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+    """
+    description: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    What the trait holds, up to 1024 characters.
+    """
+    id_type_promotion: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+    """
+    validation_rule: NotRequired[Optional[pulumi.Input[_builtins.str]]]
+    """
+    Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+    """
+
+@pulumi.input_type
+class MemoryTraitArgs:
+    def __init__(__self__, *,
+                 data_type: pulumi.Input[_builtins.str],
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
+                 id_type_promotion: Optional[pulumi.Input[_builtins.str]] = None,
+                 validation_rule: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] data_type: Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+        :param pulumi.Input[_builtins.str] description: What the trait holds, up to 1024 characters.
+        :param pulumi.Input[_builtins.str] id_type_promotion: Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+        :param pulumi.Input[_builtins.str] validation_rule: Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+        """
+        pulumi.set(__self__, "data_type", data_type)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if id_type_promotion is not None:
+            pulumi.set(__self__, "id_type_promotion", id_type_promotion)
+        if validation_rule is not None:
+            pulumi.set(__self__, "validation_rule", validation_rule)
+
+    @_builtins.property
+    @pulumi.getter(name="dataType")
+    def data_type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+        """
+        return pulumi.get(self, "data_type")
+
+    @data_type.setter
+    def data_type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "data_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        What the trait holds, up to 1024 characters.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter(name="idTypePromotion")
+    def id_type_promotion(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+        """
+        return pulumi.get(self, "id_type_promotion")
+
+    @id_type_promotion.setter
+    def id_type_promotion(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "id_type_promotion", value)
+
+    @_builtins.property
+    @pulumi.getter(name="validationRule")
+    def validation_rule(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+        """
+        return pulumi.get(self, "validation_rule")
+
+    @validation_rule.setter
+    def validation_rule(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "validation_rule", value)
 
 
 class OAuthAppPolicyArgsDict(TypedDict):

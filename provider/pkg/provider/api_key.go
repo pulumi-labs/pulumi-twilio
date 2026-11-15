@@ -80,6 +80,7 @@ func (r *ApiKey) Annotate(a infer.Annotator) {
 
 var _ infer.CustomResource[ApiKeyArgs, ApiKeyState] = (*ApiKey)(nil)
 var _ infer.CustomCheck[ApiKeyArgs] = (*ApiKey)(nil)
+var _ infer.CustomDiff[ApiKeyArgs, ApiKeyState] = (*ApiKey)(nil)
 var _ infer.CustomRead[ApiKeyArgs, ApiKeyState] = (*ApiKey)(nil)
 var _ infer.CustomUpdate[ApiKeyArgs, ApiKeyState] = (*ApiKey)(nil)
 var _ infer.CustomDelete[ApiKeyState] = (*ApiKey)(nil)
@@ -194,6 +195,27 @@ func jsonCovers(want, got any) bool {
 		}
 	}
 	return true
+}
+
+// Diff compares the policy as a JSON document, so the compact text an import (or a refresh that found drift)
+// records and a program that writes the same policy with whitespace or another key order are not a change.
+// friendlyName and policy update in place; the account and the key type replace.
+func (r *ApiKey) Diff(_ context.Context, req infer.DiffRequest[ApiKeyArgs, ApiKeyState]) (infer.DiffResponse, error) {
+	o, n := req.State.ApiKeyArgs, req.Inputs
+	detail := map[string]p.PropertyDiff{}
+	if o.FriendlyName != n.FriendlyName {
+		detail["friendlyName"] = p.PropertyDiff{Kind: p.Update}
+	}
+	if deref(o.AccountSid) != deref(n.AccountSid) {
+		detail["accountSid"] = p.PropertyDiff{Kind: p.UpdateReplace}
+	}
+	if deref(o.KeyType) != deref(n.KeyType) {
+		detail["keyType"] = p.PropertyDiff{Kind: p.UpdateReplace}
+	}
+	if !sameJSON(deref(o.Policy), deref(n.Policy)) {
+		detail["policy"] = p.PropertyDiff{Kind: p.Update}
+	}
+	return infer.DiffResponse{HasChanges: len(detail) > 0, DetailedDiff: detail}, nil
 }
 
 func (r *ApiKey) Create(ctx context.Context, req infer.CreateRequest[ApiKeyArgs]) (infer.CreateResponse[ApiKeyState], error) {

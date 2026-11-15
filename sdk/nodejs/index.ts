@@ -60,6 +60,11 @@ export type ConnectionPolicyTarget = import("./connectionPolicyTarget").Connecti
 export const ConnectionPolicyTarget: typeof import("./connectionPolicyTarget").ConnectionPolicyTarget = null as any;
 utilities.lazyLoad(exports, ["ConnectionPolicyTarget"], () => require("./connectionPolicyTarget"));
 
+export { ContentApprovalRequestArgs } from "./contentApprovalRequest";
+export type ContentApprovalRequest = import("./contentApprovalRequest").ContentApprovalRequest;
+export const ContentApprovalRequest: typeof import("./contentApprovalRequest").ContentApprovalRequest = null as any;
+utilities.lazyLoad(exports, ["ContentApprovalRequest"], () => require("./contentApprovalRequest"));
+
 export { ContentTemplateArgs } from "./contentTemplate";
 export type ContentTemplate = import("./contentTemplate").ContentTemplate;
 export const ContentTemplate: typeof import("./contentTemplate").ContentTemplate = null as any;
@@ -105,6 +110,21 @@ export type ConversationsWebhookConfiguration = import("./conversationsWebhookCo
 export const ConversationsWebhookConfiguration: typeof import("./conversationsWebhookConfiguration").ConversationsWebhookConfiguration = null as any;
 utilities.lazyLoad(exports, ["ConversationsWebhookConfiguration"], () => require("./conversationsWebhookConfiguration"));
 
+export { CustomerProfileArgs } from "./customerProfile";
+export type CustomerProfile = import("./customerProfile").CustomerProfile;
+export const CustomerProfile: typeof import("./customerProfile").CustomerProfile = null as any;
+utilities.lazyLoad(exports, ["CustomerProfile"], () => require("./customerProfile"));
+
+export { CustomerProfileChannelEndpointAssignmentArgs } from "./customerProfileChannelEndpointAssignment";
+export type CustomerProfileChannelEndpointAssignment = import("./customerProfileChannelEndpointAssignment").CustomerProfileChannelEndpointAssignment;
+export const CustomerProfileChannelEndpointAssignment: typeof import("./customerProfileChannelEndpointAssignment").CustomerProfileChannelEndpointAssignment = null as any;
+utilities.lazyLoad(exports, ["CustomerProfileChannelEndpointAssignment"], () => require("./customerProfileChannelEndpointAssignment"));
+
+export { CustomerProfileEntityAssignmentArgs } from "./customerProfileEntityAssignment";
+export type CustomerProfileEntityAssignment = import("./customerProfileEntityAssignment").CustomerProfileEntityAssignment;
+export const CustomerProfileEntityAssignment: typeof import("./customerProfileEntityAssignment").CustomerProfileEntityAssignment = null as any;
+utilities.lazyLoad(exports, ["CustomerProfileEntityAssignment"], () => require("./customerProfileEntityAssignment"));
+
 export { EventSinkArgs } from "./eventSink";
 export type EventSink = import("./eventSink").EventSink;
 export const EventSink: typeof import("./eventSink").EventSink = null as any;
@@ -115,10 +135,30 @@ export type EventSubscription = import("./eventSubscription").EventSubscription;
 export const EventSubscription: typeof import("./eventSubscription").EventSubscription = null as any;
 utilities.lazyLoad(exports, ["EventSubscription"], () => require("./eventSubscription"));
 
+export { FlexConfigurationArgs } from "./flexConfiguration";
+export type FlexConfiguration = import("./flexConfiguration").FlexConfiguration;
+export const FlexConfiguration: typeof import("./flexConfiguration").FlexConfiguration = null as any;
+utilities.lazyLoad(exports, ["FlexConfiguration"], () => require("./flexConfiguration"));
+
 export { FlexFlowArgs } from "./flexFlow";
 export type FlexFlow = import("./flexFlow").FlexFlow;
 export const FlexFlow: typeof import("./flexFlow").FlexFlow = null as any;
 utilities.lazyLoad(exports, ["FlexFlow"], () => require("./flexFlow"));
+
+export { FlexInsightsCategoryArgs } from "./flexInsightsCategory";
+export type FlexInsightsCategory = import("./flexInsightsCategory").FlexInsightsCategory;
+export const FlexInsightsCategory: typeof import("./flexInsightsCategory").FlexInsightsCategory = null as any;
+utilities.lazyLoad(exports, ["FlexInsightsCategory"], () => require("./flexInsightsCategory"));
+
+export { FlexInsightsQuestionArgs } from "./flexInsightsQuestion";
+export type FlexInsightsQuestion = import("./flexInsightsQuestion").FlexInsightsQuestion;
+export const FlexInsightsQuestion: typeof import("./flexInsightsQuestion").FlexInsightsQuestion = null as any;
+utilities.lazyLoad(exports, ["FlexInsightsQuestion"], () => require("./flexInsightsQuestion"));
+
+export { FlexInsightsQuestionnaireArgs } from "./flexInsightsQuestionnaire";
+export type FlexInsightsQuestionnaire = import("./flexInsightsQuestionnaire").FlexInsightsQuestionnaire;
+export const FlexInsightsQuestionnaire: typeof import("./flexInsightsQuestionnaire").FlexInsightsQuestionnaire = null as any;
+utilities.lazyLoad(exports, ["FlexInsightsQuestionnaire"], () => require("./flexInsightsQuestionnaire"));
 
 export { FlexPluginArgs } from "./flexPlugin";
 export type FlexPlugin = import("./flexPlugin").FlexPlugin;
@@ -139,6 +179,16 @@ export { FlexPluginVersionArgs } from "./flexPluginVersion";
 export type FlexPluginVersion = import("./flexPluginVersion").FlexPluginVersion;
 export const FlexPluginVersion: typeof import("./flexPluginVersion").FlexPluginVersion = null as any;
 utilities.lazyLoad(exports, ["FlexPluginVersion"], () => require("./flexPluginVersion"));
+
+export { FlexUserArgs } from "./flexUser";
+export type FlexUser = import("./flexUser").FlexUser;
+export const FlexUser: typeof import("./flexUser").FlexUser = null as any;
+utilities.lazyLoad(exports, ["FlexUser"], () => require("./flexUser"));
+
+export { FrontlineUserArgs } from "./frontlineUser";
+export type FrontlineUser = import("./frontlineUser").FrontlineUser;
+export const FrontlineUser: typeof import("./frontlineUser").FrontlineUser = null as any;
+utilities.lazyLoad(exports, ["FrontlineUser"], () => require("./frontlineUser"));
 
 export { GetAccountArgs, GetAccountResult, GetAccountOutputArgs } from "./getAccount";
 export const getAccount: typeof import("./getAccount").getAccount = null as any;
@@ -230,6 +280,11 @@ export const getConnectionPolicyTarget: typeof import("./getConnectionPolicyTarg
 export const getConnectionPolicyTargetOutput: typeof import("./getConnectionPolicyTarget").getConnectionPolicyTargetOutput = null as any;
 utilities.lazyLoad(exports, ["getConnectionPolicyTarget","getConnectionPolicyTargetOutput"], () => require("./getConnectionPolicyTarget"));
 
+export { GetContentApprovalRequestArgs, GetContentApprovalRequestResult, GetContentApprovalRequestOutputArgs } from "./getContentApprovalRequest";
+export const getContentApprovalRequest: typeof import("./getContentApprovalRequest").getContentApprovalRequest = null as any;
+export const getContentApprovalRequestOutput: typeof import("./getContentApprovalRequest").getContentApprovalRequestOutput = null as any;
+utilities.lazyLoad(exports, ["getContentApprovalRequest","getContentApprovalRequestOutput"], () => require("./getContentApprovalRequest"));
+
 export { GetContentApprovalStatusArgs, GetContentApprovalStatusResult, GetContentApprovalStatusOutputArgs } from "./getContentApprovalStatus";
 export const getContentApprovalStatus: typeof import("./getContentApprovalStatus").getContentApprovalStatus = null as any;
 export const getContentApprovalStatusOutput: typeof import("./getContentApprovalStatus").getContentApprovalStatusOutput = null as any;
@@ -280,6 +335,21 @@ export const getConversationsWebhookConfiguration: typeof import("./getConversat
 export const getConversationsWebhookConfigurationOutput: typeof import("./getConversationsWebhookConfiguration").getConversationsWebhookConfigurationOutput = null as any;
 utilities.lazyLoad(exports, ["getConversationsWebhookConfiguration","getConversationsWebhookConfigurationOutput"], () => require("./getConversationsWebhookConfiguration"));
 
+export { GetCustomerProfileArgs, GetCustomerProfileResult, GetCustomerProfileOutputArgs } from "./getCustomerProfile";
+export const getCustomerProfile: typeof import("./getCustomerProfile").getCustomerProfile = null as any;
+export const getCustomerProfileOutput: typeof import("./getCustomerProfile").getCustomerProfileOutput = null as any;
+utilities.lazyLoad(exports, ["getCustomerProfile","getCustomerProfileOutput"], () => require("./getCustomerProfile"));
+
+export { GetCustomerProfileChannelEndpointAssignmentArgs, GetCustomerProfileChannelEndpointAssignmentResult, GetCustomerProfileChannelEndpointAssignmentOutputArgs } from "./getCustomerProfileChannelEndpointAssignment";
+export const getCustomerProfileChannelEndpointAssignment: typeof import("./getCustomerProfileChannelEndpointAssignment").getCustomerProfileChannelEndpointAssignment = null as any;
+export const getCustomerProfileChannelEndpointAssignmentOutput: typeof import("./getCustomerProfileChannelEndpointAssignment").getCustomerProfileChannelEndpointAssignmentOutput = null as any;
+utilities.lazyLoad(exports, ["getCustomerProfileChannelEndpointAssignment","getCustomerProfileChannelEndpointAssignmentOutput"], () => require("./getCustomerProfileChannelEndpointAssignment"));
+
+export { GetCustomerProfileEntityAssignmentArgs, GetCustomerProfileEntityAssignmentResult, GetCustomerProfileEntityAssignmentOutputArgs } from "./getCustomerProfileEntityAssignment";
+export const getCustomerProfileEntityAssignment: typeof import("./getCustomerProfileEntityAssignment").getCustomerProfileEntityAssignment = null as any;
+export const getCustomerProfileEntityAssignmentOutput: typeof import("./getCustomerProfileEntityAssignment").getCustomerProfileEntityAssignmentOutput = null as any;
+utilities.lazyLoad(exports, ["getCustomerProfileEntityAssignment","getCustomerProfileEntityAssignmentOutput"], () => require("./getCustomerProfileEntityAssignment"));
+
 export { GetDialingPermissionsCountriesArgs, GetDialingPermissionsCountriesResult, GetDialingPermissionsCountriesOutputArgs } from "./getDialingPermissionsCountries";
 export const getDialingPermissionsCountries: typeof import("./getDialingPermissionsCountries").getDialingPermissionsCountries = null as any;
 export const getDialingPermissionsCountriesOutput: typeof import("./getDialingPermissionsCountries").getDialingPermissionsCountriesOutput = null as any;
@@ -320,6 +390,11 @@ export const getEventTypes: typeof import("./getEventTypes").getEventTypes = nul
 export const getEventTypesOutput: typeof import("./getEventTypes").getEventTypesOutput = null as any;
 utilities.lazyLoad(exports, ["getEventTypes","getEventTypesOutput"], () => require("./getEventTypes"));
 
+export { GetFlexConfigurationArgs, GetFlexConfigurationResult, GetFlexConfigurationOutputArgs } from "./getFlexConfiguration";
+export const getFlexConfiguration: typeof import("./getFlexConfiguration").getFlexConfiguration = null as any;
+export const getFlexConfigurationOutput: typeof import("./getFlexConfiguration").getFlexConfigurationOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexConfiguration","getFlexConfigurationOutput"], () => require("./getFlexConfiguration"));
+
 export { GetFlexFlowArgs, GetFlexFlowResult, GetFlexFlowOutputArgs } from "./getFlexFlow";
 export const getFlexFlow: typeof import("./getFlexFlow").getFlexFlow = null as any;
 export const getFlexFlowOutput: typeof import("./getFlexFlow").getFlexFlowOutput = null as any;
@@ -329,6 +404,46 @@ export { GetFlexFlowsArgs, GetFlexFlowsResult, GetFlexFlowsOutputArgs } from "./
 export const getFlexFlows: typeof import("./getFlexFlows").getFlexFlows = null as any;
 export const getFlexFlowsOutput: typeof import("./getFlexFlows").getFlexFlowsOutput = null as any;
 utilities.lazyLoad(exports, ["getFlexFlows","getFlexFlowsOutput"], () => require("./getFlexFlows"));
+
+export { GetFlexInsightsAnswerSetsArgs, GetFlexInsightsAnswerSetsResult } from "./getFlexInsightsAnswerSets";
+export const getFlexInsightsAnswerSets: typeof import("./getFlexInsightsAnswerSets").getFlexInsightsAnswerSets = null as any;
+export const getFlexInsightsAnswerSetsOutput: typeof import("./getFlexInsightsAnswerSets").getFlexInsightsAnswerSetsOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsAnswerSets","getFlexInsightsAnswerSetsOutput"], () => require("./getFlexInsightsAnswerSets"));
+
+export { GetFlexInsightsCategoriesArgs, GetFlexInsightsCategoriesResult } from "./getFlexInsightsCategories";
+export const getFlexInsightsCategories: typeof import("./getFlexInsightsCategories").getFlexInsightsCategories = null as any;
+export const getFlexInsightsCategoriesOutput: typeof import("./getFlexInsightsCategories").getFlexInsightsCategoriesOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsCategories","getFlexInsightsCategoriesOutput"], () => require("./getFlexInsightsCategories"));
+
+export { GetFlexInsightsCategoryArgs, GetFlexInsightsCategoryResult, GetFlexInsightsCategoryOutputArgs } from "./getFlexInsightsCategory";
+export const getFlexInsightsCategory: typeof import("./getFlexInsightsCategory").getFlexInsightsCategory = null as any;
+export const getFlexInsightsCategoryOutput: typeof import("./getFlexInsightsCategory").getFlexInsightsCategoryOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsCategory","getFlexInsightsCategoryOutput"], () => require("./getFlexInsightsCategory"));
+
+export { GetFlexInsightsCommentTagsArgs, GetFlexInsightsCommentTagsResult } from "./getFlexInsightsCommentTags";
+export const getFlexInsightsCommentTags: typeof import("./getFlexInsightsCommentTags").getFlexInsightsCommentTags = null as any;
+export const getFlexInsightsCommentTagsOutput: typeof import("./getFlexInsightsCommentTags").getFlexInsightsCommentTagsOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsCommentTags","getFlexInsightsCommentTagsOutput"], () => require("./getFlexInsightsCommentTags"));
+
+export { GetFlexInsightsQuestionArgs, GetFlexInsightsQuestionResult, GetFlexInsightsQuestionOutputArgs } from "./getFlexInsightsQuestion";
+export const getFlexInsightsQuestion: typeof import("./getFlexInsightsQuestion").getFlexInsightsQuestion = null as any;
+export const getFlexInsightsQuestionOutput: typeof import("./getFlexInsightsQuestion").getFlexInsightsQuestionOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsQuestion","getFlexInsightsQuestionOutput"], () => require("./getFlexInsightsQuestion"));
+
+export { GetFlexInsightsQuestionnaireArgs, GetFlexInsightsQuestionnaireResult, GetFlexInsightsQuestionnaireOutputArgs } from "./getFlexInsightsQuestionnaire";
+export const getFlexInsightsQuestionnaire: typeof import("./getFlexInsightsQuestionnaire").getFlexInsightsQuestionnaire = null as any;
+export const getFlexInsightsQuestionnaireOutput: typeof import("./getFlexInsightsQuestionnaire").getFlexInsightsQuestionnaireOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsQuestionnaire","getFlexInsightsQuestionnaireOutput"], () => require("./getFlexInsightsQuestionnaire"));
+
+export { GetFlexInsightsQuestionnairesArgs, GetFlexInsightsQuestionnairesResult, GetFlexInsightsQuestionnairesOutputArgs } from "./getFlexInsightsQuestionnaires";
+export const getFlexInsightsQuestionnaires: typeof import("./getFlexInsightsQuestionnaires").getFlexInsightsQuestionnaires = null as any;
+export const getFlexInsightsQuestionnairesOutput: typeof import("./getFlexInsightsQuestionnaires").getFlexInsightsQuestionnairesOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsQuestionnaires","getFlexInsightsQuestionnairesOutput"], () => require("./getFlexInsightsQuestionnaires"));
+
+export { GetFlexInsightsQuestionsArgs, GetFlexInsightsQuestionsResult, GetFlexInsightsQuestionsOutputArgs } from "./getFlexInsightsQuestions";
+export const getFlexInsightsQuestions: typeof import("./getFlexInsightsQuestions").getFlexInsightsQuestions = null as any;
+export const getFlexInsightsQuestionsOutput: typeof import("./getFlexInsightsQuestions").getFlexInsightsQuestionsOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexInsightsQuestions","getFlexInsightsQuestionsOutput"], () => require("./getFlexInsightsQuestions"));
 
 export { GetFlexPluginArgs, GetFlexPluginResult, GetFlexPluginOutputArgs } from "./getFlexPlugin";
 export const getFlexPlugin: typeof import("./getFlexPlugin").getFlexPlugin = null as any;
@@ -370,6 +485,16 @@ export const getFlexPlugins: typeof import("./getFlexPlugins").getFlexPlugins = 
 export const getFlexPluginsOutput: typeof import("./getFlexPlugins").getFlexPluginsOutput = null as any;
 utilities.lazyLoad(exports, ["getFlexPlugins","getFlexPluginsOutput"], () => require("./getFlexPlugins"));
 
+export { GetFlexUserArgs, GetFlexUserResult, GetFlexUserOutputArgs } from "./getFlexUser";
+export const getFlexUser: typeof import("./getFlexUser").getFlexUser = null as any;
+export const getFlexUserOutput: typeof import("./getFlexUser").getFlexUserOutput = null as any;
+utilities.lazyLoad(exports, ["getFlexUser","getFlexUserOutput"], () => require("./getFlexUser"));
+
+export { GetFrontlineUserArgs, GetFrontlineUserResult, GetFrontlineUserOutputArgs } from "./getFrontlineUser";
+export const getFrontlineUser: typeof import("./getFrontlineUser").getFrontlineUser = null as any;
+export const getFrontlineUserOutput: typeof import("./getFrontlineUser").getFrontlineUserOutput = null as any;
+utilities.lazyLoad(exports, ["getFrontlineUser","getFrontlineUserOutput"], () => require("./getFrontlineUser"));
+
 export { GetIncomingPhoneNumberArgs, GetIncomingPhoneNumberResult, GetIncomingPhoneNumberOutputArgs } from "./getIncomingPhoneNumber";
 export const getIncomingPhoneNumber: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumber = null as any;
 export const getIncomingPhoneNumberOutput: typeof import("./getIncomingPhoneNumber").getIncomingPhoneNumberOutput = null as any;
@@ -395,6 +520,16 @@ export const getIpRecord: typeof import("./getIpRecord").getIpRecord = null as a
 export const getIpRecordOutput: typeof import("./getIpRecord").getIpRecordOutput = null as any;
 utilities.lazyLoad(exports, ["getIpRecord","getIpRecordOutput"], () => require("./getIpRecord"));
 
+export { GetKnowledgeArgs, GetKnowledgeResult, GetKnowledgeOutputArgs } from "./getKnowledge";
+export const getKnowledge: typeof import("./getKnowledge").getKnowledge = null as any;
+export const getKnowledgeOutput: typeof import("./getKnowledge").getKnowledgeOutput = null as any;
+utilities.lazyLoad(exports, ["getKnowledge","getKnowledgeOutput"], () => require("./getKnowledge"));
+
+export { GetKnowledgeBaseArgs, GetKnowledgeBaseResult, GetKnowledgeBaseOutputArgs } from "./getKnowledgeBase";
+export const getKnowledgeBase: typeof import("./getKnowledgeBase").getKnowledgeBase = null as any;
+export const getKnowledgeBaseOutput: typeof import("./getKnowledgeBase").getKnowledgeBaseOutput = null as any;
+utilities.lazyLoad(exports, ["getKnowledgeBase","getKnowledgeBaseOutput"], () => require("./getKnowledgeBase"));
+
 export { GetLinkShorteningDomainCertificateArgs, GetLinkShorteningDomainCertificateResult, GetLinkShorteningDomainCertificateOutputArgs } from "./getLinkShorteningDomainCertificate";
 export const getLinkShorteningDomainCertificate: typeof import("./getLinkShorteningDomainCertificate").getLinkShorteningDomainCertificate = null as any;
 export const getLinkShorteningDomainCertificateOutput: typeof import("./getLinkShorteningDomainCertificate").getLinkShorteningDomainCertificateOutput = null as any;
@@ -419,6 +554,26 @@ export { GetLinkShorteningMessagingServiceDomainConfigArgs, GetLinkShorteningMes
 export const getLinkShorteningMessagingServiceDomainConfig: typeof import("./getLinkShorteningMessagingServiceDomainConfig").getLinkShorteningMessagingServiceDomainConfig = null as any;
 export const getLinkShorteningMessagingServiceDomainConfigOutput: typeof import("./getLinkShorteningMessagingServiceDomainConfig").getLinkShorteningMessagingServiceDomainConfigOutput = null as any;
 utilities.lazyLoad(exports, ["getLinkShorteningMessagingServiceDomainConfig","getLinkShorteningMessagingServiceDomainConfigOutput"], () => require("./getLinkShorteningMessagingServiceDomainConfig"));
+
+export { GetMemoryDataMappingArgs, GetMemoryDataMappingResult, GetMemoryDataMappingOutputArgs } from "./getMemoryDataMapping";
+export const getMemoryDataMapping: typeof import("./getMemoryDataMapping").getMemoryDataMapping = null as any;
+export const getMemoryDataMappingOutput: typeof import("./getMemoryDataMapping").getMemoryDataMappingOutput = null as any;
+utilities.lazyLoad(exports, ["getMemoryDataMapping","getMemoryDataMappingOutput"], () => require("./getMemoryDataMapping"));
+
+export { GetMemoryIdentityResolutionSettingsArgs, GetMemoryIdentityResolutionSettingsResult, GetMemoryIdentityResolutionSettingsOutputArgs } from "./getMemoryIdentityResolutionSettings";
+export const getMemoryIdentityResolutionSettings: typeof import("./getMemoryIdentityResolutionSettings").getMemoryIdentityResolutionSettings = null as any;
+export const getMemoryIdentityResolutionSettingsOutput: typeof import("./getMemoryIdentityResolutionSettings").getMemoryIdentityResolutionSettingsOutput = null as any;
+utilities.lazyLoad(exports, ["getMemoryIdentityResolutionSettings","getMemoryIdentityResolutionSettingsOutput"], () => require("./getMemoryIdentityResolutionSettings"));
+
+export { GetMemoryStoreArgs, GetMemoryStoreResult, GetMemoryStoreOutputArgs } from "./getMemoryStore";
+export const getMemoryStore: typeof import("./getMemoryStore").getMemoryStore = null as any;
+export const getMemoryStoreOutput: typeof import("./getMemoryStore").getMemoryStoreOutput = null as any;
+utilities.lazyLoad(exports, ["getMemoryStore","getMemoryStoreOutput"], () => require("./getMemoryStore"));
+
+export { GetMemoryTraitGroupArgs, GetMemoryTraitGroupResult, GetMemoryTraitGroupOutputArgs } from "./getMemoryTraitGroup";
+export const getMemoryTraitGroup: typeof import("./getMemoryTraitGroup").getMemoryTraitGroup = null as any;
+export const getMemoryTraitGroupOutput: typeof import("./getMemoryTraitGroup").getMemoryTraitGroupOutput = null as any;
+utilities.lazyLoad(exports, ["getMemoryTraitGroup","getMemoryTraitGroupOutput"], () => require("./getMemoryTraitGroup"));
 
 export { GetMessagingDeactivationsArgs, GetMessagingDeactivationsResult, GetMessagingDeactivationsOutputArgs } from "./getMessagingDeactivations";
 export const getMessagingDeactivations: typeof import("./getMessagingDeactivations").getMessagingDeactivations = null as any;
@@ -554,6 +709,66 @@ export { GetQueueArgs, GetQueueResult, GetQueueOutputArgs } from "./getQueue";
 export const getQueue: typeof import("./getQueue").getQueue = null as any;
 export const getQueueOutput: typeof import("./getQueue").getQueueOutput = null as any;
 utilities.lazyLoad(exports, ["getQueue","getQueueOutput"], () => require("./getQueue"));
+
+export { GetRegulatoryBundleArgs, GetRegulatoryBundleResult, GetRegulatoryBundleOutputArgs } from "./getRegulatoryBundle";
+export const getRegulatoryBundle: typeof import("./getRegulatoryBundle").getRegulatoryBundle = null as any;
+export const getRegulatoryBundleOutput: typeof import("./getRegulatoryBundle").getRegulatoryBundleOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryBundle","getRegulatoryBundleOutput"], () => require("./getRegulatoryBundle"));
+
+export { GetRegulatoryBundleItemAssignmentArgs, GetRegulatoryBundleItemAssignmentResult, GetRegulatoryBundleItemAssignmentOutputArgs } from "./getRegulatoryBundleItemAssignment";
+export const getRegulatoryBundleItemAssignment: typeof import("./getRegulatoryBundleItemAssignment").getRegulatoryBundleItemAssignment = null as any;
+export const getRegulatoryBundleItemAssignmentOutput: typeof import("./getRegulatoryBundleItemAssignment").getRegulatoryBundleItemAssignmentOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryBundleItemAssignment","getRegulatoryBundleItemAssignmentOutput"], () => require("./getRegulatoryBundleItemAssignment"));
+
+export { GetRegulatoryEndUserArgs, GetRegulatoryEndUserResult, GetRegulatoryEndUserOutputArgs } from "./getRegulatoryEndUser";
+export const getRegulatoryEndUser: typeof import("./getRegulatoryEndUser").getRegulatoryEndUser = null as any;
+export const getRegulatoryEndUserOutput: typeof import("./getRegulatoryEndUser").getRegulatoryEndUserOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryEndUser","getRegulatoryEndUserOutput"], () => require("./getRegulatoryEndUser"));
+
+export { GetRegulatoryEndUserTypeArgs, GetRegulatoryEndUserTypeResult, GetRegulatoryEndUserTypeOutputArgs } from "./getRegulatoryEndUserType";
+export const getRegulatoryEndUserType: typeof import("./getRegulatoryEndUserType").getRegulatoryEndUserType = null as any;
+export const getRegulatoryEndUserTypeOutput: typeof import("./getRegulatoryEndUserType").getRegulatoryEndUserTypeOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryEndUserType","getRegulatoryEndUserTypeOutput"], () => require("./getRegulatoryEndUserType"));
+
+export { GetRegulatoryEndUserTypesArgs, GetRegulatoryEndUserTypesResult } from "./getRegulatoryEndUserTypes";
+export const getRegulatoryEndUserTypes: typeof import("./getRegulatoryEndUserTypes").getRegulatoryEndUserTypes = null as any;
+export const getRegulatoryEndUserTypesOutput: typeof import("./getRegulatoryEndUserTypes").getRegulatoryEndUserTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryEndUserTypes","getRegulatoryEndUserTypesOutput"], () => require("./getRegulatoryEndUserTypes"));
+
+export { GetRegulatoryEndUsersArgs, GetRegulatoryEndUsersResult } from "./getRegulatoryEndUsers";
+export const getRegulatoryEndUsers: typeof import("./getRegulatoryEndUsers").getRegulatoryEndUsers = null as any;
+export const getRegulatoryEndUsersOutput: typeof import("./getRegulatoryEndUsers").getRegulatoryEndUsersOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryEndUsers","getRegulatoryEndUsersOutput"], () => require("./getRegulatoryEndUsers"));
+
+export { GetRegulatoryRegulationArgs, GetRegulatoryRegulationResult, GetRegulatoryRegulationOutputArgs } from "./getRegulatoryRegulation";
+export const getRegulatoryRegulation: typeof import("./getRegulatoryRegulation").getRegulatoryRegulation = null as any;
+export const getRegulatoryRegulationOutput: typeof import("./getRegulatoryRegulation").getRegulatoryRegulationOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryRegulation","getRegulatoryRegulationOutput"], () => require("./getRegulatoryRegulation"));
+
+export { GetRegulatoryRegulationsArgs, GetRegulatoryRegulationsResult, GetRegulatoryRegulationsOutputArgs } from "./getRegulatoryRegulations";
+export const getRegulatoryRegulations: typeof import("./getRegulatoryRegulations").getRegulatoryRegulations = null as any;
+export const getRegulatoryRegulationsOutput: typeof import("./getRegulatoryRegulations").getRegulatoryRegulationsOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatoryRegulations","getRegulatoryRegulationsOutput"], () => require("./getRegulatoryRegulations"));
+
+export { GetRegulatorySupportingDocumentArgs, GetRegulatorySupportingDocumentResult, GetRegulatorySupportingDocumentOutputArgs } from "./getRegulatorySupportingDocument";
+export const getRegulatorySupportingDocument: typeof import("./getRegulatorySupportingDocument").getRegulatorySupportingDocument = null as any;
+export const getRegulatorySupportingDocumentOutput: typeof import("./getRegulatorySupportingDocument").getRegulatorySupportingDocumentOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatorySupportingDocument","getRegulatorySupportingDocumentOutput"], () => require("./getRegulatorySupportingDocument"));
+
+export { GetRegulatorySupportingDocumentTypeArgs, GetRegulatorySupportingDocumentTypeResult, GetRegulatorySupportingDocumentTypeOutputArgs } from "./getRegulatorySupportingDocumentType";
+export const getRegulatorySupportingDocumentType: typeof import("./getRegulatorySupportingDocumentType").getRegulatorySupportingDocumentType = null as any;
+export const getRegulatorySupportingDocumentTypeOutput: typeof import("./getRegulatorySupportingDocumentType").getRegulatorySupportingDocumentTypeOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatorySupportingDocumentType","getRegulatorySupportingDocumentTypeOutput"], () => require("./getRegulatorySupportingDocumentType"));
+
+export { GetRegulatorySupportingDocumentTypesArgs, GetRegulatorySupportingDocumentTypesResult } from "./getRegulatorySupportingDocumentTypes";
+export const getRegulatorySupportingDocumentTypes: typeof import("./getRegulatorySupportingDocumentTypes").getRegulatorySupportingDocumentTypes = null as any;
+export const getRegulatorySupportingDocumentTypesOutput: typeof import("./getRegulatorySupportingDocumentTypes").getRegulatorySupportingDocumentTypesOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatorySupportingDocumentTypes","getRegulatorySupportingDocumentTypesOutput"], () => require("./getRegulatorySupportingDocumentTypes"));
+
+export { GetRegulatorySupportingDocumentsArgs, GetRegulatorySupportingDocumentsResult } from "./getRegulatorySupportingDocuments";
+export const getRegulatorySupportingDocuments: typeof import("./getRegulatorySupportingDocuments").getRegulatorySupportingDocuments = null as any;
+export const getRegulatorySupportingDocumentsOutput: typeof import("./getRegulatorySupportingDocuments").getRegulatorySupportingDocumentsOutput = null as any;
+utilities.lazyLoad(exports, ["getRegulatorySupportingDocuments","getRegulatorySupportingDocumentsOutput"], () => require("./getRegulatorySupportingDocuments"));
 
 export { GetRolePermissionsArgs, GetRolePermissionsResult, GetRolePermissionsOutputArgs } from "./getRolePermissions";
 export const getRolePermissions: typeof import("./getRolePermissions").getRolePermissions = null as any;
@@ -815,6 +1030,21 @@ export const getTrustHubSupportingDocuments: typeof import("./getTrustHubSupport
 export const getTrustHubSupportingDocumentsOutput: typeof import("./getTrustHubSupportingDocuments").getTrustHubSupportingDocumentsOutput = null as any;
 utilities.lazyLoad(exports, ["getTrustHubSupportingDocuments","getTrustHubSupportingDocumentsOutput"], () => require("./getTrustHubSupportingDocuments"));
 
+export { GetTrustProductArgs, GetTrustProductResult, GetTrustProductOutputArgs } from "./getTrustProduct";
+export const getTrustProduct: typeof import("./getTrustProduct").getTrustProduct = null as any;
+export const getTrustProductOutput: typeof import("./getTrustProduct").getTrustProductOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustProduct","getTrustProductOutput"], () => require("./getTrustProduct"));
+
+export { GetTrustProductChannelEndpointAssignmentArgs, GetTrustProductChannelEndpointAssignmentResult, GetTrustProductChannelEndpointAssignmentOutputArgs } from "./getTrustProductChannelEndpointAssignment";
+export const getTrustProductChannelEndpointAssignment: typeof import("./getTrustProductChannelEndpointAssignment").getTrustProductChannelEndpointAssignment = null as any;
+export const getTrustProductChannelEndpointAssignmentOutput: typeof import("./getTrustProductChannelEndpointAssignment").getTrustProductChannelEndpointAssignmentOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustProductChannelEndpointAssignment","getTrustProductChannelEndpointAssignmentOutput"], () => require("./getTrustProductChannelEndpointAssignment"));
+
+export { GetTrustProductEntityAssignmentArgs, GetTrustProductEntityAssignmentResult, GetTrustProductEntityAssignmentOutputArgs } from "./getTrustProductEntityAssignment";
+export const getTrustProductEntityAssignment: typeof import("./getTrustProductEntityAssignment").getTrustProductEntityAssignment = null as any;
+export const getTrustProductEntityAssignmentOutput: typeof import("./getTrustProductEntityAssignment").getTrustProductEntityAssignmentOutput = null as any;
+utilities.lazyLoad(exports, ["getTrustProductEntityAssignment","getTrustProductEntityAssignmentOutput"], () => require("./getTrustProductEntityAssignment"));
+
 export { GetUsAppToPersonArgs, GetUsAppToPersonResult, GetUsAppToPersonOutputArgs } from "./getUsAppToPerson";
 export const getUsAppToPerson: typeof import("./getUsAppToPerson").getUsAppToPerson = null as any;
 export const getUsAppToPersonOutput: typeof import("./getUsAppToPerson").getUsAppToPersonOutput = null as any;
@@ -945,6 +1175,16 @@ export type IpRecord = import("./ipRecord").IpRecord;
 export const IpRecord: typeof import("./ipRecord").IpRecord = null as any;
 utilities.lazyLoad(exports, ["IpRecord"], () => require("./ipRecord"));
 
+export { KnowledgeArgs } from "./knowledge";
+export type Knowledge = import("./knowledge").Knowledge;
+export const Knowledge: typeof import("./knowledge").Knowledge = null as any;
+utilities.lazyLoad(exports, ["Knowledge"], () => require("./knowledge"));
+
+export { KnowledgeBaseArgs } from "./knowledgeBase";
+export type KnowledgeBase = import("./knowledgeBase").KnowledgeBase;
+export const KnowledgeBase: typeof import("./knowledgeBase").KnowledgeBase = null as any;
+utilities.lazyLoad(exports, ["KnowledgeBase"], () => require("./knowledgeBase"));
+
 export { LinkShorteningDomainCertificateArgs } from "./linkShorteningDomainCertificate";
 export type LinkShorteningDomainCertificate = import("./linkShorteningDomainCertificate").LinkShorteningDomainCertificate;
 export const LinkShorteningDomainCertificate: typeof import("./linkShorteningDomainCertificate").LinkShorteningDomainCertificate = null as any;
@@ -959,6 +1199,26 @@ export { LinkShorteningMessagingServiceDomainArgs } from "./linkShorteningMessag
 export type LinkShorteningMessagingServiceDomain = import("./linkShorteningMessagingServiceDomain").LinkShorteningMessagingServiceDomain;
 export const LinkShorteningMessagingServiceDomain: typeof import("./linkShorteningMessagingServiceDomain").LinkShorteningMessagingServiceDomain = null as any;
 utilities.lazyLoad(exports, ["LinkShorteningMessagingServiceDomain"], () => require("./linkShorteningMessagingServiceDomain"));
+
+export { MemoryDataMappingArgs } from "./memoryDataMapping";
+export type MemoryDataMapping = import("./memoryDataMapping").MemoryDataMapping;
+export const MemoryDataMapping: typeof import("./memoryDataMapping").MemoryDataMapping = null as any;
+utilities.lazyLoad(exports, ["MemoryDataMapping"], () => require("./memoryDataMapping"));
+
+export { MemoryIdentityResolutionSettingsArgs } from "./memoryIdentityResolutionSettings";
+export type MemoryIdentityResolutionSettings = import("./memoryIdentityResolutionSettings").MemoryIdentityResolutionSettings;
+export const MemoryIdentityResolutionSettings: typeof import("./memoryIdentityResolutionSettings").MemoryIdentityResolutionSettings = null as any;
+utilities.lazyLoad(exports, ["MemoryIdentityResolutionSettings"], () => require("./memoryIdentityResolutionSettings"));
+
+export { MemoryStoreArgs } from "./memoryStore";
+export type MemoryStore = import("./memoryStore").MemoryStore;
+export const MemoryStore: typeof import("./memoryStore").MemoryStore = null as any;
+utilities.lazyLoad(exports, ["MemoryStore"], () => require("./memoryStore"));
+
+export { MemoryTraitGroupArgs } from "./memoryTraitGroup";
+export type MemoryTraitGroup = import("./memoryTraitGroup").MemoryTraitGroup;
+export const MemoryTraitGroup: typeof import("./memoryTraitGroup").MemoryTraitGroup = null as any;
+utilities.lazyLoad(exports, ["MemoryTraitGroup"], () => require("./memoryTraitGroup"));
 
 export { MessagingServiceArgs } from "./messagingService";
 export type MessagingService = import("./messagingService").MessagingService;
@@ -1034,6 +1294,26 @@ export { QueueArgs } from "./queue";
 export type Queue = import("./queue").Queue;
 export const Queue: typeof import("./queue").Queue = null as any;
 utilities.lazyLoad(exports, ["Queue"], () => require("./queue"));
+
+export { RegulatoryBundleArgs } from "./regulatoryBundle";
+export type RegulatoryBundle = import("./regulatoryBundle").RegulatoryBundle;
+export const RegulatoryBundle: typeof import("./regulatoryBundle").RegulatoryBundle = null as any;
+utilities.lazyLoad(exports, ["RegulatoryBundle"], () => require("./regulatoryBundle"));
+
+export { RegulatoryBundleItemAssignmentArgs } from "./regulatoryBundleItemAssignment";
+export type RegulatoryBundleItemAssignment = import("./regulatoryBundleItemAssignment").RegulatoryBundleItemAssignment;
+export const RegulatoryBundleItemAssignment: typeof import("./regulatoryBundleItemAssignment").RegulatoryBundleItemAssignment = null as any;
+utilities.lazyLoad(exports, ["RegulatoryBundleItemAssignment"], () => require("./regulatoryBundleItemAssignment"));
+
+export { RegulatoryEndUserArgs } from "./regulatoryEndUser";
+export type RegulatoryEndUser = import("./regulatoryEndUser").RegulatoryEndUser;
+export const RegulatoryEndUser: typeof import("./regulatoryEndUser").RegulatoryEndUser = null as any;
+utilities.lazyLoad(exports, ["RegulatoryEndUser"], () => require("./regulatoryEndUser"));
+
+export { RegulatorySupportingDocumentArgs } from "./regulatorySupportingDocument";
+export type RegulatorySupportingDocument = import("./regulatorySupportingDocument").RegulatorySupportingDocument;
+export const RegulatorySupportingDocument: typeof import("./regulatorySupportingDocument").RegulatorySupportingDocument = null as any;
+utilities.lazyLoad(exports, ["RegulatorySupportingDocument"], () => require("./regulatorySupportingDocument"));
 
 export { RoutesPhoneNumberArgs } from "./routesPhoneNumber";
 export type RoutesPhoneNumber = import("./routesPhoneNumber").RoutesPhoneNumber;
@@ -1235,6 +1515,21 @@ export type TrustHubSupportingDocument = import("./trustHubSupportingDocument").
 export const TrustHubSupportingDocument: typeof import("./trustHubSupportingDocument").TrustHubSupportingDocument = null as any;
 utilities.lazyLoad(exports, ["TrustHubSupportingDocument"], () => require("./trustHubSupportingDocument"));
 
+export { TrustProductArgs } from "./trustProduct";
+export type TrustProduct = import("./trustProduct").TrustProduct;
+export const TrustProduct: typeof import("./trustProduct").TrustProduct = null as any;
+utilities.lazyLoad(exports, ["TrustProduct"], () => require("./trustProduct"));
+
+export { TrustProductChannelEndpointAssignmentArgs } from "./trustProductChannelEndpointAssignment";
+export type TrustProductChannelEndpointAssignment = import("./trustProductChannelEndpointAssignment").TrustProductChannelEndpointAssignment;
+export const TrustProductChannelEndpointAssignment: typeof import("./trustProductChannelEndpointAssignment").TrustProductChannelEndpointAssignment = null as any;
+utilities.lazyLoad(exports, ["TrustProductChannelEndpointAssignment"], () => require("./trustProductChannelEndpointAssignment"));
+
+export { TrustProductEntityAssignmentArgs } from "./trustProductEntityAssignment";
+export type TrustProductEntityAssignment = import("./trustProductEntityAssignment").TrustProductEntityAssignment;
+export const TrustProductEntityAssignment: typeof import("./trustProductEntityAssignment").TrustProductEntityAssignment = null as any;
+utilities.lazyLoad(exports, ["TrustProductEntityAssignment"], () => require("./trustProductEntityAssignment"));
+
 export { UsAppToPersonArgs } from "./usAppToPerson";
 export type UsAppToPerson = import("./usAppToPerson").UsAppToPerson;
 export const UsAppToPerson: typeof import("./usAppToPerson").UsAppToPerson = null as any;
@@ -1356,6 +1651,8 @@ const _module = {
                 return new ConnectionPolicy(name, <any>undefined, { urn })
             case "twilio:index:ConnectionPolicyTarget":
                 return new ConnectionPolicyTarget(name, <any>undefined, { urn })
+            case "twilio:index:ContentApprovalRequest":
+                return new ContentApprovalRequest(name, <any>undefined, { urn })
             case "twilio:index:ContentTemplate":
                 return new ContentTemplate(name, <any>undefined, { urn })
             case "twilio:index:ConversationsAddressConfiguration":
@@ -1374,12 +1671,26 @@ const _module = {
                 return new ConversationsServiceNotificationConfiguration(name, <any>undefined, { urn })
             case "twilio:index:ConversationsWebhookConfiguration":
                 return new ConversationsWebhookConfiguration(name, <any>undefined, { urn })
+            case "twilio:index:CustomerProfile":
+                return new CustomerProfile(name, <any>undefined, { urn })
+            case "twilio:index:CustomerProfileChannelEndpointAssignment":
+                return new CustomerProfileChannelEndpointAssignment(name, <any>undefined, { urn })
+            case "twilio:index:CustomerProfileEntityAssignment":
+                return new CustomerProfileEntityAssignment(name, <any>undefined, { urn })
             case "twilio:index:EventSink":
                 return new EventSink(name, <any>undefined, { urn })
             case "twilio:index:EventSubscription":
                 return new EventSubscription(name, <any>undefined, { urn })
+            case "twilio:index:FlexConfiguration":
+                return new FlexConfiguration(name, <any>undefined, { urn })
             case "twilio:index:FlexFlow":
                 return new FlexFlow(name, <any>undefined, { urn })
+            case "twilio:index:FlexInsightsCategory":
+                return new FlexInsightsCategory(name, <any>undefined, { urn })
+            case "twilio:index:FlexInsightsQuestion":
+                return new FlexInsightsQuestion(name, <any>undefined, { urn })
+            case "twilio:index:FlexInsightsQuestionnaire":
+                return new FlexInsightsQuestionnaire(name, <any>undefined, { urn })
             case "twilio:index:FlexPlugin":
                 return new FlexPlugin(name, <any>undefined, { urn })
             case "twilio:index:FlexPluginConfiguration":
@@ -1388,6 +1699,10 @@ const _module = {
                 return new FlexPluginRelease(name, <any>undefined, { urn })
             case "twilio:index:FlexPluginVersion":
                 return new FlexPluginVersion(name, <any>undefined, { urn })
+            case "twilio:index:FlexUser":
+                return new FlexUser(name, <any>undefined, { urn })
+            case "twilio:index:FrontlineUser":
+                return new FrontlineUser(name, <any>undefined, { urn })
             case "twilio:index:IncomingPhoneNumber":
                 return new IncomingPhoneNumber(name, <any>undefined, { urn })
             case "twilio:index:IncomingPhoneNumberAssignedAddOn":
@@ -1398,12 +1713,24 @@ const _module = {
                 return new IntelligenceService(name, <any>undefined, { urn })
             case "twilio:index:IpRecord":
                 return new IpRecord(name, <any>undefined, { urn })
+            case "twilio:index:Knowledge":
+                return new Knowledge(name, <any>undefined, { urn })
+            case "twilio:index:KnowledgeBase":
+                return new KnowledgeBase(name, <any>undefined, { urn })
             case "twilio:index:LinkShorteningDomainCertificate":
                 return new LinkShorteningDomainCertificate(name, <any>undefined, { urn })
             case "twilio:index:LinkShorteningDomainConfig":
                 return new LinkShorteningDomainConfig(name, <any>undefined, { urn })
             case "twilio:index:LinkShorteningMessagingServiceDomain":
                 return new LinkShorteningMessagingServiceDomain(name, <any>undefined, { urn })
+            case "twilio:index:MemoryDataMapping":
+                return new MemoryDataMapping(name, <any>undefined, { urn })
+            case "twilio:index:MemoryIdentityResolutionSettings":
+                return new MemoryIdentityResolutionSettings(name, <any>undefined, { urn })
+            case "twilio:index:MemoryStore":
+                return new MemoryStore(name, <any>undefined, { urn })
+            case "twilio:index:MemoryTraitGroup":
+                return new MemoryTraitGroup(name, <any>undefined, { urn })
             case "twilio:index:MessagingService":
                 return new MessagingService(name, <any>undefined, { urn })
             case "twilio:index:MessagingServiceAlphaSender":
@@ -1432,6 +1759,14 @@ const _module = {
                 return new PublicKeyCredential(name, <any>undefined, { urn })
             case "twilio:index:Queue":
                 return new Queue(name, <any>undefined, { urn })
+            case "twilio:index:RegulatoryBundle":
+                return new RegulatoryBundle(name, <any>undefined, { urn })
+            case "twilio:index:RegulatoryBundleItemAssignment":
+                return new RegulatoryBundleItemAssignment(name, <any>undefined, { urn })
+            case "twilio:index:RegulatoryEndUser":
+                return new RegulatoryEndUser(name, <any>undefined, { urn })
+            case "twilio:index:RegulatorySupportingDocument":
+                return new RegulatorySupportingDocument(name, <any>undefined, { urn })
             case "twilio:index:RoutesPhoneNumber":
                 return new RoutesPhoneNumber(name, <any>undefined, { urn })
             case "twilio:index:RoutesShortCode":
@@ -1512,6 +1847,12 @@ const _module = {
                 return new TrustHubEndUser(name, <any>undefined, { urn })
             case "twilio:index:TrustHubSupportingDocument":
                 return new TrustHubSupportingDocument(name, <any>undefined, { urn })
+            case "twilio:index:TrustProduct":
+                return new TrustProduct(name, <any>undefined, { urn })
+            case "twilio:index:TrustProductChannelEndpointAssignment":
+                return new TrustProductChannelEndpointAssignment(name, <any>undefined, { urn })
+            case "twilio:index:TrustProductEntityAssignment":
+                return new TrustProductEntityAssignment(name, <any>undefined, { urn })
             case "twilio:index:UsAppToPerson":
                 return new UsAppToPerson(name, <any>undefined, { urn })
             case "twilio:index:UsageTrigger":

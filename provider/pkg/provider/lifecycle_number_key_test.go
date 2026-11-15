@@ -463,3 +463,40 @@ func TestNumberLC_UpdatePreviewNeedsNoCredentials(t *testing.T) {
 	require.Equal(t, "support-2", getS(t, u.Properties, "friendlyName"))
 	require.Equal(t, before, l.f.callCount(), "a preview sends no request")
 }
+
+// An import (and a refresh that found drift) records the policy in compact form, so a program that writes
+// the same document with whitespace or another key order must not plan an update (#2011).
+func TestApiKeyLC_PolicyDiffIsSemantic(t *testing.T) {
+	l := newTL(t, "ApiKey", "k")
+	in := pv(map[string]property.Value{"friendlyName": sv("svc"), "keyType": sv("restricted"), "policy": sv(`{"allow": ["/twilio/iam/api-keys/create"]}`)})
+	c := l.create(in)
+
+	imp := l.read(c.ID, empty(), empty())
+	require.Equal(t, `{"allow":["/twilio/iam/api-keys/create"]}`, getS(t, imp.Inputs, "policy"), "import records the compact policy")
+	requireNoChanges(t, l.diff(imp.ID, imp.Properties, l.checked(in), imp.Inputs))
+	for _, same := range []string{
+		`{"allow":["/twilio/iam/api-keys/create"]}`,
+		"{\n  \"allow\": [\n    \"/twilio/iam/api-keys/create\"\n  ]\n}",
+	} {
+		requireNoChanges(t, l.diff(imp.ID, imp.Properties, with(in, map[string]property.Value{"policy": sv(same)}), imp.Inputs))
+	}
+
+	// Key order does not matter either, but the order of a list does and a different document is an update on policy only.
+	two := with(in, map[string]property.Value{"policy": sv(`{"allow":["/twilio/iam/api-keys/create","/twilio/iam/api-keys/delete"],"deny":[]}`)})
+	d := l.diff(imp.ID, imp.Properties, two, imp.Inputs)
+	require.Equal(t, pgp.Update, d.DetailedDiff["policy"].Kind)
+	require.Len(t, d.DetailedDiff, 1)
+	st := l.update(c.ID, c.Properties, two, in)
+	reordered := with(in, map[string]property.Value{"policy": sv(`{"deny": [], "allow": ["/twilio/iam/api-keys/create", "/twilio/iam/api-keys/delete"]}`)})
+	requireNoChanges(t, l.diff(c.ID, st.Properties, reordered, two))
+	swapped := with(in, map[string]property.Value{"policy": sv(`{"allow":["/twilio/iam/api-keys/delete","/twilio/iam/api-keys/create"],"deny":[]}`)})
+	require.Equal(t, pgp.Update, l.diff(c.ID, st.Properties, swapped, two).DetailedDiff["policy"].Kind)
+
+	// The rest keeps its semantics: the name updates in place, the key type and account replace.
+	d = l.diff(c.ID, st.Properties, with(two, map[string]property.Value{"friendlyName": sv("renamed")}), two)
+	require.Equal(t, pgp.Update, d.DetailedDiff["friendlyName"].Kind)
+	d = l.diff(c.ID, st.Properties, with(two, map[string]property.Value{"keyType": sv("standard")}), two)
+	require.Equal(t, pgp.UpdateReplace, d.DetailedDiff["keyType"].Kind)
+	d = l.diff(c.ID, st.Properties, with(two, map[string]property.Value{"accountSid": sv("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")}), two)
+	require.Equal(t, pgp.UpdateReplace, d.DetailedDiff["accountSid"].Kind)
+}

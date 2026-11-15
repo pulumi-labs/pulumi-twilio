@@ -68,11 +68,17 @@ __all__ = [
     'EventSubscriptionType',
     'EventType',
     'FlexFlowInfo',
+    'FlexInsightsCategoryInfo',
+    'FlexInsightsQuestionInfo',
+    'FlexInsightsQuestionnaireInfo',
     'FlexPluginConfigurationInfo',
     'FlexPluginInfo',
     'FlexPluginReleaseInfo',
     'FlexPluginVersionInfo',
+    'IdentifierConfig',
     'IncomingPhoneNumberEffective',
+    'MemoryTrait',
+    'MemoryTraitMapping',
     'MessagingGeoPermission',
     'MessagingServiceEffective',
     'MessagingUsecase',
@@ -87,6 +93,10 @@ __all__ = [
     'RecordingCompositionPolicy',
     'RecordingFeature',
     'RecordingStatusCallback',
+    'RegulatoryEndUserInfo',
+    'RegulatoryRegulationInfo',
+    'RegulatorySupportingDocumentInfo',
+    'RegulatoryTypeInfo',
     'RolePermission',
     'ServerlessBuildDependency',
     'ShortCodeEffective',
@@ -4376,6 +4386,249 @@ class FlexFlowInfo(dict):
 
 
 @pulumi.output_type
+class FlexInsightsCategoryInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 name: _builtins.str,
+                 sid: _builtins.str,
+                 url: _builtins.str):
+        """
+        :param _builtins.str account_sid: The SID (AC...) of the account that owns the category.
+        :param _builtins.str name: The name of the category.
+        :param _builtins.str sid: The category SID (FY...).
+        :param _builtins.str url: The URL of the category resource.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        The SID (AC...) of the account that owns the category.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the category.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The category SID (FY...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        The URL of the category resource.
+        """
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class FlexInsightsQuestionInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 allow_na: _builtins.bool,
+                 answer_set_id: _builtins.str,
+                 category_sid: _builtins.str,
+                 question: _builtins.str,
+                 sid: _builtins.str,
+                 url: _builtins.str,
+                 usage: _builtins.int,
+                 description: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str account_sid: The SID (AC...) of the account that owns the question.
+        :param _builtins.bool allow_na: Whether an evaluator may answer not applicable.
+        :param _builtins.str answer_set_id: The ID of the answer set of the question.
+        :param _builtins.str category_sid: The SID (FY...) of the category of the question.
+        :param _builtins.str question: The text of the question.
+        :param _builtins.str sid: The question SID (GE...).
+        :param _builtins.str url: The URL of the question resource.
+        :param _builtins.int usage: How many questionnaires use the question.
+        :param _builtins.str description: The description of the question.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "allow_na", allow_na)
+        pulumi.set(__self__, "answer_set_id", answer_set_id)
+        pulumi.set(__self__, "category_sid", category_sid)
+        pulumi.set(__self__, "question", question)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "url", url)
+        pulumi.set(__self__, "usage", usage)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        The SID (AC...) of the account that owns the question.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter(name="allowNa")
+    def allow_na(self) -> _builtins.bool:
+        """
+        Whether an evaluator may answer not applicable.
+        """
+        return pulumi.get(self, "allow_na")
+
+    @_builtins.property
+    @pulumi.getter(name="answerSetId")
+    def answer_set_id(self) -> _builtins.str:
+        """
+        The ID of the answer set of the question.
+        """
+        return pulumi.get(self, "answer_set_id")
+
+    @_builtins.property
+    @pulumi.getter(name="categorySid")
+    def category_sid(self) -> _builtins.str:
+        """
+        The SID (FY...) of the category of the question.
+        """
+        return pulumi.get(self, "category_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def question(self) -> _builtins.str:
+        """
+        The text of the question.
+        """
+        return pulumi.get(self, "question")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The question SID (GE...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        The URL of the question resource.
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter
+    def usage(self) -> _builtins.int:
+        """
+        How many questionnaires use the question.
+        """
+        return pulumi.get(self, "usage")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        The description of the question.
+        """
+        return pulumi.get(self, "description")
+
+
+@pulumi.output_type
+class FlexInsightsQuestionnaireInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 active: _builtins.bool,
+                 name: _builtins.str,
+                 question_sids: Sequence[_builtins.str],
+                 sid: _builtins.str,
+                 url: _builtins.str,
+                 description: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str account_sid: The SID (AC...) of the account that owns the questionnaire.
+        :param _builtins.bool active: Whether the questionnaire is active.
+        :param _builtins.str name: The name of the questionnaire.
+        :param Sequence[_builtins.str] question_sids: The SIDs (GE...) of the questions in the questionnaire.
+        :param _builtins.str sid: The questionnaire SID.
+        :param _builtins.str url: The URL of the questionnaire resource.
+        :param _builtins.str description: The description of the questionnaire.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "active", active)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "question_sids", question_sids)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "url", url)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        The SID (AC...) of the account that owns the questionnaire.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def active(self) -> _builtins.bool:
+        """
+        Whether the questionnaire is active.
+        """
+        return pulumi.get(self, "active")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the questionnaire.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="questionSids")
+    def question_sids(self) -> Sequence[_builtins.str]:
+        """
+        The SIDs (GE...) of the questions in the questionnaire.
+        """
+        return pulumi.get(self, "question_sids")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The questionnaire SID.
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        The URL of the questionnaire resource.
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        The description of the questionnaire.
+        """
+        return pulumi.get(self, "description")
+
+
+@pulumi.output_type
 class FlexPluginConfigurationInfo(dict):
     def __init__(__self__, *,
                  archived: _builtins.bool,
@@ -4683,6 +4936,121 @@ class FlexPluginVersionInfo(dict):
         Whether Twilio has validated the bundle.
         """
         return pulumi.get(self, "validated")
+
+
+@pulumi.output_type
+class IdentifierConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "idType":
+            suggest = "id_type"
+        elif key == "enforceUnique":
+            suggest = "enforce_unique"
+        elif key == "limitPolicy":
+            suggest = "limit_policy"
+        elif key == "matchingAlgo":
+            suggest = "matching_algo"
+        elif key == "matchingThreshold":
+            suggest = "matching_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IdentifierConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IdentifierConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IdentifierConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id_type: _builtins.str,
+                 enforce_unique: Optional[_builtins.bool] = None,
+                 limit: Optional[_builtins.int] = None,
+                 limit_policy: Optional[_builtins.str] = None,
+                 matching_algo: Optional[_builtins.str] = None,
+                 matching_threshold: Optional[_builtins.int] = None,
+                 normalization: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str id_type: Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+        :param _builtins.bool enforce_unique: When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+        :param _builtins.int limit: Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+        :param _builtins.str limit_policy: What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+        :param _builtins.str matching_algo: How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+        :param _builtins.int matching_threshold: The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+        :param _builtins.str normalization: Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+        """
+        pulumi.set(__self__, "id_type", id_type)
+        if enforce_unique is not None:
+            pulumi.set(__self__, "enforce_unique", enforce_unique)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+        if limit_policy is not None:
+            pulumi.set(__self__, "limit_policy", limit_policy)
+        if matching_algo is not None:
+            pulumi.set(__self__, "matching_algo", matching_algo)
+        if matching_threshold is not None:
+            pulumi.set(__self__, "matching_threshold", matching_threshold)
+        if normalization is not None:
+            pulumi.set(__self__, "normalization", normalization)
+
+    @_builtins.property
+    @pulumi.getter(name="idType")
+    def id_type(self) -> _builtins.str:
+        """
+        Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+        """
+        return pulumi.get(self, "id_type")
+
+    @_builtins.property
+    @pulumi.getter(name="enforceUnique")
+    def enforce_unique(self) -> Optional[_builtins.bool]:
+        """
+        When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+        """
+        return pulumi.get(self, "enforce_unique")
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+        """
+        return pulumi.get(self, "limit")
+
+    @_builtins.property
+    @pulumi.getter(name="limitPolicy")
+    def limit_policy(self) -> Optional[_builtins.str]:
+        """
+        What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+        """
+        return pulumi.get(self, "limit_policy")
+
+    @_builtins.property
+    @pulumi.getter(name="matchingAlgo")
+    def matching_algo(self) -> Optional[_builtins.str]:
+        """
+        How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+        """
+        return pulumi.get(self, "matching_algo")
+
+    @_builtins.property
+    @pulumi.getter(name="matchingThreshold")
+    def matching_threshold(self) -> Optional[_builtins.int]:
+        """
+        The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+        """
+        return pulumi.get(self, "matching_threshold")
+
+    @_builtins.property
+    @pulumi.getter
+    def normalization(self) -> Optional[_builtins.str]:
+        """
+        Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+        """
+        return pulumi.get(self, "normalization")
 
 
 @pulumi.output_type
@@ -5055,6 +5423,140 @@ class IncomingPhoneNumberEffective(dict):
         URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
         """
         return pulumi.get(self, "voice_url")
+
+
+@pulumi.output_type
+class MemoryTrait(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dataType":
+            suggest = "data_type"
+        elif key == "idTypePromotion":
+            suggest = "id_type_promotion"
+        elif key == "validationRule":
+            suggest = "validation_rule"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MemoryTrait. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MemoryTrait.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MemoryTrait.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 data_type: _builtins.str,
+                 description: Optional[_builtins.str] = None,
+                 id_type_promotion: Optional[_builtins.str] = None,
+                 validation_rule: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str data_type: Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+        :param _builtins.str description: What the trait holds, up to 1024 characters.
+        :param _builtins.str id_type_promotion: Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+        :param _builtins.str validation_rule: Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+        """
+        pulumi.set(__self__, "data_type", data_type)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if id_type_promotion is not None:
+            pulumi.set(__self__, "id_type_promotion", id_type_promotion)
+        if validation_rule is not None:
+            pulumi.set(__self__, "validation_rule", validation_rule)
+
+    @_builtins.property
+    @pulumi.getter(name="dataType")
+    def data_type(self) -> _builtins.str:
+        """
+        Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+        """
+        return pulumi.get(self, "data_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[_builtins.str]:
+        """
+        What the trait holds, up to 1024 characters.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter(name="idTypePromotion")
+    def id_type_promotion(self) -> Optional[_builtins.str]:
+        """
+        Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+        """
+        return pulumi.get(self, "id_type_promotion")
+
+    @_builtins.property
+    @pulumi.getter(name="validationRule")
+    def validation_rule(self) -> Optional[_builtins.str]:
+        """
+        Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+        """
+        return pulumi.get(self, "validation_rule")
+
+
+@pulumi.output_type
+class MemoryTraitMapping(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "traitGroup":
+            suggest = "trait_group"
+        elif key == "traitName":
+            suggest = "trait_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MemoryTraitMapping. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MemoryTraitMapping.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MemoryTraitMapping.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 expression: _builtins.str,
+                 trait_group: _builtins.str,
+                 trait_name: _builtins.str):
+        """
+        :param _builtins.str expression: The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+        :param _builtins.str trait_group: Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+        :param _builtins.str trait_name: Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "trait_group", trait_group)
+        pulumi.set(__self__, "trait_name", trait_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def expression(self) -> _builtins.str:
+        """
+        The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+        """
+        return pulumi.get(self, "expression")
+
+    @_builtins.property
+    @pulumi.getter(name="traitGroup")
+    def trait_group(self) -> _builtins.str:
+        """
+        Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+        """
+        return pulumi.get(self, "trait_group")
+
+    @_builtins.property
+    @pulumi.getter(name="traitName")
+    def trait_name(self) -> _builtins.str:
+        """
+        Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+        """
+        return pulumi.get(self, "trait_name")
 
 
 @pulumi.output_type
@@ -5933,6 +6435,342 @@ class RecordingStatusCallback(dict):
         URL Twilio requests with the recording status.
         """
         return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class RegulatoryEndUserInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 attributes: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 friendly_name: _builtins.str,
+                 sid: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str account_sid: SID (AC...) of the owning account.
+        :param _builtins.str attributes: The attributes as a JSON object (empty when Twilio reports none).
+        :param _builtins.str date_created: When the end user was created (ISO 8601).
+        :param _builtins.str date_updated: When the end user was last updated (ISO 8601).
+        :param _builtins.str friendly_name: Human-readable name of the end user.
+        :param _builtins.str sid: The end user SID (IT...).
+        :param _builtins.str type: Machine name of the end user type.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "attributes", attributes)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID (AC...) of the owning account.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def attributes(self) -> _builtins.str:
+        """
+        The attributes as a JSON object (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the end user was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the end user was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the end user.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The end user SID (IT...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Machine name of the end user type.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class RegulatoryRegulationInfo(dict):
+    def __init__(__self__, *,
+                 end_user_type: _builtins.str,
+                 friendly_name: _builtins.str,
+                 iso_country: _builtins.str,
+                 number_type: _builtins.str,
+                 requirements: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param _builtins.str end_user_type: Who the regulation applies to: individual or business.
+        :param _builtins.str friendly_name: Human-readable name of the regulation.
+        :param _builtins.str iso_country: ISO country code of the phone numbers the regulation covers.
+        :param _builtins.str number_type: Type of the phone numbers the regulation covers.
+        :param _builtins.str requirements: The end user and supporting document requirements as a JSON document (empty when Twilio reports none).
+        :param _builtins.str sid: The regulation SID (RN...), which is what RegulatoryBundle.regulationSid takes.
+        """
+        pulumi.set(__self__, "end_user_type", end_user_type)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "iso_country", iso_country)
+        pulumi.set(__self__, "number_type", number_type)
+        pulumi.set(__self__, "requirements", requirements)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter(name="endUserType")
+    def end_user_type(self) -> _builtins.str:
+        """
+        Who the regulation applies to: individual or business.
+        """
+        return pulumi.get(self, "end_user_type")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the regulation.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="isoCountry")
+    def iso_country(self) -> _builtins.str:
+        """
+        ISO country code of the phone numbers the regulation covers.
+        """
+        return pulumi.get(self, "iso_country")
+
+    @_builtins.property
+    @pulumi.getter(name="numberType")
+    def number_type(self) -> _builtins.str:
+        """
+        Type of the phone numbers the regulation covers.
+        """
+        return pulumi.get(self, "number_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def requirements(self) -> _builtins.str:
+        """
+        The end user and supporting document requirements as a JSON document (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "requirements")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The regulation SID (RN...), which is what RegulatoryBundle.regulationSid takes.
+        """
+        return pulumi.get(self, "sid")
+
+
+@pulumi.output_type
+class RegulatorySupportingDocumentInfo(dict):
+    def __init__(__self__, *,
+                 account_sid: _builtins.str,
+                 attributes: _builtins.str,
+                 date_created: _builtins.str,
+                 date_updated: _builtins.str,
+                 errors: _builtins.str,
+                 failure_reason: _builtins.str,
+                 friendly_name: _builtins.str,
+                 mime_type: _builtins.str,
+                 sid: _builtins.str,
+                 status: _builtins.str,
+                 type: _builtins.str):
+        """
+        :param _builtins.str account_sid: SID (AC...) of the owning account.
+        :param _builtins.str attributes: The attributes as a JSON object (empty when Twilio reports none).
+        :param _builtins.str date_created: When the document was created (ISO 8601).
+        :param _builtins.str date_updated: When the document was last updated (ISO 8601).
+        :param _builtins.str errors: The errors of a rejected document as a JSON document (empty when there are none).
+        :param _builtins.str failure_reason: Why Twilio rejected the document, empty when it was not rejected.
+        :param _builtins.str friendly_name: Human-readable name of the document.
+        :param _builtins.str mime_type: The MIME type of the document (empty when none).
+        :param _builtins.str sid: The supporting document SID (RD...).
+        :param _builtins.str status: The verification status: draft, pending-review, rejected, approved, expired or provisionally-approved.
+        :param _builtins.str type: Machine name of the supporting document type.
+        """
+        pulumi.set(__self__, "account_sid", account_sid)
+        pulumi.set(__self__, "attributes", attributes)
+        pulumi.set(__self__, "date_created", date_created)
+        pulumi.set(__self__, "date_updated", date_updated)
+        pulumi.set(__self__, "errors", errors)
+        pulumi.set(__self__, "failure_reason", failure_reason)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "mime_type", mime_type)
+        pulumi.set(__self__, "sid", sid)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="accountSid")
+    def account_sid(self) -> _builtins.str:
+        """
+        SID (AC...) of the owning account.
+        """
+        return pulumi.get(self, "account_sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def attributes(self) -> _builtins.str:
+        """
+        The attributes as a JSON object (empty when Twilio reports none).
+        """
+        return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="dateCreated")
+    def date_created(self) -> _builtins.str:
+        """
+        When the document was created (ISO 8601).
+        """
+        return pulumi.get(self, "date_created")
+
+    @_builtins.property
+    @pulumi.getter(name="dateUpdated")
+    def date_updated(self) -> _builtins.str:
+        """
+        When the document was last updated (ISO 8601).
+        """
+        return pulumi.get(self, "date_updated")
+
+    @_builtins.property
+    @pulumi.getter
+    def errors(self) -> _builtins.str:
+        """
+        The errors of a rejected document as a JSON document (empty when there are none).
+        """
+        return pulumi.get(self, "errors")
+
+    @_builtins.property
+    @pulumi.getter(name="failureReason")
+    def failure_reason(self) -> _builtins.str:
+        """
+        Why Twilio rejected the document, empty when it was not rejected.
+        """
+        return pulumi.get(self, "failure_reason")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the document.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="mimeType")
+    def mime_type(self) -> _builtins.str:
+        """
+        The MIME type of the document (empty when none).
+        """
+        return pulumi.get(self, "mime_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The supporting document SID (RD...).
+        """
+        return pulumi.get(self, "sid")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        The verification status: draft, pending-review, rejected, approved, expired or provisionally-approved.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Machine name of the supporting document type.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class RegulatoryTypeInfo(dict):
+    def __init__(__self__, *,
+                 fields: _builtins.str,
+                 friendly_name: _builtins.str,
+                 machine_name: _builtins.str,
+                 sid: _builtins.str):
+        """
+        :param _builtins.str fields: The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+        :param _builtins.str friendly_name: Human-readable name of the type.
+        :param _builtins.str machine_name: The machine name, which is what the type input of the resource takes.
+        :param _builtins.str sid: The SID of the type.
+        """
+        pulumi.set(__self__, "fields", fields)
+        pulumi.set(__self__, "friendly_name", friendly_name)
+        pulumi.set(__self__, "machine_name", machine_name)
+        pulumi.set(__self__, "sid", sid)
+
+    @_builtins.property
+    @pulumi.getter
+    def fields(self) -> _builtins.str:
+        """
+        The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+        """
+        return pulumi.get(self, "fields")
+
+    @_builtins.property
+    @pulumi.getter(name="friendlyName")
+    def friendly_name(self) -> _builtins.str:
+        """
+        Human-readable name of the type.
+        """
+        return pulumi.get(self, "friendly_name")
+
+    @_builtins.property
+    @pulumi.getter(name="machineName")
+    def machine_name(self) -> _builtins.str:
+        """
+        The machine name, which is what the type input of the resource takes.
+        """
+        return pulumi.get(self, "machine_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def sid(self) -> _builtins.str:
+        """
+        The SID of the type.
+        """
+        return pulumi.get(self, "sid")
 
 
 @pulumi.output_type

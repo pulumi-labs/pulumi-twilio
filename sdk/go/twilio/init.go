@@ -43,6 +43,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ConnectionPolicy{}
 	case "twilio:index:ConnectionPolicyTarget":
 		r = &ConnectionPolicyTarget{}
+	case "twilio:index:ContentApprovalRequest":
+		r = &ContentApprovalRequest{}
 	case "twilio:index:ContentTemplate":
 		r = &ContentTemplate{}
 	case "twilio:index:ConversationsAddressConfiguration":
@@ -61,12 +63,26 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ConversationsServiceNotificationConfiguration{}
 	case "twilio:index:ConversationsWebhookConfiguration":
 		r = &ConversationsWebhookConfiguration{}
+	case "twilio:index:CustomerProfile":
+		r = &CustomerProfile{}
+	case "twilio:index:CustomerProfileChannelEndpointAssignment":
+		r = &CustomerProfileChannelEndpointAssignment{}
+	case "twilio:index:CustomerProfileEntityAssignment":
+		r = &CustomerProfileEntityAssignment{}
 	case "twilio:index:EventSink":
 		r = &EventSink{}
 	case "twilio:index:EventSubscription":
 		r = &EventSubscription{}
+	case "twilio:index:FlexConfiguration":
+		r = &FlexConfiguration{}
 	case "twilio:index:FlexFlow":
 		r = &FlexFlow{}
+	case "twilio:index:FlexInsightsCategory":
+		r = &FlexInsightsCategory{}
+	case "twilio:index:FlexInsightsQuestion":
+		r = &FlexInsightsQuestion{}
+	case "twilio:index:FlexInsightsQuestionnaire":
+		r = &FlexInsightsQuestionnaire{}
 	case "twilio:index:FlexPlugin":
 		r = &FlexPlugin{}
 	case "twilio:index:FlexPluginConfiguration":
@@ -75,6 +91,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &FlexPluginRelease{}
 	case "twilio:index:FlexPluginVersion":
 		r = &FlexPluginVersion{}
+	case "twilio:index:FlexUser":
+		r = &FlexUser{}
+	case "twilio:index:FrontlineUser":
+		r = &FrontlineUser{}
 	case "twilio:index:IncomingPhoneNumber":
 		r = &IncomingPhoneNumber{}
 	case "twilio:index:IncomingPhoneNumberAssignedAddOn":
@@ -85,12 +105,24 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IntelligenceService{}
 	case "twilio:index:IpRecord":
 		r = &IpRecord{}
+	case "twilio:index:Knowledge":
+		r = &Knowledge{}
+	case "twilio:index:KnowledgeBase":
+		r = &KnowledgeBase{}
 	case "twilio:index:LinkShorteningDomainCertificate":
 		r = &LinkShorteningDomainCertificate{}
 	case "twilio:index:LinkShorteningDomainConfig":
 		r = &LinkShorteningDomainConfig{}
 	case "twilio:index:LinkShorteningMessagingServiceDomain":
 		r = &LinkShorteningMessagingServiceDomain{}
+	case "twilio:index:MemoryDataMapping":
+		r = &MemoryDataMapping{}
+	case "twilio:index:MemoryIdentityResolutionSettings":
+		r = &MemoryIdentityResolutionSettings{}
+	case "twilio:index:MemoryStore":
+		r = &MemoryStore{}
+	case "twilio:index:MemoryTraitGroup":
+		r = &MemoryTraitGroup{}
 	case "twilio:index:MessagingService":
 		r = &MessagingService{}
 	case "twilio:index:MessagingServiceAlphaSender":
@@ -119,6 +151,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PublicKeyCredential{}
 	case "twilio:index:Queue":
 		r = &Queue{}
+	case "twilio:index:RegulatoryBundle":
+		r = &RegulatoryBundle{}
+	case "twilio:index:RegulatoryBundleItemAssignment":
+		r = &RegulatoryBundleItemAssignment{}
+	case "twilio:index:RegulatoryEndUser":
+		r = &RegulatoryEndUser{}
+	case "twilio:index:RegulatorySupportingDocument":
+		r = &RegulatorySupportingDocument{}
 	case "twilio:index:RoutesPhoneNumber":
 		r = &RoutesPhoneNumber{}
 	case "twilio:index:RoutesShortCode":
@@ -199,6 +239,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TrustHubEndUser{}
 	case "twilio:index:TrustHubSupportingDocument":
 		r = &TrustHubSupportingDocument{}
+	case "twilio:index:TrustProduct":
+		r = &TrustProduct{}
+	case "twilio:index:TrustProductChannelEndpointAssignment":
+		r = &TrustProductChannelEndpointAssignment{}
+	case "twilio:index:TrustProductEntityAssignment":
+		r = &TrustProductEntityAssignment{}
 	case "twilio:index:UsAppToPerson":
 		r = &UsAppToPerson{}
 	case "twilio:index:UsageTrigger":

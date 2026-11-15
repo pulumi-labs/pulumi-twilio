@@ -1337,6 +1337,95 @@ export interface FlexFlowInfo {
     sid: string;
 }
 
+export interface FlexInsightsCategoryInfo {
+    /**
+     * The SID (AC...) of the account that owns the category.
+     */
+    accountSid: string;
+    /**
+     * The name of the category.
+     */
+    name: string;
+    /**
+     * The category SID (FY...).
+     */
+    sid: string;
+    /**
+     * The URL of the category resource.
+     */
+    url: string;
+}
+
+export interface FlexInsightsQuestionInfo {
+    /**
+     * The SID (AC...) of the account that owns the question.
+     */
+    accountSid: string;
+    /**
+     * Whether an evaluator may answer not applicable.
+     */
+    allowNa: boolean;
+    /**
+     * The ID of the answer set of the question.
+     */
+    answerSetId: string;
+    /**
+     * The SID (FY...) of the category of the question.
+     */
+    categorySid: string;
+    /**
+     * The description of the question.
+     */
+    description?: string;
+    /**
+     * The text of the question.
+     */
+    question: string;
+    /**
+     * The question SID (GE...).
+     */
+    sid: string;
+    /**
+     * The URL of the question resource.
+     */
+    url: string;
+    /**
+     * How many questionnaires use the question.
+     */
+    usage: number;
+}
+
+export interface FlexInsightsQuestionnaireInfo {
+    /**
+     * The SID (AC...) of the account that owns the questionnaire.
+     */
+    accountSid: string;
+    /**
+     * Whether the questionnaire is active.
+     */
+    active: boolean;
+    /**
+     * The description of the questionnaire.
+     */
+    description?: string;
+    /**
+     * The name of the questionnaire.
+     */
+    name: string;
+    /**
+     * The SIDs (GE...) of the questions in the questionnaire.
+     */
+    questionSids: string[];
+    /**
+     * The questionnaire SID.
+     */
+    sid: string;
+    /**
+     * The URL of the questionnaire resource.
+     */
+    url: string;
+}
+
 export interface FlexPluginConfigurationInfo {
     /**
      * Whether the Configuration is archived.
@@ -1449,6 +1538,37 @@ export interface FlexPluginVersionInfo {
     validated?: boolean;
 }
 
+export interface IdentifierConfig {
+    /**
+     * When true, no two profiles share an identifier value and adding a shared value to a second profile may merge them. Twilio's default is true.
+     */
+    enforceUnique?: boolean;
+    /**
+     * Name of the identifier type, 2 to 30 characters: usually email, phone or external_id.
+     */
+    idType: string;
+    /**
+     * Maximum number of historical values to keep, 1 to 100. Twilio's default is 100.
+     */
+    limit?: number;
+    /**
+     * What is removed when the limit is exceeded: fifo (oldest first) or lifo (newest first). Twilio's default is fifo.
+     */
+    limitPolicy?: string;
+    /**
+     * How identifier values are matched: exact or fuzzy. Twilio's default is exact.
+     */
+    matchingAlgo?: string;
+    /**
+     * The fuzzy matching threshold percentage, 50 to 99. Twilio's default is 75.
+     */
+    matchingThreshold?: number;
+    /**
+     * Normalization applied before storing and matching: phone (E.164), email, trim or none. Twilio's default is trim.
+     */
+    normalization?: string;
+}
+
 export interface IncomingPhoneNumberEffective {
     /**
      * SID of the account or subaccount that owns the number. Defaults to the provider account. Changing it transfers the number to that account in place (Twilio's AccountSid update parameter); the provider's credentials must own the number or its parent account. To import a number owned by a subaccount use the ID <accountSid>/<numberSid>. Removing accountSid later sends the number back to the provider account, so protect the resource (the protect resource option) to stop an edit from moving a live number.
@@ -1550,6 +1670,40 @@ export interface IncomingPhoneNumberEffective {
      * URL Twilio requests for incoming voice calls. Mutually exclusive with voiceApplicationSid on Twilio's side.
      */
     voiceUrl?: string;
+}
+
+export interface MemoryTrait {
+    /**
+     * Data type of the trait: STRING, NUMBER, BOOLEAN or ARRAY.
+     */
+    dataType: string;
+    /**
+     * What the trait holds, up to 1024 characters.
+     */
+    description?: string;
+    /**
+     * Name of the identifier type (for example email or phone) that the trait value is promoted to for Identity Resolution, up to 30 characters. The identifier type must be configured in the store's Identity Resolution settings.
+     */
+    idTypePromotion?: string;
+    /**
+     * Validation rule as a JSON object string; its ruleType is STRING, NUMBER, BOOLEAN or ARRAY and the other keys follow Twilio's validation rule schemas for that type. Formatting and key order do not matter.
+     */
+    validationRule?: string;
+}
+
+export interface MemoryTraitMapping {
+    /**
+     * The field or column in the source (an ingress column name, or a field of the dataset), 1 to 256 characters.
+     */
+    expression: string;
+    /**
+     * Name of the trait group to write to (letters, digits, underscores, hyphens and dots, at most 64 characters).
+     */
+    traitGroup: string;
+    /**
+     * Name of the trait within the group: starts with a lowercase letter, then letters, digits, underscores, hyphens or dots, at most 128 characters.
+     */
+    traitName: string;
 }
 
 export interface MessagingGeoPermission {
@@ -1832,6 +1986,130 @@ export interface RecordingStatusCallback {
      * URL Twilio requests with the recording status.
      */
     url?: string;
+}
+
+export interface RegulatoryEndUserInfo {
+    /**
+     * SID (AC...) of the owning account.
+     */
+    accountSid: string;
+    /**
+     * The attributes as a JSON object (empty when Twilio reports none).
+     */
+    attributes: string;
+    /**
+     * When the end user was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the end user was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * Human-readable name of the end user.
+     */
+    friendlyName: string;
+    /**
+     * The end user SID (IT...).
+     */
+    sid: string;
+    /**
+     * Machine name of the end user type.
+     */
+    type: string;
+}
+
+export interface RegulatoryRegulationInfo {
+    /**
+     * Who the regulation applies to: individual or business.
+     */
+    endUserType: string;
+    /**
+     * Human-readable name of the regulation.
+     */
+    friendlyName: string;
+    /**
+     * ISO country code of the phone numbers the regulation covers.
+     */
+    isoCountry: string;
+    /**
+     * Type of the phone numbers the regulation covers.
+     */
+    numberType: string;
+    /**
+     * The end user and supporting document requirements as a JSON document (empty when Twilio reports none).
+     */
+    requirements: string;
+    /**
+     * The regulation SID (RN...), which is what RegulatoryBundle.regulationSid takes.
+     */
+    sid: string;
+}
+
+export interface RegulatorySupportingDocumentInfo {
+    /**
+     * SID (AC...) of the owning account.
+     */
+    accountSid: string;
+    /**
+     * The attributes as a JSON object (empty when Twilio reports none).
+     */
+    attributes: string;
+    /**
+     * When the document was created (ISO 8601).
+     */
+    dateCreated: string;
+    /**
+     * When the document was last updated (ISO 8601).
+     */
+    dateUpdated: string;
+    /**
+     * The errors of a rejected document as a JSON document (empty when there are none).
+     */
+    errors: string;
+    /**
+     * Why Twilio rejected the document, empty when it was not rejected.
+     */
+    failureReason: string;
+    /**
+     * Human-readable name of the document.
+     */
+    friendlyName: string;
+    /**
+     * The MIME type of the document (empty when none).
+     */
+    mimeType: string;
+    /**
+     * The supporting document SID (RD...).
+     */
+    sid: string;
+    /**
+     * The verification status: draft, pending-review, rejected, approved, expired or provisionally-approved.
+     */
+    status: string;
+    /**
+     * Machine name of the supporting document type.
+     */
+    type: string;
+}
+
+export interface RegulatoryTypeInfo {
+    /**
+     * The fields the attributes of this type take, as a JSON array (empty when Twilio reports none). Which fields are required changes with the regulations.
+     */
+    fields: string;
+    /**
+     * Human-readable name of the type.
+     */
+    friendlyName: string;
+    /**
+     * The machine name, which is what the type input of the resource takes.
+     */
+    machineName: string;
+    /**
+     * The SID of the type.
+     */
+    sid: string;
 }
 
 export interface RolePermission {

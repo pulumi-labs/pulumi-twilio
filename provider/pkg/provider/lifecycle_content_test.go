@@ -203,3 +203,129 @@ func TestLookup_Content(t *testing.T) {
 	_, err = invoke(t, l, "getContentApprovalStatus", map[string]property.Value{"sid": sv("")})
 	require.ErrorContains(t, err, "must be set")
 }
+
+func approvalInputs(sid string) property.Map {
+	return pv(map[string]property.Value{"contentSid": sv(sid), "name": sv("welcome_msg"), "category": sv("UTILITY"), "sendTtlSeconds": fnv(3600)})
+}
+
+func TestContentApprovalRequestLC_Lifecycle(t *testing.T) {
+	lt := newTL(t, "ContentTemplate", "tpl")
+	tpl := lt.create(contentInputs())
+	l := lt.other("ContentApprovalRequest", "appr")
+	in := approvalInputs(tpl.ID)
+
+	c := l.create(in)
+	require.Equal(t, tpl.ID, c.ID)
+	require.Equal(t, "received", getS(t, c.Properties, "status"))
+	require.Equal(t, "UTILITY", getS(t, c.Properties, "reviewedCategory"))
+	post := l.f.callsMatching("POST", "/content/v1/Content/"+tpl.ID+"/ApprovalRequests/whatsapp")
+	require.Len(t, post, 1)
+	var sent map[string]any
+	require.NoError(t, json.Unmarshal([]byte(post[0].Body), &sent))
+	require.Equal(t, map[string]any{"name": "welcome_msg", "category": "UTILITY", "send_ttl_seconds": float64(3600)}, sent)
+
+	// No drift, also after a refresh; the program writing nothing for bidAmount sees none.
+	requireNoChanges(t, l.diff(c.ID, c.Properties, in, in))
+	rd := l.read(c.ID, c.Properties, in)
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
+
+	// The review runs later: a refresh shows it, and a recategorised template is not drift.
+	l.f.mutate("ct", testAccount, tpl.ID, func(o map[string]any) {
+		a := o["approval"].(map[string]any)
+		a["status"] = "approved"
+		a["category"] = "MARKETING"
+	})
+	rd = l.read(c.ID, c.Properties, in)
+	require.Equal(t, "approved", getS(t, rd.Properties, "status"))
+	require.Equal(t, "MARKETING", getS(t, rd.Properties, "reviewedCategory"))
+	require.Equal(t, "UTILITY", getS(t, rd.Inputs, "category"))
+	requireNoChanges(t, l.diff(c.ID, rd.Properties, in, rd.Inputs))
+
+	// Name, category and the TTL replace; the content SID replaces.
+	for k, v := range map[string]property.Value{"name": sv("other"), "category": sv("MARKETING"), "sendTtlSeconds": fnv(60), "contentSid": sv("HX" + strings.Repeat("1", 32))} {
+		d := l.diff(c.ID, c.Properties, with(in, map[string]property.Value{k: v}), in)
+		require.Equal(t, pgp.UpdateReplace, d.DetailedDiff[k].Kind, k)
+	}
+
+	// bidAmount updates in place with a PATCH.
+	next := with(in, map[string]property.Value{"bidAmount": fnv(5)})
+	d := l.diff(c.ID, c.Properties, next, in)
+	require.Equal(t, pgp.Add, d.DetailedDiff["bidAmount"].Kind)
+	l.f.resetCalls()
+	u := l.update(c.ID, c.Properties, next, in)
+	patch := l.f.callsMatching("PATCH", "/content/v1/Content/"+tpl.ID+"/ApprovalRequests/whatsapp")
+	require.Len(t, patch, 1)
+	require.JSONEq(t, `{"bid_amount":5}`, patch[0].Body)
+	requireNoChanges(t, l.diff(c.ID, u.Properties, next, next))
+	// Removing it sends nothing.
+	l.f.resetCalls()
+	l.update(c.ID, u.Properties, in, next)
+	require.Empty(t, l.f.callsMatching("PATCH", "/content/v1/Content/"+tpl.ID+"/ApprovalRequests/whatsapp"))
+
+	// An import adopts what Twilio reports.
+	imp := l.read(tpl.ID, empty(), empty())
+	require.Empty(t, l.check(imp.Inputs).Failures)
+	require.Equal(t, "welcome_msg", getS(t, imp.Inputs, "name"))
+	require.Equal(t, "MARKETING", getS(t, imp.Inputs, "category"))
+	require.Equal(t, tpl.ID, getS(t, imp.Inputs, "contentSid"))
+
+	// Delete forgets the submission: no call, the approval stays at Twilio.
+	l.f.resetCalls()
+	l.del(c.ID, c.Properties)
+	for _, m := range []string{"DELETE", "POST", "PATCH", "PUT"} {
+		require.Empty(t, l.f.callsMatching(m, "/content/v1/Content"))
+	}
+	require.NotNil(t, l.f.get("ct", testAccount, tpl.ID)["approval"])
+}
+
+func TestContentApprovalRequestLC_Gone(t *testing.T) {
+	lt := newTL(t, "ContentTemplate", "tpl")
+	tpl := lt.create(contentInputs())
+	l := lt.other("ContentApprovalRequest", "appr")
+	in := approvalInputs(tpl.ID)
+	c := l.create(in)
+
+	// Reported as unsubmitted: the request is gone, and importing it fails.
+	l.f.mutate("ct", testAccount, tpl.ID, func(o map[string]any) { o["approval"] = map[string]any{"status": "unsubmitted"} })
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID)
+	l.requireImportFails(tpl.ID)
+	l.f.mutate("ct", testAccount, tpl.ID, func(o map[string]any) { delete(o, "approval") })
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID)
+	l.requireImportFails(tpl.ID)
+
+	// The template itself is gone.
+	l.f.remove("ct", testAccount, tpl.ID)
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID)
+	l.requireImportFails(tpl.ID)
+	l.del(c.ID, c.Properties)
+}
+
+func TestContentApprovalRequestLC_Check(t *testing.T) {
+	l := newTL(t, "ContentApprovalRequest", "appr")
+	sid := "HX" + strings.Repeat("a", 32)
+	require.Empty(t, l.check(approvalInputs(sid)).Failures)
+	bad := pv(map[string]property.Value{"contentSid": sv("SM123"), "name": sv(""), "category": sv("SPAM"), "bidAmount": fnv(0), "sendTtlSeconds": fnv(-1)})
+	require.Len(t, l.check(bad).Failures, 5)
+	require.Empty(t, l.check(pv(map[string]property.Value{"contentSid": computed(), "name": computed(), "category": computed()})).Failures)
+}
+
+func TestLookup_ContentApprovalRequest(t *testing.T) {
+	l := newTL(t, "ContentTemplate", "tpl")
+	c := l.create(contentInputs())
+	_, err := invoke(t, l, "getContentApprovalRequest", map[string]property.Value{"contentSid": sv(c.ID)})
+	require.ErrorContains(t, err, "has no WhatsApp approval request")
+	l.f.mutate("ct", testAccount, c.ID, func(o map[string]any) {
+		o["approval"] = map[string]any{"status": "rejected", "rejection_reason": "INVALID_FORMAT", "category": "UTILITY", "name": "welcome", "bid_amount": float64(3)}
+	})
+	r, err := invoke(t, l, "getContentApprovalRequest", map[string]property.Value{"contentSid": sv(c.ID)})
+	require.NoError(t, err)
+	require.Equal(t, "welcome", getS(t, r, "name"))
+	require.Equal(t, "rejected", getS(t, r, "status"))
+	require.Equal(t, "INVALID_FORMAT", getS(t, r, "rejectionReason"))
+	require.Equal(t, 3.0, r.Get("bidAmount").AsNumber())
+	require.False(t, hasProp(r, "sendTtlSeconds"))
+	_, err = invoke(t, l, "getContentApprovalRequest", map[string]property.Value{"contentSid": sv("HXmissing")})
+	require.ErrorContains(t, err, "was not found")
+	_, err = invoke(t, l, "getContentApprovalRequest", map[string]property.Value{"contentSid": sv("")})
+	require.ErrorContains(t, err, "must be set")
+}

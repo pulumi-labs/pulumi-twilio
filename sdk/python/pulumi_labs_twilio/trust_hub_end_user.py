@@ -82,7 +82,7 @@ class TrustHubEndUser(pulumi.CustomResource):
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a Customer Profile or Trust Product to do that (not yet modelled).
+        A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a CustomerProfile or TrustProduct (CustomerProfileEntityAssignment, TrustProductEntityAssignment) to do that.
 
 
         :param str resource_name: The name of the resource.
@@ -98,7 +98,7 @@ class TrustHubEndUser(pulumi.CustomResource):
                  args: TrustHubEndUserArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a Customer Profile or Trust Product to do that (not yet modelled).
+        A Twilio TrustHub end user (trusthub.twilio.com /v1/EndUsers): the business, individual or authorized representative information that regulatory bundles are built from. The resource ID is the end user SID (IT...). Creating one does not submit anything for review; assign it to a CustomerProfile or TrustProduct (CustomerProfileEntityAssignment, TrustProductEntityAssignment) to do that.
 
 
         :param str resource_name: The name of the resource.

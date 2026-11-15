@@ -32,7 +32,7 @@ var contentMangleCreate func(map[string]any)
 
 func (f *fakeTwilio) handleContent(w http.ResponseWriter, r *http.Request, body []byte, rest string) {
 	parts := strings.Split(rest, "/")
-	if parts[0] != "Content" || len(parts) > 3 || (len(parts) == 3 && parts[2] != "ApprovalRequests") {
+	if parts[0] != "Content" || len(parts) > 4 || (len(parts) >= 3 && parts[2] != "ApprovalRequests") || (len(parts) == 4 && parts[3] != "whatsapp") {
 		ferr(w, 404, "no route "+r.URL.Path)
 		return
 	}
@@ -86,6 +86,10 @@ func (f *fakeTwilio) handleContent(w http.ResponseWriter, r *http.Request, body 
 		ferr(w, 404, "The requested resource "+r.URL.Path+" was not found")
 		return
 	}
+	if len(parts) == 4 {
+		f.handleContentApproval(w, r, body, o)
+		return
+	}
 	if len(parts) == 3 {
 		if r.Method != "GET" {
 			ferr(w, 405, "method not allowed")
@@ -108,6 +112,61 @@ func (f *fakeTwilio) handleContent(w http.ResponseWriter, r *http.Request, body 
 	case "DELETE":
 		f.del("ct", testAccount, parts[1])
 		w.WriteHeader(204)
+	default:
+		ferr(w, 405, "method not allowed")
+	}
+}
+
+// handleContentApproval serves POST and PATCH /Content/{sid}/ApprovalRequests/whatsapp.
+func (f *fakeTwilio) handleContentApproval(w http.ResponseWriter, r *http.Request, body []byte, o map[string]any) {
+	var req map[string]any
+	if err := json.Unmarshal(body, &req); err != nil {
+		ferr(w, 400, "invalid JSON body")
+		return
+	}
+	switch r.Method {
+	case "POST":
+		if a, ok := o["approval"].(map[string]any); ok && a != nil {
+			ferr(w, 409, "approval request already exists")
+			return
+		}
+		for k := range req {
+			switch k {
+			case "name", "category", "send_ttl_seconds", "bid_amount":
+			default:
+				ferr(w, 400, "unknown field "+k)
+				return
+			}
+		}
+		if n, _ := req["name"].(string); n == "" {
+			ferr(w, 400, "name is required")
+			return
+		}
+		if c, _ := req["category"].(string); c == "" {
+			ferr(w, 400, "category is required")
+			return
+		}
+		a := map[string]any{"name": req["name"], "category": req["category"], "content_type": "twilio/text", "status": "received",
+			"rejection_reason": "", "allow_category_change": true}
+		for _, k := range []string{"send_ttl_seconds", "bid_amount"} {
+			if v, ok := req[k]; ok {
+				a[k] = v
+			}
+		}
+		o["approval"] = a
+		fwrite(w, 201, a)
+	case "PATCH":
+		a, ok := o["approval"].(map[string]any)
+		if !ok || a == nil {
+			ferr(w, 404, "no approval request")
+			return
+		}
+		if _, ok := req["bid_amount"]; !ok || len(req) != 1 {
+			ferr(w, 400, "bid_amount is the only updatable field")
+			return
+		}
+		a["bid_amount"] = req["bid_amount"]
+		fwrite(w, 200, a)
 	default:
 		ferr(w, 405, "method not allowed")
 	}

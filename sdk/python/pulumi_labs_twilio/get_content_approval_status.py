@@ -121,7 +121,7 @@ class AwaitableGetContentApprovalStatusResult(GetContentApprovalStatusResult):
 def get_content_approval_status(sid: Optional[_builtins.str] = None,
                                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetContentApprovalStatusResult:
     """
-    Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+    Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
 
 
     :param _builtins.str sid: SID (HX...) of the Content template.
@@ -142,7 +142,7 @@ def get_content_approval_status(sid: Optional[_builtins.str] = None,
 def get_content_approval_status_output(sid: Optional[pulumi.Input[_builtins.str]] = None,
                                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetContentApprovalStatusResult]:
     """
-    Read the WhatsApp approval status of a Content template. Submitting the template for approval is not managed by this provider.
+    Read the WhatsApp approval status of a Content template. Submit the template with the ContentApprovalRequest resource.
 
 
     :param _builtins.str sid: SID (HX...) of the Content template.

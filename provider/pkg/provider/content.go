@@ -33,8 +33,8 @@ import (
 //
 // The shapes below follow twilio-oai spec/json/twilio_content_v1.json (version 1.1.0) read
 // 2026-11-12 and have not been checked against a live account. The WhatsApp approval submission
-// (POST and PATCH /v1/Content/{Sid}/ApprovalRequests/whatsapp) is not a resource here, see
-// research/coverage/twilio.md.
+// (POST and PATCH /v1/Content/{Sid}/ApprovalRequests/whatsapp) is the ContentApprovalRequest
+// resource, see content_approval.go.
 
 const contentProduct = "content"
 
@@ -609,7 +609,7 @@ func (s *ContentTemplateState) Annotate(a infer.Annotator) {
 
 func (r *ContentTemplate) Annotate(a infer.Annotator) {
 	a.Describe(&r, "A Twilio Content template. The resource ID is the template SID (HX...). Optional settings that are removed leave the setting as it is on Twilio. "+
-		"Submitting the template to WhatsApp for approval is not managed here; read the result with the getContentApprovalStatus function.")
+		"Submit it to WhatsApp for approval with the ContentApprovalRequest resource.")
 }
 
 var _ infer.CustomResource[ContentTemplateArgs, ContentTemplateState] = (*ContentTemplate)(nil)

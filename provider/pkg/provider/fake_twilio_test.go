@@ -59,6 +59,7 @@ type fakeTwilio struct {
 	oauthBodies               []map[string]any // the JSON bodies of the OAuth app creates
 	calls                     []fakeCall
 	failure                   map[string]int        // "METHOD substring" -> status to return once
+	proxyGone400              bool                  // Proxy answers a missing Service or Phone Number with 400 and error 80408/80407, as Twilio does (#2047)
 	verifyMsgCfgFake200       bool                  // a GET of a missing Verify messaging configuration answers 200 with an empty one, as Twilio does
 	pricingMaxPage            int                   // when set, pricing country lists never return more than this many items per page
 	dialingMaxPage            int                   // when set, dialing permission lists never return more than this many items per page

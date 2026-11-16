@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-11-16
+
+- Fixed: `ProxyService` and `ProxyPhoneNumber` refresh failing after the object was deleted outside Pulumi: Twilio Proxy answers a fetch or delete of a deleted Service or Phone Number with HTTP 400 and error 80408 (Service Sid Invalid) or 80407 (Phone Number Sid Invalid), not 404, so Read raised an error instead of dropping the resource and Delete failed. Read, Delete and the `getProxyService` and `getProxyPhoneNumber` lookups now treat exactly those two codes as gone (the lookups report "was not found"); every other 400, and a create or update that names a bad parent, stays an error (pulumi-labs/pulumi-twilio#42, #2047).
+
 ## [0.8.0] - 2026-11-15
 
 - Security: updated `golang.org/x/crypto` to v0.59.0 (and its `golang.org/x` companions), clearing GO-2026-5932 (the unmaintained `x/crypto/openpgp` package) for scanners; the provider does not import `openpgp`. Not breaking.

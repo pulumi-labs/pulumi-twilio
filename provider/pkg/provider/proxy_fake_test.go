@@ -36,7 +36,17 @@ var proxyServiceFakeFields = []fakeField{
 
 func (f *fakeTwilio) handleProxy(w http.ResponseWriter, r *http.Request, form url.Values, rest string) {
 	parts := strings.Split(rest, "/")
-	notFound := func() { ferr(w, 404, "The requested resource "+r.URL.Path+" was not found") }
+	notFound := func() {
+		if !f.proxyGone400 {
+			ferr(w, 404, "The requested resource "+r.URL.Path+" was not found")
+			return
+		}
+		code, what := 80408, "Service Sid"
+		if _, ok := f.objs[key("px", testAccount, "Services/"+parts[min(1, len(parts)-1)])]; len(parts) == 4 && ok {
+			code, what = 80407, "Phone Number Sid"
+		}
+		fwrite(w, 400, map[string]any{"code": code, "message": what + " is invalid", "status": 400})
+	}
 	if parts[0] != "Services" || len(parts) > 4 || (len(parts) > 2 && parts[2] != "PhoneNumbers") {
 		notFound()
 		return

@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -192,4 +193,57 @@ func TestLookup_Proxy(t *testing.T) {
 	require.ErrorContains(t, err, "was not found")
 	_, err = invoke(t, l, "getProxyPhoneNumber", map[string]property.Value{"serviceSid": sv(""), "sid": sv(sid)})
 	require.ErrorContains(t, err, "must be set")
+}
+
+// Twilio answers a fetch or delete of a deleted Proxy Service or Phone Number with HTTP 400 and
+// error 80408/80407, not 404 (pulumi-labs/pulumi-twilio#42, #2047).
+func TestProxyGoneAnswers400(t *testing.T) {
+	l := newTL(t, "ProxyService", "svc")
+	l.f.proxyGone400 = true
+	in := pv(map[string]property.Value{"uniqueName": sv("masked")})
+	c := l.create(in)
+	num := l.other("ProxyPhoneNumber", "num")
+	n := num.create(pv(map[string]property.Value{"serviceSid": sv(c.ID), "phoneNumber": sv("+14155551234")}))
+	nsid := getS(t, n.Properties, "sid")
+	nin := pv(map[string]property.Value{"serviceSid": sv(c.ID), "phoneNumber": sv("+14155551234")})
+
+	// The phone number is deleted out of band: refresh drops it, delete succeeds.
+	l.f.remove("px", testAccount, "Services/"+c.ID+"/PhoneNumbers/"+nsid)
+	require.Empty(t, num.read(c.ID+"/"+nsid, n.Properties, nin).ID)
+	_, err := invoke(t, l, "getProxyPhoneNumber", map[string]property.Value{"serviceSid": sv(c.ID), "sid": sv(nsid)})
+	require.ErrorContains(t, err, "was not found")
+	num.del(c.ID+"/"+nsid, n.Properties)
+
+	// The service is deleted out of band: refresh drops it, lookups report not found, delete succeeds.
+	l.f.remove("px", testAccount, "Services/"+c.ID)
+	require.Empty(t, l.read(c.ID, c.Properties, in).ID)
+	_, err = invoke(t, l, "getProxyService", map[string]property.Value{"sid": sv(c.ID)})
+	require.ErrorContains(t, err, "was not found")
+	l.del(c.ID, c.Properties)
+	require.Empty(t, num.read(c.ID+"/"+nsid, n.Properties, nin).ID)
+	num.del(c.ID+"/"+nsid, n.Properties)
+
+	// An import of a missing service still fails.
+	l.requireImportFails("KS" + strings.Repeat("0", 32))
+}
+
+func TestIsProxyGone(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		err  error
+		want bool
+	}{
+		{"404", &apiError{Status: 404}, true},
+		{"400 service sid invalid", &apiError{Status: 400, Code: 80408}, true},
+		{"400 phone number sid invalid", &apiError{Status: 400, Code: 80407}, true},
+		{"400 other proxy code", &apiError{Status: 400, Code: 80404}, false},
+		{"400 generic", &apiError{Status: 400, Code: 20001}, false},
+		{"400 no code", &apiError{Status: 400}, false},
+		{"500 with the code", &apiError{Status: 500, Code: 80408}, false},
+		{"not an apiError", fmt.Errorf("boom"), false},
+	} {
+		require.Equal(t, tc.want, isProxyGone(tc.err), tc.name)
+	}
+	// The general helper stays strict: a 400 is never "not found".
+	require.False(t, isNotFound(&apiError{Status: 400, Code: 80408}))
 }

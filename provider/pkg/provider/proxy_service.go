@@ -157,7 +157,7 @@ func (r *ProxyService) Read(ctx context.Context, req infer.ReadRequest[ProxyServ
 	}
 	o, err := c.do(ctx, "GET", proxyProduct, proxyPath(req.ID), nil, nil)
 	if err != nil {
-		if isNotFound(err) {
+		if isProxyGone(err) {
 			if err := notFoundOnImport("Proxy service", req.ID, req.Inputs, req.State); err != nil {
 				return resp{}, err
 			}
@@ -205,7 +205,7 @@ func (r *ProxyService) Delete(ctx context.Context, req infer.DeleteRequest[Proxy
 	if err != nil {
 		return infer.DeleteResponse{}, err
 	}
-	if _, err := c.do(ctx, "DELETE", proxyProduct, proxyPath(req.ID), nil, nil); err != nil && !isNotFound(err) {
+	if _, err := c.do(ctx, "DELETE", proxyProduct, proxyPath(req.ID), nil, nil); err != nil && !isProxyGone(err) {
 		return infer.DeleteResponse{}, fmt.Errorf("delete Proxy service %s: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil

@@ -16,6 +16,7 @@ package provider
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/pulumi/pulumi-go-provider/infer"
 )
@@ -31,6 +32,9 @@ func proxyLookup(ctx context.Context, fn, what, path string) (obj, error) {
 	}
 	o, err := c.do(ctx, "GET", proxyProduct, path, nil, nil)
 	if err != nil {
+		if isProxyGone(err) {
+			return nil, lookupFailure(fn, what, &apiError{Status: http.StatusNotFound, Message: err.Error()})
+		}
 		return nil, lookupFailure(fn, what, err)
 	}
 	return o, nil

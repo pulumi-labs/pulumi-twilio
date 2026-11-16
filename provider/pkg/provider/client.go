@@ -155,6 +155,27 @@ func isNotFound(err error) bool {
 	return ok && ae.Status == http.StatusNotFound
 }
 
+// Twilio Proxy answers a fetch or delete of a Service or Phone Number that no longer exists with
+// HTTP 400 and one of these error codes instead of 404 (error catalog: 80407 Phone Number Sid
+// Invalid, 80408 Service Sid Invalid; pulumi-labs/pulumi-twilio#42).
+const (
+	proxyPhoneNumberSidInvalid = 80407
+	proxyServiceSidInvalid     = 80408
+)
+
+// isProxyGone reports whether err says a Proxy Service or Phone Number is gone: a 404, or a 400
+// carrying one of the Proxy "sid invalid" codes. It is used only where the object is read, looked
+// up or deleted by a SID the provider holds. A create or update that names a bad parent keeps
+// its 400 as an error, and no other 400 is treated as gone.
+func isProxyGone(err error) bool {
+	if isNotFound(err) {
+		return true
+	}
+	ae, ok := err.(*apiError)
+	return ok && ae.Status == http.StatusBadRequest &&
+		(ae.Code == proxyServiceSidInvalid || ae.Code == proxyPhoneNumberSidInvalid)
+}
+
 // isRefusal reports whether err is a Twilio 400 with error code 20001 (a generic code) whose
 // message holds every one of the given lower case fragments. Matching the text keeps an unrelated
 // 20001 a real failure.

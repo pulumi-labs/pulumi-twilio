@@ -165,7 +165,7 @@ func (r *ProxyPhoneNumber) Read(ctx context.Context, req infer.ReadRequest[Proxy
 	}
 	o, err := c.do(ctx, "GET", proxyProduct, proxyPath(parts[0], "PhoneNumbers", parts[1]), nil, nil)
 	if err != nil {
-		if isNotFound(err) {
+		if isProxyGone(err) {
 			if err := notFoundOnImport("Proxy phone number", req.ID, req.Inputs, req.State); err != nil {
 				return resp{}, err
 			}
@@ -227,7 +227,7 @@ func (r *ProxyPhoneNumber) Delete(ctx context.Context, req infer.DeleteRequest[P
 	if err != nil {
 		return infer.DeleteResponse{}, err
 	}
-	if _, err := c.do(ctx, "DELETE", proxyProduct, proxyPath(parts[0], "PhoneNumbers", parts[1]), nil, nil); err != nil && !isNotFound(err) {
+	if _, err := c.do(ctx, "DELETE", proxyProduct, proxyPath(parts[0], "PhoneNumbers", parts[1]), nil, nil); err != nil && !isProxyGone(err) {
 		return infer.DeleteResponse{}, fmt.Errorf("remove phone number %s from its Proxy service: %w", req.ID, err)
 	}
 	return infer.DeleteResponse{}, nil

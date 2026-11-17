@@ -13,19 +13,19 @@ namespace Pulumi.Labs.Twilio
     public static class GetMessagingGeoPermissions
     {
         /// <summary>
-        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
         /// </summary>
         public static Task<GetMessagingGeoPermissionsResult> InvokeAsync(GetMessagingGeoPermissionsArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetMessagingGeoPermissionsResult>("twilio:index:getMessagingGeoPermissions", args ?? new GetMessagingGeoPermissionsArgs(), options.WithDefaults());
 
         /// <summary>
-        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
         /// </summary>
         public static Output<GetMessagingGeoPermissionsResult> Invoke(GetMessagingGeoPermissionsInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetMessagingGeoPermissionsResult>("twilio:index:getMessagingGeoPermissions", args ?? new GetMessagingGeoPermissionsInvokeArgs(), options.WithDefaults());
 
         /// <summary>
-        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+        /// Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
         /// </summary>
         public static Output<GetMessagingGeoPermissionsResult> Invoke(GetMessagingGeoPermissionsInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetMessagingGeoPermissionsResult>("twilio:index:getMessagingGeoPermissions", args ?? new GetMessagingGeoPermissionsInvokeArgs(), options.WithDefaults());

@@ -16,6 +16,8 @@ package provider
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/url"
 
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -24,6 +26,16 @@ import (
 // Lookups of the Accounts v1 objects.
 
 func accountsLookup(ctx context.Context, fn, what, path string, query map[string]string) (obj, error) {
+	o, err := accountsGet(ctx, path, query)
+	if err != nil {
+		return nil, lookupFailure(fn, what, err)
+	}
+	return o, nil
+}
+
+// accountsGet is accountsLookup without the error wrapping, for a lookup that reads a
+// 404 differently from "object not found".
+func accountsGet(ctx context.Context, path string, query map[string]string) (obj, error) {
 	c, err := clientFor(ctx)
 	if err != nil {
 		return nil, err
@@ -35,11 +47,7 @@ func accountsLookup(ctx context.Context, fn, what, path string, query map[string
 			q.Set(k, v)
 		}
 	}
-	o, err := c.do(ctx, "GET", accountsProduct, path, q, nil)
-	if err != nil {
-		return nil, lookupFailure(fn, what, err)
-	}
-	return o, nil
+	return c.do(ctx, "GET", accountsProduct, path, q, nil)
 }
 
 // ------------------------------------------------------------ getAwsCredential
@@ -208,7 +216,7 @@ func (a *GetMessagingGeoPermissionsResult) Annotate(an infer.Annotator) {
 }
 
 func (f *GetMessagingGeoPermissions) Annotate(a infer.Annotator) {
-	a.Describe(&f, "Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.")
+	a.Describe(&f, "Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a \"not available for this account\" error; success against a live account is unverified.")
 }
 
 func (f *GetMessagingGeoPermissions) Invoke(ctx context.Context, req infer.FunctionRequest[GetMessagingGeoPermissionsArgs]) (infer.FunctionResponse[GetMessagingGeoPermissionsResult], error) {
@@ -218,9 +226,17 @@ func (f *GetMessagingGeoPermissions) Invoke(ctx context.Context, req infer.Funct
 	if v := req.Input.CountryCodes; v != nil && *v != "" {
 		query = map[string]string{"CountryCode": *v}
 	}
-	o, err := accountsLookup(ctx, fn, "messaging geo permissions", "/v1/Messaging/GeoPermissions", query)
+	o, err := accountsGet(ctx, "/v1/Messaging/GeoPermissions", query)
 	if err != nil {
-		return resp{}, err
+		// The lookup names no object, so a 404 can never mean "not found": it means Twilio
+		// does not serve the endpoint for this account (a live Full account answered
+		// 404 with error 20404, #2069).
+		if isNotFound(err) {
+			return resp{}, fmt.Errorf("%s: the Twilio Messaging Geo Permissions API is not available for this account: "+
+				"Twilio answered HTTP 404%s for GET /v1/Messaging/GeoPermissions; read or change the permissions in the "+
+				"Twilio Console (Messaging > Settings > Geo permissions)", fn, geoErrorCode(err))
+		}
+		return resp{}, lookupFailure(fn, "messaging geo permissions", err)
 	}
 	out := GetMessagingGeoPermissionsResult{Permissions: []MessagingGeoPermission{}}
 	if list, ok := o.get("permissions").([]any); ok {
@@ -235,4 +251,13 @@ func (f *GetMessagingGeoPermissions) Invoke(ctx context.Context, req infer.Funct
 		}
 	}
 	return resp{Output: out}, nil
+}
+
+// geoErrorCode renders the Twilio error code of a failed call, for example " (error 20404)".
+func geoErrorCode(err error) string {
+	var ae *apiError
+	if errors.As(err, &ae) && ae.Code != 0 {
+		return fmt.Sprintf(" (error %d)", ae.Code)
+	}
+	return ""
 }

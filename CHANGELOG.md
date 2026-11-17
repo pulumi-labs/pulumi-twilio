@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.2] - 2026-11-17
+
+- Fixed: `getMessagingGeoPermissions` on an account for which Twilio does not serve `/v1/Messaging/GeoPermissions` (a live Full account answered HTTP 404 with error 20404) reported \"messaging geo permissions was not found\". It now fails with \"the Twilio Messaging Geo Permissions API is not available for this account\" and points to the Console; the function description says so. Error text only; a successful lookup is unchanged and still unverified against a live account (pulumi-labs/pulumi-twilio#44, fixes #2069). Not breaking.
+
 ## [0.8.1] - 2026-11-16
 
 - Fixed: `ProxyService` and `ProxyPhoneNumber` refresh failing after the object was deleted outside Pulumi: Twilio Proxy answers a fetch or delete of a deleted Service or Phone Number with HTTP 400 and error 80408 (Service Sid Invalid) or 80407 (Phone Number Sid Invalid), not 404, so Read raised an error instead of dropping the resource and Delete failed. Read, Delete and the `getProxyService` and `getProxyPhoneNumber` lookups now treat exactly those two codes as gone (the lookups report "was not found"); every other 400, and a create or update that names a bad parent, stays an error (pulumi-labs/pulumi-twilio#42, #2047).

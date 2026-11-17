@@ -19120,7 +19120,7 @@
       }
     },
     "twilio:index:getMessagingGeoPermissions": {
-      "description": "Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.",
+      "description": "Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a \"not available for this account\" error; success against a live account is unverified.",
       "inputs": {
         "properties": {
           "countryCodes": {

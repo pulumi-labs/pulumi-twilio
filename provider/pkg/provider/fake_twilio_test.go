@@ -50,6 +50,7 @@ type fakeTwilio struct {
 	server *httptest.Server
 
 	mu                        sync.Mutex
+	geoPermissionsUnavailable bool                      // /v1/Messaging/GeoPermissions answers 404 / 20404 (#2069)
 	endlessKeyPages           bool                      // the account-explicit key list never ends (a truncation probe)
 	templatePageSize          int                       // when set, /v2/Templates pages hold this many items
 	memoryApply               map[string]func()         // pending Memory operation effects, by operation ID

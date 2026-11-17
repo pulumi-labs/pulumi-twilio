@@ -1,3 +1,0 @@
-name: twilio-messaging-java
-runtime: java
-description: Route SMS and voice webhooks with a Twilio application and messaging service (Java)

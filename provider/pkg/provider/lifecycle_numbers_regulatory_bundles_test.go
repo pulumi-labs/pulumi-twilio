@@ -86,12 +86,22 @@ func TestRegulatoryBundleLC_ResolvedRegulationAndImport(t *testing.T) {
 
 	imp := l.read(c.ID, empty(), empty())
 	require.Equal(t, "DE numbers", getS(t, imp.Inputs, "friendlyName"))
-	for _, k := range []string{"isoCountry", "numberType", "endUserType", "regulationSid", "isTest"} {
+	for _, k := range []string{"isoCountry", "numberType", "endUserType", "isTest"} {
 		_, adopted := imp.Inputs.GetOk(k)
 		require.False(t, adopted, k)
 	}
+	// The resolved regulation is adopted so the imported inputs pass Check (#2227).
+	require.Equal(t, getS(t, c.Properties, "effectiveRegulationSid"), getS(t, imp.Inputs, "regulationSid"))
+	require.Empty(t, l.check(imp.Inputs).Failures, "imported inputs pass the resource's own Check")
+	// A refresh with the program's inputs keeps them and adds no regulationSid.
+	ref := l.read(c.ID, c.Properties, in)
+	_, adopted := ref.Inputs.GetOk("regulationSid")
+	require.False(t, adopted, "a refresh keeps the program's parts")
 	requireNoChanges(t, l.diff(c.ID, imp.Properties, in, imp.Inputs))
-	requireNoChanges(t, l.diff(c.ID, imp.Properties, with(in, map[string]property.Value{"regulationSid": sv(regRegulation)}), imp.Inputs))
+	resolved := getS(t, c.Properties, "effectiveRegulationSid")
+	requireNoChanges(t, l.diff(c.ID, imp.Properties, with(without(in, "isoCountry", "numberType", "endUserType"), map[string]property.Value{"regulationSid": sv(resolved)}), imp.Inputs))
+	// A program that names another regulation than the one Twilio resolved replaces the bundle.
+	require.Equal(t, pgp.UpdateReplace, l.diff(c.ID, imp.Properties, with(without(in, "isoCountry", "numberType", "endUserType"), map[string]property.Value{"regulationSid": sv(regRegulation)}), imp.Inputs).DetailedDiff["regulationSid"].Kind)
 	l.requireImportFails("BU00000000000000000000000000000099")
 }
 

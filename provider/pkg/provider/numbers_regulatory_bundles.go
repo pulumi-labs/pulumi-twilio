@@ -68,7 +68,7 @@ func (a *RegulatoryBundleArgs) Annotate(an infer.Annotator) {
 	an.Describe(&a.Email, "Email address that receives updates when the bundle changes status.")
 	an.Describe(&a.StatusCallback, "URL Twilio calls when the status changes. Removing the input leaves the URL unchanged.")
 	an.Describe(&a.Submit, "Set to true to submit the bundle for Twilio's review (status pending-review) once its end users and documents are assigned. Submitting cannot be undone from the provider: setting it back to false or removing it changes nothing, and neither does it when the status is no longer draft. Twilio rejects the submission when the bundle is not compliant with its regulation; the create then fails and the draft is deleted. Not read back, so it is not drift.")
-	an.Describe(&a.RegulationSid, "SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.")
+	an.Describe(&a.RegulationSid, "SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.")
 	an.Describe(&a.IsoCountry, "ISO 3166-1 alpha-2 code of the country of the phone numbers the bundle covers. Not read back; changing it replaces the bundle.")
 	an.Describe(&a.NumberType, "Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.")
 	an.Describe(&a.EndUserType, "Who owns the numbers: individual or business. Not read back; changing it replaces the bundle.")
@@ -238,6 +238,13 @@ func (r *RegulatoryBundle) Read(ctx context.Context, req infer.ReadRequest[Regul
 	in.FriendlyName, in.Email = o.str("friendly_name"), o.str("email")
 	if v := nonEmpty(o.optStr("status_callback")); v != nil || in.StatusCallback != nil {
 		in.StatusCallback = v
+	}
+	// An import has no regulation input at all, and a bundle without one fails Check. Twilio does
+	// return the regulation it resolved, so adopt it as regulationSid; a program that states
+	// isoCountry, numberType and endUserType instead stays clean (Diff only replaces when both
+	// sides hold a regulationSid and they differ). A refresh keeps the inputs the program wrote.
+	if in.RegulationSid == nil && in.IsoCountry == nil && in.NumberType == nil && in.EndUserType == nil {
+		in.RegulationSid = nonEmpty(o.optStr("regulation_sid"))
 	}
 	st := RegulatoryBundleState{RegulatoryBundleArgs: in}
 	st.fill(o)

@@ -77,7 +77,7 @@ namespace Pulumi.Labs.Twilio
         public Output<string?> NumberType { get; private set; } = null!;
 
         /// <summary>
-        /// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        /// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         /// </summary>
         [Output("regulationSid")]
         public Output<string?> RegulationSid { get; private set; } = null!;
@@ -195,7 +195,7 @@ namespace Pulumi.Labs.Twilio
         public Input<string>? NumberType { get; set; }
 
         /// <summary>
-        /// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        /// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         /// </summary>
         [Input("regulationSid")]
         public Input<string>? RegulationSid { get; set; }

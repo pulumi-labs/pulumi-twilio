@@ -36,7 +36,7 @@ type RegulatoryBundle struct {
 	IsoCountry pulumi.StringPtrOutput `pulumi:"isoCountry"`
 	// Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.
 	NumberType pulumi.StringPtrOutput `pulumi:"numberType"`
-	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
 	RegulationSid pulumi.StringPtrOutput `pulumi:"regulationSid"`
 	// The bundle SID (BU...).
 	Sid pulumi.StringOutput `pulumi:"sid"`
@@ -108,7 +108,7 @@ type regulatoryBundleArgs struct {
 	IsoCountry *string `pulumi:"isoCountry"`
 	// Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.
 	NumberType *string `pulumi:"numberType"`
-	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
 	RegulationSid *string `pulumi:"regulationSid"`
 	// URL Twilio calls when the status changes. Removing the input leaves the URL unchanged.
 	StatusCallback *string `pulumi:"statusCallback"`
@@ -130,7 +130,7 @@ type RegulatoryBundleArgs struct {
 	IsoCountry pulumi.StringPtrInput
 	// Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.
 	NumberType pulumi.StringPtrInput
-	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+	// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
 	RegulationSid pulumi.StringPtrInput
 	// URL Twilio calls when the status changes. Removing the input leaves the URL unchanged.
 	StatusCallback pulumi.StringPtrInput
@@ -275,7 +275,7 @@ func (o RegulatoryBundleOutput) NumberType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RegulatoryBundle) pulumi.StringPtrOutput { return v.NumberType }).(pulumi.StringPtrOutput)
 }
 
-// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+// SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
 func (o RegulatoryBundleOutput) RegulationSid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RegulatoryBundle) pulumi.StringPtrOutput { return v.RegulationSid }).(pulumi.StringPtrOutput)
 }

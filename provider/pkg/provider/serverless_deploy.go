@@ -25,6 +25,7 @@ import (
 	"net/url"
 	"path"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 
@@ -540,17 +541,23 @@ func (r *ServerlessBuild) Check(ctx context.Context, req infer.CheckRequest) (in
 	return infer.CheckResponse[ServerlessBuildArgs]{Inputs: args, Failures: c.failures}, nil
 }
 
+// sameList compares two SID lists as sets with multiplicity: Twilio returns a
+// build's function and asset versions in its own order (newest first), which
+// need not be the order the program wrote them in, and the order carries no
+// meaning for a build. nil and empty are equal.
 func sameList(a, b *[]string) bool {
 	var x, y []string
 	if a != nil {
-		x = *a
+		x = append(x, *a...)
 	}
 	if b != nil {
-		y = *b
+		y = append(y, *b...)
 	}
 	if len(x) != len(y) {
 		return false
 	}
+	sort.Strings(x)
+	sort.Strings(y)
 	for i := range x {
 		if x[i] != y[i] {
 			return false

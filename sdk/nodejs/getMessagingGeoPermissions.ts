@@ -7,7 +7,7 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+ * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
  */
 export function getMessagingGeoPermissions(args?: GetMessagingGeoPermissionsArgs, opts?: pulumi.InvokeOptions): Promise<GetMessagingGeoPermissionsResult> {
     args = args || {};
@@ -31,7 +31,7 @@ export interface GetMessagingGeoPermissionsResult {
     readonly permissions: outputs.MessagingGeoPermission[];
 }
 /**
- * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+ * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
  */
 export function getMessagingGeoPermissionsOutput(args?: GetMessagingGeoPermissionsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetMessagingGeoPermissionsResult> {
     args = args || {};

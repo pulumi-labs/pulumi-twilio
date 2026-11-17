@@ -40,6 +40,8 @@ func (f *fakeTwilio) handleAccounts(w http.ResponseWriter, r *http.Request, form
 		f.accountsCredential(w, r, form, parts[1], sid, notFound)
 	case rest == "SafeList/Numbers":
 		f.accountsSafeList(w, r, form, notFound)
+	case rest == "Messaging/GeoPermissions" && r.Method == "GET" && f.geoPermissionsUnavailable:
+		fwrite(w, 404, map[string]any{"code": 20404, "message": "The requested resource /v1/Messaging/GeoPermissions was not found", "status": 404})
 	case rest == "Messaging/GeoPermissions" && r.Method == "GET":
 		all := []any{
 			map[string]any{"country_code": "IN", "type": "country", "enabled": false, "prefix": "+91", "message": ""},

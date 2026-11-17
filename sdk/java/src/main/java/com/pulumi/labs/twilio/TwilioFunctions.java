@@ -3585,49 +3585,49 @@ public final class TwilioFunctions {
         return Deployment.getInstance().invokeAsync("twilio:index:getMessagingDeactivations", TypeShape.of(GetMessagingDeactivationsResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions() {
         return getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs.Empty, InvokeOptions.Empty);
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain() {
         return getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs.Empty, InvokeOptions.Empty);
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args) {
         return getMessagingGeoPermissions(args, InvokeOptions.Empty);
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs args) {
         return getMessagingGeoPermissionsPlain(args, InvokeOptions.Empty);
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("twilio:index:getMessagingGeoPermissions", TypeShape.of(GetMessagingGeoPermissionsResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static Output<GetMessagingGeoPermissionsResult> getMessagingGeoPermissions(GetMessagingGeoPermissionsArgs args, InvokeOutputOptions options) {
         return Deployment.getInstance().invoke("twilio:index:getMessagingGeoPermissions", TypeShape.of(GetMessagingGeoPermissionsResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+     * Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a &#34;not available for this account&#34; error; success against a live account is unverified.
      * 
      */
     public static CompletableFuture<GetMessagingGeoPermissionsResult> getMessagingGeoPermissionsPlain(GetMessagingGeoPermissionsPlainArgs args, InvokeOptions options) {

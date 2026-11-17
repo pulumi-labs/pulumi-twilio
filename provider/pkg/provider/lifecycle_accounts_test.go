@@ -209,3 +209,14 @@ func TestLookup_Accounts(t *testing.T) {
 	require.Equal(t, "High Risk Country", perms[1].AsMap().Get("message").AsString())
 	require.False(t, hasProp(perms[0].AsMap(), "message"))
 }
+
+// An account without the Messaging Geo Permissions API gets HTTP 404 / 20404 for the
+// endpoint (#2069); the lookup must not claim an object "was not found".
+func TestLookup_MessagingGeoPermissionsUnavailable(t *testing.T) {
+	l := newTL(t, "AwsCredential", "aws")
+	l.f.geoPermissionsUnavailable = true
+	_, err := invoke(t, l, "getMessagingGeoPermissions", map[string]property.Value{})
+	require.ErrorContains(t, err, "not available for this account")
+	require.ErrorContains(t, err, "Twilio Console")
+	require.NotContains(t, err.Error(), "was not found")
+}

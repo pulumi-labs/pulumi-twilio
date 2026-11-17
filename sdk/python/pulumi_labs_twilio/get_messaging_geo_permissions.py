@@ -50,7 +50,7 @@ class AwaitableGetMessagingGeoPermissionsResult(GetMessagingGeoPermissionsResult
 def get_messaging_geo_permissions(country_codes: Optional[_builtins.str] = None,
                                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMessagingGeoPermissionsResult:
     """
-    Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+    Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
 
 
     :param _builtins.str country_codes: Comma separated ISO country codes to report, for example IN,PK,US. Omit it for every country.
@@ -65,7 +65,7 @@ def get_messaging_geo_permissions(country_codes: Optional[_builtins.str] = None,
 def get_messaging_geo_permissions_output(country_codes: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                                          opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetMessagingGeoPermissionsResult]:
     """
-    Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only.
+    Read the messaging geo permissions of the account (accounts.twilio.com /v1/Messaging/GeoPermissions). They can be changed in the Twilio Console only; the API is read-only. Twilio does not serve this endpoint for every account (a live Full account answered 404 with error 20404), in which case the lookup fails with a "not available for this account" error; success against a live account is unverified.
 
 
     :param _builtins.str country_codes: Comma separated ISO country codes to report, for example IN,PK,US. Omit it for every country.

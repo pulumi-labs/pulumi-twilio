@@ -37,7 +37,7 @@ class RegulatoryBundleArgs:
         :param pulumi.Input[_builtins.bool] is_test: Marks a test bundle, which Twilio rejects automatically after submission. Not read back; changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] iso_country: ISO 3166-1 alpha-2 code of the country of the phone numbers the bundle covers. Not read back; changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] number_type: Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.
-        :param pulumi.Input[_builtins.str] regulation_sid: SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        :param pulumi.Input[_builtins.str] regulation_sid: SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] status_callback: URL Twilio calls when the status changes. Removing the input leaves the URL unchanged.
         :param pulumi.Input[_builtins.bool] submit: Set to true to submit the bundle for Twilio's review (status pending-review) once its end users and documents are assigned. Submitting cannot be undone from the provider: setting it back to false or removing it changes nothing, and neither does it when the status is no longer draft. Twilio rejects the submission when the bundle is not compliant with its regulation; the create then fails and the draft is deleted. Not read back, so it is not drift.
         """
@@ -134,7 +134,7 @@ class RegulatoryBundleArgs:
     @pulumi.getter(name="regulationSid")
     def regulation_sid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         """
         return pulumi.get(self, "regulation_sid")
 
@@ -195,7 +195,7 @@ class RegulatoryBundle(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] is_test: Marks a test bundle, which Twilio rejects automatically after submission. Not read back; changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] iso_country: ISO 3166-1 alpha-2 code of the country of the phone numbers the bundle covers. Not read back; changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] number_type: Type of the phone numbers: local, mobile, national or toll-free. Not read back; changing it replaces the bundle.
-        :param pulumi.Input[_builtins.str] regulation_sid: SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        :param pulumi.Input[_builtins.str] regulation_sid: SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         :param pulumi.Input[_builtins.str] status_callback: URL Twilio calls when the status changes. Removing the input leaves the URL unchanged.
         :param pulumi.Input[_builtins.bool] submit: Set to true to submit the bundle for Twilio's review (status pending-review) once its end users and documents are assigned. Submitting cannot be undone from the provider: setting it back to false or removing it changes nothing, and neither does it when the status is no longer draft. Twilio rejects the submission when the bundle is not compliant with its regulation; the create then fails and the draft is deleted. Not read back, so it is not drift.
         """
@@ -386,7 +386,7 @@ class RegulatoryBundle(pulumi.CustomResource):
     @pulumi.getter(name="regulationSid")
     def regulation_sid(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). Twilio does not return the choice you made, so it cannot be adopted on import and drift in it is not detected. Changing it replaces the bundle.
+        SID (RN...) of the regulation the bundle is for (see getRegulatoryRegulations). Give this, or isoCountry, numberType and endUserType, which Twilio resolves to a regulation (reported as effectiveRegulationSid). When the parts are given, Twilio does not return them, so drift in them is not detected; an import adopts the resolved regulation as regulationSid. Changing it replaces the bundle.
         """
         return pulumi.get(self, "regulation_sid")
 

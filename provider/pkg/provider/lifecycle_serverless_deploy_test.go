@@ -495,3 +495,46 @@ func TestServerlessBuildLC_ImportThenDiffIsClean(t *testing.T) {
 	}))})
 	require.True(t, bl.diff(imp.ID, imp.Properties, bl.checked(changed), imp.Inputs).HasChanges)
 }
+
+func TestSameList_IgnoresOrderKeepsMembership(t *testing.T) {
+	l := func(v ...string) *[]string { return &v }
+	require.True(t, sameList(nil, l()), "nil equals empty")
+	require.True(t, sameList(l("a", "b"), l("b", "a")))
+	require.True(t, sameList(l("a", "a", "b"), l("a", "b", "a")))
+	require.False(t, sameList(l("a", "a", "b"), l("a", "b", "b")), "multiplicity counts")
+	require.False(t, sameList(l("a", "b"), l("a", "c")))
+	require.False(t, sameList(l("a"), l("a", "b")))
+	in := []string{"b", "a"}
+	sameList(&in, l("a", "b"))
+	require.Equal(t, []string{"b", "a"}, in, "inputs are not reordered")
+}
+
+func TestServerlessBuildLC_ImportWithReorderedVersionsIsClean(t *testing.T) {
+	buildPollInterval = time.Millisecond
+	l := newTL(t, "ServerlessService", "svc")
+	svc := serverlessSvc(l)
+	bl := l.other("ServerlessBuild", "b")
+	in := pv(map[string]property.Value{"serviceSid": sv(svc),
+		"functionVersionSids": strList("ZN00000000000000000000000000000001", "ZN00000000000000000000000000000002"),
+		"assetVersionSids":    strList("ZN00000000000000000000000000000003", "ZN00000000000000000000000000000004")})
+	b := bl.create(in)
+	bsid := getS(t, b.Properties, "sid")
+
+	// Twilio lists the versions in its own (newest first) order, not the program's.
+	o := l.f.get("zb", testAccount, svc+"/"+bsid)
+	o["function_versions"] = []any{
+		map[string]any{"sid": "ZN00000000000000000000000000000002", "service_sid": svc},
+		map[string]any{"sid": "ZN00000000000000000000000000000001", "service_sid": svc},
+	}
+	o["asset_versions"] = []any{
+		map[string]any{"sid": "ZN00000000000000000000000000000004", "service_sid": svc},
+		map[string]any{"sid": "ZN00000000000000000000000000000003", "service_sid": svc},
+	}
+	imp := bl.read(svc+"/"+bsid, empty(), empty())
+	require.Equal(t, "ZN00000000000000000000000000000002", imp.Inputs.Get("functionVersionSids").AsArray().Get(0).AsString())
+	requireNoChanges(t, bl.diff(imp.ID, imp.Properties, bl.checked(in), imp.Inputs))
+
+	// A real membership change still replaces.
+	changed := with(in, map[string]property.Value{"assetVersionSids": strList("ZN00000000000000000000000000000003", "ZN00000000000000000000000000000005")})
+	require.True(t, bl.diff(imp.ID, imp.Properties, bl.checked(changed), imp.Inputs).HasChanges)
+}

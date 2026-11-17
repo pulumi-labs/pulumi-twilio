@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.8.3] - 2026-11-17
+
+- Fixed: `pulumi import` of a `RegulatoryBundle` failed the resource's own input check (it needs `regulationSid`, or `isoCountry`, `numberType` and `endUserType`, and an import recorded none of them). Import now adopts the regulation Twilio resolved as `regulationSid`; a program that states `isoCountry`, `numberType` and `endUserType` instead, or the same `regulationSid`, plans no change, and a different regulation still replaces the bundle. Not breaking (pulumi-labs/pulumi-twilio#47, fixes #2227).
+- Fixed: `ServerlessBuild` planned a replacement after `pulumi import` (or whenever Twilio listed the versions in another order than the program) because `functionVersionSids` and `assetVersionSids` were compared in order. Twilio returns a build's versions newest first; the lists are now compared as sets, so a different order is no change while adding, removing or swapping a version still replaces the build. Not breaking (pulumi-labs/pulumi-twilio#46, fixes #2226).
+- Security: updated indirect dependencies `github.com/go-git/go-git/v5` to v5.19.3 (clearing the go-git advisories GHSA-389r-gv7p-r3rp, GHSA-3xc5-wrhm-f963, GHSA-crhj-59gh-8x96 and others fixed in 5.19.x, plus GO-2026-4909 .. GO-2026-6214), `github.com/go-git/go-billy/v5` to v5.9.2 and `github.com/klauspost/compress` to v1.20.4 (GO-2026-6865). Dependency bump only; no schema or behaviour change.
+
 ## [0.8.2] - 2026-11-17
 
 - Fixed: `getMessagingGeoPermissions` on an account for which Twilio does not serve `/v1/Messaging/GeoPermissions` (a live Full account answered HTTP 404 with error 20404) reported \"messaging geo permissions was not found\". It now fails with \"the Twilio Messaging Geo Permissions API is not available for this account\" and points to the Console; the function description says so. Error text only; a successful lookup is unchanged and still unverified against a live account (pulumi-labs/pulumi-twilio#44, fixes #2069). Not breaking.

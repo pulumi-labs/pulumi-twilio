@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.4] - 2026-11-18
+
+- Fixed: `ServerlessBuild` planned a replacement after `pulumi import` when the program declared no `dependencies`, because Twilio also lists the Twilio SDK (`twilio`, e.g. 5.0.3) on every build and only the other defaults (`util`, `xmldom`, `lodash`, `@twilio/runtime-handler`) were ignored. `twilio` is now ignored too when the program does not list it; a program that pins `twilio` at another version still replaces the build. Not breaking (pulumi-labs/pulumi-twilio#49, fixes #2251).
+
 ## [0.8.3] - 2026-11-17
 
 - Fixed: `pulumi import` of a `RegulatoryBundle` failed the resource's own input check (it needs `regulationSid`, or `isoCountry`, `numberType` and `endUserType`, and an import recorded none of them). Import now adopts the regulation Twilio resolved as `regulationSid`; a program that states `isoCountry`, `numberType` and `endUserType` instead, or the same `regulationSid`, plans no change, and a different regulation still replaces the bundle. Not breaking (pulumi-labs/pulumi-twilio#47, fixes #2227).

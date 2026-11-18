@@ -175,9 +175,10 @@ func TestServerlessBuildLC_Lifecycle(t *testing.T) {
 	l.f.buildBuildingPolls = 2
 	svc := serverlessSvc(l)
 	fn := serverlessFn(l, svc)
+	// A non-default package: Twilio always adds "twilio" itself, so dropping that one is no change (#2251).
 	v1 := serverlessVersionSid(l, svc, fn, "one")
 	in := pv(map[string]property.Value{"serviceSid": sv(svc), "functionVersionSids": strList(v1), "runtime": sv("node20"),
-		"dependencies": property.New(property.NewArray([]property.Value{property.New(property.NewMap(map[string]property.Value{"name": sv("twilio"), "version": sv("5.3.0")}))}))})
+		"dependencies": property.New(property.NewArray([]property.Value{property.New(property.NewMap(map[string]property.Value{"name": sv("moment"), "version": sv("5.3.0")}))}))})
 	c := l.create(in)
 	sid := getS(t, c.Properties, "sid")
 	require.True(t, strings.HasPrefix(sid, "ZB"), sid)
@@ -189,7 +190,7 @@ func TestServerlessBuildLC_Lifecycle(t *testing.T) {
 	require.Equal(t, []string{v1}, form["FunctionVersions"])
 	require.Empty(t, form["AssetVersions"])
 	require.Equal(t, "node20", form.Get("Runtime"))
-	require.JSONEq(t, `[{"name":"twilio","version":"5.3.0"}]`, form.Get("Dependencies"))
+	require.JSONEq(t, `[{"name":"moment","version":"5.3.0"}]`, form.Get("Dependencies"))
 	requireNoChanges(t, l.diff(c.ID, c.Properties, in, in))
 
 	rd := l.read(c.ID, c.Properties, in)
@@ -210,7 +211,7 @@ func TestServerlessBuildLC_Lifecycle(t *testing.T) {
 	require.Equal(t, svc, getS(t, imp.Inputs, "serviceSid"))
 	require.Equal(t, "node20", getS(t, imp.Inputs, "runtime"))
 	require.Equal(t, v1, imp.Inputs.Get("functionVersionSids").AsArray().Get(0).AsString())
-	require.Equal(t, "twilio", imp.Inputs.Get("dependencies").AsArray().Get(0).AsMap().Get("name").AsString())
+	require.Equal(t, "moment", imp.Inputs.Get("dependencies").AsArray().Get(0).AsMap().Get("name").AsString())
 	requireNoChanges(t, l.diff(c.ID, imp.Properties, in, imp.Inputs))
 	_, err := l.s.Read(pgp.ReadRequest{ID: "nonsense", Urn: l.urn, Properties: empty(), Inputs: empty()})
 	require.ErrorContains(t, err, "<serviceSid>/<sid>")
@@ -537,4 +538,42 @@ func TestServerlessBuildLC_ImportWithReorderedVersionsIsClean(t *testing.T) {
 	// A real membership change still replaces.
 	changed := with(in, map[string]property.Value{"assetVersionSids": strList("ZN00000000000000000000000000000003", "ZN00000000000000000000000000000005")})
 	require.True(t, bl.diff(imp.ID, imp.Properties, bl.checked(changed), imp.Inputs).HasChanges)
+}
+
+// A program that declares no dependencies at all must plan no change against an
+// imported build, although Twilio lists "twilio" next to its other defaults
+// (#2251, pulumi-labs/pulumi-twilio#49). A program that pins "twilio" at the
+// listed version is no change either; any other version replaces.
+func TestServerlessBuildLC_ImportWithNoDeclaredDependenciesIsClean(t *testing.T) {
+	buildPollInterval = time.Millisecond
+	l := newTL(t, "ServerlessService", "svc")
+	svc := serverlessSvc(l)
+	fn := serverlessFn(l, svc)
+	v := l.other("ServerlessFunctionVersion", "v").create(pv(map[string]property.Value{"serviceSid": sv(svc), "functionSid": sv(fn), "path": sv("/hello"), "visibility": sv("protected"), "content": sv("//")}))
+	vsid := getS(t, v.Properties, "sid")
+	bl := l.other("ServerlessBuild", "b")
+	in := pv(map[string]property.Value{"serviceSid": sv(svc), "functionVersionSids": strList(vsid)})
+	b := bl.create(in)
+	bsid := getS(t, b.Properties, "sid")
+
+	o := l.f.get("zb", testAccount, svc+"/"+bsid)
+	o["dependencies"] = []any{
+		map[string]any{"name": "util", "version": "0.12.5"},
+		map[string]any{"name": "xmldom", "version": "0.6.0"},
+		map[string]any{"name": "lodash", "version": "4.17.21"},
+		map[string]any{"name": "@twilio/runtime-handler", "version": "2.1.2"},
+		map[string]any{"name": "twilio", "version": "5.0.3"},
+	}
+	imp := bl.read(svc+"/"+bsid, empty(), empty())
+	requireNoChanges(t, bl.diff(imp.ID, imp.Properties, bl.checked(in), imp.Inputs))
+
+	dep := func(ver string) property.Value {
+		return property.New(property.NewArray([]property.Value{
+			property.New(property.NewMap(map[string]property.Value{"name": sv("twilio"), "version": sv(ver)})),
+		}))
+	}
+	same := with(in, map[string]property.Value{"dependencies": dep("5.0.3")})
+	requireNoChanges(t, bl.diff(imp.ID, imp.Properties, bl.checked(same), imp.Inputs))
+	other := with(in, map[string]property.Value{"dependencies": dep("5.4.0")})
+	require.True(t, bl.diff(imp.ID, imp.Properties, bl.checked(other), imp.Inputs).HasChanges)
 }

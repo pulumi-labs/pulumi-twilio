@@ -568,9 +568,13 @@ func sameList(a, b *[]string) bool {
 
 // twilioDefaultDependencies are the packages Twilio adds to every build on top
 // of the requested ones, so an imported build lists them although no program
-// asked for them (#1878).
+// asked for them (#1878). Twilio documents that the Twilio SDK ("twilio") and
+// "@twilio/runtime-handler" are part of all Builds
+// (https://www.twilio.com/docs/serverless/functions-assets/dependencies); a
+// live import also returned "twilio" 5.0.3 (#2251).
 var twilioDefaultDependencies = map[string]bool{
 	"util": true, "xmldom": true, "lodash": true, "@twilio/runtime-handler": true,
+	"twilio": true,
 }
 
 // sameDeps reports whether the dependencies in the state (a) match those the

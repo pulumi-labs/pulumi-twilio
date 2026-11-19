@@ -438,7 +438,10 @@ func (r *FlexPluginConfiguration) Check(ctx context.Context, req infer.CheckRequ
 	c := &checker{unk: unknowns(req.NewInputs)}
 	c.required("name", args.Name)
 	if args.PluginVersionSids != nil && !c.unk("pluginVersionSids") {
-		for _, s := range *args.PluginVersionSids {
+		for i, s := range *args.PluginVersionSids {
+			if unknownAt(req.NewInputs, "pluginVersionSids", i) {
+				continue
+			}
 			c.sid("pluginVersionSids", s, flexPluginVersionSidRE, "Flex Plugin Version (FV followed by 32 hex characters)")
 		}
 	}

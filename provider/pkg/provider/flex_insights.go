@@ -486,7 +486,10 @@ func (r *FlexInsightsQuestionnaire) Check(ctx context.Context, req infer.CheckRe
 		c.required("name", args.Name)
 	}
 	if args.QuestionSids != nil && !c.unk("questionSids") {
-		for _, s := range *args.QuestionSids {
+		for i, s := range *args.QuestionSids {
+			if unknownAt(req.NewInputs, "questionSids", i) {
+				continue
+			}
 			if !flexInsightsQuestionSidRE.MatchString(s) {
 				c.fail("questionSids", "questionSids must hold the SIDs of Flex Insights questions (GE followed by 32 hex characters), got "+s)
 			}

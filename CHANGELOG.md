@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.8.5] - 2026-11-19
+
+- Fixed (pulumi-labs/pulumi-twilio#51): `pulumi preview` failed `FlexPluginConfiguration` with `pluginVersionSids[0] must be a Flex Plugin Version SID ... got ""` when a list element was another resource's output (a `FlexPluginVersion.sid`) that is unknown at preview. `Check` skipped only a wholly unknown list; an unknown element inside a known list decoded to `""` and failed the pattern. Every element-wise list check now skips unknown elements (still rejecting known bad ones): `FlexPluginConfiguration.pluginVersionSids`, `FlexInsightsQuestionnaire.questionSids`, `SuperSimNetworkAccessProfile.networks`, `MemoryDataMapping.columns` and `mappings[*]` fields, `MemoryIdentityResolutionSettings.identifierConfigs[*]` fields and `matchingRules`, and `MemoryTraitGroup.traits` values and fields.
+
 ## [0.8.4] - 2026-11-18
 
 - Fixed: `ServerlessBuild` planned a replacement after `pulumi import` when the program declared no `dependencies`, because Twilio also lists the Twilio SDK (`twilio`, e.g. 5.0.3) on every build and only the other defaults (`util`, `xmldom`, `lodash`, `@twilio/runtime-handler`) were ignored. `twilio` is now ignored too when the program does not list it; a program that pins `twilio` at another version still replaces the build. Not breaking (pulumi-labs/pulumi-twilio#49, fixes #2251).

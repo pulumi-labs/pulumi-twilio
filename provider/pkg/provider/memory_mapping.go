@@ -192,7 +192,10 @@ func (r *MemoryDataMapping) Check(ctx context.Context, req infer.CheckRequest) (
 				if len(args.Columns) < 1 || len(args.Columns) > 100 {
 					fail("columns", "an INGRESS source needs 1 to 100 columns")
 				}
-				for _, c := range args.Columns {
+				for i, c := range args.Columns {
+					if unknownAt(req.NewInputs, "columns", i) {
+						continue
+					}
 					if n := utf8.RuneCountInString(c); n < 1 || n > 256 {
 						fail("columns", "each column name must be 1 to 256 characters")
 						break
@@ -219,13 +222,16 @@ func (r *MemoryDataMapping) Check(ctx context.Context, req infer.CheckRequest) (
 		}
 		for i, m := range args.Mappings {
 			prop := fmt.Sprintf("mappings[%d]", i)
-			if n := utf8.RuneCountInString(m.Expression); n < 1 || n > 256 {
+			if unknownAt(req.NewInputs, "mappings", i) {
+				continue
+			}
+			if n := utf8.RuneCountInString(m.Expression); !unknownAt(req.NewInputs, "mappings", i, "expression") && (n < 1 || n > 256) {
 				fail(prop+".expression", "expression must be 1 to 256 characters")
 			}
-			if !memoryTraitGroupID.MatchString(m.TraitGroup) || len(m.TraitGroup) > 64 {
+			if !unknownAt(req.NewInputs, "mappings", i, "traitGroup") && (!memoryTraitGroupID.MatchString(m.TraitGroup) || len(m.TraitGroup) > 64) {
 				fail(prop+".traitGroup", "traitGroup must be 1 to 64 letters, digits, underscores, hyphens or dots")
 			}
-			if !memoryTraitNameRe.MatchString(m.TraitName) || len(m.TraitName) > 128 {
+			if !unknownAt(req.NewInputs, "mappings", i, "traitName") && (!memoryTraitNameRe.MatchString(m.TraitName) || len(m.TraitName) > 128) {
 				fail(prop+".traitName", "traitName must start with a lowercase letter and hold at most 128 letters, digits, underscores, hyphens or dots")
 			}
 		}
@@ -582,26 +588,31 @@ func (r *MemoryIdentityResolutionSettings) Check(ctx context.Context, req infer.
 		seen := map[string]bool{}
 		for i, c := range args.IdentifierConfigs {
 			prop := fmt.Sprintf("identifierConfigs[%d]", i)
-			if n := utf8.RuneCountInString(c.IdType); n < 2 || n > 30 {
-				fail(prop+".idType", "idType must be 2 to 30 characters")
+			if unknownAt(req.NewInputs, "identifierConfigs", i) {
+				continue
 			}
-			if seen[c.IdType] {
-				fail(prop+".idType", "idType "+c.IdType+" is listed twice")
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "idType") {
+				if n := utf8.RuneCountInString(c.IdType); n < 2 || n > 30 {
+					fail(prop+".idType", "idType must be 2 to 30 characters")
+				}
+				if seen[c.IdType] {
+					fail(prop+".idType", "idType "+c.IdType+" is listed twice")
+				}
+				seen[c.IdType] = true
 			}
-			seen[c.IdType] = true
-			if c.MatchingAlgo != nil && !identifierAlgos[*c.MatchingAlgo] {
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "matchingAlgo") && (c.MatchingAlgo != nil && !identifierAlgos[*c.MatchingAlgo]) {
 				fail(prop+".matchingAlgo", "matchingAlgo must be exact or fuzzy")
 			}
-			if c.MatchingThreshold != nil && (*c.MatchingThreshold < 50 || *c.MatchingThreshold > 99) {
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "matchingThreshold") && (c.MatchingThreshold != nil && (*c.MatchingThreshold < 50 || *c.MatchingThreshold > 99)) {
 				fail(prop+".matchingThreshold", "matchingThreshold must be between 50 and 99")
 			}
-			if c.Limit != nil && (*c.Limit < 1 || *c.Limit > 100) {
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "limit") && (c.Limit != nil && (*c.Limit < 1 || *c.Limit > 100)) {
 				fail(prop+".limit", "limit must be between 1 and 100")
 			}
-			if c.LimitPolicy != nil && !identifierLimitPolicies[*c.LimitPolicy] {
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "limitPolicy") && (c.LimitPolicy != nil && !identifierLimitPolicies[*c.LimitPolicy]) {
 				fail(prop+".limitPolicy", "limitPolicy must be fifo or lifo")
 			}
-			if c.Normalization != nil && !identifierNormalization[*c.Normalization] {
+			if !unknownAt(req.NewInputs, "identifierConfigs", i, "normalization") && (c.Normalization != nil && !identifierNormalization[*c.Normalization]) {
 				fail(prop+".normalization", "normalization must be phone, email, trim or none")
 			}
 		}
@@ -610,7 +621,10 @@ func (r *MemoryIdentityResolutionSettings) Check(ctx context.Context, req infer.
 		if len(args.MatchingRules) < 1 || len(args.MatchingRules) > 15 {
 			fail("matchingRules", "matchingRules needs 1 to 15 entries")
 		}
-		for _, m := range args.MatchingRules {
+		for i, m := range args.MatchingRules {
+			if unknownAt(req.NewInputs, "matchingRules", i) {
+				continue
+			}
 			if n := utf8.RuneCountInString(m); n < 1 || n > 30 {
 				fail("matchingRules", "each matching rule is one identifier type of 1 to 30 characters")
 				break

@@ -148,7 +148,10 @@ func (r *SuperSimNetworkAccessProfile) Check(ctx context.Context, req infer.Chec
 	}
 	c := &checker{unk: unknowns(req.NewInputs)}
 	if args.Networks != nil && !c.unk("networks") {
-		for _, n := range *args.Networks {
+		for i, n := range *args.Networks {
+			if unknownAt(req.NewInputs, "networks", i) {
+				continue
+			}
 			if !supersimNetworkSidRE.MatchString(n) {
 				c.fail("networks", "networks must hold SIDs of Super SIM networks (HW followed by 32 hex characters), got "+n)
 				break

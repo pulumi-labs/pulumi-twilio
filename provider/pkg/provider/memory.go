@@ -420,20 +420,23 @@ func (r *MemoryTraitGroup) Check(ctx context.Context, req infer.CheckRequest) (i
 		sort.Strings(names)
 		for _, n := range names {
 			t := args.Traits[n]
+			if unknownAt(req.NewInputs, "traits", n) {
+				continue
+			}
 			prop := "traits[" + n + "]"
 			switch {
 			case strings.TrimSpace(n) == "":
 				fail("traits", "a trait name must not be empty")
-			case !memoryDataTypes[t.DataType]:
+			case !memoryDataTypes[t.DataType] && !unknownAt(req.NewInputs, "traits", n, "dataType"):
 				fail(prop+".dataType", "dataType must be one of STRING, NUMBER, BOOLEAN or ARRAY")
 			}
-			if t.Description != nil && utf8.RuneCountInString(*t.Description) > 1024 {
+			if t.Description != nil && !unknownAt(req.NewInputs, "traits", n, "description") && utf8.RuneCountInString(*t.Description) > 1024 {
 				fail(prop+".description", "description must be at most 1024 characters")
 			}
-			if t.IdTypePromotion != nil && utf8.RuneCountInString(*t.IdTypePromotion) > 30 {
+			if t.IdTypePromotion != nil && !unknownAt(req.NewInputs, "traits", n, "idTypePromotion") && utf8.RuneCountInString(*t.IdTypePromotion) > 30 {
 				fail(prop+".idTypePromotion", "idTypePromotion must be at most 30 characters")
 			}
-			if t.ValidationRule != nil {
+			if t.ValidationRule != nil && !unknownAt(req.NewInputs, "traits", n, "validationRule") {
 				if _, ok := normalizeJSON(*t.ValidationRule); !ok {
 					fail(prop+".validationRule", "validationRule must be a JSON object")
 				}
